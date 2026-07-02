@@ -1,0 +1,52 @@
+{
+  "phases": {
+    "Audit": {
+      "done": true,
+      "msg": ""
+    },
+    "Fix Paths": {
+      "done": true,
+      "msg": ""
+    },
+    "Filter Discontinued": {
+      "done": true,
+      "msg": ""
+    },
+    "PCPP + docyx CDN": {
+      "done": true,
+      "msg": ""
+    },
+    "Product Images": {
+      "done": false,
+      "msg": ""
+    },
+    "Link Thumbnails": {
+      "done": true,
+      "msg": ""
+    },
+    "Brand Logos": {
+      "done": true,
+      "msg": ""
+    },
+    "AI Status": {
+      "done": true,
+      "msg": ""
+    }
+  },
+  "currentPhase": "Product Images",
+  "currentPhaseNumber": 4,
+  "status": "complete",
+  "startTime": 1782917726004,
+  "overallProcessed": 3535,
+  "overallTotal": 50164,
+  "imagesFound": 1574,
+  "imagesSkipped": 0,
+  "imagesFailed": 1961,
+  "filteredRemoved": 19275,
+  "elapsed": 22846.559,
+  "currentItem": "AMD 2650",
+  "currentCategory": "cpu",
+  "batchDone": 29,
+  "batchTotal": 100,
+  "latestThumbnail": "thumbnails/cpu_amd_2650.jpg"
+}

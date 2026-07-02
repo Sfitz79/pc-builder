@@ -1,0 +1,691 @@
+name,price,type,interface,capacity,price_per_gb,color,image,skip
+Apricorn Aegis Fortress L3,12999,Portable,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,20000,0.65,,0
+Western Digital My Book Duo,1199.99,Desktop,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,44000,0.027,,0
+Western Digital WD_BLACK P10,117,Portable,USB Type-A 3.2 Gen 1,5000,0.023,Black,,0
+Seagate Expansion,318,Desktop,USB Type-A 3.2 Gen 1,24000,0.013,Black,,0
+Western Digital ELEMENTS,59.97,Portable,USB Type-A 3.2 Gen 1,1000,0.06,,,0
+Samsung T9 Portable,299.99,Portable,USB Type-C 3.2 Gen 2x2,4000,0.075,Black,,0
+Corsair EX400U,319.99,Portable,USB Type-C 4.0 Gen 3x2,4000,0.08,Black,,0
+Western Digital My Passport,111.85,Portable,USB Type-A 3.2 Gen 1,4000,0.028,Black,,0
+Samsung T5 EVO Portable,529.97,Portable,USB Type-C 3.2 Gen 1,8000,0.066,Black,,0
+Western Digital ELEMENTS,161.49,Desktop,USB Type-A 3.2 Gen 1,8000,0.02,Black,,0
+Seagate Portable Drive,79.98,Portable,USB Type-A 3.2 Gen 1,2000,0.04,Black,,0
+Seagate Expansion,279.99,Desktop,USB Type-A 3.2 Gen 1,20000,0.014,Black,,0
+Western Digital My Book Duo,679.99,Desktop,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,24000,0.028,,0
+Apricorn Padlock DT FIPS,1012.98,Desktop,USB Type-A 3.2 Gen 1,20000,0.051,Black,,0
+Western Digital ELEMENTS,199.99,Desktop,USB Type-A 3.2 Gen 2,14000,0.014,Black,,0
+Western Digital My Book Duo,999.99,Desktop,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,36000,0.028,,0
+SanDisk Extreme Portable V2,104.99,Portable,USB Type-C 3.2 Gen 1,1000,0.105,Black / Orange,,0
+Apricorn Padlock DT FIPS,1082.3,Desktop,USB Type-A 3.2 Gen 1,22000,0.049,Black,,0
+Corsair EX400U,179.99,Portable,USB Type-C 4.0 Gen 3x2,2000,0.09,Black,,0
+Samsung T7 Portable,89.99,Portable,USB Type-C 3.2 Gen 1,1000,0.09,Black / Silver,,0
+Verbatim Vx460,37.4,Portable,USB Type-A 3.2 Gen 1,128,0.292,Black,,0
+Seagate Backup Plus Slim,59,Portable,USB Type-A 3.2 Gen 1,1000,0.059,Black,,0
+Samsung T7 Portable,129.99,Portable,USB Type-C 3.2 Gen 1,2000,0.065,Black / Silver,,0
+Seagate Backup Plus Portable,105,Portable,USB Type-A 3.2 Gen 1,4000,0.026,Black,,0
+Samsung T7 Shield,289.99,Portable,USB Type-C 3.2 Gen 2,4000,0.072,Black,,0
+Western Digital WD_BLACK D10,189.99,Desktop,USB Type-A 3.2 Gen 2,8000,0.024,Black,,0
+Crucial X10,439.99,Portable,USB Type-C 3.2 Gen 2x2,8000,,Blue,,0
+Seagate Expansion,200.23,Desktop,USB Type-A 3.2 Gen 1,4000,0.05,,,0
+Crucial X10 Pro,254.99,Portable,USB Type-C 3.2 Gen 2x2,4000,0.064,Black,,0
+Western Digital My Passport,59.99,Portable,USB Type-A 3.2 Gen 1,1000,0.06,Black,,0
+SanDisk Extreme Portable V2,149.99,Portable,USB Type-C 3.2 Gen 1,2000,0.075,Black / Orange,,0
+Western Digital My Passport,69,Portable,USB Type-A 3.2 Gen 1,2000,0.035,Black,,0
+Western Digital WD_BLACK P10,134.5,Portable,USB Type-A 3.2 Gen 1,4000,0.034,Black,,0
+Samsung T9 Portable,189.99,Portable,USB Type-C 3.2 Gen 2x2,2000,0.095,Black,,0
+Western Digital easystore,199.99,Desktop,USB Type-A 3.2 Gen 1,14000,,Black,,0
+Crucial X10,319.99,Portable,USB Type-C 3.2 Gen 2x2,6000,,Blue,,0
+Seagate One Touch,,Desktop,USB Type-A 3.2 Gen 1,18000,,Black,,0
+Seagate Portable Drive,129.46,Portable,USB Type-A 3.2 Gen 1,5000,0.026,Black,,0
+Western Digital My Book,289.99,Desktop,USB Type-A 3.2 Gen 2,14000,0.021,Black,,0
+Samsung T7 Shield,159.99,Portable,USB Type-C 3.2 Gen 2,2000,0.08,Black,,0
+Western Digital My Passport,123.49,Portable,USB Type-A 3.2 Gen 1,5000,0.025,Black,,0
+Toshiba Canvio Basics 3.0,79.98,Portable,,2000,0.04,,,0
+Seagate Portable Drive,59.99,Portable,USB Type-A 3.2 Gen 1,1000,0.06,Black,,0
+Western Digital WD_BLACK P10,109.99,Portable,USB Type-A 3.2 Gen 1,2000,0.055,Black,,0
+Crucial X6,74.98,Portable,USB Type-C 3.2 Gen 2,1000,0.075,Black,,0
+Samsung T5 EVO Portable,229.99,Portable,USB Type-C 3.2 Gen 1,4000,0.057,Black,,0
+SanDisk Extreme Portable V2,279.99,Portable,USB Type-C 3.2 Gen 1,4000,0.07,Black / Orange,,0
+Western Digital ELEMENTS,219.99,Desktop,USB Type-A 3.2 Gen 1,10000,0.022,Black,,0
+Western Digital WD_BLACK P50,299,Portable,USB Type-C 3.2 Gen 1,1000,0.299,Black / Silver,,0
+Apricorn Aegis Fortress L3,1135.25,Portable,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,4000,0.284,,0
+Western Digital easystore,285,Desktop,USB Type-A 3.2 Gen 1,12000,0.024,,,0
+Apricorn Aegis Fortress L3,4999,Portable,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,16000,0.312,,0
+Corsair EX100U,234.8,Portable,USB Type-C 3.2 Gen 2x2,4000,0.059,Black,,0
+Western Digital My Book Duo,469.99,Desktop,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,16000,0.029,,0
+Seagate Portable Drive,120,Portable,USB Type-A 3.2 Gen 1,4000,0.03,Black,,0
+Western Digital My Book,179.99,Desktop,USB Type-A 3.2 Gen 1,8000,0.022,Black,,0
+Western Digital easystore,349.99,Desktop,USB Type-A,20000,0.017,Black,,0
+Western Digital My Passport,124.99,Portable,USB Type-A 3.2 Gen 1,4000,0.031,White,,0
+Apricorn NVX,628.8,Portable,USB Type-C 3.2 Gen 2,2000,0.314,Black,,0
+Samsung T5,239.99,Portable,USB Type-C 3.2 Gen 1,1000,0.24,,thumbnails/external-hard-drive_samsung_t5.jpg,0
+Crucial X9,229.99,Portable,USB Type-C 3.2 Gen 2,4000,0.057,Black,,0
+Seagate One Touch,189.28,Desktop,USB Type-A 3.2 Gen 1,8000,0.024,Black,,0
+Western Digital My Book Duo,589.99,Desktop,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,20000,0.029,,0
+Seagate Backup Plus Portable,119,Portable,USB Type-A 3.2 Gen 1,5000,0.024,Black,,0
+TEAMGROUP M200,,Portable,USB Type-C 3.2 Gen 2x2,8000,,Black,,0
+Western Digital ELEMENTS,,Portable,USB Type-A 3.2 Gen 1,2000,,,,0
+Western Digital ‎WDBU6Y0050BBK-WESN,117.49,Portable,USB Type-A 3.2 Gen 1,5000,0.023,Black,,0
+Corsair EX100U,122.39,Portable,USB Type-C 3.2 Gen 2x2,2000,0.061,Black,,0
+Western Digital My Book Duo,789.99,Desktop,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,28000,0.028,,0
+MSI DATAMAG,139.99,Portable,USB Type-C 3.2 Gen 2x2,2000,0.07,Black,,0
+Samsung T9 Portable,129.99,Portable,USB Type-C 3.2 Gen 2x2,1000,0.13,Black,,0
+Toshiba Canvio Basics,109,Portable,USB Type-A 3.2 Gen 1,1000,0.109,,,0
+Seagate Expansion,214.99,Desktop,USB Type-A 3.2 Gen 1,8000,0.027,,,0
+Apricorn Aegis Fortress L3,2799,Portable,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,8000,0.35,,0
+Western Digital My Book,126.84,Desktop,USB Type-A 3.2 Gen 1,4000,0.032,Black,,0
+Seagate Game Drive Xbox GamePass Edition,229,Portable,USB Type-A 3.2 Gen 1,4000,0.057,White,,0
+Kingston XS1000,129.99,Portable,USB Type-C 3.2 Gen 2,2000,0.065,Black,,0
+TEAMGROUP PD1000,69.99,Portable,USB Type-C 3.2 Gen 2,1000,0.07,Teal,,0
+Western Digital My Passport,74.99,Portable,USB Type-A 3.2 Gen 1,2000,0.037,White,,0
+Silicon Power Bolt B75 Pro,,Portable,USB Type-C 3.2 Gen 2,256,,Black,,0
+Seagate STEB6000403,224.5,Desktop,USB Type-A 3.2 Gen 1,6000,0.037,Black,thumbnails/external-hard-drive_seagate_steb6000403.png,0
+Seagate Expansion,,Desktop,USB Type-A 3.2 Gen 1,4000,,,,0
+Crucial X6,132.52,Portable,USB Type-C 3.2 Gen 2,2000,0.066,Black,,0
+TEAMGROUP PD1000,52.99,Portable,USB Type-C 3.2 Gen 2,512,0.103,Teal,,0
+Western Digital My Passport,124.99,Portable,USB Type-A 3.2 Gen 1,4000,0.031,Red,,0
+Western Digital My Book Essential,151.02,Desktop,USB Type-A 3.2 Gen 1,1000,0.151,,,0
+Seagate Expansion,,Portable,USB Type-C 3.2 Gen 1,500,,Black,,0
+Crucial X9,79.98,Portable,USB Type-C 3.2 Gen 2,1000,0.08,Black,,0
+Crucial X9 Pro,80,Portable,USB Type-C 3.2 Gen 2,1000,0.08,Silver,,0
+Western Digital ELEMENTS,239,Desktop,USB Type-A 3.2 Gen 1,12000,0.02,,,0
+Seagate One Touch,204.25,Desktop,USB Type-A 3.2 Gen 1,10000,0.02,Black,,0
+Samsung T7 Shield,109.99,Portable,USB Type-C 3.2 Gen 2,1000,0.11,Black,,0
+Western Digital Elements Portable,114.45,Portable,USB Type-A 3.2 Gen 1,4000,0.029,Black,,0
+ADATA DashDrive Durable HD650,71.98,Portable,USB Type-A 3.2 Gen 1,1000,0.072,,,0
+Western Digital WD_BLACK D10,279.99,Desktop,USB Type-A 3.2 Gen 2,12000,0.023,Black,,0
+Corsair EX100U,94.99,Portable,USB Type-C 3.2 Gen 2x2,1000,0.095,Black,,0
+Western Digital easystore,389.99,Desktop,USB Type-A,22000,0.018,Black,,0
+Western Digital My Book Studio,259.52,Desktop,IEEE 1394B 9-Pin,USB Type-A 2.0,2000,0.13,,0
+Crucial X6,149.99,Portable,USB Type-C 3.2 Gen 2,500,0.3,Black,,0
+Apricorn Padlock DT FIPS,1199,Desktop,USB Type-A 3.2 Gen 1,18000,0.067,Black,,0
+Sabrent Rocket XTRM-Q,,Desktop,USB Type-C 3.2 Gen 2,16000,,,,0
+Seagate Expansion,192.73,Portable,USB Type-C 3.2 Gen 1,1000,0.193,Black,,0
+Seagate Barracuda Fast,,Portable,USB Type-C,2000,,Black,,0
+Asus FX HDD,,Portable,USB Type-A 3.2 Gen 2,2000,,Black,,0
+Crucial X9 Pro,129.99,Portable,USB Type-C 3.2 Gen 2,2000,0.065,Silver,,0
+TEAMGROUP PD1000,112.99,Portable,USB Type-C 3.2 Gen 2,2000,0.056,Teal,,0
+Seagate Expansion,279.99,Desktop,USB Type-A 3.2 Gen 1,18000,0.016,Black,,0
+Western Digital easystore,309.99,Desktop,USB Type-A 2.0,USB Type-A 3.2 Gen 1,18000,0.017,,0
+Silicon Power PC60,,Portable,USB Type-C 3.2 Gen 2,256,,Black,,0
+Western Digital easystore,169.99,Desktop,USB Type-A 2.0,USB Type-A 3.2 Gen 1,8000,0.021,,0
+Samsung T7 Portable,129.99,Portable,USB Type-C 3.2 Gen 1,500,0.26,Black / Silver,,0
+Apricorn Aegis Padlock DT,1279,Desktop,USB Type-A 3.2 Gen 1,22000,0.058,Black,,0
+Seagate One Touch,339.99,Desktop,USB Type-A 3.2 Gen 1,12000,,Black,,0
+Seagate Expansion,329.99,Desktop,USB Type-A 3.2 Gen 1,10000,0.033,Black,,0
+Western Digital My Book,234.99,Desktop,USB Type-A 3.2 Gen 1,4000,0.059,,,0
+Western Digital My Book,229.99,Desktop,USB Type-A 3.2 Gen 1,2000,0.115,,,0
+Apricorn Aegis Padlock 3.0,4949,Portable,USB Type-A 3.2 Gen 1,16000,0.309,Black,,0
+Western Digital My Passport,139.99,Portable,USB Type-A 3.2 Gen 1,5000,0.028,White,,0
+Seagate Expansion,199.9,Portable,USB Type-A 3.2 Gen 1,5000,0.04,Black,,0
+Toshiba Canvio Basics 3.0,79.98,Portable,USB Type-A 3.2 Gen 1,2000,0.04,,,0
+Western Digital My Passport,134.99,Portable,USB Type-A 3.2 Gen 1,5000,0.027,Red,,0
+TEAMGROUP PD20M Mag,67.49,Portable,USB Type-C 3.2 Gen 2,1000,0.067,Black,,0
+Samsung T7 Shield,159,Portable,USB Type-C 3.2 Gen 2,2000,0.08,Beige,,0
+Corsair EX400U,109.99,Portable,USB Type-C 4.0 Gen 3x2,1000,0.11,Black,,0
+Silicon Power Bolt B75 Pro,,Portable,USB Type-C 3.2 Gen 2,1000,,Black,,0
+Western Digital ELEMENTS,159.99,Desktop,USB Type-A 3.2 Gen 1,6000,0.027,Black,,0
+Western Digital My Book,169.99,Desktop,USB Type-A 3.2 Gen 1,6000,0.028,Black,,0
+Western Digital easystore,228.88,Desktop,USB Type-A 3.2 Gen 1,8000,0.029,,,0
+SanDisk SDSSDT40-8T00-NA25,569.99,Desktop,USB Type-C 3.2 Gen 2,8000,0.071,Black,,0
+Seagate Expansion,359,Desktop,USB Type-A 3.2 Gen 1,16000,0.022,Black,,0
+Kingston XS2000,104.99,Portable,USB Type-C 3.2 Gen 2x2,1000,0.105,Silver,,0
+Samsung T5,176.31,Portable,USB Type-C 3.2 Gen 1,500,0.353,,thumbnails/external-hard-drive_samsung_t5.jpg,0
+Seagate One Touch,137.88,Desktop,USB Type-A 3.2 Gen 1,6000,0.023,Black,,0
+Seagate Backup Plus,248,Desktop,USB Type-A 3.2 Gen 1,8000,0.031,,,0
+Silicon Power PC60,,Portable,USB Type-C 3.2 Gen 2,512,,Black,,0
+Samsung T7 Shield,109.99,Portable,USB Type-C 3.2 Gen 2,1000,0.11,Blue,,0
+Samsung T7 Portable,299.99,Portable,USB Type-C 3.2 Gen 2,2000,0.15,Black,,0
+Western Digital My Passport,124.99,Portable,USB Type-A 3.2 Gen 1,4000,0.031,Blue,,0
+Samsung T5,259.99,Portable,USB Type-C 3.2 Gen 1,2000,0.13,Black,thumbnails/external-hard-drive_samsung_t5.jpg,0
+Western Digital My Passport Ultra Portable,149.99,Portable,USB Type-A 3.2 Gen 1,2000,0.075,,,0
+Western Digital easystore,,Desktop,USB Type-A 3.2 Gen 1,24000,,Black,,0
+Seagate One Touch,379.99,Desktop,USB Type-A 3.2 Gen 1,16000,,Black,,0
+Seagate Expansion,309.19,Desktop,USB Type-A 3.2 Gen 1,14000,0.022,Black,,0
+Western Digital easystore,,Desktop,USB Type-A 3.2 Gen 2,10000,,Black,,0
+G-Technology G-DRIVE,,Desktop,IEEE 1394B 9-Pin,eSATA 6.0 Gb/s,USB Type-A 3.2 Gen 1,2000,,0
+Seagate Expansion,203.77,Desktop,USB Type-A 3.2 Gen 1,3000,0.068,,,0
+Toshiba Canvio Desk,,Desktop,USB Type-A 3.2 Gen 1,4000,,,,0
+Seagate Backup Plus,239.95,Desktop,USB Type-A 3.2 Gen 1,6000,0.04,,,0
+Apricorn Aegis Fortress,2626.72,Portable,USB Type-A 3.2 Gen 1,8000,0.328,Black,,0
+Seagate Barracuda Fast,,Portable,USB Type-C,1000,,Black,,0
+Seagate One Touch,143.68,Portable,USB Type-A 3.2 Gen 1,5000,0.029,Black,,0
+Western Digital My Passport,74.98,Portable,USB Type-A 3.2 Gen 1,2000,0.037,Blue,,0
+Western Digital My Passport,69.99,Portable,USB Type-A 3.2 Gen 1,1000,0.07,White,,0
+Seagate Backup Plus,,Portable,USB Type-A 3.2 Gen 1,2000,,,,0
+Crucial X9,119.99,Portable,USB Type-C 3.2 Gen 2,2000,0.06,Black,,0
+MSI DATAMAG,79.98,Portable,USB Type-C 3.2 Gen 2x2,1000,0.08,Black,,0
+Crucial X9 Pro,261.18,Portable,USB Type-C 3.2 Gen 2,4000,0.065,Silver,,0
+Western Digital My Book,241.35,Desktop,USB Type-A 3.2 Gen 2,12000,0.02,Black,,0
+Kingston XS2000,74.19,Portable,USB Type-C 3.2 Gen 2x2,500,0.148,Silver,,0
+Samsung T5 EVO Portable,174.99,Portable,USB Type-C 3.2 Gen 1,2000,0.087,Black,,0
+Crucial X10,239.99,Portable,USB Type-C 3.2 Gen 2x2,4000,0.06,Blue,,0
+Seagate One Touch,59.99,Portable,USB Type-A 3.2 Gen 2,USB Type-C 3.2 Gen 2,500,0.12,,0
+Samsung T7 Portable,137.99,Portable,USB Type-C 3.2 Gen 1,2000,0.069,Blue / Silver,,0
+Western Digital My Book,184.97,Desktop,USB Type-A 3.2 Gen 1,3000,0.062,,,0
+Crucial X10,154.99,Portable,USB Type-C 3.2 Gen 2x2,2000,0.077,Blue,,0
+Crucial X10,99.99,Portable,USB Type-C 3.2 Gen 2x2,1000,0.1,Blue,,0
+Kingston XS2000,289.99,Portable,USB Type-C 3.2 Gen 2x2,4000,0.072,Silver,,0
+Crucial X10 Pro,164.99,Portable,USB Type-C 3.2 Gen 2x2,2000,0.082,Black,,0
+Seagate One Touch,99.99,Portable,USB Type-A 3.2 Gen 2,USB Type-C 3.2 Gen 2,1000,0.1,,0
+Seagate Backup Plus Slim,,Portable,USB Type-A 3.2 Gen 1,2000,,,,0
+Western Digital ELEMENTS,,Desktop,USB Type-A 3.2 Gen 1,3000,,,,0
+Silicon Power Bolt B75 Pro,,Portable,USB Type-C 3.2 Gen 2,512,,Black,,0
+Seagate Backup Plus,,Desktop,USB Type-A 3.2 Gen 1,4000,,Black,,0
+Seagate Backup Plus Hub,,Desktop,USB Type-A 3.2 Gen 2,8000,,,,0
+Apricorn ASSD-3PL256-120F,,Desktop,USB Type-A 2.0,120,,,,0
+Toshiba Canvio Desk,228.88,Desktop,USB Type-A 3.2 Gen 1,3000,0.076,,,0
+Seagate Backup Plus,,Desktop,USB Type-A 3.2 Gen 1,4000,,,,0
+LaCie d2 Quadra,,Desktop,IEEE 1394B 9-Pin,eSATA 3.0 Gb/s,USB Type-A 3.2 Gen 1,3000,,0
+Sabrent Rocket XTRM-Q,,Portable,USB Type-C 3.2 Gen 2,8000,,Black,,0
+Seagate Expansion,,Portable,USB Type-C 3.2 Gen 1,2000,,Black,,0
+Samsung T7 Portable,,Portable,USB Type-C 3.2 Gen 1,1000,,Red / Silver,,0
+Western Digital My Passport,169.99,Portable,USB Type-A 3.2 Gen 1,4000,0.042,Black,,0
+Asus FX HDD,,Portable,USB Type-A 3.2 Gen 2,1000,,Black,,0
+Axiom Mobile-D,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Toshiba Canvio Connect,74.98,Portable,USB Type-A 3.2 Gen 1,500,0.15,,,0
+LaCie Rugged,,Portable,Thunderbolt,USB Type-A 3.2 Gen 1,2000,,,0
+Western Digital ELEMENTS,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Kingston XS1000,79.98,Portable,USB Type-C 3.2 Gen 2,1000,0.08,Black,,0
+TEAMGROUP PD20 Eco Mini,72.98,Portable,USB Type-C,1000,0.073,White / Green,,0
+Silicon Power Bolt B75 Pro,,Portable,USB Type-C 3.2 Gen 2,2000,,Black,,0
+TEAMGROUP PD20 Eco Mini,120.99,Portable,USB Type-C,2000,0.06,White / Green,,0
+Samsung T7 Shield,109.99,Portable,USB Type-C 3.2 Gen 2,1000,0.11,Beige,,0
+Western Digital My Passport,139.99,Portable,USB Type-A 3.2 Gen 1,5000,0.028,Blue,,0
+KIOXIA EXCERIA PLUS,,Portable,USB Type-C 3.2 Gen 2,1000,,Gray,,0
+KIOXIA EXCERIA PLUS,214.53,Portable,USB Type-C 3.2 Gen 2,2000,0.107,Gray,,0
+Samsung T7 Shield,159.99,Portable,USB Type-C 3.2 Gen 2,2000,0.08,Blue,,0
+Lexar ARMOR 700,274.99,Portable,USB Type-C 3.2 Gen 2x2,4000,0.069,Black,,0
+LaCie Rugged Mini,99.99,Portable,USB Type-A 3.2 Gen 1,2000,0.05,Orange / Silver,,0
+Crucial X8,,Portable,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 2,1000,,,0
+Seagate One Touch,106.26,Portable,USB Type-A 3.2 Gen 1,2000,0.053,Black,,0
+Western Digital My Passport,74.98,Portable,USB Type-A 3.2 Gen 1,2000,0.037,Red,,0
+Western Digital My Passport,69.98,Portable,USB Type-A 3.2 Gen 1,1000,0.07,Blue,,0
+Western Digital ELEMENTS,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Apricorn Aegis Padlock DT,779,Desktop,USB Type-A 3.2 Gen 1,16000,0.049,Black,,0
+LaCie Porsche Design,,Desktop,USB Type-A 3.2 Gen 1,8000,,,,0
+Western Digital ELEMENTS,129.99,Desktop,USB Type-A 3.2 Gen 1,4000,0.032,,,0
+TEAMGROUP PD20 Eco Mini,234.99,Portable,USB Type-C,4000,0.059,White / Green,,0
+Lexar ARMOR 700,94.99,Portable,USB Type-C 3.2 Gen 2x2,1000,0.095,Black,,0
+Sabrent Rocket Nano,109.99,Portable,USB Type-C 3.2 Gen 2,512,0.215,Pink,,0
+Seagate One Touch,235,Portable,USB Type-A 3.2 Gen 1,1000,0.235,Red,,0
+SanDisk Extreme Portable V2,89.99,Portable,USB Type-C 3.2 Gen 1,500,0.18,Black / Orange,,0
+Samsung T7 Portable,98.99,Portable,USB Type-C 3.2 Gen 1,1000,0.099,Blue / Silver,,0
+Transcend StoreJet,94.99,Portable,USB Type-A 3.2 Gen 1,2000,0.047,,,0
+Seagate Backup Plus,,Portable,USB Type-A 3.2 Gen 1,4000,,,,0
+Seagate Backup Plus Slim,,Portable,USB Type-A 3.2 Gen 1,2000,,,,0
+SanDisk SDSSDT40-4T00-NA25,289.99,Desktop,USB Type-C 3.2 Gen 2,4000,0.072,Black,,0
+Apricorn Aegis Padlock DT,665.31,Desktop,USB Type-A 3.2 Gen 1,10000,0.067,Black,,0
+Apricorn Padlock DT FIPS,665.31,Desktop,USB Type-A 3.2 Gen 1,10000,0.067,Black,,0
+Apricorn Padlock DT FIPS,327.99,Desktop,USB Type-A 3.2 Gen 1,4000,0.082,Black,,0
+Seagate Backup Plus Hub,,Desktop,USB Type-A 3.2 Gen 1,14000,,Black,,0
+Western Digital easystore,,Desktop,USB Type-A 2.0,USB Type-A 3.2 Gen 1,16000,,,0
+Verbatim 99399,,Desktop,USB Type-A 3.2 Gen 1,4000,,Black,,0
+Western Digital My Book Duo,,Desktop,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,12000,,,0
+Western Digital My Book Duo,,Desktop,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,6000,,,0
+Western Digital My Book Duo,,Desktop,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,4000,,,0
+Western Digital easystore,,Desktop,USB Type-A 3.2 Gen 1,4000,,Black,,0
+Western Digital My Book,,Desktop,USB Type-A 3.2 Gen 1,3000,,Black,,0
+Seagate Backup Plus Hub,,Desktop,USB Type-A 3.2 Gen 1,10000,,Black,,0
+Toshiba Canvio Desk,,Desktop,USB Type-A 3.2 Gen 1,5000,,,,0
+Buslink CRF-2T-U2,,Desktop,USB Type-A 2.0,2000,,,,0
+Apricorn Aegis Padlock DT,182.43,Desktop,USB Type-A 3.2 Gen 1,2000,0.091,Black,,0
+Hitachi HGST Touro Desk Pro,,Desktop,USB Type-A 3.2 Gen 1,4000,,,,0
+Seagate Backup Plus,169.96,Desktop,USB Type-A 3.2 Gen 1,3000,0.057,,,0
+Seagate Backup Plus,,Desktop,USB Type-A 3.2 Gen 1,2000,,,,0
+Seagate Expansion,,Desktop,USB Type-A 3.2 Gen 1,5000,,,,0
+Samsung D3 Station,,Desktop,,4000,,,,0
+LaCie 4big Quadra,,Desktop,IEEE 1394B 9-Pin,USB Type-A 3.2 Gen 1,8000,,,0
+LaCie d2,,Desktop,Thunderbolt,USB Type-A 3.2 Gen 1,3000,,,0
+Western Digital ELEMENTS,243.79,Desktop,USB Type-A 3.2 Gen 1,5000,0.049,,,0
+Western Digital ELEMENTS,,Desktop,USB Type-A 3.2 Gen 1,2000,,,,0
+Western Digital My Book Thunderbolt Duo,,Desktop,Thunderbolt,4000,,,,0
+Western Digital My Book,,Desktop,USB Type-A 3.2 Gen 1,3000,,,,0
+Western Digital My Book Studio,,Desktop,IEEE 1394B 9-Pin,USB Type-A 2.0,3000,,,0
+Buffalo Technology DriveStation Axis Velocity,109.99,Desktop,USB Type-A 3.2 Gen 1,2000,,,,0
+Integral SlimXpress Pro,,Portable,USB Type-C 3.2 Gen 2x2,4000,,Silver / Black,,0
+Lexar ARMOR 700,159.49,Portable,USB Type-C 3.2 Gen 2x2,2000,0.08,Blue,,0
+TEAMGROUP T-Create CinemaPr P31,339.99,Portable,USB Type-C 3.2 Gen 2x2,4000,0.085,Black,,0
+Lexar SL500,,Portable,USB Type-C 3.2 Gen 2x2,4000,,Black,,0
+Sabrent Rocket XTRM-Q,,Portable,USB Type-C 3.2 Gen 2,1000,,Black,,0
+Sabrent Rocket Nano Rugged,,Portable,USB Type-C 3.2 Gen 2,2000,,Silver,,0
+SanDisk Professional PRO-Blade Transport,339.99,Portable,USB Type-C 3.2 Gen 2x2,4000,0.085,Black,,0
+Apricorn Aegis Padlock 3.0,224,Portable,USB Type-A 3.2 Gen 1,2000,0.112,Black,,0
+Apricorn Aegis Fortress,383.88,Portable,USB Type-A 3.2 Gen 1,1000,0.384,Black,,0
+Apricorn Aegis Fortress,136.91,Portable,USB Type-A 3.2 Gen 1,256,0.535,Black,,0
+Apricorn Aegis Fortress L3,405.83,Portable,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,1000,0.406,,0
+Apricorn Aegis Fortress L3,,Portable,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,512,,,0
+Apricorn Aegis Fortress L3,392.44,Portable,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,4000,0.098,,0
+Verbatim Vx460,,Portable,USB Type-A 3.2 Gen 1,512,,Black,,0
+Western Digital My Passport For Mac,128,Portable,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,1000,0.128,,0
+Seagate One Touch,289,Portable,USB Type-A 3.2 Gen 1,2000,0.144,,,0
+Seagate One Touch,,Portable,USB Type-A 3.2 Gen 1,2000,,Red,,0
+Seagate One Touch,119.99,Portable,USB Type-A 3.2 Gen 1,2000,0.06,Silver,,0
+Seagate One Touch,174.99,Portable,USB Type-A 3.2 Gen 2,USB Type-C 3.2 Gen 2,2000,0.087,,0
+Samsung T5 Portable,,Portable,USB Type-C 3.2 Gen 2,500,,Red,,0
+Samsung T5 Portable,,Portable,USB Type-C 3.2 Gen 2,1000,,Red,,0
+Samsung T7 Portable,,Portable,USB Type-C 3.2 Gen 2,2000,,Silver,,0
+SanDisk G-DRIVE ArmorLock,,Portable,USB Type-C 3.2 Gen 1,4000,,Black / Yellow,,0
+Samsung T7 Portable,269,Portable,USB Type-C 3.2 Gen 1,2000,0.134,Red / Silver,,0
+ADATA SD700,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Samsung T1,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Transcend StoreJet,64.98,Portable,USB Type-A 3.2 Gen 1,1000,0.065,,,0
+Toshiba Canvio Slim II,105,Portable,USB Type-A 3.2 Gen 1,1000,0.105,,,0
+Toshiba Canvio Slim II,104,Portable,USB Type-A 3.2 Gen 1,1000,0.104,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,750,,,,0
+Transcend StoreJet,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+ADATA AHV620-2TU3-CBK,,Portable,USB Type-A 3.2 Gen 1,2000,,,,0
+ADATA CH11,65.68,Portable,USB Type-A 3.2 Gen 1,500,0.131,,,0
+Seagate Backup Plus Slim,,Portable,USB Type-A 3.2 Gen 1,2000,,,,0
+Seagate Expansion,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+LaCie Rugged,,Portable,Thunderbolt,USB Type-A 3.2 Gen 1,256,,,0
+Western Digital My Passport,,Portable,USB Type-A 3.2 Gen 1,2000,,,,0
+Buffalo Technology MiniStation,,Portable,USB Type-A 3.2 Gen 1,2000,,,,0
+TEAMGROUP M200,119.99,Portable,USB Type-C 3.2 Gen 2x2,2000,0.06,Black,,0
+Silicon Power PC60,,Portable,USB Type-C 3.2 Gen 2,1000,,Black,,0
+Seagate One Touch,200.89,Desktop,USB Type-A 3.2 Gen 1,4000,0.05,Black,,0
+TEAMGROUP M200,69.98,Portable,USB Type-C 3.2 Gen 2x2,500,0.14,Black,,0
+Lexar SL210,,Portable,USB Type-C 3.2 Gen 1,500,,Black,,0
+TEAMGROUP M200,79.98,Portable,USB Type-C 3.2 Gen 2x2,1000,0.08,Black,,0
+Lexar Professional SL600,84.99,Portable,USB Type-C 3.2 Gen 2x2,1000,0.085,Black,,0
+Silicon Power PC60,,Portable,USB Type-C 3.2 Gen 2,4000,,Black,,0
+Apricorn Padlock DT FIPS,799,Desktop,USB Type-A 3.2 Gen 1,16000,0.05,Black,,0
+TEAMGROUP M200,319.99,Portable,USB Type-C 3.2 Gen 2x2,4000,0.08,Black,,0
+Lexar SL500,,Portable,USB Type-C 3.2 Gen 2x2,2000,,Black,,0
+Lexar SL660 BLAZE,,Portable,USB Type-C 3.2 Gen 2x2,1000,,Black,,0
+Sabrent Rocket Nano Rugged,99.99,Portable,USB Type-C 3.2 Gen 2,1000,0.1,Silver,,0
+SanDisk Professional PRO-Blade Transport,164.99,Portable,USB Type-C 3.2 Gen 2x2,1000,0.165,Black,,0
+Silicon Power Bolt B75 Pro,,Portable,USB Type-C 3.2 Gen 2,4000,,Black,,0
+Silicon Power PC60,306.86,Portable,USB Type-C 3.2 Gen 2,2000,0.153,Black,,0
+Kingston XS2000,159.99,Portable,USB Type-C 3.2 Gen 2x2,2000,0.08,Silver,,0
+Crucial X10 Pro,109.99,Portable,USB Type-C 3.2 Gen 2x2,1000,0.11,Black,,0
+KIOXIA EXCERIA PLUS,124.71,Portable,USB Type-C 3.2 Gen 2,500,0.249,Gray,,0
+Crucial X8,,Portable,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 2,500,,,0
+Seagate One Touch,209,Portable,USB Type-A 3.2 Gen 1,4000,0.052,Silver,,0
+Samsung T3 Portable,179,Portable,USB Type-C 3.2 Gen 1,1000,0.179,,,0
+Samsung T7 Portable,139.82,Portable,USB Type-C 3.2 Gen 1,500,0.28,Blue / Silver,,0
+ADATA SD700,,Portable,USB Type-A 3.2 Gen 1,256,,,,0
+ADATA SD700,173.71,Portable,USB Type-A 3.2 Gen 1,256,0.679,,,0
+SanDisk Extreme 900,150.44,Portable,USB Type-A 3.2 Gen 2,960,0.157,,,0
+Apricorn Aegis Padlock DT,1179,Desktop,USB Type-A 3.2 Gen 1,20000,0.059,Black,,0
+Apricorn Aegis Padlock DT,1079,Desktop,USB Type-A 3.2 Gen 1,18000,0.06,Black,,0
+Apricorn Aegis Padlock DT,752.53,Desktop,USB Type-A 3.2 Gen 1,12000,0.063,Black,,0
+Apricorn Aegis Padlock DT,609,Desktop,USB Type-A 3.2 Gen 1,8000,0.076,Black,,0
+Apricorn Aegis Padlock DT,441.6,Desktop,USB Type-A 3.2 Gen 1,6000,0.074,Black,,0
+Apricorn Aegis Padlock DT,318.87,Desktop,USB Type-A 3.2 Gen 1,4000,0.08,Black,,0
+Apricorn Padlock DT FIPS,783.99,Desktop,USB Type-A 3.2 Gen 1,12000,0.065,Black,,0
+Apricorn Padlock DT FIPS,629,Desktop,USB Type-A 3.2 Gen 1,8000,0.079,Black,,0
+Apricorn Padlock DT FIPS,472.2,Desktop,USB Type-A 3.2 Gen 1,6000,0.079,Black,,0
+Apricorn Padlock DT FIPS,197.99,Desktop,USB Type-A 3.2 Gen 1,2000,0.099,Black,,0
+Koss Kanguru Ultra,,Desktop,USB Type-C,2000,,Black,,0
+Seagate One Touch,,Desktop,USB Type-A 3.2 Gen 1,14000,,Black,,0
+Western Digital easystore,237.99,Desktop,USB Type-A 2.0,USB Type-A 3.2 Gen 1,12000,,,0
+LaCie Porsche Design,,Desktop,USB Type-A 3.2 Gen 1,2000,,Silver,,0
+LaCie Porsche Design,,Desktop,USB Type-A 3.2 Gen 1,1000,,Silver,,0
+Western Digital easystore,199.99,Desktop,USB Type-A 3.2 Gen 1,14000,0.024,Black,,0
+Western Digital My Book,,Desktop,USB Type-A 3.2 Gen 1,10000,,Black,,0
+Western Digital My Book Duo,1199.99,Desktop,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,8000,0.027,,0
+G-Technology G-DRIVE,,Desktop,IEEE 1394B 9-Pin,eSATA 6.0 Gb/s,USB Type-A 3.2 Gen 1,4000,,0
+G-Technology G-DRIVE,,Desktop,IEEE 1394B 9-Pin,eSATA 6.0 Gb/s,USB Type-A 3.2 Gen 1,3000,,0
+Western Digital My Book,289.99,Desktop,USB Type-A 3.2 Gen 1,6000,0.021,Black,,0
+Edge Tech EDGDG-236236-PE,,Desktop,USB Type-A 3.2 Gen 1,4000,,,,0
+Buslink CipherShield,,Desktop,USB Type-A 3.2 Gen 1,6000,,,,0
+Seagate Expansion,249.95,Desktop,USB Type-A 3.2 Gen 1,5000,0.05,,,0
+Seagate Expansion,318,Desktop,USB Type-A 3.2 Gen 1,2000,0.013,Black,,0
+Toshiba Canvio Desk,228.88,Desktop,USB Type-A 3.2 Gen 1,2000,0.076,,,0
+Transcend StoreJet 35T3,,Desktop,USB Type-A 3.2 Gen 1,2000,,,,0
+Transcend StoreJet 35T3,,Desktop,USB Type-A 3.2 Gen 1,3000,,,,0
+Imation Apollo Pro UX,,Desktop,USB Type-A 2.0,1000,,,,0
+Apricorn Aegis Padlock DT,,Desktop,USB Type-A 3.2 Gen 1,1000,,,,0
+Buslink CSC-2T-U3,,Desktop,USB Type-A 3.2 Gen 1,2000,,,,0
+Buslink CSC-1T-U2,,Desktop,USB Type-A 2.0,1000,,,,0
+Axiom USB3HD35S500-AX,,Desktop,,500,,,,0
+Axiom USB3HD35S3TB-AX,,Desktop,USB Type-A 3.2 Gen 1,3000,,,,0
+Axiom USB3HD35S2TB-AX,,Desktop,USB Type-A 3.2 Gen 1,2000,,,thumbnails/external-hard-drive_axiom_usb3hd35s2tb_ax.png,0
+Axiom USB3HD35S250-AX,,Desktop,,250,,,,0
+Axiom USB3HD35S1TB-AX,,Desktop,USB Type-A 3.2 Gen 1,1000,,,,0
+Apricorn Aegis Padlock DT,,Desktop,USB Type-A 3.2 Gen 1,1000,,,,0
+Apricorn Aegis Padlock DT,,Desktop,USB Type-A 3.2 Gen 1,2000,,,,0
+Hitachi HGST Touro Desk,,Desktop,USB Type-A 3.2 Gen 1,4000,,,,0
+Seagate Backup Plus,,Desktop,USB Type-A 3.2 Gen 1,3000,,,,0
+Seagate Backup Plus,239.97,Desktop,USB Type-A 3.2 Gen 1,5000,0.048,,,0
+Seagate FreeAgent GoFlex Desk,,Desktop,USB Type-A 2.0,1000,,,,0
+Samsung D3 Station,,Desktop,USB Type-A 3.2 Gen 1,6000,,,,0
+Samsung D3 Station,,Desktop,USB Type-A 3.2 Gen 1,5000,,,,0
+Samsung D3 Station,,Desktop,USB Type-A 3.2 Gen 1,4000,,,,0
+Samsung D3 Station,,Desktop,USB Type-A 3.2 Gen 1,3000,,,,0
+Samsung D3 Station,,Desktop,USB Type-A 3.2 Gen 1,2000,,,,0
+Samsung D3 Station,,Desktop,USB Type-A 3.2 Gen 1,3000,,,,0
+Samsung D3 Station,,Desktop,USB Type-A 3.2 Gen 1,2000,,,,0
+LaCie d2,,Desktop,Thunderbolt,USB Type-A 3.2 Gen 1,4000,,,0
+LaCie d2,,Desktop,Thunderbolt,USB Type-A 3.2 Gen 1,3000,,,0
+LaCie d2 Quadra,,Desktop,IEEE 1394B 9-Pin,eSATA 3.0 Gb/s,USB Type-A 3.2 Gen 1,5000,,0
+LaCie 2big,,Desktop,Thunderbolt,10000,,,,0
+LaCie Minimus,,Desktop,USB Type-A 3.2 Gen 1,3000,,,,0
+LaCie d2,,Desktop,Thunderbolt,USB Type-A 3.2 Gen 1,6000,,,0
+LaCie d2,,Desktop,Thunderbolt,USB Type-A 3.2 Gen 1,5000,,,0
+LaCie 5big,,Desktop,Thunderbolt,25000,,,,0
+LaCie Porsche Design,,Desktop,USB Type-A 3.2 Gen 1,4000,,,,0
+LaCie 2big Quadra,,Desktop,IEEE 1394B 9-Pin,USB Type-A 3.2 Gen 1,6000,,,0
+LaCie 4big Quadra,,Desktop,IEEE 1394B 9-Pin,USB Type-A 3.2 Gen 1,12000,,,0
+LaCie Little Big Disk,,Desktop,Thunderbolt,1000,,,,0
+LaCie 4big Quadra,,Desktop,IEEE 1394B 9-Pin,USB Type-A 3.2 Gen 1,16000,,,0
+LaCie 2big Quadra,,Desktop,IEEE 1394B 9-Pin,USB Type-A 3.2 Gen 1,4000,,,0
+LaCie d2,,Desktop,Thunderbolt,USB Type-A 3.2 Gen 1,4000,,,0
+Western Digital My Book for Mac,,Desktop,USB Type-A 3.2 Gen 1,3000,,,,0
+Western Digital My Book for Mac,,Desktop,USB Type-A 3.2 Gen 1,2000,,,,0
+Western Digital My Book Studio,259.52,Desktop,USB Type-A 3.2 Gen 1,4000,2000,0.13,,0
+LaCie Blade Runner,,Desktop,USB Type-A 3.2 Gen 1,4000,,,,0
+LaCie Minimus,,Desktop,USB Type-A 3.2 Gen 1,2000,,,,0
+LaCie d2 Quadra,,Desktop,IEEE 1394B 9-Pin,eSATA 3.0 Gb/s,USB Type-A 3.2 Gen 1,2000,,0
+Buffalo Technology DriveStation,,Desktop,Thunderbolt,512,,,,0
+Buffalo Technology DriveStation,,Desktop,Thunderbolt,256,,,,0
+Buffalo Technology DriveStation,,Desktop,Thunderbolt,1000,,,,0
+Buffalo Technology DriveStation Duo,,Desktop,USB Type-A 3.2 Gen 1,8000,,,,0
+Buffalo Technology DriveStation Duo,,Desktop,USB Type-A 3.2 Gen 1,6000,,,,0
+Buffalo Technology DriveStation Duo,,Desktop,USB Type-A 3.2 Gen 1,4000,,,,0
+Buffalo Technology DriveStation Duo,,Desktop,USB Type-A 3.2 Gen 1,2000,,,,0
+Buffalo Technology DriveStation Axis Velocity,,Desktop,USB Type-A 3.2 Gen 1,3000,,,,0
+Buffalo Technology DriveStation Axis Velocity,109.99,Desktop,USB Type-A 3.2 Gen 1,1000,,,,0
+Buffalo Technology DriveStation,,Desktop,USB Type-A 3.2 Gen 1,4000,,,,0
+Buffalo Technology DriveStation,,Desktop,USB Type-A 3.2 Gen 1,3000,,,,0
+Buffalo Technology DriveStation Combo 4,,Desktop,IEEE 1394A 6-Pin,IEEE 1394B 9-Pin,eSATA 3.0 Gb/s,USB Type-A 2.0,,0
+Buffalo Technology DriveStation,,Desktop,IEEE 1394A 6-Pin,IEEE 1394B 9-Pin,eSATA 3.0 Gb/s,USB Type-A 2.0,,0
+Buffalo Technology DriveStation,,Desktop,USB Type-A 3.2 Gen 1,2000,eSATA 3.0 Gb/s,USB Type-A 2.0,,0
+Buffalo Technology DriveStation Axis,,Desktop,USB Type-A 3.2 Gen 1,1000,,,,0
+Integral SlimXpress,,Portable,USB Type-C 3.2 Gen 2,4000,,Black,,0
+Integral SlimXpress,,Portable,USB Type-C 3.2 Gen 2,2000,,Black,,0
+Integral SlimXpress,,Portable,USB Type-C 3.2 Gen 2,1000,,Black,,0
+Integral SlimXpress,,Portable,USB Type-C 3.2 Gen 2,500,,Black,,0
+Integral SlimXpress Pro,,Portable,USB Type-C 3.2 Gen 2x2,2000,,Silver / Black,,0
+Integral SlimXpress Pro,,Portable,USB Type-C 3.2 Gen 2x2,1000,,Silver / Black,,0
+Integral SlimXpress Pro,,Portable,USB Type-C 3.2 Gen 2x2,500,,Silver / Black,,0
+Lexar ARMOR 700,154.99,Portable,USB Type-C 3.2 Gen 2x2,2000,0.077,Black,,0
+TEAMGROUP M200,119.99,Portable,USB Type-C 3.2 Gen 2x2,250,0.06,Black,,0
+TEAMGROUP T-Create CinemaPr P31,,Portable,USB Type-C 3.2 Gen 2x2,4000,,Gray,,0
+TEAMGROUP T-Create CinemaPr P31,,Portable,USB Type-C 3.2 Gen 2x2,2000,,Gray,,0
+TEAMGROUP T-Create CinemaPr P31,,Portable,USB Type-C 3.2 Gen 2x2,1000,,Gray,,0
+TEAMGROUP T-Create CinemaPr P31,127.99,Portable,USB Type-C 3.2 Gen 2x2,1000,0.128,Black,,0
+TEAMGROUP T-Create CinemaPr P31,201.99,Portable,USB Type-C 3.2 Gen 2x2,2000,0.101,Black,,0
+Lexar SL500,180.3,Portable,USB Type-C 3.2 Gen 2x2,512,0.352,Black,,0
+Lexar SL500,180.3,Portable,USB Type-C 3.2 Gen 2x2,1000,0.352,Black,,0
+Lexar Professional SL600,200.93,Portable,USB Type-C 3.2 Gen 2x2,512,0.392,Black,,0
+Lexar Professional SL600,149.99,Portable,USB Type-C 3.2 Gen 2x2,2000,0.075,Black,,0
+Lexar SL210,,Portable,USB Type-C 3.2 Gen 1,2000,,Black,,0
+Lexar SL210,,Portable,USB Type-C 3.2 Gen 1,1000,,Black,,0
+Lexar SL200,,Portable,USB Type-C 3.2 Gen 1,2000,,Black,,0
+Lexar SL200,,Portable,USB Type-C 3.2 Gen 1,1000,,Black,,0
+Lexar SL200,,Portable,USB Type-C 3.2 Gen 1,512,,Black,,0
+Lexar SL100 Pro,,Portable,USB Type-C 3.2 Gen 1,500,,Black,,0
+Lexar SL100 Pro,,Portable,USB Type-C 3.2 Gen 1,1000,,Black,,0
+Lexar SL660 BLAZE,,Portable,USB Type-C 3.2 Gen 2x2,512,,Black,,0
+TEAMGROUP PD20M Mag,136.99,Portable,USB Type-C 3.2 Gen 2,2000,0.068,Black,,0
+Sabrent Rocket nano XTRM,166.59,Portable,USB Type-C 3.2 Gen 2,1000,0.167,Black,,0
+Sabrent Rocket Pro,,Portable,USB Type-C 3.2 Gen 2,4000,,Silver,,0
+Sabrent Rocket Pro,,Portable,USB Type-C 3.2 Gen 2,2000,,Silver,,0
+Sabrent Rocket Pro,,Portable,USB Type-C 3.2 Gen 2,1000,,Silver,,0
+Sabrent Rocket Pro,,Portable,USB Type-C 3.2 Gen 2,512,,Silver,,0
+Sabrent Rocket Pro,,Portable,USB Type-C 3.2 Gen 2,256,,Silver,,0
+Sabrent Rocket XTRM-Q,,Portable,USB Type-C 3.2 Gen 2,4000,,Black,,0
+Sabrent Rocket XTRM-Q,,Portable,USB Type-C 3.2 Gen 2,2000,,Black,,0
+Sabrent Rocket XTRM-Q,,Portable,USB Type-C 3.2 Gen 2,500,,Black,,0
+Sabrent Rocket Nano Rugged,137.74,Portable,USB Type-C 3.2 Gen 2,512,0.269,Silver,,0
+Sabrent Rocket Nano,249.99,Portable,USB Type-C 3.2 Gen 2,2000,0.125,Pink,,0
+Sabrent Rocket Nano,175.28,Portable,USB Type-C 3.2 Gen 2,2000,0.088,Red,,0
+Sabrent Rocket Nano,,Portable,USB Type-C 3.2 Gen 2,2000,,Blue,,0
+Sabrent Rocket Nano,,Portable,USB Type-C 3.2 Gen 2,2000,,Gold,,0
+Sabrent Rocket Nano,,Portable,USB Type-C 3.2 Gen 2,2000,,Black,,0
+Sabrent Rocket Nano,229.99,Portable,USB Type-C 3.2 Gen 2,2000,0.115,Silver,,0
+Sabrent Rocket Nano,149.99,Portable,USB Type-C 3.2 Gen 2,1000,0.15,Pink,,0
+Sabrent Rocket Nano,149.99,Portable,USB Type-C 3.2 Gen 2,1000,0.15,Red,,0
+Sabrent Rocket Nano,,Portable,USB Type-C 3.2 Gen 2,1000,,Blue,,0
+Sabrent Rocket Nano,149.99,Portable,USB Type-C 3.2 Gen 2,1000,0.15,Gold,,0
+Sabrent Rocket Nano,,Portable,USB Type-C 3.2 Gen 2,1000,,Black,,0
+Sabrent Rocket Nano,,Portable,USB Type-C 3.2 Gen 2,1000,,Silver,,0
+Sabrent Rocket Nano,109.99,Portable,USB Type-C 3.2 Gen 2,512,0.215,Red,,0
+Sabrent Rocket Nano,78.29,Portable,USB Type-C 3.2 Gen 2,512,0.153,Blue,,0
+Sabrent Rocket Nano,99.99,Portable,USB Type-C 3.2 Gen 2,512,0.195,Gold,,0
+Sabrent Rocket Nano,,Portable,USB Type-C 3.2 Gen 2,512,,Black,,0
+Sabrent Rocket Nano,79.99,Portable,USB Type-C 3.2 Gen 2,512,0.156,Silver,,0
+SanDisk Professional PRO-Blade Transport,229.99,Portable,USB Type-C 3.2 Gen 2x2,2000,0.115,Black,,0
+Apricorn Padlock SSD,1047.95,Portable,USB Type-A 3.2 Gen 1,4000,0.262,Black,,0
+Apricorn Padlock SSD,598.18,Portable,USB Type-A 3.2 Gen 1,2000,0.299,Black,,0
+Apricorn Padlock SSD,438.52,Portable,USB Type-A 3.2 Gen 1,1000,0.439,Black,,0
+Apricorn Aegis Padlock 3.0,2662.5,Portable,USB Type-A 3.2 Gen 1,8000,0.333,Black,,0
+Apricorn Aegis Padlock 3.0,1267.5,Portable,USB Type-A 3.2 Gen 1,4000,0.317,Black,,0
+Apricorn Aegis Padlock 3.0,724.95,Portable,USB Type-A 3.2 Gen 1,2000,0.362,Black,,0
+Apricorn Aegis Padlock 3.0,,Portable,USB Type-A 3.2 Gen 1,1000,,Black,,0
+Apricorn Aegis Padlock 3.0,267.14,Portable,USB Type-A 3.2 Gen 1,512,0.522,Black,,0
+Apricorn Aegis Padlock 3.0,177.99,Portable,USB Type-A 3.2 Gen 1,256,0.695,Black,,0
+Apricorn Aegis Padlock 3.0,199.99,Portable,USB Type-A 3.2 Gen 1,1000,0.2,Black,,0
+Apricorn Aegis Fortress,,Portable,USB Type-A 3.2 Gen 1,16000,,Black,,0
+Apricorn Aegis Fortress,1249.99,Portable,USB Type-A 3.2 Gen 1,4000,0.312,Black,,0
+Apricorn Aegis Fortress,769,Portable,USB Type-A 3.2 Gen 1,2000,0.385,Black,,0
+Apricorn NVX,505.04,Portable,USB Type-C 3.2 Gen 2,1000,0.505,Black,,0
+Apricorn NVX,299.39,Portable,USB Type-C 3.2 Gen 2,500,0.599,Black,,0
+Apricorn Aegis Fortress L3,669.41,Portable,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,2000,0.335,,0
+Apricorn Aegis Fortress L3,425.95,Portable,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,5000,0.085,,0
+Apricorn Aegis Fortress L3,292.99,Portable,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,2000,0.146,,0
+Apricorn Aegis Fortress L3,249.99,Portable,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,1000,0.25,,0
+Apricorn Aegis Fortress L3,227.99,Portable,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 1,500,0.456,,0
+VisionTek 901378,,Portable,USB Type-C,8000,,Black,,0
+VisionTek 901377,,Portable,USB Type-C,4000,,Black,,0
+VisionTek 901196,,Portable,USB Type-C,1000,,Black,,0
+VisionTek 901195,,Portable,USB Type-C,512,,Black,,0
+Silicon Power Stream S05,,Portable,USB Type-A 3.2 Gen 1,1000,,Black,,0
+Silicon Power Stream S05,,Portable,USB Type-A 3.2 Gen 1,2000,,Black,,0
+Silicon Power Stream S05,,Portable,USB Type-A 3.2 Gen 1,4000,,Black,,0
+Silicon Power Stream S05,,Portable,USB Type-A 3.2 Gen 1,5000,,Black,,0
+Silicon Power Bolt B75,,Portable,USB Type-C 3.2 Gen 1,120,,Silver,,0
+Silicon Power Bolt B75,,Portable,USB Type-C 3.2 Gen 1,128,,Silver,,0
+Silicon Power Bolt B75,,Portable,USB Type-C 3.2 Gen 1,240,,Silver,,0
+Silicon Power Bolt B75,,Portable,USB Type-C 3.2 Gen 1,256,,Silver,,0
+Silicon Power Bolt B75,,Portable,USB Type-C 3.2 Gen 1,480,,Silver,,0
+Silicon Power Bolt B75,,Portable,USB Type-C 3.2 Gen 1,512,,Silver,,0
+Silicon Power Bolt B75,252.49,Portable,USB Type-C 3.2 Gen 1,960,0.263,Silver,,0
+Silicon Power Bolt B75,,Portable,USB Type-C 3.2 Gen 1,1000,,Silver,,0
+Silicon Power Bolt B75,,Portable,USB Type-C 3.2 Gen 1,2000,,Silver,,0
+Silicon Power Bolt B75,252.49,Portable,USB Type-C 3.2 Gen 1,4000,0.263,Silver,,0
+Silicon Power PC60,,Portable,USB Type-C 3.2 Gen 2,240,,Black,,0
+Silicon Power PC60,,Portable,USB Type-C 3.2 Gen 2,480,,Black,,0
+Silicon Power PC60,121.95,Portable,USB Type-C 3.2 Gen 2,960,0.127,Black,,0
+Silicon Power PC60,306.86,Portable,USB Type-C 3.2 Gen 2,1920,0.153,Black,,0
+Sabrent Rocket Nano V2,119.99,Portable,USB Type-C 3.2 Gen 2x2,1000,0.12,Black,,0
+Sabrent Rocket Nano V2,199.99,Portable,USB Type-C 3.2 Gen 2x2,2000,0.1,Black,,0
+Sabrent Rocket Nano V2,449.99,Portable,USB Type-C 3.2 Gen 2x2,4000,0.112,Black,,0
+Toshiba Canvio Connect II,108.95,Portable,USB Type-A 3.2 Gen 1,1000,0.109,Black,,0
+Seagate Barracuda Fast,,Portable,USB Type-C,500,,Black,,0
+Verbatim Vx460,37.4,Portable,USB Type-A 3.2 Gen 1,256,0.292,Black,,0
+Crucial X8,229,Portable,USB Type-A 3.2 Gen 1,USB Type-C 3.2 Gen 2,2000,0.114,,0
+Crucial X6,209.99,Portable,USB Type-C 3.2 Gen 2,4000,0.052,Black,,0
+Seagate One Touch,,Portable,USB Type-A 3.2 Gen 1,5000,,Gray,,0
+Seagate One Touch,209,Portable,USB Type-A 3.2 Gen 1,5000,0.042,Red,,0
+Seagate One Touch,,Portable,USB Type-A 3.2 Gen 1,5000,,Blue,,0
+Seagate One Touch,,Portable,USB Type-A 3.2 Gen 1,5000,,Silver,,0
+Seagate One Touch,,Portable,USB Type-A 3.2 Gen 1,4000,,Gray,,0
+Seagate One Touch,,Portable,USB Type-A 3.2 Gen 1,4000,,Red,,0
+Seagate One Touch,,Portable,USB Type-A 3.2 Gen 1,4000,,Blue,,0
+Seagate One Touch,128.77,Portable,USB Type-A 3.2 Gen 1,4000,0.032,Black,,0
+Seagate One Touch,125.99,Portable,USB Type-A 3.2 Gen 1,2000,0.063,Gray,,0
+Seagate One Touch,,Portable,USB Type-A 3.2 Gen 1,2000,,Blue,,0
+Seagate One Touch,,Portable,USB Type-A 3.2 Gen 1,1000,,Gray,,0
+Seagate One Touch,,Portable,USB Type-A 3.2 Gen 1,1000,,Blue,,0
+Seagate One Touch,101,Portable,USB Type-A 3.2 Gen 1,1000,0.101,Silver,,0
+Seagate One Touch,79.53,Portable,USB Type-A 3.2 Gen 1,1000,0.08,Black,,0
+Seagate One Touch,,Portable,USB Type-A 3.2 Gen 2,USB Type-C 3.2 Gen 2,500,,,0
+Seagate One Touch,,Portable,USB Type-A 3.2 Gen 2,USB Type-C 3.2 Gen 2,500,,,0
+Seagate One Touch,89.99,Portable,USB Type-A 3.2 Gen 2,USB Type-C 3.2 Gen 2,1000,0.09,,0
+Seagate One Touch,114.07,Portable,USB Type-A 3.2 Gen 2,USB Type-C 3.2 Gen 2,1000,0.114,,0
+Seagate One Touch,159.99,Portable,USB Type-A 3.2 Gen 2,USB Type-C 3.2 Gen 2,2000,0.08,,0
+Seagate One Touch,325.44,Portable,USB Type-A 3.2 Gen 2,USB Type-C 3.2 Gen 2,2000,0.163,,0
+Samsung T3 Portable,,Portable,USB Type-C 3.2 Gen 1,250,,,,0
+Samsung T3 Portable,,Portable,USB Type-C 3.2 Gen 1,2000,,,,0
+Samsung T3 Portable,179,Portable,USB Type-C 3.2 Gen 1,500,0.179,,,0
+Samsung T5 Portable,,Portable,USB Type-C 3.2 Gen 2,1000,,Gold,,0
+Samsung T5 Portable,,Portable,USB Type-C 3.2 Gen 2,500,,Gold,,0
+Samsung T7 Portable,,Portable,USB Type-C 3.2 Gen 2,1000,,Silver,,0
+Samsung T7 Portable,,Portable,USB Type-C 3.2 Gen 2,500,,Black,,0
+Samsung T7 Portable,,Portable,USB Type-C 3.2 Gen 2,500,,Silver,,0
+Samsung T7 Portable,,Portable,USB Type-C 3.2 Gen 2,1000,,Black,,0
+Western Digital My Passport Ultra,,Portable,USB Type-A 3.2 Gen 2,3000,,White,,0
+SanDisk G-DRIVE ArmorLock,,Portable,USB Type-C 3.2 Gen 1,2000,,Black / Yellow,,0
+SanDisk G-DRIVE ArmorLock,,Portable,USB Type-C 3.2 Gen 1,1000,,Black / Yellow,,0
+Sabrent ROCKET XTRM,,Portable,Thunderbolt,4000,,Silver,,0
+Apacer AS721,,Portable,USB Type-C 3.2 Gen 1,1000,,Black,,0
+Apacer AS721,,Portable,USB Type-C 3.2 Gen 1,500,,Black,,0
+Apacer AS721,,Portable,USB Type-C 3.2 Gen 1,250,,Black,,0
+Apacer AS722,,Portable,USB Type-C 3.2 Gen 1,1000,,Black,,0
+Apacer AS722,,Portable,USB Type-C 3.2 Gen 1,512,,Black,,0
+Western Digital My Passport,69.99,Portable,USB Type-A 3.2 Gen 1,1000,0.07,Red,,0
+Seagate Backup Plus Portable,,Portable,USB Type-A 3.2 Gen 1,5000,,Black,,0
+Samsung T7 Portable,135,Portable,USB Type-C 3.2 Gen 1,500,0.27,Red / Silver,,0
+Western Digital G-DRIVE Mobile,,Portable,USB Type-C 3.2 Gen 1,1000,,Silver,,0
+Western Digital G-DRIVE Mobile,,Portable,USB Type-C 3.2 Gen 1,2000,,Silver,,0
+Western Digital G-DRIVE Mobile,,Portable,USB Type-C 3.2 Gen 1,2000,,Silver,,0
+Western Digital G-DRIVE ev RaW,,Portable,USB Type-A 2.0,USB Type-A 3.2 Gen 1,2000,Silver,,0
+Western Digital G-DRIVE Mobile,,Portable,USB Type-A 2.0,USB Type-C 3.2 Gen 1,4000,Silver,,0
+Seagate Backup Plus Ultra Touch,149.94,Portable,USB Type-A 3.2 Gen 1,2000,0.075,White,,0
+Seagate Backup Plus Ultra Touch,,Portable,USB Type-A 3.2 Gen 1,2000,,Black,,0
+Seagate Backup Plus Ultra Touch,,Portable,USB Type-A 3.2 Gen 1,1000,,White,,0
+Seagate Backup Plus Ultra Touch,149.94,Portable,USB Type-A 3.2 Gen 1,1000,0.075,Black,,0
+Buslink DL-4TSDU31G2,499.99,Portable,USB Type-A 3.2 Gen 2,4000,0.125,Black,,0
+Seagate Backup Plus Portable,,Portable,USB Type-A 3.2 Gen 1,5000,,Blue / White,,0
+Seagate Backup Plus Portable,,Portable,USB Type-A 3.2 Gen 1,4000,,Blue / White,,0
+Apricorn Aegis Fortress,294.99,Portable,USB Type-A 3.2 Gen 1,512,0.576,Black,,0
+Apricorn Aegis Padlock DT,1279,Portable,USB Type-A 3.2 Gen 1,14000,0.058,Black,,0
+Buffalo Technology Americas MiniStation,66.98,Portable,USB Type-A 3.2 Gen 1,1000,,Black,,0
+Apricorn Apricorn Aegis Padlock,,Portable,USB Type-A 3.2 Gen 1,128,,Black,,0
+Buffalo Technology Americas MiniStation,66.98,Portable,USB Type-A 3.2 Gen 1,2000,,Black,,0
+Apricorn Aegis Padlock Fortress,262.44,Portable,USB Type-A 3.2 Gen 1,2000,0.131,Black,,0
+Seagate Backup Plus Portable,,Portable,USB Type-A 3.2 Gen 1,5000,,Black,,0
+Seagate Backup Plus Portable,,Portable,USB Type-A 3.2 Gen 1,5000,,Blue,,0
+Seagate Backup Plus Portable,105,Portable,USB Type-A 3.2 Gen 1,5000,0.026,Silver,,0
+Samsung T5,239.99,Portable,USB Type-C 3.2 Gen 1,250,0.24,Blue,thumbnails/external-hard-drive_samsung_t5.jpg,0
+Freecom Mobile Drive Classic 3.0,,Portable,USB Type-A 3.2 Gen 1,1000,,Black,,0
+ADATA SE730,,Portable,USB Type-C 3.2 Gen 1,250,,,,0
+ADATA SD700,,Portable,USB Type-A 3.2 Gen 1,512,,,,0
+ADATA SD700,173.71,Portable,USB Type-A 3.2 Gen 1,512,0.679,,,0
+ADATA SD600,,Portable,USB Type-A 3.2 Gen 1,512,,,,0
+ADATA SD600,,Portable,USB Type-A 3.2 Gen 1,512,,,,0
+ADATA SD600,,Portable,USB Type-A 3.2 Gen 1,256,,,,0
+ADATA SD600,,Portable,USB Type-A 3.2 Gen 1,256,,,,0
+Seagate STDR5000100,,Portable,,5000,,,,0
+SanDisk Extreme 900,,Portable,USB Type-A 3.2 Gen 2,480,,,,0
+SanDisk Extreme 900,150.44,Portable,USB Type-A 3.2 Gen 2,1920,0.157,,,0
+Apricorn Padlock SSD,274.32,Portable,USB Type-A 3.2 Gen 1,480,0.572,Black,,0
+Apricorn Padlock SSD,195.48,Portable,USB Type-A 3.2 Gen 1,240,0.815,Black,,0
+Western Digital My Passport,111.85,Portable,USB Type-A 3.2 Gen 1,2000,0.028,Black,,0
+Western Digital WDBGPU0010BBK-NESN,119.99,Portable,,1000,0.12,,,0
+Transcend StoreJet,81.07,Portable,USB Type-A 3.2 Gen 1,1000,0.081,,,0
+Transcend TS128GSJC10K,,Portable,USB Type-A 3.2 Gen 1,128,,,,0
+Transcend TS128GESD200K,,Portable,USB Type-A 3.2 Gen 1,128,,,,0
+Lenovo ThinkPad,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Lenovo ThinkPad,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Lenovo ThinkPad,,Portable,USB Type-A 3.2 Gen 1,750,,,,0
+Toshiba Canvio Slim II,106,Portable,USB Type-A 3.2 Gen 1,1000,0.106,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,2000,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,2000,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,2000,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,2000,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,2000,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,1500,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,1500,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,1500,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,1500,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,1500,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,750,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,750,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,750,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,750,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Toshiba Canvio Connect,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Toshiba Canvio Connect,74.98,Portable,USB Type-A 3.2 Gen 1,500,0.15,,,0
+Imation Apollo Expert,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Transcend StoreJet,,Portable,USB Type-A 2.0,500,,,,0
+Transcend StoreJet,,Portable,USB Type-A 2.0,500,,,,0
+Transcend StoreJet,94.99,Portable,USB Type-A 2.0,750,0.047,,,0
+Axiom Mobile-D,,Portable,USB Type-A 3.2 Gen 1,320,,,,0
+Axiom Mobile-D,,Portable,USB Type-A 3.2 Gen 1,250,,,,0
+Axiom Mobile-D,,Portable,USB Type-A 3.2 Gen 1,750,,,,0
+Axiom Mobile-D,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Axiom Mobile-D,,Portable,USB Type-A 3.2 Gen 1,320,,,,0
+Axiom Mobile-D,,Portable,USB Type-A 3.2 Gen 1,250,,,,0
+Axiom Mobile-D,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Apricorn Aegis Padlock,,Portable,eSATA 3.0 Gb/s,USB Type-A 2.0,1000,,,0
+Apricorn Aegis Padlock,,Portable,,500,,,,0
+Apricorn Aegis Padlock,,Portable,USB Type-A 2.0,320,,,,0
+Apricorn Aegis Padlock,,Portable,USB Type-A 2.0,1000,,,,0
+Apricorn Aegis Padlock,,Portable,USB Type-A 2.0,1000,,,,0
+Apricorn Aegis Portable 3.0,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Apricorn Aegis Portable 3.0,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Apricorn Aegis Padlock,493,Portable,USB Type-A 3.2 Gen 1,128,3.852,,,0
+Apricorn Aegis Padlock Fortress,168.45,Portable,USB Type-A 3.2 Gen 1,500,0.337,,,0
+Apricorn Aegis Padlock 3.0,153.88,Portable,USB Type-A 3.2 Gen 1,500,0.308,Black,,0
+Apricorn Aegis Padlock Fortress,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Apricorn Aegis Padlock Fortress,222.84,Portable,USB Type-A 3.2 Gen 1,1000,0.223,Black,,0
+Apricorn Aegis Padlock,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Apricorn Aegis Padlock,493,Portable,USB Type-A 3.2 Gen 1,1000,1000,,,0
+Apricorn Aegis Bio 3.0,,Portable,USB Type-A 3.2 Gen 1,512,,,,0
+Apricorn Aegis Bio,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+ADATA SH14,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+ADATA DashDrive SE720,,Portable,USB Type-A 3.2 Gen 1,128,,,,0
+ADATA AHV620-500GU3-CBK,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+ADATA DashDrive Durable HD650,71.88,Portable,USB Type-A 3.2 Gen 1,1000,0.072,,,0
+HP HPHDD2E30500AS1-RBU,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Hitachi HGST Touro Mobile Pro,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Hitachi HGST Touro Mobile,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Hitachi HGST Touro Mobile,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Hitachi GST Touro Mobile Pro,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Seagate Backup Plus Slim,,Portable,USB Type-A 3.2 Gen 1,2000,,,,0
+Seagate Backup Plus,112,Portable,USB Type-A 3.2 Gen 1,1000,0.112,,,0
+Seagate Backup Plus Slim,59,Portable,USB Type-A 3.2 Gen 1,2000,0.059,Black,,0
+Seagate Backup Plus,248,Portable,USB Type-A 3.2 Gen 1,1000,0.031,Black,,0
+Seagate GoFlex for Mac,,Portable,Thunderbolt,1000,,,,0
+Samsung MU-PS500B/AM,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Samsung MU-PS250B/AM,,Portable,USB Type-A 3.2 Gen 1,250,,,,0
+Samsung P3 Portable,,Portable,USB Type-A 3.2 Gen 1,2000,,,,0
+Samsung P3,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Samsung P3,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Verbatim 97806,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Verbatim 97805,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Verbatim Freecom,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Verbatim Freecom,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Verbatim Titan XS,,Portable,,1000,,,,0
+Verbatim Store 'n' Go,,Portable,USB Type-A 3.2 Gen 1,256,,,,0
+Verbatim Store 'n' Go,,Portable,USB Type-A 3.2 Gen 1,128,,,,0
+LaCie Porsche Design,,Portable,,250,,,,0
+LaCie Porsche Design,,Portable,USB Type-A 3.2 Gen 1,120,,,,0
+LaCie Little Big Disk,,Portable,Thunderbolt,512,,,,0
+LaCie Rugged,,Portable,Thunderbolt,USB Type-A 3.2 Gen 1,1000,,,0
+LaCie Rugged,,Portable,Thunderbolt,USB Type-A 3.2 Gen 1,120,,,0
+LaCie Rugged Mini,,Portable,USB Type-A 3.2 Gen 1,1500,,,,0
+Western Digital My Passport Air,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Western Digital ELEMENTS,59.97,Portable,USB Type-A 3.2 Gen 1,1500,0.06,Black,,0
+Western Digital My Passport Studio,,Portable,IEEE 1394B 9-Pin,USB Type-A 2.0,2000,,,0
+Western Digital My Passport Slim,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Western Digital My Passport Studio,,Portable,IEEE 1394B 9-Pin,USB Type-A 2.0,1000,,,0
+Western Digital My Passport Air,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+LaCie Porsche Design,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+LaCie Porsche Design,,Portable,USB Type-A 3.2 Gen 1,500,,Silver,,0
+LaCie Rugged,,Portable,IEEE 1394B 9-Pin,USB Type-A 3.2 Gen 1,1000,,,0
+LaCie Rugged,,Portable,IEEE 1394B 9-Pin,USB Type-A 3.2 Gen 1,500,,,0
+LaCie Rugged,,Portable,IEEE 1394B 9-Pin,USB Type-A 3.2 Gen 1,500,,,0
+LaCie Rikiki,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+LaCie Rugged Mini,79.99,Portable,USB Type-A 3.2 Gen 1,1000,0.08,,,0
+LaCie Rugged Mini,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+LaCie Rugged Mini,99.99,Portable,USB Type-A 3.2 Gen 1,500,0.05,Orange / Silver,,0
+Buffalo Technology MiniStation Extreme,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Buffalo Technology MiniStation Extreme,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Buffalo Technology MiniStation Extreme,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Buffalo Technology MiniStation Extreme,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Buffalo Technology MiniStation Extreme,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Buffalo Technology MiniStation Extreme,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+Buffalo Technology MiniStation,,Portable,USB Type-A 3.2 Gen 1,500,,,,0
+Buffalo Technology MiniStation,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0
+ADATA DashDrive,,Portable,USB Type-A 3.2 Gen 1,1000,,,,0

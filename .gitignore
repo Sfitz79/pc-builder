@@ -1,0 +1,17 @@
+.vercel
+.env
+.env.local
+node_modules/
+dist/
+scraped_data/
+public/thumbnails/
+*.log
+temp_*.jsx
+temp_*.js
+master-*-progress.json
+master-*-dashboard.html
+master-*-summary.txt
+master-*-status.txt
+
+.vercel
+.env*

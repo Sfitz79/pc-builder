@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Cache-Control: public, max-age=0, must-revalidate
+Content-Length: 1754422
+Content-Type: image/png
+Date: Fri, 29 May 2026 20:04:19 GMT
+Etag: W/"1ac536-xOYbk/LoI2pqa0hy9uelqi0EPVI"
+Server: Vercel
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+X-Robots-Tag: noindex
+X-Vercel-Cache: MISS
+X-Vercel-Id: lhr1::iad1::v57q4-1780085048613-d9fe41037546
+

@@ -1,0 +1,246 @@
+.pctg-assistant {
+  position: relative;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: #0b0d14;
+  border: 2px solid #222;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255, 43, 79, 0.15);
+}
+
+.pctg-assistant-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+
+
+.pctg-chat-mini {
+  width: 100%;
+  border: 1px solid #333;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.pctg-chat-header {
+  background: #1a1c28;
+  padding: 10px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  color: #fff;
+  transition: background 0.2s ease;
+}
+
+.pctg-chat-header:hover {
+  background: #252836;
+}
+
+.pctg-chat-toggle {
+  font-size: 14px;
+  color: #ff2b4f;
+}
+
+.pctg-chat-window {
+  background: #0b0d14;
+  border-top: 1px solid #333;
+  max-height: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
+.pctg-chat-messages {
+  flex: 1;
+  min-height: 150px;
+  max-height: 150px;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.pctg-chat-msg {
+  margin-bottom: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.4;
+  animation: bubbleIn 0.25s ease-out;
+}
+
+.pctg-chat-msg.bot {
+  background: #1a1c28;
+  border-left: 3px solid #ff2b4f;
+  color: #e0e0e0;
+}
+
+.pctg-chat-msg.user {
+  background: #ff2b4f;
+  color: #fff;
+  margin-left: auto;
+  max-width: 85%;
+}
+
+.pctg-chat-typing {
+  font-style: italic;
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+@keyframes bubbleIn {
+  0% { transform: translateY(6px) scale(0.96); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.pctg-chat-form {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  background: #111122;
+  border-top: 1px solid rgba(255, 43, 79, 0.1);
+}
+
+.pctg-chat-form input {
+  flex: 1;
+  background: #05050a;
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 8px 10px;
+  color: white;
+  font-size: 12px;
+  outline: none;
+}
+
+.pctg-chat-form input:focus {
+  border-color: #ff2b4f;
+}
+
+.pctg-chat-form button {
+  background: #ff2b4f;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pctg-chat-form button:hover {
+  background: #ff4a6a;
+}
+
+.pctg-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.bubble {
+  background: #1a1c28;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  position: relative;
+  border-left: 3px solid #ff2b4f;
+}
+
+.bubble::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 30px;
+  border: 10px solid transparent;
+  border-bottom-color: #ff2b4f;
+}
+
+.bubble-text {
+  display: block;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.5;
+  font-family: Arial, sans-serif;
+}
+
+.bubble-text::before {
+  content: '🖥️ ';
+  margin-right: 5px;
+}
+
+.btn-tip {
+  margin-top: 12px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #ff2b4f;
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-tip:hover {
+  background: #ff4a6a;
+  transform: scale(1.05);
+}
+
+.pctg-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pctg-status-label {
+  color: #888;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.pctg-status-count {
+  color: #ff2b4f;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 8px;
+  background: #222;
+  border-radius: 4px;
+  overflow: hidden;
+  min-width: 120px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff2b4f, #00e0ff);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 10px rgba(255, 43, 79, 0.5);
+}
+
+@media (max-width: 800px) {
+  .pctg-assistant-inner {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .pctg-status {
+    justify-content: center;
+  }
+  
+  .progress-bar {
+    width: 100%;
+  }
+
+  .bubble::before {
+    display: none;
+  }
+}

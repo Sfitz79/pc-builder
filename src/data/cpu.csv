@@ -1,0 +1,956 @@
+name,price,core_count,core_clock,boost_clock,microarchitecture,tdp,graphics,image,skip
+AMD Ryzen 7 9800X3D,451.5,8,4.7,5.2,Zen 5,120,Radeon,thumbnails/cpu_amd_ryzen_7_9800x3d.jpg,0
+AMD Ryzen 7 7800X3D,340.05,8,4.2,5,Zen 4,120,Radeon,thumbnails/cpu_amd_ryzen_7_7800x3d.jpg,0
+AMD Ryzen 5 7600X,170.49,6,4.7,5.3,Zen 4,105,Radeon,thumbnails/cpu_amd_ryzen_5_7600x.jpg,0
+AMD Ryzen 5 9600X,204.99,6,3.9,5.4,Zen 5,65,Radeon,thumbnails/cpu_amd_ryzen_5_9600x.jpg,0
+AMD Ryzen 7 7700X,242.98,8,4.5,5.4,Zen 4,105,Radeon,thumbnails/cpu_amd_ryzen_7_7700x.jpg,0
+AMD Ryzen 9 9950X3D,649.99,16,4.3,5.7,Zen 5,170,Radeon,thumbnails/cpu_amd_ryzen_9_9950x3d.jpg,0
+AMD Ryzen 5 5500,74.22,6,3.6,4.2,Zen 3,65,,,0
+AMD Ryzen 7 9700X,305.89,8,3.8,5.5,Zen 5,65,Radeon,thumbnails/cpu_amd_ryzen_7_9700x.jpg,0
+AMD Ryzen 5 5600X,158.99,6,3.7,4.6,Zen 3,65,,,0
+AMD Ryzen 5 5600,125.61,6,3.5,4.4,Zen 3,65,,,0
+AMD Ryzen 7 5800X,179.95,8,3.8,4.7,Zen 3,105,,,0
+AMD Ryzen 5 7600,196.97,6,3.8,5.1,Zen 4,65,Radeon,thumbnails/cpu_amd_ryzen_5_7600.jpg,0
+AMD Ryzen 7 5700X,154.99,8,3.4,4.6,Zen 3,65,,,0
+AMD Ryzen 9 7900X,314.11,12,4.7,5.6,Zen 4,170,Radeon,thumbnails/cpu_amd_ryzen_9_7900x.jpg,0
+AMD Ryzen 9 9900X,359,12,4.4,5.6,Zen 5,120,Radeon,thumbnails/cpu_amd_ryzen_9_9900x.jpg,0
+Intel Core Ultra 7 265K,269.99,20,3.9,5.5,Arrow Lake,125,Intel Xe,,0
+AMD Ryzen 7 5700X3D,313.3,8,3,4.1,Zen 3,105,,,0
+AMD Ryzen 9 9950X,533.83,16,4.3,5.7,Zen 5,170,Radeon,thumbnails/cpu_amd_ryzen_9_9950x.jpg,0
+AMD Ryzen 5 7500F,117.72,6,3.7,5,Zen 4,65,,thumbnails/cpu_amd_ryzen_5_7500f.jpg,0
+AMD Ryzen 7 5800XT,140,8,3.8,4.8,Zen 3,105,,,0
+Intel Core Ultra 9 285K,559.99,24,3.7,5.7,Arrow Lake,125,Intel Xe,,0
+AMD Ryzen 5 7600X3D,433.5,6,4.1,4.7,Zen 4,65,Radeon,thumbnails/cpu_amd_ryzen_5_7600x3d.jpg,0
+AMD Ryzen 5 5600G,134.99,6,3.9,4.4,Zen 3,65,Radeon Vega 7,,0
+AMD Ryzen 7 7700,293.97,8,3.6,5.3,Zen 4,65,Radeon,thumbnails/cpu_amd_ryzen_7_7700.jpg,0
+AMD Ryzen 5 7500F,117.72,6,3.7,5,Zen 4,65,,thumbnails/cpu_amd_ryzen_5_7500f.jpg,0
+AMD Ryzen 9 5900X,254.99,12,3.7,4.8,Zen 3,105,,thumbnails/cpu_amd_ryzen_9_5900x.jpg,0
+AMD Ryzen 5 8400F,137.57,6,4.2,4.7,Zen 4,65,,thumbnails/cpu_amd_ryzen_5_8400f.jpg,0
+AMD Ryzen 5 8500G,152.5,6,4.1,5,Zen 4,65,Radeon 740M,thumbnails/cpu_amd_ryzen_5_8500g.jpg,0
+AMD Threadripper 3990X,2699.99,64,2.9,4.3,Zen 2,280,,,0
+AMD Ryzen 7 5700G,174.97,8,3.8,4.6,Zen 3,65,Radeon Vega 8,,0
+AMD Ryzen 9 5950X,274.99,16,3.4,4.9,Zen 3,105,,,0
+AMD Ryzen 7 5800X3D,704.86,8,3.4,4.5,Zen 3,105,,thumbnails/cpu_amd_ryzen_7_5800x3d.jpg,0
+AMD Ryzen 9 7950X,449.96,16,4.5,5.7,Zen 4,170,Radeon,thumbnails/cpu_amd_ryzen_9_7950x.jpg,0
+AMD Ryzen 5 8600G,224.83,6,4.3,5,Zen 4,65,Radeon 760M,thumbnails/cpu_amd_ryzen_5_8600g.jpg,0
+AMD Ryzen 7 5700,134.96,8,3.7,4.6,Zen 3,65,,thumbnails/cpu_amd_ryzen_7_5700.png,0
+Intel Core Ultra 7 265KF,277.44,20,3.9,5.5,Arrow Lake,125,,thumbnails/cpu_intel_core_ultra_7_265kf.jpg,0
+AMD Ryzen 9 9900X3D,539.98,12,4.4,5.5,Zen 5,120,Radeon,thumbnails/cpu_amd_ryzen_9_9900x3d.jpg,0
+AMD Ryzen 9 7950X3D,769.27,16,4.2,5.7,Zen 4,120,Radeon,thumbnails/cpu_amd_ryzen_9_7950x3d.jpg,0
+AMD Ryzen 7 8700G,279,8,4.2,5.1,Zen 4,65,Radeon 780M,thumbnails/cpu_amd_ryzen_7_8700g.jpg,0
+AMD Ryzen 7 8700F,239.99,8,4.1,5,Zen 4,65,,thumbnails/cpu_amd_ryzen_7_8700f.jpg,0
+AMD Ryzen 5 5600GT,135,6,3.6,4.6,Zen 3,65,Radeon Vega 7,thumbnails/cpu_amd_ryzen_5_5600gt.webp,0
+AMD Ryzen 9 5900XT,249.99,16,3.3,4.8,Zen 3,105,,thumbnails/cpu_amd_ryzen_9_5900xt.jpg,0
+AMD Ryzen 9 7900,342.94,12,3.7,5.4,Zen 4,65,Radeon,thumbnails/cpu_amd_ryzen_9_7900.jpg,0
+AMD Ryzen 5 5600XT,144.99,6,3.7,4.7,Zen 3,65,,,0
+Intel Core Ultra 5 245K,259.99,14,4.2,5.2,Arrow Lake,125,Intel Xe,thumbnails/cpu_intel_core_ultra_5_245k.jpg,0
+AMD Ryzen 7 7700,393.08,8,3.6,5.3,Zen 4,65,Radeon,thumbnails/cpu_amd_ryzen_7_7700.jpg,0
+AMD Ryzen 7 7800X3D,431.66,8,4.2,5,Zen 4,120,Radeon,thumbnails/cpu_amd_ryzen_7_7800x3d.jpg,0
+AMD Ryzen 9 7900X3D,525,12,4.4,5.6,Zen 4,120,Radeon,thumbnails/cpu_amd_ryzen_9_7900x3d.jpg,0
+AMD Threadripper 3970X,1714.99,32,3.7,4.5,Zen 2,280,,,0
+Intel Core Ultra 5 225F,190.83,10,3.3,4.9,Arrow Lake,65,,thumbnails/cpu_intel_core_ultra_5_225f.jpg,0
+Intel Pentium E5700,14.99,2,3,,Wolfdale,65,,,0
+AMD Ryzen 5 5500GT,141.92,6,3.6,4.4,Zen 3,65,Radeon Vega 7,,0
+AMD Ryzen 5 9600,467.55,6,3.8,5.2,Zen 5,65,Radeon,thumbnails/cpu_amd_ryzen_5_9600.jpg,0
+Intel Core Ultra 5 235,264.99,14,3.4,5,Arrow Lake,65,Intel Xe,,0
+Intel Core Ultra 5 225,213.01,10,3.3,4.9,Arrow Lake,65,Intel Xe,,0
+Intel Pentium E2220,12.99,2,2.4,,Core,65,,,0
+Intel Core Ultra 9 285,579.99,24,2.5,5.6,Arrow Lake,65,Intel Xe,,0
+AMD Threadripper 3960X,1267,24,3.8,4.5,Zen 2,280,,,0
+Intel Core Ultra 7 265,374.99,20,2.4,5.3,Arrow Lake,65,Intel Xe,,0
+Intel Core Ultra 7 265F,269.99,20,2.4,5.3,Arrow Lake,65,,thumbnails/cpu_intel_core_ultra_7_265f.jpg,0
+Intel Xeon E5-2699 V4,332.72,22,2.2,3.6,Broadwell,145,,thumbnails/cpu_intel_xeon_e5_2699_v4.jpg,0
+Intel Xeon E5-2680 V4,1975,14,2.4,3.3,Broadwell,120,,thumbnails/cpu_intel_xeon_e5_2680_v4.jpg,0
+Intel Pentium G640,19,2,2.8,,Sandy Bridge,65,Intel HD Graphics,thumbnails/cpu_intel_pentium_g640.jpg,0
+AMD EPYC 4564P,699.99,16,4.5,5.7,Zen 4,170,Radeon,,0
+AMD Ryzen 5 5600X3D,,6,3.3,4.4,Zen 3,105,,,0
+AMD Athlon 3000G (14nm),98.79,2,3.5,,Zen,35,Radeon Vega 3,,0
+AMD FX-8350,,8,4,,Piledriver,125,,,0
+AMD 2650,,2,1.45,,Jaguar,25,Radeon HD 8240,thumbnails/cpu_amd_2650.jpg,0
+Intel Core Ultra 5 245KF,284.99,14,4.2,5.2,Arrow Lake,125,,,0
+AMD Ryzen 5 7600X3D,319.99,6,4.1,4.7,Zen 4,65,Radeon,thumbnails/cpu_amd_ryzen_5_7600x3d.jpg,0
+AMD Ryzen 5 5600T,160.19,6,3.5,4.5,Zen 3,65,,thumbnails/cpu_amd_ryzen_5_5600t.jpg,0
+AMD Threadripper 2920X,199.1,12,3.5,4.3,Zen+,180,,,0
+Intel Xeon E5-2687W V4,2282.01,12,3,3.5,Broadwell,160,,,0
+AMD FX-6300,,6,3.5,,Piledriver,95,,thumbnails/cpu_amd_fx_6300.jpg,0
+AMD Ryzen 9 PRO 7945,415.55,12,3.7,5.4,Zen 4,65,Radeon,thumbnails/cpu_amd_ryzen_9_pro_7945.jpg,0
+AMD Threadripper 1950X,850,16,3.4,4,Zen,180,,,0
+Intel Celeron G6900,93.71,2,3.4,,Alder Lake,46,Intel UHD Graphics 710,,0
+AMD EPYC 4244P,189.33,6,3.8,5.1,Zen 4,65,Radeon,,0
+Intel Pentium Gold G7400,90,2,3.7,,Alder Lake,46,Intel UHD Graphics 710,thumbnails/cpu_intel_pentium_gold_g7400.jpg,0
+AMD Athlon 200GE,69.98,2,3.2,,Zen,35,Radeon Vega 3,,0
+AMD Threadripper 1920X,195,12,3.5,4,Zen,180,,,0
+Intel Core 2 Duo E8400,27.55,2,3,,Wolfdale,65,,,0
+Intel Xeon E3-1220 V6,25,4,3,3.5,Kaby Lake,72,,thumbnails/cpu_intel_xeon_e3_1220_v6.jpg,0
+Intel Pentium Gold G5420,29,2,3.8,,Coffee Lake,54,Intel UHD Graphics 610,,0
+Intel Pentium G4400,50,2,3.3,,Skylake,54,Intel HD Graphics 510,thumbnails/cpu_intel_pentium_g4400.jpg,0
+Intel Celeron 420,69.95,1,1.6,,Core,35,,,0
+AMD A6-6400K,,2,3.9,,Piledriver,65,Radeon HD 8470D,,0
+Intel Celeron G5900,45.2,2,3.4,,Comet Lake,58,Intel UHD Graphics 610,thumbnails/cpu_intel_celeron_g5900.jpg,0
+AMD Threadripper 2970WX,898.88,24,3,4.2,Zen+,250,,,0
+Intel Xeon E5-1650 V4,114.94,6,3.6,4,Broadwell,140,,thumbnails/cpu_intel_xeon_e5_1650_v4.jpg,0
+AMD EPYC 4464P,429.99,12,3.7,5.4,Zen 4,65,Radeon,,0
+Intel Xeon E5-2690 V2,,10,3,3.6,Ivy Bridge,130,,thumbnails/cpu_intel_xeon_e5_2690_v2.jpg,0
+AMD FX-6350,,6,3.9,,Piledriver,125,,,0
+AMD Ryzen 5 5600XT,144.99,6,3.7,4.7,Zen 3,65,,,0
+AMD FX-9590,292.58,8,4.7,5,Piledriver,220,,,0
+Intel Celeron G5905,51.79,2,3.5,,Comet Lake,58,Intel UHD Graphics 610,thumbnails/cpu_intel_celeron_g5905.jpg,0
+AMD Athlon X2 340,,2,3.2,,Piledriver,65,,,0
+Intel Celeron G3930,28.5,2,2.9,,Kaby Lake,51,Intel HD Graphics 610,thumbnails/cpu_intel_celeron_g3930.jpg,0
+Intel Pentium G4560,59,2,3.5,,Kaby Lake,54,Intel HD Graphics 610,thumbnails/cpu_intel_pentium_g4560.webp,0
+AMD FX-8320,,8,3.5,,Piledriver,125,,thumbnails/cpu_amd_fx_8320.jpg,0
+Intel Core i3-530,45,2,2.93,,Westmere,73,Intel HD Graphics,,0
+Intel Xeon E5-2650 V4,,12,2.2,2.9,Broadwell,105,,thumbnails/cpu_intel_xeon_e5_2650_v4.png,0
+Intel Pentium Gold G6600,186.19,2,4.2,,Comet Lake,58,Intel UHD Graphics 630,,0
+Intel Xeon E5-2698 V4,,20,2.2,3.6,Broadwell,135,,,0
+AMD Athlon II X2 240,29.48,2,2.8,,K10,65,,,0
+Intel Xeon E5-2630 V4,255.06,10,2.2,3.1,Broadwell,85,,,0
+AMD FX-8300,111.37,8,3.3,,Piledriver,95,,thumbnails/cpu_amd_fx_8300.jpg,0
+AMD A4-6300,46.79,2,3.7,3.9,Piledriver,65,Radeon HD 8370D,,0
+Intel Pentium Gold G6400,66.95,2,4,,Comet Lake,58,Intel UHD Graphics 610,thumbnails/cpu_intel_pentium_gold_g6400.jpg,0
+Intel Xeon E5-2667 V3,298.95,8,3.2,3.6,Haswell,135,,,0
+Intel 300,105.36,2,3.9,,Raptor Lake Refresh,46,Intel UHD Graphics 710,,0
+Intel Xeon E5-4620,58.77,8,2.2,2.6,Sandy Bridge,95,,thumbnails/cpu_intel_xeon_e5_4620.jpg,0
+AMD Threadripper 2990WX,,32,3,4.2,Zen+,250,,thumbnails/cpu_amd_threadripper_2990wx.jpg,0
+AMD Threadripper 2950X,,16,3.5,4.4,Zen+,180,,,0
+Intel Celeron E3400,18.98,2,2.6,,Wolfdale,65,,thumbnails/cpu_intel_celeron_e3400.jpg,0
+AMD EPYC 4344P,345.99,8,3.8,5.3,Zen 4,65,Radeon,,0
+Intel Xeon E5-2620,36.75,6,2,,Sandy Bridge,95,,,0
+AMD Ryzen 5 5600T,160.19,6,3.5,4.5,Zen 3,65,,thumbnails/cpu_amd_ryzen_5_5600t.jpg,0
+Intel Core i7-920,80,4,2.66,,Nehalem,130,,,0
+AMD Threadripper 1900X,240,8,3.8,4,Zen,180,,,0
+Intel Xeon E5-2630 V3,169.95,8,2.4,3.2,Haswell,85,,thumbnails/cpu_intel_xeon_e5_2630_v3.jpg,0
+AMD A8-9600,,4,3.1,3.4,Excavator,65,Radeon R7 (on-die),thumbnails/cpu_amd_a8_9600.jpg,0
+AMD FX-6100,72.8,6,3.3,,Bulldozer,95,,thumbnails/cpu_amd_fx_6100.jpg,0
+Intel Core i5-750,69,4,2.66,,Nehalem,95,,,0
+Intel Xeon E5-2697 V4,,18,2.3,3.6,Broadwell,145,,,0
+AMD Athlon II X4 640,53.01,4,3,,K10,95,,thumbnails/cpu_amd_athlon_ii_x4_640.jpg,0
+AMD FX-4350,82.96,4,4.2,,Piledriver,125,,,0
+Intel Xeon E5-2697 V2,,12,2.7,3.5,Ivy Bridge,130,,,0
+Intel Xeon E5-2683 V4,329.95,16,2.1,3,Broadwell,120,,thumbnails/cpu_intel_xeon_e5_2683_v4.jpg,0
+AMD EPYC 4364P,389.99,8,4.5,5.4,Zen 4,105,Radeon,,0
+Intel Xeon E5-1620 V2,,4,3.7,3.9,Ivy Bridge,130,,,0
+AMD Ryzen 5 PRO 7645,234.11,6,3.8,5.1,Zen 4,65,Radeon,thumbnails/cpu_amd_ryzen_5_pro_7645.jpg,0
+AMD FX-8370,257.01,8,4,4.3,Piledriver,125,,,0
+AMD A8-7600,78.89,4,3.1,3.8,Steamroller,65,Radeon R7 (on-die),,0
+Intel Xeon E5-2690 V4,,14,2.6,3.5,Broadwell,135,,thumbnails/cpu_intel_xeon_e5_2690_v4.jpg,0
+Intel Celeron G5925,59.99,2,3.6,,Comet Lake,58,Intel UHD Graphics 610,thumbnails/cpu_intel_celeron_g5925.jpg,0
+AMD EPYC 4584PX,327.58,16,4.2,5.7,Zen 4,120,Radeon,thumbnails/cpu_amd_epyc_4584px.png,0
+Intel Core i7-860,50,4,2.8,,Nehalem,95,,,0
+Intel Xeon E5-2670 V3,,12,2.3,3.1,Haswell,120,,thumbnails/cpu_intel_xeon_e5_2670_v3.jpg,0
+Intel Xeon E5-2699 V3,,18,2.3,3.6,Haswell,145,,,0
+Intel Pentium Gold G5400,115.69,2,3.7,,Coffee Lake,58,Intel UHD Graphics 610,,0
+Intel Xeon E5-2680 V3,,12,2.5,3.3,Haswell,120,,thumbnails/cpu_intel_xeon_e5_2680_v3.png,0
+AMD Ryzen 7 PRO 7745,,8,3.8,5.3,Zen 4,65,Radeon,,0
+Intel Core i7-990X Extreme Edition,,6,3.467,,Westmere,130,,,0
+Intel Xeon E5-2650,69.94,8,2,2.8,Sandy Bridge,95,,,0
+AMD FX-4300,,4,3.8,,Piledriver,95,,,0
+AMD FX-4350,55.05,4,4.2,,Piledriver,125,,,0
+Intel Xeon E5-1630 V4,298.95,4,3.7,4,Broadwell,140,,,0
+Intel Core 2 Quad Q9300,42.6,4,2.5,,Yorkfield,95,,,0
+Intel Xeon E5-2683 V4,1998.95,16,2.1,3,Broadwell,120,,thumbnails/cpu_intel_xeon_e5_2683_v4.jpg,0
+AMD A10-7700K,128.02,4,3.4,3.8,Steamroller,95,Radeon R7 (on-die),thumbnails/cpu_amd_a10_7700k.jpg,0
+AMD Phenom II X6 1090T Black,291.98,6,3.2,,K10,125,,,0
+Intel Core i7-980X Extreme Edition,,6,3.33,,Westmere,130,,,0
+Intel Core 2 Quad Q6600,,4,2.4,,Core,100,,,0
+Intel Xeon E5-1620 V3,111,4,3.5,3.6,Haswell,140,,,0
+Intel Xeon E5-2660 V3,149.94,10,2.6,3.3,Haswell,105,,,0
+AMD FX-6120,58.53,6,3.5,4.1,Bulldozer,95,,thumbnails/cpu_amd_fx_6120.jpg,0
+Intel Xeon E3-1230 V2,274,4,3.3,,Ivy Bridge,69,,thumbnails/cpu_intel_xeon_e3_1230_v2.jpg,0
+Intel Xeon E3-1231 V3,,4,3.4,3.8,Haswell Refresh,80,,thumbnails/cpu_intel_xeon_e3_1231_v3.jpg,0
+Intel Xeon E5-2680,110,8,2.7,3.5,Sandy Bridge,130,,thumbnails/cpu_intel_xeon_e5_2680.jpg,0
+AMD Ryzen 7 PRO 7745,327.58,8,3.8,5.3,Zen 4,65,Radeon,https://cdna.pcpartpicker.com/static/forever/images/product/0060e87b1c0093626f67e76793e68c41.256p.jpg,0
+AMD FX-8350,192.49,8,4,,Piledriver,125,,,0
+AMD A8-6600K,92.86,4,3.9,,Piledriver,100,Radeon HD 8570D,thumbnails/cpu_amd_a8_6600k.jpg,0
+Intel Pentium G3258,124.99,2,3.2,,Haswell Refresh,53,Intel HD Graphics,thumbnails/cpu_intel_pentium_g3258.jpg,0
+Intel Core i5-650,,2,3.2,,Westmere,73,Intel HD Graphics,,0
+AMD 5350,,4,2.05,,Jaguar,25,Radeon HD 8400,,0
+Intel Core 2 Quad Q9650,,4,3,,Yorkfield,95,,,0
+AMD Phenom II X6 1100T Black,,6,3.3,,K10,125,,thumbnails/cpu_amd_phenom_ii_x6_1100t_black.jpg,0
+AMD A10-7850K,139.84,4,3.7,4,Steamroller,95,Radeon R7 (on-die),,0
+Intel Celeron G3900,48.56,2,2.8,,Skylake,51,Intel HD Graphics 510,thumbnails/cpu_intel_celeron_g3900.jpg,0
+AMD Athlon II 160u,,1,1.8,,K10,20,,,0
+Intel Xeon E5-2697 V3,,14,2.6,3.6,Haswell,145,,thumbnails/cpu_intel_xeon_e5_2697_v3.png,0
+AMD FX-8320,106.55,8,3.5,,Piledriver,125,,thumbnails/cpu_amd_fx_8320.jpg,0
+AMD FX-6350,,6,3.9,,Piledriver,125,,,0
+Intel Xeon E3-1270 V3,410,4,3.5,3.9,Haswell,80,,,0
+Intel Core 2 Quad Q9550,52.55,4,2.83,,Yorkfield,95,,,0
+Intel Core 2 Duo E7500,149,2,2.93,,Wolfdale,65,,,0
+AMD FX-6300,62.51,6,3.5,,Piledriver,95,,thumbnails/cpu_amd_fx_6300.jpg,0
+Intel Core i7-950,84.15,4,3.06,,Nehalem,130,,,0
+AMD A10-6800K,,4,4.1,,Piledriver,100,Radeon HD 8670D,,0
+Intel Xeon E5-2695 V4,,18,2.1,3.3,Broadwell,120,,,0
+AMD A10-9700,127.71,4,3.5,3.8,Excavator,65,Radeon R7 (on-die),thumbnails/cpu_amd_a10_9700.jpg,0
+AMD A8-7680,,4,3.5,3.8,Puma+,65,Radeon R7 (on-die),,0
+AMD Phenom II X4 820,52.64,4,2.8,,K10,95,,,0
+AMD Phenom II X4 965 Black,,4,3.4,,K10,125,,thumbnails/cpu_amd_phenom_ii_x4_965_black.jpg,0
+Intel Core 2 Extreme QX9770,,4,3.2,,Yorkfield,136,,thumbnails/cpu_intel_core_2_extreme_qx9770.jpg,0
+Intel Core i7-870,,4,2.93,,Nehalem,95,,,0
+Intel Xeon E5-2640 V4,,10,2.4,3.4,Broadwell,90,,,0
+Intel Xeon E5-2680 V2,,10,2.8,3.6,Ivy Bridge,115,,,0
+AMD A10-7800,,4,3.5,3.9,Steamroller,65,Radeon R7 (on-die),,0
+Intel Xeon E5-2630,47.66,6,2.3,,Sandy Bridge,95,,,0
+AMD Athlon X4 860K,,4,3.7,4,Steamroller,95,,thumbnails/cpu_amd_athlon_x4_860k.jpg,0
+Intel Pentium G4600,,2,3.6,,Kaby Lake,51,Intel HD Graphics 630,thumbnails/cpu_intel_pentium_g4600.jpg,0
+Intel Xeon E-2288G,,8,3.7,5,Coffee Lake Refresh,95,Intel HD Graphics P630,,0
+Intel Xeon E5-2695 V3,,14,2.3,3.3,Haswell,120,,,0
+Intel Pentium Gold G6405,94.99,2,4.1,,Comet Lake,58,Intel UHD Graphics 610,,0
+Intel Core i5-760,,4,2.8,,Nehalem,95,,,0
+Intel Pentium G645,40.99,2,2.9,,Sandy Bridge,65,Intel HD Graphics 2500,thumbnails/cpu_intel_pentium_g645.jpg,0
+Intel Xeon E3-1240 V2,400,4,3.4,,Ivy Bridge,69,,,0
+Intel Xeon E5-1620 V4,232.12,4,3.5,3.8,Broadwell,140,,,0
+AMD FX-4100,,4,3.6,,Bulldozer,95,,,0
+Intel Xeon E3-1240L V5,,4,2.1,3.2,Skylake,25,,,0
+Intel Xeon E3-1245 V6,120,4,3.7,4.1,Kaby Lake,73,Intel HD Graphics P630,,0
+Intel Xeon E5-1660 V3,204.44,8,3,3.5,Haswell,140,,,0
+Intel Celeron G3930,29,2,2.9,,Kaby Lake,51,Intel HD Graphics 610,thumbnails/cpu_intel_celeron_g3930.jpg,0
+AMD A8-7650K,,4,3.3,3.7,Steamroller,95,Radeon R7 (on-die),,0
+AMD FX-8320E,,8,3.2,4,Piledriver,95,,thumbnails/cpu_amd_fx_8320e.jpg,0
+Intel Xeon E5-1650 V3,,6,3.5,3.8,Haswell,140,,thumbnails/cpu_intel_xeon_e5_1650_v3.jpg,0
+Intel Celeron G4900,48.59,2,3.1,,Coffee Lake,65,Intel UHD Graphics 610,,0
+Intel Xeon E-2286G,627.61,6,4,4.9,Coffee Lake Refresh,95,Intel HD Graphics P630,,0
+Intel Core i7-960,150,4,3.2,,Nehalem,130,,,0
+Intel Xeon E3-1230 V3,309,4,3.3,3.7,Haswell,80,,,0
+Intel Xeon E3-1241 V3,298,4,3.5,3.9,Haswell Refresh,80,,,0
+AMD Phenom II X6 1055T,199.99,6,2.8,,K10,125,,thumbnails/cpu_amd_phenom_ii_x6_1055t.jpg,0
+Intel Pentium G3220,,2,3,,Haswell,54,Intel HD Graphics,,0
+AMD A6-7400K,89.98,2,3.5,3.9,Steamroller,65,Radeon R5 (on die),thumbnails/cpu_amd_a6_7400k.jpg,0
+AMD Threadripper 2990WX,,32,3,4.2,Zen+,250,,thumbnails/cpu_amd_threadripper_2990wx.jpg,0
+Intel Celeron 440,49.99,1,2,,Core,35,,,0
+Intel Xeon E5-2620 V3,127.98,6,2.4,3.2,Haswell,85,,,0
+Intel Xeon E5-2630 V2,488.88,6,2.6,3.1,Ivy Bridge,80,,,0
+Intel Xeon E5-2660 V4,399,14,2,3.2,Broadwell,105,,,0
+Intel Pentium G2020,34.99,2,2.9,,Ivy Bridge,55,Intel HD Graphics,,0
+Intel Xeon E5-2667 V2,,8,3.3,4,Ivy Bridge,130,,,0
+Intel Core 2 Extreme QX9775,1298,4,3.2,,Yorkfield,150,,,0
+AMD A10-6700,102.76,4,3.7,,Piledriver,65,Radeon HD 8670D,,0
+AMD Athlon 220GE,,2,3.4,,Zen,35,Radeon Vega 3,,0
+Intel Xeon E3-1275 V2,,4,3.5,,Ivy Bridge,77,Intel HD Graphics P4000,thumbnails/cpu_intel_xeon_e3_1275_v2.png,0
+Intel Pentium G2030,,2,3,,Ivy Bridge,55,Intel HD Graphics,,0
+Intel Xeon E5-2670,,8,2.6,3.3,Sandy Bridge,115,,,0
+Intel Xeon E5-2650 V3,,10,2.3,3,Haswell,105,,thumbnails/cpu_intel_xeon_e5_2650_v3.jpg,0
+AMD Phenom II X4 955 Black,,4,3.2,,K10,125,,,0
+AMD A10-5800K,,4,3.8,,Piledriver,100,Radeon HD 7660D,,0
+AMD FX-9590,,8,4.7,5,Piledriver,220,,,0
+Intel Xeon E5-2650L V2,,10,1.7,2.1,Ivy Bridge,70,,thumbnails/cpu_intel_xeon_e5_2650l_v2.jpg,0
+Intel Xeon E5-2640 V3,,8,2.6,3.4,Haswell,90,,thumbnails/cpu_intel_xeon_e5_2640_v3.jpg,0
+AMD A6-9500,,2,3.5,3.8,Excavator,65,Radeon R5 (on die),,0
+Intel Core 2 Quad Q9550,165.51,4,2.83,,Yorkfield,95,,,0
+Intel Xeon E5-1680 V3,404.09,8,3.2,3.8,Haswell,140,,,0
+AMD A12-9800E,142.82,4,3.1,3.8,Excavator,35,Radeon R7 (on-die),,0
+Intel Core i3-540,98.95,2,3.06,,Westmere,73,Intel HD Graphics,,0
+AMD Athlon II X2 250,,2,3,,K10,65,,,0
+AMD A6-3670K,,4,2.7,,Lynx,100,Radeon HD 6530D,,0
+Intel Xeon E3-1240 V3,,4,3.4,3.8,Haswell,80,,,0
+Intel Xeon E5-2695 V2,,12,2.4,3.2,Ivy Bridge,115,,,0
+Intel Xeon E3-1270 V5,,4,3.6,4,Skylake,80,,,0
+AMD A10-7890K,,4,4.1,4.3,Steamroller,95,Radeon R7 (on-die),,0
+Intel Pentium G630,30.74,2,2.7,,Sandy Bridge,65,Intel HD Graphics,,0
+Intel Xeon E5-2650L,129.94,8,1.8,2.3,Sandy Bridge,70,,thumbnails/cpu_intel_xeon_e5_2650l.jpg,0
+AMD Athlon II X4 640,74.79,4,3,,K10,95,,thumbnails/cpu_amd_athlon_ii_x4_640.jpg,0
+AMD FX-9370,216.59,8,4.4,4.7,Piledriver,220,,,0
+Intel Xeon E5-2650 V2,,8,2.6,3.4,Ivy Bridge,95,,,0
+Intel Xeon E-2236,452.02,6,3.4,4.8,Coffee Lake Refresh,80,,,0
+AMD A10-7870K,,4,3.9,4.1,Steamroller,95,Radeon R7 (on-die),,0
+AMD A12-9800,,4,3.8,4.2,Excavator,65,Radeon R7 (on-die),thumbnails/cpu_amd_a12_9800.jpg,0
+Intel Core 2 Quad Q8400,84.95,4,2.66,,Yorkfield,95,,,0
+AMD FX-8120,,8,3.1,,Bulldozer,125,,,0
+Intel Xeon E3-1270 V2,,4,3.5,,Ivy Bridge,69,,,0
+AMD Opteron 6378,,16,2.4,3.3,Piledriver,115,,,0
+Intel Celeron G3900,39,2,2.8,,Skylake,51,Intel HD Graphics 510,thumbnails/cpu_intel_celeron_g3900.jpg,0
+AMD Athlon X4 950,,4,3.5,3.8,Excavator,65,,,0
+Intel Celeron 430,59.95,1,1.8,,Core,35,,,0
+Intel Xeon E5-1650 V2,235.03,6,3.5,3.9,Ivy Bridge,130,,thumbnails/cpu_intel_xeon_e5_1650_v2.jpg,0
+Intel Core i7-880,,4,3.06,,Nehalem,95,,,0
+Intel Xeon E5-2690 V3,,12,2.6,3.5,Haswell,135,,,0
+AMD FX-8350,192.49,8,4,,Piledriver,125,,,0
+Intel Xeon E5-2650L V4,,14,1.7,2.5,Broadwell,65,,,0
+Intel Pentium Gold G5400T,90,2,3.1,,Coffee Lake,35,Intel UHD Graphics 610,,0
+Intel Xeon E5-2698 V3,,16,2.3,3.6,Haswell,135,,,0
+AMD A6-9500E,,2,3,3.4,Excavator,35,Radeon R5 (on die),,0
+Intel Celeron 420,,1,1.6,,Core,35,,,0
+Intel Core 2 Duo E4300,75,2,1.8,,Core,65,,,0
+Intel Core 2 Duo E8600,,2,3.33,,Wolfdale,65,,,0
+AMD Sempron 140,,1,2.7,,K10,45,,,0
+AMD FX-8150,,8,3.6,,Bulldozer,125,,,0
+Intel Xeon E3-1220 V2,,4,3.1,,Ivy Bridge,69,,,0
+Intel Xeon E3-1245 V3,,4,3.4,3.8,Haswell,84,Intel HD Graphics P4600,thumbnails/cpu_intel_xeon_e3_1245_v3.jpg,0
+Intel Xeon E5-2687W V3,,10,3.1,3.5,Haswell,160,,,0
+Intel Xeon E5-2620 V4,,8,2.1,3,Broadwell,85,,,0
+AMD Athlon 3000G (14nm),98.79,2,3.5,,Zen,35,Radeon Vega 3,,0
+Intel Xeon E3-1220 V3,149.94,4,3.1,3.5,Haswell,80,,,0
+AMD Athlon II X4 635,58.02,4,2.9,,K10,95,,,0
+Intel Core i7-980,356.02,6,3.333,,Westmere,130,,,0
+AMD FX-8370,317.33,8,4,4.3,Piledriver,125,,,0
+Intel Pentium E2160,49,2,1.8,,Core,65,,,0
+Intel Xeon E3-1245 V6,435.16,4,3.7,4.1,Kaby Lake,73,Intel HD Graphics P630,,0
+AMD Phenom II X4 945,,4,3,,K10,125,,,0
+Intel Pentium E5300,86.24,2,2.6,,Wolfdale,65,,,0
+Intel Core i7-930,148.72,4,2.8,,Nehalem,130,,,0
+Intel Core 2 Quad Q9300,219,4,2.5,,Yorkfield,95,,,0
+AMD A8-5500,,4,3.2,,Piledriver,65,Radeon HD 7560D,,0
+AMD Athlon X2 370K,,2,4.2,,Piledriver,65,,,0
+Intel Xeon E3-1271 V3,,4,3.6,4,Haswell Refresh,80,,,0
+Intel Xeon E5-1650,,6,3.2,3.8,Sandy Bridge,130,,,0
+Intel Xeon E5-2637 V3,,4,3.5,3.7,Haswell,135,,,0
+Intel Xeon E3-1230 V6,,4,3.5,3.9,Kaby Lake,72,,,0
+Intel Core i7-875K,180,4,2.93,,Nehalem,95,,,0
+AMD Phenom II X4 955,,4,3.2,,K10,125,,,0
+Intel Celeron G440,,1,1.6,,Sandy Bridge,35,Intel HD Graphics,,0
+AMD A8-5600K,,4,3.6,,Piledriver,100,Radeon HD 7560D,,0
+AMD A6-5400K,,2,3.6,,Piledriver,65,Radeon HD 7540D,thumbnails/cpu_amd_a6_5400k.jpg,0
+Intel Xeon E5-2670 V2,,10,2.5,3.3,Ivy Bridge,115,,,0
+AMD 3850,,4,1.3,,Jaguar,25,Radeon HD 8280,,0
+Intel Xeon E-2278G,,8,3.4,5,Coffee Lake Refresh,80,Intel HD Graphics P630,thumbnails/cpu_intel_xeon_e_2278g.png,0
+AMD A10-5800K,78.02,4,3.8,,Piledriver,100,Radeon HD 7660D,,0
+Intel Core i7-870,195.02,4,2.93,,Nehalem,95,,,0
+Intel Core 2 Quad Q9550S,259.64,4,2.83,,Yorkfield,65,,,0
+Intel Xeon E5-2603 V3,135,6,1.6,,Haswell,85,,,0
+Intel Xeon E5-2609 V4,,8,1.7,,Broadwell,85,,,0
+Intel Core 2 Quad Q6600,94.97,4,2.4,,Core,100,,,0
+Intel Core i3-550,129.94,2,3.2,,Westmere,73,Intel HD Graphics,,0
+AMD Phenom II X6 1075T,,6,3,,K10,95,,,0
+AMD Phenom II X4 940 Black,,4,3,,K10,125,,,0
+Intel Pentium E5800,,2,3.2,,Wolfdale,65,,,0
+Intel Pentium G3240,,2,3.1,,Haswell Refresh,53,Intel HD Graphics,thumbnails/cpu_intel_pentium_g3240.jpg,0
+AMD A4-7300,,2,3.8,4,Piledriver,65,Radeon HD 8470D,thumbnails/cpu_amd_a4_7300.jpg,0
+Intel Xeon E3-1240 V5,,4,3.5,3.9,Skylake,80,,,0
+AMD A10-7860k,,4,3.6,4,Steamroller,65,Radeon R7 (on-die),,0
+Intel Xeon E3-1285 V6,989.95,4,4.1,4.5,Kaby Lake,79,Intel HD Graphics 630,,0
+AMD Athlon 200GE,69.98,2,3.2,,Zen,35,Radeon Vega 3,,0
+Intel Celeron G4900,73,2,3.1,,Coffee Lake,65,Intel UHD Graphics 610,,0
+Intel Xeon E5-4650,,8,2.7,3.3,Sandy Bridge,130,,thumbnails/cpu_intel_xeon_e5_4650.png,0
+AMD Athlon II X4 620,53.55,4,2.6,,K10,95,,,0
+Intel Xeon E3-1245 V2,315,4,3.4,,Ivy Bridge,77,Intel HD Graphics P4000,thumbnails/cpu_intel_xeon_e3_1245_v2.jpg,0
+Intel Xeon E5-2687W V2,,8,3.4,4,Ivy Bridge,150,,,0
+Intel Pentium E2140,99,2,1.6,,Core,65,,,0
+Intel Core 2 Duo E8400,98.95,2,3,,Wolfdale,65,,,0
+AMD FX-4300,,4,3.8,,Piledriver,95,,,0
+Intel Pentium G3250,,2,3.2,,Haswell Refresh,53,Intel HD Graphics,thumbnails/cpu_intel_pentium_g3250.png,0
+Intel Xeon E3-1245 V5,,4,3.5,3.9,Skylake,80,Intel HD Graphics P530,,0
+Intel Pentium G3260,,2,3.3,,Haswell Refresh,53,Intel HD Graphics,,0
+Intel Xeon E-2176G,583.29,6,3.7,4.7,Coffee Lake,80,Intel HD Graphics P630,,0
+Intel Core 2 Duo E6400,74.9,2,2.13,,Core,65,,,0
+Intel Core i7-940,149.94,4,2.93,,Nehalem,130,,thumbnails/cpu_intel_core_i7_940.jpg,0
+AMD Athlon II X4 630,52.6,4,2.8,,K10,95,,,0
+Intel Celeron G530,35.88,2,2.4,,Sandy Bridge,65,Intel HD Graphics,,0
+Intel Celeron G1610,49,2,2.6,,Ivy Bridge,55,Intel HD Graphics,thumbnails/cpu_intel_celeron_g1610.jpg,0
+Intel Celeron G4930,129.69,2,3.2,,Coffee Lake,54,Intel UHD Graphics 610,,0
+Intel Core 2 Quad Q8200,,4,2.33,,Yorkfield,95,,,0
+AMD Athlon II X2 270,,2,3.4,,K10,65,,thumbnails/cpu_amd_athlon_ii_x2_270.jpg,0
+AMD FX-8150,,8,3.6,,Bulldozer,125,,,0
+Intel Pentium G640T,89,2,2.4,,Sandy Bridge,35,Intel HD Graphics,,0
+AMD A4-5300,,2,3.4,,Piledriver,65,Radeon HD 7480D,thumbnails/cpu_amd_a4_5300.jpg,0
+AMD A8-6500,,4,3.5,,Piledriver,65,Radeon HD 8570D,,0
+AMD A10-6700,83.22,4,3.7,,Piledriver,65,Radeon HD 8670D,,0
+Intel Pentium G4560,59,2,3.5,,Kaby Lake,54,Intel HD Graphics 610,thumbnails/cpu_intel_pentium_g4560.webp,0
+AMD Threadripper 2970WX,898.88,24,3,4.2,Zen+,250,,,0
+AMD A10-5700,72.51,4,3.4,,Piledriver,65,Radeon HD 7660D,,0
+Intel Celeron G4920,73,2,3.2,,Coffee Lake,65,Intel UHD Graphics 610,,0
+Intel Core 2 Duo E8600,,2,3.33,,Wolfdale,65,,,0
+Intel Core i5-750,69,4,2.66,,Nehalem,95,,,0
+Intel Core 2 Quad Q9400,,4,2.66,,Yorkfield,95,,,0
+AMD Phenom II X4 970 Black,,4,3.5,,K10,125,,,0
+AMD Phenom II X4 980 Black,,4,3.7,,K10,125,,,0
+Intel Pentium G620,,2,2.6,,Sandy Bridge,65,Intel HD Graphics,,0
+AMD Phenom II X6 1045T,,6,2.7,,K10,95,,,0
+AMD A4-4000,,2,3,,Piledriver,65,Radeon HD 7480D,,0
+AMD Athlon X4 750K,,4,3.4,,Piledriver,100,,,0
+Intel Pentium G3420,71.73,2,3.2,,Haswell,54,Intel HD Graphics,thumbnails/cpu_intel_pentium_g3420.jpg,0
+Intel Xeon E5-2660 V3,149.94,10,2.6,3.3,Haswell,105,,,0
+AMD FX-8310,,8,3.4,4.3,Piledriver,95,,,0
+Intel Xeon E3-1230 V5,,4,3.4,3.8,Skylake,80,,,0
+AMD Threadripper 2950X,,16,3.5,4.4,Zen+,180,,,0
+Intel Xeon E-2136,732,6,3.3,4.5,Coffee Lake,80,,,0
+Intel Celeron G3920,489.95,2,2.6,,Skylake,35,Intel HD Graphics 510,,0
+Intel Xeon E5-2630L V3,391.94,8,1.8,2.9,Haswell,55,,,0
+Intel Xeon E3-1230 V6,455.49,4,3.5,3.9,Kaby Lake,72,,,0
+AMD A10-9700E,132.71,4,3,3.5,Excavator,35,Radeon R7 (on-die),,0
+Intel Xeon E-2274G,1098.95,4,4,4.9,Coffee Lake Refresh,83,Intel HD Graphics P630,,0
+Intel Core 2 Duo E4300,75,2,1.8,,Core,65,,,0
+Intel Core 2 Duo E4600,,2,2.4,,Core,65,,,0
+Intel Core 2 Duo E8400,99.43,2,3,,Wolfdale,65,,,0
+Intel Core 2 Duo E8500,,2,3.16,,Wolfdale,65,,,0
+Intel Core i7-920,80,4,2.66,,Nehalem,130,,,0
+Intel Core i7-970,,6,3.2,,Westmere,130,,,0
+AMD Phenom II X4 965,,4,3.4,,K10,125,,,0
+Intel Pentium G2120,35,2,3.1,,Ivy Bridge,55,Intel HD Graphics,,0
+Intel Xeon E5-2687W,,8,3.1,3.8,Sandy Bridge,150,,,0
+AMD FX-8370E,,8,3.3,4.3,Piledriver,95,,,0
+Intel Xeon E3-1265L V3,398.95,4,2.5,3.7,Haswell,45,Intel HD Graphics,thumbnails/cpu_intel_xeon_e3_1265l_v3.png,0
+Intel Xeon E3-1280 V6,562,4,3.9,4.2,Kaby Lake,72,,thumbnails/cpu_intel_xeon_e3_1280_v6.png,0
+Intel Pentium Gold G5500,,2,3.8,,Coffee Lake,54,Intel UHD Graphics 630,,0
+Intel Pentium Gold G6605,,2,4.3,,Comet Lake,58,Intel UHD Graphics 630,thumbnails/cpu_intel_pentium_gold_g6605.jpg,0
+Intel Celeron G3930T,46.07,2,2.7,,Kaby Lake,35,Intel HD Graphics 610,,0
+AMD Phenom II X4 925,,4,2.8,,K10,95,,,0
+Intel Pentium E6600,,2,3.06,,Wolfdale,65,,,0
+Intel Core 2 Duo E6700,103.95,2,2.66,,Core,65,,,0
+Intel Core 2 Duo E7200,169.95,2,2.53,,Wolfdale,65,,,0
+Intel Core 2 Quad Q6700,,4,2.66,,Core,100,,,0
+Intel Core 2 Quad Q8300,,4,2.5,,Yorkfield,95,,,0
+Intel Core 2 Extreme QX9650,,4,3,,Yorkfield,130,,,0
+AMD FX-8100,,8,2.8,,Bulldozer,95,,,0
+AMD FX-4100,,4,3.6,,Bulldozer,95,,,0
+AMD FX-6200,,6,3.8,,Bulldozer,125,,,0
+Intel Celeron G1840,,2,2.8,,Haswell Refresh,53,Intel HD Graphics,,0
+Intel Xeon E3-1276 V3,,4,3.6,4,Haswell Refresh,84,Intel HD Graphics P4600,,0
+Intel Xeon E3-1246 V3,,4,3.5,3.9,Haswell Refresh,84,Intel HD Graphics P4600,,0
+Intel Xeon E5-1620,,4,3.6,3.8,Sandy Bridge,130,,,0
+Intel Xeon E5-1650 V3,,6,3.5,3.8,Haswell,140,,thumbnails/cpu_intel_xeon_e5_1650_v3.jpg,0
+Intel Xeon E5-2643 V3,229.95,6,3.4,3.7,Haswell,135,,,0
+AMD Opteron 6320,269,8,2.8,3.3,Piledriver,115,,,0
+Intel Xeon E5-2603 V4,449.95,6,1.7,,Broadwell,85,,,0
+Intel Xeon E5-2643 V4,929.95,6,3.4,3.7,Broadwell,135,,,0
+AMD Athlon X4 970,,4,3.8,4,Excavator,65,,thumbnails/cpu_amd_athlon_x4_970.jpg,0
+AMD Threadripper 2920X,199.1,12,3.5,4.3,Zen+,180,,,0
+AMD EPYC 4484PX,,12,4.4,5.6,Zen 4,120,Radeon,,0
+Intel Pentium Gold G5600,229.69,2,3.9,,Coffee Lake,54,Intel UHD Graphics 630,,0
+Intel Celeron G5920,,2,3.5,,Comet Lake,58,Intel UHD Graphics 610,,0
+Intel Xeon E5-1660 V2,,6,3.7,4,Ivy Bridge,130,,thumbnails/cpu_intel_xeon_e5_1660_v2.jpg,0
+AMD Phenom II X2 555 Black,,2,3.2,,K10,80,,,0
+Intel Pentium E2140,,2,1.6,,Core,65,,,0
+Intel Pentium E5200,,2,2.5,,Wolfdale,65,,,0
+Intel Core 2 Duo E6320,,2,1.86,,Core,65,,,0
+Intel Core 2 Duo E7400,,2,2.8,,Wolfdale,65,,thumbnails/cpu_intel_core_2_duo_e7400.jpg,0
+Intel Pentium G6950,37.93,2,2.8,,Westmere,73,Intel HD Graphics,,0
+Intel Pentium E5500,,2,2.8,,Wolfdale,65,,,0
+AMD Phenom II X4 840,,4,3.2,,K10,95,,,0
+AMD A8-3850,,4,2.9,,Lynx,100,Radeon HD 6550D,,0
+AMD A8-3870K,,4,3,,Lynx,100,Radeon HD 6550D,,0
+AMD A4-3300,89.95,2,2.5,,Lynx,65,Radeon HD 6410D,,0
+AMD Athlon X4 760K,,4,3.8,4.1,Piledriver,100,,thumbnails/cpu_amd_athlon_x4_760k.jpg,0
+Intel Xeon E3-1225 V3,,4,3.2,3.6,Haswell,84,Intel HD Graphics P4600,,0
+Intel Xeon E3-1275 V3,,4,3.5,3.9,Haswell,84,Intel HD Graphics P4600,,0
+Intel Celeron G1820,,2,2.7,,Haswell,53,Intel HD Graphics,,0
+Intel Xeon E5-2690,,8,2.9,3.8,Sandy Bridge,135,,,0
+Intel Xeon E5-2640 V2,,8,2,2.5,Ivy Bridge,95,,,0
+Intel Xeon E5-2660 V2,,10,2.2,3,Ivy Bridge,95,,thumbnails/cpu_intel_xeon_e5_2660_v2.jpg,0
+AMD Sempron 150,,1,2.9,,K10,45,,,0
+Intel Xeon E5-1630 V3,,4,3.7,3.8,Haswell,140,,,0
+Intel Xeon E5-2697 V3,,14,2.6,3.6,Haswell,145,,thumbnails/cpu_intel_xeon_e5_2697_v3.png,0
+Intel Xeon E5-2695 V3,498.95,14,2.3,3.3,Haswell,120,,,0
+Intel Xeon E5-2670 V3,,12,2.3,3.1,Haswell,120,,thumbnails/cpu_intel_xeon_e5_2670_v3.jpg,0
+Intel Pentium G3470,153.1,2,3.6,,Haswell Refresh,53,Intel HD Graphics,,0
+Intel Xeon E3-1270 V5,,4,3.6,4,Skylake,80,,,0
+Intel Xeon E3-1220 V5,349.95,4,3,3.5,Skylake,80,,thumbnails/cpu_intel_xeon_e3_1220_v5.jpg,0
+Intel Xeon E3-1260L V5,,4,2.9,3.9,Skylake,45,,,0
+Intel Xeon E3-1225 V5,,4,3.3,3.7,Skylake,80,Intel HD Graphics P530,thumbnails/cpu_intel_xeon_e3_1225_v5.jpg,0
+Intel Xeon E3-1235L V5,,4,2,3,Skylake,25,Intel HD Graphics P530,,0
+Intel Xeon E5-1650 V4,114.94,6,3.6,4,Broadwell,140,,thumbnails/cpu_intel_xeon_e5_1650_v4.jpg,0
+Intel Xeon E3-1270 V6,719.95,4,3.8,4.2,Kaby Lake,72,,,0
+Intel Xeon E-2174G,649.95,4,3.8,4.7,Coffee Lake,71,Intel HD Graphics P630,thumbnails/cpu_intel_xeon_e_2174g.jpg,0
+Intel Xeon E-2246G,,6,3.6,4.8,Coffee Lake Refresh,80,Intel HD Graphics P630,,0
+AMD Phenom II X4 830,55.05,4,2.8,,K10,95,,,0
+AMD Phenom II X4 975,168.02,4,3.6,,K10,125,,,0
+Intel Pentium G870,67.64,2,3.1,,Sandy Bridge,65,Intel HD Graphics,thumbnails/cpu_intel_pentium_g870.jpg,0
+AMD A4-6300B,49.95,2,3.7,3.9,Piledriver,65,Radeon HD 8370D,,0
+AMD Athlon II X2 250u,,2,1.6,,K10,25,,,0
+AMD Phenom II X4 905e,,4,2.5,,K10,65,,,0
+Intel Pentium E2220,12.99,2,2.4,,Core,65,,,0
+Intel Pentium E5400,,2,2.7,,Wolfdale,65,,,0
+Intel Core 2 Duo E6320,89.95,2,1.86,,Core,65,,,0
+Intel Core 2 Duo E6550,95.91,2,2.33,,Core,65,,thumbnails/cpu_intel_core_2_duo_e6550.jpg,0
+Intel Core i5-680,,2,3.6,,Westmere,73,Intel HD Graphics,,0
+Intel Core i7-930,148.72,4,2.8,,Nehalem,130,,,0
+Intel Core i7-965 Extreme Edition,,4,3.2,,Nehalem,130,,,0
+Intel Core i7-975 Extreme Edition,,4,3.33,,Nehalem,130,,,0
+Intel Core 2 Extreme QX6700,,4,2.66,,Core,100,,,0
+Intel Pentium G850,,2,2.9,,Sandy Bridge,65,Intel HD Graphics,,0
+AMD Athlon II X4 631,,4,2.6,,Lynx,100,,,0
+AMD FX-8300,111.37,8,3.3,,Piledriver,95,,thumbnails/cpu_amd_fx_8300.jpg,0
+Intel Xeon E3-1225,,4,3.1,,Sandy Bridge,95,Intel HD Graphics,,0
+Intel Xeon E3-1275,376.99,4,3.4,,Sandy Bridge,95,Intel HD Graphics,thumbnails/cpu_intel_xeon_e3_1275.jpg,0
+Intel Xeon E3-1225 V2,214.5,4,3.2,,Ivy Bridge,77,Intel HD Graphics P4000,,0
+AMD FX-4130,,4,3.8,,Bulldozer,125,,thumbnails/cpu_amd_fx_4130.jpg,0
+AMD FX-9370,,8,4.4,4.7,Piledriver,220,,,0
+AMD 5150,,4,1.6,,Jaguar,25,Radeon HD 8400,,0
+Intel Celeron G470,,1,2,,Sandy Bridge,35,Intel HD Graphics,thumbnails/cpu_intel_celeron_g470.jpg,0
+AMD E2-3200,,2,2.4,,Lynx,65,Radeon HD 6370D,,0
+Intel Xeon E5-2630L V2,,6,2.4,,Ivy Bridge,60,,thumbnails/cpu_intel_xeon_e5_2630l_v2.jpg,0
+Intel Xeon E5-2687W V3,,10,3.1,3.5,Haswell,160,,,0
+Intel Xeon E5-2680 V3,,12,2.5,3.3,Haswell,120,,thumbnails/cpu_intel_xeon_e5_2680_v3.png,0
+Intel Xeon E5-2609,,4,2.4,,Sandy Bridge,80,,,0
+Intel Pentium G4500,,2,3.5,,Skylake,51,Intel HD Graphics 530,thumbnails/cpu_intel_pentium_g4500.jpg,0
+Intel Xeon E3-1275 V5,,4,3.6,4,Skylake,80,Intel HD Graphics P530,,0
+AMD Opteron 6320,242.39,8,2.8,3.3,Piledriver,115,,,0
+Intel Celeron G4900T,,2,1.8,,Coffee Lake,35,Intel UHD Graphics 610,,0
+Intel Pentium Gold G5400,115.69,2,3.7,,Coffee Lake,58,Intel UHD Graphics 610,,0
+Intel Pentium Gold G5600,229.69,2,3.9,,Coffee Lake,54,Intel UHD Graphics 630,,0
+Intel Xeon E-2244G,,4,3.8,4.8,Coffee Lake Refresh,71,Intel HD Graphics P630,,0
+Intel Xeon E-2276G,,6,3.8,4.9,Coffee Lake Refresh,80,Intel HD Graphics P630,,0
+Intel Xeon E-2124G,270.99,4,3.4,4.5,Coffee Lake,71,Intel HD Graphics P630,,0
+Intel Xeon E5-2623 V3,234.94,4,3,3.5,Haswell,105,,,0
+Intel Celeron E3400,18.98,2,2.6,,Wolfdale,65,,thumbnails/cpu_intel_celeron_e3400.jpg,0
+Intel Core i3-560,89.95,2,3.333,,Westmere,73,Intel HD Graphics,,0
+Intel Xeon E5-2640 V3,189.95,8,2.6,3.4,Haswell,90,,thumbnails/cpu_intel_xeon_e5_2640_v3.jpg,0
+AMD Athlon II X2 220,,2,2.8,,K10,65,,,0
+AMD Athlon II X3 445,,3,3.1,,K10,95,,,0
+AMD Phenom II X2 550 Black,,2,3.1,,K10,80,,,0
+Intel Pentium E6500,89.99,2,2.93,,Wolfdale,65,,,0
+Intel Core 2 Duo E6750,89.95,2,2.66,,Core,65,,,0
+Intel Core 2 Duo E7600,98.95,2,3.06,,Wolfdale,65,,,0
+Intel Core 2 Extreme QX6850,,4,3,,Core,130,,,0
+AMD Athlon II X4 645,,4,3.1,,K10,95,,,0
+Intel Pentium E6700,,2,3.2,,Wolfdale,65,,,0
+AMD A6-3650,,4,2.6,,Lynx,100,Radeon HD 6530D,,0
+AMD Phenom II X6 1035T,,6,2.6,,K10,95,,,0
+Intel Celeron G540,69.98,2,2.5,,Sandy Bridge,65,Intel HD Graphics,,0
+AMD A6-3500,,3,2.1,,Lynx,65,Radeon HD 6530D,,0
+AMD Phenom II X4 970,,4,3.5,,K10,125,,,0
+Intel Xeon E3-1245,,4,3.3,,Sandy Bridge,95,Intel HD Graphics,,0
+Intel Xeon E3-1270,,4,3.4,,Sandy Bridge,80,,,0
+Intel Xeon E3-1265L V2,,4,2.5,,Ivy Bridge,45,Intel HD Graphics 2500,,0
+AMD Athlon X4 740,,4,3.2,,Piledriver,65,,,0
+AMD FX-9590,292.58,8,4.7,5,Piledriver,220,,,0
+Intel Xeon E5-2670,,8,2.6,3.3,Sandy Bridge,115,,,0
+Intel Pentium G3258,124.99,2,3.2,,Haswell Refresh,53,Intel HD Graphics,thumbnails/cpu_intel_pentium_g3258.jpg,0
+AMD Sempron 145,,1,2.8,,K10,45,,,0
+Intel Xeon E3-1226 V3,,4,3.3,3.7,Haswell Refresh,84,Intel HD Graphics P4600,,0
+Intel Xeon E5-2630,47.66,6,2.3,,Sandy Bridge,95,,,0
+Intel Xeon E5-2643 V2,398.95,6,3.5,3.8,Ivy Bridge,130,,,0
+Intel Xeon E5-1620 V3,111,4,3.5,3.6,Haswell,140,,,0
+AMD Pro A10-7800B,,4,3.5,3.9,Steamroller,65,Radeon R7 (on-die),,0
+Intel Xeon E5-2622 V3,,8,2.4,,Haswell,85,,,0
+Intel Xeon E5-2685 V3,,12,2.6,3.3,Haswell,120,,,0
+AMD Opteron 6344,,12,2.6,3.2,Piledriver,115,,,0
+AMD Opteron 6378,,16,2.4,3.3,Piledriver,115,,,0
+AMD Athlon X4 845,,4,3.5,3.8,Puma+,65,,,0
+AMD Athlon 5370,,4,2.2,,Jaguar,25,Radeon R3 (on die),,0
+AMD Athlon X4 870K,,4,3.9,4.1,Steamroller,95,,,0
+AMD Athlon X4 860K,,4,3.7,4,Steamroller,95,,thumbnails/cpu_amd_athlon_x4_860k.jpg,0
+Intel Xeon E3-1275 V6,504.44,4,3.8,4.2,Kaby Lake,73,Intel HD Graphics P630,,0
+AMD Athlon 240GE,,2,3.5,,Zen,35,Radeon Vega 3,,0
+Intel Xeon E-2104G,,4,3.2,,Coffee Lake,65,Intel HD Graphics P630,,0
+Intel Celeron G5905T,,2,3.3,,Comet Lake,35,Intel UHD Graphics 610,,0
+AMD Phenom II X2 B59,,2,3.4,,K10,80,,,0
+Intel Xeon E5-2620,77,6,2,,Sandy Bridge,95,,,0
+AMD Athlon II X2 215,,2,2.7,,K10,65,,,0
+AMD Athlon II X2 260,,2,3.2,,K10,65,,,0
+AMD Phenom II X2 550,,2,3.1,,K10,80,,,0
+AMD Phenom II X4 945,,4,3,,K10,125,,,0
+AMD Athlon II X2 235e,,2,2.7,,K10,45,,,0
+AMD Athlon II X2 240e,,2,2.8,,K10,45,,,0
+AMD Phenom II X3 705e,,3,2.5,,K10,65,,,0
+Intel Celeron E1200,,2,1.6,,Core,65,,,0
+Intel Celeron E1400,,2,2,,Core,65,,,0
+Intel Pentium E2160,,2,1.8,,Core,65,,,0
+Intel Pentium E2180,,2,2,,Core,65,,,0
+Intel Pentium E2180,,2,2,,Core,65,,,0
+Intel Pentium E2200,,2,2.2,,Core,65,,,0
+Intel Celeron E3300,61.79,2,2.5,,Wolfdale,65,,,0
+Intel Pentium E6300,,2,2.8,,Wolfdale,65,,,0
+Intel Core 2 Duo E6400,89.95,2,2.13,,Core,65,,,0
+Intel Core 2 Duo E6420,69.95,2,2.13,,Core,65,,,0
+Intel Core 2 Duo E6550,,2,2.33,,Core,65,,thumbnails/cpu_intel_core_2_duo_e6550.jpg,0
+Intel Core i5-655K,,2,3.2,,Westmere,73,Intel HD Graphics,,0
+Intel Core i5-660,149.94,2,3.33,,Westmere,73,Intel HD Graphics,,0
+Intel Core i5-670,109.08,2,3.46,,Westmere,73,Intel HD Graphics,,0
+Intel Core 2 Extreme QX6700,,4,2.66,,Core,100,,,0
+Intel Core 2 Extreme QX6800,,4,2.93,,Core,100,,,0
+Intel Core 2 Extreme X6800,,2,2.93,,Core,75,,,0
+AMD Athlon II X3 450,,3,3.2,,K10,95,,,0
+AMD Athlon II X3 455,,3,3.3,,K10,95,,,0
+AMD Sempron 145,,1,2.8,,K10,45,,,0
+Intel Pentium E6800,,2,3.333,,Wolfdale,65,,,0
+AMD Phenom II X3 720 Black,,3,2.8,,K10,95,,,0
+Intel Pentium G840,,2,2.8,,Sandy Bridge,65,Intel HD Graphics,,0
+AMD Phenom II X4 960T Black,,4,3,,K10,95,,,0
+AMD A4-3400,,2,2.7,,Lynx,65,Radeon HD 6410D,,0
+AMD A10-5700,72.51,4,3.4,,Piledriver,65,Radeon HD 7660D,,0
+Intel Xeon E3-1240,,4,3.3,,Sandy Bridge,80,,,0
+Intel Celeron G1620,,2,2.7,,Ivy Bridge,55,Intel HD Graphics,,0
+AMD FX-9370,216.59,8,4.4,4.7,Piledriver,220,,,0
+Intel Xeon E5-1660,,6,3.3,3.9,Sandy Bridge,130,,,0
+Intel Xeon E5-2665,149.94,8,2.4,3.1,Sandy Bridge,115,,,0
+Intel Xeon E5-2620 V2,,6,2.1,2.6,Ivy Bridge,80,,,0
+AMD FX-4130,,4,3.8,,Bulldozer,125,,thumbnails/cpu_amd_fx_4130.jpg,0
+AMD 5350,,4,2.05,,Jaguar,25,Radeon HD 8400,,0
+Intel Pentium G3450,,2,3.4,,Haswell Refresh,53,Intel HD Graphics,,0
+AMD A6-7400K,89.98,2,3.5,3.9,Steamroller,65,Radeon R5 (on die),thumbnails/cpu_amd_a6_7400k.jpg,0
+AMD Athlon II X4 651,,4,3,,Lynx,100,,,0
+Intel Xeon E3-1230 V3,309,4,3.3,3.7,Haswell,80,,,0
+Intel Xeon E5-2690,,8,2.9,3.8,Sandy Bridge,135,,,0
+Intel Xeon E5-2637 V2,,4,3.5,3.8,Ivy Bridge,130,,,0
+AMD Pro A10-7850B,148.02,4,3.7,4,Steamroller,95,Radeon R7 (on-die),,0
+AMD Athlon X4 840,,4,3.1,3.8,Steamroller,65,,,0
+Intel Pentium G3250T,,2,2.8,,Haswell Refresh,35,Intel HD Graphics,,0
+Intel Xeon E5-2620 V3,149.94,6,2.4,3.2,Haswell,85,,,0
+Intel Xeon E5-2650L V3,,12,1.8,2.5,Haswell,65,,,0
+Intel Xeon E3-1270 V3,410,4,3.5,3.9,Haswell,80,,,0
+Intel Pentium G4520,,2,3.6,,Skylake,51,Intel HD Graphics 530,,0
+Intel Pentium G4400T,,2,2.9,,Skylake,35,Intel HD Graphics 510,,0
+AMD Opteron 6328,,8,3.2,3.8,Piledriver,115,,,0
+AMD Athlon X4 880K,,4,4,4.2,Steamroller,95,,,0
+Intel Pentium G4620,224.12,2,3.7,,Kaby Lake,51,Intel HD Graphics 630,,0
+Intel Xeon E5-2450V2,,8,2.5,3.3,Ivy Bridge,95,,,0
+Intel Xeon E5-2470V2,,10,2.4,3.2,Ivy Bridge,95,,,0
+Intel Xeon E3-1240 V6,429.95,4,3.7,4.1,Kaby Lake,72,,,0
+Intel Xeon E3-1220 V6,249.95,4,3,3.5,Kaby Lake,72,,thumbnails/cpu_intel_xeon_e3_1220_v6.jpg,0
+Intel Xeon E3-1225 V6,355.29,4,3.3,3.7,Kaby Lake,73,Intel HD Graphics P630,,0
+Intel Xeon E3-1225 V6,369.51,4,3.3,3.7,Kaby Lake,73,Intel HD Graphics P630,,0
+Intel Xeon E5-2665,149.94,8,2.4,3.1,Sandy Bridge,115,,,0
+AMD A6-7480,,2,3.5,3.8,Puma+,65,Radeon R5 (on die),,0
+Intel Xeon E-2144G,,4,3.6,4.5,Coffee Lake,71,Intel HD Graphics P630,,0
+Intel Xeon E-2126G,,6,3.3,4.5,Coffee Lake,80,Intel HD Graphics P630,,0
+Intel Xeon E-2174G,649.95,4,3.8,4.7,Coffee Lake,71,Intel HD Graphics P630,thumbnails/cpu_intel_xeon_e_2174g.jpg,0
+Intel Xeon E-2236,452.02,6,3.4,4.8,Coffee Lake Refresh,80,,,0
+Intel Xeon E-2124,,4,3.3,4.3,Coffee Lake,71,,,0
+Intel Xeon E-2124,,4,3.3,4.3,Coffee Lake,71,,,0
+Intel Pentium Gold G6500,,2,4.1,,Comet Lake,58,Intel UHD Graphics 630,,0
+Intel Xeon E-2176G,583.29,6,3.7,4.7,Coffee Lake,80,Intel HD Graphics P630,,0
+Intel Xeon E5-2620,139.94,6,2,,Sandy Bridge,95,,,0
+AMD Athlon II X2 245,,2,2.9,,K10,65,,,0
+AMD Athlon II X2 250,,2,3,,K10,65,,,0
+AMD Athlon II X4 620,53.55,4,2.6,,K10,95,,,0
+AMD Phenom II X3 720,,3,2.8,,K10,95,,,0
+AMD Phenom II X4 945,,4,3,,K10,125,,,0
+AMD Phenom II X6 1055T,199.99,6,2.8,,K10,125,,thumbnails/cpu_amd_phenom_ii_x6_1055t.jpg,0
+AMD Athlon II X4 605e,,4,2.3,,K10,45,,,0
+AMD Phenom II X4 910e,,4,2.6,,K10,65,,,0
+AMD Phenom II X4 955 Black,,4,3.2,,K10,125,,,0
+Intel Pentium E2140,99,2,1.6,,Core,65,,,0
+Intel Core 2 Duo E4500,,2,2.2,,Core,65,,,0
+Intel Pentium E5300,79.4,2,2.6,,Wolfdale,65,,,0
+Intel Core 2 Duo E6750,89.95,2,2.66,,Core,65,,,0
+Intel Core 2 Duo E6850,89.95,2,3,,Core,65,,,0
+Intel Core 2 Duo E7600,98.95,2,3.06,,Wolfdale,65,,,0
+Intel Core 2 Duo E8300,99.95,2,2.83,,Wolfdale,65,,,0
+Intel Core i5-661,80,2,3.33,,Westmere,87,Intel HD Graphics,,0
+Intel Core i7-860,189.95,4,2.8,,Nehalem,95,,,0
+Intel Core 2 Quad Q8200,,4,2.33,,Yorkfield,95,,,0
+Intel Core 2 Quad Q9400S,,4,2.66,,Yorkfield,65,,,0
+Intel Core 2 Quad Q9650,,4,3,,Yorkfield,95,,,0
+Intel Core 2 Extreme QX9775,,4,3.2,,Yorkfield,150,,,0
+AMD Phenom II X2 565 Black,,2,3.4,,K10,80,,,0
+AMD Phenom II X4 840,,4,3.2,,K10,95,,,0
+AMD Sempron 130,,1,2.6,,K10,45,,,0
+Intel Pentium G620T,,2,2.2,,Sandy Bridge,35,Intel HD Graphics,,0
+Intel Pentium G860,,2,3,,Sandy Bridge,65,Intel HD Graphics,,0
+AMD FX-8120,,8,3.1,,Bulldozer,125,,,0
+AMD Athlon II X4 645,398.95,4,3.1,,K10,95,,https://cdna.pcpartpicker.com/static/forever/images/product/26dbc0263d53e907355129f9e3131021.256p.jpg,0
+AMD Phenom II X6 1100T Black,776.96,6,3.3,,K10,125,,thumbnails/cpu_amd_phenom_ii_x6_1100t_black.jpg,0
+AMD Athlon II X4 641,196.99,4,2.8,,Lynx,100,,https://cdna.pcpartpicker.com/static/forever/images/product/c9f56052bf41c1d121d4c980e91ca6ec.256p.jpg,0
+Intel Xeon E3-1220,140.99,4,3.1,,Sandy Bridge,80,,https://cdna.pcpartpicker.com/static/forever/images/product/7160b7c08f720d19f9ae682c2f6f7563.256p.jpg,0
+Intel Xeon E3-1230,918.89,4,3.2,,Sandy Bridge,80,,https://cdna.pcpartpicker.com/static/forever/images/product/1f1301dedbebe86fd8f58493d87f51e2.256p.jpg,0
+Intel Xeon E3-1235,,4,3.2,,Sandy Bridge,95,Intel HD Graphics,,0
+Intel Xeon E3-1270,463.99,4,3.4,,Sandy Bridge,80,,,0
+Intel Xeon E3-1280,137.99,4,3.5,,Sandy Bridge,95,,,0
+Intel Xeon E5-2603,98.95,4,1.8,,Sandy Bridge,80,,,0
+Intel Xeon E5-2609,89.95,4,2.4,,Sandy Bridge,80,,,0
+AMD A6-6420K,383.99,2,4,4.2,Piledriver,65,Radeon HD 8000 Series,,0
+AMD A4-4020,,2,3.2,3.4,Piledriver,65,Radeon HD 7480D,,0
+AMD A10-6800B,,4,4.1,4.4,Piledriver,100,Radeon HD 8670D,,0
+AMD A4-3300,,2,2.5,,Lynx,65,Radeon HD 6410D,,0
+AMD A4-4000,,2,3,,Piledriver,65,Radeon HD 7480D,,0
+AMD FX-4200,,4,3.3,,Bulldozer,125,,,0
+Intel Xeon E5-1660 V2,,6,3.7,4,Ivy Bridge,130,,thumbnails/cpu_intel_xeon_e5_1660_v2.jpg,0
+AMD FX-8370,257.01,8,4,4.3,Piledriver,125,,,0
+AMD Pro A4-7300B,,2,3.8,4,Piledriver,65,Radeon HD 8470D,,0
+AMD Athlon X2 450,,2,3.5,3.9,Steamroller,65,,,0
+AMD Phenom II X4 B99,,4,3.3,,K10,95,,,0
+Intel Xeon E5-2609 V3,,6,1.9,,Haswell,85,,,0
+Intel Xeon E5-2603 V3,135,6,1.6,,Haswell,85,,,0
+Intel Xeon E5-2630 V3,169.95,8,2.4,3.2,Haswell,85,,thumbnails/cpu_intel_xeon_e5_2630_v3.jpg,0
+Intel Xeon E5-2650 V3,,10,2.3,3,Haswell,105,,thumbnails/cpu_intel_xeon_e5_2650_v3.jpg,0
+Intel Xeon E3-1230 V2,189.95,4,3.3,,Ivy Bridge,69,,thumbnails/cpu_intel_xeon_e3_1230_v2.jpg,0
+Intel Xeon E3-1275 V2,374,4,3.5,,Ivy Bridge,77,Intel HD Graphics P4000,thumbnails/cpu_intel_xeon_e3_1275_v2.png,0
+Intel Xeon E3-1245 V3,,4,3.4,3.8,Haswell,84,Intel HD Graphics P4600,thumbnails/cpu_intel_xeon_e3_1245_v3.jpg,0
+Intel Xeon E5-2630 V2,488.88,6,2.6,3.1,Ivy Bridge,80,,,0
+AMD A10-7870K,,4,3.9,4.1,Steamroller,95,Radeon R7 (on-die),,0
+Intel Pentium G4500,,2,3.5,,Skylake,51,Intel HD Graphics 530,thumbnails/cpu_intel_pentium_g4500.jpg,0
+Intel Pentium G4500T,,2,3,,Skylake,35,Intel HD Graphics 530,,0
+Intel Xeon E3-1240 V5,,4,3.5,3.9,Skylake,80,,,0
+Intel Xeon E5-2658 V3,,12,2.2,2.9,Haswell,105,,,0
+Intel Xeon E5-2683 V3,,14,2,3,Haswell,120,,,0
+Intel Pentium G4620,224.12,2,3.7,,Kaby Lake,51,Intel HD Graphics 630,,0
+Intel Pentium G4600,169.95,2,3.6,,Kaby Lake,51,Intel HD Graphics 630,thumbnails/cpu_intel_pentium_g4600.jpg,0
+Intel Pentium G4600T,,2,3,,Kaby Lake,35,Intel HD Graphics 630,,0
+AMD A8-7650K,,4,3.3,3.7,Steamroller,95,Radeon R7 (on-die),,0
+AMD A8-7670K,,4,3.6,3.9,Steamroller,95,Radeon R7 (on-die),,0
+Intel Xeon E5-2420V2,,6,2.2,2.7,Ivy Bridge,80,,,0
+AMD A6-9550,,2,3.8,4,Excavator,65,Radeon R5 (on die),,0
+AMD A6-9550,,2,3.8,4,Excavator,65,Radeon R5 (on die),,0
+Intel Core i7-870S,,4,2.667,,Nehalem,82,,,0
+Intel Pentium Gold G5500,,2,3.8,,Coffee Lake,54,Intel UHD Graphics 630,,0
+Intel Pentium Gold G5500T,,2,3.2,,Coffee Lake,35,Intel UHD Graphics 630,,0
+AMD Athlon 220GE,,2,3.4,,Zen,35,Radeon Vega 3,,0
+AMD Athlon 240GE,,2,3.5,,Zen,35,Radeon Vega 3,,0
+Intel Xeon E5-2660,,8,2.2,3,Sandy Bridge,95,,,0
+Intel Xeon E-2146G,,6,3.5,4.5,Coffee Lake,80,Intel HD Graphics P630,,0
+Intel Xeon E-2136,732,6,3.3,4.5,Coffee Lake,80,,,0
+Intel Xeon E-2134,,4,3.5,4.5,Coffee Lake,71,,,0
+Intel Pentium G3240,,2,3.1,,Haswell Refresh,53,Intel HD Graphics,thumbnails/cpu_intel_pentium_g3240.jpg,0
+Intel Celeron G5925,59.99,2,3.6,,Comet Lake,58,Intel UHD Graphics 610,thumbnails/cpu_intel_celeron_g5925.jpg,0
+Intel Celeron G3950,64.97,2,3,,Kaby Lake,51,Intel HD Graphics 610,,0
+AMD Athlon II X2 255,,2,3.1,,K10,65,,,0
+Intel Celeron 420,69.95,1,1.6,,Core,35,,,0
+Intel Celeron 430,59.95,1,1.8,,Core,35,,,0
+AMD Athlon II X3 435,,3,2.9,,K10,95,,,0
+AMD Phenom II X2 545,,2,3,,K10,80,,,0
+AMD Athlon II X4 635,,4,2.9,,K10,95,,,0
+AMD Phenom II X4 925,,4,2.8,,K10,95,,,0
+AMD Athlon II X3 400e,,3,2.2,,K10,45,,,0
+AMD Athlon II X3 405e,,3,2.3,,K10,45,,,0
+AMD Athlon II X3 415e,,3,2.5,,K10,45,,,0
+AMD Athlon II X4 600e,,4,2.2,,K10,45,,,0
+AMD Phenom II X3 740 Black,,3,3,,K10,95,,,0
+AMD Phenom II X4 940 Black,,4,3,,K10,125,,,0
+AMD Phenom II X4 965 Black (140W),,4,3.4,,K10,140,,,0
+Intel Celeron E1500,,2,2.2,,Core,65,,,0
+Intel Celeron E1600,,2,2.4,,Core,65,,,0
+Intel Celeron E3200,,2,2.4,,Wolfdale,65,,,0
+Intel Celeron E3300,61.79,2,2.5,,Wolfdale,65,,,0
+Intel Core 2 Duo E4400,,2,2,,Core,65,,,0
+Intel Core 2 Duo E4500,,2,2.2,,Core,65,,,0
+Intel Core 2 Duo E4600,98.95,2,2.4,,Core,65,,,0
+Intel Pentium E5300,79.4,2,2.6,,Wolfdale,65,,,0
+Intel Pentium E5400,,2,2.7,,Wolfdale,65,,,0
+Intel Core 2 Duo E6550,95.91,2,2.33,,Core,65,,thumbnails/cpu_intel_core_2_duo_e6550.jpg,0
+Intel Core 2 Duo E7300,,2,2.66,,Wolfdale,65,,,0
+Intel Core 2 Duo E7300,,2,2.66,,Wolfdale,65,,,0
+Intel Core 2 Duo E7400,,2,2.8,,Wolfdale,65,,thumbnails/cpu_intel_core_2_duo_e7400.jpg,0
+Intel Core 2 Duo E7500,,2,2.93,,Wolfdale,65,,,0
+Intel Core 2 Duo E8200,,2,2.66,,Wolfdale,65,,,0
+Intel Core 2 Duo E8500,,2,3.16,,Wolfdale,65,,,0
+Intel Core 2 Duo E8500,,2,3.16,,Wolfdale,65,,,0
+Intel Core i5-750S,,4,2.4,,Nehalem,82,,,0
+Intel Core i7-860S,,4,2.53,,Nehalem,82,,,0
+Intel Core 2 Quad Q8200S,,4,2.33,,Yorkfield,65,,,0
+Intel Core 2 Quad Q8300,,4,2.5,,Yorkfield,95,,,0
+Intel Core 2 Quad Q8400,84.95,4,2.66,,Yorkfield,95,,,0
+Intel Core 2 Quad Q9400,,4,2.66,,Yorkfield,95,,,0
+Intel Core 2 Quad Q9450,,4,2.66,,Yorkfield,95,,,0
+Intel Core 2 Quad Q9505,,4,2.83,,Yorkfield,95,,,0
+Intel Core 2 Quad Q9550,52.55,4,2.83,,Yorkfield,95,,,0
+Intel Core 2 Extreme X6800,,2,2.93,,Core,75,,,0
+AMD Phenom II X2 560 Black,,2,3.3,,K10,80,,,0
+AMD Phenom II X4 975,168.02,4,3.6,,K10,125,,,0
+AMD Phenom II X4 955,,4,3.2,,K10,125,,,0
+AMD Phenom II X4 960T Black,,4,3,,K10,95,,,0
+AMD Athlon II X2 245,,2,2.9,,K10,65,,,0
+AMD Athlon II X2 245,,2,2.9,,K10,65,,,0
+AMD Athlon II X3 460,,3,3.4,,K10,95,,,0
+AMD Sempron 130,,1,2.6,,K10,45,,,0
+AMD Athlon II X3 440,,3,3,,K10,95,,,0
+AMD FX-8150,,8,3.6,,Bulldozer,125,,,0
+AMD FX-6100,72.8,6,3.3,,Bulldozer,95,,thumbnails/cpu_amd_fx_6100.jpg,0
+Intel Pentium G630T,,2,2.3,,Sandy Bridge,35,Intel HD Graphics,,0
+AMD A6-3650,,4,2.6,,Lynx,100,Radeon HD 6530D,,0
+AMD Athlon II X2 260,,2,3.2,,K10,65,,,0
+Intel Pentium G550,,2,2.6,,Sandy Bridge,65,Intel HD Graphics,,0
+Intel Celeron G555,,2,2.7,,Sandy Bridge,65,Intel HD Graphics,,0
+AMD Athlon II X4 651K,,4,3,,Lynx,100,,,0
+Intel Xeon E3-1280,,4,3.5,,Sandy Bridge,95,,,0
+Intel Pentium G2130,,2,3.2,,Ivy Bridge,55,Intel HD Graphics,,0
+Intel Pentium G3430,,2,3.3,,Haswell,54,Intel HD Graphics,,0
+AMD A10-6790K,,4,4,4.3,Piledriver,100,Radeon HD 8670D,,0
+Intel Celeron G1630,,2,2.8,,Ivy Bridge,55,Intel HD Graphics,,0
+Intel Pentium G2140,,2,3.3,,Ivy Bridge,55,Intel HD Graphics,,0
+Intel Xeon E5-2660,,8,2.2,3,Sandy Bridge,95,,,0
+Intel Xeon E5-2609 V2,,4,2.5,,Ivy Bridge,80,,,0
+AMD 5150,,4,1.6,,Jaguar,25,Radeon HD 8400,,0
+Intel Celeron G1850,,2,2.9,,Haswell Refresh,53,Intel HD Graphics,,0
+AMD Sempron X2 190,,2,2.5,,K10,45,,,0
+AMD A10-7800,,4,3.5,3.9,Steamroller,65,Radeon R7 (on-die),,0
+AMD A10-6790K,,4,4,4.3,Piledriver,100,Radeon HD 8670D,,0
+AMD A10-6800K,,4,4.1,,Piledriver,100,Radeon HD 8670D,,0
+AMD A10-7700K,128.02,4,3.4,3.8,Steamroller,95,Radeon R7 (on-die),thumbnails/cpu_amd_a10_7700k.jpg,0
+AMD A4-6300,46.79,2,3.7,3.9,Piledriver,65,Radeon HD 8370D,,0
+Intel Celeron G470,,1,2,,Sandy Bridge,35,Intel HD Graphics,thumbnails/cpu_intel_celeron_g470.jpg,0
+AMD FX-4320,,4,4,4.2,Piledriver,95,,,0
+AMD FX-6350,,6,3.9,,Piledriver,125,,,0
+AMD FX-8120,,8,3.1,,Bulldozer,125,,,0
+AMD E2-3200,,2,2.4,,Lynx,65,Radeon HD 6370D,,0
+AMD Athlon X2 370K,,2,4.2,,Piledriver,65,,,0
+AMD A8-7600,78.89,4,3.1,3.8,Steamroller,65,Radeon R7 (on-die),,0
+AMD Athlon X4 860K,,4,3.7,4,Steamroller,95,,thumbnails/cpu_amd_athlon_x4_860k.jpg,0
+AMD FX-8320E,,8,3.2,4,Piledriver,95,,thumbnails/cpu_amd_fx_8320e.jpg,0
+AMD Athlon X4 530,,4,2,,Jaguar,25,,,0
+AMD Athlon X4 550,,4,2.2,,Jaguar,25,,,0
+AMD Pro A8-7600B,,4,3.1,3.8,Steamroller,65,Radeon R7 (on-die),,0
+AMD Pro A6-7400B,,2,3.5,3.9,Steamroller,65,Radeon R5 (on die),,0
+AMD Athlon X2 350,,2,3.5,3.9,Piledriver,65,,,0
+AMD Sempron X2 250,,2,3.2,3.6,Piledriver,65,,,0
+Intel Pentium G3250,,2,3.2,,Haswell Refresh,53,Intel HD Graphics,thumbnails/cpu_intel_pentium_g3250.png,0
+Intel Pentium G3250,,2,3.2,,Haswell Refresh,53,Intel HD Graphics,thumbnails/cpu_intel_pentium_g3250.png,0
+Intel Pentium G3460,125,2,3.5,,Haswell Refresh,53,Intel HD Graphics,,0
+Intel Pentium G3450,,2,3.4,,Haswell Refresh,53,Intel HD Graphics,,0
+Intel Pentium G3460,125,2,3.5,,Haswell Refresh,53,Intel HD Graphics,,0
+AMD Phenom II X6 1065T,,6,2.7,,K10,95,,,0
+Intel Xeon E5-2603 V2,,4,1.8,,Ivy Bridge,80,,,0
+Intel Pentium G3470,153.1,2,3.6,,Haswell Refresh,53,Intel HD Graphics,,0
+AMD A8-7670K,,4,3.6,3.9,Steamroller,95,Radeon R7 (on-die),,0
+AMD A8-7670K,,4,3.6,3.9,Steamroller,95,Radeon R7 (on-die),,0
+Intel Pentium G4520,,2,3.6,,Skylake,51,Intel HD Graphics 530,,0
+Intel Xeon E3-1230 V5,,4,3.4,3.8,Skylake,80,,,0
+Intel Xeon E3-1220 V5,349.95,4,3,3.5,Skylake,80,,thumbnails/cpu_intel_xeon_e3_1220_v5.jpg,0
+Intel Xeon E3-1225 V5,,4,3.3,3.7,Skylake,80,Intel HD Graphics P530,thumbnails/cpu_intel_xeon_e3_1225_v5.jpg,0
+Intel Xeon E3-1280 V5,,4,3.7,4,Skylake,80,,,0
+Intel Xeon E3-1275 V5,,4,3.6,4,Skylake,80,Intel HD Graphics P530,,0
+AMD Opteron 6344,,12,2.6,3.2,Piledriver,115,,,0
+Intel Pentium G3260,,2,3.3,,Haswell Refresh,53,Intel HD Graphics,,0
+AMD Athlon X4 845,,4,3.5,3.8,Puma+,65,,,0
+AMD A6-7470K,,2,3.7,4,Steamroller,65,Radeon R5 (on die),,0
+AMD A6-7470K,,2,3.7,4,Steamroller,65,Radeon R5 (on die),,0
+AMD A10-7890K,,4,4.1,4.3,Steamroller,95,Radeon R7 (on-die),,0
+AMD Athlon 5370,,4,2.2,,Jaguar,25,Radeon R3 (on die),,0
+Intel Xeon E5-1620 V4,232.12,4,3.5,3.8,Broadwell,140,,,0
+Intel Celeron G3950,64.97,2,3,,Kaby Lake,51,Intel HD Graphics 610,,0
+Intel Pentium G4560T,,2,2.9,,Kaby Lake,35,Intel HD Graphics 610,,0
+Intel Xeon E5-2430V2,,6,2.5,3,Ivy Bridge,80,,,0
+Intel Xeon E5-2440V2,,8,1.9,2.4,Ivy Bridge,95,,,0
+Intel Xeon E3-1270 V6,719.95,4,3.8,4.2,Kaby Lake,72,,,0
+AMD Athlon X4 970,,4,3.8,4,Excavator,65,,thumbnails/cpu_amd_athlon_x4_970.jpg,0
+AMD Athlon X4 940,,4,3.2,3.6,Excavator,65,,,0
+Intel Core i7-870S,,4,2.667,,Nehalem,82,,,0
+Intel Celeron G4920,73,2,3.2,,Coffee Lake,65,Intel UHD Graphics 610,,0
+Intel Xeon E5-2660,,8,2.2,3,Sandy Bridge,95,,,0
+Intel Xeon E-2134,,4,3.5,4.5,Coffee Lake,71,,,0
+Intel Xeon E-2146G,,6,3.5,4.5,Coffee Lake,80,Intel HD Graphics P630,,0
+Intel Xeon E-2274G,1098.95,4,4,4.9,Coffee Lake Refresh,83,Intel HD Graphics P630,,0
+Intel Xeon E-2124G,270.99,4,3.4,4.5,Coffee Lake,71,Intel HD Graphics P630,,0
+Intel Pentium G3420,71.73,2,3.2,,Haswell,54,Intel HD Graphics,thumbnails/cpu_intel_pentium_g3420.jpg,0
+Intel Pentium Gold G6600,186.19,2,4.2,,Comet Lake,58,Intel UHD Graphics 630,,0
+AMD Athlon II X2 240,29.48,2,2.8,,K10,65,,,0
+AMD Athlon II X3 425,,3,2.7,,K10,95,,,0
+Intel Celeron 430,59.95,1,1.8,,Core,35,,,0
+AMD Athlon II X3 435,,3,2.9,,K10,95,,,0
+AMD Athlon II X3 440,,3,3,,K10,95,,,0
+AMD Athlon II X3 440,,3,3,,K10,95,,,0
+Intel Celeron 440,49.99,1,2,,Core,35,,,0
+Intel Celeron 450,,1,2.2,,Core,35,,,0
+AMD Athlon II X4 630,,4,2.8,,K10,95,,,0
+AMD Athlon II X4 635,58.02,4,2.9,,K10,95,,,0
+AMD Phenom II X3 710,,3,2.6,,K10,95,,,0
+AMD Phenom II X4 805,,4,2.5,,K10,95,,,0
+AMD Phenom II X4 810,,4,2.6,,K10,95,,,0
+AMD Phenom II X4 910,,4,2.6,,K10,95,,,0
+AMD Phenom II X4 920,,4,2.8,,K10,125,,,0
+AMD Athlon II X2 245e,,2,2.9,,K10,45,,,0
+AMD Athlon II X2 260u,,2,1.8,,K10,25,,,0
+AMD Athlon II X3 405e,,3,2.3,,K10,45,,,0
+AMD Athlon II X4 610e,,4,2.4,,K10,45,,,0
+AMD Phenom II X3 720 Black,,3,2.8,,K10,95,,,0
+Intel Celeron E1200,,2,1.6,,Core,65,,,0
+Intel Celeron E1400,,2,2,,Core,65,,,0
+Intel Celeron E1500,,2,2.2,,Core,65,,,0
+Intel Celeron E1600,,2,2.4,,Core,65,,,0
+Intel Pentium E2160,49,2,1.8,,Core,65,,,0
+Intel Pentium E2180,,2,2,,Core,65,,,0
+Intel Pentium E2200,,2,2.2,,Core,65,,,0
+Intel Celeron E3200,,2,2.4,,Wolfdale,65,,,0
+Intel Core 2 Duo E4400,,2,2,,Core,65,,,0
+Intel Pentium E5400,,2,2.7,,Wolfdale,65,,,0
+Intel Pentium E5500,,2,2.8,,Wolfdale,65,,,0
+Intel Pentium E6300,,2,2.8,,Wolfdale,65,,,0
+Intel Core 2 Duo E6400,74.9,2,2.13,,Core,65,,,0
+Intel Core 2 Duo E6420,69.95,2,2.13,,Core,65,,,0
+Intel Pentium E6500,89.99,2,2.93,,Wolfdale,65,,,0
+Intel Core 2 Duo E6540,,2,2.33,,Core,65,,,0
+Intel Pentium E6600,,2,3.06,,Wolfdale,65,,,0
+Intel Core 2 Duo E6700,,2,2.66,,Core,65,,,0
+Intel Core 2 Duo E6700,103.95,2,2.66,,Core,65,,,0
+Intel Core 2 Duo E6850,89.95,2,3,,Core,65,,,0
+Intel Core 2 Duo E7200,169.95,2,2.53,,Wolfdale,65,,,0
+Intel Core 2 Duo E7400,,2,2.8,,Wolfdale,65,,thumbnails/cpu_intel_core_2_duo_e7400.jpg,0
+Intel Core 2 Duo E7500,149,2,2.93,,Wolfdale,65,,,0
+Intel Core 2 Duo E8190,,2,2.66,,Wolfdale,65,,,0
+Intel Core 2 Duo E8200,,2,2.66,,Wolfdale,65,,,0
+Intel Core 2 Duo E8200,,2,2.66,,Wolfdale,65,,,0
+Intel Core 2 Duo E8400,27.55,2,3,,Wolfdale,65,,,0
+Intel Core 2 Duo E8500,,2,3.16,,Wolfdale,65,,,0
+Intel Core i5-750S,,4,2.4,,Nehalem,82,,,0
+Intel Core i7-860S,,4,2.53,,Nehalem,82,,,0
+Intel Core i7-940,149.94,4,2.93,,Nehalem,130,,thumbnails/cpu_intel_core_i7_940.jpg,0
+Intel Core i7-965 Extreme Edition,,4,3.2,,Nehalem,130,,,0
+Intel Core 2 Quad Q6700,,4,2.66,,Core,100,,,0
+Intel Core 2 Quad Q8200,,4,2.33,,Yorkfield,95,,,0
+Intel Core 2 Quad Q8200S,,4,2.33,,Yorkfield,65,,,0
+Intel Core 2 Quad Q8300,,4,2.5,,Yorkfield,95,,,0
+Intel Core 2 Quad Q8400S,,4,2.66,,Yorkfield,65,,,0
+Intel Core 2 Quad Q8400S,,4,2.66,,Yorkfield,65,,,0
+Intel Core 2 Quad Q9400S,,4,2.66,,Yorkfield,65,,,0
+Intel Core 2 Quad Q9450,,4,2.66,,Yorkfield,95,,,0
+Intel Core 2 Quad Q9505,,4,2.83,,Yorkfield,95,,,0
+Intel Core 2 Quad Q9505S,,4,2.83,,Yorkfield,65,,,0
+Intel Core 2 Quad Q9550S,259.64,4,2.83,,Yorkfield,65,,,0
+Intel Core 2 Extreme QX6800,,4,2.93,,Core,100,,,0
+Intel Core 2 Extreme QX6800,,4,2.93,,Core,100,,,0
+Intel Core 2 Extreme QX6800,,4,2.93,,Core,100,,,0
+Intel Core 2 Extreme QX6850,,4,3,,Core,130,,,0
+Intel Core 2 Extreme QX9650,,4,3,,Yorkfield,130,,,0
+Intel Core 2 Extreme QX9770,,4,3.2,,Yorkfield,136,,thumbnails/cpu_intel_core_2_extreme_qx9770.jpg,0
+Intel Core 2 Extreme QX9775,,4,3.2,,Yorkfield,150,,,0
+Intel Core 2 Extreme QX9775,1298,4,3.2,,Yorkfield,150,,,0
+AMD Athlon II X4 630,,4,2.8,,K10,95,,,0
+AMD Athlon II X2 255,,2,3.1,,K10,65,,,0
+AMD Athlon II X2 265,,2,3.2,,K10,65,,,0
+AMD Athlon II X4 610e,,4,2.4,,K10,45,,,0
+AMD Phenom II X3 715 Black,,3,2.8,,K10,95,,,0
+AMD Athlon II X3 425,,3,2.7,,K10,95,,,0
+AMD Phenom II X2 545,,2,3,,K10,80,,,0
+Intel Celeron E3500,,2,2.7,,Wolfdale,65,,,0
+AMD Phenom II X4 955,,4,3.2,,K10,125,,,0
+AMD Athlon II X4 630,52.6,4,2.8,,K10,95,,,0
+AMD Phenom II X4 925,,4,2.8,,K10,95,,,0
+AMD A4-3400,,2,2.7,,Lynx,65,Radeon HD 6410D,,0
+AMD A8-3850,,4,2.9,,Lynx,100,Radeon HD 6550D,,0
+AMD Phenom II X4 980 Black,,4,3.7,,K10,125,,,0
+AMD FX-4170,,4,4.2,,Bulldozer,125,,,0
+AMD Athlon II X2 250,,2,3,,K10,65,,,0
+Intel Celeron G465,,2,1.9,,Sandy Bridge,35,Intel HD Graphics,,0
+Intel Pentium G2010,,2,2.8,,Ivy Bridge,55,Intel HD Graphics,,0
+Intel Celeron G1830,,2,2.8,,Haswell,53,Intel HD Graphics,,0
+Intel Xeon E5-2640,,6,2.5,3,Sandy Bridge,95,,,0
+Intel Xeon E5-2603 V2,,4,1.8,,Ivy Bridge,80,,,0
+AMD A6-6420K,,2,4,4.2,Piledriver,65,Radeon HD 8000 Series,,0
+Intel Pentium G3440,,2,3.3,,Haswell Refresh,53,Intel HD Graphics,,0
+AMD Sempron X2 198,,2,2.5,,Lynx,65,,,0
+AMD Sempron X2 198,,2,2.5,,Lynx,65,,,0
+AMD A10-6700T,,4,2.5,3.5,Piledriver,45,Radeon HD 8650D,,0
+AMD A10-6790B,,4,4,,Piledriver,100,Radeon HD 8670D,,0
+AMD A10-7850K,139.84,4,3.7,4,Steamroller,95,Radeon R7 (on-die),,0
+AMD A4-6320,,2,3.8,4,Piledriver,65,Radeon HD 8370D,,0
+AMD A4-6320,,2,3.8,4,Piledriver,65,Radeon HD 8370D,,0
+AMD A4-3300,89.95,2,2.5,,Lynx,65,Radeon HD 6410D,,0
+AMD A4-3400,,2,2.7,,Lynx,65,Radeon HD 6410D,,0
+AMD A4-3400,,2,2.7,,Lynx,65,Radeon HD 6410D,,0
+AMD A4-5300,,2,3.4,,Piledriver,65,Radeon HD 7480D,thumbnails/cpu_amd_a4_5300.jpg,0
+AMD A4-4020,,2,3.2,3.4,Piledriver,65,Radeon HD 7480D,,0
+AMD A4-3450,,2,2.9,,Lynx,65,,,0
+AMD A4-3420,,2,2.8,,Lynx,65,Radeon HD 6410D,,0
+AMD FX-4150,,4,4,4.1,Bulldozer,125,,,0
+AMD FX-4170,,4,4.2,,Bulldozer,125,,,0
+AMD FX-6130,,6,3.6,3.9,Bulldozer,125,,,0
+AMD FX-6200,,6,3.8,,Bulldozer,125,,,0
+AMD FX-8140,,8,3.2,4.1,Bulldozer,95,,,0
+AMD Athlon II X2 221,,2,2.8,,Lynx,65,,,0
+AMD Athlon II X2 221,,2,2.8,,Lynx,65,,,0
+AMD Athlon II X4 651,,4,3,,Lynx,100,,,0
+AMD Athlon II X4 638,,4,2.7,,Lynx,65,,,0
+AMD Athlon II X4 638,,4,2.7,,Lynx,65,,,0
+Intel Xeon E5-2687W,,8,3.1,3.8,Sandy Bridge,150,,,0
+AMD FX-8370E,,8,3.3,4.3,Piledriver,95,,,0
+Intel Xeon E5-2609 V3,,6,1.9,,Haswell,85,,,0
+AMD Phenom II X6 1065T,,6,2.7,,K10,95,,,0
+AMD FX-8310,,8,3.4,4.3,Piledriver,95,,,0
+Intel Pentium G4400,50,2,3.3,,Skylake,54,Intel HD Graphics 510,thumbnails/cpu_intel_pentium_g4400.jpg,0
+Intel Xeon E3-1245 V5,,4,3.5,3.9,Skylake,80,Intel HD Graphics P530,,0
+AMD Opteron 6328,,8,3.2,3.8,Piledriver,115,,,0
+AMD A10-7860k,,4,3.6,4,Steamroller,65,Radeon R7 (on-die),,0
+AMD Athlon X4 880K,,4,4,4.2,Steamroller,95,,,0
+Intel Xeon E3-1240 V6,429.95,4,3.7,4.1,Kaby Lake,72,,,0
+Intel Xeon E3-1275 V6,495.4,4,3.8,4.2,Kaby Lake,73,Intel HD Graphics P630,,0
+AMD Athlon X4 940,,4,3.2,3.6,Excavator,65,,,0
+Intel Xeon E5-2660,,8,2.2,3,Sandy Bridge,95,,,0
+AMD Ryzen 7 9850X3D,398.95,,,,,,,https://cdna.pcpartpicker.com/static/forever/images/product/26dbc0263d53e907355129f9e3131021.256p.jpg,0
+AMD Ryzen 9 9950X3D2,776.96,,,,,,,https://cdna.pcpartpicker.com/static/forever/images/product/c2478db9b5080594a0df3021f1064a52.256p.jpg,0
+AMD Ryzen 5 7500X3D,196.99,,,,,,,https://cdna.pcpartpicker.com/static/forever/images/product/e6fba40ca11c108409ebc9302b371457.256p.jpg,0
+AMD Ryzen 5 7400F,140.99,,,,,,,https://cdna.pcpartpicker.com/static/forever/images/product/7160b7c08f720d19f9ae682c2f6f7563.256p.jpg,0
+AMD Ryzen 5 9500F,178.84,,,,,,,https://cdna.pcpartpicker.com/static/forever/images/product/1f1301dedbebe86fd8f58493d87f51e2.256p.jpg,0
+AMD Ryzen 7 9700F,,,,,,,,,0
+AMD Ryzen 9 PRO 9945,463.99,,,,,,,,0
+AMD Ryzen 5 7400,137.99,,,,,,,,0
+AMD Ryzen 5 PRO 7445,154,,,,,,,,0
+AMD Ryzen 5 PRO 9645,296.99,,,,,,,,0
+AMD Ryzen 7 PRO 9745,383.99,,,,,,,,0

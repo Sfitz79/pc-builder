@@ -1,0 +1,53 @@
+name,price,image,boost_clock,core_clock,core_count,integrated_graphics,microarchitecture,tdp
+AMD Ryzen 5 7600X,147.47,thumbnails/cpu_amd_ryzen_5_7600x.jpg,5.3,4.7,6,Radeon,Zen 4,105
+AMD Ryzen 7 9800X3D,357,thumbnails/cpu_amd_ryzen_7_9800x3d.jpg,5.2,4.7,8,Radeon,Zen 5,120
+AMD Ryzen 7 7800X3D,295,thumbnails/cpu_amd_ryzen_7_7800x3d.jpg,5,4.2,8,Radeon,Zen 4,120
+AMD Ryzen 5 9600X,150,thumbnails/cpu_amd_ryzen_5_9600x.jpg,5.4,3.9,6,Radeon,Zen 5,65
+AMD Ryzen 9 9950X3D,519,thumbnails/cpu_amd_ryzen_9_9950x3d.jpg,5.7,4.3,16,Radeon,Zen 5,170
+AMD Ryzen 7 7700X,196,thumbnails/cpu_amd_ryzen_7_7700x.jpg,5.4,4.5,8,Radeon,Zen 4,105
+AMD Ryzen 7 9850X3D,398.95,thumbnails/cpu_amd_ryzen_7_9850x3d.jpg,5.6,4.7,8,Radeon,Zen 5,120
+AMD Ryzen 7 9700X,249.98,thumbnails/cpu_amd_ryzen_7_9700x.jpg,5.5,3.8,8,Radeon,Zen 5,65
+AMD Ryzen 9 9950X3D2,776.96,thumbnails/cpu_amd_ryzen_9_9950x3d2.jpg,5.6,4.3,16,Radeon,Zen 5,200
+AMD Ryzen 5 7500F,117.72,thumbnails/cpu_amd_ryzen_5_7500f.jpg,5,3.7,6,None,Zen 4,65
+AMD Ryzen 9 9900X,304.01,thumbnails/cpu_amd_ryzen_9_9900x.jpg,5.6,4.4,12,Radeon,Zen 5,120
+AMD Ryzen 5 7500X3D,196.99,thumbnails/cpu_amd_ryzen_5_7500x3d.jpg,4.5,4,6,Radeon,Zen 4,65
+AMD Ryzen 5 7600,160.97,thumbnails/cpu_amd_ryzen_5_7600.jpg,5.1,3.8,6,Radeon,Zen 4,65
+AMD Ryzen 9 9950X,444.99,thumbnails/cpu_amd_ryzen_9_9950x.jpg,5.7,4.3,16,Radeon,Zen 5,170
+AMD Ryzen 9 7900X,269.99,thumbnails/cpu_amd_ryzen_9_7900x.jpg,5.6,4.7,12,Radeon,Zen 4,170
+AMD Ryzen 5 7600X3D,319.99,thumbnails/cpu_amd_ryzen_5_7600x3d.jpg,4.7,4.1,6,Radeon,Zen 4,65
+AMD Ryzen 5 8500G,119.99,thumbnails/cpu_amd_ryzen_5_8500g.jpg,5,4.1,6,Radeon 740M,Zen 4,65
+AMD Ryzen 9 9900X3D,438.9,thumbnails/cpu_amd_ryzen_9_9900x3d.jpg,5.5,4.4,12,Radeon,Zen 5,120
+AMD Ryzen 5 8400F,126.94,thumbnails/cpu_amd_ryzen_5_8400f.jpg,4.7,4.2,6,None,Zen 4,65
+AMD Ryzen 7 7700,239,thumbnails/cpu_amd_ryzen_7_7700.jpg,5.3,3.6,8,Radeon,Zen 4,65
+AMD Ryzen 7 8700G,247.75,thumbnails/cpu_amd_ryzen_7_8700g.jpg,5.1,4.2,8,Radeon 780M,Zen 4,65
+AMD Ryzen 7 8700F,217.47,thumbnails/cpu_amd_ryzen_7_8700f.jpg,5,4.1,8,None,Zen 4,65
+AMD Ryzen 5 8600G,152.83,thumbnails/cpu_amd_ryzen_5_8600g.jpg,5,4.3,6,Radeon 760M,Zen 4,65
+AMD Ryzen 9 7950X3D,599.99,thumbnails/cpu_amd_ryzen_9_7950x3d.jpg,5.7,4.2,16,Radeon,Zen 4,120
+AMD Ryzen 9 7950X,465.99,thumbnails/cpu_amd_ryzen_9_7950x.jpg,5.7,4.5,16,Radeon,Zen 4,170
+AMD Ryzen 9 7900,274.99,thumbnails/cpu_amd_ryzen_9_7900.jpg,5.4,3.7,12,Radeon,Zen 4,65
+AMD Ryzen 9 7900X3D,525,thumbnails/cpu_amd_ryzen_9_7900x3d.jpg,5.6,4.4,12,Radeon,Zen 4,120
+AMD Ryzen 5 9600,188.99,thumbnails/cpu_amd_ryzen_5_9600.jpg,5.2,3.8,6,Radeon,Zen 5,65
+AMD Ryzen 5 7400F,140.99,thumbnails/cpu_amd_ryzen_5_7400f.jpg,4.7,3.7,6,None,Zen 4,65
+AMD Ryzen 9 PRO 7945,415.55,thumbnails/cpu_amd_ryzen_9_pro_7945.jpg,5.4,3.7,12,Radeon,Zen 4,65
+AMD Ryzen 5 PRO 7645,234.11,thumbnails/cpu_amd_ryzen_5_pro_7645.jpg,5.1,3.8,6,Radeon,Zen 4,65
+AMD Ryzen 7 PRO 7745,327.58,thumbnails/cpu_amd_ryzen_7_pro_7745.jpg,5.3,3.8,8,Radeon,Zen 4,65
+AMD Ryzen 5 9500F,178.84,thumbnails/cpu_amd_ryzen_5_9500f.jpg,5,3.8,6,None,Zen 5,65
+AMD Ryzen 7 9700F,,,5.5,3.8,8,None,Zen 5,65
+AMD Ryzen 9 PRO 9945,463.99,,5.4,3.4,12,Radeon,Zen 5,65
+AMD Ryzen 5 7400,137.99,,4.3,3.3,6,Radeon,Zen 4,65
+AMD Ryzen 5 PRO 7445,154,,4.3,3.3,6,Radeon,Zen 4,65
+AMD Ryzen 5 PRO 9645,296.99,,5.4,3.9,6,Radeon,Zen 5,65
+AMD Ryzen 7 PRO 9745,383.99,,5.4,3.8,8,Radeon,Zen 5,65
+AMD Ryzen 5 5600,85,,4.4,3.5,6,None,Zen 3,65
+AMD Ryzen 7 5700X3D,199,,4.1,3.0,8,None,Zen 3,105
+Intel Core i5-12400F,85,,4.4,2.5,6,None,Alder Lake,65
+Intel Core i5-13400F,168,,4.6,2.5,10,None,Raptor Lake,65
+Intel Core i5-13600KF,192,,5.1,3.5,14,None,Raptor Lake,125
+Intel Core i5-14600KF,209,,5.3,3.5,14,None,Raptor Lake,125
+Intel Core i7-13700KF,315,,5.4,3.4,16,None,Raptor Lake,125
+Intel Core Ultra 5 245K,199,,5.2,4.2,14,Intel Graphics,Arrow Lake,125
+Intel Core Ultra 7 265K,270,,5.5,3.9,20,Intel Graphics,Arrow Lake,125
+Intel Core Ultra 9 285K,530,,5.7,3.7,24,Intel Graphics,Arrow Lake,125
+AMD Threadripper 9960X,799,,5.0,4.2,24,None,Zen 5,350
+AMD Threadripper 9975WX,1299,,5.1,4.3,32,None,Zen 5,350
+AMD Threadripper 9995WX,2999,,5.0,4.2,64,None,Zen 5,400

@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "image-gen",
+  "main": "worker.js",
+  "compatibility_date": "2026-05-29",
+  "workers_dev": true,
+  "ai": {
+    "binding": "AI"
+  }
+}

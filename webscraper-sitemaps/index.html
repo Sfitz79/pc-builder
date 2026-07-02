@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>WebScraper Sitemaps</title>
+<style>body{font-family:system-ui;background:#0d1117;color:#c9d1d9;padding:24px;max-width:800px;margin:0 auto}
+h1{color:#58a6ff}ol{font-size:14px}li{margin:6px 0}a{color:#58a6ff}a:hover{color:#f0883e}
+code{background:#21262d;padding:2px 6px;border-radius:4px;font-size:13px}
+.note{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;margin:16px 0;font-size:14px}
+.step{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;margin:8px 0}
+.step h3{margin:0 0 8px;color:#f0883e}.step p{margin:4px 0;color:#8b949e}</style>
+</head>
+<body>
+<h1>&#9881; WebScraper Sitemaps — PCPartPicker UK</h1>
+<p style="color:#8b949e">18 sitemaps generated for categories needing image re-scraping</p>
+
+<div class="note">
+<b>How to use:</b><br><br>
+<ol>
+<li>Open Chrome with the <b>WebScraper</b> extension installed</li>
+<li>Click the WebScraper icon → <b>Open WebScraper</b> (or go to DevTools → WebScraper tab)</li>
+<li>Click <b>"Import sitemap"</b> → select one JSON file from <code>webscraper-sitemaps/</code></li>
+<li>The sitemap will appear. <b>Before scraping, add pagination:</b> click "Edit" on the sitemap → "Add selector" → type: <b>SelectorLink</b>, id: <b>next_page</b>, selector: <code>.pagination a[rel="next"]</code> (or look for the &gt; Next button), parent: <b>_root</b>, click: <b>clickOnceOrUnclickable</b></li>
+<li>Click <b>"Scrape"</b> → let it run (may take a while for large categories like case/monitor/keyboard)</li>
+<li>When done, click <b>"Export data as CSV"</b></li>
+<li><b>Save the CSV</b> to <code>C:\\Users\\simon\\Downloads\\</code> with a name starting with <code>uk-pcpartpicker-com-</code></li>
+<li>Repeat for each category you want to rescrape</li>
+<li>After all categories are done, run: <code>node merge-scraped-csvs.mjs</code></li>
+<li>Then run: <code>node download-thumbnails.mjs</code></li>
+<li>Then: <code>cmd /c npx vite build</code> to verify the app builds</li>
+</ol>
+</div>
+
+<h2>Sitemaps generated:</h2>
+<ol>
+${CATEGORIES.map(c => `<li><a href="file:///${path.join(OUT_DIR, `pcpp-${c.id}.json`).replace(/\\/g, '/')}">${c.id}</a> → updates <code>src/data/${c.id}.csv</code></li>`).join('\n')}
+</ol>
+</div>
+
+<h2>Sitemaps generated:</h2>
+<ol>
+<li><a href="file:///C:/Users/simon/WebstormProjects/pc-builder/webscraper-sitemaps/pcpp-case.json">case</a> — <code>case.csv</code></li>
+<li><a href="file:///C:/Users/simon/WebstormProjects/pc-builder/webscraper-sitemaps/pcpp-motherboard.json">motherboard</a> — <code>motherboard.csv</code></li>
+<li><a href="file:///C:/Users/simon/WebstormProjects/pc-builder/webscraper-sitemaps/pcpp-case-fan.json">case-fan</a> — <code>case-fan.csv</code></li>
+<li><a href="file:///C:/Users/simon/WebstormProjects/pc-builder/webscraper-sitemaps/pcpp-monitor.json">monitor</a> — <code>monitor.csv</code></li>
+<li><a href="file:///C:/Users/simon/WebstormProjects/pc-builder/webscraper-sitemaps/pcpp-keyboard.json">keyboard</a> — <code>keyboard.csv</code></li>
+<li><a href="file:///C:/Users/simon/WebstormProjects/pc-builder/webscraper-sitemaps/pcpp-mouse.json">mouse</a> — <code>mouse.csv</code></li>
+<li><a href="file:///C:/Users/simon/WebstormProjects/pc-builder/webscraper-sitemaps/pcpp-headphones.json">headphones</a> — <code>headphones.csv</code></li>
+<li><a href="file:///C:/Users/simon/WebstormProjects/pc-builder/webscraper-sitemaps/pcpp-external-hard-drive.json">external-hard-drive</a> — <code>external-hard-drive.csv</code></li>
+<li><a href="file:///C:/Users/simon/WebstormProjects/pc-builder/webscraper-sitemaps/pcpp-speakers.json">speakers</a> — <code>speakers.csv</code></li>
+<li><a href="file:///C:/Users/simon/WebstormProjects/pc-builder/webscraper-sitemaps/pcpp-ups.json">ups</a> — <code>ups.csv</code></li>
+<li><a href="file:///C:/Users/simon/WebstormProjects/pc-builder/webscraper-sitemaps/pcpp-webcam.json">webcam</a> — <code>webcam.csv</code></li>
+<li><a href="file:///C:/Users/simon/WebstormProjects/pc-builder/webscraper-sitemaps/pcpp-wired-network-card.json">wired-network-card</a> — <code>wired-network-card.csv</code></li>
+<li><a href="file:///C:/Users/simon/WebstormProjects/pc-builder/webscraper-sitemaps/pcpp-wireless-network-card.json">wireless-network-card</a> — <code>wireless-network-card.csv</code></li>
+<li><a href="file:///C:/Users/simon/WebstormProjects/pc-builder/webscraper-sitemaps/pcpp-sound-card.json">sound-card</a> — <code>sound-card.csv</code></li>
+<li><a href="file:///C:/Users/simon/WebstormProjects/pc-builder/webscraper-sitemaps/pcpp-optical-drive.json">optical-drive</a> — <code>optical-drive.csv</code></li>
+<li><a href="file:///C:/Users/simon/WebstormProjects/pc-builder/webscraper-sitemaps/pcpp-fan-controller.json">fan-controller</a> — <code>fan-controller.csv</code></li>
+<li><a href="file:///C:/Users/simon/WebstormProjects/pc-builder/webscraper-sitemaps/pcpp-thermal-paste.json">thermal-paste</a> — <code>thermal-paste.csv</code></li>
+<li><a href="file:///C:/Users/simon/WebstormProjects/pc-builder/webscraper-sitemaps/pcpp-os.json">os</a> — <code>os.csv</code></li>
+</ol>
+
+<div class="step">
+<h3>&#9888; Pagination setup required</h3>
+<p>PCPartPicker uses hash-based pagination (<code>#page=2</code>, <code>#page=3</code>). After importing the sitemap, you must add the pagination selector manually:</p>
+<p>Edit the sitemap → click <b>"Add selector"</b> → type: <b>SelectorLink</b>, id: <b>next_page</b>, parent: <b>_root</b>, click: <b>clickOnceOrUnclickable</b>, selector: the "Next" page button's CSS selector (typically <code>.pagination a[rel="next"]</code> or look for the &gt; arrow link)</p>
+</div>
+
+<div class="step">
+<h3>&#128161; Tip: Skip categories with good data</h3>
+<p>If a category already has enough products from the old scrape, you can skip it. Only the 19 categories above are missing images.</p>
+</div>
+</body>
+</html>

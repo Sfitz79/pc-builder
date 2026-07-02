@@ -1,0 +1,55 @@
+name,price,channels,channel_wattage,pwm,form_factor,color,image,skip
+ARCTIC Case Fan Hub,9.99,10,,true,,Black,thumbnails/fan-controller_arctic_case_fan_hub.png,0
+Lian Li UNI HUB – SL Controller,,4,,true,,Black,thumbnails/fan-controller_lian_li_uni_hub___sl_controller.jpg,0
+NZXT RGB & Fan Controller (2022),34.99,3,36,true,,Black,thumbnails/fan-controller_nzxt_rgb___fan_controller__2022_.jpg,0
+Thermalright TL-FAN and ARGB HUB x8,,4,,true,,Black,thumbnails/fan-controller_thermalright_tl_fan_and_argb_hub_x8.jpg,0
+Noctua NA-FH1,43.76,8,6,true,,Black,thumbnails/fan-controller_noctua_na_fh1.jpg,0
+Razer RZ34-02140700-R3M1,49.99,8,,true,,Black,thumbnails/fan-controller_razer_rz34_02140700_r3m1.jpg,0
+Thermalright TL-FAN-HUB-Controller,10.59,4,,true,,Black,thumbnails/fan-controller_thermalright_tl_fan_hub_controller.jpg,0
+Noctua NV-FH2,49.95,8,,true,,Black,thumbnails/fan-controller_noctua_nv_fh2.jpg,0
+Thermalright TL-FAN-HUB Controller Rev.A,,10,,true,,Black,thumbnails/fan-controller_thermalright_tl_fan_hub_controller_rev_a.jpg,0
+Deepcool FH-04,,4,,true,,Black,thumbnails/fan-controller_deepcool_fh_04.jpg,0
+Deepcool FH-10,,10,,true,,Black,thumbnails/fan-controller_deepcool_fh_10.jpg,0
+EZDIY-FAB US-PWM fan hub,,10,,true,,Black,thumbnails/fan-controller_ezdiy_fab_us_pwm_fan_hub.jpg,0
+Thermalright TL-FAN HUB X4,,4,,true,,Black,thumbnails/fan-controller_thermalright_tl_fan_hub_x4.jpg,0
+Deepcool SC790,,6,,false,,Black,thumbnails/fan-controller_deepcool_sc790.jpg,0
+Thermaltake Commander FT,54.98,5,10,true,5.25,,thumbnails/fan-controller_thermaltake_commander_ft.jpg,0
+EZDIY-FAB US-12V 5V fan hub-16P,23.99,8,,true,,Black,thumbnails/fan-controller_ezdiy_fab_us_12v_5v_fan_hub_16p.jpg,0
+Silverstone FP59B,,1,,false,5.25,Black,thumbnails/fan-controller_silverstone_fp59b.jpg,0
+NZXT Sentry 2,,5,10,false,5.25,,thumbnails/fan-controller_nzxt_sentry_2.jpg,0
+Thermaltake AC-001-BN1NAN-A1,,5,8,true,5.25,,thumbnails/fan-controller_thermaltake_ac_001_bn1nan_a1.jpg,0
+NZXT SENTRY 3,,5,15,true,5.25,,thumbnails/fan-controller_nzxt_sentry_3.jpg,0
+Thermaltake Commander F6 RGB,,6,0.03,true,5.25,Black,thumbnails/fan-controller_thermaltake_commander_f6_rgb.jpg,0
+Kingwin FPX-001,15.99,4,8,false,3.5,,thumbnails/fan-controller_kingwin_fpx_001.jpg,0
+Lamptron FC-CF525-BK,,5,60,true,5.25,,thumbnails/fan-controller_lamptron_fc_cf525_bk.png,0
+NZXT Sentry Mix 2,,6,30,true,5.25,,thumbnails/fan-controller_nzxt_sentry_mix_2.jpg,0
+Lamptron FC2,,6,45,true,5.25,,thumbnails/fan-controller_lamptron_fc2.jpg,0
+NZXT Sentry LX,,5,6,false,2,5.25,thumbnails/fan-controller_nzxt_sentry_lx.jpg,0
+Aerocool Touch 2000,,4,6,false,2,5.25,thumbnails/fan-controller_aerocool_touch_2000.jpg,0
+Lamptron Fanatic,,5,60,true,5.25,,thumbnails/fan-controller_lamptron_fanatic.jpg,0
+Lamptron FC6,,4,10,true,5.25,,thumbnails/fan-controller_lamptron_fc6.jpg,0
+Kingwin FPX-003,,4,8,false,5.25,,thumbnails/fan-controller_kingwin_fpx_003.jpg,0
+Aerocool F6XT,,6,12,true,5.25,,thumbnails/fan-controller_aerocool_f6xt.jpg,0
+BitFenix Recon (Black),,5,10,true,5.25,,thumbnails/fan-controller_bitfenix_recon__black_.jpg,0
+Gelid Solutions SpeedTouch6,,6,30,true,5.25,,thumbnails/fan-controller_gelid_solutions_speedtouch6.jpg,0
+Lamptron FC Touch,,6,30,true,5.25,,thumbnails/fan-controller_lamptron_fc_touch.jpg,0
+Lamptron FC-FC5V2-B,,4,30,false,5.25,,thumbnails/fan-controller_lamptron_fc_fc5v2_b.jpg,0
+Lamptron FC-FC5V3-BK,,6,30,true,5.25,,thumbnails/fan-controller_lamptron_fc_fc5v3_bk.jpg,0
+Aerocool Touch 2100,,5,25,false,2,5.25,thumbnails/fan-controller_aerocool_touch_2100.jpg,0
+Aerocool X-Vision,,5,0.008,false,5.25,Black,thumbnails/fan-controller_aerocool_x_vision.jpg,0
+Aerocool CoolTouch E,,4,20,true,5.25,Black,thumbnails/fan-controller_aerocool_cooltouch_e.jpg,0
+Aerocool CoolTouch E,,4,20,true,5.25,White,thumbnails/fan-controller_aerocool_cooltouch_e.jpg,0
+NZXT Sentry Mesh,,5,30,false,5.25,,thumbnails/fan-controller_nzxt_sentry_mesh.png,0
+Aerocool CoolTouch-R Black,,4,20,true,5.25,,thumbnails/fan-controller_aerocool_cooltouch_r_black.jpg,0
+Aerocool Touch-1000,,4,,false,5.25,,thumbnails/fan-controller_aerocool_touch_1000.jpg,0
+Aerocool V12XT,,4,6,false,2,5.25,thumbnails/fan-controller_aerocool_v12xt.jpg,0
+BitFenix Recon (White),,5,10,true,5.25,,thumbnails/fan-controller_bitfenix_recon__white_.jpg,0
+Lamptron FC9,,4,50,true,5.25,,thumbnails/fan-controller_lamptron_fc9.jpg,0
+Lamptron CW611-B,,6,36,false,5.25,,thumbnails/fan-controller_lamptron_cw611_b.jpg,0
+Lamptron FC-FC2-B,,6,45,false,5.25,,thumbnails/fan-controller_lamptron_fc_fc2_b.jpg,0
+Lamptron FC-CM615-BK,,6,15,false,5.25,,thumbnails/fan-controller_lamptron_fc_cm615_bk.png,0
+Lamptron FC-FANATIC-B,,5,60,true,5.25,,thumbnails/fan-controller_lamptron_fc_fanatic_b.jpg,0
+Aerocool Strike-X-X1000,,5,25,false,5.25,,thumbnails/fan-controller_aerocool_strike_x_x1000.jpg,0
+Deepcool ROCK MASTER V3.0,,4,10,true,5.25,,thumbnails/fan-controller_deepcool_rock_master_v3_0.jpg,0
+Kingwin FPX-005,,5,8,true,5.25,,thumbnails/fan-controller_kingwin_fpx_005.jpg,0
+Scythe Kaze Master Flat II,,4,36,false,5.25,Black,thumbnails/fan-controller_scythe_kaze_master_flat_ii.jpg,0

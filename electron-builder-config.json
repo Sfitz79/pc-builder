@@ -1,0 +1,23 @@
+{
+  "extends": null,
+  "appId": "com.pctechguyonline.pcbuilder",
+  "productName": "PCTG PC Builder",
+  "directories": {
+    "output": "dist_electron"
+  },
+  "files": [
+    "dist/**/*",
+    "electron/**/*"
+  ],
+  "win": {
+    "target": "nsis",
+    "icon": "C:\\Users\\simon\\WebstormProjects\\pctg_no_back_white_out_eA0_icon.ico",
+    "signAndEditExecutable": false,
+    "verifyUpdateCodeSignature": false
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "perMachine": false
+  }
+}

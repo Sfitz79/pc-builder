@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Update All</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#0d1117;color:#c9d1d9;padding:24px}
+h1{font-size:24px;color:#58a6ff}
+.subtitle{color:#8b949e;font-size:14px;margin:8px 0 24px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:20px}
+.card h3{font-size:13px;text-transform:uppercase;color:#8b949e;margin-bottom:12px}
+.stat-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #21262d}
+.stat-row:last-child{border-bottom:none}.stat-label{color:#8b949e}.stat-value{font-weight:600}
+.green{color:#3fb950}.red{color:#f85149}.blue{color:#58a6ff}.yellow{color:#d29922}
+.bar-container{background:#21262d;border-radius:6px;height:24px;overflow:hidden;margin:8px 0}
+.bar{height:100%;background:linear-gradient(90deg,#1f6feb,#58a6ff);transition:width .5s;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:8px 12px;color:#8b949e;border-bottom:2px solid #30363d}
+td{padding:8px 12px;border-bottom:1px solid #21262d}
+.pre{font-family:monospace;font-size:12px;white-space:pre-wrap;color:#8b949e;max-height:300px;overflow-y:auto}
+</style></head>
+<body>
+<h1>🔄 Update All</h1>
+<div class="subtitle" id="status">Initialising...</div>
+<div class="grid">
+  <div class="card">
+    <h3>Progress</h3>
+    <div class="stat-row"><span class="stat-label">Status</span><span class="stat-value blue" id="phase">-</span></div>
+    <div class="stat-row"><span class="stat-label">Elapsed</span><span class="stat-value" id="elapsed">-</span></div>
+    <div class="bar-container"><div class="bar" id="bar" style="width:0%">0%</div></div>
+  </div>
+  <div class="card">
+    <h3>Results</h3>
+    <div class="stat-row"><span class="stat-label">Images Downloaded</span><span class="stat-value green" id="imagesFound">0</span></div>
+    <div class="stat-row"><span class="stat-label">Skipped (had)</span><span class="stat-value blue" id="imagesSkipped">0</span></div>
+    <div class="stat-row"><span class="stat-label">Failed</span><span class="stat-value red" id="imagesFailed">0</span></div>
+    <div class="stat-row"><span class="stat-label">Discontinued Removed</span><span class="stat-value yellow" id="filteredRemoved">0</span></div>
+  </div>
+</div>
+<div class="card"><h3>Phases</h3><div class="pre" id="phases">-</div></div>
+<script>
+async function poll(){try{
+const r=await fetch('/progress'),d=await r.json();
+document.getElementById('status').textContent=d.currentPhase||'-';
+document.getElementById('elapsed').textContent=Math.floor(d.elapsed/60)+'m '+Math.floor(d.elapsed%60)+'s';
+document.getElementById('imagesFound').textContent=d.imagesFound||0;
+document.getElementById('imagesSkipped').textContent=d.imagesSkipped||0;
+document.getElementById('imagesFailed').textContent=d.imagesFailed||0;
+document.getElementById('filteredRemoved').textContent=d.filteredRemoved||0;
+const p=d.phases||{},keys=Object.keys(p),total=keys.length,done=keys.filter(k=>p[k].done).length;
+document.getElementById('bar').style.width=total>0?Math.round(done/total*100)+'%':'0%';
+document.getElementById('bar').textContent=done+'/'+total;
+document.getElementById('phases').textContent=keys.map(k=>'  '+(p[k].done?'✅':'⏳')+' '+k+(p[k].msg?' - '+p[k].msg:'')).join('
+');
+if(d.status==='complete')document.getElementById('status').textContent='✅ COMPLETE';
+}catch{}}setInterval(poll,1000);poll();
+</script></body></html>

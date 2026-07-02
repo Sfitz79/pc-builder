@@ -1,0 +1,241 @@
+{
+  "lastUpdate": "2026-07-01T20:15:32.594Z",
+  "version": "1.0.0",
+  "summary": {
+    "totalItems": 60236,
+    "totalCategories": 25,
+    "categoriesWithImages": 25,
+    "totalImagesCached": 10094,
+    "brandLogosCached": 475
+  },
+  "dataFreshness": "Updated by update-all.mjs on 01/07/2026",
+  "categories": [
+    {
+      "file": "case-accessory.csv",
+      "category": "case-accessory",
+      "items": 8,
+      "hasImages": true,
+      "withImg": 8,
+      "imagesCached": 7
+    },
+    {
+      "file": "case-fan.csv",
+      "category": "case-fan",
+      "items": 2830,
+      "hasImages": true,
+      "withImg": 1931,
+      "imagesCached": 1004
+    },
+    {
+      "file": "case.csv",
+      "category": "case",
+      "items": 6702,
+      "hasImages": true,
+      "withImg": 423,
+      "imagesCached": 381
+    },
+    {
+      "file": "cooler.csv",
+      "category": "cooler",
+      "items": 2863,
+      "hasImages": true,
+      "withImg": 227,
+      "imagesCached": 211
+    },
+    {
+      "file": "cpu.csv",
+      "category": "cpu",
+      "items": 955,
+      "hasImages": true,
+      "withImg": 192,
+      "imagesCached": 179
+    },
+    {
+      "file": "external-hard-drive.csv",
+      "category": "external-hard-drive",
+      "items": 690,
+      "hasImages": true,
+      "withImg": 6,
+      "imagesCached": 6
+    },
+    {
+      "file": "fan-controller.csv",
+      "category": "fan-controller",
+      "items": 54,
+      "hasImages": true,
+      "withImg": 54,
+      "imagesCached": 27
+    },
+    {
+      "file": "gpu.csv",
+      "category": "gpu",
+      "items": 3466,
+      "hasImages": true,
+      "withImg": 556,
+      "imagesCached": 516
+    },
+    {
+      "file": "headphones.csv",
+      "category": "headphones",
+      "items": 3022,
+      "hasImages": true,
+      "withImg": 700,
+      "imagesCached": 629
+    },
+    {
+      "file": "keyboard.csv",
+      "category": "keyboard",
+      "items": 4386,
+      "hasImages": true,
+      "withImg": 1546,
+      "imagesCached": 1368
+    },
+    {
+      "file": "monitor.csv",
+      "category": "monitor",
+      "items": 4786,
+      "hasImages": true,
+      "withImg": 730,
+      "imagesCached": 712
+    },
+    {
+      "file": "motherboard.csv",
+      "category": "motherboard",
+      "items": 1623,
+      "hasImages": true,
+      "withImg": 693,
+      "imagesCached": 685
+    },
+    {
+      "file": "mouse.csv",
+      "category": "mouse",
+      "items": 2806,
+      "hasImages": true,
+      "withImg": 688,
+      "imagesCached": 636
+    },
+    {
+      "file": "optical-drive.csv",
+      "category": "optical-drive",
+      "items": 231,
+      "hasImages": true,
+      "withImg": 77,
+      "imagesCached": 76
+    },
+    {
+      "file": "os.csv",
+      "category": "os",
+      "items": 62,
+      "hasImages": true,
+      "withImg": 53,
+      "imagesCached": 53
+    },
+    {
+      "file": "power-supply.csv",
+      "category": "power-supply",
+      "items": 3651,
+      "hasImages": true,
+      "withImg": 2025,
+      "imagesCached": 804
+    },
+    {
+      "file": "ram.csv",
+      "category": "ram",
+      "items": 14051,
+      "hasImages": true,
+      "withImg": 1946,
+      "imagesCached": 1408
+    },
+    {
+      "file": "sound-card.csv",
+      "category": "sound-card",
+      "items": 77,
+      "hasImages": true,
+      "withImg": 73,
+      "imagesCached": 70
+    },
+    {
+      "file": "speakers.csv",
+      "category": "speakers",
+      "items": 302,
+      "hasImages": true,
+      "withImg": 301,
+      "imagesCached": 301
+    },
+    {
+      "file": "storage.csv",
+      "category": "storage",
+      "items": 6148,
+      "hasImages": true,
+      "withImg": 291,
+      "imagesCached": 203
+    },
+    {
+      "file": "thermal-paste.csv",
+      "category": "thermal-paste",
+      "items": 210,
+      "hasImages": true,
+      "withImg": 197,
+      "imagesCached": 197
+    },
+    {
+      "file": "ups.csv",
+      "category": "ups",
+      "items": 702,
+      "hasImages": true,
+      "withImg": 227,
+      "imagesCached": 226
+    },
+    {
+      "file": "webcam.csv",
+      "category": "webcam",
+      "items": 78,
+      "hasImages": true,
+      "withImg": 73,
+      "imagesCached": 73
+    },
+    {
+      "file": "wired-network-card.csv",
+      "category": "wired-network-card",
+      "items": 157,
+      "hasImages": true,
+      "withImg": 137,
+      "imagesCached": 137
+    },
+    {
+      "file": "wireless-network-card.csv",
+      "category": "wireless-network-card",
+      "items": 376,
+      "hasImages": true,
+      "withImg": 185,
+      "imagesCached": 185
+    }
+  ],
+  "suitableForBuild": [
+    "case-accessory",
+    "case-fan",
+    "case",
+    "cooler",
+    "cpu",
+    "external-hard-drive",
+    "fan-controller",
+    "gpu",
+    "headphones",
+    "keyboard",
+    "monitor",
+    "motherboard",
+    "mouse",
+    "optical-drive",
+    "os",
+    "power-supply",
+    "ram",
+    "sound-card",
+    "speakers",
+    "storage",
+    "thermal-paste",
+    "ups",
+    "webcam",
+    "wired-network-card",
+    "wireless-network-card"
+  ]
+}

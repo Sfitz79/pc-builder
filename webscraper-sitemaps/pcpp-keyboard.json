@@ -1,0 +1,48 @@
+{
+  "_id": "pcpp-keyboard",
+  "startUrl": "https://uk.pcpartpicker.com/products/keyboard/",
+  "selectors": [
+    {
+      "parentSelectors": [
+        "_root"
+      ],
+      "type": "SelectorLink",
+      "multiple": true,
+      "id": "product_link",
+      "selector": "a[href*=\"/product/\"]",
+      "delay": ""
+    },
+    {
+      "parentSelectors": [
+        "product_link"
+      ],
+      "type": "SelectorText",
+      "multiple": false,
+      "id": "name",
+      "selector": "h1.pageTitle",
+      "regex": "",
+      "delay": ""
+    },
+    {
+      "parentSelectors": [
+        "product_link"
+      ],
+      "type": "SelectorImage",
+      "multiple": false,
+      "id": "name4",
+      "selector": "#pp_main_product_image",
+      "delay": ""
+    },
+    {
+      "parentSelectors": [
+        "product_link"
+      ],
+      "type": "SelectorText",
+      "multiple": false,
+      "id": "price",
+      "selector": "td.td__finalPrice a.pp_async_mr",
+      "regex": "",
+      "delay": ""
+    }
+  ]
+}
