@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">PCTG PC Builder</string>
+    <string name="title_activity_main">PCTG PC Builder</string>
+    <string name="package_name">com.pctechguyonline.pcbuilder</string>
+    <string name="custom_url_scheme">com.pctechguyonline.pcbuilder</string>
+</resources>

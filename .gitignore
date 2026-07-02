@@ -12,6 +12,6 @@ master-*-progress.json
 master-*-dashboard.html
 master-*-summary.txt
 master-*-status.txt
-
-.vercel
-.env*
+dist_electron/
+dist_electron_packager/
+*.exe
