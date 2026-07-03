@@ -85,8 +85,15 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
     let catBudget = budgetAllocation[cat.id];
     let candidates = allParts[cat.id].filter(item => {
       const price = parseFloat(item.price);
-      return price <= catBudget * 1.15;
+      return price <= catBudget;
     });
+
+    if (candidates.length === 0) {
+      candidates = allParts[cat.id].filter(item => {
+        const price = parseFloat(item.price);
+        return price <= catBudget * 1.15;
+      });
+    }
 
     if (candidates.length === 0) {
       candidates = [...allParts[cat.id]].sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
@@ -250,9 +257,10 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
       candidates.sort((a, b) => {
         const aPrice = parseFloat(a.price);
         const bPrice = parseFloat(b.price);
-        const aDiff = Math.abs(aPrice - catBudget);
-        const bDiff = Math.abs(bPrice - catBudget);
-        return aDiff - bDiff;
+        const aOver = aPrice > catBudget ? 1 : 0;
+        const bOver = bPrice > catBudget ? 1 : 0;
+        if (aOver !== bOver) return aOver - bOver;
+        return Math.abs(aPrice - catBudget) - Math.abs(bPrice - catBudget);
       });
 
       if (candidates.length > 0) {
