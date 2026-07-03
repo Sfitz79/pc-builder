@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { usePCStore } from "../store/usePCStore";
 import { generateBuild, generateRecommendedBuild, explainBuild, getRamDdr } from "../utils/aiBuildGenerator";
 import { GAME_REQUIREMENTS, GAME_CATEGORIES } from "../utils/partsKnowledgeBase";
@@ -107,6 +108,7 @@ export default function AIGenerator() {
   const [activeGameTier, setActiveGameTier] = useState(0);
   const adminMode = usePCStore(s => s.adminMode);
   const setComponent = usePCStore(s => s.setComponent);
+  const navigate = useNavigate();
 
   const handleGenerate = async () => {
     setLoading(true);
@@ -193,6 +195,7 @@ export default function AIGenerator() {
     for (const [cat, item] of Object.entries(build)) {
       setComponent(cat, item);
     }
+    navigate("/builder");
   };
 
   const totalPrice = (build) => {

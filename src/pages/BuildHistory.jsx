@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { usePCStore } from "../store/usePCStore";
 import { getBuildHistory, deleteBuildFromHistory, clearBuildHistory } from "../utils/buildHistory";
 import { BUILDER_CATEGORIES } from "../utils/builderConfig";
@@ -7,6 +7,7 @@ import { BUILDER_CATEGORIES } from "../utils/builderConfig";
 export default function BuildHistory() {
   const [builds, setBuilds] = useState([]);
   const setComponent = usePCStore(s => s.setComponent);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setBuilds(getBuildHistory());
@@ -25,6 +26,7 @@ export default function BuildHistory() {
     for (const [cat, item] of Object.entries(build.selections)) {
       setComponent(cat, item);
     }
+    navigate("/builder");
   };
 
   const handleClearAll = () => {

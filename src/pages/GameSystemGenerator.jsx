@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { usePCStore } from "../store/usePCStore";
 import { generateBuild } from "../utils/aiBuildGenerator";
 import { GAME_REQUIREMENTS, GAME_CATEGORIES } from "../utils/partsKnowledgeBase";
@@ -28,6 +29,7 @@ export default function GameSystemGenerator() {
   const [activeGameTab, setActiveGameTab] = useState(0);
   const [activeTierTabs, setActiveTierTabs] = useState({});
   const setComponent = usePCStore(s => s.setComponent);
+  const navigate = useNavigate();
 
   const filteredGames = useMemo(() => {
     if (!search.trim()) return GAME_LIST.filter(g => g.category === activeGameCategory);
@@ -104,6 +106,7 @@ export default function GameSystemGenerator() {
     for (const [cat, item] of Object.entries(build)) {
       setComponent(cat, item);
     }
+    navigate("/builder");
   };
 
   function BuildTable({ build }) {
