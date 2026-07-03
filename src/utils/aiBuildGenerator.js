@@ -168,15 +168,13 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
 
     if (cat.id === "cooler" && build.cpu) {
       const cpuTdp = parseFloat(build.cpu.tdp) || 65;
-      candidates = candidates.filter(c => {
-        const radSize = parseInt(c.radiator_size) || 0;
-        if (radSize > 0) {
-          if (cpuTdp > 150 && radSize < 360) return false;
-          if (cpuTdp > 100 && radSize < 240) return false;
-          if (cpuTdp > 65 && radSize < 120) return false;
-        }
-        return true;
-      });
+      if (cpuTdp > 150) {
+        candidates = candidates.filter(c => (parseFloat(c.size) || 0) >= 200 || parseFloat(c.price) >= catBudget * 0.3);
+      } else if (cpuTdp > 100) {
+        candidates = candidates.filter(c => (parseFloat(c.size) || 0) >= 120 || parseFloat(c.price) >= catBudget * 0.15);
+      } else if (cpuTdp > 65) {
+        candidates = candidates.filter(c => (parseFloat(c.size) || 0) >= 60 || parseFloat(c.price) >= catBudget * 0.1);
+      }
     }
 
     if (cat.id === "gpu") {
@@ -209,8 +207,18 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
       const moboFormFactor = (build.motherboard.form_factor || "").toUpperCase();
       candidates = candidates.filter(c => {
         const caseType = (c.type || "").toUpperCase();
-        if (moboFormFactor.includes("EATX") && !caseType.includes("EATX") && !caseType.includes("FULL")) return false;
-        if (moboFormFactor.includes("ATX") && !caseType.includes("ATX") && !caseType.includes("FULL") && !caseType.includes("MID")) return false;
+        if (moboFormFactor === "EATX") {
+          return caseType.includes("EATX") || caseType.includes("FULL");
+        }
+        if (moboFormFactor === "ATX") {
+          return caseType.startsWith("ATX") || caseType.includes("EATX") || caseType === "HTPC";
+        }
+        if (moboFormFactor === "MICRO ATX") {
+          return caseType.includes("MICRO ATX") || caseType.includes("ATX/MICRO") || caseType === "HTPC";
+        }
+        if (moboFormFactor === "MINI ITX" || moboFormFactor === "MINI DTX") {
+          return caseType.includes("ITX") || caseType.includes("MICRO ATX") || caseType.includes("ATX/MICRO");
+        }
         return true;
       });
       if (color !== "any") {

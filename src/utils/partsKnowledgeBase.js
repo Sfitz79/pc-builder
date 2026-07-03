@@ -123,7 +123,7 @@ export const GAME_REQUIREMENTS = {
   },
   "starfield": {
     name: "Starfield", icon: "🚀", category: "rpg",
-    min: { cpu: "i5-8400 / Ryzen 5 1600", gpu: "RTX 1070 Ti / RX 5700", ram: "16GB", storage: "125GB SSD", fps: "30@1080p Low" },
+    min: { cpu: "i5-8400 / Ryzen 5 1600", gpu: "GTX 1070 Ti / RX 5700", ram: "16GB", storage: "125GB SSD", fps: "30@1080p Low" },
     rec: { cpu: "i7-10700K / Ryzen 5 3600", gpu: "RTX 2070 / RX 6700 XT", ram: "16GB", storage: "125GB NVMe", fps: "60@1080p High" },
     above: { cpu: "i9-13900K / Ryzen 7 7800X3D", gpu: "RTX 4080 / RX 7900 XTX", ram: "32GB", storage: "2TB NVMe", fps: "60@4K Ultra" }
   },
@@ -219,7 +219,7 @@ export const GAME_REQUIREMENTS = {
   },
   "rainbow-six-siege": {
     name: "Rainbow Six Siege", icon: "🔒", category: "fps",
-    min: { cpu: "i5-5600K / Ryzen 3 1200", gpu: "GTX 670 / Radeon HD 7970", ram: "8GB", storage: "61GB SSD", fps: "60@1080p Low" },
+    min: { cpu: "i5-6600K / Ryzen 3 1200", gpu: "GTX 670 / Radeon HD 7970", ram: "8GB", storage: "61GB SSD", fps: "60@1080p Low" },
     rec: { cpu: "i7-8700K / Ryzen 5 3600", gpu: "RTX 2060 / RX 5700", ram: "16GB", storage: "61GB SSD", fps: "144@1080p High" },
     above: { cpu: "i9-12900K / Ryzen 7 5800X3D", gpu: "RTX 3080 / RX 6800 XT", ram: "32GB", storage: "256GB NVMe", fps: "240+@1440p Competitive" }
   },
