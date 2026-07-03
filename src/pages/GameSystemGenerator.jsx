@@ -151,6 +151,17 @@ export default function GameSystemGenerator() {
               </tr>
             );
           })}
+          {build.storage_hdd && (
+            <tr key="storage-hdd">
+              <td className="component-icon-cell">
+                <img src={`data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="%2300eaff" stroke-width="2"><rect x="4" y="4" width="40" height="40" rx="4"/><circle cx="24" cy="24" r="4"/></svg>`)}`} alt="" style={{ width: "24px", height: "24px", opacity: 0.5 }} />
+              </td>
+              <td style={{ fontWeight: 600, color: "#ccc" }}>Storage (Mass / HDD)</td>
+              <td>
+                <span style={{ color: "#00eaff", fontWeight: 600, fontSize: "13px" }}>{build.storage_hdd.name}</span>
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     );

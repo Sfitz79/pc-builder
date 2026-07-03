@@ -43,7 +43,8 @@ function isSsd(item) {
 
 function isHdd(item) {
   const t = (item.type || "").toLowerCase();
-  return t.includes("hdd") || t.includes("hard") || t.includes("5400") || t.includes("7200");
+  const n = (item.name || "").toLowerCase();
+  return t.includes("hdd") || t.includes("hard") || t.includes("5400") || t.includes("7200") || n.includes("hdd");
 }
 
 export async function generateBuild(budget, useCase, color = "any", options = {}) {
@@ -117,19 +118,28 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
       }
     }
     if (cat.id === "storage") {
-      candidates = filterStorageForUseCase(candidates, useCase);
       if (dualStorage) {
-        const ssds = candidates.filter(isSsd).sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
-        const hdds = candidates.filter(isHdd).sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+        const totalStorageBudget = catBudget + (budgetAllocation["storage_hdd"] || 0);
+        const ssdPool = candidates.filter(isSsd);
+        const filteredSsds = filterStorageForUseCase(ssdPool, useCase);
+        const ssds = filteredSsds.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+        const hddPool = allParts[cat.id].filter(item => {
+          const p = parseFloat(item.price);
+          return !isNaN(p) && p >= 0 && p <= totalStorageBudget * 1.15;
+        });
+        const hdds = hddPool.filter(isHdd).filter(h => {
+          const capacityGB = (parseFloat(h.capacity) || 0) * 1000;
+          return capacityGB >= 500;
+        }).sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
         if (ssds.length > 0) {
-          const ssdBudget = catBudget * 0.6;
+          const ssdBudget = totalStorageBudget * 0.6;
           const chosenSsd = ssds.filter(s => parseFloat(s.price) <= ssdBudget).sort((a, b) => {
             const aVal = parseFloat(a.price);
             const bVal = parseFloat(b.price);
             return Math.abs(aVal - ssdBudget) - Math.abs(bVal - ssdBudget);
           })[0] || ssds[0];
           build["storage"] = chosenSsd;
-          const remaining = catBudget - parseFloat(chosenSsd.price);
+          const remaining = totalStorageBudget - parseFloat(chosenSsd.price);
           if (hdds.length > 0 && remaining > 20) {
             const chosenHdd = hdds.filter(h => parseFloat(h.price) <= remaining).sort((a, b) => {
               const aVal = parseFloat(a.price);
@@ -140,6 +150,9 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
           }
           continue;
         }
+        candidates = filterStorageForUseCase(candidates, useCase);
+      } else {
+        candidates = filterStorageForUseCase(candidates, useCase);
       }
     }
 
@@ -225,7 +238,7 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
       }
     }
 
-    if (cat.id !== "storage" || !dualStorage) {
+    if (cat.id !== "storage" || !dualStorage || !build.storage) {
       candidates.sort((a, b) => {
         const aPrice = parseFloat(a.price);
         const bPrice = parseFloat(b.price);
