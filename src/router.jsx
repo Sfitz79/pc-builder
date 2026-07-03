@@ -13,6 +13,7 @@ const ComponentComparison = lazy(() => import("./pages/ComponentComparison"));
 const FpsCalculator = lazy(() => import("./pages/FpsCalculator"));
 const BuildHistory = lazy(() => import("./pages/BuildHistory"));
 const AIGenerator = lazy(() => import("./pages/AIGenerator"));
+const GameSystemGenerator = lazy(() => import("./pages/GameSystemGenerator"));
 
 function Loading() {
   return <div style={{ textAlign: 'center', padding: '40px', color: '#666' }}>Loading...</div>;
@@ -47,6 +48,7 @@ const router = createHashRouter([
       { path: "fps-calculator", element: <FpsCalculator /> },
       { path: "builds", element: <BuildHistory /> },
       { path: "ai-generator", element: <AIGenerator /> },
+      { path: "game-system-generator", element: <GameSystemGenerator /> },
     ]
   }
 ]);

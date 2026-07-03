@@ -62,39 +62,214 @@ export const CPU_HIERARCHY = {
 
 export const GAME_REQUIREMENTS = {
   "cyberpunk-2077": {
-    name: "Cyberpunk 2077 + Phantom Liberty",
-    min: { cpu: "i7-6700 / Ryzen 5 1600", gpu: "GTX 1060 6GB / RX 580 8GB", ram: "12GB", storage: "70GB SSD", os: "Win 10", fps: "30@1080p Low" },
-    rec: { cpu: "i7-12700 / Ryzen 7 7800X3D", gpu: "RTX 2060S / RX 5700 XT", ram: "16GB", storage: "70GB SSD", os: "Win 10", fps: "60@1080p High" },
-    ultra: { cpu: "i9-12900 / Ryzen 9 7900X", gpu: "RTX 3080 / RX 7900 XTX", ram: "20GB", storage: "70GB NVMe", os: "Win 10", fps: "60@4K Ultra" },
-    rtOverdrive: { cpu: "i9-12900 / Ryzen 9 7900X", gpu: "RTX 4080", ram: "24GB", storage: "70GB NVMe", os: "Win 10", fps: "60@4K Path Tracing" }
+    name: "Cyberpunk 2077 + Phantom Liberty", icon: "🌃",
+    min: { cpu: "i7-6700 / Ryzen 5 1600", gpu: "GTX 1060 6GB / RX 580 8GB", ram: "12GB", storage: "70GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-12700 / Ryzen 7 7800X3D", gpu: "RTX 2060S / RX 5700 XT", ram: "16GB", storage: "70GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i9-12900 / Ryzen 9 7900X", gpu: "RTX 3080 / RX 7900 XTX", ram: "20GB", storage: "70GB NVMe", fps: "60@4K Ultra" }
   },
   "battlefield-6": {
-    name: "Battlefield 6",
-    min: { cpu: "i5-8400 / Ryzen 5 2600", gpu: "RTX 2060 / RX 5600 XT", ram: "16GB", storage: "55GB HDD", os: "Win 10", fps: "60@1080p Low" },
-    rec: { cpu: "i7-10700 / Ryzen 7 3700X", gpu: "RTX 3060 Ti / RX 6700 XT", ram: "16GB", storage: "80GB SSD", os: "Win 11", fps: "60@1440p High" }
+    name: "Battlefield 6", icon: "🔫",
+    min: { cpu: "i5-8400 / Ryzen 5 2600", gpu: "RTX 2060 / RX 5600 XT", ram: "16GB", storage: "55GB HDD", fps: "60@1080p Low" },
+    rec: { cpu: "i7-10700 / Ryzen 7 3700X", gpu: "RTX 3060 Ti / RX 6700 XT", ram: "16GB", storage: "80GB SSD", fps: "60@1440p High" },
+    above: { cpu: "i9-12900K / Ryzen 7 7800X3D", gpu: "RTX 4070 Ti / RX 7900 XT", ram: "32GB", storage: "1TB NVMe", fps: "144@1440p Ultra" }
   },
   "black-myth-wukong": {
-    name: "Black Myth: Wukong",
-    min: { cpu: "i5-8400 / Ryzen 5 1600", gpu: "GTX 1060 / RX 580", ram: "16GB", storage: "130GB SSD", os: "Win 10", fps: "30@1080p Low" },
-    rec: { cpu: "i7-9700 / Ryzen 5 5500", gpu: "RTX 2060 / RX 5700 XT", ram: "16GB", storage: "130GB SSD", os: "Win 10", fps: "60@1080p High" }
+    name: "Black Myth: Wukong", icon: "🐵",
+    min: { cpu: "i5-8400 / Ryzen 5 1600", gpu: "GTX 1060 / RX 580", ram: "16GB", storage: "130GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-9700 / Ryzen 5 5500", gpu: "RTX 2060 / RX 5700 XT", ram: "16GB", storage: "130GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i7-13700 / Ryzen 7 7800X3D", gpu: "RTX 4070 / RX 7800 XT", ram: "32GB", storage: "2TB NVMe", fps: "60@4K High" }
   },
   "cod-black-ops-6": {
-    name: "Call of Duty: Black Ops 6",
-    min: { cpu: "i5-6600 / Ryzen 5 1400", gpu: "GTX 960 / RX 470 / Arc A580", ram: "8GB", storage: "102GB SSD", os: "Win 10", fps: "60@1080p Low" },
-    rec: { cpu: "i7-6700K / Ryzen 5 1600X", gpu: "RTX 3060 / GTX 1080 Ti / RX 6600 XT", ram: "12GB", storage: "102GB SSD", os: "Win 10/11", fps: "60@1080p High" },
-    comp4k: { cpu: "i7-8700K / Ryzen 7 2700X", gpu: "RTX 3080 / RTX 4070 / RX 6800 XT", ram: "16GB", storage: "102GB SSD", os: "Win 10/11", fps: "High FPS@4K Competitive" }
+    name: "Call of Duty: Black Ops 6", icon: "🎯",
+    min: { cpu: "i5-6600 / Ryzen 5 1400", gpu: "GTX 960 / RX 470", ram: "8GB", storage: "102GB SSD", fps: "60@1080p Low" },
+    rec: { cpu: "i7-6700K / Ryzen 5 1600X", gpu: "RTX 3060 / RX 6600 XT", ram: "12GB", storage: "102GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i9-12900K / Ryzen 7 7800X3D", gpu: "RTX 4070 / RX 6800 XT", ram: "32GB", storage: "2TB NVMe", fps: "144@1440p Competitive" }
+  },
+  "fortnite": {
+    name: "Fortnite", icon: "🏰",
+    min: { cpu: "i3-3225 / Ryzen 3 1200", gpu: "Intel HD 4000 / Radeon Vega 8", ram: "8GB", storage: "30GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i5-7300U / Ryzen 5 1400", gpu: "GTX 960 / RX 460", ram: "16GB", storage: "30GB SSD", fps: "60@1080p Medium" },
+    above: { cpu: "i7-8700 / Ryzen 5 3600", gpu: "RTX 3060 / RX 6600 XT", ram: "16GB", storage: "256GB SSD", fps: "144@1440p Epic" }
+  },
+  "grand-theft-auto-6": {
+    name: "Grand Theft Auto VI", icon: "🚗",
+    min: { cpu: "i7-8700K / Ryzen 5 3600", gpu: "RTX 2060 / RX 5700", ram: "16GB", storage: "150GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-12700K / Ryzen 7 5800X", gpu: "RTX 3070 / RX 6800", ram: "16GB", storage: "150GB NVMe", fps: "60@1080p High" },
+    above: { cpu: "i9-13900K / Ryzen 7 7800X3D", gpu: "RTX 4080 / RX 7900 XTX", ram: "32GB", storage: "2TB NVMe", fps: "60@4K Ultra" }
+  },
+  "marvel-rivals": {
+    name: "Marvel Rivals", icon: "🦸",
+    min: { cpu: "i5-6600K / Ryzen 5 1600", gpu: "GTX 1060 / RX 580", ram: "12GB", storage: "70GB SSD", fps: "60@1080p Low" },
+    rec: { cpu: "i7-10700K / Ryzen 7 3700X", gpu: "RTX 2070 Super / RX 5700 XT", ram: "16GB", storage: "70GB SSD", fps: "60@1440p High" },
+    above: { cpu: "i9-12900K / Ryzen 7 7800X3D", gpu: "RTX 4070 Ti / RX 7800 XT", ram: "32GB", storage: "1TB NVMe", fps: "144@1440p High" }
+  },
+  "elden-ring": {
+    name: "Elden Ring", icon: "⚔️",
+    min: { cpu: "i5-8400 / Ryzen 3 3300X", gpu: "GTX 1060 3GB / RX 580 4GB", ram: "12GB", storage: "60GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-8700K / Ryzen 5 3600X", gpu: "GTX 1070 / RX Vega 56", ram: "16GB", storage: "60GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i7-12700K / Ryzen 7 5800X3D", gpu: "RTX 3070 / RX 6800", ram: "32GB", storage: "1TB NVMe", fps: "60@4K High" }
   },
   "starfield": {
-    name: "Starfield",
-    min: { cpu: "i5-8400", gpu: "RTX 1070 Ti", ram: "16GB", storage: "SSD Required", os: "Win 10", fps: "30@1080p Low" }
+    name: "Starfield", icon: "🚀",
+    min: { cpu: "i5-8400 / Ryzen 5 1600", gpu: "RTX 1070 Ti / RX 5700", ram: "16GB", storage: "125GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-10700K / Ryzen 5 3600", gpu: "RTX 2070 / RX 6700 XT", ram: "16GB", storage: "125GB NVMe", fps: "60@1080p High" },
+    above: { cpu: "i9-13900K / Ryzen 7 7800X3D", gpu: "RTX 4080 / RX 7900 XTX", ram: "32GB", storage: "2TB NVMe", fps: "60@4K Ultra" }
   },
   "alan-wake-2": {
-    name: "Alan Wake II",
-    min: { cpu: "i5-7600K", gpu: "RTX 2060S", ram: "16GB", storage: "SSD Required", os: "Win 10", fps: "30@1080p Low" }
+    name: "Alan Wake II", icon: "🔦",
+    min: { cpu: "i5-7600K / Ryzen 5 2600", gpu: "RTX 2060 / RX 6600", ram: "16GB", storage: "90GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-10700K / Ryzen 7 3700X", gpu: "RTX 3060 / RX 6700 XT", ram: "16GB", storage: "90GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i9-13900K / Ryzen 7 7800X3D", gpu: "RTX 4070 Ti / RX 7900 XT", ram: "32GB", storage: "1TB NVMe", fps: "60@4K High" }
   },
   "assassins-creed-shadows": {
-    name: "Assassin's Creed Shadows",
-    min: { cpu: "i7-8700K / Ryzen 5 3600", gpu: "RTX 2060 / RX 5700", ram: "16GB", storage: "SSD Required", os: "Win 10" }
+    name: "Assassin's Creed Shadows", icon: "🗡️",
+    min: { cpu: "i7-8700K / Ryzen 5 3600", gpu: "RTX 2060 / RX 5700", ram: "16GB", storage: "100GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-11700K / Ryzen 5 5600X", gpu: "RTX 3070 / RX 6800", ram: "32GB", storage: "100GB SSD", fps: "60@1440p High" },
+    above: { cpu: "i9-13900K / Ryzen 7 7800X3D", gpu: "RTX 4080 / RX 7900 XTX", ram: "32GB", storage: "2TB NVMe", fps: "60@4K Ultra" }
+  },
+  "red-dead-redemption-2": {
+    name: "Red Dead Redemption 2", icon: "🐴",
+    min: { cpu: "i5-2500K / Ryzen 3 1200", gpu: "GTX 770 / RX 470", ram: "8GB", storage: "150GB HDD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-4770K / Ryzen 5 1500X", gpu: "GTX 1060 6GB / RX 480 4GB", ram: "12GB", storage: "150GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i9-9900K / Ryzen 7 5800X", gpu: "RTX 3080 / RX 6800 XT", ram: "32GB", storage: "1TB NVMe", fps: "60@4K Ultra" }
+  },
+  "hogwarts-legacy": {
+    name: "Hogwarts Legacy", icon: "🧙",
+    min: { cpu: "i5-6600 / Ryzen 5 1400", gpu: "GTX 960 / RX 470", ram: "16GB", storage: "85GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-8700 / Ryzen 5 3600", gpu: "RTX 2060 / RX 5700 XT", ram: "16GB", storage: "85GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i9-12900K / Ryzen 7 5800X3D", gpu: "RTX 3080 / RX 6800 XT", ram: "32GB", storage: "1TB NVMe", fps: "60@4K Ultra" }
+  },
+  "god-of-war-ragnarok": {
+    name: "God of War Ragnarok", icon: "🔨",
+    min: { cpu: "i5-6600K / Ryzen 5 2600", gpu: "GTX 1060 / RX 580", ram: "12GB", storage: "70GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-9700K / Ryzen 7 3700X", gpu: "RTX 2060 Super / RX 5700 XT", ram: "16GB", storage: "70GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i9-12900K / Ryzen 7 7800X3D", gpu: "RTX 3080 Ti / RX 7900 XT", ram: "32GB", storage: "1TB NVMe", fps: "60@4K Ultra" }
+  },
+  "the-last-of-us": {
+    name: "The Last of Us Part I", icon: "🌿",
+    min: { cpu: "i5-6600K / Ryzen 5 1400", gpu: "GTX 970 / RX 580", ram: "16GB", storage: "100GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-8700 / Ryzen 5 3600", gpu: "RTX 2060 / RX 5700 XT", ram: "16GB", storage: "100GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i9-12900K / Ryzen 7 5800X3D", gpu: "RTX 3080 / RX 6800 XT", ram: "32GB", storage: "1TB NVMe", fps: "60@4K High" }
+  },
+  "valorant": {
+    name: "Valorant", icon: "🔫",
+    min: { cpu: "i3-370M / Ryzen 3 1200", gpu: "Intel HD 3000 / Radeon HD 5000", ram: "4GB", storage: "30GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i5-4460 / Ryzen 5 1600", gpu: "GTX 1050 Ti / RX 560", ram: "8GB", storage: "30GB SSD", fps: "144@1080p High" },
+    above: { cpu: "i7-9700K / Ryzen 7 5800X", gpu: "RTX 2060 / RX 5700", ram: "16GB", storage: "128GB NVMe", fps: "240+@1440p Competitive" }
+  },
+  "counter-strike-2": {
+    name: "Counter-Strike 2", icon: "💣",
+    min: { cpu: "i5-7500 / Ryzen 5 1600", gpu: "GTX 1050 Ti / RX 470", ram: "8GB", storage: "85GB SSD", fps: "60@1080p Low" },
+    rec: { cpu: "i7-9700K / Ryzen 7 3700X", gpu: "RTX 2070 / RX 5700 XT", ram: "16GB", storage: "85GB SSD", fps: "144@1080p High" },
+    above: { cpu: "i9-13900K / Ryzen 7 7800X3D", gpu: "RTX 4070 / RX 7800 XT", ram: "32GB", storage: "512GB NVMe", fps: "300+@1440p Competitive" }
+  },
+  "apex-legends": {
+    name: "Apex Legends", icon: "⚡",
+    min: { cpu: "i5-3570K / Ryzen 5 1400", gpu: "GTX 960 / RX 470", ram: "8GB", storage: "65GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-9700K / Ryzen 5 3600", gpu: "RTX 2060 / RX 5700 XT", ram: "16GB", storage: "65GB NVMe", fps: "144@1080p High" },
+    above: { cpu: "i9-12900K / Ryzen 7 5800X3D", gpu: "RTX 3080 / RX 6800 XT", ram: "32GB", storage: "512GB NVMe", fps: "144@1440p Competitive" }
+  },
+  "forza-horizon-5": {
+    name: "Forza Horizon 5", icon: "🏎️",
+    min: { cpu: "i5-4460 / Ryzen 3 1200", gpu: "GTX 970 / RX 470", ram: "8GB", storage: "110GB HDD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-10700K / Ryzen 5 3600", gpu: "RTX 2070 / RX 6700 XT", ram: "16GB", storage: "110GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i9-12900K / Ryzen 7 5800X3D", gpu: "RTX 3080 Ti / RX 7900 XT", ram: "32GB", storage: "1TB NVMe", fps: "60@4K Extreme" }
+  },
+  "call-of-duty-warzone": {
+    name: "Call of Duty: Warzone", icon: "🎯",
+    min: { cpu: "i5-6600 / Ryzen 5 1400", gpu: "GTX 960 / RX 470", ram: "8GB", storage: "125GB HDD", fps: "60@1080p Low" },
+    rec: { cpu: "i7-8700K / Ryzen 7 2700X", gpu: "RTX 3060 Ti / RX 5700 XT", ram: "16GB", storage: "125GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i9-12900K / Ryzen 7 7800X3D", gpu: "RTX 4070 / RX 6800 XT", ram: "32GB", storage: "1TB NVMe", fps: "144@1440p Competitive" }
+  },
+  "minecraft": {
+    name: "Minecraft", icon: "⛏️",
+    min: { cpu: "i3-3210 / Ryzen 3 1200", gpu: "Intel HD 4000 / Radeon HD 7000", ram: "4GB", storage: "1GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i5-4690 / Ryzen 5 1600", gpu: "GTX 1060 / RX 580", ram: "8GB", storage: "4GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i7-12700K / Ryzen 7 5800X3D", gpu: "RTX 3080 / RX 6800 XT", ram: "32GB", storage: "512GB NVMe", fps: "60@4K Ultra Shaders" }
+  },
+  "diablo-4": {
+    name: "Diablo IV", icon: "💀",
+    min: { cpu: "i5-7500 / Ryzen 3 1200", gpu: "GTX 1050 Ti / RX 470", ram: "8GB", storage: "45GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-8700K / Ryzen 5 3600", gpu: "RTX 2060 / RX 5700 XT", ram: "16GB", storage: "45GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i9-12900K / Ryzen 7 5800X3D", gpu: "RTX 3080 / RX 6800 XT", ram: "32GB", storage: "512GB NVMe", fps: "60@4K Ultra" }
+  },
+  "baldurs-gate-3": {
+    name: "Baldur's Gate 3", icon: "🐉",
+    min: { cpu: "i5-4690 / Ryzen 3 1200", gpu: "GTX 970 / RX 480", ram: "8GB", storage: "150GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-8700 / Ryzen 5 3600", gpu: "RTX 2060 Super / RX 5700 XT", ram: "16GB", storage: "150GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i9-12900K / Ryzen 7 5800X3D", gpu: "RTX 3080 / RX 6800 XT", ram: "32GB", storage: "1TB NVMe", fps: "60@4K Ultra" }
+  },
+  "f1-24": {
+    name: "F1 24", icon: "🏁",
+    min: { cpu: "i5-8600K / Ryzen 5 2600X", gpu: "GTX 1060 / RX 580", ram: "8GB", storage: "100GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-10700K / Ryzen 7 3700X", gpu: "RTX 3060 Ti / RX 6700 XT", ram: "16GB", storage: "100GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i9-13900K / Ryzen 7 7800X3D", gpu: "RTX 4080 / RX 7900 XT", ram: "32GB", storage: "1TB NVMe", fps: "120@4K Ultra" }
+  },
+  "rainbow-six-siege": {
+    name: "Rainbow Six Siege", icon: "🔒",
+    min: { cpu: "i5-5600K / Ryzen 3 1200", gpu: "GTX 670 / Radeon HD 7970", ram: "8GB", storage: "61GB SSD", fps: "60@1080p Low" },
+    rec: { cpu: "i7-8700K / Ryzen 5 3600", gpu: "RTX 2060 / RX 5700", ram: "16GB", storage: "61GB SSD", fps: "144@1080p High" },
+    above: { cpu: "i9-12900K / Ryzen 7 5800X3D", gpu: "RTX 3080 / RX 6800 XT", ram: "32GB", storage: "256GB NVMe", fps: "240+@1440p Competitive" }
+  },
+  "flight-simulator-2024": {
+    name: "Microsoft Flight Simulator 2024", icon: "✈️",
+    min: { cpu: "i7-6800K / Ryzen 5 2600", gpu: "RTX 2060 / RX 5700", ram: "16GB", storage: "50GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-10700K / Ryzen 7 3700X", gpu: "RTX 3080 / RX 6800 XT", ram: "32GB", storage: "50GB SSD", fps: "30@1080p High" },
+    above: { cpu: "i9-13900K / Ryzen 9 7950X3D", gpu: "RTX 4090 / RX 7900 XTX", ram: "64GB", storage: "2TB NVMe", fps: "60@4K Ultra" }
+  },
+  "star-wars-outlaws": {
+    name: "Star Wars Outlaws", icon: "🌌",
+    min: { cpu: "i7-8700K / Ryzen 5 3600", gpu: "RTX 2060 / RX 5700", ram: "16GB", storage: "65GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-12700K / Ryzen 7 5800X", gpu: "RTX 3070 / RX 6800", ram: "16GB", storage: "65GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i9-13900K / Ryzen 7 7800X3D", gpu: "RTX 4080 / RX 7900 XTX", ram: "32GB", storage: "1TB NVMe", fps: "60@4K Ultra" }
+  },
+  "dragon-age-veilguard": {
+    name: "Dragon Age: The Veilguard", icon: "🐉",
+    min: { cpu: "i5-8400 / Ryzen 3 3300X", gpu: "GTX 970 / RX 480", ram: "16GB", storage: "100GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-9700K / Ryzen 5 3600X", gpu: "RTX 2070 / RX 5700 XT", ram: "16GB", storage: "100GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i9-13900K / Ryzen 7 7800X3D", gpu: "RTX 4070 Ti / RX 7900 XT", ram: "32GB", storage: "1TB NVMe", fps: "60@4K Ultra" }
+  },
+  "helldivers-2": {
+    name: "Helldivers 2", icon: "🪖",
+    min: { cpu: "i7-4790K / Ryzen 5 1500X", gpu: "GTX 1050 Ti / RX 470", ram: "8GB", storage: "100GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-9700K / Ryzen 7 3700X", gpu: "RTX 2060 / RX 5700 XT", ram: "16GB", storage: "100GB SSD", fps: "60@1080p Medium" },
+    above: { cpu: "i9-12900K / Ryzen 7 5800X3D", gpu: "RTX 3080 / RX 6800 XT", ram: "32GB", storage: "512GB NVMe", fps: "60@1440p Ultra" }
+  },
+  "world-of-warcraft": {
+    name: "World of Warcraft: The War Within", icon: "🗺️",
+    min: { cpu: "i5-8400 / Ryzen 3 3300X", gpu: "GTX 970 / RX 480", ram: "8GB", storage: "128GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-10700K / Ryzen 5 3600X", gpu: "RTX 3060 / RX 6600 XT", ram: "16GB", storage: "128GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i9-13900K / Ryzen 7 7800X3D", gpu: "RTX 4070 / RX 7800 XT", ram: "32GB", storage: "512GB NVMe", fps: "144@1440p Ultra" }
+  },
+  "ark-survival-ascended": {
+    name: "ARK: Survival Ascended", icon: "🦖",
+    min: { cpu: "i5-8400 / Ryzen 5 2600", gpu: "RTX 2060 / RX 5600 XT", ram: "16GB", storage: "200GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-10700K / Ryzen 5 3600", gpu: "RTX 3080 / RX 6800", ram: "32GB", storage: "200GB NVMe", fps: "60@1080p High" },
+    above: { cpu: "i9-13900K / Ryzen 7 7800X3D", gpu: "RTX 4080 / RX 7900 XTX", ram: "64GB", storage: "2TB NVMe", fps: "60@4K High" }
+  },
+  "satisfactory": {
+    name: "Satisfactory", icon: "🏭",
+    min: { cpu: "i5-3570K / Ryzen 3 1200", gpu: "GTX 760 / R9 270", ram: "8GB", storage: "20GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i7-8700 / Ryzen 5 3600", gpu: "RTX 2060 / RX 5600 XT", ram: "16GB", storage: "20GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i9-13900K / Ryzen 7 7800X3D", gpu: "RTX 4070 / RX 6800 XT", ram: "32GB", storage: "512GB NVMe", fps: "60@1440p Ultra" }
+  },
+  "cyberpunk-2077-ultra": {
+    name: "Cyberpunk 2077 — Path Tracing Overdrive", icon: "🌃",
+    min: { cpu: "i7-12700 / Ryzen 7 7800X3D", gpu: "RTX 4070 Ti / RX 7900 XT", ram: "16GB", storage: "70GB NVMe", fps: "30@1440p PT Medium" },
+    rec: { cpu: "i9-13900K / Ryzen 9 7950X3D", gpu: "RTX 4080 Super / RX 7900 XTX", ram: "32GB", storage: "70GB NVMe", fps: "60@1440p PT High" },
+    above: { cpu: "Ryzen 9 9950X3D", gpu: "RTX 5090 32GB", ram: "64GB", storage: "2TB NVMe Gen5", fps: "60@4K Path Tracing" }
+  },
+  "stalker-2": {
+    name: "STALKER 2: Heart of Chornobyl", icon: "☢️",
+    min: { cpu: "i7-7700K / Ryzen 5 1600", gpu: "RTX 2060 / RX 5700", ram: "16GB", storage: "160GB SSD", fps: "30@1080p Low" },
+    rec: { cpu: "i9-11900K / Ryzen 7 5800X", gpu: "RTX 3070 Ti / RX 6800", ram: "32GB", storage: "160GB NVMe", fps: "60@1080p High" },
+    above: { cpu: "i9-13900K / Ryzen 7 7800X3D", gpu: "RTX 4080 / RX 7900 XTX", ram: "32GB", storage: "2TB NVMe", fps: "60@4K High" }
+  },
+  "mortal-kombat-1": {
+    name: "Mortal Kombat 1", icon: "💥",
+    min: { cpu: "i5-6600 / Ryzen 3 3100", gpu: "GTX 980 / RX 580", ram: "8GB", storage: "100GB SSD", fps: "60@1080p Low" },
+    rec: { cpu: "i7-8700K / Ryzen 5 3600X", gpu: "RTX 2070 / RX 5700 XT", ram: "8GB", storage: "100GB SSD", fps: "60@1080p High" },
+    above: { cpu: "i7-12700K / Ryzen 7 5800X3D", gpu: "RTX 3080 / RX 6800 XT", ram: "16GB", storage: "512GB NVMe", fps: "60@4K Ultra" }
   }
 };
 

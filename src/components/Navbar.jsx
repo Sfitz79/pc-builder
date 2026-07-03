@@ -32,7 +32,7 @@ export default function Navbar() {
   useEffect(() => {
     const stored = sessionStorage.getItem("pctg_user");
     if (stored) {
-      try { setUser(JSON.parse(stored)); } catch (e) { /* ignore parse errors */ }
+      try { setUser(JSON.parse(stored)); } catch { /* ignore parse errors */ }
     }
   }, []);
 
@@ -78,6 +78,7 @@ export default function Navbar() {
             {toolsOpen && (
               <div className="dropdown-menu" onClick={() => setToolsOpen(false)}>
                 <Link to="/ai-generator">AI Build Generator</Link>
+                <Link to="/game-system-generator">Game System Generator</Link>
                 <Link to="/fps-calculator">FPS Calculator</Link>
                 <Link to="/bottleneck-calculator">Bottleneck Calculator</Link>
                 <Link to="/compare">Component Comparison</Link>
