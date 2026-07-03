@@ -298,7 +298,7 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
 
 export async function generateRecommendedBuild(budget, useCase, color = "any", options = {}) {
   const recBudget = Math.max(budget * 2, 2500);
-  const opts = { ...options, consumerOnly: true, dualStorage: true };
+  const opts = { ...options, dualStorage: true };
   return generateBuild(recBudget, useCase, color, opts);
 }
 

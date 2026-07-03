@@ -112,7 +112,8 @@ export default function AIGenerator() {
     setLoading(true);
     setError("");
     try {
-      const options = { needMonitor, monitorResolution, needMouse, needKeyboard, needSpeakers, needWifi };
+      const isGaming = useCase === "gaming" || useCase === "streaming+gaming" || useCase === "streaming" || useCase === "general";
+      const options = { needMonitor, monitorResolution, needMouse, needKeyboard, needSpeakers, needWifi, consumerOnly: isGaming };
       const variants = [
         {
           label: "Budget-Friendly", desc: "Best value for your budget",
