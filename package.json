@@ -1,6 +1,6 @@
 {
   "name": "pctechguyonline-pc-builder",
-  "version": "1.13.96",
+  "version": "1.13.98",
   "type": "module",
   "main": "electron/main.js",
   "homepage": "./",
