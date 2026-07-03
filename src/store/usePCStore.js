@@ -49,7 +49,7 @@ export const usePCStore = create(
           const newSelections = { ...state.selections, [category]: item };
           const gpuNeeded = (() => {
             const cpu = newSelections.cpu;
-            const cpuHasIgpu = cpu && cpu.integrated_graphics && cpu.integrated_graphics.toLowerCase() !== "none";
+            const cpuHasIgpu = cpu && cpu.integrated_graphics && String(cpu.integrated_graphics).toLowerCase() !== "none";
             return !cpuHasIgpu;
           })();
           const allRequired = (gpuNeeded ? [...REQUIRED_CATEGORIES, 'gpu'] : REQUIRED_CATEGORIES).every(cat => newSelections[cat]);

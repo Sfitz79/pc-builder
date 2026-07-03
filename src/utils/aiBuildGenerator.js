@@ -37,13 +37,13 @@ function isDdr5(ram) {
 }
 
 function isSsd(item) {
-  const t = (item.type || "").toLowerCase();
+  const t = String(item.type || "").toLowerCase();
   return t.includes("ssd") || t.includes("nvme") || t.includes("m.2") || t.includes("solid");
 }
 
 function isHdd(item) {
-  const t = (item.type || "").toLowerCase();
-  const n = (item.name || "").toLowerCase();
+  const t = String(item.type || "").toLowerCase();
+  const n = String(item.name || "").toLowerCase();
   return t.includes("hdd") || t.includes("hard") || t.includes("5400") || t.includes("7200") || n.includes("hdd");
 }
 
@@ -160,7 +160,7 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
       const cpuSocket = inferCpuSocket(build.cpu);
       if (cpuSocket) {
         candidates = candidates.filter(m => {
-          const moboSocket = (m.socket || "").toUpperCase().trim();
+          const moboSocket = String(m.socket || "").toUpperCase().trim();
           return moboSocket === cpuSocket;
         });
       }
@@ -204,9 +204,9 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
     }
 
     if (cat.id === "case" && build.motherboard) {
-      const moboFormFactor = (build.motherboard.form_factor || "").toUpperCase();
+      const moboFormFactor = String(build.motherboard.form_factor || "").toUpperCase();
       candidates = candidates.filter(c => {
-        const caseType = (c.type || "").toUpperCase();
+        const caseType = String(c.type || "").toUpperCase();
         if (moboFormFactor === "EATX") {
           return caseType.includes("EATX") || caseType.includes("FULL");
         }
@@ -223,7 +223,7 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
       });
       if (color !== "any") {
         candidates = candidates.filter(c => {
-          const cColor = (c.color || "").toLowerCase();
+          const cColor = String(c.color || "").toLowerCase();
           return cColor.includes(color.toLowerCase());
         });
       }
@@ -390,7 +390,7 @@ function gpuRequired(useCase, cpu) {
   const use = (useCase || "").toLowerCase();
   const isBasic = use.includes("general");
   if (!isBasic) return true;
-  const igpu = (cpu?.integrated_graphics || "").toLowerCase();
+  const igpu = String(cpu?.integrated_graphics || "").toLowerCase();
   return igpu === "none" || igpu === "";
 }
 
