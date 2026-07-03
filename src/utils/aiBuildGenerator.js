@@ -35,6 +35,7 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
     needKeyboard = true,
     needSpeakers = true,
     needWifi = true,
+    consumerOnly = false,
   } = options;
 
   const SKIP_CATEGORIES = new Set();
@@ -67,6 +68,15 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
 
     if (cat.id === "cpu") {
       candidates = filterCpuForUseCase(candidates, useCase);
+      if (consumerOnly) {
+        candidates = candidates.filter(c => {
+          const name = (c.name || "").toUpperCase();
+          if (name.includes("THREADRIPPER")) return false;
+          if (name.includes("XEON")) return false;
+          if (name.includes("EPYC")) return false;
+          return true;
+        });
+      }
     }
     if (cat.id === "ram") {
       candidates = filterRamForUseCase(candidates, useCase);

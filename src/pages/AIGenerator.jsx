@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { usePCStore } from "../store/usePCStore";
 import { generateBuild } from "../utils/aiBuildGenerator";
-import { GAME_REQUIREMENTS } from "../utils/partsKnowledgeBase";
+import { GAME_REQUIREMENTS, GAME_CATEGORIES } from "../utils/partsKnowledgeBase";
 import { BUILDER_CATEGORIES, SUBCATEGORY_GROUPS } from "../utils/builderConfig";
 
 const USE_CASES = [
@@ -13,8 +13,10 @@ const USE_CASES = [
 ];
 
 const GAME_LIST = Object.entries(GAME_REQUIREMENTS).map(([id, game]) => ({
-  id, name: game.name, icon: game.icon || "🎮"
+  id, name: game.name, icon: game.icon || "🎮", category: game.category || "fps"
 }));
+
+const CATEGORY_KEYS = Object.keys(GAME_CATEGORIES);
 
 const GAME_TIERS = [
   { key: "min", label: "Minimum Spec", budget: 600 },
@@ -98,6 +100,7 @@ export default function AIGenerator() {
   const [needSpeakers, setNeedSpeakers] = useState(false);
   const [needWifi, setNeedWifi] = useState(false);
   const [gameSearch, setGameSearch] = useState("");
+  const [activeGameCategory, setActiveGameCategory] = useState("fps");
   const [selectedGameIds, setSelectedGameIds] = useState([]);
   const [gameResults, setGameResults] = useState(null);
   const [activeGameTab, setActiveGameTab] = useState(0);
@@ -134,10 +137,10 @@ export default function AIGenerator() {
   };
 
   const filteredGames = useMemo(() => {
-    if (!gameSearch.trim()) return GAME_LIST;
+    if (!gameSearch.trim()) return GAME_LIST.filter(g => g.category === activeGameCategory);
     const q = gameSearch.toLowerCase();
     return GAME_LIST.filter(g => g.name.toLowerCase().includes(q));
-  }, [gameSearch]);
+  }, [gameSearch, activeGameCategory]);
 
   const handleGameGenerate = async () => {
     if (selectedGameIds.length === 0) return;
@@ -152,7 +155,7 @@ export default function AIGenerator() {
         try {
           const build = await generateBuild(tier.budget, "gaming", "any", {
             needMonitor: false, needMouse: true, needKeyboard: true,
-            needSpeakers: false, needWifi: false
+            needSpeakers: false, needWifi: false, consumerOnly: true
           });
           tiers.push({ tier, build });
         } catch {
@@ -286,9 +289,30 @@ export default function AIGenerator() {
           </div>
 
           <div style={{ background: "#0d0d18", borderRadius: "12px", border: "1px solid rgba(0,234,255,0.15)", padding: "20px", marginBottom: "24px" }}>
+            <div style={{ marginBottom: "12px", display: "flex", gap: "8px", flexWrap: "wrap" }}>
+              {CATEGORY_KEYS.map(cat => {
+                const catInfo = GAME_CATEGORIES[cat];
+                const count = GAME_LIST.filter(g => g.category === cat).length;
+                return (
+                  <button key={cat} onClick={() => { setActiveGameCategory(cat); setGameSearch(""); }}
+                    style={{
+                      padding: "6px 14px", borderRadius: "20px", border: "1px solid",
+                      borderColor: activeGameCategory === cat ? catInfo.color : "rgba(255,255,255,0.1)",
+                      background: activeGameCategory === cat ? `${catInfo.color}22` : "transparent",
+                      color: activeGameCategory === cat ? catInfo.color : "#888",
+                      cursor: "pointer", fontFamily: "inherit", fontSize: "12px",
+                      transition: "all 0.15s", whiteSpace: "nowrap"
+                    }}
+                  >
+                    {catInfo.icon} {catInfo.label} ({count})
+                  </button>
+                );
+              })}
+            </div>
+
             <div style={{ marginBottom: "12px" }}>
               <input
-                type="text" placeholder="Search games..."
+                type="text" placeholder="Search across all games..."
                 value={gameSearch} onChange={e => setGameSearch(e.target.value)}
                 style={{
                   width: "100%", padding: "10px 14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.1)",
@@ -302,6 +326,7 @@ export default function AIGenerator() {
               {filteredGames.map(game => {
                 const checked = selectedGameIds.includes(game.id);
                 const disabled = !checked && selectedGameIds.length >= 5;
+                const catInfo = GAME_CATEGORIES[game.category];
                 return (
                   <label key={game.id} onClick={() => { if (!disabled) setSelectedGameIds(prev => prev.includes(game.id) ? prev.filter(id => id !== game.id) : prev.length >= 5 ? prev : [...prev, game.id]); }}
                     style={{
@@ -316,13 +341,18 @@ export default function AIGenerator() {
                     <input type="checkbox" checked={checked} disabled={disabled}
                       onChange={() => {}} style={{ accentColor: "#00eaff" }} />
                     <span style={{ fontSize: "18px" }}>{game.icon}</span>
-                    <span style={{ fontSize: "13px", color: "#ccc" }}>{game.name}</span>
+                    <span style={{ fontSize: "13px", color: "#ccc", flex: 1 }}>{game.name}</span>
+                    {!gameSearch && (
+                      <span style={{ fontSize: "10px", color: catInfo?.color || "#555", opacity: 0.6 }}>
+                        {catInfo?.label}
+                      </span>
+                    )}
                   </label>
                 );
               })}
               {filteredGames.length === 0 && (
                 <div style={{ textAlign: "center", padding: "20px", color: "#555", fontSize: "13px" }}>
-                  No games found matching "{gameSearch}"
+                  No games found {gameSearch ? `matching "${gameSearch}"` : "in this category"}
                 </div>
               )}
             </div>
