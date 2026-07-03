@@ -65,7 +65,7 @@ export default function GameSystemGenerator() {
         try {
           const build = await generateBuild(tier.budget, "gaming", "any", {
             needMonitor: false, needMouse: true, needKeyboard: true,
-            needSpeakers: false, needWifi: false, consumerOnly: true
+            needSpeakers: false, needWifi: false, consumerOnly: true, dualStorage: true
           });
           gameTiers.push({ tier, build });
         } catch {

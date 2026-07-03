@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { usePCStore } from "../store/usePCStore";
-import { generateBuild } from "../utils/aiBuildGenerator";
+import { generateBuild, generateRecommendedBuild, explainBuild, getRamDdr } from "../utils/aiBuildGenerator";
 import { GAME_REQUIREMENTS, GAME_CATEGORIES } from "../utils/partsKnowledgeBase";
 import { BUILDER_CATEGORIES, SUBCATEGORY_GROUPS } from "../utils/builderConfig";
 
@@ -114,21 +114,36 @@ export default function AIGenerator() {
     try {
       const options = { needMonitor, monitorResolution, needMouse, needKeyboard, needSpeakers, needWifi };
       const variants = [
-        { label: "Budget-Friendly", desc: "Easily within budget", multiplier: 0.85 },
-        { label: "Recommended", desc: "Best price-to-performance at your budget", multiplier: 1.0 },
-        { label: "Premium", desc: "Above budget — top-tier performance", multiplier: 1.3 },
+        {
+          label: "Budget-Friendly", desc: "Best value for your budget",
+          multiplier: 0.85, genOpts: { preferDDR4: true, dualStorage: true }
+        },
+        {
+          label: "Recommended", desc: "Best price-to-performance",
+          multiplier: 1.0, genOpts: { dualStorage: true }
+        },
+        {
+          label: "Premium", desc: "Top-tier performance",
+          multiplier: 1.3, genOpts: { dualStorage: true }
+        },
       ];
       const results = await Promise.all(
-        variants.map(v => generateBuild(Math.round(budget * v.multiplier), useCase, color, options))
+        variants.map(v => generateBuild(Math.round(budget * v.multiplier), useCase, color, { ...options, ...v.genOpts }))
       );
-      const resultBuilds = results.map((build, i) => ({ ...variants[i], build }));
+      const explanations = results.map((build, i) => explainBuild(build, variants[i].label, useCase, Math.round(budget * variants[i].multiplier)));
+      let resultBuilds = results.map((build, i) => ({ ...variants[i], build, explanation: explanations[i] }));
+
+      const recBuild = await generateRecommendedBuild(budget, useCase, color, options);
+      const recExplanation = explainBuild(recBuild, "PCTG Recommends", useCase, budget);
+      resultBuilds.push({ label: "PCTG Recommends", desc: "Our top pick — no budget cap", multiplier: null, build: recBuild, explanation: recExplanation, isRecommended: true });
+
       if (resultBuilds.every(b => Object.keys(b.build).length === 0)) {
         setError("Could not generate builds with the given budget. Try increasing your budget.");
         setLoading(false);
         return;
       }
       setBuilds(resultBuilds);
-      setSelectedBuild(1);
+      setSelectedBuild(3);
       setStep(5);
     } catch {
       setError("Failed to generate builds. Please try again.");
@@ -155,7 +170,7 @@ export default function AIGenerator() {
         try {
           const build = await generateBuild(tier.budget, "gaming", "any", {
             needMonitor: false, needMouse: true, needKeyboard: true,
-            needSpeakers: false, needWifi: false, consumerOnly: true
+            needSpeakers: false, needWifi: false, consumerOnly: true, dualStorage: true
           });
           tiers.push({ tier, build });
         } catch {
@@ -181,7 +196,12 @@ export default function AIGenerator() {
 
   const totalPrice = (build) => {
     if (!build) return 0;
-    return Object.values(build).reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0);
+    return Object.values(build).reduce((sum, item) => {
+      if (item && typeof item === "object" && item.price !== undefined) {
+        return sum + (parseFloat(item.price) || 0);
+      }
+      return sum;
+    }, 0);
   };
 
   function BuildTable({ build }) {
@@ -216,18 +236,45 @@ export default function AIGenerator() {
           {SUBCATEGORY_GROUPS.flatMap(g => g.categories).map(cat => {
             const item = build[cat.id];
             if (!item) return null;
-            return (
-              <tr key={cat.id}>
-                <td className="component-icon-cell">
-                  <img src={`data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="%2300eaff" stroke-width="2"><rect x="4" y="4" width="40" height="40" rx="4"/><circle cx="24" cy="24" r="4"/></svg>`)}`} alt="" style={{ width: "24px", height: "24px", opacity: 0.5 }} />
-                </td>
-                <td style={{ fontWeight: 600, color: "#ccc" }}>{cat.label}</td>
-                <td>
-                  <span style={{ color: "#00eaff", fontWeight: 600, fontSize: "13px" }}>{item.name}</span>
-                </td>
-              </tr>
-            );
+            if (cat.id === "storage" && build.storage_hdd) {
+              return (
+                <tr key="storage-combo">
+                  <td className="component-icon-cell">
+                    <img src={`data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="%2300eaff" stroke-width="2"><rect x="4" y="4" width="40" height="40" rx="4"/><circle cx="24" cy="24" r="4"/></svg>`)}`} alt="" style={{ width: "24px", height: "24px", opacity: 0.5 }} />
+                  </td>
+                  <td style={{ fontWeight: 600, color: "#ccc" }}>Storage (OS + Apps)</td>
+                  <td>
+                    <span style={{ color: "#00eaff", fontWeight: 600, fontSize: "13px" }}>{item.name}</span>
+                  </td>
+                </tr>
+              );
+            }
+            if (cat.id === "storage" && !build.storage_hdd) {
+              return (
+                <tr key={cat.id}>
+                  <td className="component-icon-cell">
+                    <img src={`data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="%2300eaff" stroke-width="2"><rect x="4" y="4" width="40" height="40" rx="4"/><circle cx="24" cy="24" r="4"/></svg>`)}`} alt="" style={{ width: "24px", height: "24px", opacity: 0.5 }} />
+                  </td>
+                  <td style={{ fontWeight: 600, color: "#ccc" }}>{cat.label}</td>
+                  <td>
+                    <span style={{ color: "#00eaff", fontWeight: 600, fontSize: "13px" }}>{item.name}</span>
+                  </td>
+                </tr>
+              );
+            }
+            return null;
           })}
+          {build.storage_hdd && (
+            <tr key="storage-hdd">
+              <td className="component-icon-cell">
+                <img src={`data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="%2300eaff" stroke-width="2"><rect x="4" y="4" width="40" height="40" rx="4"/><circle cx="24" cy="24" r="4"/></svg>`)}`} alt="" style={{ width: "24px", height: "24px", opacity: 0.5 }} />
+              </td>
+              <td style={{ fontWeight: 600, color: "#ccc" }}>Storage (Mass / HDD)</td>
+              <td>
+                <span style={{ color: "#00eaff", fontWeight: 600, fontSize: "13px" }}>{build.storage_hdd.name}</span>
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     );
@@ -685,35 +732,77 @@ export default function AIGenerator() {
           </div>
 
           <div style={{ display: "flex", gap: "8px", marginBottom: "16px", flexWrap: "wrap" }}>
-            {builds.map((v, i) => (
-              <button key={v.label} onClick={() => setSelectedBuild(i)}
-                style={{
-                  flex: 1, padding: "10px 16px", borderRadius: "8px", cursor: "pointer", textAlign: "center", minWidth: "140px",
-                  background: selectedBuild === i ? "rgba(0,234,255,0.08)" : "#0d0d18",
-                  border: `1px solid ${selectedBuild === i ? "rgba(0,234,255,0.4)" : "rgba(0,234,255,0.1)"}`,
-                  color: selectedBuild === i ? "#00eaff" : "#e6e6e6",
-                  fontFamily: "inherit", fontSize: "inherit",
-                }}
-              >
-                <div style={{ fontSize: "13px", fontWeight: 700 }}>{v.label}</div>
-                <div style={{ fontSize: "11px", color: selectedBuild === i ? "#00eaff" : "#666", marginTop: "2px" }}>
-                  £{totalPrice(v.build).toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-                </div>
-                {i === 1 && <div style={{ fontSize: "10px", color: "#00eaff", marginTop: "2px" }}>★ Recommended</div>}
-              </button>
-            ))}
+            {builds.map((v, i) => {
+              const isRec = v.isRecommended;
+              return (
+                <button key={v.label} onClick={() => setSelectedBuild(i)}
+                  style={{
+                    flex: 1, padding: "10px 16px", borderRadius: "8px", cursor: "pointer", textAlign: "center", minWidth: "140px",
+                    background: selectedBuild === i ? (isRec ? "rgba(255,200,0,0.1)" : "rgba(0,234,255,0.08)") : "#0d0d18",
+                    border: `1px solid ${selectedBuild === i ? (isRec ? "rgba(255,200,0,0.5)" : "rgba(0,234,255,0.4)") : "rgba(0,234,255,0.1)"}`,
+                    color: selectedBuild === i ? (isRec ? "#ffc800" : "#00eaff") : "#e6e6e6",
+                    fontFamily: "inherit", fontSize: "inherit",
+                    position: "relative", overflow: "visible"
+                  }}
+                >
+                  {isRec && <span style={{
+                    position: "absolute", top: "-8px", right: "-8px",
+                    background: "#ffc800", color: "#000", fontSize: "9px", fontWeight: 800,
+                    padding: "2px 8px", borderRadius: "10px", textTransform: "uppercase",
+                    letterSpacing: "0.5px"
+                  }}>PCTG Pick</span>}
+                  <div style={{ fontSize: "13px", fontWeight: 700 }}>{v.label}</div>
+                  <div style={{ fontSize: "11px", color: selectedBuild === i ? (isRec ? "#ffc800" : "#00eaff") : "#666", marginTop: "2px" }}>
+                    £{totalPrice(v.build).toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                  </div>
+                  {isRec && <div style={{ fontSize: "9px", color: "#ffc800", marginTop: "2px", opacity: 0.8 }}>Best overall value</div>}
+                  {i === 1 && !isRec && <div style={{ fontSize: "10px", color: "#00eaff", marginTop: "2px" }}>★ Balanced</div>}
+                </button>
+              );
+            })}
           </div>
 
-          <div style={{ background: "#0d0d18", borderRadius: "12px", border: selectedBuild === 1 ? "1px solid rgba(0,234,255,0.3)" : "1px solid rgba(0,234,255,0.15)", overflow: "hidden", transition: "border 0.2s" }}>
-            <div style={{ padding: "12px 16px", borderBottom: "1px solid rgba(0,234,255,0.1)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div style={{
+            background: "#0d0d18", borderRadius: "12px",
+            border: builds[selectedBuild].isRecommended ? "1px solid rgba(255,200,0,0.3)" : (selectedBuild === 1 ? "1px solid rgba(0,234,255,0.3)" : "1px solid rgba(0,234,255,0.15)"),
+            overflow: "hidden", transition: "border 0.2s"
+          }}>
+            <div style={{
+              padding: "12px 16px", borderBottom: "1px solid rgba(0,234,255,0.1)",
+              display: "flex", justifyContent: "space-between", alignItems: "center",
+              background: builds[selectedBuild].isRecommended ? "rgba(255,200,0,0.04)" : "transparent"
+            }}>
               <span style={{ color: "#ccc", fontWeight: 600, fontSize: "14px" }}>
                 {builds[selectedBuild].label} — {builds[selectedBuild].desc}
               </span>
-              <span style={{ color: "#00eaff", fontWeight: 700, fontSize: "15px" }}>
+              <span style={{ color: builds[selectedBuild].isRecommended ? "#ffc800" : "#00eaff", fontWeight: 700, fontSize: "15px" }}>
                 £{totalPrice(builds[selectedBuild].build).toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
               </span>
             </div>
+
+            {builds[selectedBuild].explanation && (
+              <div style={{
+                padding: "12px 16px", borderBottom: "1px solid rgba(0,234,255,0.05)",
+                fontSize: "12px", color: "#aaa", lineHeight: 1.6, fontStyle: "italic"
+              }}>
+                {builds[selectedBuild].explanation}
+              </div>
+            )}
+
             <BuildTable build={builds[selectedBuild].build} />
+
+            {builds[selectedBuild].build.ram && (
+              <div style={{
+                padding: "8px 16px", borderTop: "1px solid rgba(0,234,255,0.05)",
+                fontSize: "11px", color: "#666", display: "flex", gap: "16px", flexWrap: "wrap"
+              }}>
+                <span>RAM: {getRamDdr(builds[selectedBuild].build.ram)}</span>
+                {builds[selectedBuild].build.storage_hdd && (
+                  <span>+ HDD: {builds[selectedBuild].build.storage_hdd.name}</span>
+                )}
+              </div>
+            )}
+
             <div style={{ padding: "12px 16px", borderTop: "1px solid rgba(0,234,255,0.1)", textAlign: "center" }}>
               <button className="button" onClick={() => handleApplyBuild(builds[selectedBuild].build)}
                 style={{ padding: "8px 24px", fontSize: "13px" }}>
