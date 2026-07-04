@@ -215,6 +215,28 @@ export default function AIGenerator() {
     }, 0);
   };
 
+  function buildSpecChips(catId, item) {
+    if (!item) return [];
+    const chips = [];
+    if (item.socket) chips.push({ label: "Socket", value: item.socket });
+    if (item.chipset) chips.push({ label: "Chipset", value: item.chipset });
+    if (item.core_count) chips.push({ label: "Cores", value: item.core_count });
+    if (item.core_clock) chips.push({ label: "Clock", value: item.core_clock + "GHz" });
+    if (item.boost_clock) chips.push({ label: "Boost", value: item.boost_clock + "GHz" });
+    if (item.speed) chips.push({ label: "Speed", value: item.speed });
+    if (item.memory) chips.push({ label: "VRAM", value: item.memory + "GB" });
+    if (item.capacity) chips.push({ label: "Capacity", value: item.capacity });
+    if (item.wattage) chips.push({ label: "Wattage", value: item.wattage + "W" });
+    if (item.tdp) chips.push({ label: "TDP", value: item.tdp + "W" });
+    if (item.type) chips.push({ label: "Type", value: item.type });
+    if (item.modules) chips.push({ label: "Modules", value: item.modules });
+    if (item.form_factor) chips.push({ label: "Form Factor", value: item.form_factor });
+    if (item.cas_latency) chips.push({ label: "CAS", value: item.cas_latency });
+    if (item.efficiency) chips.push({ label: "Rating", value: item.efficiency });
+    if (item.modular) chips.push({ label: "Modular", value: item.modular });
+    return chips.slice(0, 4);
+  }
+
   function BuildTable({ build }) {
     return (
       <table className="builder-table" style={{ marginBottom: 0, border: "none" }}>
@@ -236,7 +258,18 @@ export default function AIGenerator() {
                 <td style={{ fontWeight: 600, color: "#ccc" }}>{cat.label}</td>
                 <td>
                   {item ? (
-                    <span style={{ color: "#00eaff", fontWeight: 600, fontSize: "13px" }}>{item.name}</span>
+                    <div>
+                      <span style={{ color: "#00eaff", fontWeight: 600, fontSize: "13px" }}>{item.name}</span>
+                      {buildSpecChips(cat.id, item).length > 0 && (
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "2px 10px", marginTop: "3px" }}>
+                          {buildSpecChips(cat.id, item).map((s, i) => (
+                            <span key={i} style={{ fontSize: "10px", color: "#888" }}>
+                              <span style={{ color: "#666" }}>{s.label}:</span> {s.value}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   ) : (
                     <span style={{ color: "#444" }}>—</span>
                   )}
@@ -255,7 +288,18 @@ export default function AIGenerator() {
                   </td>
                   <td style={{ fontWeight: 600, color: "#ccc" }}>Storage (OS + Apps)</td>
                   <td>
-                    <span style={{ color: "#00eaff", fontWeight: 600, fontSize: "13px" }}>{item.name}</span>
+                    <div>
+                      <span style={{ color: "#00eaff", fontWeight: 600, fontSize: "13px" }}>{item.name}</span>
+                      {buildSpecChips(cat.id, item).length > 0 && (
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "2px 10px", marginTop: "3px" }}>
+                          {buildSpecChips(cat.id, item).map((s, i) => (
+                            <span key={i} style={{ fontSize: "10px", color: "#888" }}>
+                              <span style={{ color: "#666" }}>{s.label}:</span> {s.value}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </td>
                 </tr>
               );
@@ -268,7 +312,18 @@ export default function AIGenerator() {
                   </td>
                   <td style={{ fontWeight: 600, color: "#ccc" }}>{cat.label}</td>
                   <td>
-                    <span style={{ color: "#00eaff", fontWeight: 600, fontSize: "13px" }}>{item.name}</span>
+                    <div>
+                      <span style={{ color: "#00eaff", fontWeight: 600, fontSize: "13px" }}>{item.name}</span>
+                      {buildSpecChips(cat.id, item).length > 0 && (
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "2px 10px", marginTop: "3px" }}>
+                          {buildSpecChips(cat.id, item).map((s, i) => (
+                            <span key={i} style={{ fontSize: "10px", color: "#888" }}>
+                              <span style={{ color: "#666" }}>{s.label}:</span> {s.value}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </td>
                 </tr>
               );
@@ -282,7 +337,18 @@ export default function AIGenerator() {
               </td>
               <td style={{ fontWeight: 600, color: "#ccc" }}>Storage (Mass / HDD)</td>
               <td>
-                <span style={{ color: "#00eaff", fontWeight: 600, fontSize: "13px" }}>{build.storage_hdd.name}</span>
+                <div>
+                  <span style={{ color: "#00eaff", fontWeight: 600, fontSize: "13px" }}>{build.storage_hdd.name}</span>
+                  {buildSpecChips("storage", build.storage_hdd).length > 0 && (
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "2px 10px", marginTop: "3px" }}>
+                      {buildSpecChips("storage", build.storage_hdd).map((s, i) => (
+                        <span key={i} style={{ fontSize: "10px", color: "#888" }}>
+                          <span style={{ color: "#666" }}>{s.label}:</span> {s.value}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </td>
             </tr>
           )}
