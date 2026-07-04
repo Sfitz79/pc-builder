@@ -12,6 +12,7 @@ import {
   getItemImageUrl,
   getItemImageUrls,
   isModernComponent,
+  isWindows11Compatible,
   inferChipset,
 } from "../common";
 
@@ -87,10 +88,18 @@ describe("inferCpuSocket", () => {
     expect(inferCpuSocket({ name: "Intel Core i7-6700K", microarchitecture: "Skylake" })).toBe("LGA1151");
     expect(inferCpuSocket({ name: "Intel Core i7-4790K", microarchitecture: "Haswell" })).toBe("LGA1150");
     expect(inferCpuSocket({ name: "Intel Core i7-2600K", microarchitecture: "Sandy Bridge" })).toBe("LGA1155");
+    expect(inferCpuSocket({ name: "Intel Core i7-950", microarchitecture: "Nehalem" })).toBe("LGA1366");
+    expect(inferCpuSocket({ name: "Intel Core i7-980X", microarchitecture: "Westmere" })).toBe("LGA1366");
+    expect(inferCpuSocket({ name: "Intel Core i5-10400", microarchitecture: "Comet Lake" })).toBe("LGA1200");
+    expect(inferCpuSocket({ name: "Intel Core i5-11400", microarchitecture: "Rocket Lake" })).toBe("LGA1200");
   });
 
   it("returns null for unknown CPUs", () => {
     expect(inferCpuSocket({ name: "Unknown CPU" })).toBeNull();
+  });
+
+  it("infers LGA775 for Core microarchitecture", () => {
+    expect(inferCpuSocket({ name: "Intel Pentium E2220", microarchitecture: "Core" })).toBe("LGA775");
   });
 });
 
@@ -214,11 +223,15 @@ describe("isModernComponent", () => {
   it("returns true for modern CPU", () => {
     expect(isModernComponent("cpu", { socket: "AM5" })).toBe(true);
     expect(isModernComponent("cpu", { socket: "LGA1700" })).toBe(true);
+    expect(isModernComponent("cpu", { socket: "LGA1200" })).toBe(true);
   });
 
   it("returns false for old CPU", () => {
     expect(isModernComponent("cpu", { socket: "LGA775" })).toBe(false);
+    expect(isModernComponent("cpu", { socket: "LGA1366" })).toBe(false);
     expect(isModernComponent("cpu", { name: "Ryzen 3 3100", microarchitecture: "Zen 2" })).toBe(false);
+    expect(isModernComponent("cpu", { name: "AMD FX-8350", microarchitecture: "Piledriver" })).toBe(false);
+    expect(isModernComponent("cpu", { name: "AMD Phenom II", microarchitecture: "K10" })).toBe(false);
   });
 
   it("returns false for old motherboard socket", () => {
@@ -269,5 +282,36 @@ describe("inferChipset", () => {
   it("returns null for no match", () => {
     expect(inferChipset("")).toBeNull();
     expect(inferChipset(null)).toBeNull();
+  });
+});
+
+describe("isWindows11Compatible", () => {
+  it("returns true for modern AMD CPUs", () => {
+    expect(isWindows11Compatible({ name: "AMD Ryzen 7 7800X3D", microarchitecture: "Zen 4", socket: "AM5" })).toBe(true);
+    expect(isWindows11Compatible({ name: "AMD Ryzen 5 7600X", microarchitecture: "Zen 4", socket: "AM5" })).toBe(true);
+    expect(isWindows11Compatible({ name: "AMD Ryzen 7 5800X3D", microarchitecture: "Zen 3", socket: "AM4" })).toBe(true);
+    expect(isWindows11Compatible({ name: "AMD Ryzen 5 5600X", microarchitecture: "Zen 3", socket: "AM4" })).toBe(true);
+    expect(isWindows11Compatible({ name: "AMD Ryzen 5 3600", microarchitecture: "Zen 2", socket: "AM4" })).toBe(true);
+    expect(isWindows11Compatible({ name: "AMD Ryzen 5 2600", microarchitecture: "Zen+", socket: "AM4" })).toBe(true);
+  });
+
+  it("returns true for modern Intel CPUs", () => {
+    expect(isWindows11Compatible({ name: "Intel Core Ultra 9 285K", microarchitecture: "Arrow Lake", socket: "LGA1851" })).toBe(true);
+    expect(isWindows11Compatible({ name: "Intel Core i9-14900K", microarchitecture: "Raptor Lake", socket: "LGA1700" })).toBe(true);
+    expect(isWindows11Compatible({ name: "Intel Core i5-10400", microarchitecture: "Comet Lake", socket: "LGA1200" })).toBe(true);
+    expect(isWindows11Compatible({ name: "Intel Core i7-8700K", microarchitecture: "Coffee Lake", socket: "LGA1151" })).toBe(true);
+  });
+
+  it("returns false for old CPUs", () => {
+    expect(isWindows11Compatible({ name: "Intel Core i7-950", microarchitecture: "Nehalem" })).toBe(false);
+    expect(isWindows11Compatible({ name: "Intel Core i7-6700K", microarchitecture: "Skylake", socket: "LGA1151" })).toBe(false);
+    expect(isWindows11Compatible({ name: "AMD FX-8350", microarchitecture: "Piledriver" })).toBe(false);
+    expect(isWindows11Compatible({ name: "AMD Ryzen 5 1600", microarchitecture: "Zen", socket: "AM4" })).toBe(false);
+    expect(isWindows11Compatible({ name: "Intel Core i7-2600K", microarchitecture: "Sandy Bridge", socket: "LGA1155" })).toBe(false);
+  });
+
+  it("returns false for null/undefined", () => {
+    expect(isWindows11Compatible(null)).toBe(false);
+    expect(isWindows11Compatible(undefined)).toBe(false);
   });
 });

@@ -23,6 +23,21 @@ describe("checkCompatibility", () => {
     expect(issues.some(i => i.includes("GPU is required"))).toBe(false);
   });
 
+  it("detects Windows 11 incompatible CPU", () => {
+    const issues = checkCompatibility({
+      cpu: { name: "Intel Core i7-950", microarchitecture: "Nehalem" },
+      motherboard: { name: "ASUS ROG B550-F", socket: "AM4" },
+      ram: { name: "Corsair Vengeance DDR5", speed: "6000", modules: "2x16" },
+      case: { name: "NZXT H5 Flow", type: "Mid Tower" },
+      cooler: { name: "Noctua NH-D15", size: "158" },
+      psu: { name: "Corsair RM750x", wattage: "750" },
+      gpu: { name: "RTX 4070", memory: "12", tdp: "200" },
+      storage: { name: "Samsung 980 Pro", capacity: "1000", type: "NVMe" },
+      os: { name: "Windows 11" },
+    });
+    expect(issues.some(i => i.includes("Windows 11"))).toBe(true);
+  });
+
   it("detects CPU/motherboard socket mismatch", () => {
     const issues = checkCompatibility({
       cpu: { name: "AMD Ryzen 7 9800X3D", socket: "AM5" },

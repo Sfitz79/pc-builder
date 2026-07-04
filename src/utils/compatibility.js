@@ -1,4 +1,4 @@
-import { toNumber as commonToNumber, normalizeToken as commonNormalizeToken, inferCpuSocket as commonInferCpuSocket, inferCoolerType as commonInferCoolerType } from "./common.js";
+import { toNumber as commonToNumber, normalizeToken as commonNormalizeToken, inferCpuSocket as commonInferCpuSocket, inferCoolerType as commonInferCoolerType, isWindows11Compatible } from "./common.js";
 
 export function checkCompatibility(selections) {
   const issues = [];
@@ -28,7 +28,11 @@ export function checkCompatibility(selections) {
   if (cpu && mobo && !isMotherboardCompatibleWithCpu(mobo, cpu)) {
     issues.push("CPU and motherboard socket do not match.");
   }
-  
+
+  if (cpu && !isWindows11Compatible(cpu)) {
+    issues.push("Selected CPU is not compatible with Windows 11.");
+  }
+
   if (mobo && ram && !isRamCompatibleWithMotherboard(ram, mobo)) {
     issues.push("Motherboard RAM type and selected RAM type differ.");
   }

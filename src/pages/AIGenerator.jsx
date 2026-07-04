@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { usePCStore } from "../store/usePCStore";
-import { generateBuild, generateRecommendedBuild, explainBuild, getRamDdr } from "../utils/aiBuildGenerator";
+import { generateBuild, explainBuild, getRamDdr } from "../utils/aiBuildGenerator";
 import { GAME_REQUIREMENTS, GAME_CATEGORIES } from "../utils/partsKnowledgeBase";
 import { BUILDER_CATEGORIES, SUBCATEGORY_GROUPS } from "../utils/builderConfig";
 
@@ -55,11 +55,11 @@ function getBudgetRanges(resolution) {
     ];
   }
   return [
-    { min: 700, max: 1000, label: "£700-1,000 (1080p Basic)" },
-    { min: 1000, max: 1500, label: "£1,000-1,500 (1080p Entry)" },
-    { min: 1500, max: 2000, label: "£1,500-2,000 (1080p Performance)" },
-    { min: 2000, max: 3000, label: "£2,000-3,000 (1080p Ultra)" },
-    { min: 3000, max: 4500, label: "£3,000-4,500 (1080p Professional)" },
+    { min: 500, max: 750, label: "£500-750 (1080p Budget)" },
+    { min: 750, max: 1200, label: "£750-1,200 (1080p Esports)" },
+    { min: 1200, max: 1800, label: "£1,200-1,800 (1080p Performance)" },
+    { min: 1800, max: 2500, label: "£1,800-2,500 (1080p Extreme)" },
+    { min: 2500, max: 4500, label: "£2,500-4,500 (1080p Professional)" },
   ];
 }
 
@@ -110,12 +110,16 @@ export default function AIGenerator() {
   const setComponent = usePCStore(s => s.setComponent);
   const navigate = useNavigate();
 
+  const HIDDEN_FEES = 200;
+  const getTotalWithFees = (build) => totalPrice(build) + HIDDEN_FEES;
+
   const handleGenerate = async () => {
     setLoading(true);
     setError("");
     try {
       const isGaming = useCase === "gaming" || useCase === "streaming+gaming" || useCase === "streaming" || useCase === "general";
       const options = { needMonitor, monitorResolution, needMouse, needKeyboard, needSpeakers, needWifi, consumerOnly: isGaming };
+      const partsBudget = Math.max(budget - HIDDEN_FEES, 0);
       const variants = [
         {
           label: "Budget-Friendly", desc: "Best value for your budget",
@@ -130,15 +134,18 @@ export default function AIGenerator() {
           multiplier: 1.3, genOpts: { dualStorage: true }
         },
       ];
+      const variantBudgets = variants.map(v => Math.round(partsBudget * v.multiplier));
       const results = await Promise.all(
-        variants.map(v => generateBuild(Math.round(budget * v.multiplier), useCase, color, { ...options, ...v.genOpts }))
+        variants.map((v, i) => generateBuild(variantBudgets[i], useCase, color, { ...options, ...v.genOpts }))
       );
-      const explanations = results.map((build, i) => explainBuild(build, variants[i].label, useCase, Math.round(budget * variants[i].multiplier)));
-      let resultBuilds = results.map((build, i) => ({ ...variants[i], build, explanation: explanations[i] }));
+      const explanations = results.map((build, i) => explainBuild(build, variants[i].label, useCase, budget, HIDDEN_FEES));
+      let resultBuilds = results.map((build, i) => ({ ...variants[i], build, explanation: explanations[i], partsBudget: variantBudgets[i] }));
 
-      const recBuild = await generateRecommendedBuild(budget, useCase, color, options);
-      const recExplanation = explainBuild(recBuild, "PCTG Recommends", useCase, budget);
-      resultBuilds.push({ label: "PCTG Recommends", desc: "Our top pick — no budget cap", multiplier: null, build: recBuild, explanation: recExplanation, isRecommended: true });
+      resultBuilds.sort((a, b) => {
+        const aDiff = Math.abs(getTotalWithFees(a.build) - budget);
+        const bDiff = Math.abs(getTotalWithFees(b.build) - budget);
+        return aDiff - bDiff;
+      });
 
       if (resultBuilds.every(b => Object.keys(b.build).length === 0)) {
         setError("Could not generate builds with the given budget. Try increasing your budget.");
@@ -146,7 +153,7 @@ export default function AIGenerator() {
         return;
       }
       setBuilds(resultBuilds);
-      setSelectedBuild(3);
+      setSelectedBuild(0);
       setStep(5);
     } catch {
       setError("Failed to generate builds. Please try again.");
@@ -736,51 +743,41 @@ export default function AIGenerator() {
           </div>
 
           <div style={{ display: "flex", gap: "8px", marginBottom: "16px", flexWrap: "wrap" }}>
-            {builds.map((v, i) => {
-              const isRec = v.isRecommended;
-              return (
-                <button key={v.label} onClick={() => setSelectedBuild(i)}
-                  style={{
-                    flex: 1, padding: "10px 16px", borderRadius: "8px", cursor: "pointer", textAlign: "center", minWidth: "140px",
-                    background: selectedBuild === i ? (isRec ? "rgba(255,200,0,0.1)" : "rgba(0,234,255,0.08)") : "#0d0d18",
-                    border: `1px solid ${selectedBuild === i ? (isRec ? "rgba(255,200,0,0.5)" : "rgba(0,234,255,0.4)") : "rgba(0,234,255,0.1)"}`,
-                    color: selectedBuild === i ? (isRec ? "#ffc800" : "#00eaff") : "#e6e6e6",
-                    fontFamily: "inherit", fontSize: "inherit",
-                    position: "relative", overflow: "visible"
-                  }}
-                >
-                  {isRec && <span style={{
-                    position: "absolute", top: "-8px", right: "-8px",
-                    background: "#ffc800", color: "#000", fontSize: "9px", fontWeight: 800,
-                    padding: "2px 8px", borderRadius: "10px", textTransform: "uppercase",
-                    letterSpacing: "0.5px"
-                  }}>PCTG Pick</span>}
-                  <div style={{ fontSize: "13px", fontWeight: 700 }}>{v.label}</div>
-                  <div style={{ fontSize: "11px", color: selectedBuild === i ? (isRec ? "#ffc800" : "#00eaff") : "#666", marginTop: "2px" }}>
-                    £{totalPrice(v.build).toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-                  </div>
-                  {isRec && <div style={{ fontSize: "9px", color: "#ffc800", marginTop: "2px", opacity: 0.8 }}>Best overall value</div>}
-                  {i === 1 && !isRec && <div style={{ fontSize: "10px", color: "#00eaff", marginTop: "2px" }}>★ Balanced</div>}
-                </button>
-              );
-            })}
+            {builds.map((v, i) => (
+              <button key={v.label} onClick={() => setSelectedBuild(i)}
+                style={{
+                  flex: 1, padding: "10px 16px", borderRadius: "8px", cursor: "pointer", textAlign: "center", minWidth: "140px",
+                  background: selectedBuild === i ? "rgba(0,234,255,0.08)" : "#0d0d18",
+                  border: `1px solid ${selectedBuild === i ? "rgba(0,234,255,0.4)" : "rgba(0,234,255,0.1)"}`,
+                  color: selectedBuild === i ? "#00eaff" : "#e6e6e6",
+                  fontFamily: "inherit", fontSize: "inherit",
+                  position: "relative", overflow: "visible"
+                }}
+              >
+                <div style={{ fontSize: "13px", fontWeight: 700 }}>{v.label}</div>
+                <div style={{ fontSize: "11px", color: selectedBuild === i ? "#00eaff" : "#666", marginTop: "2px" }}>
+                  £{getTotalWithFees(v.build).toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                </div>
+                {i === 0 && <div style={{ fontSize: "10px", color: "#00eaff", marginTop: "2px" }}>★ Closest to Budget</div>}
+              </button>
+            ))}
           </div>
 
           <div style={{
             background: "#0d0d18", borderRadius: "12px",
-            border: builds[selectedBuild].isRecommended ? "1px solid rgba(255,200,0,0.3)" : (selectedBuild === 1 ? "1px solid rgba(0,234,255,0.3)" : "1px solid rgba(0,234,255,0.15)"),
+            border: selectedBuild === 0 ? "1px solid rgba(0,234,255,0.3)" : "1px solid rgba(0,234,255,0.15)",
             overflow: "hidden", transition: "border 0.2s"
           }}>
             <div style={{
               padding: "12px 16px", borderBottom: "1px solid rgba(0,234,255,0.1)",
               display: "flex", justifyContent: "space-between", alignItems: "center",
-              background: builds[selectedBuild].isRecommended ? "rgba(255,200,0,0.04)" : "transparent"
+              background: selectedBuild === 0 ? "rgba(0,234,255,0.04)" : "transparent"
             }}>
               <span style={{ color: "#ccc", fontWeight: 600, fontSize: "14px" }}>
                 {builds[selectedBuild].label} — {builds[selectedBuild].desc}
               </span>
-              <span style={{ color: builds[selectedBuild].isRecommended ? "#ffc800" : "#00eaff", fontWeight: 700, fontSize: "15px" }}>
-                £{totalPrice(builds[selectedBuild].build).toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+              <span style={{ color: "#00eaff", fontWeight: 700, fontSize: "15px" }}>
+                £{getTotalWithFees(builds[selectedBuild].build).toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
               </span>
             </div>
 

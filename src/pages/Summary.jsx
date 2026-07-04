@@ -28,6 +28,9 @@ function SummaryItem({ label, item }) {
   const [showProductImg, setShowProductImg] = useState(!!productImageUrl);
   const [showBrandImg, setShowBrandImg] = useState(true);
   const [showFavicon, setShowFavicon] = useState(true);
+  const itemName = item?.name || "";
+  const displayBrand = itemName.split(" ")[0] || "";
+  const modelName = itemName.substring(displayBrand.length).trim() || itemName;
 
   useEffect(() => {
     setImgIndex(0);
@@ -63,7 +66,22 @@ function SummaryItem({ label, item }) {
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ fontSize: "13px", fontWeight: 600, color: "#e6e6e6" }}>{label}</div>
-        <div style={{ fontSize: "12px", color: item?.name ? "#00eaff" : "#555" }}>{item?.name || "Not selected"}</div>
+        <div style={{ fontSize: "12px", color: "#00eaff", display: "flex", alignItems: "center", flexWrap: "wrap", gap: "6px" }}>
+          {item?.name ? (
+            <>
+              <span style={{
+                display: "inline-block", padding: "1px 6px", borderRadius: "3px",
+                background: "rgba(0,234,255,0.1)", color: "#00eaff",
+                fontSize: "10px", fontWeight: 700
+              }}>
+                {displayBrand}
+              </span>
+              <span style={{ color: "#00eaff" }}>{modelName}</span>
+            </>
+          ) : (
+            <span style={{ color: "#555" }}>Not selected</span>
+          )}
+        </div>
         {item?.name && (
           <div style={{ fontSize: "11px", color: "#555", marginTop: "2px" }}>
             {item.socket && <span>Socket: {item.socket} | </span>}

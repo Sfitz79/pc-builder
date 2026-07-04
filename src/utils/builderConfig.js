@@ -1,13 +1,14 @@
 export const BUILDER_CATEGORIES = [
-  { id: "cpu", label: "CPU", file: "cpu.csv", icon: "cpu" },
-  { id: "motherboard", label: "Motherboard", file: "motherboard.csv", icon: "motherboard" },
-  { id: "cooler", label: "CPU Cooler", file: "cooler.csv", icon: "cooler" },
-  { id: "ram", label: "RAM", file: "ram.csv", icon: "ram" },
-  { id: "storage", label: "Storage", file: "storage.csv", icon: "storage" },
-  { id: "gpu", label: "GPU", file: "gpu.csv", icon: "gpu" },
   { id: "case", label: "Case", file: "case.csv", icon: "case" },
+  { id: "cpu", label: "CPU", file: "cpu.csv", icon: "cpu" },
+  { id: "cooler", label: "CPU Cooler", file: "cooler.csv", icon: "cooler" },
+  { id: "motherboard", label: "Motherboard", file: "motherboard.csv", icon: "motherboard" },
+  { id: "ram", label: "RAM", file: "ram.csv", icon: "ram" },
+  { id: "gpu", label: "GPU", file: "gpu.csv", icon: "gpu" },
+  { id: "storage", label: "Storage", file: "storage.csv", icon: "storage" },
   { id: "psu", label: "Power Supply", file: "power-supply.csv", icon: "psu" },
   { id: "os", label: "Operating System", file: "os.csv", icon: "os" },
+  { id: "wireless-network-card", label: "WiFi / Network Card", file: "wireless-network-card.csv", icon: "network" },
   { id: "monitor", label: "Monitor", file: "monitor.csv", icon: "monitor" },
 ];
 
@@ -22,10 +23,10 @@ export const SUBCATEGORY_GROUPS = [
   {
     label: "Peripherals",
     categories: [
-      { id: "headphones", label: "Headphones", file: "headphones.csv", icon: "headphones" },
       { id: "keyboard", label: "Keyboard", file: "keyboard.csv", icon: "keyboard" },
       { id: "mouse", label: "Mouse", file: "mouse.csv", icon: "mouse" },
-      { id: "speakers", label: "Speakers", file: "speakers.csv", icon: "speakers" },
+      { id: "speakers", label: "Speakers / Audio", file: "speakers.csv", icon: "speakers" },
+      { id: "headphones", label: "Headphones", file: "headphones.csv", icon: "headphones" },
       { id: "webcam", label: "Webcam", file: "webcam.csv", icon: "webcam" },
     ]
   },

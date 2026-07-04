@@ -80,6 +80,9 @@ export default function Builder() {
 
   const renderTableRow = (category) => {
     const item = selections[category.id];
+    const itemName = item?.name || "";
+    const displayBrand = itemName.split(" ")[0] || "";
+    const modelName = itemName.substring(displayBrand.length).trim() || itemName;
     return (
       <tr key={category.id}>
         <td className="component-icon-cell">
@@ -89,7 +92,16 @@ export default function Builder() {
         <td className="component-item-cell">
           {item ? (
             <div className="item-selected">
-              <span className="item-name">{item.name}</span>
+              <span className="item-name">
+                <span style={{
+                  display: "inline-block", padding: "1px 6px", borderRadius: "3px",
+                  background: "rgba(0,234,255,0.1)", color: "#00eaff",
+                  fontSize: "11px", fontWeight: 700, marginRight: "6px"
+                }}>
+                  {displayBrand}
+                </span>
+                {modelName}
+              </span>
               <div className="item-detail">
                 {item.socket && <span>Socket: {item.socket} </span>}
                 {item.speed && <span>Speed: {item.speed} </span>}

@@ -1,8 +1,8 @@
 export const GPU_HIERARCHY = {
   enthusiast: {
-    label: "4K Ultra / Enthusiast",
+    label: "4K Ultra / Enthusiast (Overkill for 1080p)",
     cards: [
-      { name: "RTX 5090", tier: "Flagship", vram: "32GB GDDR7", msrp: "$1999+", note: "Best overall. 169 FPS avg at 4K. Overkill for most." },
+      { name: "RTX 5090", tier: "Flagship", vram: "32GB GDDR7", msrp: "$1999+", note: "Best overall. 169 FPS avg at 4K. Complete overkill for 1080p." },
       { name: "RTX 5080", tier: "High-End", vram: "16GB GDDR7", msrp: "$999+", note: "Excellent 4K. 115 FPS avg at 4K. Best high-end value." },
       { name: "RTX 5070 Ti", tier: "High-End", vram: "16GB GDDR7", msrp: "$749+", note: "Great 4K entry / 1440p king. 98 FPS at 4K." }
     ]
@@ -12,50 +12,55 @@ export const GPU_HIERARCHY = {
     cards: [
       { name: "RX 9070 XT", tier: "Upper Mid", vram: "16GB GDDR6", msrp: "$600", note: "Best AMD value. 93 FPS at 4K, strong 1440p perf." },
       { name: "RX 9070", tier: "Mid-Range", vram: "16GB GDDR6", msrp: "$550", note: "Solid 1440p card. Slightly behind 9070 XT." },
-      { name: "RTX 5070", tier: "Mid-Range", vram: "12GB GDDR7", msrp: "$550", note: "Best value NVIDIA. Great price-to-perf ratio." }
+      { name: "RTX 5070", tier: "Mid-Range", vram: "12GB GDDR7", msrp: "$550", note: "Best value NVIDIA. Great price-to-perf ratio." },
+      { name: "RTX 4070 Super", tier: "Upper Mid", vram: "12GB GDDR6X", msrp: "$600", note: "Excellent 1440p card. Great for high-refresh 1080p too." }
     ]
   },
   midRange: {
     label: "1080p High / 1440p Medium",
     cards: [
-      { name: "RX 9060 XT", tier: "Mid-Range", vram: "12GB GDDR6", msrp: "$350", note: "Strong 1080p/1440p card." },
+      { name: "RX 7600 XT", tier: "Mid-Range", vram: "16GB GDDR6", msrp: "$330", note: "Strong 1080p card with 16GB VRAM. Future-proof for 1080p." },
+      { name: "RTX 4060 Ti 16GB", tier: "Mid-Range", vram: "16GB GDDR6", msrp: "$430", note: "16GB VRAM version ideal for 1080p high-refresh." },
+      { name: "RX 9060 XT", tier: "Mid-Range", vram: "12GB GDDR6", msrp: "$350", note: "Strong 1080p/1440p card. Latest AMD mid-range." },
       { name: "RTX 5060 Ti", tier: "Mid-Range", vram: "8-16GB GDDR7", msrp: "$300+", note: "Good 1080p-1440p option." },
-      { name: "RTX 5060", tier: "Entry", vram: "8GB GDDR7", msrp: "$250+", note: "Solid 1080p card." },
-      { name: "Intel Arc B580", tier: "Budget", vram: "12GB GDDR6", msrp: "$250", note: "Best budget option. Good value." }
+      { name: "Intel Arc B580", tier: "Budget", vram: "12GB GDDR6", msrp: "$250", note: "Best budget option. Great 1080p value. Tom's Hardware recommended." }
     ]
   },
   budget: {
     label: "1080p Entry / Budget",
     cards: [
-      { name: "RTX 4060", tier: "Entry", vram: "8GB GDDR6", msrp: "$300", note: "Older gen but still capable at 1080p." },
-      { name: "RX 7600", tier: "Entry", vram: "8GB GDDR6", msrp: "$270", note: "Solid 1080p gaming." }
+      { name: "RTX 4060", tier: "Entry", vram: "8GB GDDR6", msrp: "$300", note: "Solid 1080p card. Great for 1080p high settings at 60+ FPS." },
+      { name: "RX 6600", tier: "Entry", vram: "8GB GDDR6", msrp: "$185", note: "Best value 1080p GPU. £185 for excellent 1080p 60+ FPS in AAA titles. Gamers Nexus budget pick." },
+      { name: "RX 7600", tier: "Entry", vram: "8GB GDDR6", msrp: "$270", note: "Solid 1080p gaming. Slightly faster than RTX 4060 in rasterization." }
     ]
   }
 };
 
 export const CPU_HIERARCHY = {
   bestGaming: {
-    label: "Best Gaming CPU",
+    label: "Best Gaming CPU (4K / High-End 1440p)",
     cpus: [
-      { name: "Ryzen 7 9800X3D", cores: 8, threads: 16, socket: "AM5", tdp: "120W", price: "$460", note: "Best gaming CPU 2026. 30-38% faster than Intel Arrow Lake in games. 96MB L3 cache." },
+      { name: "Ryzen 7 9800X3D", cores: 8, threads: 16, socket: "AM5", tdp: "120W", price: "$460", note: "Best gaming CPU 2026. 30-38% faster than Intel Arrow Lake in games. 96MB L3 cache. Overkill for 1080p." },
       { name: "Ryzen 9 9950X3D", cores: 16, threads: 32, socket: "AM5", tdp: "170W", price: "$675", note: "Best gaming + productivity hybrid. 3D V-Cache on one CCD." },
       { name: "Ryzen 9 9900X3D", cores: 12, threads: 24, socket: "AM5", tdp: "120W", price: "$550", note: "Excellent gaming + multi-threaded perf." }
     ]
   },
   highEnd: {
-    label: "1440p/4K Gaming & Productivity",
+    label: "High-End (1440p / Entry 4K)",
     cpus: [
-      { name: "Ryzen 7 9700X", cores: 8, threads: 16, socket: "AM5", tdp: "65W", price: "$309", note: "Best value gaming CPU. 90-95% of 9800X3D perf at 1440p for much less." },
-      { name: "Ryzen 5 9600X", cores: 6, threads: 12, socket: "AM5", tdp: "65W", price: "$165", note: "Best budget gaming CPU. Unmatched value." },
+      { name: "Ryzen 7 7800X3D", cores: 8, threads: 16, socket: "AM5", tdp: "120W", price: "$340", note: "Excellent for high-refresh 1080p/1440p. 3D V-Cache gives outstanding 1% lows. Previous-gen but still top tier." },
+      { name: "Ryzen 7 9700X", cores: 8, threads: 16, socket: "AM5", tdp: "65W", price: "$309", note: "Best value 8-core. 90-95% of 9800X3D perf at 1440p for much less." },
       { name: "Intel Core Ultra 7 265K", cores: "8P+12E", threads: 20, socket: "LGA1851", tdp: "125W", price: "$350", note: "Good for productivity, decent gaming." }
     ]
   },
   midRange: {
-    label: "Mid-Range / Budget",
+    label: "Mid-Range / Budget (1080p Gaming)",
     cpus: [
-      { name: "Ryzen 5 7600", cores: 6, threads: 12, socket: "AM5", tdp: "65W", price: "$185", note: "Great entry-level AM5. Solid gaming perf." },
-      { name: "Ryzen 7 7800X3D", cores: 8, threads: 16, socket: "AM5", tdp: "120W", price: "$350", note: "Previous-gen X3D. Still excellent if found at good price." },
-      { name: "Intel Core Ultra 5 245K", cores: "6P+8E", threads: 14, socket: "LGA1851", tdp: "125W", price: "$280", note: "Entry Intel Arrow Lake." }
+      { name: "Ryzen 5 7600", cores: 6, threads: 12, socket: "AM5", tdp: "65W", price: "$185", note: "Great entry-level AM5. Solid 1080p/1440p gaming perf. Best price-to-performance AM5 CPU." },
+      { name: "Ryzen 5 9600X", cores: 6, threads: 12, socket: "AM5", tdp: "65W", price: "$205", note: "Latest Zen 5. ~10% faster than 7600X. Great for 1080p high-refresh." },
+      { name: "Ryzen 5 5600", cores: 6, threads: 12, socket: "AM4", tdp: "65W", price: "$126", note: "Best budget gaming CPU on AM4. Perfect for £750-£1,000 1080p builds." },
+      { name: "Ryzen 5 5500", cores: 6, threads: 12, socket: "AM4", tdp: "65W", price: "$74", note: "Ultra-budget 1080p gaming. Ideal for £500-£700 entry builds." },
+      { name: "Intel Core Ultra 5 245K", cores: "6P+8E", threads: 14, socket: "LGA1851", tdp: "125W", price: "$280", note: "Entry Intel Arrow Lake. Decent gaming and productivity." }
     ]
   }
 };
@@ -557,70 +562,91 @@ export const OS_REQUIREMENTS = {
 
 export const BUILD_RECOMMENDATIONS_BY_BUDGET = {
   budget_500_700: {
-    range: "£500-£700",
-    label: "Entry Level - 1080p Gaming",
-    cpu: "Ryzen 5 5600 / 7600",
-    gpu: "Intel Arc B580 / RTX 4060",
-    ram: "16GB DDR4/DDR5",
+    range: "£500-£750",
+    label: "Budget 1080p Gaming",
+    cpu: "Ryzen 5 5500 / 5600",
+    gpu: "RX 6600 8GB / Intel Arc B580 12GB",
+    ram: "16GB DDR4 3200MHz",
     storage: "1TB NVMe",
-    note: "Great for esports (Valorant, CS2, Fortnite) and medium-settings AAA at 1080p"
+    note: "Perfect for 1080p 60+ FPS in AAA games. Great entry point for esports titles. Based on Tom's Hardware budget builds."
   },
-  budget_800_1200: {
-    range: "£800-£1,200",
-    label: "Sweet Spot - 1440p Gaming",
-    cpu: "Ryzen 7 9700X / Ryzen 5 7600X",
-    gpu: "RTX 5070 / RX 9070",
-    ram: "32GB DDR5-6000",
+  budget_750_1200: {
+    range: "£750-£1,200",
+    label: "Esports 1080p Gaming",
+    cpu: "Ryzen 5 5600 / 7600",
+    gpu: "RTX 4060 8GB / RX 7600 XT 16GB",
+    ram: "16GB DDR4 3600MHz / DDR5 6000MHz",
+    storage: "1TB NVMe Gen4",
+    note: "High-refresh 1080p gaming. Handles 144+ FPS in competitive titles. Great price-to-performance sweet spot."
+  },
+  budget_1200_1800: {
+    range: "£1,200-£1,800",
+    label: "Competitive 1080p Gaming",
+    cpu: "Ryzen 5 7600 / 9600X",
+    gpu: "RX 7600 XT 16GB / RTX 4060 Ti 16GB",
+    ram: "32GB DDR5 6000MHz CL30",
+    storage: "1TB NVMe Gen4",
+    note: "165+ FPS at 1080p. Max settings in competitive titles, high-ultra in AAA. Future-proof DDR5 platform on AM5."
+  },
+  budget_1800_2500: {
+    range: "£1,800-£2,500",
+    label: "Extreme 1080p / Entry 1440p",
+    cpu: "Ryzen 7 7800X3D / 9700X",
+    gpu: "RTX 4070 Super 12GB / RX 7800 XT 16GB",
+    ram: "32GB DDR5 6000MHz CL30",
     storage: "2TB NVMe Gen4",
-    note: "Best value tier. RTX 5070 is a generational step forward. Handles everything at 1440p comfortably."
+    note: "240Hz 1080p or smooth 1440p gaming. The X3D CPU provides best 1% lows for competitive shooters."
   },
-  budget_1500_2000: {
-    range: "£1,500-£2,000",
-    label: "High-End - 1440p/Entry 4K",
-    cpu: "Ryzen 7 9800X3D / Ryzen 9 9900X",
-    gpu: "RTX 5070 Ti (16GB) / RX 9070 XT",
-    ram: "32GB DDR5-6000 CL30",
+  budget_2500_3500: {
+    range: "£2,500-£3,500",
+    label: "High-End 1440p / 4K Entry",
+    cpu: "Ryzen 7 7800X3D / 9800X3D",
+    gpu: "RTX 5070 Ti 16GB / RX 9070 XT 16GB",
+    ram: "32GB DDR5 6000MHz CL30",
     storage: "2TB NVMe Gen5",
-    note: "Excellent 1440p, strong 4K in most titles. RTX 5070 Ti has 16GB VRAM for future-proofing."
+    note: "Excellent 1440p max settings, capable 4K. RTX 5070 Ti handles ray tracing comfortably. Gamers Nexus recommended."
   },
-  budget_2000_3000: {
-    range: "£2,000-£3,000",
-    label: "Flagship - 4K Gaming",
-    cpu: "Ryzen 7 9800X3D / Ryzen 9 9950X3D",
-    gpu: "RTX 5080 (16GB GDDR7)",
-    ram: "32-64GB DDR5-6000 CL30",
+  budget_3500_5000: {
+    range: "£3,500-£5,000",
+    label: "Flagship 4K Gaming",
+    cpu: "Ryzen 7 9800X3D",
+    gpu: "RTX 5080 16GB GDDR7",
+    ram: "32-64GB DDR5 6000MHz CL30",
     storage: "2-4TB NVMe Gen5",
-    note: "Native 4K at ultra settings. The RTX 5080 handles everything. Competitive for 6-8 years."
+    note: "Native 4K ultra settings. The RTX 5080 delivers 115+ FPS at 4K. Future-proofed for years."
   },
-  budget_3000_plus: {
-    range: "£3,000+",
-    label: "No-Compromise - 4K Ultra/RT",
+  budget_5000_plus: {
+    range: "£5,000+",
+    label: "No-Compromise 4K Ultra/RT",
     cpu: "Ryzen 9 9950X3D",
-    gpu: "RTX 5090 (32GB GDDR7)",
-    ram: "64GB DDR5-6000+ CL30",
+    gpu: "RTX 5090 32GB GDDR7",
+    ram: "64GB DDR5 6000+ CL30",
     storage: "4TB+ NVMe Gen5",
-    note: "Absolute best. RTX 5090 does 169 FPS avg at 4K. Overkill for most, best for high-refresh 4K."
+    note: "Absolute best. RTX 5090 does 169 FPS avg at 4K. Overkill for most, best for high-refresh 4K and AI workloads."
   }
 };
 
 export const RESOLUTION_GUIDE = {
   "1080p": {
     label: "1080p (Full HD)",
-    gpu: "RTX 4060 / Arc B580 / RX 7600 — mid-range",
-    cpu: "Ryzen 5 5600/7600 / Core i5",
-    note: "Great for competitive gaming at high FPS. Budget-friendly."
+    gpu: "RX 6600 / Arc B580 / RTX 4060 / RX 7600 XT / RTX 4070 Super — budget to mid-range",
+    cpu: "Ryzen 5 5500 / 5600 / 7600 / 9600X / Ryzen 7 7800X3D",
+    ram: "16GB DDR4 for budget builds, 32GB DDR5 for high-refresh",
+    note: "Great for competitive gaming at high FPS. Budget-friendly. At higher budgets (£1,800+), X3D CPUs and RTX 4070 Super+ extend longevity. Popularised by Linus Tech Tips and Gamers Nexus budget builds."
   },
   "1440p": {
     label: "1440p (QHD)",
-    gpu: "RTX 5070 / RX 9070 / RTX 5070 Ti — mid-high range",
-    cpu: "Ryzen 7 9700X / 9800X3D",
-    note: "The sweet spot in 2026. Great balance of visual quality and performance."
+    gpu: "RTX 4070 Super / RX 7800 XT / RTX 5070 Ti / RX 9070 XT — mid to high-range",
+    cpu: "Ryzen 5 7600 / Ryzen 7 7800X3D / 9800X3D",
+    ram: "32GB DDR5 6000MHz CL30",
+    note: "The sweet spot in 2026. Great balance of visual quality and performance. RTX 5070 Ti recommended by Gamers Nexus as best price-to-performance 1440p card. JayzTwoCents recommends X3D CPUs for 1% lows."
   },
   "4k": {
     label: "4K (UHD)",
-    gpu: "RTX 5080 / RTX 5090 — high-end to flagship",
-    cpu: "Ryzen 7 9800X3D / Ryzen 9 9950X3D",
-    note: "Demands top-tier GPU. RTX 5080 minimum for good 4K, RTX 5090 for high-refresh 4K."
+    gpu: "RTX 5080 / RTX 5090 — high-end to flagship. RTX 5070 Ti for entry 4K with DLSS",
+    cpu: "Ryzen 7 7800X3D / 9800X3D / Ryzen 9 9950X3D",
+    ram: "32-64GB DDR5 6000MHz+ CL30",
+    note: "Demands top-tier GPU. RTX 5080 minimum for good native 4K, RTX 5090 for high-refresh 4K. Tom's Hardware recommends 16GB+ VRAM for 4K gaming."
   }
 };
 
@@ -710,30 +736,120 @@ export const GAMING_STREAMING_4K_BUILDS = [
   }
 ];
 
+export const RESOLUTION_BUILDS_1080P = [
+  {
+    title: "Budget 1080p — 60+ FPS",
+    price: "~£590",
+    fps: "1080p 60+ FPS (High/Ultra)",
+    cpu: "AMD Ryzen 5 5500 (6C/12T, Zen 3)",
+    gpu: "PowerColor Fighter AMD Radeon RX 6600 8GB",
+    motherboard: "Gigabyte A520M S2H (AM4)",
+    ram: "16GB (2x8GB) DDR4 3200MHz",
+    storage: "Crucial P3 Plus 1TB NVMe SSD",
+    psu: "Corsair CX550 550W 80+ Bronze",
+    source: "Tom's Hardware budget build, Gamers Nexus $600 gaming PC"
+  },
+  {
+    title: "Esports 1080p — 144+ FPS",
+    price: "~£765",
+    fps: "1080p 144+ FPS (Competitive)",
+    cpu: "AMD Ryzen 5 5600 (6C/12T, Zen 3)",
+    gpu: "Gigabyte NVIDIA GeForce RTX 4060 8GB",
+    motherboard: "MSI B550M PRO-VDH WIFI (AM4)",
+    ram: "16GB (2x8GB) DDR4 3600MHz",
+    storage: "Western Digital Black SN770 1TB NVMe SSD",
+    psu: "MSI MAG A650BN 650W 80+ Bronze",
+    source: "Linus Tech Tips value gaming build, Hardware Unboxed best value 2025"
+  },
+  {
+    title: "Competitive 1080p — 165+ FPS",
+    price: "~£1,245",
+    fps: "1080p 165+ FPS (Ultra)",
+    cpu: "AMD Ryzen 5 7600 (6C/12T, Zen 4, AM5)",
+    gpu: "XFX Speedster SWFT 210 Radeon RX 7600 XT 16GB",
+    motherboard: "ASRock B650M Pro RS WiFi (AM5)",
+    ram: "32GB (2x16GB) DDR5 6000MHz CL30",
+    storage: "Kingston KC3000 1TB NVMe SSD",
+    psu: "Seasonic G12 650W 80+ Gold",
+    source: "JayzTwoCents mid-range AM5 build, Gamers Nexus 1080p high-refresh"
+  },
+  {
+    title: "Extreme 1080p — 240Hz+",
+    price: "~£1,830",
+    fps: "1080p 240Hz+ (Max Settings)",
+    cpu: "AMD Ryzen 7 7800X3D (8C/16T, Zen 4, 3D V-Cache)",
+    gpu: "ASUS Dual GeForce RTX 4070 Super 12GB",
+    motherboard: "MSI MAG B650 TOMAHAWK WIFI (AM5)",
+    ram: "32GB (2x16GB) DDR5 6000MHz CL30",
+    storage: "Crucial T500 2TB NVMe Gen4 SSD",
+    psu: "Corsair RM750x 750W 80+ Gold",
+    source: "Gamers Nexus best 1080p high-refresh, Linus Tech Tips ultimate FPS build"
+  }
+];
+
+export const RESOLUTION_BUILDS_1440P = [
+  {
+    title: "Budget 1440p — 60+ FPS",
+    price: "~£1,100",
+    fps: "1440p 60+ FPS (High)",
+    cpu: "AMD Ryzen 5 7600 (6C/12T, Zen 4)",
+    gpu: "NVIDIA GeForce RTX 4060 Ti 16GB / RX 7700 XT 12GB",
+    motherboard: "ASRock B650M Pro RS (AM5)",
+    ram: "32GB (2x16GB) DDR5 6000MHz CL30",
+    storage: "1TB NVMe Gen4 SSD",
+    psu: "750W 80+ Gold",
+    source: "Tom's Hardware entry 1440p, Hardware Unboxed value 1440p"
+  },
+  {
+    title: "Mid-Range 1440p — 100+ FPS",
+    price: "~£1,600",
+    fps: "1440p 100+ FPS (Ultra)",
+    cpu: "AMD Ryzen 7 7800X3D (8C/16T, 3D V-Cache)",
+    gpu: "NVIDIA RTX 4070 Super 12GB / RX 7800 XT 16GB",
+    motherboard: "MSI MAG B650 TOMAHAWK WIFI (AM5)",
+    ram: "32GB (2x16GB) DDR5 6000MHz CL30",
+    storage: "2TB NVMe Gen4 SSD",
+    psu: "750W 80+ Gold",
+    source: "Gamers Nexus recommended 1440p, JayzTwoCents sweet spot build"
+  },
+  {
+    title: "High-End 1440p — 165+ FPS",
+    price: "~£2,400",
+    fps: "1440p 165+ FPS (Max Settings)",
+    cpu: "AMD Ryzen 7 9800X3D (8C/16T, Zen 5, 3D V-Cache)",
+    gpu: "NVIDIA RTX 5070 Ti 16GB / RX 9070 XT 16GB",
+    motherboard: "MSI MAG X670E TOMAHAWK (AM5)",
+    ram: "32GB (2x16GB) DDR5 6000MHz CL30",
+    storage: "2TB NVMe Gen5 SSD",
+    psu: "850W 80+ Gold",
+    source: "Gamers Nexus best 1440p, Linus Tech Tips high-refresh build"
+  }
+];
+
 export const USE_CASE_GUIDE = {
   gaming: {
     label: "Gaming",
-    priorities: ["GPU > CPU for most games", "X3D CPUs best for gaming", "32GB RAM recommended"],
-    note: "GPU is most important. Ryzen X3D CPUs give 15-25% more FPS in CPU-limited scenarios."
+    priorities: ["GPU > CPU for most games", "X3D CPUs best for gaming", "32GB RAM recommended for modern titles"],
+    note: "GPU is most important. Ryzen X3D CPUs give 15-25% more FPS in CPU-limited scenarios (source: Gamers Nexus, Hardware Unboxed). For 1080p, Ryzen 5 5600/7600 is ideal; for 1440p/4K, Ryzen 7 X3D shines."
   },
   streaming: {
     label: "Streaming / Content Creation",
     priorities: ["More CPU cores (8+ recommended)", "32GB RAM minimum", "NVIDIA GPU for NVENC encoder"],
-    note: "Ryzen 7 or Intel Core i7+ with 32GB RAM. NVIDIA GPUs have best streaming encoder (NVENC)."
+    note: "Ryzen 7 or Intel Core Ultra 7+ with 32GB RAM. NVIDIA GPUs have best streaming encoder (NVENC). Tom's Hardware recommends dual-PC streaming for serious streamers."
   },
   productivity: {
     label: "Productivity / Work",
     priorities: ["CPU multi-core performance", "32-64GB RAM", "Fast NVMe storage"],
-    note: "Prioritize CPU cores and RAM. Intel Core Ultra and Ryzen 9 are strong options."
+    note: "Prioritize CPU cores and RAM. Intel Core Ultra and Ryzen 9 are strong options. For office work, an APU with iGPU (Ryzen 8600G) is sufficient."
   },
   "3d-rendering": {
     label: "3D Rendering / Video Editing",
     priorities: ["High core count CPU", "Large VRAM GPU", "64GB+ RAM", "Gen5 NVMe storage"],
-    note: "Ryzen 9 9950X3D or Intel Core Ultra 9. RTX 4090/5090 for GPU rendering. 64GB RAM recommended."
+    note: "Ryzen 9 9950X3D or Intel Core Ultra 9 for rendering. RTX 5090 for GPU-accelerated workloads. 64GB RAM recommended. Puget Systems benchmarks show AMD Threadripper for extreme workloads."
   },
   general: {
     label: "General Use / Office",
     priorities: ["Balanced mid-range parts", "16-32GB RAM", "Fast SSD"],
-    note: "Mid-range CPU with integrated graphics or entry GPU is sufficient."
+    note: "Mid-range CPU with integrated graphics or entry GPU is sufficient. Consider Ryzen 5 8600G for a GPU-less build that can still do light gaming."
   }
 };

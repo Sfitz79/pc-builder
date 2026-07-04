@@ -207,6 +207,7 @@ export default function IntroAnimation({ price = "£1,249", performance = "1440p
 
         .pcv-part {
           width: 150px;
+          height: 180px;
           background: rgba(10, 14, 24, 0.9);
           border-radius: 16px;
           padding: 10px;
@@ -222,8 +223,10 @@ export default function IntroAnimation({ price = "£1,249", performance = "1440p
 
         .pcv-part img {
           width: 100%;
+          height: 120px;
           border-radius: 12px;
-          object-fit: cover;
+          object-fit: contain;
+          background: rgba(0, 0, 0, 0.3);
         }
 
         .pcv-part span {
@@ -432,7 +435,11 @@ export default function IntroAnimation({ price = "£1,249", performance = "1440p
         @media (max-width: 600px) {
           .pcv-part {
             width: 100px;
+            height: 140px;
             padding: 6px;
+          }
+          .pcv-part img {
+            height: 90px;
           }
           .pcv-stage-parts {
             gap: 12px;

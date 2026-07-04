@@ -45,9 +45,12 @@ export function inferCpuSocket(cpu) {
     if (microarchitecture.includes("arrow lake")) return "LGA1851";
     if (microarchitecture.includes("raptor lake") || microarchitecture.includes("alder lake")) return "LGA1700";
     if (microarchitecture.includes("coffee lake") || microarchitecture.includes("kaby lake") || microarchitecture.includes("skylake")) return "LGA1151";
+    if (microarchitecture.includes("comet lake") || microarchitecture.includes("rocket lake")) return "LGA1200";
     if (microarchitecture.includes("broadwell") || microarchitecture.includes("haswell")) return "LGA1150";
     if (microarchitecture.includes("ivy bridge") || microarchitecture.includes("sandy bridge")) return "LGA1155";
+    if (microarchitecture.includes("nehalem") || microarchitecture.includes("westmere")) return "LGA1366";
     if (microarchitecture.includes("wolfdale") || microarchitecture.includes("yorkfield") || microarchitecture.includes("core 2") || microarchitecture.includes("wolfdale")) return "LGA775";
+    if (microarchitecture === "core") return "LGA775";
     
     // Fallback patterns for Intel
     if (name.includes("lga 1700") || name.includes("lga1700")) return "LGA1700";
@@ -260,7 +263,7 @@ export function getItemImageUrls(item) {
   });
 }
 
-const VALID_SOCKETS = new Set(["AM4", "AM5", "LGA1700", "LGA1851"]);
+const VALID_SOCKETS = new Set(["AM4", "AM5", "LGA1700", "LGA1851", "LGA1200"]);
 
 export function isModernComponent(categoryId, item) {
   if (!item) return true;
@@ -269,6 +272,14 @@ export function isModernComponent(categoryId, item) {
     case "cpu": {
       const socket = inferCpuSocket(item);
       if (socket && !VALID_SOCKETS.has(socket)) return false;
+
+      if (!socket) {
+        const arch = String(item.microarchitecture || "").toLowerCase();
+        const name = String(item.name || "").toLowerCase();
+        if (!arch) return false;
+        const oldArches = ["k10", "piledriver", "steamroller", "bulldozer", "excavator", "jaguar", "lynx", "puma+", "bobcat"];
+        if (oldArches.some(a => arch.includes(a))) return false;
+      }
 
       if (socket === "AM4") {
         const arch = String(item.microarchitecture || "").toLowerCase();
@@ -326,6 +337,43 @@ export function isModernComponent(categoryId, item) {
     default:
       return true;
   }
+}
+
+export function isWindows11Compatible(cpu) {
+  if (!cpu) return false;
+
+  const socket = inferCpuSocket(cpu);
+  if (!socket) return false;
+
+  // AMD: AM5 always compatible; AM4 needs Zen+ or newer
+  if (socket === "AM5") return true;
+  if (socket === "AM4") {
+    const arch = String(cpu.microarchitecture || "").toLowerCase();
+    const name = String(cpu.name || "").toLowerCase();
+    if (arch) {
+      if (arch.includes("zen 3") || arch.includes("zen 2") || arch.includes("zen+") || arch.includes("zen 4") || arch.includes("zen 5")) return true;
+      if (arch === "zen") return false;
+    } else {
+      const ryzenMatch = name.match(/ryzen\s*(\d)/);
+      if (ryzenMatch) {
+        const seriesNum = parseInt(ryzenMatch[1]);
+        return seriesNum >= 2;
+      }
+    }
+    return false;
+  }
+
+  // Intel: LGA1200, LGA1700, LGA1851 always compatible
+  if (socket === "LGA1200" || socket === "LGA1700" || socket === "LGA1851") return true;
+
+  // LGA1151: only Coffee Lake (8th gen) and newer
+  if (socket === "LGA1151") {
+    const arch = String(cpu.microarchitecture || "").toLowerCase();
+    if (arch.includes("coffee lake")) return true;
+    return false;
+  }
+
+  return false;
 }
 
 function isModernGpu(gpu) {

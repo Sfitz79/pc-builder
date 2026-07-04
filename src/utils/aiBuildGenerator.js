@@ -1,5 +1,5 @@
 import { loadCSV } from "./loadCSV";
-import { inferCpuSocket } from "./common";
+import { inferCpuSocket, isModernComponent, isWindows11Compatible } from "./common";
 
 const REQUIRED_CATEGORIES = ["case", "case-fan", "cooler", "cpu", "motherboard", "ram", "storage", "psu", "os"];
 
@@ -9,22 +9,22 @@ const OPTIONAL_EXTRA_CATEGORIES = ["wireless-network-card"];
 
 const ALL_CATEGORIES = [
   { id: "cpu", file: "cpu.csv", label: "CPU", weight: 0.3 },
-  { id: "motherboard", file: "motherboard.csv", label: "Motherboard", weight: 0.1 },
   { id: "cooler", file: "cooler.csv", label: "CPU Cooler", weight: 0.05 },
-  { id: "ram", file: "ram.csv", label: "RAM", weight: 0.1 },
-  { id: "storage", file: "storage.csv", label: "Storage", weight: 0.05 },
-  { id: "gpu", file: "gpu.csv", label: "GPU", weight: 0.3 },
+  { id: "motherboard", file: "motherboard.csv", label: "Motherboard", weight: 0.1 },
   { id: "case", file: "case.csv", label: "Case", weight: 0.04 },
-  { id: "case-fan", file: "case-fan.csv", label: "Case Fan", weight: 0.01 },
+  { id: "ram", file: "ram.csv", label: "RAM", weight: 0.1 },
+  { id: "gpu", file: "gpu.csv", label: "GPU", weight: 0.3 },
+  { id: "storage", file: "storage.csv", label: "Storage", weight: 0.05 },
   { id: "psu", file: "power-supply.csv", label: "Power Supply", weight: 0.05 },
   { id: "os", file: "os.csv", label: "Operating System", weight: 0.0 },
+  { id: "wireless-network-card", file: "wireless-network-card.csv", label: "WiFi Card", weight: 0.0 },
   { id: "monitor", file: "monitor.csv", label: "Monitor", weight: 0.0 },
-  { id: "headphones", file: "headphones.csv", label: "Headphones", weight: 0.0 },
   { id: "keyboard", file: "keyboard.csv", label: "Keyboard", weight: 0.0 },
   { id: "mouse", file: "mouse.csv", label: "Mouse", weight: 0.0 },
   { id: "speakers", file: "speakers.csv", label: "Speakers", weight: 0.0 },
+  { id: "headphones", file: "headphones.csv", label: "Headphones", weight: 0.0 },
+  { id: "case-fan", file: "case-fan.csv", label: "Case Fan", weight: 0.0 },
   { id: "webcam", file: "webcam.csv", label: "Webcam", weight: 0.0 },
-  { id: "wireless-network-card", file: "wireless-network-card.csv", label: "WiFi Card", weight: 0.0 },
 ];
 
 export function getRamDdr(ram) {
@@ -77,6 +77,19 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
   }
 
   const budgetAllocation = allocateBudget(budget, useCase);
+
+  if (budgetAllocation["os"] < 50) {
+    const overage = 50 - budgetAllocation["os"];
+    budgetAllocation["os"] = 50;
+    const otherCats = Object.keys(budgetAllocation).filter(k => k !== "os");
+    const totalOther = otherCats.reduce((s, k) => s + budgetAllocation[k], 0);
+    if (totalOther > 0) {
+      for (const cat of otherCats) {
+        budgetAllocation[cat] -= budgetAllocation[cat] / totalOther * overage;
+      }
+    }
+  }
+
   const build = {};
 
   for (const cat of ALL_CATEGORIES) {
@@ -101,19 +114,36 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
     }
 
     if (cat.id === "cpu") {
-      candidates = filterCpuForUseCase(candidates, useCase);
+      candidates = filterCpuForUseCase(candidates, useCase, monitorResolution);
       if (consumerOnly) {
         candidates = candidates.filter(c => {
           const name = (c.name || "").toUpperCase();
           if (name.includes("THREADRIPPER")) return false;
           if (name.includes("XEON")) return false;
           if (name.includes("EPYC")) return false;
+          const socket = inferCpuSocket(c);
+          if (socket && (socket === "LGA1151" || socket === "LGA1150" || socket === "LGA1155" || socket === "LGA775")) return false;
           return true;
         });
       }
     }
     if (cat.id === "ram") {
       candidates = filterRamForUseCase(candidates, useCase);
+      if (build.motherboard) {
+        const moboGen = (() => {
+          const t = String(build.motherboard.ram_type || "").toLowerCase();
+          const n = String(build.motherboard.name || "").toUpperCase();
+          const s = String(build.motherboard.socket || "").toUpperCase();
+          if (t.includes("ddr5") || n.includes("DDR5") || s === "AM5" || s === "LGA1851") return "DDR5";
+          if (t.includes("ddr4") || n.includes("DDR4") || n.includes(" D4")) return "DDR4";
+          return null;
+        })();
+        if (moboGen === "DDR5") {
+          candidates = candidates.filter(c => isDdr5(c));
+        } else if (moboGen === "DDR4") {
+          candidates = candidates.filter(c => !isDdr5(c));
+        }
+      }
       if (preferDDR4) {
         candidates.sort((a, b) => {
           const aIsDdr5 = isDdr5(a);
@@ -194,6 +224,16 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
         candidates = candidates.filter(g => (parseFloat(g.memory) || 0) >= 8);
       } else if (monitorResolution === "4k") {
         candidates = candidates.filter(g => (parseFloat(g.memory) || 0) >= 12);
+      }
+      {
+        const canUseIgpu = (monitorResolution === "1080p" || monitorResolution === "auto") && (useCase || "").toLowerCase().match(/gaming|general/i);
+        const hasIgpu = (() => {
+          const igpu = String(build.cpu?.integrated_graphics || "").toLowerCase();
+          return igpu && igpu !== "none" && igpu !== "false" && igpu !== "";
+        })();
+        if (canUseIgpu && hasIgpu && (candidates.length === 0 || parseFloat(candidates[0].price) > catBudget * 1.15)) {
+          continue;
+        }
       }
     }
 
@@ -276,6 +316,18 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
         const winPro = candidates.filter(o => /windows.*11.*pro/i.test(o.name));
         if (winPro.length > 0) candidates = winPro;
       }
+      if (catId === "cpu") {
+        if (consumerOnly) {
+          candidates = candidates.filter(c => {
+            const name = (c.name || "").toUpperCase();
+            if (name.includes("THREADRIPPER") || name.includes("XEON") || name.includes("EPYC")) return false;
+            const socket = inferCpuSocket(c);
+            if (socket && (socket === "LGA1151" || socket === "LGA1150" || socket === "LGA1155" || socket === "LGA775")) return false;
+            return true;
+          });
+        }
+        candidates = candidates.filter(c => isWindows11Compatible(c) && isModernComponent("cpu", c));
+      }
       candidates.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
       if (candidates.length > 0) {
         build[catId] = candidates[0];
@@ -301,6 +353,27 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
     }
   }
 
+  {
+    let total = Object.values(build).reduce((s, item) => s + (parseFloat(item.price) || 0), 0);
+    if (total > budget) {
+      const catsByPrice = Object.entries(build)
+        .filter(([, item]) => item && typeof item === "object" && item.price !== undefined)
+        .sort(([, a], [, b]) => parseFloat(b.price) - parseFloat(a.price));
+      for (const [catId, currentItem] of catsByPrice) {
+        if (Object.values(build).reduce((s, item) => s + (parseFloat(item.price) || 0), 0) <= budget) break;
+        if (!allParts[catId]) continue;
+        const currentPrice = parseFloat(currentItem.price) || 0;
+        const cheapest = [...allParts[catId]].sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+        if (cheapest.length > 0) {
+          const cheapestPrice = parseFloat(cheapest[0].price) || 0;
+          if (cheapestPrice < currentPrice) {
+            build[catId] = cheapest[0];
+          }
+        }
+      }
+    }
+  }
+
   return build;
 }
 
@@ -310,13 +383,14 @@ export async function generateRecommendedBuild(budget, useCase, color = "any", o
   return generateBuild(recBudget, useCase, color, opts);
 }
 
-export function explainBuild(build, label, useCase, budget) {
+export function explainBuild(build, label, useCase, budget, hiddenFees = 0) {
   const cpu = build.cpu?.name || "a capable CPU";
   const gpu = build.gpu?.name || "integrated graphics";
   const ram = build.ram?.name || "RAM";
   const ramSize = parseRamGB(ram);
   const ramDdr = getRamDdr(build.ram);
-  const total = Object.values(build).reduce((s, item) => s + (parseFloat(item.price) || 0), 0);
+  const partsTotal = Object.values(build).reduce((s, item) => s + (parseFloat(item.price) || 0), 0);
+  const total = partsTotal + hiddenFees;
   const use = (useCase || "").toLowerCase();
   const isGaming = use.includes("gaming");
   const isStream = use.includes("stream");
@@ -403,11 +477,11 @@ function gpuRequired(useCase, cpu) {
 }
 
 function allocateBudget(totalBudget, useCase) {
-  const gamingAlloc = { cpu: 0.20, gpu: 0.33, motherboard: 0.09, cooler: 0.04, ram: 0.09, storage: 0.04, "case-fan": 0.01, "storage_hdd": 0.02, psu: 0.05, os: 0.02, monitor: 0.05, headphones: 0.01, keyboard: 0.01, mouse: 0.01, speakers: 0.01, webcam: 0.01 };
-  const streamingAlloc = { cpu: 0.22, gpu: 0.30, motherboard: 0.09, cooler: 0.05, ram: 0.09, storage: 0.05, "case-fan": 0.01, "storage_hdd": 0.02, psu: 0.04, os: 0.02, monitor: 0.04, headphones: 0.02, keyboard: 0.01, mouse: 0.01, speakers: 0.01, webcam: 0.01 };
-  const workstationAlloc = { cpu: 0.25, gpu: 0.26, motherboard: 0.09, cooler: 0.06, ram: 0.09, storage: 0.06, "case-fan": 0.01, "storage_hdd": 0.03, psu: 0.04, os: 0.02, monitor: 0.05, headphones: 0.01, keyboard: 0.01, mouse: 0.01, speakers: 0.0, webcam: 0.01 };
-  const contentCreationAlloc = { cpu: 0.23, gpu: 0.25, motherboard: 0.08, cooler: 0.05, ram: 0.10, storage: 0.08, "case-fan": 0.01, "storage_hdd": 0.03, psu: 0.04, os: 0.02, monitor: 0.05, headphones: 0.01, keyboard: 0.01, mouse: 0.01, speakers: 0.0, webcam: 0.01 };
-  const generalAlloc = { cpu: 0.20, gpu: 0.25, motherboard: 0.10, cooler: 0.05, ram: 0.10, storage: 0.06, "case-fan": 0.01, "storage_hdd": 0.02, psu: 0.06, os: 0.02, monitor: 0.05, headphones: 0.01, keyboard: 0.01, mouse: 0.01, speakers: 0.01, webcam: 0.01 };
+  const gamingAlloc = { cpu: 0.18, gpu: 0.30, motherboard: 0.09, cooler: 0.04, ram: 0.08, storage: 0.04, "case-fan": 0.01, "storage_hdd": 0.02, psu: 0.05, os: 0.08, monitor: 0.05, headphones: 0.01, keyboard: 0.01, mouse: 0.01, speakers: 0.01, webcam: 0.01 };
+  const streamingAlloc = { cpu: 0.20, gpu: 0.28, motherboard: 0.09, cooler: 0.05, ram: 0.08, storage: 0.05, "case-fan": 0.01, "storage_hdd": 0.02, psu: 0.04, os: 0.08, monitor: 0.03, headphones: 0.02, keyboard: 0.01, mouse: 0.01, speakers: 0.01, webcam: 0.01 };
+  const workstationAlloc = { cpu: 0.23, gpu: 0.24, motherboard: 0.09, cooler: 0.06, ram: 0.08, storage: 0.05, "case-fan": 0.01, "storage_hdd": 0.03, psu: 0.04, os: 0.08, monitor: 0.04, headphones: 0.01, keyboard: 0.01, mouse: 0.01, speakers: 0.0, webcam: 0.01 };
+  const contentCreationAlloc = { cpu: 0.21, gpu: 0.23, motherboard: 0.08, cooler: 0.05, ram: 0.09, storage: 0.07, "case-fan": 0.01, "storage_hdd": 0.03, psu: 0.04, os: 0.08, monitor: 0.05, headphones: 0.01, keyboard: 0.01, mouse: 0.01, speakers: 0.0, webcam: 0.01 };
+  const generalAlloc = { cpu: 0.18, gpu: 0.23, motherboard: 0.10, cooler: 0.05, ram: 0.09, storage: 0.05, "case-fan": 0.01, "storage_hdd": 0.02, psu: 0.06, os: 0.08, monitor: 0.05, headphones: 0.01, keyboard: 0.01, mouse: 0.01, speakers: 0.01, webcam: 0.01 };
 
   let alloc = generalAlloc;
   const use = (useCase || "").toLowerCase();
@@ -424,17 +498,28 @@ function allocateBudget(totalBudget, useCase) {
   return allocation;
 }
 
-function filterCpuForUseCase(cpus, useCase) {
+function filterCpuForUseCase(cpus, useCase, monitorResolution) {
   const use = (useCase || "").toLowerCase();
   const isGaming = use.includes("gaming");
   const isWorkstation = use.includes("workstation") || use.includes("render") || use.includes("video") || use.includes("creation");
   const isStreaming = use.includes("stream");
 
   return cpus.filter(cpu => {
+    if (!isModernComponent("cpu", cpu)) return false;
+    if (!isWindows11Compatible(cpu)) return false;
+
     const cores = parseFloat(cpu.core_count) || 0;
     if (isWorkstation && cores < 6) return false;
     if (isStreaming && cores < 6) return false;
     if (isGaming && cores < 4) return false;
+
+    if (isGaming && monitorResolution === "1080p") {
+      const name = (cpu.name || "").toUpperCase();
+      if (name.includes("9800X3D") || name.includes("9950X3D") || name.includes("9900X3D") || name.includes("9900X")) return false;
+      if (name.includes("7950X3D") || name.includes("7900X3D") || name.includes("7600X3D")) return false;
+      if (name.includes("ULTRA 9") || name.includes("CORE I-9")) return false;
+    }
+
     return true;
   });
 }

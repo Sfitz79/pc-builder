@@ -288,6 +288,9 @@ export default function ComponentSelector({ category, selections, selectedItem, 
 
 function ItemRow({ item, selectedItem, onSelect, onClose, showPrices, categoryId }) {
   const brand = getBrand(item);
+  const itemName = item.name || "";
+  const displayBrand = itemName.split(" ")[0] || brand;
+  const modelName = itemName.substring(displayBrand.length).trim() || itemName;
   const logoUrl = getBrandLogo(item);
   const faviconUrl = getBrandFaviconUrl(item);
   const placeholderUrl = getBrandPlaceholder(item);
@@ -349,8 +352,15 @@ function ItemRow({ item, selectedItem, onSelect, onClose, showPrices, categoryId
         />
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: "13px", fontWeight: 600, color: "#e6e6e6" }}>
-          {brand} {item.name?.replace(brand, "").trim() || item.name}
+        <div style={{ fontSize: "13px", fontWeight: 600, color: "#e6e6e6", display: "flex", alignItems: "center", flexWrap: "wrap", gap: "6px" }}>
+          <span style={{
+            display: "inline-block", padding: "2px 8px", borderRadius: "4px",
+            background: "rgba(0,234,255,0.12)", color: "#00eaff",
+            fontSize: "11px", fontWeight: 700, letterSpacing: "0.3px"
+          }}>
+            {displayBrand}
+          </span>
+          <span style={{ color: "#e6e6e6" }}>{modelName}</span>
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "2px 12px", marginTop: "4px" }}>
           {specItems.slice(0, 6).map((s, i) => (
