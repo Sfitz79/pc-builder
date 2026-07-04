@@ -32,6 +32,20 @@ export function getRamDdr(ram) {
   return gen >= 5 ? "DDR5" : "DDR4";
 }
 
+function isModernGpu(gpu) {
+  const chipset = String(gpu.chipset || "").toUpperCase();
+  if (chipset.includes("ARC B") || chipset.includes("ARC A")) return true;
+  if (chipset.includes("RADEON RX")) {
+    const m = chipset.match(/RX\s*(\d)/);
+    if (m && parseInt(m[1]) >= 6) return true;
+  }
+  if (chipset.includes("GEFORCE RTX")) {
+    const m = chipset.match(/RTX\s*(\d{2})/);
+    if (m && parseInt(m[1]) >= 30) return true;
+  }
+  return false;
+}
+
 function isDdr5(ram) {
   return getRamDdr(ram) === "DDR5";
 }
@@ -226,12 +240,14 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
         candidates = candidates.filter(g => (parseFloat(g.memory) || 0) >= 12);
       }
       {
-        const canUseIgpu = (monitorResolution === "1080p" || monitorResolution === "auto") && (useCase || "").toLowerCase().match(/gaming|general/i);
         const hasIgpu = (() => {
           const igpu = String(build.cpu?.integrated_graphics || "").toLowerCase();
           return igpu && igpu !== "none" && igpu !== "false" && igpu !== "";
         })();
-        if (canUseIgpu && hasIgpu && (candidates.length === 0 || parseFloat(candidates[0].price) > catBudget * 1.15)) {
+        const modernCandidates = candidates.filter(isModernGpu);
+        if (modernCandidates.length > 0) {
+          candidates = modernCandidates;
+        } else if (hasIgpu) {
           continue;
         }
       }

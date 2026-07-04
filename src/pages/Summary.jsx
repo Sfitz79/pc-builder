@@ -76,7 +76,7 @@ function SummaryItem({ label, item }) {
               }}>
                 {displayBrand}
               </span>
-              <span style={{ color: "#00eaff" }}>{modelName}</span>
+              {' '}<span style={{ color: "#00eaff" }}>{modelName}</span>
             </>
           ) : (
             <span style={{ color: "#555" }}>Not selected</span>
@@ -128,14 +128,6 @@ export default function Summary() {
       navigate("/builder", { replace: true });
     }
   }, [allRequired, navigate]);
-
-  const partsOnlyPrice = (() => {
-    const compTotal = Object.entries(selections).reduce((sum, [cat, item]) => {
-      const p = parseFloat(item?.price);
-      return sum + (isNaN(p) ? 0 : p);
-    }, 0);
-    return compTotal + 70;
-  })();
 
   const getLabel = (catId) => {
     const c = BUILDER_CATEGORIES.find(cat => cat.id === catId) || categories.find(c => c.id === catId);
@@ -214,22 +206,6 @@ export default function Summary() {
           Build Summary
         </h1>
         <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-          <div style={{ display: "flex", gap: "4px", background: "#0d0d18", borderRadius: "8px", padding: "3px", border: "1px solid rgba(0,234,255,0.1)" }}>
-            <button onClick={() => setBuildType("full")}
-              style={{
-                padding: "6px 14px", borderRadius: "6px", cursor: "pointer", border: "none",
-                background: buildType === "full" ? "rgba(0,234,255,0.12)" : "transparent",
-                color: buildType === "full" ? "#00eaff" : "#666",
-                fontFamily: "inherit", fontSize: "12px", fontWeight: 600
-              }}>Full Build</button>
-            <button onClick={() => setBuildType("parts")}
-              style={{
-                padding: "6px 14px", borderRadius: "6px", cursor: "pointer", border: "none",
-                background: buildType === "parts" ? "rgba(0,234,255,0.12)" : "transparent",
-                color: buildType === "parts" ? "#00eaff" : "#666",
-                fontFamily: "inherit", fontSize: "12px", fontWeight: 600
-              }}>Parts Only</button>
-          </div>
           <Link to="/builder" className="button secondary small">← Back to Builder</Link>
         </div>
       </div>
@@ -491,66 +467,28 @@ export default function Summary() {
       {hasComponents && adminMode && (
         <div style={{ marginTop: "28px", background: "#0d0d18", borderRadius: "12px", border: "1px solid rgba(255,0,94,0.2)", padding: "24px" }}>
           <div style={{ fontSize: "12px", color: "#ff005e", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "16px", fontWeight: 700 }}>
-            Purchase This Build — {buildType === "full" ? "Full Build" : "Parts Only"}
+            Purchase This Build — Full Build
           </div>
 
-          {buildType === "full" ? (
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "12px", marginBottom: "20px" }}>
-              <button onClick={generateInvoice} disabled={invoiceStatus !== "idle"}
-                style={{
-                  padding: "14px", borderRadius: "8px", cursor: "pointer", border: "1px solid rgba(0,234,255,0.2)",
-                  background: "rgba(0,234,255,0.06)", color: invoiceStatus === "error" ? "#ef4444" : "#00eaff",
-                  fontFamily: "inherit", fontSize: "13px", fontWeight: 600, transition: "all 0.2s"
-                }}>
-                {invoiceStatus === "generating" ? "Generating PDF..." : invoiceStatus === "done" ? "✓ PDF Downloaded" : invoiceStatus === "error" ? "✕ Failed — Try Again" : "📄 Download Invoice (PDF)"}
-              </button>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "12px", marginBottom: "20px" }}>
+            <button onClick={generateInvoice} disabled={invoiceStatus !== "idle"}
+              style={{
+                padding: "14px", borderRadius: "8px", cursor: "pointer", border: "1px solid rgba(0,234,255,0.2)",
+                background: "rgba(0,234,255,0.06)", color: invoiceStatus === "error" ? "#ef4444" : "#00eaff",
+                fontFamily: "inherit", fontSize: "13px", fontWeight: 600, transition: "all 0.2s"
+              }}>
+              {invoiceStatus === "generating" ? "Generating PDF..." : invoiceStatus === "done" ? "✓ PDF Downloaded" : invoiceStatus === "error" ? "✕ Failed — Try Again" : "📄 Download Invoice (PDF)"}
+            </button>
 
-              <a href="https://www.paypal.com/checkoutnow" target="_blank" rel="noopener noreferrer"
-                style={{
-                  padding: "14px", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center",
-                  background: "linear-gradient(135deg, #0070ba, #003087)", color: "#fff", textDecoration: "none",
-                  fontFamily: "inherit", fontSize: "13px", fontWeight: 600, border: "none", cursor: "pointer"
-                }}>
-                ₿ Checkout with PayPal
-              </a>
-            </div>
-          ) : (
-            <div style={{ marginBottom: "20px" }}>
-              <div style={{ background: "rgba(0,234,255,0.04)", borderRadius: "8px", padding: "14px", border: "1px solid rgba(0,234,255,0.1)", marginBottom: "12px" }}>
-                <div style={{ fontSize: "11px", color: "#555", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "4px" }}>Parts Only — System Design Charge</div>
-                <div style={{ fontSize: "24px", fontWeight: 800, color: "#00eaff" }}>£35.00</div>
-                <div style={{ fontSize: "11px", color: "#555", marginTop: "4px" }}>One-time fee for custom parts list & design. Once paid, you'll receive component URLs as a PDF.</div>
-              </div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "12px" }}>
-                <button onClick={generateInvoice} disabled={invoiceStatus !== "idle"}
-                  style={{
-                    padding: "14px", borderRadius: "8px", cursor: "pointer", border: "1px solid rgba(0,234,255,0.2)",
-                    background: "rgba(0,234,255,0.06)", color: invoiceStatus === "error" ? "#ef4444" : "#00eaff",
-                    fontFamily: "inherit", fontSize: "13px", fontWeight: 600, transition: "all 0.2s"
-                  }}>
-                  {invoiceStatus === "generating" ? "Generating PDF..." : invoiceStatus === "done" ? "✓ PDF Downloaded" : invoiceStatus === "error" ? "✕ Failed — Try Again" : "📄 Download Invoice (PDF)"}
-                </button>
-
-                <a href={`https://www.paypal.com/checkoutnow`} target="_blank" rel="noopener noreferrer"
-                  style={{
-                    padding: "14px", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center",
-                    background: "linear-gradient(135deg, #0070ba, #003087)", color: "#fff", textDecoration: "none",
-                    fontFamily: "inherit", fontSize: "13px", fontWeight: 600, border: "none", cursor: "pointer"
-                  }}>
-                  ₿ Pay £35 System Design Fee
-                </a>
-
-                <button onClick={generatePartsPdf} disabled={partsPdfStatus !== "idle"}
-                  style={{
-                    padding: "14px", borderRadius: "8px", cursor: "pointer", border: "1px solid rgba(255,0,94,0.2)",
-                    background: "rgba(255,0,94,0.06)", color: partsPdfStatus === "error" ? "#ef4444" : "#ff005e",
-                    fontFamily: "inherit", fontSize: "13px", fontWeight: 600, transition: "all 0.2s"
-                  }}>
-                  {partsPdfStatus === "generating" ? "Generating PDF..." : partsPdfStatus === "done" ? "✓ Parts URLs PDF Sent" : partsPdfStatus === "error" ? "✕ Failed — Try Again" : "📋 Send Parts URLs as PDF"}
-                </button>
-              </div>
-            </div>
-          )}
+            <a href="https://www.paypal.com/checkoutnow" target="_blank" rel="noopener noreferrer"
+              style={{
+                padding: "14px", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center",
+                background: "linear-gradient(135deg, #0070ba, #003087)", color: "#fff", textDecoration: "none",
+                fontFamily: "inherit", fontSize: "13px", fontWeight: 600, border: "none", cursor: "pointer"
+              }}>
+              ₿ Checkout with PayPal
+            </a>
+          </div>
 
           <div style={{ fontSize: "11px", color: "#555", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "10px" }}>
             Share this build
@@ -573,9 +511,7 @@ export default function Summary() {
             ))}
           </div>
           <div style={{ marginTop: "10px", fontSize: "11px", color: "#444" }}>
-            {buildType === "full"
-              ? `Total: £${bundledPrice.toLocaleString('en-GB')} incl. build, testing, delivery & warranty`
-              : `Parts total: £${bundledPrice.toLocaleString('en-GB')} + £35 System Design fee`}
+            Total: £{bundledPrice.toLocaleString('en-GB')} incl. build, testing, delivery & warranty
           </div>
         </div>
       )}

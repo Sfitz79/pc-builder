@@ -217,6 +217,37 @@ export default function AIGenerator() {
 
   function buildSpecChips(catId, item) {
     if (!item) return [];
+
+    if (catId === "ram") {
+      const chips = [];
+      const speed = item.speed && String(item.speed).length > 2
+        ? String(item.speed) : item.modules ? String(item.modules) : "";
+      if (speed) chips.push({ label: "Speed", value: speed + "MHz" });
+      if (item.ram_type) {
+        chips.push({ label: "Type", value: item.ram_type });
+      } else if (item.speed && /^\d{1,2}$/.test(String(item.speed))) {
+        chips.push({ label: "Type", value: "DDR" + item.speed });
+      }
+      if (item.capacity) {
+        chips.push({ label: "Capacity", value: item.capacity });
+      } else {
+        const capMatch = String(item.name).match(/(\d+)\s*GB/i);
+        if (capMatch) {
+          const total = parseInt(capMatch[1], 10);
+          const perStick = item.color;
+          if (perStick && !isNaN(perStick) && total > parseInt(perStick)) {
+            const sticks = total / parseInt(perStick);
+            chips.push({ label: "Configuration", value: `${sticks}x${perStick}GB` });
+          } else {
+            chips.push({ label: "Capacity", value: total + "GB" });
+          }
+        }
+      }
+      const casMatch = String(item.name).match(/C(\d{2})(?:[^\d]|$)/);
+      if (casMatch) chips.push({ label: "CAS", value: "C" + casMatch[1] });
+      return chips.slice(0, 4);
+    }
+
     const chips = [];
     if (item.socket) chips.push({ label: "Socket", value: item.socket });
     if (item.chipset) chips.push({ label: "Chipset", value: item.chipset });

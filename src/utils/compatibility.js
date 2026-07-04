@@ -178,12 +178,6 @@ function isRamCompatibleWithMotherboard(ram, motherboard) {
     return true;
   }
   
-  const maxMemory = toNumber(motherboard.max_memory);
-  const ramCapacity = parseRamCapacity(ram.modules);
-  if (maxMemory > 0 && ramCapacity > 0 && ramCapacity > maxMemory) {
-    return false;
-  }
-  
   const ramGen = inferRamGeneration(ram);
   const moboGen = inferMotherboardRamGeneration(motherboard);
   if (ramGen && moboGen && ramGen !== moboGen) {
@@ -332,24 +326,6 @@ function inferMotherboardRamGeneration(motherboard) {
     return "DDR3";
   }
   return null;
-}
-
-function parseRamCapacity(modules) {
-  if (typeof modules === "number") {
-    return modules;
-  }
-  
-  const raw = String(modules ?? "").trim();
-  if (!raw) {
-    return 0;
-  }
-  
-  const parts = raw.split(",").map((part) => toNumber(part));
-  if (parts.length >= 2 && parts[0] > 0 && parts[1] > 0) {
-    return parts[0] * parts[1];
-  }
-  
-  return toNumber(raw);
 }
 
 function toNumber(value) {

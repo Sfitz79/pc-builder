@@ -304,20 +304,49 @@ function ItemRow({ item, selectedItem, onSelect, onClose, showPrices, categoryId
   const isSelected = selectedItem?.name === item.name;
 
   const specItems = [];
-  if (item.socket) specItems.push({ label: "Socket", value: item.socket });
-  if (item.chipset) specItems.push({ label: "Chipset", value: item.chipset });
-  if (item.core_count) specItems.push({ label: "Cores", value: item.core_count });
-  if (item.core_clock) specItems.push({ label: "Base Clock", value: item.core_clock + " GHz" });
-  if (item.boost_clock) specItems.push({ label: "Boost Clock", value: item.boost_clock + " GHz" });
-  if (item.speed) specItems.push({ label: "Speed", value: item.speed });
-  if (item.memory) specItems.push({ label: "VRAM", value: item.memory + "GB" });
-  if (item.capacity) specItems.push({ label: "Capacity", value: item.capacity });
-  if (item.wattage) specItems.push({ label: "Wattage", value: item.wattage + "W" });
-  if (item.tdp) specItems.push({ label: "TDP", value: item.tdp + "W" });
-  if (item.type) specItems.push({ label: "Type", value: item.type });
-  if (item.modules) specItems.push({ label: "Modules", value: item.modules });
-  if (item.form_factor) specItems.push({ label: "Form Factor", value: item.form_factor });
-  if (item.rgb === "Yes") specItems.push({ label: "RGB", value: "Yes" });
+
+  if (categoryId === "ram") {
+    const speed = item.speed && String(item.speed).length > 2
+      ? String(item.speed) : item.modules ? String(item.modules) : "";
+    if (speed) specItems.push({ label: "Speed", value: speed + "MHz" });
+    if (item.ram_type) {
+      specItems.push({ label: "Type", value: item.ram_type });
+    } else if (item.speed && /^\d{1,2}$/.test(String(item.speed))) {
+      specItems.push({ label: "Type", value: "DDR" + item.speed });
+    }
+    if (item.capacity) {
+      specItems.push({ label: "Capacity", value: item.capacity });
+    } else {
+      const capMatch = String(item.name).match(/(\d+)\s*GB/i);
+      if (capMatch) {
+        const total = parseInt(capMatch[1], 10);
+        const perStick = item.color;
+        if (perStick && !isNaN(perStick) && total > parseInt(perStick)) {
+          const sticks = total / parseInt(perStick);
+          specItems.push({ label: "Configuration", value: `${sticks}x${perStick}GB` });
+        } else {
+          specItems.push({ label: "Capacity", value: total + "GB" });
+        }
+      }
+    }
+    const casMatch = String(item.name).match(/C(\d{2})(?:[^\d]|$)/);
+    if (casMatch) specItems.push({ label: "CAS", value: "C" + casMatch[1] });
+  } else {
+    if (item.socket) specItems.push({ label: "Socket", value: item.socket });
+    if (item.chipset) specItems.push({ label: "Chipset", value: item.chipset });
+    if (item.core_count) specItems.push({ label: "Cores", value: item.core_count });
+    if (item.core_clock) specItems.push({ label: "Base Clock", value: item.core_clock + " GHz" });
+    if (item.boost_clock) specItems.push({ label: "Boost Clock", value: item.boost_clock + " GHz" });
+    if (item.speed) specItems.push({ label: "Speed", value: item.speed });
+    if (item.memory) specItems.push({ label: "VRAM", value: item.memory + "GB" });
+    if (item.capacity) specItems.push({ label: "Capacity", value: item.capacity });
+    if (item.wattage) specItems.push({ label: "Wattage", value: item.wattage + "W" });
+    if (item.tdp) specItems.push({ label: "TDP", value: item.tdp + "W" });
+    if (item.type) specItems.push({ label: "Type", value: item.type });
+    if (item.modules) specItems.push({ label: "Modules", value: item.modules });
+    if (item.form_factor) specItems.push({ label: "Form Factor", value: item.form_factor });
+    if (item.rgb === "Yes") specItems.push({ label: "RGB", value: "Yes" });
+  }
 
   return (
     <div
@@ -360,7 +389,7 @@ function ItemRow({ item, selectedItem, onSelect, onClose, showPrices, categoryId
           }}>
             {displayBrand}
           </span>
-          <span style={{ color: "#e6e6e6" }}>{modelName}</span>
+          <span style={{ color: "#e6e6e6" }}>{' '}{modelName}</span>
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "2px 12px", marginTop: "4px" }}>
           {specItems.slice(0, 6).map((s, i) => (
@@ -370,11 +399,6 @@ function ItemRow({ item, selectedItem, onSelect, onClose, showPrices, categoryId
           ))}
         </div>
       </div>
-      {showPrices && (
-        <div style={{ fontSize: "14px", fontWeight: 700, color: "#00eaff", whiteSpace: "nowrap", paddingLeft: "10px" }}>
-          £{parseFloat(item.price).toFixed(2)}
-        </div>
-      )}
       <div style={{ flexShrink: 0 }}>
         <button className="choose-btn" style={{ padding: "7px 14px", background: "linear-gradient(135deg, #00eaff, #ff005e)", color: "#fff", border: "none", borderRadius: "6px", fontSize: "12px", fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap" }}>
           {isSelected ? "Selected" : "+ Add"}

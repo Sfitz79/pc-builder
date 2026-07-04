@@ -99,12 +99,15 @@ export default function Builder() {
                   fontSize: "11px", fontWeight: 700, marginRight: "6px"
                 }}>
                   {displayBrand}
-                </span>
-                {modelName}
+                </span>{' '}
+                <span>{modelName}</span>
               </span>
               <div className="item-detail">
                 {item.socket && <span>Socket: {item.socket} </span>}
-                {item.speed && <span>Speed: {item.speed} </span>}
+                {item.speed && category.id !== "ram" && <span>Speed: {item.speed} </span>}
+                {category.id === "ram" && <span>Speed: {(String(item.speed).length > 2 ? item.speed : item.modules) || item.speed}MHz </span>}
+                {category.id === "ram" && item.ram_type && <span>Type: {item.ram_type} </span>}
+                {category.id === "ram" && !item.ram_type && item.speed && /^\d{1,2}$/.test(String(item.speed)) && <span>Type: DDR{item.speed} </span>}
                 {item.memory && <span>VRAM: {item.memory}GB </span>}
                 {item.wattage && <span>{item.wattage}W </span>}
                 {item.core_count && <span>{item.core_count}Cores </span>}
