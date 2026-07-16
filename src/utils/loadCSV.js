@@ -8,6 +8,7 @@ const FIELD_REMAP = {
   performance_core_boost_clock: "boost_clock",
   integrated_graphics: "graphics",
   "response_time_(g2g)": "response_time",
+  socket_cpu: "socket",
 };
 
 const SKIP_COLS = new Set([
@@ -181,9 +182,18 @@ function parseScan(headers, rows) {
 function stripPrefix(header, value) {
   if (!value || typeof value !== "string") return value;
   const prefix = header.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+  const normPrefix = prefix.toLowerCase().replace(/[^a-z0-9]/g, "").replace(/\s+/g, "");
+  const normValue = value.toLowerCase().replace(/[^a-z0-9]/g, "").replace(/\s+/g, "");
   let result = value;
-  if (result.length > prefix.length && result.toLowerCase().startsWith(prefix.toLowerCase())) {
-    result = result.slice(prefix.length);
+  if (result.length > prefix.length && normValue.startsWith(normPrefix)) {
+    let prefixLen = 0;
+    let matched = 0;
+    for (let i = 0; i < result.length && matched < normPrefix.length; i++) {
+      const ch = result[i].toLowerCase().replace(/[^a-z0-9]/g, "");
+      if (ch) matched++;
+      if (matched <= normPrefix.length) prefixLen = i + 1;
+    }
+    result = result.slice(prefixLen);
   }
   return result.trim();
 }
