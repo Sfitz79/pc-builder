@@ -113,7 +113,7 @@ export default function Summary() {
 
   const REQUIRED = ["case", "case-fan", "cooler", "cpu", "motherboard", "ram", "storage", "psu", "os"];
   const cpu = selections.cpu;
-  const gpuNeeded = !cpu || !cpu.integrated_graphics || cpu.integrated_graphics.toLowerCase() === "none";
+  const gpuNeeded = !cpu || !cpu.graphics || cpu.graphics.toLowerCase() === "none";
   const allRequired = (gpuNeeded ? [...REQUIRED, "gpu"] : REQUIRED).every(cat => selections[cat]);
 
   useEffect(() => {

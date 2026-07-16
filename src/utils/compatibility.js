@@ -19,7 +19,7 @@ export function checkCompatibility(selections) {
     }
   }
   if (!gpu) {
-    const hasIgpu = cpu && cpu.integrated_graphics && String(cpu.integrated_graphics).toLowerCase() !== "none";
+    const hasIgpu = cpu && cpu.graphics && String(cpu.graphics).toLowerCase() !== "none";
     if (!hasIgpu) {
       issues.push("GPU is required (selected CPU has no integrated graphics).");
     }

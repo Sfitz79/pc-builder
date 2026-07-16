@@ -31,11 +31,23 @@ const ALL_CATEGORIES = [
 ];
 
 export function getRamDdr(ram) {
-  const gen = parseInt(ram.speed) || 0;
-  return gen >= 5 ? "DDR5" : "DDR4";
+  const type = String(ram.ram_type || "").toUpperCase();
+  if (type.includes("DDR5")) return "DDR5";
+  if (type.includes("DDR4")) return "DDR4";
+  if (type.includes("DDR3")) return "DDR3";
+
+  const speed = String(ram.speed || "").toUpperCase();
+  if (speed.includes("DDR5")) return "DDR5";
+  if (speed.includes("DDR4")) return "DDR4";
+  if (speed.includes("DDR3")) return "DDR3";
+
+  return "DDR4";
 }
 
 function isModernGpu(gpu) {
+  const memory = parseFloat(gpu.memory) || 0;
+  if (memory > 0 && memory < 6) return false;
+
   const chipset = String(gpu.chipset || "").toUpperCase();
   if (chipset.includes("ARC B") || chipset.includes("ARC A")) return true;
   if (chipset.includes("RADEON RX")) {
@@ -261,7 +273,7 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
       }
       {
         const hasIgpu = (() => {
-          const igpu = String(build.cpu?.integrated_graphics || "").toLowerCase();
+          const igpu = String(build.cpu?.graphics || "").toLowerCase();
           return igpu && igpu !== "none" && igpu !== "false" && igpu !== "";
         })();
         const modernCandidates = candidates.filter(isModernGpu);
@@ -308,7 +320,8 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
         candidates = filterCasesByColor(candidates, color);
       }
       if (caseStyle !== "any") {
-        candidates = filterCasesByStyle(candidates, caseStyle);
+        const styled = filterCasesByStyle(candidates, caseStyle);
+        if (styled.length > 0) candidates = styled;
       }
       if (caseStyle === "any") {
         const defaultNames = ["lian li vector", "phanteks xt m3", "antec ax20", "antec ax27"];
@@ -343,10 +356,11 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
     if (cat.id === "monitor") {
       const targetVerticalRes = pickMonitorResolution(monitorResolution, budget, useCase);
       if (targetVerticalRes > 0) {
-        candidates = candidates.filter(m => {
+        const filtered = candidates.filter(m => {
           const vertRes = parseInt(m.refresh_rate) || 0;
           return vertRes >= targetVerticalRes || (parseInt(m.resolution) || 0) >= 2560;
         });
+        if (filtered.length > 0) candidates = filtered;
       }
     }
 
@@ -384,6 +398,21 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
           });
         }
         candidates = candidates.filter(c => isWindows11Compatible(c) && isModernComponent("cpu", c));
+      }
+      if (catId === "ram" && build.motherboard) {
+        const moboGen = (() => {
+          const t = String(build.motherboard.ram_type || "").toLowerCase();
+          const n = String(build.motherboard.name || "").toUpperCase();
+          const s = String(build.motherboard.socket || "").toUpperCase();
+          if (t.includes("ddr5") || n.includes("DDR5") || s === "AM5" || s === "LGA1851") return "DDR5";
+          if (t.includes("ddr4") || n.includes("DDR4") || n.includes(" D4")) return "DDR4";
+          return null;
+        })();
+        if (moboGen === "DDR5") {
+          candidates = candidates.filter(c => isDdr5(c));
+        } else if (moboGen === "DDR4") {
+          candidates = candidates.filter(c => !isDdr5(c));
+        }
       }
       candidates.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
       if (candidates.length > 0) {
@@ -570,7 +599,7 @@ function gpuRequired(useCase, cpu) {
   const use = (useCase || "").toLowerCase();
   const isBasic = use.includes("general");
   if (!isBasic) return true;
-  const igpu = String(cpu?.integrated_graphics || "").toLowerCase();
+  const igpu = String(cpu?.graphics || "").toLowerCase();
   return igpu === "none" || igpu === "";
 }
 
