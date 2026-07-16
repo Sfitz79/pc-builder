@@ -1,5 +1,11 @@
 {
-  "appId": "com.pctechguyonline.pcbuilder",
-  "appName": "PCTG PC Builder",
-  "webDir": "dist"
+  "appId": "com.indraanisa.pcbuilder",
+  "appName": "PC Builder",
+  "webDir": "dist",
+  "plugins": {
+    "AdMob": {
+      "appId": "ca-app-pub-1342416559539205~72650633488",
+      "trackingAuthorizationStatus": false
+    }
+  }
 }

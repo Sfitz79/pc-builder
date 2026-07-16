@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { usePCStore } from "../store/usePCStore";
 import { checkCompatibility, estimateRequiredWattage } from "../utils/compatibility";
-import { BUILDER_CATEGORIES, SUBCATEGORY_GROUPS, getComponentIconSVG } from "../utils/builderConfig";
+import { BUILDER_CATEGORIES, SUBCATEGORY_GROUPS, ADDON_GROUPS, getComponentIconSVG, isMultiSelect } from "../utils/builderConfig";
 import ComponentSelector from "../components/ComponentSelector";
 import SaveBuildModal from "../components/SaveBuildModal";
 import { PriceBreakdownPair } from "../components/PriceBreakdown";
@@ -11,8 +11,13 @@ import { saveBuildToHistory } from "../utils/buildHistory";
 export default function Builder() {
   const selections = usePCStore(s => s.selections);
   const setComponent = usePCStore(s => s.setComponent);
+  const toggleMultiComponent = usePCStore(s => s.toggleMultiComponent);
+  const setItemQty = usePCStore(s => s.setItemQty);
+  const removeMultiItem = usePCStore(s => s.removeMultiItem);
   const getBundledPrice = usePCStore(s => s.getBundledPrice);
   const resetBuild = usePCStore(s => s.resetBuild);
+  const enabledAddons = usePCStore(s => s.enabledAddons);
+  const toggleAddon = usePCStore(s => s.toggleAddon);
 
   const [selectorCategory, setSelectorCategory] = useState(null);
   const [showSaveModal, setShowSaveModal] = useState(false);
@@ -20,21 +25,13 @@ export default function Builder() {
 
   const adminMode = usePCStore(s => s.adminMode);
   const buildType = usePCStore(s => s.buildType);
-  const setBuildType = usePCStore(s => s.setBuildType);
   const issues = checkCompatibility(selections);
   const wattage = estimateRequiredWattage(selections.cpu, selections.gpu);
   const bundledPrice = getBundledPrice();
   const REQUIRED = ["case", "case-fan", "cooler", "cpu", "motherboard", "ram", "storage", "psu", "os"];
   const cpu = selections.cpu;
-  const gpuNeeded = !cpu || !cpu.integrated_graphics || cpu.integrated_graphics.toLowerCase() === "none";
+  const gpuNeeded = !cpu || !cpu.integrated_graphics || String(cpu.integrated_graphics).toLowerCase() === "none";
   const allRequired = (gpuNeeded ? [...REQUIRED, "gpu"] : REQUIRED).every(cat => selections[cat]);
-  const partsOnlyPrice = (() => {
-    const compTotal = Object.entries(selections).reduce((sum, [cat, item]) => {
-      const p = parseFloat(item?.price);
-      return sum + (isNaN(p) ? 0 : p);
-    }, 0);
-    return compTotal + 70;
-  })();
 
   const handleSave = (data) => {
     saveBuildToHistory(data.name, selections, data.description);
@@ -48,90 +45,152 @@ export default function Builder() {
   const copyMarkup = (_type) => {
     const rows = [];
     for (const cat of BUILDER_CATEGORIES) {
-      const item = selections[cat.id];
-      rows.push({ label: cat.label, name: item ? item.name : "—" });
+      const val = selections[cat.id];
+      if (Array.isArray(val)) {
+        val.forEach(item => rows.push({ label: cat.label, name: item.name, qty: item.qty || 1 }));
+      } else if (val) {
+        rows.push({ label: cat.label, name: val.name, qty: val.qty || 1 });
+      }
     }
     for (const group of SUBCATEGORY_GROUPS) {
       for (const cat of group.categories) {
-        const item = selections[cat.id];
-        if (item) rows.push({ label: cat.label, name: item.name });
+        const val = selections[cat.id];
+        if (Array.isArray(val)) {
+          val.forEach(item => rows.push({ label: cat.label, name: item.name, qty: item.qty || 1 }));
+        } else if (val) {
+          rows.push({ label: cat.label, name: val.name, qty: val.qty || 1 });
+        }
       }
     }
 
-    let output = "";
+    const fmt = (r) => r.qty > 1 ? `${r.name} x${r.qty}` : r.name;
+    let output;
     switch (_type) {
       case "reddit":
-        output = rows.map(r => `**${r.label}:** ${r.name}`).join("\n\n");
+        output = rows.map(r => `**${r.label}:** ${fmt(r)}`).join("\n\n");
         break;
       case "bb":
-        output = rows.map(r => `[b]${r.label}:[/b] ${r.name}`).join("\n");
+        output = rows.map(r => `[b]${r.label}:[/b] ${fmt(r)}`).join("\n");
         break;
       case "code":
-        output = "```\n" + rows.map(r => `${r.label}: ${r.name}`).join("\n") + "\n```";
+        output = "```\n" + rows.map(r => `${r.label}: ${fmt(r)}`).join("\n") + "\n```";
         break;
       case "text":
-        output = rows.map(r => `${r.label}: ${r.name}`).join(" | ");
+        output = rows.map(r => `${r.label}: ${fmt(r)}`).join(" | ");
         break;
       default:
-        output = rows.map(r => `${r.label}: ${r.name}`).join("\n");
+        output = rows.map(r => `${r.label}: ${fmt(r)}`).join("\n");
     }
     navigator.clipboard.writeText(output).catch(() => {});
   };
 
-  const renderTableRow = (category) => {
-    const item = selections[category.id];
-    const itemName = item?.name || "";
+  const renderQtySpinner = (category, itemName, qty) => (
+    <div style={{ display: "flex", alignItems: "center", gap: "2px", marginTop: "4px" }}>
+      <span style={{ fontSize: "10px", color: "#888", marginRight: "4px" }}>Qty:</span>
+      <button
+        onClick={(e) => { e.stopPropagation(); setItemQty(category, itemName, (qty || 1) - 1); }}
+        style={{ width: "20px", height: "20px", background: "#1a1a2e", border: "1px solid #333", color: "#888", borderRadius: "3px", cursor: "pointer", fontSize: "12px", display: "flex", alignItems: "center", justifyContent: "center", padding: 0 }}
+      >−</button>
+      <span style={{ fontSize: "12px", color: "#00eaff", minWidth: "20px", textAlign: "center" }}>{qty || 1}</span>
+      <button
+        onClick={(e) => { e.stopPropagation(); setItemQty(category, itemName, (qty || 1) + 1); }}
+        style={{ width: "20px", height: "20px", background: "#1a1a2e", border: "1px solid #333", color: "#888", borderRadius: "3px", cursor: "pointer", fontSize: "12px", display: "flex", alignItems: "center", justifyContent: "center", padding: 0 }}
+      >+</button>
+    </div>
+  );
+
+  const renderSingleItem = (item, category) => {
+    const itemName = item.name || "";
     const displayBrand = itemName.split(" ")[0] || "";
     const modelName = itemName.substring(displayBrand.length).trim() || itemName;
+    return (
+      <div className="item-selected">
+        <span className="item-name">
+          <span style={{
+            display: "inline-block", padding: "1px 6px", borderRadius: "3px",
+            background: "rgba(0,234,255,0.1)", color: "#00eaff",
+            fontSize: "11px", fontWeight: 700, marginRight: "6px"
+          }}>
+            {displayBrand}
+          </span>
+          <span>{modelName}</span>
+        </span>
+        <div className="item-detail">
+          {item.socket && <span>Socket: {item.socket} </span>}
+          {item.speed && category !== "ram" && <span>Speed: {item.speed} </span>}
+          {category === "ram" && <span>Speed: {(String(item.speed).length > 2 ? item.speed : item.modules) || item.speed}MHz </span>}
+          {category === "ram" && item.ram_type && <span>Type: {item.ram_type} </span>}
+          {item.memory && <span>VRAM: {item.memory}GB </span>}
+          {item.wattage && <span>{item.wattage}W </span>}
+          {item.core_count && <span>{item.core_count}Cores </span>}
+        </div>
+        {renderQtySpinner(category.id, item.name, item.qty)}
+      </div>
+    );
+  };
+
+  const renderMultiItems = (items, category) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+      {items.map((item, idx) => {
+        const itemName = item.name || "";
+        const displayBrand = itemName.split(" ")[0] || "";
+        const modelName = itemName.substring(displayBrand.length).trim() || itemName;
+        return (
+          <div key={idx} style={{ display: "flex", alignItems: "center", gap: "8px", padding: "4px 8px", background: "rgba(0,234,255,0.04)", borderRadius: "4px", border: "1px solid rgba(0,234,255,0.1)" }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: "12px", fontWeight: 600, color: "#e6e6e6" }}>
+                <span style={{ color: "#00eaff", fontSize: "10px", fontWeight: 700, marginRight: "4px" }}>{displayBrand}</span>
+                {modelName}
+              </div>
+            </div>
+            {renderQtySpinner(category.id, item.name, item.qty)}
+            <button
+              onClick={(e) => { e.stopPropagation(); removeMultiItem(category.id, item.name); }}
+              style={{ background: "none", border: "none", color: "#e74c3c", cursor: "pointer", fontSize: "14px", padding: "2px 6px" }}
+              title="Remove"
+            >✕</button>
+          </div>
+        );
+      })}
+    </div>
+  );
+
+  const renderTableRow = (category) => {
+    const val = selections[category.id];
+    const multi = isMultiSelect(category.id);
+    const hasItems = Array.isArray(val) ? val.length > 0 : !!val;
+
     return (
       <tr key={category.id}>
         <td className="component-icon-cell">
           <img src={getComponentIconSVG(category.icon)} alt="" />
         </td>
-        <td className="component-name-cell">{category.label}</td>
+        <td className="component-name-cell">
+          {category.label}
+          {multi && <span style={{ fontSize: "9px", color: "#555", display: "block" }}>Multi-select</span>}
+        </td>
         <td className="component-item-cell">
-          {item ? (
-            <div className="item-selected">
-              <span className="item-name">
-                <span style={{
-                  display: "inline-block", padding: "1px 6px", borderRadius: "3px",
-                  background: "rgba(0,234,255,0.1)", color: "#00eaff",
-                  fontSize: "11px", fontWeight: 700, marginRight: "6px"
-                }}>
-                  {displayBrand}
-                </span>{' '}
-                <span>{modelName}</span>
-              </span>
-              <div className="item-detail">
-                {item.socket && <span>Socket: {item.socket} </span>}
-                {item.speed && category.id !== "ram" && <span>Speed: {item.speed} </span>}
-                {category.id === "ram" && <span>Speed: {(String(item.speed).length > 2 ? item.speed : item.modules) || item.speed}MHz </span>}
-                {category.id === "ram" && item.ram_type && <span>Type: {item.ram_type} </span>}
-                {category.id === "ram" && !item.ram_type && item.speed && /^\d{1,2}$/.test(String(item.speed)) && <span>Type: DDR{item.speed} </span>}
-                {item.memory && <span>VRAM: {item.memory}GB </span>}
-                {item.wattage && <span>{item.wattage}W </span>}
-                {item.core_count && <span>{item.core_count}Cores </span>}
-              </div>
-            </div>
+          {hasItems ? (
+            multi && Array.isArray(val)
+              ? renderMultiItems(val, category)
+              : renderSingleItem(Array.isArray(val) ? val[0] : val, category)
           ) : (
             <span className="item-placeholder">—</span>
           )}
         </td>
         <td className="component-from-cell">
-          {item ? "PCTG" : "—"}
+          {hasItems ? "PCTG" : "—"}
         </td>
         <td className="component-action-cell">
           <button className="choose-btn" onClick={() => setSelectorCategory(category)}>
-            {item ? "Change" : `+ Choose ${category.label}`}
+            {hasItems ? (multi ? "+ Add More" : "Change") : `+ Choose ${category.label}`}
           </button>
-          {item && (
+          {hasItems && (
             <button
               onClick={(e) => { e.stopPropagation(); setDeleteTarget(category.id); }}
               style={{ marginLeft: "6px", padding: "8px 10px", background: "none", border: "1px solid #e74c3c", color: "#e74c3c", borderRadius: "6px", cursor: "pointer", fontSize: "12px" }}
               title="Remove"
-            >
-              ✕
-            </button>
+            >✕</button>
           )}
         </td>
       </tr>
@@ -162,7 +221,7 @@ export default function Builder() {
               <th>Component</th>
               <th>Product</th>
               <th>From</th>
-              <th style={{ width: "150px" }}>Action</th>
+              <th style={{ width: "160px" }}>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -180,7 +239,7 @@ export default function Builder() {
                   <th>Component</th>
                   <th>Product</th>
                   <th>From</th>
-                  <th style={{ width: "150px" }}>Action</th>
+                  <th style={{ width: "160px" }}>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -189,6 +248,64 @@ export default function Builder() {
             </table>
           </div>
         ))}
+
+        <div style={{ marginTop: "20px" }}>
+          <div style={{
+            padding: "12px 16px", background: "rgba(255,200,0,0.06)", border: "1px solid rgba(255,200,0,0.15)",
+            borderRadius: "8px", marginBottom: "8px"
+          }}>
+            <div style={{ fontSize: "13px", fontWeight: 700, color: "#f5a623", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+              Optional Add-ons
+            </div>
+            <div style={{ fontSize: "11px", color: "#888", marginBottom: "10px" }}>
+              Non-essential items for specific use cases. Toggle to add to your build.
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+              {ADDON_GROUPS.map(group =>
+                group.categories.map(cat => (
+                  <label
+                    key={cat.id}
+                    style={{
+                      display: "flex", alignItems: "center", gap: "6px",
+                      padding: "6px 12px", background: enabledAddons[cat.id] ? "rgba(0,234,255,0.1)" : "rgba(255,255,255,0.02)",
+                      border: `1px solid ${enabledAddons[cat.id] ? "rgba(0,234,255,0.3)" : "rgba(255,255,255,0.06)"}`,
+                      borderRadius: "6px", cursor: "pointer", fontSize: "12px", color: enabledAddons[cat.id] ? "#00eaff" : "#888",
+                      transition: "all 0.2s"
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={!!enabledAddons[cat.id]}
+                      onChange={() => toggleAddon(cat.id)}
+                      style={{ accentColor: "#00eaff", width: "14px", height: "14px" }}
+                    />
+                    {cat.label}
+                  </label>
+                ))
+              )}
+            </div>
+          </div>
+
+          {ADDON_GROUPS.filter(g => g.categories.some(c => enabledAddons[c.id])).map(group => (
+            <div key={group.label} className="subcategory-group">
+              <div className="subcategory-label" style={{ color: "#f5a623" }}>{group.label}</div>
+              <table className="builder-table">
+                <thead>
+                  <tr>
+                    <th style={{ width: "40px" }}></th>
+                    <th>Component</th>
+                    <th>Product</th>
+                    <th>From</th>
+                    <th style={{ width: "160px" }}>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {group.categories.filter(c => enabledAddons[c.id]).map(renderTableRow)}
+                </tbody>
+              </table>
+            </div>
+          ))}
+        </div>
 
         <div style={{ marginTop: "12px", padding: "10px 16px", background: "rgba(255,255,255,0.02)", borderRadius: "8px", fontSize: "12px", color: "#555" }}>
           Note: Components are saved in Cookies. It will be removed if cookies are cleared from your browser.

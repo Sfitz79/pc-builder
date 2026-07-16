@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { assetPath } from "../utils/assetPath";
 
 const POPUPS = [
-  { id: 1, title: "Get YOUR Gamers Edge", subtitle: "In 3 Steps!!!" },
+  { id: 1, title: "Get YOUR Gamers Edge ©", subtitle: "In 3 Steps!!!" },
   { id: 2, title: "1. Select Parts & Budget", desc: "Choose your components or let the builder auto-optimize." },
   { id: 3, title: "2. Get Price & Performance Summary", desc: "Instant FPS estimates + your visual PC build preview." },
   { id: 4, title: "3. Select Purchase & Wait for Delivery", desc: "Your custom gaming rig delivered to your door." },
@@ -16,7 +16,6 @@ export default function IntroAnimation({ price = "£1,249", performance = "1440p
   const [caseAssembled, setCaseAssembled] = useState(false);
   const [caseRevealed, setCaseRevealed] = useState(false);
   const [metricsVisible, setMetricsVisible] = useState(false);
-  const [tickDrawn, setTickDrawn] = useState(false);
   const [popup, setPopup] = useState(0);
   const partsRef = useRef([]);
 
@@ -29,7 +28,7 @@ export default function IntroAnimation({ price = "£1,249", performance = "1440p
 
     ids.push(t(500, () => setPopup(1)));
 
-    ids.push(t(3000, () => {
+    ids.push(t(5500, () => {
       setPopup(2);
       setStage("parts");
       ids.push(t(1000, () => {
@@ -37,26 +36,25 @@ export default function IntroAnimation({ price = "£1,249", performance = "1440p
       }));
     }));
 
-    ids.push(t(6000, () => {
+    ids.push(t(10500, () => {
       setPopup(3);
       setStage("caseEmpty");
       setCaseAssembled(true);
     }));
 
-    ids.push(t(9000, () => {
+    ids.push(t(15500, () => {
       setPopup(4);
       setStage("caseFinal");
       setCaseRevealed(true);
     }));
 
-    ids.push(t(12000, () => {
+    ids.push(t(20500, () => {
       setPopup(0);
       setStage("metrics");
       setMetricsVisible(true);
-      setTickDrawn(true);
     }));
 
-    ids.push(t(15000, () => {
+    ids.push(t(25500, () => {
       setFinished(true);
       ids.push(t(1000, () => {
         setHidden(true);
@@ -67,9 +65,12 @@ export default function IntroAnimation({ price = "£1,249", performance = "1440p
     return () => ids.forEach(clearTimeout);
   }, [onFinish]);
 
+  // budget counter effect removed
+
   return (
     <div id="pcv-intro" className={finished ? "pcv-finished" : ""} style={{ display: hidden ? "none" : undefined }}>
       <div className="pcv-overlay" />
+      <div className="pcv-inner">
 
       {/* Popups */}
       <div id="pcv-popups">
@@ -111,6 +112,7 @@ export default function IntroAnimation({ price = "£1,249", performance = "1440p
             <span>{part.label}</span>
           </div>
         ))}
+        <img src={assetPath("/intro/preview.png")} alt="Build Preview" style={{ width: "100%", maxWidth: "500px", borderRadius: "12px", marginTop: "20px" }} />
       </div>
 
       {/* Stage 3: Empty case */}
@@ -129,17 +131,17 @@ export default function IntroAnimation({ price = "£1,249", performance = "1440p
         </div>
       </div>
 
-      {/* Stage 5: Tick + metrics */}
-      <div className={`pcv-stage pcv-stage-metrics ${stage === "metrics" ? "active" : ""}`}>
-        <div className="pcv-tick-wrap">
-          <div className={`pcv-tick-circle ${metricsVisible ? "show" : ""}`}>
-            <div className={`pcv-tick ${tickDrawn ? "draw" : ""}`} />
+      {/* Stage 5: Final images */}
+      <div className={`pcv-stage pcv-stage-final-images ${stage === "metrics" ? "active" : ""}`}>
+        <div className="pcv-final-images-container">
+          <div className={`pcv-final-title ${metricsVisible ? "show" : ""}`}>
+            <img src={assetPath("/intro/title.png")} alt="Title" />
+          </div>
+          <div className={`pcv-final-gaming-wrap ${metricsVisible ? "show" : ""}`}>
+            <img src={assetPath("/intro/gaming-setup.jpg")} alt="Gaming Setup" />
           </div>
         </div>
-        <div className={`pcv-metrics ${metricsVisible ? "show" : ""}`}>
-          <div className="pcv-price">{price}</div>
-          <div className="pcv-performance">{performance}</div>
-        </div>
+      </div>
       </div>
 
       <style>{`
@@ -148,11 +150,25 @@ export default function IntroAnimation({ price = "£1,249", performance = "1440p
           inset: 0;
           width: 100%;
           height: 100vh;
-          background: radial-gradient(circle at top, #141b2b 0%, #05060a 60%);
+          background: #05060a;
           color: #fff;
           overflow: hidden;
           font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
           z-index: 9999;
+        }
+
+        .pcv-inner {
+          position: relative;
+          width: 100%;
+          max-width: 1400px;
+          height: 100vh;
+          margin: 0 auto;
+          padding: 24px 20px;
+          background: radial-gradient(circle at top, #141b2b 0%, #05060a 60%);
+          background-image: url(${assetPath("/intro/background.jpg")});
+          background-size: cover;
+          background-position: center;
+          background-blend-mode: overlay;
         }
 
         .pcv-overlay {
@@ -246,7 +262,7 @@ export default function IntroAnimation({ price = "£1,249", performance = "1440p
         .pcv-stage-case-empty .pcv-case,
         .pcv-stage-case-final .pcv-case {
           position: relative;
-          width: 360px;
+          width: min(1080px, 85vw);
           border-radius: 24px;
           overflow: hidden;
           box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
@@ -299,82 +315,70 @@ export default function IntroAnimation({ price = "£1,249", performance = "1440p
           100% { opacity: 0.6; }
         }
 
-        .pcv-stage-metrics {
+        .pcv-stage-final-images {
           flex-direction: column;
-          gap: 18px;
         }
 
-        .pcv-tick-wrap {
+        .pcv-final-images-container {
+          width: min(1080px, 85vw);
+          max-height: 78vh;
           display: flex;
-          justify-content: center;
-        }
-
-        .pcv-tick-circle {
-          width: 80px;
-          height: 80px;
-          border-radius: 50%;
-          border: 3px solid rgba(0, 255, 170, 0.9);
-          display: flex;
+          flex-direction: column;
           align-items: center;
-          justify-content: center;
-          box-shadow: 0 0 25px rgba(0, 255, 170, 0.7);
-          transform: scale(0.6);
+          gap: 12px;
           opacity: 0;
+          transform: translateY(60px);
+          transition: opacity 0.7s ease, transform 0.7s ease;
         }
 
-        .pcv-tick-circle.show {
-          animation: pcv-tick-circle-pop 0.7s ease-out forwards;
+        .pcv-stage-final-images.active .pcv-final-images-container {
+          opacity: 1;
+          transform: translateY(0);
         }
 
-        @keyframes pcv-tick-circle-pop {
-          0% { opacity: 0; transform: scale(0.4); }
-          60% { opacity: 1; transform: scale(1.1); }
-          100% { opacity: 1; transform: scale(1); }
-        }
-
-        .pcv-tick {
-          width: 26px;
-          height: 14px;
-          border-left: 4px solid #00ffaa;
-          border-bottom: 4px solid #00ffaa;
-          transform: rotate(-45deg);
-          transform-origin: left bottom;
+        .pcv-final-title {
+          flex-shrink: 0;
+          max-width: 100%;
           opacity: 0;
+          transform: translateY(-20px);
+          transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
         }
 
-        .pcv-tick.draw {
-          animation: pcv-tick-draw 0.5s ease-out forwards 0.2s;
+        .pcv-final-title.show {
+          opacity: 1;
+          transform: translateY(0);
         }
 
-        @keyframes pcv-tick-draw {
-          0% { opacity: 0; transform: rotate(-45deg) scaleX(0); }
-          100% { opacity: 1; transform: rotate(-45deg) scaleX(1); }
+        .pcv-final-title img {
+          max-width: 100%;
+          max-height: 20vh;
+          display: block;
+          object-fit: contain;
+          border-radius: 12px;
+          box-shadow: 0 0 30px rgba(0, 234, 255, 0.25);
         }
 
-        .pcv-metrics {
-          text-align: center;
+        .pcv-final-gaming-wrap {
+          flex: 1;
+          min-height: 0;
+          max-width: 100%;
           opacity: 0;
-          transform: translateY(20px);
+          transform: translateY(30px);
+          transition: opacity 0.7s ease 0.4s, transform 0.7s ease 0.4s;
         }
 
-        .pcv-metrics.show {
-          animation: pcv-metrics-rise 0.7s ease-out forwards 0.3s;
+        .pcv-final-gaming-wrap.show {
+          opacity: 1;
+          transform: translateY(0);
         }
 
-        @keyframes pcv-metrics-rise {
-          0% { opacity: 0; transform: translateY(20px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .pcv-price {
-          font-size: 1.4rem;
-          font-weight: 600;
-          color: #00ffaa;
-        }
-
-        .pcv-performance {
-          font-size: 0.95rem;
-          color: #c4c9e6;
+        .pcv-final-gaming-wrap img {
+          width: 100%;
+          max-height: 55vh;
+          display: block;
+          object-fit: contain;
+          border-radius: 20px;
+          box-shadow: 0 0 50px rgba(0, 234, 255, 0.3);
         }
 
         #pcv-popups {
@@ -445,9 +449,12 @@ export default function IntroAnimation({ price = "£1,249", performance = "1440p
             gap: 12px;
             padding: 0 16px;
           }
+          .pcv-stage-parts {
+            padding: 0 16px;
+          }
           .pcv-stage-case-empty .pcv-case,
           .pcv-stage-case-final .pcv-case {
-            width: 260px;
+            width: min(780px, 92vw);
           }
         }
       `}</style>

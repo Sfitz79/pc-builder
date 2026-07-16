@@ -1,14 +1,14 @@
 {
-  "lastUpdate": "2026-07-01T20:15:32.594Z",
+  "lastUpdate": "2026-07-16T07:44:31.665Z",
   "version": "1.0.0",
   "summary": {
-    "totalItems": 60236,
-    "totalCategories": 25,
-    "categoriesWithImages": 25,
-    "totalImagesCached": 10094,
-    "brandLogosCached": 475
+    "totalItems": 62831,
+    "totalCategories": 26,
+    "categoriesWithImages": 26,
+    "totalImagesCached": 24331,
+    "brandLogosCached": 481
   },
-  "dataFreshness": "Updated by update-all.mjs on 01/07/2026",
+  "dataFreshness": "Updated by update-all.mjs on 16/07/2026",
   "categories": [
     {
       "file": "case-accessory.csv",
@@ -16,47 +16,47 @@
       "items": 8,
       "hasImages": true,
       "withImg": 8,
-      "imagesCached": 7
+      "imagesCached": 8
     },
     {
       "file": "case-fan.csv",
       "category": "case-fan",
-      "items": 2830,
+      "items": 2826,
       "hasImages": true,
-      "withImg": 1931,
-      "imagesCached": 1004
+      "withImg": 2810,
+      "imagesCached": 2790
     },
     {
       "file": "case.csv",
       "category": "case",
-      "items": 6702,
+      "items": 6699,
       "hasImages": true,
-      "withImg": 423,
-      "imagesCached": 381
+      "withImg": 1088,
+      "imagesCached": 1011
     },
     {
       "file": "cooler.csv",
       "category": "cooler",
-      "items": 2863,
+      "items": 2861,
       "hasImages": true,
-      "withImg": 227,
-      "imagesCached": 211
+      "withImg": 539,
+      "imagesCached": 490
     },
     {
       "file": "cpu.csv",
       "category": "cpu",
-      "items": 955,
+      "items": 973,
       "hasImages": true,
-      "withImg": 192,
-      "imagesCached": 179
+      "withImg": 442,
+      "imagesCached": 400
     },
     {
       "file": "external-hard-drive.csv",
       "category": "external-hard-drive",
-      "items": 690,
+      "items": 689,
       "hasImages": true,
-      "withImg": 6,
-      "imagesCached": 6
+      "withImg": 25,
+      "imagesCached": 25
     },
     {
       "file": "fan-controller.csv",
@@ -64,151 +64,159 @@
       "items": 54,
       "hasImages": true,
       "withImg": 54,
-      "imagesCached": 27
+      "imagesCached": 54
     },
     {
       "file": "gpu.csv",
       "category": "gpu",
       "items": 3466,
       "hasImages": true,
-      "withImg": 556,
-      "imagesCached": 516
+      "withImg": 1256,
+      "imagesCached": 1235
     },
     {
       "file": "headphones.csv",
       "category": "headphones",
-      "items": 3022,
+      "items": 4554,
       "hasImages": true,
-      "withImg": 700,
-      "imagesCached": 629
+      "withImg": 2760,
+      "imagesCached": 1201
     },
     {
       "file": "keyboard.csv",
       "category": "keyboard",
-      "items": 4386,
+      "items": 4395,
       "hasImages": true,
-      "withImg": 1546,
-      "imagesCached": 1368
+      "withImg": 3191,
+      "imagesCached": 3191
+    },
+    {
+      "file": "master-prices.csv",
+      "category": "master-prices",
+      "items": 972,
+      "hasImages": true,
+      "withImg": 631,
+      "imagesCached": 631
     },
     {
       "file": "monitor.csv",
       "category": "monitor",
       "items": 4786,
       "hasImages": true,
-      "withImg": 730,
-      "imagesCached": 712
+      "withImg": 2583,
+      "imagesCached": 2583
     },
     {
       "file": "motherboard.csv",
       "category": "motherboard",
       "items": 1623,
       "hasImages": true,
-      "withImg": 693,
-      "imagesCached": 685
+      "withImg": 1473,
+      "imagesCached": 1473
     },
     {
       "file": "mouse.csv",
       "category": "mouse",
       "items": 2806,
       "hasImages": true,
-      "withImg": 688,
-      "imagesCached": 636
+      "withImg": 1754,
+      "imagesCached": 1733
     },
     {
       "file": "optical-drive.csv",
       "category": "optical-drive",
       "items": 231,
       "hasImages": true,
-      "withImg": 77,
-      "imagesCached": 76
+      "withImg": 154,
+      "imagesCached": 154
     },
     {
       "file": "os.csv",
       "category": "os",
-      "items": 62,
+      "items": 50,
       "hasImages": true,
-      "withImg": 53,
-      "imagesCached": 53
+      "withImg": 46,
+      "imagesCached": 44
     },
     {
       "file": "power-supply.csv",
       "category": "power-supply",
-      "items": 3651,
+      "items": 3673,
       "hasImages": true,
-      "withImg": 2025,
-      "imagesCached": 804
+      "withImg": 2888,
+      "imagesCached": 2443
     },
     {
       "file": "ram.csv",
       "category": "ram",
-      "items": 14051,
+      "items": 14117,
       "hasImages": true,
-      "withImg": 1946,
-      "imagesCached": 1408
+      "withImg": 3131,
+      "imagesCached": 2546
     },
     {
       "file": "sound-card.csv",
       "category": "sound-card",
-      "items": 77,
+      "items": 75,
       "hasImages": true,
-      "withImg": 73,
-      "imagesCached": 70
+      "withImg": 75,
+      "imagesCached": 75
     },
     {
       "file": "speakers.csv",
       "category": "speakers",
       "items": 302,
       "hasImages": true,
-      "withImg": 301,
-      "imagesCached": 301
+      "withImg": 302,
+      "imagesCached": 302
     },
     {
       "file": "storage.csv",
       "category": "storage",
       "items": 6148,
       "hasImages": true,
-      "withImg": 291,
-      "imagesCached": 203
+      "withImg": 571,
+      "imagesCached": 499
     },
     {
       "file": "thermal-paste.csv",
       "category": "thermal-paste",
       "items": 210,
       "hasImages": true,
-      "withImg": 197,
-      "imagesCached": 197
+      "withImg": 208,
+      "imagesCached": 207
     },
     {
       "file": "ups.csv",
       "category": "ups",
       "items": 702,
       "hasImages": true,
-      "withImg": 227,
-      "imagesCached": 226
+      "withImg": 647,
+      "imagesCached": 647
     },
     {
       "file": "webcam.csv",
       "category": "webcam",
       "items": 78,
       "hasImages": true,
-      "withImg": 73,
-      "imagesCached": 73
+      "withImg": 77,
+      "imagesCached": 77
     },
     {
       "file": "wired-network-card.csv",
       "category": "wired-network-card",
       "items": 157,
       "hasImages": true,
-      "withImg": 137,
-      "imagesCached": 137
+      "withImg": 150,
+      "imagesCached": 149
     },
     {
       "file": "wireless-network-card.csv",
       "category": "wireless-network-card",
       "items": 376,
       "hasImages": true,
-      "withImg": 185,
-      "imagesCached": 185
+      "withImg": 363,
+      "imagesCached": 363
     }
   ],
   "suitableForBuild": [
@@ -222,6 +230,7 @@
     "gpu",
     "headphones",
     "keyboard",
+    "master-prices",
     "monitor",
     "motherboard",
     "mouse",

@@ -9,7 +9,7 @@ const SOCIAL_LINKS = [
   { name: "TikTok", url: "https://www.tiktok.com/@pctechguyonline", icon: "https://cdn.simpleicons.org/tiktok/000000", color: "#000000" },
   { name: "YouTube", url: "https://www.youtube.com/channel/UCKZVSHOWfJAJKdDr73pmNnA", icon: "https://cdn.simpleicons.org/youtube/FF0000", color: "#FF0000" },
   { name: "Discord", url: "https://discord.gg/w2Y7VBMAg", icon: "https://cdn.simpleicons.org/discord/5865F2", color: "#5865F2" },
-  { name: "Xbox", url: "https://www.xbox.com/en-GB/play/user/DGINGERBREDMAN", icon: assetPath("/xbox-logo.svg"), color: "#107C10" },
+  { name: "Xbox", url: "https://www.xbox.com/en-GB/play/user/DGINGERBREDMAN", icon: "https://cdn.simpleicons.org/xbox/107C10", color: "#107C10" },
   { name: "Steam", url: "https://steamcommunity.com/profiles/76561197979525265", icon: "https://cdn.simpleicons.org/steam/1B2838", color: "#1B2838" },
   { name: "Epic Games", url: "https://store.epicgames.com/u/594528bea06d4a60b077ebbb45fe2579", icon: "https://cdn.simpleicons.org/epicgames/2F2D2E", color: "#2F2D2E" }
 ];
@@ -19,8 +19,8 @@ export default function Home() {
     <div className="home">
       <div className="home-hero">
         <img src={assetPath("/pctg-main.png")} alt="PcTechGuyOnline" className="home-avatar" onError={e => { e.target.style.display = "none"; }} />
-        <h1>PcTechGuyOnline</h1>
-        <p className="tagline">Get Your Gamers Edge with a custom PC built for you</p>
+        <h1>PCTechGuyOnline.com</h1>
+        <p className="tagline">Get Your Gamers Edge © with a custom PC built for you</p>
         <img src={assetPath("/pctg-banner.png")} alt="Gaming PCs" className="home-banner" onError={e => { e.target.style.display = "none"; }} />
         <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
           <Link to="/ai-generator" className="cta-btn" style={{ fontSize: "0.9rem", padding: "14px 28px" }}>AI Build Generator</Link>
@@ -68,40 +68,32 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="home-tools" style={{ maxWidth: "1000px", margin: "50px auto" }}>
-        <h2 style={{ color: "#00eaff", marginBottom: "24px", textTransform: "uppercase", letterSpacing: "1px", fontSize: "20px" }}>
-          Tools & Calculators
-        </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "12px" }}>
-          <Link to="/ai-generator" className="home-feature" style={{ textDecoration: "none", display: "block", padding: "20px", background: "rgba(255,255,255,0.02)", borderRadius: "10px", border: "1px solid rgba(0,234,255,0.08)", textAlign: "center", transition: "all 0.3s" }}>
-            <div style={{ fontSize: "32px", marginBottom: "8px" }}>🤖</div>
-            <h3 style={{ color: "#00eaff", fontSize: "14px", margin: "0 0 6px", textTransform: "uppercase" }}>AI Build Generator</h3>
-            <p style={{ color: "#888", fontSize: "12px", margin: 0, lineHeight: "1.5" }}>Enter your budget and use case — AI picks the perfect parts</p>
-          </Link>
-          <Link to="/fps-calculator" className="home-feature" style={{ textDecoration: "none", display: "block", padding: "20px", background: "rgba(255,255,255,0.02)", borderRadius: "10px", border: "1px solid rgba(0,234,255,0.08)", textAlign: "center", transition: "all 0.3s" }}>
-            <div style={{ fontSize: "32px", marginBottom: "8px" }}>🎮</div>
-            <h3 style={{ color: "#00eaff", fontSize: "14px", margin: "0 0 6px", textTransform: "uppercase" }}>FPS Calculator</h3>
-            <p style={{ color: "#888", fontSize: "12px", margin: 0, lineHeight: "1.5" }}>Estimate FPS for 20+ games at any resolution</p>
-          </Link>
-          <Link to="/bottleneck-calculator" className="home-feature" style={{ textDecoration: "none", display: "block", padding: "20px", background: "rgba(255,255,255,0.02)", borderRadius: "10px", border: "1px solid rgba(0,234,255,0.08)", textAlign: "center", transition: "all 0.3s" }}>
-            <div style={{ fontSize: "32px", marginBottom: "8px" }}>🔍</div>
-            <h3 style={{ color: "#00eaff", fontSize: "14px", margin: "0 0 6px", textTransform: "uppercase" }}>Bottleneck Calculator</h3>
-            <p style={{ color: "#888", fontSize: "12px", margin: 0, lineHeight: "1.5" }}>Check CPU/GPU bottleneck percentages</p>
-          </Link>
-          <Link to="/compare" className="home-feature" style={{ textDecoration: "none", display: "block", padding: "20px", background: "rgba(255,255,255,0.02)", borderRadius: "10px", border: "1px solid rgba(0,234,255,0.08)", textAlign: "center", transition: "all 0.3s" }}>
-            <div style={{ fontSize: "32px", marginBottom: "8px" }}>⚖️</div>
-            <h3 style={{ color: "#00eaff", fontSize: "14px", margin: "0 0 6px", textTransform: "uppercase" }}>Component Comparison</h3>
-            <p style={{ color: "#888", fontSize: "12px", margin: 0, lineHeight: "1.5" }}>Compare parts side by side to find the best</p>
-          </Link>
-          <Link to="/builds" className="home-feature" style={{ textDecoration: "none", display: "block", padding: "20px", background: "rgba(255,255,255,0.02)", borderRadius: "10px", border: "1px solid rgba(0,234,255,0.08)", textAlign: "center", transition: "all 0.3s" }}>
-            <div style={{ fontSize: "32px", marginBottom: "8px" }}>📦</div>
-            <h3 style={{ color: "#00eaff", fontSize: "14px", margin: "0 0 6px", textTransform: "uppercase" }}>Build History</h3>
-            <p style={{ color: "#888", fontSize: "12px", margin: 0, lineHeight: "1.5" }}>Save, load, and export your builds</p>
-          </Link>
-        </div>
-      </div>
-
       <div className="home-features">
+        <Link to="/ai-generator" className="home-feature" style={{ textDecoration: "none", display: "block", padding: "20px", background: "rgba(255,255,255,0.02)", borderRadius: "10px", border: "1px solid rgba(0,234,255,0.08)", textAlign: "center", transition: "all 0.3s" }}>
+          <div style={{ fontSize: "32px", marginBottom: "8px" }}>🤖</div>
+          <h3 style={{ color: "#00eaff", fontSize: "14px", margin: "0 0 6px", textTransform: "uppercase" }}>AI Build Generator</h3>
+          <p style={{ color: "#888", fontSize: "12px", margin: 0, lineHeight: "1.5" }}>Enter your budget and use case — AI picks the perfect parts</p>
+        </Link>
+        <Link to="/fps-calculator" className="home-feature" style={{ textDecoration: "none", display: "block", padding: "20px", background: "rgba(255,255,255,0.02)", borderRadius: "10px", border: "1px solid rgba(0,234,255,0.08)", textAlign: "center", transition: "all 0.3s" }}>
+          <div style={{ fontSize: "32px", marginBottom: "8px" }}>🎮</div>
+          <h3 style={{ color: "#00eaff", fontSize: "14px", margin: "0 0 6px", textTransform: "uppercase" }}>FPS Calculator</h3>
+          <p style={{ color: "#888", fontSize: "12px", margin: 0, lineHeight: "1.5" }}>Estimate FPS for 20+ games at any resolution</p>
+        </Link>
+        <Link to="/bottleneck-calculator" className="home-feature" style={{ textDecoration: "none", display: "block", padding: "20px", background: "rgba(255,255,255,0.02)", borderRadius: "10px", border: "1px solid rgba(0,234,255,0.08)", textAlign: "center", transition: "all 0.3s" }}>
+          <div style={{ fontSize: "32px", marginBottom: "8px" }}>🔍</div>
+          <h3 style={{ color: "#00eaff", fontSize: "14px", margin: "0 0 6px", textTransform: "uppercase" }}>Bottleneck Calculator</h3>
+          <p style={{ color: "#888", fontSize: "12px", margin: 0, lineHeight: "1.5" }}>Check CPU/GPU bottleneck percentages</p>
+        </Link>
+        <Link to="/compare" className="home-feature" style={{ textDecoration: "none", display: "block", padding: "20px", background: "rgba(255,255,255,0.02)", borderRadius: "10px", border: "1px solid rgba(0,234,255,0.08)", textAlign: "center", transition: "all 0.3s" }}>
+          <div style={{ fontSize: "32px", marginBottom: "8px" }}>⚖️</div>
+          <h3 style={{ color: "#00eaff", fontSize: "14px", margin: "0 0 6px", textTransform: "uppercase" }}>Component Comparison</h3>
+          <p style={{ color: "#888", fontSize: "12px", margin: 0, lineHeight: "1.5" }}>Compare parts side by side to find the best</p>
+        </Link>
+        <Link to="/builds" className="home-feature" style={{ textDecoration: "none", display: "block", padding: "20px", background: "rgba(255,255,255,0.02)", borderRadius: "10px", border: "1px solid rgba(0,234,255,0.08)", textAlign: "center", transition: "all 0.3s" }}>
+          <div style={{ fontSize: "32px", marginBottom: "8px" }}>📦</div>
+          <h3 style={{ color: "#00eaff", fontSize: "14px", margin: "0 0 6px", textTransform: "uppercase" }}>Build History</h3>
+          <p style={{ color: "#888", fontSize: "12px", margin: 0, lineHeight: "1.5" }}>Save, load, and export your builds</p>
+        </Link>
         <div className="home-feature">
           <div className="feature-icon">🔗</div>
           <h3>Shareable Link</h3>

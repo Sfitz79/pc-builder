@@ -5,11 +5,11 @@ export const BUILDER_CATEGORIES = [
   { id: "motherboard", label: "Motherboard", file: "motherboard.csv", icon: "motherboard" },
   { id: "ram", label: "RAM", file: "ram.csv", icon: "ram" },
   { id: "gpu", label: "GPU", file: "gpu.csv", icon: "gpu" },
-  { id: "storage", label: "Storage", file: "storage.csv", icon: "storage" },
+  { id: "storage", label: "Storage", file: "storage.csv", icon: "storage", multi: true },
   { id: "psu", label: "Power Supply", file: "power-supply.csv", icon: "psu" },
   { id: "os", label: "Operating System", file: "os.csv", icon: "os" },
   { id: "wireless-network-card", label: "WiFi / Network Card", file: "wireless-network-card.csv", icon: "network" },
-  { id: "monitor", label: "Monitor", file: "monitor.csv", icon: "monitor" },
+  { id: "monitor", label: "Monitor", file: "monitor.csv", icon: "monitor", multi: true },
 ];
 
 export const SUBCATEGORY_GROUPS = [
@@ -17,7 +17,7 @@ export const SUBCATEGORY_GROUPS = [
     label: "Expansion Cards / Networking",
     categories: [
       { id: "sound-card", label: "Sound Card", file: "sound-card.csv", icon: "sound" },
-      { id: "wireless-network-card", label: "Wireless Network Card", file: "wireless-network-card.csv", icon: "network" },
+      { id: "wired-network-card", label: "Wired Network Card", file: "wired-network-card.csv", icon: "network" },
     ]
   },
   {
@@ -31,12 +31,78 @@ export const SUBCATEGORY_GROUPS = [
     ]
   },
   {
-    label: "Accessories / Other",
+    label: "Cooling / Accessories",
     categories: [
-      { id: "case-fan", label: "Case Fan", file: "case-fan.csv", icon: "fan" },
+      { id: "case-fan", label: "Case Fan", file: "case-fan.csv", icon: "fan", multi: true },
+      { id: "thermal-paste", label: "Thermal Paste", file: "thermal-paste.csv", icon: "paste" },
+      { id: "fan-controller", label: "Fan Controller", file: "fan-controller.csv", icon: "fan" },
     ]
-  }
+  },
+  {
+    label: "Storage / Drives",
+    categories: [
+      { id: "external-hard-drive", label: "External Hard Drive", file: "external-hard-drive.csv", icon: "storage" },
+      { id: "optical-drive", label: "Optical Drive", file: "optical-drive.csv", icon: "disc" },
+    ]
+  },
+  {
+    label: "Power Protection",
+    categories: [
+      { id: "ups", label: "UPS", file: "ups.csv", icon: "power" },
+    ]
+  },
 ];
+
+export const ADDON_GROUPS = [
+  {
+    label: "Streaming & Content Creation",
+    categories: [
+      { id: "streaming", label: "Streaming Equipment", file: "Streaming.csv", icon: "webcam" },
+    ]
+  },
+  {
+    label: "Sim Racing & Flight",
+    categories: [
+      { id: "racing-simulation", label: "Racing Simulation", file: "racing-simulation.csv", icon: "case" },
+      { id: "flight-simulation", label: "Flight Simulation", file: "flight-simulation.csv", icon: "case" },
+    ]
+  },
+  {
+    label: "Gaming Peripherals",
+    categories: [
+      { id: "game-controllers", label: "Game Controllers", file: "game-controllers.csv", icon: "mouse" },
+    ]
+  },
+  {
+    label: "Cables & Accessories",
+    categories: [
+      { id: "cables-and-accessories", label: "Cables & Accessories", file: "cables-and-accessories.csv", icon: "network" },
+    ]
+  },
+];
+
+export const MULTI_SELECT_CATEGORIES = new Set(
+  BUILDER_CATEGORIES.filter(c => c.multi).map(c => c.id).concat(
+    SUBCATEGORY_GROUPS.flatMap(g => g.categories.filter(c => c.multi).map(c => c.id))
+  )
+);
+
+export function isMultiSelect(categoryId) {
+  return MULTI_SELECT_CATEGORIES.has(categoryId);
+}
+
+export function getAllCategories() {
+  const all = [
+    ...BUILDER_CATEGORIES,
+    ...SUBCATEGORY_GROUPS.flatMap(g => g.categories),
+    ...ADDON_GROUPS.flatMap(g => g.categories),
+  ];
+  return all;
+}
+
+export function findCategory(categoryId) {
+  return getAllCategories().find(c => c.id === categoryId);
+}
 
 export function getComponentIconSVG(iconName) {
   const paths = {

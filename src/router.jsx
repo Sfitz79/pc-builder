@@ -2,7 +2,6 @@ import { lazy, Suspense } from "react";
 import { Outlet, createHashRouter } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import ChatBot from "./components/ChatBot";
 import Home from "./pages/Home";
 
 const Builder = lazy(() => import("./pages/Builder"));
@@ -29,7 +28,6 @@ function RootLayout() {
         </Suspense>
       </main>
       <Footer />
-      <ChatBot />
     </>
   );
 }

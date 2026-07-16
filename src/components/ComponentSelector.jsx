@@ -2,15 +2,21 @@ import { useEffect, useMemo, useState, useRef } from "react";
 import { loadCSV } from "../utils/loadCSV";
 import { isOptionCompatible } from "../utils/compatibility";
 import { inferCpuSocket, inferChipset, inferCoolerType, isRGB, getBrand, getBrandLogo, getBrandFaviconUrl, getBrandPlaceholder, getItemImageUrl, getItemImageUrls, isModernComponent, toNumber } from "../utils/common.js";
+import { isMultiSelect } from "../utils/builderConfig";
+import { usePCStore } from "../store/usePCStore";
 
 export default function ComponentSelector({ category, selections, selectedItem, onSelect, onClose, showPrices = false }) {
   const [items, setItems] = useState([]);
   const [filterText, setFilterText] = useState("");
   const [activeFilters, setActiveFilters] = useState({});
   const [rangeFilters, setRangeFilters] = useState({});
-  const [sortBy, setSortBy] = useState("name");
+  const [sortBy, setSortBy] = useState("price-asc");
   const [showAvailableOnly, setShowAvailableOnly] = useState(true);
   const panelRef = useRef(null);
+
+  const multiMode = isMultiSelect(category.id);
+  const isMultiSelected = usePCStore(s => s.isMultiSelected);
+  const toggleMultiComponent = usePCStore(s => s.toggleMultiComponent);
 
   useEffect(() => {
     function handleClick(e) {
@@ -63,7 +69,7 @@ export default function ComponentSelector({ category, selections, selectedItem, 
     setFilterText("");
     setActiveFilters({});
     setRangeFilters({});
-    setSortBy("name");
+    setSortBy("price-asc");
   }, [category.file, category.id]);
 
   const compatibleItems = useMemo(() => {
@@ -75,25 +81,23 @@ export default function ComponentSelector({ category, selections, selectedItem, 
 
   const sortedItems = useMemo(() =>
     [...compatibleItems].sort((a, b) => {
+      if (sortBy === "price-asc") return (toNumber(a.price) || Infinity) - (toNumber(b.price) || Infinity);
+      if (sortBy === "price-desc") return (toNumber(b.price) || 0) - (toNumber(a.price) || 0);
       if (sortBy === "name-desc") {
-        const aN = a.name || "";
-        const bN = b.name || "";
-        return bN.localeCompare(aN, undefined, { numeric: true, sensitivity: "base" });
+        return (b.name || "").localeCompare(a.name || "", undefined, { numeric: true, sensitivity: "base" });
       }
       if (sortBy === "cores") return (toNumber(b.core_count) || 0) - (toNumber(a.core_count) || 0);
       if (sortBy === "speed") return (toNumber(b.speed) || 0) - (toNumber(a.speed) || 0);
       if (sortBy === "wattage") return (toNumber(b.wattage) || 0) - (toNumber(a.wattage) || 0);
       if (sortBy === "memory") return (toNumber(b.memory) || 0) - (toNumber(a.memory) || 0);
-      const aName = a.name || "";
-      const bName = b.name || "";
-      return aName.localeCompare(bName, undefined, { numeric: true, sensitivity: "base" });
+      return (a.name || "").localeCompare(b.name || "", undefined, { numeric: true, sensitivity: "base" });
     }),
     [compatibleItems, sortBy]
   );
 
   const numericFields = useMemo(() => {
     if (sortedItems.length === 0) return {};
-    const numKeyWords = ["core_count", "core_clock", "boost_clock", "tdp", "wattage", "memory", "speed"];
+    const numKeyWords = ["core_count", "core_clock", "boost_clock", "tdp", "wattage", "memory", "speed", "screen_size", "refresh_rate", "response_time", "capacity", "fan_rpm"];
     const fields = {};
     for (const key of numKeyWords) {
       const vals = sortedItems.map(i => toNumber(i[key])).filter(v => v > 0);
@@ -106,8 +110,13 @@ export default function ComponentSelector({ category, selections, selectedItem, 
 
   const filterOptions = useMemo(() => {
     if (sortedItems.length === 0) return {};
-    const ignore = ["price", "image", "Image", "core_count", "core_clock", "boost_clock", "tdp", "wattage", "memory"];
-    const headers = Object.keys(sortedItems[0] || {}).filter(h => !ignore.includes(h));
+    const ignore = new Set([
+      "price", "image", "Image", "name", "rating",
+      "core_count", "core_clock", "boost_clock", "tdp", "wattage", "memory",
+      "screen_size", "refresh_rate", "response_time", "fan_rpm", "noise_level",
+      "speed", "capacity",
+    ]);
+    const headers = Object.keys(sortedItems[0] || {}).filter(h => !ignore.has(h));
     if (category.id === "cpu" && !headers.includes("socket")) headers.push("socket");
     if (category.id === "motherboard" && !headers.includes("chipset")) headers.push("chipset");
     if (category.id === "cooler" && !headers.includes("type")) headers.push("type");
@@ -115,10 +124,10 @@ export default function ComponentSelector({ category, selections, selectedItem, 
     const options = {};
     headers.forEach(h => {
       const vals = Array.from(new Set(sortedItems.map(item => String(item[h] ?? "")))).filter(v => v && v !== "null" && v !== "undefined" && v !== "UNKNOWN").sort();
-      if (vals.length > 1) options[h] = vals;
+      if (vals.length > 1 && vals.length < 60) options[h] = vals;
     });
     return options;
-  }, [sortedItems]);
+  }, [sortedItems, category.id]);
 
   const filteredItems = useMemo(() => {
     return sortedItems.filter(item => {
@@ -181,6 +190,15 @@ export default function ComponentSelector({ category, selections, selectedItem, 
 
   const hasActiveFilters = filterText || Object.keys(activeFilters).length > 0 || Object.keys(rangeFilters).length > 0;
 
+  const handleSelect = (item) => {
+    if (multiMode) {
+      toggleMultiComponent(category.id, item);
+    } else {
+      onSelect(item);
+      onClose();
+    }
+  };
+
   return (
     <div style={{
       position: "fixed", inset: 0, zIndex: 3000,
@@ -195,23 +213,31 @@ export default function ComponentSelector({ category, selections, selectedItem, 
         boxShadow: "0 20px 60px rgba(0,0,0,0.8)"
       }}>
         <div style={{ padding: "14px 20px", borderBottom: "1px solid rgba(0,234,255,0.1)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <h3 style={{ margin: 0, color: "#00eaff", fontSize: "16px" }}>Choose {category.label}</h3>
+          <h3 style={{ margin: 0, color: "#00eaff", fontSize: "16px" }}>
+            Choose {category.label}
+            {multiMode && <span style={{ fontSize: "11px", color: "#888", marginLeft: "8px", fontWeight: 400 }}>(select multiple)</span>}
+          </h3>
           <button onClick={onClose} style={{ background: "none", border: "none", color: "#666", cursor: "pointer", fontSize: "20px", padding: "4px 8px" }}>✕</button>
         </div>
 
         <div style={{ padding: "10px 20px", borderBottom: "1px solid rgba(255,255,255,0.05)", display: "flex", gap: "8px", alignItems: "center", flexWrap: "wrap" }}>
-          <input
-            type="text"
-            placeholder={`Search ${category.label}...`}
-            value={filterText}
-            onChange={e => setFilterText(e.target.value)}
-            style={{ flex: 1, minWidth: "160px", background: "#1a1a2e", color: "#e6e6e6", border: "1px solid #333", borderRadius: "6px", padding: "8px 12px", fontSize: "13px", outline: "none" }}
-          />
+          <div style={{ position: "relative", flex: 1, minWidth: "160px" }}>
+            <span style={{ position: "absolute", left: "10px", top: "50%", transform: "translateY(-50%)", color: "#555", fontSize: "13px" }}>🔍</span>
+            <input
+              type="text"
+              placeholder={`Search ${category.label}...`}
+              value={filterText}
+              onChange={e => setFilterText(e.target.value)}
+              style={{ width: "100%", boxSizing: "border-box", background: "#1a1a2e", color: "#e6e6e6", border: "1px solid #333", borderRadius: "6px", padding: "8px 12px 8px 32px", fontSize: "13px", outline: "none" }}
+            />
+          </div>
           <select
             value={sortBy}
             onChange={e => setSortBy(e.target.value)}
             style={{ padding: "8px 10px", fontSize: "12px", background: "#1a1a2e", color: "#e6e6e6", border: "1px solid #333", borderRadius: "6px", outline: "none", cursor: "pointer" }}
           >
+            <option value="price-asc">Price: Low → High</option>
+            <option value="price-desc">Price: High → Low</option>
             <option value="name">Name A-Z</option>
             <option value="name-desc">Name Z-A</option>
             <option value="cores">Cores (high first)</option>
@@ -261,13 +287,13 @@ export default function ComponentSelector({ category, selections, selectedItem, 
                   Socket {socket} — {socketItems.length} CPU{socketItems.length !== 1 ? "s" : ""}
                 </div>
                 {socketItems.map((item, i) => (
-                  <ItemRow key={i} item={item} selectedItem={selectedItem} onSelect={onSelect} onClose={onClose} showPrices={showPrices} categoryId={category.id} />
+                  <ItemRow key={i} item={item} category={category} multiMode={multiMode} isMultiSelected={isMultiSelected} onSelect={handleSelect} onClose={onClose} showPrices={showPrices} />
                 ))}
               </div>
             ))
           ) : (
             filteredItems.map((item, i) => (
-              <ItemRow key={i} item={item} selectedItem={selectedItem} onSelect={onSelect} onClose={onClose} showPrices={showPrices} categoryId={category.id} />
+              <ItemRow key={i} item={item} category={category} multiMode={multiMode} isMultiSelected={isMultiSelected} onSelect={handleSelect} onClose={onClose} showPrices={showPrices} />
             ))
           )}
           {filteredItems.length === 0 && (
@@ -286,7 +312,7 @@ export default function ComponentSelector({ category, selections, selectedItem, 
   );
 }
 
-function ItemRow({ item, selectedItem, onSelect, onClose, showPrices, categoryId }) {
+function ItemRow({ item, category, multiMode, isMultiSelected, onSelect, onClose, showPrices }) {
   const brand = getBrand(item);
   const itemName = item.name || "";
   const displayBrand = itemName.split(" ")[0] || brand;
@@ -301,11 +327,12 @@ function ItemRow({ item, selectedItem, onSelect, onClose, showPrices, categoryId
   const [showBrandImg, setShowBrandImg] = useState(true);
   const [showFavicon, setShowFavicon] = useState(true);
   const imgSrc = showProductImg && productImageUrl ? productImageUrl : showBrandImg && logoUrl ? logoUrl : showFavicon && faviconUrl ? faviconUrl : placeholderUrl;
-  const isSelected = selectedItem?.name === item.name;
+
+  const selected = multiMode ? isMultiSelected(category.id, item.name) : false;
 
   const specItems = [];
 
-  if (categoryId === "ram") {
+  if (category.id === "ram") {
     const speed = item.speed && String(item.speed).length > 2
       ? String(item.speed) : item.modules ? String(item.modules) : "";
     if (speed) specItems.push({ label: "Speed", value: speed + "MHz" });
@@ -316,18 +343,6 @@ function ItemRow({ item, selectedItem, onSelect, onClose, showPrices, categoryId
     }
     if (item.capacity) {
       specItems.push({ label: "Capacity", value: item.capacity });
-    } else {
-      const capMatch = String(item.name).match(/(\d+)\s*GB/i);
-      if (capMatch) {
-        const total = parseInt(capMatch[1], 10);
-        const perStick = item.color;
-        if (perStick && !isNaN(perStick) && total > parseInt(perStick)) {
-          const sticks = total / parseInt(perStick);
-          specItems.push({ label: "Configuration", value: `${sticks}x${perStick}GB` });
-        } else {
-          specItems.push({ label: "Capacity", value: total + "GB" });
-        }
-      }
     }
     const casMatch = String(item.name).match(/C(\d{2})(?:[^\d]|$)/);
     if (casMatch) specItems.push({ label: "CAS", value: "C" + casMatch[1] });
@@ -346,37 +361,48 @@ function ItemRow({ item, selectedItem, onSelect, onClose, showPrices, categoryId
     if (item.modules) specItems.push({ label: "Modules", value: item.modules });
     if (item.form_factor) specItems.push({ label: "Form Factor", value: item.form_factor });
     if (item.rgb === "Yes") specItems.push({ label: "RGB", value: "Yes" });
+    if (item.screen_size) specItems.push({ label: "Screen", value: item.screen_size });
+    if (item.resolution) specItems.push({ label: "Resolution", value: item.resolution });
+    if (item.refresh_rate) specItems.push({ label: "Refresh", value: item.refresh_rate });
+    if (item.panel_type) specItems.push({ label: "Panel", value: item.panel_type });
+    if (item.interface) specItems.push({ label: "Interface", value: item.interface });
   }
+
+  const price = toNumber(item.price);
 
   return (
     <div
-      onClick={() => { onSelect(item); onClose(); }}
+      onClick={() => onSelect(item)}
       style={{
         display: "flex", alignItems: "center", gap: "14px", padding: "8px 20px",
         cursor: "pointer", transition: "all 0.15s",
-        background: isSelected ? "rgba(0,234,255,0.08)" : "transparent",
+        background: selected ? "rgba(0,234,255,0.12)" : "transparent",
         borderBottom: "1px solid rgba(255,255,255,0.03)"
       }}
-      onMouseEnter={e => { if (!isSelected) e.currentTarget.style.background = "rgba(0,234,255,0.02)"; }}
-      onMouseLeave={e => { if (!isSelected) e.currentTarget.style.background = "transparent"; }}
+      onMouseEnter={e => { if (!selected) e.currentTarget.style.background = "rgba(0,234,255,0.02)"; }}
+      onMouseLeave={e => { if (!selected) e.currentTarget.style.background = "transparent"; }}
     >
-      <div style={{ width: 100, height: 100, minWidth: 100, minHeight: 100, borderRadius: 8, background: '#1a1a2e', flexShrink: 0, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', border: isSelected ? '2px solid #00eaff' : '2px solid transparent' }}>
+      {multiMode && (
+        <div style={{ width: 20, minWidth: 20, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <input
+            type="checkbox"
+            checked={selected}
+            readOnly
+            style={{ accentColor: "#00eaff", width: "16px", height: "16px", cursor: "pointer" }}
+          />
+        </div>
+      )}
+      <div style={{ width: 80, height: 80, minWidth: 80, minHeight: 80, borderRadius: 8, background: '#1a1a2e', flexShrink: 0, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', border: selected ? '2px solid #00eaff' : '2px solid transparent' }}>
         <img
           src={imgSrc}
           alt=""
-          style={{ width: 100, height: 100, objectFit: 'contain' }}
+          style={{ width: 80, height: 80, objectFit: 'contain' }}
           onError={e => {
             if (showProductImg && productImageUrl) {
-              if (imgIndex < productImages.length - 1) {
-                setImgIndex(imgIndex + 1);
-              } else {
-                setShowProductImg(false);
-              }
-            } else if (showBrandImg) {
-              setShowBrandImg(false);
-            } else if (showFavicon) {
-              setShowFavicon(false);
-            }
+              if (imgIndex < productImages.length - 1) setImgIndex(imgIndex + 1);
+              else setShowProductImg(false);
+            } else if (showBrandImg) setShowBrandImg(false);
+            else if (showFavicon) setShowFavicon(false);
           }}
         />
       </div>
@@ -399,9 +425,14 @@ function ItemRow({ item, selectedItem, onSelect, onClose, showPrices, categoryId
           ))}
         </div>
       </div>
-      <div style={{ flexShrink: 0 }}>
-        <button className="choose-btn" style={{ padding: "7px 14px", background: "linear-gradient(135deg, #00eaff, #ff005e)", color: "#fff", border: "none", borderRadius: "6px", fontSize: "12px", fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap" }}>
-          {isSelected ? "Selected" : "+ Add"}
+      <div style={{ flexShrink: 0, textAlign: "right" }}>
+        {price > 0 && (
+          <div style={{ fontSize: "14px", fontWeight: 700, color: "#00eaff", marginBottom: "4px" }}>
+            £{price.toLocaleString("en-GB", { minimumFractionDigits: 2 })}
+          </div>
+        )}
+        <button className="choose-btn" style={{ padding: "7px 14px", background: selected ? "rgba(0,234,255,0.2)" : "linear-gradient(135deg, #00eaff, #ff005e)", color: "#fff", border: "none", borderRadius: "6px", fontSize: "12px", fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap" }}>
+          {selected ? (multiMode ? "✓ Selected" : "Selected") : (multiMode ? "+ Add" : "+ Add")}
         </button>
       </div>
     </div>
@@ -410,6 +441,7 @@ function ItemRow({ item, selectedItem, onSelect, onClose, showPrices, categoryId
 
 function FilterDropdown({ label, values, selectedValues, onToggle }) {
   const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
   const ref = useRef(null);
 
   useEffect(() => {
@@ -419,6 +451,10 @@ function FilterDropdown({ label, values, selectedValues, onToggle }) {
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
+
+  const filtered = search
+    ? values.filter(v => v.toLowerCase().includes(search.toLowerCase()))
+    : values;
 
   return (
     <div ref={ref} style={{ position: "relative" }}>
@@ -433,11 +469,18 @@ function FilterDropdown({ label, values, selectedValues, onToggle }) {
         <div style={{
           position: "absolute", top: "100%", left: 0, zIndex: 100, marginTop: "4px",
           background: "#1a1a2e", border: "1px solid rgba(0,234,255,0.3)", borderRadius: "8px",
-          padding: "8px", minWidth: "200px", maxHeight: "280px", overflowY: "auto",
+          padding: "8px", minWidth: "200px", maxHeight: "320px", overflowY: "auto",
           boxShadow: "0 12px 40px rgba(0,0,0,0.6)"
         }}>
-          {values.map(v => (
-            <label key={v} style={{ display: "flex", alignItems: "center", gap: "8px", padding: "6px 8px", cursor: "pointer", fontSize: "12px", color: "#ccc", borderRadius: "4px", transition: "background 0.15s" }}
+          <input
+            type="text"
+            placeholder={`Filter ${label}...`}
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            style={{ width: "100%", boxSizing: "border-box", padding: "4px 8px", fontSize: "11px", background: "#0d0d18", color: "#e6e6e6", border: "1px solid #333", borderRadius: "4px", marginBottom: "6px", outline: "none" }}
+          />
+          {filtered.map(v => (
+            <label key={v} style={{ display: "flex", alignItems: "center", gap: "8px", padding: "5px 8px", cursor: "pointer", fontSize: "12px", color: "#ccc", borderRadius: "4px", transition: "background 0.15s" }}
               onMouseEnter={e => e.currentTarget.style.background = "rgba(0,234,255,0.08)"}
               onMouseLeave={e => e.currentTarget.style.background = "transparent"}>
               <input type="checkbox" checked={selectedValues.has(v)} onChange={() => onToggle(v)}
@@ -495,33 +538,21 @@ function RangeSlider({ label, min, max, value, onChange }) {
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
             <input type="number" value={localMin} min={min} max={max}
-              onChange={e => {
-                const v = Math.max(min, Math.min(max, Number(e.target.value)));
-                setLocalMin(v);
-              }}
+              onChange={e => { setLocalMin(Math.max(min, Math.min(max, Number(e.target.value)))); }}
               style={{ width: "70px", padding: "4px 6px", fontSize: "12px", background: "#1a1a2e", color: "#e6e6e6", border: "1px solid #333", borderRadius: "4px", textAlign: "center" }}
             />
             <span style={{ color: "#555", fontSize: "12px", alignSelf: "center" }}>to</span>
             <input type="number" value={localMax} min={min} max={max}
-              onChange={e => {
-                const v = Math.max(min, Math.min(max, Number(e.target.value)));
-                setLocalMax(v);
-              }}
+              onChange={e => { setLocalMax(Math.max(min, Math.min(max, Number(e.target.value)))); }}
               style={{ width: "70px", padding: "4px 6px", fontSize: "12px", background: "#1a1a2e", color: "#e6e6e6", border: "1px solid #333", borderRadius: "4px", textAlign: "center" }}
             />
           </div>
           <input type="range" min={min} max={max} value={localMin}
-            onChange={e => {
-              const v = Math.min(Number(e.target.value), localMax);
-              setLocalMin(v);
-            }}
+            onChange={e => { setLocalMin(Math.min(Number(e.target.value), localMax)); }}
             style={{ width: "100%", accentColor: "#00eaff" }}
           />
           <input type="range" min={min} max={max} value={localMax}
-            onChange={e => {
-              const v = Math.max(Number(e.target.value), localMin);
-              setLocalMax(v);
-            }}
+            onChange={e => { setLocalMax(Math.max(Number(e.target.value), localMin)); }}
             style={{ width: "100%", accentColor: "#00eaff", marginTop: "2px" }}
           />
           <div style={{ display: "flex", justifyContent: "space-between", marginTop: "8px" }}>

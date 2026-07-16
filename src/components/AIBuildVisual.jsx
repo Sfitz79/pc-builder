@@ -16,10 +16,11 @@ const AIBuildVisual = ({ selections }) => {
   const ram = selections['ram'] || {};
   const cpu = selections['cpu'] || {};
   const psu = selections['psu'] || {};
-  const storage = selections['storage'] || {};
-  const storage2 = selections['storage2'] || {};
-  const storage3 = selections['storage3'] || {};
-  const storage4 = selections['storage4'] || {};
+  const rawStorage = selections['storage'];
+  const storage = Array.isArray(rawStorage) ? (rawStorage[0] || {}) : (rawStorage || {});
+  const storage2 = Array.isArray(rawStorage) ? (rawStorage[1] || selections['storage2'] || {}) : (selections['storage2'] || {});
+  const storage3 = Array.isArray(rawStorage) ? (rawStorage[2] || selections['storage3'] || {}) : (selections['storage3'] || {});
+  const storage4 = Array.isArray(rawStorage) ? (rawStorage[3] || selections['storage4'] || {}) : (selections['storage4'] || {});
 
   const isAIO = inferCoolerType(cooler) === "AIO Liquid Cooler";
   const hasRGB = Object.values(selections).some(item => isRGB(item));
@@ -55,8 +56,14 @@ const AIBuildVisual = ({ selections }) => {
 
   // Extract primary images for fallback
   const getPrimaryImage = (item) => {
-    const images = String(item?.image || "").split(",").filter(Boolean);
-    return images[0] ? (images[0].startsWith("http") ? images[0] : `/${images[0]}`) : null;
+    if (!item?.image) return null;
+    const images = String(item.image).split(",").filter(Boolean);
+    const path = images[0];
+    if (!path) return null;
+    if (path.startsWith("http")) return path;
+    if (path.startsWith("/")) return path;
+    if (path.startsWith("thumbnails/")) return "/" + path;
+    return "/thumbnails/" + path;
   };
 
   const caseImg = getPrimaryImage(pcCase);

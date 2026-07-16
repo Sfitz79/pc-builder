@@ -73,7 +73,8 @@ export default function AdminBuilder() {
   const hasComponents = Object.keys(selections).length > 0;
 
   const renderTableRow = (category) => {
-    const item = selections[category.id];
+    const raw = selections[category.id];
+    const items = Array.isArray(raw) ? raw : raw ? [raw] : [];
     return (
       <tr key={category.id}>
         <td className="component-icon-cell">
@@ -81,29 +82,33 @@ export default function AdminBuilder() {
         </td>
         <td className="component-name-cell">{category.label}</td>
         <td className="component-item-cell">
-          {item ? (
+          {items.length > 0 ? (
             <div className="item-selected">
-              <span className="item-name">{item.name}</span>
-              <div className="item-detail">
-                {item.socket && <span>Socket: {item.socket} </span>}
-                {item.speed && <span>Speed: {item.speed} </span>}
-                {item.memory && <span>VRAM: {item.memory}GB </span>}
-                {item.wattage && <span>{item.wattage}W </span>}
-                {item.core_count && <span>{item.core_count}Cores </span>}
-              </div>
+              {items.map((item, idx) => (
+                <div key={idx}>
+                  <span className="item-name">{item.name}{(item.qty || 1) > 1 ? ` ×${item.qty}` : ""}</span>
+                  <div className="item-detail">
+                    {item.socket && <span>Socket: {item.socket} </span>}
+                    {item.speed && <span>Speed: {item.speed} </span>}
+                    {item.memory && <span>VRAM: {item.memory}GB </span>}
+                    {item.wattage && <span>{item.wattage}W </span>}
+                    {item.core_count && <span>{item.core_count}Cores </span>}
+                  </div>
+                </div>
+              ))}
             </div>
           ) : (
             <span className="item-placeholder">—</span>
           )}
         </td>
         <td className="component-price-cell">
-          {item ? `£${parseFloat(item.price).toFixed(2)}` : "—"}
+          {items.length > 0 ? `£${items.reduce((s, i) => s + (parseFloat(i.price) || 0) * (i.qty || 1), 0).toFixed(2)}` : "—"}
         </td>
         <td className="component-action-cell">
           <button className="choose-btn" onClick={() => setSelectorCategory(category)}>
-            {item ? "Change" : `+ Choose ${category.label}`}
+            {items.length > 0 ? "Change" : `+ Choose ${category.label}`}
           </button>
-          {item && (
+          {items.length > 0 && (
             <button
               onClick={(e) => { e.stopPropagation(); setDeleteTarget(category.id); }}
               style={{ marginLeft: "6px", padding: "8px 10px", background: "none", border: "1px solid #e74c3c", color: "#e74c3c", borderRadius: "6px", cursor: "pointer", fontSize: "12px" }}

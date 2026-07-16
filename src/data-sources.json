@@ -1,0 +1,78 @@
+{
+  "update_interval_hours": 6,
+  "output": {
+    "path": "./data/prices.json",
+    "format": "pctg_component_schema"
+  },
+  "sources": [
+    {
+      "name": "VantaSpec",
+      "type": "api",
+      "method": "GET",
+      "responseKey": "products",
+      "endpoint": "https://api.vantaspec.com/api/products/search",
+      "auth_env": "VANTASPEC_API_KEY",
+      "enabled": true,
+      "params": { "limit": 250, "region": "uk" },
+      "mapping": {
+        "id": "id", "name": "name", "brand": "brand", "model": "model",
+        "category": "category", "image": "image", "mpn": "mpn", "sku": "sku",
+        "price": "lowest_price", "currency": "lowest_price_currency",
+        "stock_status": "stock_status", "retailers": "retailers"
+      }
+    },
+    {
+      "name": "PCPartPicker UK (Apify)",
+      "type": "apify_actor",
+      "token_env": "APIFY_API_TOKEN",
+      "endpoint": "https://api.apify.com/v2/acts/lulzasaur~pcpartpicker-scraper/run-sync-get-dataset-items",
+      "enabled": true,
+      "params": { "country": "uk", "maxResults": 250 },
+      "mapping": {
+        "id": "id", "name": "name", "price": "price", "image": "image", "brand": "brand",
+        "category": "category", "mpn": "mpn",
+        "retailers": [{ "name": "retailer", "price": "price", "currency": "currency", "url": "url" }]
+      }
+    },
+    {
+      "name": "Scan UK Affiliate Feed",
+      "type": "feed",
+      "endpoint": "https://affiliate.scan.co.uk/feed/products.json",
+      "token_env": "SCAN_AFFILIATE_TOKEN",
+      "enabled": true,
+      "mapping": {
+        "name": "name", "price": "price", "image": "image"
+      }
+    },
+    {
+      "name": "Overclockers UK Feed",
+      "type": "feed",
+      "endpoint": "https://www.overclockers.co.uk/feeds/products.json",
+      "token_env": "OVERCLOCKERS_AFFILIATE_TOKEN",
+      "enabled": true,
+      "mapping": {
+        "name": "name", "price": "price", "image": "image"
+      }
+    },
+    {
+      "name": "Box.co.uk Feed",
+      "type": "feed",
+      "endpoint": "https://www.box.co.uk/affiliate/products.json",
+      "token_env": "BOX_AFFILIATE_TOKEN",
+      "enabled": true,
+      "mapping": {
+        "name": "name", "price": "price", "image": "image"
+      }
+    },
+    {
+      "name": "Novatech Feed",
+      "type": "feed",
+      "endpoint": "https://www.novatech.co.uk/feeds/products.json",
+      "token_env": "NOVATECH_AFFILIATE_TOKEN",
+      "enabled": true,
+      "mapping": {
+        "name": "name", "price": "price", "image": "image", "mpn": "mpn"
+      }
+    }
+  ]
+}

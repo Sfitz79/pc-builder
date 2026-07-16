@@ -9,7 +9,10 @@ const CATEGORY_LABELS = {
   "optical-drive": "Optical Drive", "wired-network-card": "Wired NIC",
   "wireless-network-card": "WiFi Card", "sound-card": "Sound Card",
   "fan-controller": "Fan Controller", ups: "UPS",
-  "case-accessory": "Case Accessory", "external-hard-drive": "External HDD"
+  "case-accessory": "Case Accessory", "external-hard-drive": "External HDD",
+  streaming: "Streaming", "game-controllers": "Game Controllers",
+  "flight-simulation": "Flight Sim", "racing-simulation": "Racing Sim",
+  "cables-and-accessories": "Cables & Acc.",
 };
 
 const FULL_SERVICES = [
@@ -19,22 +22,48 @@ const FULL_SERVICES = [
   { name: "Windows 11 Pro Retail", price: 35 }
 ];
 
+function getSelectionEntries(selections) {
+  const entries = [];
+  for (const [cat, val] of Object.entries(selections)) {
+    if (Array.isArray(val)) {
+      val.forEach(item => entries.push({ cat, item }));
+    } else if (val) {
+      entries.push({ cat, item: val });
+    }
+  }
+  return entries;
+}
+
 function computeBreakdown(selections, type) {
   const isFull = type === "full";
   const services = isFull ? FULL_SERVICES : [];
   const items = [];
 
-  for (const [cat, item] of Object.entries(selections)) {
+  for (const { cat, item } of getSelectionEntries(selections)) {
     if (cat === "os" && isFull) continue;
-    items.push({ label: CATEGORY_LABELS[cat] || cat, name: item?.name || "—" });
+    const qty = item.qty || 1;
+    const price = parseFloat(item?.price) || 0;
+    const label = CATEGORY_LABELS[cat] || cat;
+    items.push({
+      label,
+      name: item?.name || "—",
+      price,
+      qty,
+      lineTotal: price * qty,
+    });
   }
   for (const s of services) {
-    items.push({ label: "", name: s.name });
+    items.push({ label: "", name: s.name, price: parseFloat(s.price) || 0, qty: 1, lineTotal: parseFloat(s.price) || 0 });
   }
 
-  const componentsTotal = Object.entries(selections).reduce((sum, [cat, item]) => {
+  const componentsTotal = Object.entries(selections).reduce((sum, [cat, val]) => {
     if (cat === "os" && isFull) return sum;
-    return sum + (parseFloat(item?.price) || 0);
+    if (Array.isArray(val)) {
+      return sum + val.reduce((s, i) => s + (parseFloat(i?.price) || 0) * (i.qty || 1), 0);
+    }
+    const price = parseFloat(val?.price) || 0;
+    const qty = val?.qty || 1;
+    return sum + price * qty;
   }, 0);
   const total = isFull ? Math.ceil(componentsTotal * 1.03) : componentsTotal;
   const surcharge = isFull ? componentsTotal * 0.03 : 0;
@@ -57,7 +86,7 @@ export default function PriceBreakdown({ type: forcedType }) {
       <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "12px" }}>
         <thead>
           <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-            <th style={{ textAlign: "left", padding: "4px 6px", color: "#555", fontWeight: 600, fontSize: "10px", textTransform: "uppercase" }}>Item</th>
+            <th style={{ textAlign: "left", padding: "8px 12px", color: "#555", fontWeight: 600, fontSize: "10px", textTransform: "uppercase" }}>Item</th>
           </tr>
         </thead>
         <tbody>
@@ -65,7 +94,8 @@ export default function PriceBreakdown({ type: forcedType }) {
             <tr key={i} style={{ borderBottom: "1px solid rgba(255,255,255,0.03)" }}>
               <td style={{ padding: "4px 6px", color: "#999", fontSize: "11px" }}>
                 {item.label && <span style={{ color: "#777", fontWeight: 600, marginRight: "4px" }}>{item.label}:</span>}
-                {item.name.length > 50 ? item.name.slice(0, 50) + "…" : item.name}
+                {item.name.length > 40 ? item.name.slice(0, 40) + "…" : item.name}
+                {item.qty > 1 && <span style={{ color: "#00eaff", marginLeft: "4px" }}>×{item.qty}</span>}
               </td>
             </tr>
           ))}

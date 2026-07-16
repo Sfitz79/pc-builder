@@ -1,5 +1,6 @@
 import { loadCSV } from "./loadCSV";
 import { inferCpuSocket, isModernComponent, isWindows11Compatible } from "./common";
+import { filterCasesByStyle, filterCasesByColor } from "./caseStyles";
 
 const REQUIRED_CATEGORIES = ["case", "case-fan", "cooler", "cpu", "motherboard", "ram", "storage", "psu", "os"];
 
@@ -72,6 +73,7 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
     consumerOnly = false,
     preferDDR4 = false,
     dualStorage = false,
+    caseStyle = "any",
   } = options;
 
   const SKIP_CATEGORIES = new Set();
@@ -285,10 +287,31 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
         return true;
       });
       if (color !== "any") {
-        candidates = candidates.filter(c => {
-          const cColor = String(c.color || "").toLowerCase();
-          return cColor.includes(color.toLowerCase());
+        candidates = filterCasesByColor(candidates, color);
+      }
+      if (caseStyle !== "any") {
+        candidates = filterCasesByStyle(candidates, caseStyle);
+      }
+      if (caseStyle === "any") {
+        const defaultNames = ["lian li vector", "phanteks xt m3", "antec ax20", "antec ax27"];
+        const preferred = candidates.filter(c => {
+          const name = String(c.name || "").toLowerCase();
+          return defaultNames.some(dn => name.includes(dn));
         });
+        if (preferred.length > 0) {
+          const best = preferred.sort((a, b) => {
+            const aPrice = parseFloat(a.price);
+            const bPrice = parseFloat(b.price);
+            const aOver = aPrice > catBudget ? 1 : 0;
+            const bOver = bPrice > catBudget ? 1 : 0;
+            if (aOver !== bOver) return aOver - bOver;
+            return Math.abs(aPrice - catBudget) - Math.abs(bPrice - catBudget);
+          })[0];
+          if (parseFloat(best.price) <= catBudget * 1.15) {
+            build[cat.id] = best;
+            continue;
+          }
+        }
       }
     }
 

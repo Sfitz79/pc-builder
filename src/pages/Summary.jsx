@@ -2,23 +2,18 @@ import { usePCStore } from "../store/usePCStore";
 import { checkCompatibility } from "../utils/compatibility";
 import { getGamingPerformanceSummary } from "../utils/performance";
 import { Link, useNavigate } from "react-router-dom";
-import { categories } from "../utils/categories";
-import { BUILDER_CATEGORIES, SUBCATEGORY_GROUPS } from "../utils/builderConfig";
-import { getBrand, getBrandLogo, getBrandFaviconUrl, getBrandPlaceholder, getItemImageUrl, getItemImageUrls } from "../utils/common";
+import { BUILDER_CATEGORIES, SUBCATEGORY_GROUPS, ADDON_GROUPS } from "../utils/builderConfig";
+import { getBrandLogo, getBrandFaviconUrl, getBrandPlaceholder, getItemImageUrls } from "../utils/common";
 import AIBuildVisual from "../components/AIBuildVisual";
 import { PriceBreakdownPair } from "../components/PriceBreakdown";
 import { useRef, useState, useEffect } from "react";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
+import PayPalCheckout from "../components/PayPalCheckout";
 
 
 
-const TOP_GAMES = [
-  "Cyberpunk 2077", "Call of Duty: Warzone", "Fortnite", "Apex Legends", "Forza Horizon 5",
-  "Black Myth: Wukong", "Elden Ring", "Grand Theft Auto VI", "Marvel Rivals", "Call of Duty: Black Ops 6"
-];
-
-function SummaryItem({ label, item }) {
+function SummaryItem({ label, item, qty }) {
   const logoUrl = item?.name ? getBrandLogo(item) : "";
   const faviconUrl = item?.name ? getBrandFaviconUrl(item) : "";
   const placeholderUrl = item?.name ? getBrandPlaceholder(item) : "";
@@ -40,6 +35,7 @@ function SummaryItem({ label, item }) {
   }, [item?.name]);
 
   const imgSrc = showProductImg && productImageUrl ? productImageUrl : showBrandImg && logoUrl ? logoUrl : showFavicon && faviconUrl ? faviconUrl : placeholderUrl;
+  const displayQty = qty || item?.qty || 1;
 
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "10px 0", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
@@ -48,16 +44,10 @@ function SummaryItem({ label, item }) {
           <img src={imgSrc} alt="" style={{ width: "100%", height: "100%", objectFit: "contain" }}
             onError={() => {
               if (showProductImg && productImageUrl) {
-                if (imgIndex < productImages.length - 1) {
-                  setImgIndex(imgIndex + 1);
-                } else {
-                  setShowProductImg(false);
-                }
-              } else if (showBrandImg) {
-                setShowBrandImg(false);
-              } else if (showFavicon) {
-                setShowFavicon(false);
-              }
+                if (imgIndex < productImages.length - 1) setImgIndex(imgIndex + 1);
+                else setShowProductImg(false);
+              } else if (showBrandImg) setShowBrandImg(false);
+              else if (showFavicon) setShowFavicon(false);
             }}
           />
         ) : (
@@ -65,7 +55,10 @@ function SummaryItem({ label, item }) {
         )}
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: "13px", fontWeight: 600, color: "#e6e6e6" }}>{label}</div>
+        <div style={{ fontSize: "13px", fontWeight: 600, color: "#e6e6e6" }}>
+          {label}
+          {displayQty > 1 && <span style={{ fontSize: "11px", color: "#00eaff", marginLeft: "6px" }}>×{displayQty}</span>}
+        </div>
         <div style={{ fontSize: "12px", color: "#00eaff", display: "flex", alignItems: "center", flexWrap: "wrap", gap: "6px" }}>
           {item?.name ? (
             <>
@@ -129,11 +122,6 @@ export default function Summary() {
     }
   }, [allRequired, navigate]);
 
-  const getLabel = (catId) => {
-    const c = BUILDER_CATEGORIES.find(cat => cat.id === catId) || categories.find(c => c.id === catId);
-    return c?.label || catId;
-  };
-
   const systemUse = [];
   if (perf.score >= 75) systemUse.push("4K Gaming");
   if (perf.score >= 50) systemUse.push("1440p Gaming");
@@ -142,15 +130,29 @@ export default function Summary() {
   if (perf.score >= 40) systemUse.push("Streaming");
   systemUse.push("Everyday Productivity");
 
-  const buildPartsText = BUILDER_CATEGORIES.map(cat => {
-    const item = selections[cat.id];
-    return item ? `${cat.label}: ${item.name} — £${parseFloat(item.price).toFixed(2)}` : null;
-  }).filter(Boolean).concat(
-    SUBCATEGORY_GROUPS.flatMap(g => g.categories).map(cat => {
-      const item = selections[cat.id];
-      return item ? `${cat.label}: ${item.name} — £${parseFloat(item.price).toFixed(2)}` : null;
-    }).filter(Boolean)
-  ).join("\n");
+  const buildPartsText = (() => {
+    const lines = [];
+    const addEntries = (cats) => {
+      for (const cat of cats) {
+        const val = selections[cat.id];
+        if (!val) continue;
+        if (Array.isArray(val)) {
+          val.forEach(item => {
+            const qty = item.qty || 1;
+            const p = parseFloat(item.price) || 0;
+            lines.push(`${cat.label}: ${item.name}${qty > 1 ? ` ×${qty}` : ""} — £${(p * qty).toFixed(2)}`);
+          });
+        } else {
+          const p = parseFloat(val.price) || 0;
+          lines.push(`${cat.label}: ${val.name} — £${p.toFixed(2)}`);
+        }
+      }
+    };
+    addEntries(BUILDER_CATEGORIES);
+    addEntries(SUBCATEGORY_GROUPS.flatMap(g => g.categories));
+    addEntries(ADDON_GROUPS.flatMap(g => g.categories));
+    return lines.join("\n");
+  })();
   const mandatoryText = Object.values(mandatory).map(m => `${m.name} — £${parseFloat(m.price).toFixed(2)}`).join("\n");
   const fullText = `PCTG PC Build\n\n--- Components ---\n${buildPartsText}\n\n--- Included ---\n${mandatoryText}\n\nTotal: £${bundledPrice.toLocaleString('en-GB')}`;
 
@@ -281,6 +283,59 @@ export default function Summary() {
           </div>
         )}
 
+        {/* Plain English Summary */}
+        <div style={{ marginBottom: "24px", padding: "20px", background: "linear-gradient(135deg, rgba(0,234,255,0.05), rgba(74,222,128,0.05))", borderRadius: "12px", border: "1px solid rgba(0,234,255,0.15)" }}>
+          <div style={{ fontSize: "11px", color: "#555", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "10px" }}>Why This PC Is Perfect For You</div>
+          <div style={{ fontSize: "14px", color: "#ccc", lineHeight: "1.7", marginBottom: "10px" }}>
+            {perf.gamingGrade === "Elite Gaming" || perf.gamingGrade === "Extreme Gaming" ? (
+              <>This isn't just a PC — it's a powerhouse that will handle anything you throw at it for years to come. Whether you're diving into the latest blockbuster games at max settings, streaming your gameplay in crystal clarity, or editing videos, this machine won't break a sweat. It's built with premium components that work together seamlessly, giving you buttery-smooth gameplay, lightning-fast load times, and the kind of performance that makes every experience feel effortless. No lag, no stuttering — just pure, uninterrupted enjoyment.</>
+            ) : perf.gamingGrade === "High-End Gaming" ? (
+              <>This PC strikes the perfect balance between power and value. You'll be able to play all the latest games on high settings with smooth, responsive frame rates — think immersive open worlds, fast-paced shooters, and stunning racing games, all looking their best. It handles everyday tasks instantly, loads games in seconds, and is built to stay relevant for years. Whether you're gaming, working, or streaming, this machine gives you a premium experience without the top-tier price tag.</>
+            ) : (
+              <>This PC is built to deliver a fantastic gaming experience without breaking the bank. You'll enjoy smooth gameplay at solid settings in all your favourite titles, with fast load times and reliable performance day in and day out. It handles everything from schoolwork and browsing to casual content creation with ease. Think of it as your all-rounder — capable, dependable, and ready to play the latest games while leaving room to upgrade down the line.</>
+            )}
+          </div>
+          <div style={{ fontSize: "13px", color: "#00eaff", fontWeight: 600 }}>
+            {perf.score >= 70 ? "Top-tier components mean top-tier experiences. You deserve this." : "Smart performance where it counts — built for real people, not just specs."}
+          </div>
+        </div>
+
+        {/* High-Converting Pitch */}
+        <div style={{ marginBottom: "24px", padding: "24px", background: "linear-gradient(135deg, rgba(255,0,94,0.06), rgba(0,234,255,0.06))", borderRadius: "12px", border: "1px solid rgba(255,0,94,0.2)", textAlign: "center" }}>
+          <div style={{ fontSize: "18px", fontWeight: 800, color: "#fff", marginBottom: "8px", letterSpacing: "0.5px" }}>
+            Ready to Experience This Machine?
+          </div>
+          <div style={{ fontSize: "13px", color: "#aaa", lineHeight: "1.7", maxWidth: "600px", margin: "0 auto 16px" }}>
+            You've just designed a custom PC built around <strong style={{ color: "#00eaff" }}>your</strong> needs. Every component has been hand-picked, compatibility-checked, and optimised for real-world performance. We don't just ship parts — we build, test, and deliver a fully assembled system with a <strong style={{ color: "#4ade80" }}>2-year warranty</strong>, so you can unbox and play from day one.
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "8px", marginBottom: "16px" }}>
+            <span style={{ padding: "4px 12px", borderRadius: "20px", background: "rgba(0,234,255,0.08)", border: "1px solid rgba(0,234,255,0.15)", color: "#00eaff", fontSize: "11px", fontWeight: 600 }}>✅ Professionally Built</span>
+            <span style={{ padding: "4px 12px", borderRadius: "20px", background: "rgba(0,234,255,0.08)", border: "1px solid rgba(0,234,255,0.15)", color: "#00eaff", fontSize: "11px", fontWeight: 600 }}>✅ Fully Tested</span>
+            <span style={{ padding: "4px 12px", borderRadius: "20px", background: "rgba(0,234,255,0.08)", border: "1px solid rgba(0,234,255,0.15)", color: "#00eaff", fontSize: "11px", fontWeight: 600 }}>✅ 2-Year Warranty</span>
+            <span style={{ padding: "4px 12px", borderRadius: "20px", background: "rgba(0,234,255,0.08)", border: "1px solid rgba(0,234,255,0.15)", color: "#00eaff", fontSize: "11px", fontWeight: 600 }}>✅ Free Delivery</span>
+          </div>
+          <div style={{ fontSize: "12px", color: "#555", marginBottom: "4px" }}>
+            Total price from <span style={{ fontSize: "22px", fontWeight: 800, color: "#fff" }}>£{bundledPrice.toLocaleString('en-GB')}</span>
+          </div>
+          <div style={{ fontSize: "11px", color: "#555", marginBottom: "16px" }}>
+            Build, testing, delivery & warranty — all included
+          </div>
+          {adminMode ? (
+            <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
+              <button className="button" onClick={() => window.print()}
+                style={{ padding: "12px 28px", fontSize: "14px", fontWeight: 700, cursor: "pointer", borderRadius: "8px", border: "none", background: "linear-gradient(135deg, #00eaff, #0099cc)", color: "#000" }}>
+                🚀 Secure Your Build Now
+              </button>
+            </div>
+          ) : (
+            <div style={{ fontSize: "12px", color: "#555" }}>
+              <span style={{ color: "#00eaff", cursor: "pointer" }}
+                onClick={() => { const user = prompt("Enter admin username:"); if (user) { const pw = prompt("Enter admin password:"); if (pw) { const au = import.meta.env.VITE_ADMIN_USER || "admin"; usePCStore.getState().setAdminMode(user === au && pw === (import.meta.env.VITE_ADMIN_PASSWORD || "admin")); } } }}
+              >Unlock</span> to purchase this build
+            </div>
+          )}
+        </div>
+
         {/* FPS in Top 10 Games per resolution */}
         {perf.resolutionCapabilities?.map(res => {
           const games = res === perf.optimalResolution ? perf.gamePerformance : perf.allResPerformance?.[res];
@@ -316,13 +371,25 @@ export default function Summary() {
           <div style={{ fontSize: "11px", color: "#555", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "10px" }}>Selected Components</div>
           {BUILDER_CATEGORIES.map(cat => {
             const isOsFree = cat.id === "os" && buildType === "full";
-            const item = isOsFree ? { ...selections[cat.id], price: "0.00", _displayNote: "Included in build fee" } : selections[cat.id];
+            const val = selections[cat.id];
+            if (!val) return <SummaryItem key={cat.id} label={cat.label} item={null} />;
+            if (Array.isArray(val)) {
+              return val.map((item, idx) => (
+                <SummaryItem key={`${cat.id}-${idx}`} label={cat.label} item={isOsFree ? { ...item, price: "0.00" } : item} />
+              ));
+            }
+            const item = isOsFree ? { ...val, price: "0.00" } : val;
             return <SummaryItem key={cat.id} label={cat.label} item={item} />;
           })}
           {SUBCATEGORY_GROUPS.flatMap(g => g.categories).map(cat => {
-            const item = selections[cat.id];
-            if (!item) return null;
-            return <SummaryItem key={cat.id} label={cat.label} item={item} />;
+            const val = selections[cat.id];
+            if (!val) return null;
+            if (Array.isArray(val)) {
+              return val.map((item, idx) => (
+                <SummaryItem key={`${cat.id}-${idx}`} label={cat.label} item={item} />
+              ));
+            }
+            return <SummaryItem key={cat.id} label={cat.label} item={val} />;
           })}
         </div>
 
@@ -371,32 +438,50 @@ export default function Summary() {
             </tr>
           </thead>
           <tbody>
-            {BUILDER_CATEGORIES.map(cat => {
-              const item = selections[cat.id];
+            {BUILDER_CATEGORIES.flatMap(cat => {
+              const val = selections[cat.id];
               const isOsFree = cat.id === "os" && buildType === "full";
-              const osPrice = isOsFree ? 0 : parseFloat(item?.price || 0);
+              if (!val) return [{ cat, item: null, isOsFree }];
+              if (Array.isArray(val)) return val.map(item => ({ cat, item, isOsFree }));
+              return [{ cat, item: val, isOsFree }];
+            }).map(({ cat, item, isOsFree }, idx) => {
+              if (!item) {
+                return (
+                  <tr key={`${cat.id}-${idx}`} style={{ borderBottom: "1px solid #ddd" }}>
+                    <td style={{ padding: "8px 6px", color: "#444" }}>{cat.label}</td>
+                    <td style={{ padding: "8px 6px", color: "#888" }}>—</td>
+                    <td style={{ padding: "8px 6px", textAlign: "right", color: "#888" }}>—</td>
+                  </tr>
+                );
+              }
+              const qty = item.qty || 1;
+              const p = isOsFree ? 0 : parseFloat(item.price || 0) * qty;
               return (
-                <tr key={cat.id} style={{ borderBottom: "1px solid #ddd" }}>
+                <tr key={`${cat.id}-${idx}`} style={{ borderBottom: "1px solid #ddd" }}>
                   <td style={{ padding: "8px 6px", color: "#444" }}>{cat.label}</td>
                   <td style={{ padding: "8px 6px", color: "#111", fontWeight: 600 }}>
-                    {item?.name || "—"}
+                    {item.name}
+                    {qty > 1 && <span style={{ color: "#0066cc" }}> ×{qty}</span>}
                     {isOsFree && <span style={{ color: "#888", fontWeight: 400, fontSize: "11px" }}> (included)</span>}
                   </td>
-                  <td style={{ padding: "8px 6px", textAlign: "right", color: "#111" }}>{item ? `£${osPrice.toFixed(2)}` : "—"}</td>
+                  <td style={{ padding: "8px 6px", textAlign: "right", color: "#111" }}>£{p.toFixed(2)}</td>
                 </tr>
               );
             })}
-            {SUBCATEGORY_GROUPS.flatMap(g => g.categories).map(cat => {
-              const item = selections[cat.id];
-              if (!item) return null;
-              return (
-                <tr key={cat.id} style={{ borderBottom: "1px solid #ddd" }}>
-                  <td style={{ padding: "8px 6px", color: "#444" }}>{cat.label}</td>
-                  <td style={{ padding: "8px 6px", color: "#111", fontWeight: 600 }}>{item.name}</td>
-                  <td style={{ padding: "8px 6px", textAlign: "right", color: "#111" }}>£{parseFloat(item.price).toFixed(2)}</td>
-                </tr>
-              );
-            })}
+            {SUBCATEGORY_GROUPS.flatMap(g => g.categories).flatMap(cat => {
+              const val = selections[cat.id];
+              if (!val) return [];
+              if (Array.isArray(val)) return val.map(item => ({ cat, item }));
+              return [{ cat, item: val }];
+            }).map(({ cat, item }, idx) => (
+              <tr key={`sub-${cat.id}-${idx}`} style={{ borderBottom: "1px solid #ddd" }}>
+                <td style={{ padding: "8px 6px", color: "#444" }}>{cat.label}</td>
+                <td style={{ padding: "8px 6px", color: "#111", fontWeight: 600 }}>
+                  {item.name}{(item.qty || 1) > 1 && <span style={{ color: "#0066cc" }}> ×{item.qty}</span>}
+                </td>
+                <td style={{ padding: "8px 6px", textAlign: "right", color: "#111" }}>£{((parseFloat(item.price) || 0) * (item.qty || 1)).toFixed(2)}</td>
+              </tr>
+            ))}
             {Object.values(mandatory).map(m => (
               <tr key={m.name} style={{ borderBottom: "1px solid #ddd" }}>
                 <td style={{ padding: "8px 6px", color: "#666", fontStyle: "italic" }}>Service</td>
@@ -430,29 +515,39 @@ export default function Summary() {
             </tr>
           </thead>
           <tbody>
-            {BUILDER_CATEGORIES.map(cat => {
-              const item = selections[cat.id];
-              if (!item) return null;
+            {BUILDER_CATEGORIES.flatMap(cat => {
+              const val = selections[cat.id];
+              if (!val) return [];
+              if (Array.isArray(val)) return val.map(item => ({ cat, item }));
+              return [{ cat, item: val }];
+            }).map(({ cat, item }, idx) => {
               const imageUrl = (item.image || "").split(",")[0];
               return (
-                <tr key={cat.id} style={{ borderBottom: "1px solid #ddd" }}>
+                <tr key={`${cat.id}-${idx}`} style={{ borderBottom: "1px solid #ddd" }}>
                   <td style={{ padding: "8px 6px", color: "#444" }}>{cat.label}</td>
-                  <td style={{ padding: "8px 6px", color: "#111", fontWeight: 600 }}>{item.name}</td>
+                  <td style={{ padding: "8px 6px", color: "#111", fontWeight: 600 }}>
+                    {item.name}{(item.qty || 1) > 1 && <span style={{ color: "#0066cc" }}> ×{item.qty}</span>}
+                  </td>
                   <td style={{ padding: "8px 6px", color: "#0066cc", fontSize: "11px", wordBreak: "break-all" }}>{imageUrl || "—"}</td>
-                  <td style={{ padding: "8px 6px", textAlign: "right", color: "#111" }}>£{parseFloat(item.price).toFixed(2)}</td>
+                  <td style={{ padding: "8px 6px", textAlign: "right", color: "#111" }}>£{((parseFloat(item.price) || 0) * (item.qty || 1)).toFixed(2)}</td>
                 </tr>
               );
             })}
-            {SUBCATEGORY_GROUPS.flatMap(g => g.categories).map(cat => {
-              const item = selections[cat.id];
-              if (!item) return null;
+            {SUBCATEGORY_GROUPS.flatMap(g => g.categories).flatMap(cat => {
+              const val = selections[cat.id];
+              if (!val) return [];
+              if (Array.isArray(val)) return val.map(item => ({ cat, item }));
+              return [{ cat, item: val }];
+            }).map(({ cat, item }, idx) => {
               const imageUrl = (item.image || "").split(",")[0];
               return (
-                <tr key={cat.id} style={{ borderBottom: "1px solid #ddd" }}>
+                <tr key={`sub-${cat.id}-${idx}`} style={{ borderBottom: "1px solid #ddd" }}>
                   <td style={{ padding: "8px 6px", color: "#444" }}>{cat.label}</td>
-                  <td style={{ padding: "8px 6px", color: "#111", fontWeight: 600 }}>{item.name}</td>
+                  <td style={{ padding: "8px 6px", color: "#111", fontWeight: 600 }}>
+                    {item.name}{(item.qty || 1) > 1 && <span style={{ color: "#0066cc" }}> ×{item.qty}</span>}
+                  </td>
                   <td style={{ padding: "8px 6px", color: "#0066cc", fontSize: "11px", wordBreak: "break-all" }}>{imageUrl || "—"}</td>
-                  <td style={{ padding: "8px 6px", textAlign: "right", color: "#111" }}>£{parseFloat(item.price).toFixed(2)}</td>
+                  <td style={{ padding: "8px 6px", textAlign: "right", color: "#111" }}>£{((parseFloat(item.price) || 0) * (item.qty || 1)).toFixed(2)}</td>
                 </tr>
               );
             })}
@@ -480,14 +575,7 @@ export default function Summary() {
               {invoiceStatus === "generating" ? "Generating PDF..." : invoiceStatus === "done" ? "✓ PDF Downloaded" : invoiceStatus === "error" ? "✕ Failed — Try Again" : "📄 Download Invoice (PDF)"}
             </button>
 
-            <a href="https://www.paypal.com/checkoutnow" target="_blank" rel="noopener noreferrer"
-              style={{
-                padding: "14px", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center",
-                background: "linear-gradient(135deg, #0070ba, #003087)", color: "#fff", textDecoration: "none",
-                fontFamily: "inherit", fontSize: "13px", fontWeight: 600, border: "none", cursor: "pointer"
-              }}>
-              ₿ Checkout with PayPal
-            </a>
+            <PayPalCheckout amount={bundledPrice} />
           </div>
 
           <div style={{ fontSize: "11px", color: "#555", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "10px" }}>

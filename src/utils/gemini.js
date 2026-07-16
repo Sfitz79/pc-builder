@@ -1,3 +1,5 @@
+import { inferCoolerType } from "./common";
+
 const VERCEL_IMG_URL = import.meta.env.VITE_LEONARDO_PROXY_URL || "https://img-gen-pctg.vercel.app/api/generate";
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || null;
 const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent";
@@ -152,28 +154,44 @@ function buildPartsList(selections) {
     selections['cooler']?.name,
     selections['psu']?.name,
     selections['storage']?.name,
-    selections['case-fan']?.name,
     selections['storage2']?.name,
+    selections['storage3']?.name,
+    selections['storage4']?.name,
+    selections['case-fan']?.name,
     selections['monitor']?.name,
     selections['keyboard']?.name,
     selections['mouse']?.name,
     selections['headphones']?.name,
+    selections['speakers']?.name,
+    selections['webcam']?.name,
+    selections['wireless-network-card']?.name,
+    selections['sound-card']?.name,
   ].filter(Boolean);
   return lines.map(n => `- ${n}`).join("\n");
 }
 
 function buildPrompt(selections) {
   const partsList = buildPartsList(selections);
-  return `Generate a photorealistic studio photo of a fully assembled custom gaming PC built using the EXACT real products listed below. Each component must look like its real-world counterpart — same shape, colors, branding, and design.
+  const isAIO = selections['cooler']
+    ? inferCoolerType(selections['cooler']) === "AIO Liquid Cooler"
+    : false;
 
+  const coolerDesc = isAIO
+    ? "AIO liquid cooler with tubes, radiator, and pump block design visible"
+    : "Air tower cooler with heatpipe arrangement and fan visible";
+
+  return `Generate a photorealistic studio photo of a fully assembled custom gaming PC. Use ONLY the EXACT real products listed below — do not add any components that are not in this list. Each component must look like its real-world counterpart: same shape, colors, branding, and design.
+
+ONLY these components (omit any not listed):
 ${partsList}
 
 Requirements:
 - The CASE must be the exact model listed — same shape, color, panel design, front mesh/glass layout, and dimensions
 - GPU must show the correct cooler shroud design, fan count, and backplate
-- CPU cooler must match its real design (air tower with heatpipes or AIO with tubes/radiator)
+- CPU cooler: ${coolerDesc}
 - RAM must show the correct height, heatsink design, and RGB lighting if applicable
 - Motherboard must match PCB color, VRM heatsinks, and chipset location
+- If a component type is not in the list above, do NOT include it in the image
 - Studio lighting, clean dark background, 3/4 angle through side panel
 - Photorealistic, high detail, product photography quality`;
 }
@@ -270,17 +288,26 @@ function buildGeminiPrompt(selections) {
   const motherboard = selections['motherboard']?.name || "";
   const psu = selections['psu']?.name || "";
   const storage = selections['storage']?.name || "";
+  const storage2 = selections['storage2']?.name || "";
+  const storage3 = selections['storage3']?.name || "";
+  const storage4 = selections['storage4']?.name || "";
   const caseFan = selections['case-fan']?.name || "";
   const monitor = selections['monitor']?.name || "";
   const keyboard = selections['keyboard']?.name || "";
   const mouse = selections['mouse']?.name || "";
   const headphones = selections['headphones']?.name || "";
+  const speakers = selections['speakers']?.name || "";
+  const webcam = selections['webcam']?.name || "";
+  const wirelessCard = selections['wireless-network-card']?.name || "";
+  const soundCard = selections['sound-card']?.name || "";
 
   const hasRGB = Object.values(selections).some(item =>
     JSON.stringify(item).toLowerCase().includes("rgb")
   );
   const isWhite = pcCase.toLowerCase().includes("white");
-  const isAIO = (cooler || "").toLowerCase().includes("liquid") || (cooler || "").toLowerCase().includes("aio");
+  const isAIO = selections['cooler']
+    ? inferCoolerType(selections['cooler']) === "AIO Liquid Cooler"
+    : false;
 
   const partsList = [
     [`Case`, pcCase],
@@ -290,17 +317,28 @@ function buildGeminiPrompt(selections) {
     ram && [`RAM`, ram],
     cooler && [`Cooler`, cooler],
     psu && [`PSU`, psu],
-    storage && [`Storage`, storage],
+    storage && [`Storage (Drive 1)`, storage],
+    storage2 && [`Storage (Drive 2)`, storage2],
+    storage3 && [`Storage (Drive 3)`, storage3],
+    storage4 && [`Storage (Drive 4)`, storage4],
     caseFan && [`Case Fans`, caseFan],
+    monitor && [`Monitor`, monitor],
+    keyboard && [`Keyboard`, keyboard],
+    mouse && [`Mouse`, mouse],
+    headphones && [`Headphones`, headphones],
+    speakers && [`Speakers`, speakers],
+    webcam && [`Webcam`, webcam],
+    wirelessCard && [`WiFi / Network Card`, wirelessCard],
+    soundCard && [`Sound Card`, soundCard],
   ].filter(Boolean);
 
   const partsDetail = partsList.map(([type, name]) =>
     `- ${type}: "${name}" (THIS EXACT PRODUCT — render its real-world design, shape, colors, branding, port/vent layout, and dimensions accurately)`
   ).join("\n");
 
-  return `You have expert knowledge of PC hardware products. Generate a photorealistic image of a fully assembled custom gaming PC that uses the EXACT products listed below. Each component must look indistinguishable from its real counterpart.
+  return `You have expert knowledge of PC hardware products. Generate a photorealistic image of a fully assembled custom gaming PC that uses ONLY the EXACT products listed below. Do NOT include any component type that is not in this list — if a part slot is not listed, it should not appear in the image.
 
-Components (render each one with its real-world visual design — this is critical):
+ONLY these components (render each with its real-world visual design — this is critical):
 ${partsDetail}
 
 CRITICAL REQUIREMENTS:
@@ -314,7 +352,7 @@ CRITICAL REQUIREMENTS:
 - ${hasRGB ? "RGB lighting glow on RAM, GPU, cooler fans and case" : "Clean minimal lighting, professional look"}
 - ${isAIO ? "AIO liquid cooler with tubes connected to CPU block, radiator with fans visible" : "Air tower CPU cooler with heatpipes and fan visible"}
 - Neat cable management through the back
-- Peripheral devices (monitor, keyboard, mouse, headphones) placed on desk around the PC — render their approximate real designs
+- Peripheral devices (monitor, keyboard, mouse, headphones, speakers, webcam) placed on desk around the PC — render their approximate real designs
 - Dark studio background, cinematic product photography lighting, 4K detail
 - NO text labels, NO logos/badges, NO watermark
 - IMPORTANT: The components must be recognizable as the exact products listed — if you render a generic substitute, the image is worthless`;

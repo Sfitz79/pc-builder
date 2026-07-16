@@ -2,36 +2,36 @@ export const GPU_HIERARCHY = {
   enthusiast: {
     label: "4K Ultra / Enthusiast (Overkill for 1080p)",
     cards: [
-      { name: "RTX 5090", tier: "Flagship", vram: "32GB GDDR7", msrp: "$1999+", note: "Best overall. 169 FPS avg at 4K. Complete overkill for 1080p." },
-      { name: "RTX 5080", tier: "High-End", vram: "16GB GDDR7", msrp: "$999+", note: "Excellent 4K. 115 FPS avg at 4K. Best high-end value." },
-      { name: "RTX 5070 Ti", tier: "High-End", vram: "16GB GDDR7", msrp: "$749+", note: "Great 4K entry / 1440p king. 98 FPS at 4K." }
+      { name: "RTX 5090", tier: "Flagship", vram: "32GB GDDR7", msrp: "£3360", note: "Best overall. 169 FPS avg at 4K. Complete overkill for 1080p." },
+      { name: "RTX 5080", tier: "High-End", vram: "16GB GDDR7", msrp: "£1170", note: "Excellent 4K. 115 FPS avg at 4K. Best high-end value." },
+      { name: "RTX 5070 Ti", tier: "High-End", vram: "16GB GDDR7", msrp: "£865", note: "Great 4K entry / 1440p king. 98 FPS at 4K." }
     ]
   },
   highEnd: {
     label: "1440p High / Entry 4K",
     cards: [
-      { name: "RX 9070 XT", tier: "Upper Mid", vram: "16GB GDDR6", msrp: "$600", note: "Best AMD value. 93 FPS at 4K, strong 1440p perf." },
-      { name: "RX 9070", tier: "Mid-Range", vram: "16GB GDDR6", msrp: "$550", note: "Solid 1440p card. Slightly behind 9070 XT." },
-      { name: "RTX 5070", tier: "Mid-Range", vram: "12GB GDDR7", msrp: "$550", note: "Best value NVIDIA. Great price-to-perf ratio." },
-      { name: "RTX 4070 Super", tier: "Upper Mid", vram: "12GB GDDR6X", msrp: "$600", note: "Excellent 1440p card. Great for high-refresh 1080p too." }
+      { name: "RX 9070 XT", tier: "Upper Mid", vram: "16GB GDDR6", msrp: "£650", note: "Best AMD value. 93 FPS at 4K, strong 1440p perf." },
+      { name: "RX 9070", tier: "Mid-Range", vram: "16GB GDDR6", msrp: "£560", note: "Solid 1440p card. Slightly behind 9070 XT." },
+      { name: "RTX 5070", tier: "Mid-Range", vram: "12GB GDDR7", msrp: "£570", note: "Best value NVIDIA. Great price-to-perf ratio." },
+      { name: "RTX 4070 Super", tier: "Upper Mid", vram: "12GB GDDR6X", msrp: "£520", note: "Excellent 1440p card. Great for high-refresh 1080p too." }
     ]
   },
   midRange: {
     label: "1080p High / 1440p Medium",
     cards: [
-      { name: "RX 7600 XT", tier: "Mid-Range", vram: "16GB GDDR6", msrp: "$330", note: "Strong 1080p card with 16GB VRAM. Future-proof for 1080p." },
-      { name: "RTX 4060 Ti 16GB", tier: "Mid-Range", vram: "16GB GDDR6", msrp: "$430", note: "16GB VRAM version ideal for 1080p high-refresh." },
-      { name: "RX 9060 XT", tier: "Mid-Range", vram: "12GB GDDR6", msrp: "$350", note: "Strong 1080p/1440p card. Latest AMD mid-range." },
-      { name: "RTX 5060 Ti", tier: "Mid-Range", vram: "8-16GB GDDR7", msrp: "$300+", note: "Good 1080p-1440p option." },
-      { name: "Intel Arc B580", tier: "Budget", vram: "12GB GDDR6", msrp: "$250", note: "Best budget option. Great 1080p value. Tom's Hardware recommended." }
+      { name: "RX 7600 XT", tier: "Mid-Range", vram: "16GB GDDR6", msrp: "£330", note: "Strong 1080p card with 16GB VRAM. Future-proof for 1080p." },
+      { name: "RTX 4060 Ti 16GB", tier: "Mid-Range", vram: "16GB GDDR6", msrp: "£430", note: "16GB VRAM version ideal for 1080p high-refresh." },
+      { name: "RX 9060 XT", tier: "Mid-Range", vram: "12GB GDDR6", msrp: "£390", note: "Strong 1080p/1440p card. Latest AMD mid-range." },
+      { name: "RTX 5060 Ti", tier: "Mid-Range", vram: "8-16GB GDDR7", msrp: "£320+", note: "Good 1080p-1440p option." },
+      { name: "Intel Arc B580", tier: "Budget", vram: "12GB GDDR6", msrp: "£250", note: "Best budget option. Great 1080p value. Tom's Hardware recommended." }
     ]
   },
   budget: {
     label: "1080p Entry / Budget",
     cards: [
-      { name: "RTX 4060", tier: "Entry", vram: "8GB GDDR6", msrp: "$300", note: "Solid 1080p card. Great for 1080p high settings at 60+ FPS." },
-      { name: "RX 6600", tier: "Entry", vram: "8GB GDDR6", msrp: "$185", note: "Best value 1080p GPU. £185 for excellent 1080p 60+ FPS in AAA titles. Gamers Nexus budget pick." },
-      { name: "RX 7600", tier: "Entry", vram: "8GB GDDR6", msrp: "$270", note: "Solid 1080p gaming. Slightly faster than RTX 4060 in rasterization." }
+      { name: "RTX 4060", tier: "Entry", vram: "8GB GDDR6", msrp: "£280", note: "Solid 1080p card. Great for 1080p high settings at 60+ FPS." },
+      { name: "RX 6600", tier: "Entry", vram: "8GB GDDR6", msrp: "£190", note: "Best value 1080p GPU. £190 for excellent 1080p 60+ FPS in AAA titles. Gamers Nexus budget pick." },
+      { name: "RX 7600", tier: "Entry", vram: "8GB GDDR6", msrp: "£260", note: "Solid 1080p gaming. Slightly faster than RTX 4060 in rasterization." }
     ]
   }
 };
@@ -40,27 +40,27 @@ export const CPU_HIERARCHY = {
   bestGaming: {
     label: "Best Gaming CPU (4K / High-End 1440p)",
     cpus: [
-      { name: "Ryzen 7 9800X3D", cores: 8, threads: 16, socket: "AM5", tdp: "120W", price: "$460", note: "Best gaming CPU 2026. 30-38% faster than Intel Arrow Lake in games. 96MB L3 cache. Overkill for 1080p." },
-      { name: "Ryzen 9 9950X3D", cores: 16, threads: 32, socket: "AM5", tdp: "170W", price: "$675", note: "Best gaming + productivity hybrid. 3D V-Cache on one CCD." },
-      { name: "Ryzen 9 9900X3D", cores: 12, threads: 24, socket: "AM5", tdp: "120W", price: "$550", note: "Excellent gaming + multi-threaded perf." }
+      { name: "Ryzen 7 9800X3D", cores: 8, threads: 16, socket: "AM5", tdp: "120W", price: "£365", note: "Best gaming CPU 2026. 30-38% faster than Intel Arrow Lake in games. 96MB L3 cache. Overkill for 1080p." },
+      { name: "Ryzen 9 9950X3D", cores: 16, threads: 32, socket: "AM5", tdp: "170W", price: "£590", note: "Best gaming + productivity hybrid. 3D V-Cache on one CCD." },
+      { name: "Ryzen 9 9900X3D", cores: 12, threads: 24, socket: "AM5", tdp: "120W", price: "£540", note: "Excellent gaming + multi-threaded perf." }
     ]
   },
   highEnd: {
     label: "High-End (1440p / Entry 4K)",
     cpus: [
-      { name: "Ryzen 7 7800X3D", cores: 8, threads: 16, socket: "AM5", tdp: "120W", price: "$340", note: "Excellent for high-refresh 1080p/1440p. 3D V-Cache gives outstanding 1% lows. Previous-gen but still top tier." },
-      { name: "Ryzen 7 9700X", cores: 8, threads: 16, socket: "AM5", tdp: "65W", price: "$309", note: "Best value 8-core. 90-95% of 9800X3D perf at 1440p for much less." },
-      { name: "Intel Core Ultra 7 265K", cores: "8P+12E", threads: 20, socket: "LGA1851", tdp: "125W", price: "$350", note: "Good for productivity, decent gaming." }
+      { name: "Ryzen 7 7800X3D", cores: 8, threads: 16, socket: "AM5", tdp: "120W", price: "£288", note: "Excellent for high-refresh 1080p/1440p. 3D V-Cache gives outstanding 1% lows. Previous-gen but still top tier." },
+      { name: "Ryzen 7 9700X", cores: 8, threads: 16, socket: "AM5", tdp: "65W", price: "£280", note: "Best value 8-core. 90-95% of 9800X3D perf at 1440p for much less." },
+      { name: "Intel Core Ultra 7 265K", cores: "8P+12E", threads: 20, socket: "LGA1851", tdp: "125W", price: "£350", note: "Good for productivity, decent gaming." }
     ]
   },
   midRange: {
     label: "Mid-Range / Budget (1080p Gaming)",
     cpus: [
-      { name: "Ryzen 5 7600", cores: 6, threads: 12, socket: "AM5", tdp: "65W", price: "$185", note: "Great entry-level AM5. Solid 1080p/1440p gaming perf. Best price-to-performance AM5 CPU." },
-      { name: "Ryzen 5 9600X", cores: 6, threads: 12, socket: "AM5", tdp: "65W", price: "$205", note: "Latest Zen 5. ~10% faster than 7600X. Great for 1080p high-refresh." },
-      { name: "Ryzen 5 5600", cores: 6, threads: 12, socket: "AM4", tdp: "65W", price: "$126", note: "Best budget gaming CPU on AM4. Perfect for £750-£1,000 1080p builds." },
-      { name: "Ryzen 5 5500", cores: 6, threads: 12, socket: "AM4", tdp: "65W", price: "$74", note: "Ultra-budget 1080p gaming. Ideal for £500-£700 entry builds." },
-      { name: "Intel Core Ultra 5 245K", cores: "6P+8E", threads: 14, socket: "LGA1851", tdp: "125W", price: "$280", note: "Entry Intel Arrow Lake. Decent gaming and productivity." }
+      { name: "Ryzen 5 7600", cores: 6, threads: 12, socket: "AM5", tdp: "65W", price: "£168", note: "Great entry-level AM5. Solid 1080p/1440p gaming perf. Best price-to-performance AM5 CPU." },
+      { name: "Ryzen 5 9600X", cores: 6, threads: 12, socket: "AM5", tdp: "65W", price: "£171", note: "Latest Zen 5. ~10% faster than 7600X. Great for 1080p high-refresh." },
+      { name: "Ryzen 5 5600", cores: 6, threads: 12, socket: "AM4", tdp: "65W", price: "£126", note: "Best budget gaming CPU on AM4. Perfect for £600-£800 1080p builds." },
+      { name: "Ryzen 5 5500", cores: 6, threads: 12, socket: "AM4", tdp: "65W", price: "£74", note: "Ultra-budget 1080p gaming. Ideal for £450-£600 entry builds." },
+      { name: "Intel Core Ultra 5 245K", cores: "6P+8E", threads: 14, socket: "LGA1851", tdp: "125W", price: "£280", note: "Entry Intel Arrow Lake. Decent gaming and productivity." }
     ]
   }
 };

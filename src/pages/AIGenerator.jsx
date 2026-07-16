@@ -1,9 +1,12 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { usePCStore } from "../store/usePCStore";
 import { generateBuild, explainBuild, getRamDdr } from "../utils/aiBuildGenerator";
 import { GAME_REQUIREMENTS, GAME_CATEGORIES } from "../utils/partsKnowledgeBase";
 import { BUILDER_CATEGORIES, SUBCATEGORY_GROUPS } from "../utils/builderConfig";
+import { getCaseStyles, getCaseStyleImage } from "../utils/caseStyles";
+import { assetPath } from "../utils/assetPath";
+import { loadCSV } from "../utils/loadCSV";
 
 const USE_CASES = [
   { id: "gaming", label: "Gaming", icon: "🎮", desc: "High FPS for the latest games" },
@@ -11,7 +14,36 @@ const USE_CASES = [
   { id: "workstation", label: "Workstation", icon: "💼", desc: "AI / ML, video editing, 3D rendering, CAD" },
   { id: "content-creation", label: "Content Creation", icon: "🎬", desc: "Professional video editing & production" },
   { id: "game-based", label: "Based on Games", icon: "🎯", desc: "Generate builds for specific games at multiple tiers" },
+  { id: "custom", label: "Describe Your Build", icon: "✏️", desc: "Tell us what you need in your own words" },
 ];
+
+function parseCustomDescription(text) {
+  const lower = text.toLowerCase();
+  const budgetMatch = text.match(/[£$€]\s*([\d,]+)/);
+  const budget = budgetMatch ? parseInt(budgetMatch[1].replace(/,/g, '')) : 1200;
+  let resolution = "auto";
+  if (lower.includes("4k") || lower.includes("2160p") || lower.includes("ultra hd")) resolution = "4k";
+  else if (lower.includes("1440p") || lower.includes("qhd") || lower.includes("2k")) resolution = "1440p";
+  else if (lower.includes("1080p") || lower.includes("fhd")) resolution = "1080p";
+  let useCase = "gaming";
+  if (lower.includes("workstation") || lower.includes("cad") || lower.includes("3d") || lower.includes("render") || lower.includes("machine learning") || lower.includes("ai") || lower.includes("llm") || lower.includes("deep learning")) {
+    useCase = "workstation";
+  } else if (lower.includes("stream") || lower.includes("broadcast") || lower.includes("twitch")) {
+    useCase = lower.includes("game") || lower.includes("play") ? "streaming" : "streaming";
+  } else if (lower.includes("video edit") || lower.includes("content creat") || lower.includes("production") || lower.includes("edit")) {
+    useCase = "content-creation";
+  } else if (lower.includes("general") || lower.includes("everyday") || lower.includes("office") || lower.includes("brows") || lower.includes("home")) {
+    useCase = "general";
+  } else if (lower.includes("game") || lower.includes("play") || lower.includes("fps")) {
+    useCase = "gaming";
+  }
+  return { budget: Math.max(300, Math.min(30000, budget)), resolution, useCase };
+}
+
+function getUseCaseLabel(id) {
+  const found = USE_CASES.find(uc => uc.id === id);
+  return found ? found.label : id === "general" ? "General" : id;
+}
 
 const GAME_LIST = Object.entries(GAME_REQUIREMENTS).map(([id, game]) => ({
   id, name: game.name, icon: game.icon || "🎮", category: game.category || "fps"
@@ -90,6 +122,8 @@ export default function AIGenerator() {
   const [budget, setBudget] = useState(1200);
   const [customBudget, setCustomBudget] = useState(false);
   const [color, setColor] = useState("any");
+  const [caseColors, setCaseColors] = useState([]);
+  const [caseStyle, setCaseStyle] = useState("any");
   const [loading, setLoading] = useState(false);
   const [builds, setBuilds] = useState(null);
   const [selectedBuild, setSelectedBuild] = useState(1);
@@ -100,6 +134,9 @@ export default function AIGenerator() {
   const [needKeyboard, setNeedKeyboard] = useState(true);
   const [needSpeakers, setNeedSpeakers] = useState(false);
   const [needWifi, setNeedWifi] = useState(false);
+  const [originalUseCase, setOriginalUseCase] = useState("");
+  const [customDesc, setCustomDesc] = useState("");
+  const [customDescParsed, setCustomDescParsed] = useState(null);
   const [gameSearch, setGameSearch] = useState("");
   const [activeGameCategory, setActiveGameCategory] = useState("fps");
   const [selectedGameIds, setSelectedGameIds] = useState([]);
@@ -108,6 +145,37 @@ export default function AIGenerator() {
   const [activeGameTier, setActiveGameTier] = useState(0);
   const adminMode = usePCStore(s => s.adminMode);
   const setComponent = usePCStore(s => s.setComponent);
+
+  function colorToSwatch(name) {
+    const map = {
+      "Black": "#1a1a1a", "White": "#e8e8e8", "Silver": "#c0c0c0", "Gray": "#808080",
+      "Red": "#e74c3c", "Blue": "#3498db", "Green": "#27ae60", "Yellow": "#f1c40f",
+      "Pink": "#ff69b4", "Purple": "#9b59b6", "Orange": "#e67e22", "Brown": "#6b4226",
+      "Gold": "#d4a017", "Beige": "#f5f5dc", "Clear": "rgba(200,200,200,0.4)", "Camo": "#4a5d23",
+      "Gunmetal": "#2c3539", "Turquoise": "#1abc9c", "Cyan": "#00bcd4", "Multicolor": "linear-gradient(90deg,red,orange,yellow,green,blue,indigo,violet)"
+    };
+    return map[name] || "#888";
+  }
+
+  useEffect(() => {
+    loadCSV("case.csv").then(cases => {
+      const count = {};
+      const seen = new Set();
+      const nonColors = ["atx", "micro atx", "mini-itx", "form factor", "compatible with"];
+      for (const c of cases) {
+        if (!c.color) continue;
+        const color = c.color.trim();
+        if (color.includes(" / ")) continue;
+        if (nonColors.some(nc => color.toLowerCase().includes(nc))) continue;
+        count[color] = (count[color] || 0) + 1;
+      }
+      const colors = Object.entries(count)
+        .filter(([color]) => !seen.has(color) && seen.add(color))
+        .map(([color, cnt]) => ({ value: color, label: color, swatch: colorToSwatch(color), count: cnt }));
+      colors.sort((a, b) => b.count - a.count);
+      setCaseColors([{ value: "any", label: "Any", swatch: "linear-gradient(90deg,#222 50%,#ddd 50%)" }, ...colors]);
+    }).catch(() => {});
+  }, []);
   const navigate = useNavigate();
 
   const HIDDEN_FEES = 200;
@@ -118,7 +186,7 @@ export default function AIGenerator() {
     setError("");
     try {
       const isGaming = useCase === "gaming" || useCase === "streaming+gaming" || useCase === "streaming" || useCase === "general";
-      const options = { needMonitor, monitorResolution, needMouse, needKeyboard, needSpeakers, needWifi, consumerOnly: isGaming };
+      const options = { needMonitor, monitorResolution, needMouse, needKeyboard, needSpeakers, needWifi, consumerOnly: isGaming, caseStyle };
       const partsBudget = Math.max(budget - HIDDEN_FEES, 0);
       const variants = [
         {
@@ -138,7 +206,8 @@ export default function AIGenerator() {
       const results = await Promise.all(
         variants.map((v, i) => generateBuild(variantBudgets[i], useCase, color, { ...options, ...v.genOpts }))
       );
-      const explanations = results.map((build, i) => explainBuild(build, variants[i].label, useCase, budget, HIDDEN_FEES));
+      const summaryUseCase = originalUseCase === "custom" ? (customDescParsed?.useCase || useCase) : useCase;
+      const explanations = results.map((build, i) => explainBuild(build, variants[i].label, summaryUseCase, budget, HIDDEN_FEES));
       let resultBuilds = results.map((build, i) => ({ ...variants[i], build, explanation: explanations[i], partsBudget: variantBudgets[i] }));
 
       resultBuilds.sort((a, b) => {
@@ -402,11 +471,13 @@ export default function AIGenerator() {
           <div style={{ fontSize: "12px", color: "#555", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "12px" }}>
             What will you use your PC for?
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "12px", marginBottom: "24px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "12px", marginBottom: "24px" }}>
             {USE_CASES.map(uc => (
               <button key={uc.id} onClick={() => {
                 setUseCase(uc.id);
+                setOriginalUseCase(uc.id);
                 if (uc.id === "game-based") setStep("game-select");
+                else if (uc.id === "custom") setStep("custom-desc");
                 else setStep(2);
               }}
                 style={{
@@ -527,6 +598,73 @@ export default function AIGenerator() {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {step === "custom-desc" && (
+        <div>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+            <div>
+              <div style={{ fontSize: "12px", color: "#555", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                Describe Your Ideal Build
+              </div>
+              <div style={{ fontSize: "13px", color: "#888", marginTop: "2px" }}>
+                Tell us what you'll use it for, your budget, and any preferences
+              </div>
+            </div>
+            <button className="button secondary small" onClick={() => { setStep(1); setUseCase(""); setCustomDesc(""); setCustomDescParsed(null); }}>
+              ← Change Mode
+            </button>
+          </div>
+
+          <div style={{ background: "#0d0d18", borderRadius: "12px", border: "1px solid rgba(0,234,255,0.15)", padding: "20px", marginBottom: "16px" }}>
+            <textarea
+              placeholder='E.g. "I want a PC for gaming at 1440p with a £1500 budget. I play competitive shooters and want high frame rates. Also need it for some video editing on the side."'
+              value={customDesc}
+              onChange={e => setCustomDesc(e.target.value)}
+              rows={6}
+              style={{
+                width: "100%", padding: "14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.1)",
+                background: "#0a0a0f", color: "#e6e6e6", fontFamily: "inherit", fontSize: "14px",
+                outline: "none", boxSizing: "border-box", resize: "vertical", lineHeight: "1.6"
+              }}
+            />
+            <div style={{ fontSize: "11px", color: "#555", marginTop: "8px" }}>
+              Try including: what you'll use it for, target resolution, budget range, colour/style preferences
+            </div>
+          </div>
+
+          {customDescParsed && (
+            <div style={{ background: "rgba(0,234,255,0.05)", borderRadius: "8px", padding: "14px 18px", marginBottom: "16px", border: "1px solid rgba(0,234,255,0.15)" }}>
+              <div style={{ fontSize: "11px", color: "#555", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "8px" }}>Detected Preferences</div>
+              <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", fontSize: "13px" }}>
+                <span style={{ color: "#ccc" }}>Use Case: <strong style={{ color: "#00eaff" }}>{getUseCaseLabel(customDescParsed.useCase)}</strong></span>
+                <span style={{ color: "#ccc" }}>Resolution: <strong style={{ color: "#00eaff" }}>{customDescParsed.resolution === "auto" ? "Auto-detected" : customDescParsed.resolution.toUpperCase()}</strong></span>
+                <span style={{ color: "#ccc" }}>Budget: <strong style={{ color: "#00eaff" }}>£{customDescParsed.budget.toLocaleString('en-GB')}</strong></span>
+              </div>
+            </div>
+          )}
+
+          <div style={{ display: "flex", gap: "10px" }}>
+            <button className="button secondary" onClick={() => { setCustomDesc(""); setCustomDescParsed(null); }}
+              style={{ flex: 1 }}>Clear</button>
+            <button className="button" onClick={() => {
+              if (!customDesc.trim()) return;
+              const parsed = parseCustomDescription(customDesc);
+              setCustomDescParsed(parsed);
+              setUseCase(parsed.useCase);
+              setBudget(parsed.budget);
+              setCustomBudget(true);
+              if (parsed.resolution !== "auto") {
+                setMonitorResolution(parsed.resolution);
+                setNeedMonitor(true);
+              }
+              setStep(4);
+            }} style={{ flex: 2, padding: "12px", fontSize: "15px" }}
+              disabled={!customDesc.trim()}>
+              Generate My Build →
+            </button>
           </div>
         </div>
       )}
@@ -662,33 +800,71 @@ export default function AIGenerator() {
             </div>
           </div>
 
-          <div style={{ marginBottom: "16px", display: "flex", alignItems: "center", gap: "12px" }}>
-            <label style={{ fontSize: "12px", color: "#888", whiteSpace: "nowrap" }}>
-              Case Color Preference:
+          {/* Case Style Selection */}
+          <div style={{ marginBottom: "16px" }}>
+            <label style={{ fontSize: "12px", color: "#888", display: "block", marginBottom: "10px" }}>
+              Case Style Preference:
             </label>
-            <div style={{ display: "flex", gap: "6px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px" }}>
               {[
-                { value: "any", label: "Any", color: "#888" },
-                { value: "Black", label: "Black", color: "#222" },
-                { value: "White", label: "White", color: "#ddd" },
-              ].map(c => (
-                <button key={c.value} onClick={() => setColor(c.value)}
-                  style={{
-                    padding: "6px 14px", borderRadius: "6px", cursor: "pointer",
-                    background: color === c.value ? "rgba(0,234,255,0.08)" : "#0d0d18",
-                    border: `1px solid ${color === c.value ? "rgba(0,234,255,0.3)" : "rgba(0,234,255,0.1)"}`,
-                    color: color === c.value ? "#00eaff" : "#888",
-                    fontFamily: "inherit", fontSize: "13px",
-                    display: "flex", alignItems: "center", gap: "6px"
-                  }}
-                >
-                  <span style={{ display: "inline-block", width: "10px", height: "10px", borderRadius: "50%",
-                    background: c.value === "any" ? "linear-gradient(90deg,#222 50%,#ddd 50%)" : c.color,
-                    border: c.value === "White" ? "1px solid #555" : "none"
-                  }}></span>
-                  {c.label}
-                </button>
-              ))}
+                { id: "any", label: "Any Style", desc: "No preference — pick the best available" },
+                ...getCaseStyles().map(s => ({ id: s.id, label: s.label, svg: s.svg, desc: s.focus })),
+              ].map(st => {
+                const checked = caseStyle === st.id;
+                return (
+                  <label key={st.id} onClick={() => setCaseStyle(st.id)}
+                    style={{
+                      display: "flex", flexDirection: "column", alignItems: "center", gap: "8px",
+                      padding: "14px 10px", borderRadius: "10px", cursor: "pointer",
+                      background: checked ? "rgba(0,234,255,0.08)" : "#0d0d18",
+                      border: `1px solid ${checked ? "rgba(0,234,255,0.3)" : "rgba(0,234,255,0.1)"}`,
+                      transition: "all 0.15s", userSelect: "none",
+                    }}
+                    onMouseEnter={e => { if (!checked) e.currentTarget.style.borderColor = "rgba(0,234,255,0.2)"; }}
+                    onMouseLeave={e => { if (!checked) e.currentTarget.style.borderColor = "rgba(0,234,255,0.1)"; }}
+                  >
+                    {st.id === "any" ? (
+                      <span style={{ width: "80px", height: "80px", color: checked ? "#00eaff" : "#666" }}
+                        dangerouslySetInnerHTML={{ __html: `<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="14" y="6" width="52" height="68" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="26" y="3" width="28" height="6" rx="1" fill="currentColor" opacity="0.2"/><rect x="18" y="14" width="44" height="20" rx="1.5" fill="currentColor" opacity="0.03"/><rect x="18" y="14" width="44" height="20" rx="1.5" stroke="currentColor" stroke-width="0.5" opacity="0.12"/><rect x="18" y="38" width="44" height="14" rx="1.5" fill="currentColor" opacity="0.03"/><rect x="18" y="38" width="44" height="14" rx="1.5" stroke="currentColor" stroke-width="0.5" opacity="0.12"/><rect x="18" y="56" width="44" height="14" rx="1.5" fill="currentColor" opacity="0.03"/><rect x="18" y="56" width="44" height="14" rx="1.5" stroke="currentColor" stroke-width="0.5" opacity="0.12"/><line x1="40" y1="14" x2="40" y2="70" stroke="currentColor" stroke-width="0.5" opacity="0.06"/><circle cx="40" cy="10" r="2.5" fill="currentColor" opacity="0.08"/></svg>` }} />
+                    ) : (
+                      <img src={assetPath(getCaseStyleImage(st.id))} alt={st.label}
+                        style={{ width: "80px", height: "80px", borderRadius: "8px", objectFit: "cover",
+                          border: checked ? "1px solid rgba(0,234,255,0.3)" : "1px solid rgba(255,255,255,0.06)" }} />
+                    )}
+                    <span style={{ fontSize: "12px", fontWeight: 600, color: checked ? "#00eaff" : "#ccc", textAlign: "center", lineHeight: "1.2" }}>{st.label}</span>
+                    <span style={{ fontSize: "10px", color: "#666", textAlign: "center", lineHeight: "1.2", opacity: checked ? 1 : 0.7 }}>{st.desc}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Color Selection as Tick Boxes */}
+          <div style={{ marginBottom: "16px" }}>
+            <label style={{ fontSize: "12px", color: "#888", display: "block", marginBottom: "10px" }}>
+              Case Colour Preference:
+            </label>
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+              {(caseColors.length > 0 ? caseColors : [{ value: "any", label: "Any", swatch: "linear-gradient(90deg,#222 50%,#ddd 50%)" }]).map(c => {
+                const checked = color === c.value;
+                return (
+                  <label key={c.value} onClick={() => setColor(c.value)}
+                    style={{
+                      display: "flex", alignItems: "center", gap: "8px", padding: "8px 14px", borderRadius: "8px",
+                      cursor: "pointer", background: checked ? "rgba(0,234,255,0.08)" : "#0d0d18",
+                      border: `1px solid ${checked ? "rgba(0,234,255,0.3)" : "rgba(0,234,255,0.1)"}`,
+                      color: checked ? "#00eaff" : "#888", fontFamily: "inherit", fontSize: "13px",
+                      transition: "all 0.15s", userSelect: "none",
+                    }}
+                  >
+                    <input type="checkbox" checked={checked} onChange={() => {}}
+                      style={{ accentColor: "#00eaff", width: "14px", height: "14px", flexShrink: 0 }} />
+                    <span style={{ display: "inline-block", width: "14px", height: "14px", borderRadius: "50%",
+                      background: c.swatch, border: c.value === "any" ? "none" : "1px solid rgba(255,255,255,0.15)", flexShrink: 0 }}></span>
+                    {c.label}
+                  </label>
+                );
+              })}
             </div>
           </div>
 
@@ -706,11 +882,20 @@ export default function AIGenerator() {
                 Peripherals & Extras
               </div>
               <div style={{ fontSize: "13px", color: "#888", marginTop: "2px" }}>
-                {USE_CASES.find(uc => uc.id === useCase)?.label} • {monitorResolution.toUpperCase()} • £{budget.toLocaleString('en-GB')} budget
+                {originalUseCase === "custom" ? (
+                  <>Custom Build • £{budget.toLocaleString('en-GB')}
+                    {customDescParsed && <> • Detected: {getUseCaseLabel(customDescParsed.useCase)}</>}
+                    {monitorResolution !== "auto" && <> • {monitorResolution.toUpperCase()}</>}
+                  </>
+                ) : (
+                  <>{getUseCaseLabel(useCase)} • {monitorResolution.toUpperCase()} • £{budget.toLocaleString('en-GB')}</>
+                )}
+                {color !== "any" && <span> • {color}</span>}
+                {caseStyle !== "any" && <span> • {getCaseStyles().find(s => s.id === caseStyle)?.label || caseStyle}</span>}
               </div>
             </div>
-            <button className="button secondary small" onClick={() => setStep(3)}>
-              ← Back to Budget
+            <button className="button secondary small" onClick={() => originalUseCase === "custom" ? setStep("custom-desc") : setStep(3)}>
+              ← Back
             </button>
           </div>
 
@@ -830,11 +1015,19 @@ export default function AIGenerator() {
                 Your AI-Generated Builds
               </div>
               <div style={{ fontSize: "13px", color: "#888", marginTop: "2px" }}>
-                {USE_CASES.find(uc => uc.id === useCase)?.label} • {monitorResolution.toUpperCase()} • £{budget.toLocaleString('en-GB')}
-                {color !== "any" && <span> • {color} case</span>}
+                {originalUseCase === "custom" ? (
+                  <>Custom Build • £{budget.toLocaleString('en-GB')}
+                    {customDescParsed && <> • Detected: {getUseCaseLabel(customDescParsed.useCase)}</>}
+                    {monitorResolution !== "auto" && <> • {monitorResolution.toUpperCase()}</>}
+                  </>
+                ) : (
+                  <>{getUseCaseLabel(useCase)} • {monitorResolution.toUpperCase()} • £{budget.toLocaleString('en-GB')}</>
+                )}
+                {color !== "any" && <span> • {color}</span>}
+                {caseStyle !== "any" && <span> • {getCaseStyles().find(s => s.id === caseStyle)?.label || caseStyle} case style</span>}
               </div>
             </div>
-            <button className="button secondary small" onClick={() => { setStep(4); setBuilds(null); }}>
+            <button className="button secondary small" onClick={() => { setStep(originalUseCase === "custom" ? "custom-desc" : 4); setBuilds(null); }}>
               ← Change Options
             </button>
           </div>
