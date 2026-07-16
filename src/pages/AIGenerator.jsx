@@ -179,7 +179,11 @@ export default function AIGenerator() {
   const navigate = useNavigate();
 
   const HIDDEN_FEES = 200;
-  const getTotalWithFees = (build) => totalPrice(build) + HIDDEN_FEES;
+  const PAYPAL_RATE = 0.03;
+  const getTotalWithFees = (build) => {
+    const partsTotal = totalPrice(build);
+    return Math.round((partsTotal + HIDDEN_FEES) * (1 + PAYPAL_RATE));
+  };
 
   const handleGenerate = async () => {
     setLoading(true);
@@ -187,7 +191,7 @@ export default function AIGenerator() {
     try {
       const isGaming = useCase === "gaming" || useCase === "streaming+gaming" || useCase === "streaming" || useCase === "general";
       const options = { needMonitor, monitorResolution, needMouse, needKeyboard, needSpeakers, needWifi, consumerOnly: isGaming, caseStyle };
-      const partsBudget = Math.max(budget - HIDDEN_FEES, 0);
+      const partsBudget = Math.max(Math.round(budget / (1 + PAYPAL_RATE)) - HIDDEN_FEES, 0);
       const variants = [
         {
           label: "Budget-Friendly", desc: "Best value for your budget",

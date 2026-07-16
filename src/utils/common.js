@@ -263,7 +263,7 @@ export function getItemImageUrls(item) {
   });
 }
 
-const VALID_SOCKETS = new Set(["AM4", "AM5", "LGA1700", "LGA1851", "LGA1200"]);
+const VALID_SOCKETS = new Set(["AM4", "AM5", "LGA1700", "LGA1851"]);
 
 export function isModernComponent(categoryId, item) {
   if (!item) return true;
@@ -363,8 +363,8 @@ export function isWindows11Compatible(cpu) {
     return false;
   }
 
-  // Intel: LGA1200, LGA1700, LGA1851 always compatible
-  if (socket === "LGA1200" || socket === "LGA1700" || socket === "LGA1851") return true;
+  // Intel: LGA1700, LGA1851 always compatible
+  if (socket === "LGA1700" || socket === "LGA1851") return true;
 
   // LGA1151: only Coffee Lake (8th gen) and newer
   if (socket === "LGA1151") {
@@ -382,8 +382,8 @@ function isModernGpu(gpu) {
   const search = (String(gpu.name ?? "") + " " + String(gpu.chipset ?? "")).toUpperCase();
   const memory = toNumber(gpu.memory);
   
-  // Keep at least 4GB VRAM to exclude ancient cards
-  if (memory > 0 && memory < 4) return false;
+  // Require at least 6GB VRAM for modern gaming
+  if (memory > 0 && memory < 6) return false;
   
   // NVIDIA RTX — any RTX card is modern enough
   if (search.includes("RTX")) return true;

@@ -2,7 +2,7 @@ import { loadCSV } from "./loadCSV";
 import { inferCpuSocket, isModernComponent, isWindows11Compatible } from "./common";
 import { filterCasesByStyle, filterCasesByColor } from "./caseStyles";
 
-const REQUIRED_CATEGORIES = ["case", "case-fan", "cooler", "cpu", "motherboard", "ram", "storage", "psu", "os"];
+const REQUIRED_CATEGORIES = ["case", "case-fan", "cooler", "cpu", "motherboard", "ram", "storage", "psu", "os", "thermal-paste"];
 
 const STREAMING_REQUIRED = ["webcam", "headphones"];
 
@@ -25,6 +25,8 @@ const ALL_CATEGORIES = [
   { id: "speakers", file: "speakers.csv", label: "Speakers", weight: 0.0 },
   { id: "headphones", file: "headphones.csv", label: "Headphones", weight: 0.0 },
   { id: "case-fan", file: "case-fan.csv", label: "Case Fan", weight: 0.0 },
+  { id: "thermal-paste", file: "thermal-paste.csv", label: "Thermal Paste", weight: 0.0 },
+  { id: "fan-controller", file: "fan-controller.csv", label: "Fan Controller", weight: 0.0 },
   { id: "webcam", file: "webcam.csv", label: "Webcam", weight: 0.0 },
 ];
 
@@ -138,7 +140,7 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
           if (name.includes("XEON")) return false;
           if (name.includes("EPYC")) return false;
           const socket = inferCpuSocket(c);
-          if (socket && (socket === "LGA1151" || socket === "LGA1150" || socket === "LGA1155" || socket === "LGA775")) return false;
+          if (socket && (socket === "LGA1151" || socket === "LGA1150" || socket === "LGA1155" || socket === "LGA775" || socket === "LGA1200")) return false;
           return true;
         });
       }
@@ -217,16 +219,32 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
           return moboSocket === cpuSocket;
         });
       }
+      if (needWifi) {
+        const wifiCandidates = candidates.filter(m => {
+          const name = String(m.name || "").toLowerCase();
+          return name.includes("wifi") || name.includes("wi-fi") || name.includes("wireless");
+        });
+        if (wifiCandidates.length > 0) candidates = wifiCandidates;
+      }
     }
 
     if (cat.id === "cooler" && build.cpu) {
       const cpuTdp = parseFloat(build.cpu.tdp) || 65;
       if (cpuTdp > 150) {
-        candidates = candidates.filter(c => (parseFloat(c.size) || 0) >= 200 || parseFloat(c.price) >= catBudget * 0.3);
+        candidates = candidates.filter(c => {
+          const radMm = parseRadiatorMm(c);
+          return radMm >= 240 || parseFloat(c.price) >= catBudget * 0.3;
+        });
       } else if (cpuTdp > 100) {
-        candidates = candidates.filter(c => (parseFloat(c.size) || 0) >= 120 || parseFloat(c.price) >= catBudget * 0.15);
+        candidates = candidates.filter(c => {
+          const radMm = parseRadiatorMm(c);
+          return radMm >= 120 || parseFloat(c.price) >= catBudget * 0.15;
+        });
       } else if (cpuTdp > 65) {
-        candidates = candidates.filter(c => (parseFloat(c.size) || 0) >= 60 || parseFloat(c.price) >= catBudget * 0.1);
+        candidates = candidates.filter(c => {
+          const radMm = parseRadiatorMm(c);
+          return radMm >= 60 || parseFloat(c.price) >= catBudget * 0.1;
+        });
       }
     }
 
@@ -361,7 +379,7 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
             const name = (c.name || "").toUpperCase();
             if (name.includes("THREADRIPPER") || name.includes("XEON") || name.includes("EPYC")) return false;
             const socket = inferCpuSocket(c);
-            if (socket && (socket === "LGA1151" || socket === "LGA1150" || socket === "LGA1155" || socket === "LGA775")) return false;
+            if (socket && (socket === "LGA1151" || socket === "LGA1150" || socket === "LGA1155" || socket === "LGA775" || socket === "LGA1200")) return false;
             return true;
           });
         }
@@ -410,6 +428,20 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
           }
         }
       }
+    }
+  }
+
+  if (!build["thermal-paste"] && allParts["thermal-paste"]) {
+    const paste = [...allParts["thermal-paste"]].sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+    if (paste.length > 0) build["thermal-paste"] = paste[0];
+  }
+
+  if (needWifi && !build["wireless-network-card"] && build.motherboard) {
+    const moboName = String(build.motherboard.name || "").toLowerCase();
+    const hasWifi = moboName.includes("wifi") || moboName.includes("wi-fi") || moboName.includes("wireless");
+    if (!hasWifi && allParts["wireless-network-card"]) {
+      const cards = [...allParts["wireless-network-card"]].sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+      if (cards.length > 0) build["wireless-network-card"] = cards[0];
     }
   }
 
@@ -469,6 +501,16 @@ export function explainBuild(build, label, useCase, budget, hiddenFees = 0) {
     }
   }
 
+  if (build["wireless-network-card"]) {
+    const moboName = String(build.motherboard?.name || "").toLowerCase();
+    const moboHasWifi = moboName.includes("wifi") || moboName.includes("wi-fi");
+    if (moboHasWifi) {
+      parts.push(`This motherboard has built-in WiFi, so no separate adapter is needed.`);
+    } else {
+      parts.push(`A WiFi adapter is included since the motherboard doesn't have built-in wireless. If you prefer a WiFi motherboard instead, we can swap it in.`);
+    }
+  }
+
   if (label === "Budget-Friendly") {
     parts.push(`This is the most wallet-friendly option. We picked parts that give you the best bang for your buck — you might need to lower some graphics settings in demanding games, but the experience will still be smooth.`);
   } else if (label === "Recommended") {
@@ -477,6 +519,23 @@ export function explainBuild(build, label, useCase, budget, hiddenFees = 0) {
     parts.push(`This is the premium choice. We've pushed the budget higher to get you top-tier components that will stay relevant for years. Expect max settings at your target resolution.`);
   } else if (label === "PCTG Recommends") {
     parts.push(`We've selected the CPU and GPU that deliver the best real-world performance for your type of workload. This isn't about specs on paper — it's about how it feels when you use it.`);
+  }
+
+  if (isGaming && build.gpu) {
+    const gpuName = String(build.gpu.name || "").toUpperCase();
+    const vram = parseFloat(build.gpu.memory) || 0;
+    const gpuPrice = parseFloat(build.gpu.price) || 0;
+    if (budget < 800) {
+      parts.push(`At this budget, smooth 1080p gaming is the realistic target. The GPU in this build handles most titles well at medium-to-high settings. Pushing to 1440p or 4K would require a significantly more expensive graphics card.`);
+    } else if (budget < 1200) {
+      parts.push(`This budget targets solid 1080p performance with headroom for 1440p in lighter titles. For consistent high-refresh 1440p gaming across all games, a larger GPU investment would be needed.`);
+    } else if (budget < 2000) {
+      if (vram < 10) {
+        parts.push(`At 1440p, this GPU will handle most games well, but some demanding titles may need settings adjustments. For native 4K, a GPU with more VRAM (12GB+) would be a worthwhile upgrade.`);
+      }
+    } else if (vram < 12) {
+      parts.push(`With this budget, 4K is within reach, but this GPU's ${vram}GB VRAM may be limiting at ultra settings in the most demanding titles. Consider stepping up to a 12GB+ card for a smoother 4K experience.`);
+    }
   }
 
   return parts.join(" ");
@@ -571,7 +630,7 @@ function filterGpuForUseCase(gpus, useCase) {
   return gpus.filter(gpu => {
     const vram = parseFloat(gpu.memory) || 0;
     if (isWorkstation && vram < 8) return false;
-    if (isGaming && vram < 4) return false;
+    if (vram < 6) return false;
     return true;
   });
 }
@@ -623,4 +682,11 @@ function estimateTotalWattage(build) {
   if (build.storage_hdd) total += 10;
   if (build.cooler) total += parseFloat(build.cooler.wattage) || 10;
   return total + 150;
+}
+
+function parseRadiatorMm(cooler) {
+  const raw = String(cooler.radiator_size || cooler.size || "");
+  if (!raw || raw.toLowerCase().includes("radiator size")) return 0;
+  const m = raw.match(/(\d+)\s*mm/i);
+  return m ? parseInt(m[1], 10) : 0;
 }
