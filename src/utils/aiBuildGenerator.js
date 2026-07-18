@@ -56,16 +56,25 @@ function isModernGpu(gpu) {
   const memory = parseFloat(gpu.memory) || 0;
   if (memory > 0 && memory < 6) return false;
 
-  const chipset = String(gpu.chipset || "").toUpperCase();
-  if (chipset.includes("ARC B") || chipset.includes("ARC A")) return true;
-  if (chipset.includes("RADEON RX")) {
-    const m = chipset.match(/RX\s*(\d)/);
-    if (m && parseInt(m[1]) >= 6) return true;
-  }
-  if (chipset.includes("GEFORCE RTX")) {
-    const m = chipset.match(/RTX\s*(\d{2})/);
-    if (m && parseInt(m[1]) >= 30) return true;
-  }
+  const search = (String(gpu.name ?? "") + " " + String(gpu.chipset ?? "")).toUpperCase();
+
+  // Block all old NVIDIA GeForce (GT, GTS, GTX)
+  if (search.includes("GT ") || search.includes("GTS ") || search.includes("GEFORCE GT")) return false;
+  if (search.includes("GTX")) return false;
+
+  // NVIDIA RTX — 3000 series and newer only
+  const rtxMatch = search.match(/RTX\s*(\d{4})/);
+  if (rtxMatch) return parseInt(rtxMatch[1]) >= 3060;
+
+  // AMD RX — 6000 series and newer only
+  const rxMatch = search.match(/RX\s*(\d{4,5})/);
+  if (rxMatch) return parseInt(rxMatch[1]) >= 6000;
+
+  // Intel Arc — A750+ and all B-series
+  if (search.includes("ARC B")) return true;
+  const arcMatch = search.match(/ARC\s*A(\d{3,4})/);
+  if (arcMatch) return parseInt(arcMatch[1]) >= 750;
+
   return false;
 }
 

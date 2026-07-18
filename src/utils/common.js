@@ -385,30 +385,46 @@ function isModernGpu(gpu) {
   // Require at least 6GB VRAM for modern gaming
   if (memory > 0 && memory < 6) return false;
   
-  // NVIDIA RTX — any RTX card is modern enough
-  if (search.includes("RTX")) return true;
+  // Block all old NVIDIA GeForce series (GT, GTS, GTX older than 16-series)
+  if (search.includes("GT ") || search.includes("GTS ") || search.includes("GEFORCE GT")) return false;
   
-  // NVIDIA GTX — only allow GTX 16-series (1650, 1660, 1660 Super, 1660 Ti)
-  if (search.includes("GTX")) {
-    if (search.includes("GTX 16") || search.includes("GTX16") || search.includes("1660") || search.includes("1650")) return true;
-    return false;
+  // NVIDIA RTX — 3000 series and newer only
+  const rtxMatch = search.match(/RTX\s*(\d{4})/);
+  if (rtxMatch) {
+    const tier = parseInt(rtxMatch[1]);
+    return tier >= 3060;
   }
   
-  // AMD RX — RX 500 series or newer
-  const rxMatch = search.match(/RX\s*(\d{4})/);
+  // NVIDIA GTX — block all (including 16-series, too old for modern builds)
+  if (search.includes("GTX")) return false;
+  
+  // AMD RX — 6000 series and newer only
+  const rxMatch = search.match(/RX\s*(\d{4,5})/);
   if (rxMatch) {
     const tier = parseInt(rxMatch[1]);
-    return tier >= 500;
+    return tier >= 6000;
   }
   
-  // Radeon PRO / Pro WX series
-  if (search.includes("PRO")) return true;
+  // Intel Arc — A750 and newer only
+  const arcMatch = search.match(/ARC\s*(?:B|A)?(\d{3,4})/);
+  if (arcMatch) {
+    const tier = parseInt(arcMatch[1]);
+    // B-series (Battlemage) is always modern
+    if (search.includes("ARC B")) return true;
+    // A-series: A750+
+    return tier >= 750;
+  }
   
-  // Intel Arc
-  if (search.includes("ARC")) return true;
+  // Radeon PRO / Pro WX series (workstation, allow all)
+  if (search.includes("RADEON PRO") || search.includes("PRO WX")) return true;
   
-  // NVIDIA Quadro / RTX A-series / T-series
-  if (search.includes("QUADRO") || search.includes("RTX A") || search.startsWith("T")) return true;
+  // NVIDIA Quadro / RTX A-series / T-series (workstation, allow modern)
+  if (search.includes("RTX A")) return true;
+  if (search.includes("QUADRO")) {
+    const quadroMatch = search.match(/QUADRO\s*(?:RTX\s*)?(\d{4})/);
+    if (quadroMatch) return parseInt(quadroMatch[1]) >= 4000;
+    return false;
+  }
   
   return false;
 }
