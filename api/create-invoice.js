@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { selections, bundledPrice, paypalOrderId, customerEmail } = req.body;
+    const { selections, bundledPrice, customerEmail } = req.body;
 
     if (!selections || !bundledPrice) {
       return res.status(400).json({ error: "Missing required fields" });

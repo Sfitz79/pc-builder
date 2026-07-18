@@ -104,6 +104,8 @@ export default function Summary() {
   const invoiceRef = useRef(null);
   const [invoiceStatus, setInvoiceStatus] = useState("idle");
   const [partsPdfStatus, setPartsPdfStatus] = useState("idle");
+  const [paypalInvoiceStatus, setPaypalInvoiceStatus] = useState("idle");
+  const [paypalInvoiceUrl, setPaypalInvoiceUrl] = useState(null);
 
   const adminMode = usePCStore(s => s.adminMode);
   const issues = checkCompatibility(selections);
@@ -191,6 +193,42 @@ export default function Summary() {
     } catch {
       setPartsPdfStatus("error");
       setTimeout(() => setPartsPdfStatus("idle"), 4000);
+    }
+  };
+
+  const requestPaypalInvoice = async () => {
+    const email = prompt("Enter your email address for the invoice:");
+    if (!email || !email.includes("@")) return;
+    setPaypalInvoiceStatus("generating");
+    setPaypalInvoiceUrl(null);
+    try {
+      const flatSelections = {};
+      for (const [k, v] of Object.entries(selections)) {
+        if (!v) continue;
+        if (Array.isArray(v)) {
+          flatSelections[k] = v.filter(x => x && x.name);
+        } else if (v.name) {
+          flatSelections[k] = v;
+        }
+      }
+      const res = await fetch("/api/create-invoice", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          selections: flatSelections,
+          bundledPrice,
+          customerEmail: email,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.invoiceUrl) {
+        setPaypalInvoiceUrl(data.invoiceUrl);
+        setPaypalInvoiceStatus("done");
+      } else {
+        setPaypalInvoiceStatus("error");
+      }
+    } catch {
+      setPaypalInvoiceStatus("error");
     }
   };
 
@@ -320,20 +358,12 @@ export default function Summary() {
           <div style={{ fontSize: "11px", color: "#555", marginBottom: "16px" }}>
             Build, testing, delivery & warranty — all included
           </div>
-          {adminMode ? (
-            <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-              <button className="button" onClick={() => window.print()}
-                style={{ padding: "12px 28px", fontSize: "14px", fontWeight: 700, cursor: "pointer", borderRadius: "8px", border: "none", background: "linear-gradient(135deg, #00eaff, #0099cc)", color: "#000" }}>
-                🚀 Secure Your Build Now
-              </button>
-            </div>
-          ) : (
-            <div style={{ fontSize: "12px", color: "#555" }}>
-              <span style={{ color: "#00eaff", cursor: "pointer" }}
-                onClick={() => { const user = prompt("Enter admin username:"); if (user) { const pw = prompt("Enter admin password:"); if (pw) { const au = import.meta.env.VITE_ADMIN_USER || "admin"; usePCStore.getState().setAdminMode(user === au && pw === (import.meta.env.VITE_ADMIN_PASSWORD || "admin")); } } }}
-              >Unlock</span> to purchase this build
-            </div>
-          )}
+          <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
+            <button className="button" onClick={() => { document.getElementById("purchase-section")?.scrollIntoView({ behavior: "smooth" }); }}
+              style={{ padding: "12px 28px", fontSize: "14px", fontWeight: 700, cursor: "pointer", borderRadius: "8px", border: "none", background: "linear-gradient(135deg, #ff005e, #cc0044)", color: "#fff" }}>
+              Purchase This Build
+            </button>
+          </div>
         </div>
 
         {/* FPS in Top 10 Games per resolution */}
@@ -559,24 +589,52 @@ export default function Summary() {
       </div>
 
       {/* Purchase Section */}
-      {hasComponents && adminMode && (
-        <div style={{ marginTop: "28px", background: "#0d0d18", borderRadius: "12px", border: "1px solid rgba(255,0,94,0.2)", padding: "24px" }}>
+      {hasComponents && (
+        <div id="purchase-section" style={{ marginTop: "28px", background: "#0d0d18", borderRadius: "12px", border: "1px solid rgba(255,0,94,0.2)", padding: "24px" }}>
           <div style={{ fontSize: "12px", color: "#ff005e", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "16px", fontWeight: 700 }}>
-            Purchase This Build — Full Build
+            Purchase This Build
+          </div>
+          <div style={{ fontSize: "13px", color: "#aaa", marginBottom: "16px", lineHeight: "1.6" }}>
+            Click below to generate a PayPal invoice with a secure payment link. You'll receive an email with the invoice, or you can pay directly via PayPal checkout.
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "12px", marginBottom: "20px" }}>
+          {paypalInvoiceUrl && (
+            <div style={{ padding: "14px", borderRadius: "8px", background: "rgba(0,255,170,0.08)", border: "1px solid rgba(0,255,170,0.3)", textAlign: "center", marginBottom: "16px" }}>
+              <div style={{ color: "#4ade80", fontSize: "13px", fontWeight: 600, marginBottom: "10px" }}>
+                ✓ Invoice sent! Click below to pay:
+              </div>
+              <a href={paypalInvoiceUrl} target="_blank" rel="noopener noreferrer"
+                style={{
+                  display: "inline-block", padding: "12px 24px", borderRadius: "6px",
+                  background: "linear-gradient(135deg, #0070ba, #003087)", color: "#fff",
+                  textDecoration: "none", fontSize: "14px", fontWeight: 700, fontFamily: "inherit"
+                }}>
+                Pay via PayPal
+              </a>
+            </div>
+          )}
+
+          <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap", marginBottom: "20px" }}>
+            <button onClick={requestPaypalInvoice} disabled={paypalInvoiceStatus === "generating"}
+              style={{
+                padding: "14px 28px", borderRadius: "8px", cursor: "pointer", border: "none",
+                background: "linear-gradient(135deg, #0070ba, #003087)", color: "#fff",
+                fontFamily: "inherit", fontSize: "14px", fontWeight: 700, transition: "all 0.2s"
+              }}>
+              {paypalInvoiceStatus === "generating" ? "Generating Invoice..." : paypalInvoiceStatus === "error" ? "✕ Failed — Try Again" : "💳 Get PayPal Invoice"}
+            </button>
+
             <button onClick={generateInvoice} disabled={invoiceStatus !== "idle"}
               style={{
-                padding: "14px", borderRadius: "8px", cursor: "pointer", border: "1px solid rgba(0,234,255,0.2)",
+                padding: "14px 28px", borderRadius: "8px", cursor: "pointer", border: "1px solid rgba(0,234,255,0.2)",
                 background: "rgba(0,234,255,0.06)", color: invoiceStatus === "error" ? "#ef4444" : "#00eaff",
                 fontFamily: "inherit", fontSize: "13px", fontWeight: 600, transition: "all 0.2s"
               }}>
               {invoiceStatus === "generating" ? "Generating PDF..." : invoiceStatus === "done" ? "✓ PDF Downloaded" : invoiceStatus === "error" ? "✕ Failed — Try Again" : "📄 Download Invoice (PDF)"}
             </button>
-
-            <PayPalCheckout amount={bundledPrice} />
           </div>
+
+          <PayPalCheckout amount={bundledPrice} />
 
           <div style={{ fontSize: "11px", color: "#555", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "10px" }}>
             Share this build
@@ -600,15 +658,6 @@ export default function Summary() {
           </div>
           <div style={{ marginTop: "10px", fontSize: "11px", color: "#444" }}>
             Total: £{bundledPrice.toLocaleString('en-GB')} incl. build, testing, delivery & warranty
-          </div>
-        </div>
-      )}
-      {!adminMode && hasComponents && (
-        <div style={{ marginTop: "28px", background: "#0d0d18", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.06)", padding: "24px", textAlign: "center" }}>
-          <div style={{ fontSize: "13px", color: "#555" }}>
-            😎 Purchase options are hidden. <span style={{ color: "#00eaff", cursor: "pointer" }}
-              onClick={() => { const user = prompt("Enter admin username:"); if (user) { const pw = prompt("Enter admin password:"); if (pw) { const au = import.meta.env.VITE_ADMIN_USER || "admin"; usePCStore.getState().setAdminMode(user === au && pw === (import.meta.env.VITE_ADMIN_PASSWORD || "admin")); } } }}
-            >Unlock</span> to view pricing and purchase options.
           </div>
         </div>
       )}

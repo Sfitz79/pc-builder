@@ -10,15 +10,7 @@ export default function PayPalCheckout({ amount, onSuccess, onError }) {
   const clientId = import.meta.env.VITE_PAYPAL_CLIENT_ID || "";
 
   if (!clientId) {
-    return (
-      <div style={{
-        padding: "14px", borderRadius: "8px", background: "#1a1020",
-        border: "1px solid rgba(255,0,94,0.2)", color: "#ff6b6b",
-        textAlign: "center", fontSize: "12px", fontFamily: "inherit"
-      }}>
-        PayPal not configured — set VITE_PAYPAL_CLIENT_ID in your environment
-      </div>
-    );
+    return null;
   }
 
   const total = amount ?? bundledPrice();
