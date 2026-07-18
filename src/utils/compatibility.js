@@ -11,7 +11,7 @@ export function checkCompatibility(selections) {
   const caseObj = selections.case;
   const cooler = selections.cooler;
 
-  const REQUIRED_IDS = ["case", "case-fan", "cooler", "cpu", "motherboard", "ram", "storage", "psu", "os"];
+  const REQUIRED_IDS = ["case", "case-fan", "cooler", "cpu", "motherboard", "ram", "ssd", "psu", "os"];
   for (const id of REQUIRED_IDS) {
     if (!selections[id]) {
       const label = id.charAt(0).toUpperCase() + id.slice(1);
@@ -48,7 +48,19 @@ export function checkCompatibility(selections) {
   if (caseObj && cooler && !isCaseCompatibleWithCooler(caseObj, cooler)) {
     issues.push("Selected CPU cooler may not fit in this case.");
   }
-  
+
+  if (gpu && caseObj && !isGpuCompatibleWithCase(gpu, caseObj)) {
+    issues.push("GPU may be too long for the selected case.");
+  }
+
+  if (mobo && selections["case-fan"] && Array.isArray(selections["case-fan"]) && selections["case-fan"].length > 0) {
+    const fanCount = selections["case-fan"].reduce((sum, f) => sum + (f.qty || 1), 0);
+    const maxFans = estimateCaseFanCapacity(caseObj);
+    if (maxFans > 0 && fanCount > maxFans) {
+      issues.push(`Case may only support up to ${maxFans} fans, but ${fanCount} selected.`);
+    }
+  }
+
   return issues;
 }
 
@@ -65,12 +77,14 @@ export function isOptionCompatible(categoryId, option, selections) {
     case "ram":
       return isRamCompatibleWithMotherboard(option, selections.motherboard);
     case "gpu":
-      return isGpuCompatibleWithPsu(option, selections.psu, selections.cpu);
+      return isGpuCompatibleWithPsu(option, selections.psu, selections.cpu) &&
+             isGpuCompatibleWithCase(option, selections.case);
     case "psu":
       return isPsuCompatibleWithBuild(option, selections.gpu, selections.cpu);
     case "case":
       return isCaseCompatibleWithMotherboard(option, selections.motherboard) && 
-             isCaseCompatibleWithCooler(option, selections.cooler);
+             isCaseCompatibleWithCooler(option, selections.cooler) &&
+             isCaseCompatibleWithGpu(option, selections.gpu);
     case "cooler":
       return isCoolerCompatibleWithCase(option, selections.case);
     default:
@@ -145,6 +159,22 @@ function isMotherboardCompatibleWithCase(motherboard, caseObj) {
 
 function isCaseCompatibleWithMotherboard(caseObj, motherboard) {
   return isMotherboardCompatibleWithCase(motherboard, caseObj);
+}
+
+function isGpuCompatibleWithCase(gpu, caseObj) {
+  if (!gpu || !caseObj) return true;
+  
+  const gpuLength = parseGpuLength(gpu);
+  if (gpuLength <= 0) return true;
+  
+  const caseMaxGpu = estimateCaseMaxGpuLength(caseObj);
+  if (caseMaxGpu <= 0) return true;
+  
+  return gpuLength <= caseMaxGpu;
+}
+
+function isCaseCompatibleWithGpu(caseObj, gpu) {
+  return isGpuCompatibleWithCase(gpu, caseObj);
 }
 
 function isCpuCompatibleWithMotherboard(cpu, motherboard) {
@@ -273,6 +303,42 @@ function estimateGpuTdp(gpu) {
   if (memory >= 12) return 220;
   if (memory >= 8) return 170;
   return 120;
+}
+
+function parseGpuLength(gpu) {
+  const lengthStr = gpu.length || "";
+  const match = String(lengthStr).match(/(\d+)/);
+  if (match) return parseInt(match[1]);
+  
+  const direct = toNumber(gpu.length);
+  if (direct > 100) return direct;
+  
+  return 0;
+}
+
+function estimateCaseMaxGpuLength(caseObj) {
+  const caseType = normalizeToken(caseObj.type) || "";
+  const lower = caseType.toLowerCase();
+  
+  if (lower.includes("full")) return 500;
+  if (lower.includes("mid")) return 370;
+  if (lower.includes("micro") || lower.includes("matx")) return 320;
+  if (lower.includes("mini") || lower.includes("itx")) return 280;
+  if (lower.includes("atx")) return 370;
+  
+  return 350;
+}
+
+function estimateCaseFanCapacity(caseObj) {
+  const caseType = normalizeToken(caseObj.type) || "";
+  const lower = caseType.toLowerCase();
+  
+  if (lower.includes("full")) return 8;
+  if (lower.includes("mid")) return 6;
+  if (lower.includes("micro") || lower.includes("matx")) return 4;
+  if (lower.includes("mini") || lower.includes("itx")) return 2;
+  
+  return 6;
 }
 
 function inferCpuSocket(cpu) {

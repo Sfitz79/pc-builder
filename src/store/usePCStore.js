@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-const REQUIRED_CATEGORIES = ['case', 'case-fan', 'cooler', 'cpu', 'motherboard', 'ram', 'storage', 'psu', 'os'];
+const REQUIRED_CATEGORIES = ['case', 'case-fan', 'cooler', 'cpu', 'motherboard', 'ram', 'ssd', 'psu', 'os'];
 
 const DEFAULT_OS = {
   name: "Microsoft Windows 11 Pro Retail - Download 64-bit",

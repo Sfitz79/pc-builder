@@ -16,9 +16,6 @@ export default function Builder() {
   const removeMultiItem = usePCStore(s => s.removeMultiItem);
   const getBundledPrice = usePCStore(s => s.getBundledPrice);
   const resetBuild = usePCStore(s => s.resetBuild);
-  const enabledAddons = usePCStore(s => s.enabledAddons);
-  const toggleAddon = usePCStore(s => s.toggleAddon);
-
   const [selectorCategory, setSelectorCategory] = useState(null);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
@@ -28,7 +25,7 @@ export default function Builder() {
   const issues = checkCompatibility(selections);
   const wattage = estimateRequiredWattage(selections.cpu, selections.gpu);
   const bundledPrice = getBundledPrice();
-  const REQUIRED = ["case", "case-fan", "cooler", "cpu", "motherboard", "ram", "storage", "psu", "os"];
+  const REQUIRED = ["case", "case-fan", "cooler", "cpu", "motherboard", "ram", "ssd", "psu", "os"];
   const cpu = selections.cpu;
   const gpuNeeded = !cpu || !cpu.graphics || String(cpu.graphics).toLowerCase() === "none";
   const allRequired = (gpuNeeded ? [...REQUIRED, "gpu"] : REQUIRED).every(cat => selections[cat]);
@@ -249,63 +246,25 @@ export default function Builder() {
           </div>
         ))}
 
-        <div style={{ marginTop: "20px" }}>
-          <div style={{
-            padding: "12px 16px", background: "rgba(255,200,0,0.06)", border: "1px solid rgba(255,200,0,0.15)",
-            borderRadius: "8px", marginBottom: "8px"
-          }}>
-            <div style={{ fontSize: "13px", fontWeight: 700, color: "#f5a623", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-              Optional Add-ons
-            </div>
-            <div style={{ fontSize: "11px", color: "#888", marginBottom: "10px" }}>
-              Non-essential items for specific use cases. Toggle to add to your build.
-            </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-              {ADDON_GROUPS.map(group =>
-                group.categories.map(cat => (
-                  <label
-                    key={cat.id}
-                    style={{
-                      display: "flex", alignItems: "center", gap: "6px",
-                      padding: "6px 12px", background: enabledAddons[cat.id] ? "rgba(0,234,255,0.1)" : "rgba(255,255,255,0.02)",
-                      border: `1px solid ${enabledAddons[cat.id] ? "rgba(0,234,255,0.3)" : "rgba(255,255,255,0.06)"}`,
-                      borderRadius: "6px", cursor: "pointer", fontSize: "12px", color: enabledAddons[cat.id] ? "#00eaff" : "#888",
-                      transition: "all 0.2s"
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={!!enabledAddons[cat.id]}
-                      onChange={() => toggleAddon(cat.id)}
-                      style={{ accentColor: "#00eaff", width: "14px", height: "14px" }}
-                    />
-                    {cat.label}
-                  </label>
-                ))
-              )}
-            </div>
+        {ADDON_GROUPS.map(group => (
+          <div key={group.label} className="subcategory-group">
+            <div className="subcategory-label">{group.label}</div>
+            <table className="builder-table">
+              <thead>
+                <tr>
+                  <th style={{ width: "40px" }}></th>
+                  <th>Component</th>
+                  <th>Product</th>
+                  <th>From</th>
+                  <th style={{ width: "160px" }}>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {group.categories.map(renderTableRow)}
+              </tbody>
+            </table>
           </div>
-
-          {ADDON_GROUPS.filter(g => g.categories.some(c => enabledAddons[c.id])).map(group => (
-            <div key={group.label} className="subcategory-group">
-              <div className="subcategory-label" style={{ color: "#f5a623" }}>{group.label}</div>
-              <table className="builder-table">
-                <thead>
-                  <tr>
-                    <th style={{ width: "40px" }}></th>
-                    <th>Component</th>
-                    <th>Product</th>
-                    <th>From</th>
-                    <th style={{ width: "160px" }}>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {group.categories.filter(c => enabledAddons[c.id]).map(renderTableRow)}
-                </tbody>
-              </table>
-            </div>
-          ))}
-        </div>
+        ))}
 
         <div style={{ marginTop: "12px", padding: "10px 16px", background: "rgba(255,255,255,0.02)", borderRadius: "8px", fontSize: "12px", color: "#555" }}>
           Note: Components are saved in Cookies. It will be removed if cookies are cleared from your browser.

@@ -12,11 +12,12 @@ describe("BUILDER_CATEGORIES", () => {
     expect(ids).toContain("motherboard");
     expect(ids).toContain("cooler");
     expect(ids).toContain("ram");
-    expect(ids).toContain("storage");
+    expect(ids).toContain("ssd");
+    expect(ids).toContain("mass-storage");
     expect(ids).toContain("gpu");
     expect(ids).toContain("case");
     expect(ids).toContain("psu");
-    expect(ids).toContain("os");
+    expect(ids).toContain("case-fan");
     expect(ids).toContain("monitor");
   });
 
@@ -35,7 +36,7 @@ describe("SUBCATEGORY_GROUPS", () => {
     const labels = SUBCATEGORY_GROUPS.map(g => g.label);
     expect(labels).toContain("Expansion Cards / Networking");
     expect(labels).toContain("Peripherals");
-    expect(labels).toContain("Accessories / Other");
+    expect(labels).toContain("Thermal & Accessories");
   });
 });
 

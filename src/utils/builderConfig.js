@@ -1,23 +1,24 @@
 export const BUILDER_CATEGORIES = [
-  { id: "case", label: "Case", file: "case.csv", icon: "case" },
   { id: "cpu", label: "CPU", file: "cpu.csv", icon: "cpu" },
-  { id: "cooler", label: "CPU Cooler", file: "cooler.csv", icon: "cooler" },
   { id: "motherboard", label: "Motherboard", file: "motherboard.csv", icon: "motherboard" },
   { id: "ram", label: "RAM", file: "ram.csv", icon: "ram" },
+  { id: "case", label: "Case", file: "case.csv", icon: "case" },
+  { id: "cooler", label: "CPU Cooler / AIO", file: "cooler.csv", icon: "cooler" },
   { id: "gpu", label: "GPU", file: "gpu.csv", icon: "gpu" },
-  { id: "storage", label: "Storage", file: "storage.csv", icon: "storage", multi: true },
+  { id: "ssd", label: "SSD", file: "ssd.csv", icon: "storage", storageFilter: "ssd" },
+  { id: "mass-storage", label: "Mass Storage / HDD", file: "mass-storage.csv", icon: "storage", storageFilter: "hdd" },
   { id: "psu", label: "Power Supply", file: "power-supply.csv", icon: "psu" },
-  { id: "os", label: "Operating System", file: "os.csv", icon: "os" },
-  { id: "wireless-network-card", label: "WiFi / Network Card", file: "wireless-network-card.csv", icon: "network" },
+  { id: "case-fan", label: "Case Fans", file: "case-fan.csv", icon: "fan", multi: true },
+  { id: "fan-controller", label: "Fan Hub", file: "fan-controller.csv", icon: "fan" },
   { id: "monitor", label: "Monitor", file: "monitor.csv", icon: "monitor", multi: true },
 ];
 
 export const SUBCATEGORY_GROUPS = [
   {
-    label: "Expansion Cards / Networking",
+    label: "System / OS",
     categories: [
-      { id: "sound-card", label: "Sound Card", file: "sound-card.csv", icon: "sound" },
-      { id: "wired-network-card", label: "Wired Network Card", file: "wired-network-card.csv", icon: "network" },
+      { id: "os", label: "Operating System", file: "os.csv", icon: "os" },
+      { id: "wireless-network-card", label: "WiFi / Network Card", file: "wireless-network-card.csv", icon: "network" },
     ]
   },
   {
@@ -31,11 +32,10 @@ export const SUBCATEGORY_GROUPS = [
     ]
   },
   {
-    label: "Cooling / Accessories",
+    label: "Expansion Cards / Networking",
     categories: [
-      { id: "case-fan", label: "Case Fan", file: "case-fan.csv", icon: "fan", multi: true },
-      { id: "thermal-paste", label: "Thermal Paste", file: "thermal-paste.csv", icon: "paste" },
-      { id: "fan-controller", label: "Fan Controller", file: "fan-controller.csv", icon: "fan" },
+      { id: "sound-card", label: "Sound Card", file: "sound-card.csv", icon: "sound" },
+      { id: "wired-network-card", label: "Wired Network Card", file: "wired-network-card.csv", icon: "network" },
     ]
   },
   {
@@ -46,8 +46,10 @@ export const SUBCATEGORY_GROUPS = [
     ]
   },
   {
-    label: "Power Protection",
+    label: "Thermal & Accessories",
     categories: [
+      { id: "thermal-paste", label: "Thermal Paste", file: "thermal-paste.csv", icon: "paste" },
+      { id: "cables-and-accessories", label: "Cables & Accessories", file: "cables-and-accessories.csv", icon: "network" },
       { id: "ups", label: "UPS", file: "ups.csv", icon: "power" },
     ]
   },
@@ -58,25 +60,38 @@ export const ADDON_GROUPS = [
     label: "Streaming & Content Creation",
     categories: [
       { id: "streaming", label: "Streaming Equipment", file: "Streaming.csv", icon: "webcam" },
+      { id: "streaming-capture-cards", label: "Capture Cards", file: "streaming-capture-cards.csv", icon: "gpu" },
+      { id: "streaming-lighting", label: "Lighting & Green Screen", file: "streaming-lighting.csv", icon: "monitor" },
+      { id: "streaming-audio", label: "Microphones & Audio Interfaces", file: "streaming-audio.csv", icon: "sound" },
+      { id: "streaming-arms-mounts", label: "Arms & Mounts", file: "streaming-arms-mounts.csv", icon: "network" },
     ]
   },
   {
-    label: "Sim Racing & Flight",
+    label: "Flight Simulation",
     categories: [
-      { id: "racing-simulation", label: "Racing Simulation", file: "racing-simulation.csv", icon: "case" },
-      { id: "flight-simulation", label: "Flight Simulation", file: "flight-simulation.csv", icon: "case" },
+      { id: "flight-simulation", label: "Flight Sim Rigs & Cockpits", file: "flight-simulation.csv", icon: "case" },
+      { id: "flight-joysticks", label: "Joysticks", file: "flight-joysticks.csv", icon: "mouse" },
+      { id: "flight-yokes", label: "Yokes", file: "flight-yokes.csv", icon: "mouse" },
+      { id: "flight-throttles", label: "Throttle Quadrants", file: "flight-throttles.csv", icon: "mouse" },
+      { id: "flight-pedals", label: "Rudder Pedals", file: "flight-pedals.csv", icon: "mouse" },
+      { id: "flight-instruments", label: "Instruments & Panels", file: "flight-instruments.csv", icon: "monitor" },
+    ]
+  },
+  {
+    label: "Sim Racing",
+    categories: [
+      { id: "racing-simulation", label: "Racing Rigs & Cockpits", file: "racing-simulation.csv", icon: "case" },
+      { id: "racing-wheels", label: "Wheel Bases & Wheels", file: "racing-wheels.csv", icon: "mouse" },
+      { id: "racing-pedals", label: "Pedals", file: "racing-pedals.csv", icon: "mouse" },
+      { id: "racing-seats", label: "Seats & Chassis", file: "racing-seats.csv", icon: "case" },
+      { id: "racing-shifters", label: "Shifters & Handbrakes", file: "racing-shifters.csv", icon: "mouse" },
+      { id: "racing-accessories", label: "Racing Accessories", file: "racing-accessories.csv", icon: "network" },
     ]
   },
   {
     label: "Gaming Peripherals",
     categories: [
-      { id: "game-controllers", label: "Game Controllers", file: "game-controllers.csv", icon: "mouse" },
-    ]
-  },
-  {
-    label: "Cables & Accessories",
-    categories: [
-      { id: "cables-and-accessories", label: "Cables & Accessories", file: "cables-and-accessories.csv", icon: "network" },
+      { id: "game-controllers", label: "Game Controllers & Gamepads", file: "game-controllers.csv", icon: "mouse" },
     ]
   },
 ];

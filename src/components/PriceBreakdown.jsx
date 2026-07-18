@@ -2,17 +2,26 @@ import { usePCStore } from "../store/usePCStore";
 
 const CATEGORY_LABELS = {
   case: "Case", cooler: "Cooler", cpu: "CPU", motherboard: "Motherboard",
-  ram: "RAM", storage: "Storage", gpu: "GPU", psu: "PSU", os: "OS",
+  ram: "RAM", storage: "Storage", ssd: "SSD", "mass-storage": "Mass Storage",
+  gpu: "GPU", psu: "PSU", os: "OS",
   monitor: "Monitor", keyboard: "Keyboard", mouse: "Mouse",
   speakers: "Speakers", headphones: "Headphones", webcam: "Webcam",
   "case-fan": "Case Fan", "thermal-paste": "Thermal Paste",
   "optical-drive": "Optical Drive", "wired-network-card": "Wired NIC",
   "wireless-network-card": "WiFi Card", "sound-card": "Sound Card",
-  "fan-controller": "Fan Controller", ups: "UPS",
+  "fan-controller": "Fan Hub", ups: "UPS",
   "case-accessory": "Case Accessory", "external-hard-drive": "External HDD",
   streaming: "Streaming", "game-controllers": "Game Controllers",
   "flight-simulation": "Flight Sim", "racing-simulation": "Racing Sim",
   "cables-and-accessories": "Cables & Acc.",
+  "streaming-capture-cards": "Capture Cards", "streaming-lighting": "Lighting",
+  "streaming-audio": "Mic & Audio", "streaming-arms-mounts": "Arms & Mounts",
+  "flight-joysticks": "Joysticks", "flight-yokes": "Yokes",
+  "flight-throttles": "Throttles", "flight-pedals": "Rudder Pedals",
+  "flight-instruments": "Instruments",
+  "racing-wheels": "Wheels", "racing-pedals": "Pedals",
+  "racing-seats": "Seats", "racing-shifters": "Shifters",
+  "racing-accessories": "Racing Acc.",
 };
 
 const FULL_SERVICES = [

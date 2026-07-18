@@ -20,7 +20,7 @@ const TIPS_DEFINITION = [
   },
   {
     id: 'ssd-boot',
-    condition: (selections) => selections.storage && selections.storage.type?.toLowerCase().includes('hdd'),
+    condition: (selections) => selections['mass-storage'] && selections['mass-storage'].type?.toLowerCase().includes('hdd'),
     text: "Using an SSD as your primary boot drive is highly recommended for a fast system!",
     icon: '🚀'
   },

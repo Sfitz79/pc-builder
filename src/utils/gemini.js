@@ -153,10 +153,8 @@ function buildPartsList(selections) {
     selections['ram']?.name,
     selections['cooler']?.name,
     selections['psu']?.name,
-    selections['storage']?.name,
-    selections['storage2']?.name,
-    selections['storage3']?.name,
-    selections['storage4']?.name,
+    selections['ssd']?.name,
+    selections['mass-storage']?.name,
     selections['case-fan']?.name,
     selections['monitor']?.name,
     selections['keyboard']?.name,
@@ -287,10 +285,8 @@ function buildGeminiPrompt(selections) {
   const cpu = selections['cpu']?.name || "";
   const motherboard = selections['motherboard']?.name || "";
   const psu = selections['psu']?.name || "";
-  const storage = selections['storage']?.name || "";
-  const storage2 = selections['storage2']?.name || "";
-  const storage3 = selections['storage3']?.name || "";
-  const storage4 = selections['storage4']?.name || "";
+  const storage = selections['ssd']?.name || "";
+  const storage2 = selections['mass-storage']?.name || "";
   const caseFan = selections['case-fan']?.name || "";
   const monitor = selections['monitor']?.name || "";
   const keyboard = selections['keyboard']?.name || "";
@@ -435,11 +431,9 @@ export function getComponentImages(selections) {
     ram: getImages(selections['ram']),
     cpu: getImages(selections['cpu']),
     psu: getImages(selections['psu']),
-    storage: getImages(selections['storage']),
+    ssd: getImages(selections['ssd']),
     'case-fan': getImages(selections['case-fan']),
-    storage2: getImages(selections['storage2']),
-    storage3: getImages(selections['storage3']),
-    storage4: getImages(selections['storage4']),
+    'mass-storage': getImages(selections['mass-storage']),
     speakers: getImages(selections['speakers']),
     webcam: getImages(selections['webcam']),
     'wireless-network-card': getImages(selections['wireless-network-card']),

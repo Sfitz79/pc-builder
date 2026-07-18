@@ -32,7 +32,7 @@ describe("checkCompatibility", () => {
       cooler: { name: "Noctua NH-D15", size: "158" },
       psu: { name: "Corsair RM750x", wattage: "750" },
       gpu: { name: "RTX 4070", memory: "12", tdp: "200" },
-      storage: { name: "Samsung 980 Pro", capacity: "1000", type: "NVMe" },
+      ssd: { name: "Samsung 980 Pro", capacity: "1000", type: "NVMe" },
       os: { name: "Windows 11" },
     });
     expect(issues.some(i => i.includes("Windows 11"))).toBe(true);
@@ -47,7 +47,7 @@ describe("checkCompatibility", () => {
       cooler: { name: "Noctua NH-D15", size: "158" },
       psu: { name: "Corsair RM750x", wattage: "750" },
       gpu: { name: "RTX 4070", memory: "12", tdp: "200" },
-      storage: { name: "Samsung 980 Pro", capacity: "1000", type: "NVMe" },
+      ssd: { name: "Samsung 980 Pro", capacity: "1000", type: "NVMe" },
       os: { name: "Windows 11" },
     });
     expect(issues.some(i => i.includes("socket"))).toBe(true);
@@ -62,7 +62,7 @@ describe("checkCompatibility", () => {
       cooler: { name: "Noctua NH-D15", size: "158" },
       psu: { name: "Corsair RM750x", wattage: "750" },
       gpu: { name: "RTX 4070", memory: "12", tdp: "200" },
-      storage: { name: "Samsung 980 Pro", capacity: "1000", type: "NVMe" },
+      ssd: { name: "Samsung 980 Pro", capacity: "1000", type: "NVMe" },
       os: { name: "Windows 11" },
     });
     expect(issues.some(i => i.includes("RAM type"))).toBe(true);
@@ -74,7 +74,7 @@ describe("checkCompatibility", () => {
       motherboard: { name: "ASUS ROG X670E-F", socket: "AM5", ram_type: "DDR5", form_factor: "ATX", max_memory: "128" },
       ram: { name: "G.Skill Trident Z5 DDR5", speed: "6000", modules: "2x16", ram_type: "DDR5" },
       cooler: { name: "NZXT Kraken X63", size: "280" },
-      storage: { name: "Samsung 990 Pro", capacity: "2000", type: "NVMe" },
+      ssd: { name: "Samsung 990 Pro", capacity: "2000", type: "NVMe" },
       gpu: { name: "RTX 4080", memory: "16", tdp: "320" },
       case: { name: "Lian Li O11 Dynamic", type: "Mid Tower" },
       psu: { name: "Corsair RM850x", wattage: "850" },

@@ -16,11 +16,11 @@ const AIBuildVisual = ({ selections }) => {
   const ram = selections['ram'] || {};
   const cpu = selections['cpu'] || {};
   const psu = selections['psu'] || {};
-  const rawStorage = selections['storage'];
+  const rawStorage = selections['ssd'];
   const storage = Array.isArray(rawStorage) ? (rawStorage[0] || {}) : (rawStorage || {});
-  const storage2 = Array.isArray(rawStorage) ? (rawStorage[1] || selections['storage2'] || {}) : (selections['storage2'] || {});
-  const storage3 = Array.isArray(rawStorage) ? (rawStorage[2] || selections['storage3'] || {}) : (selections['storage3'] || {});
-  const storage4 = Array.isArray(rawStorage) ? (rawStorage[3] || selections['storage4'] || {}) : (selections['storage4'] || {});
+  const storage2 = selections['mass-storage'] || {};
+  const storage3 = {};
+  const storage4 = {};
 
   const isAIO = inferCoolerType(cooler) === "AIO Liquid Cooler";
   const hasRGB = Object.values(selections).some(item => isRGB(item));

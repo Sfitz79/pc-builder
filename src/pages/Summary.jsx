@@ -111,7 +111,7 @@ export default function Summary() {
   const bundledPrice = getBundledPrice();
   const hasComponents = Object.keys(selections).length > 0;
 
-  const REQUIRED = ["case", "case-fan", "cooler", "cpu", "motherboard", "ram", "storage", "psu", "os"];
+  const REQUIRED = ["case", "case-fan", "cooler", "cpu", "motherboard", "ram", "ssd", "psu", "os"];
   const cpu = selections.cpu;
   const gpuNeeded = !cpu || !cpu.graphics || cpu.graphics.toLowerCase() === "none";
   const allRequired = (gpuNeeded ? [...REQUIRED, "gpu"] : REQUIRED).every(cat => selections[cat]);

@@ -8,7 +8,7 @@ export function getGamingPerformanceSummary(selections) {
   const cpu = selections.cpu;
   const gpu = selections.gpu;
   const ram = selections.ram;
-  const rawStorage = selections.storage;
+  const rawStorage = selections.ssd;
   const storage = Array.isArray(rawStorage) ? rawStorage[0] : rawStorage;
 
   const cpuScore = scoreCPU(cpu);

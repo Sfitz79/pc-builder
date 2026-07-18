@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { usePCStore } from "../store/usePCStore";
 import { generateBuild, explainBuild, getRamDdr } from "../utils/aiBuildGenerator";
 import { GAME_REQUIREMENTS, GAME_CATEGORIES } from "../utils/partsKnowledgeBase";
-import { BUILDER_CATEGORIES, SUBCATEGORY_GROUPS } from "../utils/builderConfig";
+import { BUILDER_CATEGORIES, SUBCATEGORY_GROUPS, ADDON_GROUPS } from "../utils/builderConfig";
 import { getCaseStyles, getCaseStyleImage } from "../utils/caseStyles";
 import { assetPath } from "../utils/assetPath";
 import { loadCSV } from "../utils/loadCSV";
@@ -134,6 +134,14 @@ export default function AIGenerator() {
   const [needKeyboard, setNeedKeyboard] = useState(true);
   const [needSpeakers, setNeedSpeakers] = useState(false);
   const [needWifi, setNeedWifi] = useState(false);
+  const [needStreaming, setNeedStreaming] = useState(false);
+  const [needFlightSim, setNeedFlightSim] = useState(false);
+  const [needRacingSim, setNeedRacingSim] = useState(false);
+  const [needGameControllers, setNeedGameControllers] = useState(false);
+  const [needCablesAccessories, setNeedCablesAccessories] = useState(false);
+  const [needFanController, setNeedFanController] = useState(false);
+  const [needOpticalDrive, setNeedOpticalDrive] = useState(false);
+  const [needUps, setNeedUps] = useState(false);
   const [originalUseCase, setOriginalUseCase] = useState("");
   const [customDesc, setCustomDesc] = useState("");
   const [customDescParsed, setCustomDescParsed] = useState(null);
@@ -190,7 +198,7 @@ export default function AIGenerator() {
     setError("");
     try {
       const isGaming = useCase === "gaming" || useCase === "streaming+gaming" || useCase === "streaming" || useCase === "general";
-      const options = { needMonitor, monitorResolution, needMouse, needKeyboard, needSpeakers, needWifi, consumerOnly: isGaming, caseStyle };
+      const options = { needMonitor, monitorResolution, needMouse, needKeyboard, needSpeakers, needWifi, consumerOnly: isGaming, caseStyle, needStreaming, needFlightSim, needRacingSim, needGameControllers, needCablesAccessories, needFanController, needOpticalDrive, needUps };
       const partsBudget = Math.max(Math.round(budget / (1 + PAYPAL_RATE)) - HIDDEN_FEES, 0);
       const variants = [
         {
@@ -384,7 +392,7 @@ export default function AIGenerator() {
           {SUBCATEGORY_GROUPS.flatMap(g => g.categories).map(cat => {
             const item = build[cat.id];
             if (!item) return null;
-            if (cat.id === "storage" && build.storage_hdd) {
+            if (cat.id === "ssd" && build["mass-storage"]) {
               return (
                 <tr key="storage-combo">
                   <td className="component-icon-cell">
@@ -408,7 +416,7 @@ export default function AIGenerator() {
                 </tr>
               );
             }
-            if (cat.id === "storage" && !build.storage_hdd) {
+            if (cat.id === "ssd" && !build["mass-storage"]) {
               return (
                 <tr key={cat.id}>
                   <td className="component-icon-cell">
@@ -434,7 +442,7 @@ export default function AIGenerator() {
             }
             return null;
           })}
-          {build.storage_hdd && (
+          {build["mass-storage"] && (
             <tr key="storage-hdd">
               <td className="component-icon-cell">
                 <img src={`data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="%2300eaff" stroke-width="2"><rect x="4" y="4" width="40" height="40" rx="4"/><circle cx="24" cy="24" r="4"/></svg>`)}`} alt="" style={{ width: "24px", height: "24px", opacity: 0.5 }} />
@@ -442,10 +450,10 @@ export default function AIGenerator() {
               <td style={{ fontWeight: 600, color: "#ccc" }}>Storage (Mass / HDD)</td>
               <td>
                 <div>
-                  <span style={{ color: "#00eaff", fontWeight: 600, fontSize: "13px" }}>{build.storage_hdd.name}</span>
-                  {buildSpecChips("storage", build.storage_hdd).length > 0 && (
+                  <span style={{ color: "#00eaff", fontWeight: 600, fontSize: "13px" }}>{build["mass-storage"].name}</span>
+                  {buildSpecChips("mass-storage", build["mass-storage"]).length > 0 && (
                     <div style={{ display: "flex", flexWrap: "wrap", gap: "2px 10px", marginTop: "3px" }}>
-                      {buildSpecChips("storage", build.storage_hdd).map((s, i) => (
+                      {buildSpecChips("mass-storage", build["mass-storage"]).map((s, i) => (
                         <span key={i} style={{ fontSize: "10px", color: "#888" }}>
                           <span style={{ color: "#666" }}>{s.label}:</span> {s.value}
                         </span>
@@ -456,6 +464,32 @@ export default function AIGenerator() {
               </td>
             </tr>
           )}
+          {ADDON_GROUPS.flatMap(g => g.categories).map(cat => {
+            const item = build[cat.id];
+            if (!item) return null;
+            return (
+              <tr key={cat.id}>
+                <td className="component-icon-cell">
+                  <img src={`data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="%2300eaff" stroke-width="2"><rect x="4" y="4" width="40" height="40" rx="4"/><circle cx="24" cy="24" r="4"/></svg>`)}`} alt="" style={{ width: "24px", height: "24px", opacity: 0.5 }} />
+                </td>
+                <td style={{ fontWeight: 600, color: "#ccc" }}>{cat.label}</td>
+                <td>
+                  <div>
+                    <span style={{ color: "#00eaff", fontWeight: 600, fontSize: "13px" }}>{item.name}</span>
+                    {buildSpecChips(cat.id, item).length > 0 && (
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: "2px 10px", marginTop: "3px" }}>
+                        {buildSpecChips(cat.id, item).map((s, i) => (
+                          <span key={i} style={{ fontSize: "10px", color: "#888" }}>
+                            <span style={{ color: "#666" }}>{s.label}:</span> {s.value}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     );
@@ -909,6 +943,15 @@ export default function AIGenerator() {
             <ToggleRow label="Keyboard" value={needKeyboard} onChange={setNeedKeyboard} />
             <ToggleRow label="Speakers" value={needSpeakers} onChange={setNeedSpeakers} />
             <ToggleRow label="WiFi Card" value={needWifi} onChange={setNeedWifi} />
+            <div style={{ fontSize: "11px", color: "#555", textTransform: "uppercase", letterSpacing: "0.5px", marginTop: "8px" }}>Add-ons</div>
+            <ToggleRow label="Streaming Equipment" value={needStreaming} onChange={setNeedStreaming} />
+            <ToggleRow label="Flight Simulation" value={needFlightSim} onChange={setNeedFlightSim} />
+            <ToggleRow label="Racing Simulation" value={needRacingSim} onChange={setNeedRacingSim} />
+            <ToggleRow label="Game Controllers" value={needGameControllers} onChange={setNeedGameControllers} />
+            <ToggleRow label="Cables & Accessories" value={needCablesAccessories} onChange={setNeedCablesAccessories} />
+            <ToggleRow label="Fan Controller" value={needFanController} onChange={setNeedFanController} />
+            <ToggleRow label="Optical Drive" value={needOpticalDrive} onChange={setNeedOpticalDrive} />
+            <ToggleRow label="UPS" value={needUps} onChange={setNeedUps} />
           </div>
 
           <button onClick={handleGenerate} disabled={loading}
@@ -1092,8 +1135,8 @@ export default function AIGenerator() {
                 fontSize: "11px", color: "#666", display: "flex", gap: "16px", flexWrap: "wrap"
               }}>
                 <span>RAM: {getRamDdr(builds[selectedBuild].build.ram)}</span>
-                {builds[selectedBuild].build.storage_hdd && (
-                  <span>+ HDD: {builds[selectedBuild].build.storage_hdd.name}</span>
+                {builds[selectedBuild].build["mass-storage"] && (
+                  <span>+ HDD: {builds[selectedBuild].build["mass-storage"].name}</span>
                 )}
               </div>
             )}

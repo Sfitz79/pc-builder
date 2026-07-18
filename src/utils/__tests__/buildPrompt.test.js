@@ -56,8 +56,8 @@ describe("buildPartsFromSelections", () => {
       ram: { name: "Corsair Vengeance DDR5", rgb: "Yes" },
       motherboard: { name: "ASUS ROG X670E-F" },
       psu: { name: "Corsair RM850x" },
-      storage: { name: "Samsung 990 Pro" },
-      storage2: { name: "WD Black SN850" },
+      ssd: { name: "Samsung 990 Pro" },
+      'mass-storage': { name: "WD Black SN850" },
       "case-fan": { name: "Noctua NF-A12x25" },
       monitor: { name: "LG 27GP950" },
       keyboard: { name: "Ducky One 3" },
@@ -66,7 +66,7 @@ describe("buildPartsFromSelections", () => {
     expect(parts.case).toBe("NZXT H5 Flow");
     expect(parts.gpu).toBe("RTX 4080");
     expect(parts.psu).toBe("Corsair RM850x");
-    expect(parts.storage2).toBe("WD Black SN850");
+    expect(parts['mass-storage']).toBe("WD Black SN850");
     expect(parts.fans).toBe("Noctua NF-A12x25");
     expect(parts.monitor).toBe("LG 27GP950");
     expect(parts.keyboard).toBe("Ducky One 3");
@@ -82,7 +82,7 @@ describe("buildPartsFromSelections", () => {
     expect(parts.case).toBe("NZXT H5 Flow");
     expect(parts.gpu).toBe("");
     expect(parts.psu).toBe("");
-    expect(parts.storage).toBe("");
+    expect(parts.ssd).toBe("");
     expect(parts.hasRGB).toBe(false);
   });
 

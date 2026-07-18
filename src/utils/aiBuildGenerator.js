@@ -2,7 +2,7 @@ import { loadCSV } from "./loadCSV";
 import { inferCpuSocket, isModernComponent, isWindows11Compatible } from "./common";
 import { filterCasesByStyle, filterCasesByColor } from "./caseStyles";
 
-const REQUIRED_CATEGORIES = ["case", "case-fan", "cooler", "cpu", "motherboard", "ram", "storage", "psu", "os", "thermal-paste"];
+const REQUIRED_CATEGORIES = ["case", "case-fan", "cooler", "cpu", "motherboard", "ram", "ssd", "psu", "os", "thermal-paste"];
 
 const STREAMING_REQUIRED = ["webcam", "headphones"];
 
@@ -15,7 +15,8 @@ const ALL_CATEGORIES = [
   { id: "case", file: "case.csv", label: "Case", weight: 0.04 },
   { id: "ram", file: "ram.csv", label: "RAM", weight: 0.1 },
   { id: "gpu", file: "gpu.csv", label: "GPU", weight: 0.3 },
-  { id: "storage", file: "storage.csv", label: "Storage", weight: 0.05 },
+  { id: "ssd", file: "ssd.csv", label: "SSD", weight: 0.03 },
+  { id: "mass-storage", file: "mass-storage.csv", label: "Mass Storage", weight: 0.02 },
   { id: "psu", file: "power-supply.csv", label: "Power Supply", weight: 0.05 },
   { id: "os", file: "os.csv", label: "Operating System", weight: 0.0 },
   { id: "wireless-network-card", file: "wireless-network-card.csv", label: "WiFi Card", weight: 0.0 },
@@ -28,6 +29,13 @@ const ALL_CATEGORIES = [
   { id: "thermal-paste", file: "thermal-paste.csv", label: "Thermal Paste", weight: 0.0 },
   { id: "fan-controller", file: "fan-controller.csv", label: "Fan Controller", weight: 0.0 },
   { id: "webcam", file: "webcam.csv", label: "Webcam", weight: 0.0 },
+  { id: "streaming", file: "Streaming.csv", label: "Streaming Equipment", weight: 0.0 },
+  { id: "flight-simulation", file: "flight-simulation.csv", label: "Flight Simulation", weight: 0.0 },
+  { id: "racing-simulation", file: "racing-simulation.csv", label: "Racing Simulation", weight: 0.0 },
+  { id: "game-controllers", file: "game-controllers.csv", label: "Game Controllers", weight: 0.0 },
+  { id: "cables-and-accessories", file: "cables-and-accessories.csv", label: "Cables & Accessories", weight: 0.0 },
+  { id: "optical-drive", file: "optical-drive.csv", label: "Optical Drive", weight: 0.0 },
+  { id: "ups", file: "ups.csv", label: "UPS", weight: 0.0 },
 ];
 
 export function getRamDdr(ram) {
@@ -88,6 +96,14 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
     preferDDR4 = false,
     dualStorage = false,
     caseStyle = "any",
+    needStreaming = false,
+    needFlightSim = false,
+    needRacingSim = false,
+    needGameControllers = false,
+    needCablesAccessories = false,
+    needFanController = false,
+    needOpticalDrive = false,
+    needUps = false,
   } = options;
 
   const SKIP_CATEGORIES = new Set();
@@ -96,6 +112,14 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
   if (!needKeyboard) SKIP_CATEGORIES.add("keyboard");
   if (!needSpeakers) SKIP_CATEGORIES.add("speakers");
   if (!needWifi) SKIP_CATEGORIES.add("wireless-network-card");
+  if (!needStreaming) SKIP_CATEGORIES.add("streaming");
+  if (!needFlightSim) SKIP_CATEGORIES.add("flight-simulation");
+  if (!needRacingSim) SKIP_CATEGORIES.add("racing-simulation");
+  if (!needGameControllers) SKIP_CATEGORIES.add("game-controllers");
+  if (!needCablesAccessories) SKIP_CATEGORIES.add("cables-and-accessories");
+  if (!needFanController) SKIP_CATEGORIES.add("fan-controller");
+  if (!needOpticalDrive) SKIP_CATEGORIES.add("optical-drive");
+  if (!needUps) SKIP_CATEGORIES.add("ups");
 
   const allParts = {};
   for (const cat of ALL_CATEGORIES) {
@@ -107,6 +131,7 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
   }
 
   const budgetAllocation = allocateBudget(budget, useCase);
+  const workload = classifyWorkload(useCase);
 
   if (budgetAllocation["os"] < 50) {
     const overage = 50 - budgetAllocation["os"];
@@ -184,20 +209,12 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
         });
       }
     }
-    if (cat.id === "storage") {
+    if (cat.id === "ssd") {
       if (dualStorage) {
-        const totalStorageBudget = catBudget + (budgetAllocation["storage_hdd"] || 0);
-        const ssdPool = candidates.filter(isSsd);
+        const totalStorageBudget = catBudget + (budgetAllocation["mass-storage"] || 0);
+        const ssdPool = candidates;
         const filteredSsds = filterStorageForUseCase(ssdPool, useCase);
         const ssds = filteredSsds.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
-        const hddPool = allParts[cat.id].filter(item => {
-          const p = parseFloat(item.price);
-          return !isNaN(p) && p >= 0 && p <= totalStorageBudget * 1.15;
-        });
-        const hdds = hddPool.filter(isHdd).filter(h => {
-          const capacityGB = (parseFloat(h.capacity) || 0) * 1000;
-          return capacityGB >= 500;
-        }).sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
         if (ssds.length > 0) {
           const ssdBudget = totalStorageBudget * 0.6;
           const chosenSsd = ssds.filter(s => parseFloat(s.price) <= ssdBudget).sort((a, b) => {
@@ -205,21 +222,35 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
             const bVal = parseFloat(b.price);
             return Math.abs(aVal - ssdBudget) - Math.abs(bVal - ssdBudget);
           })[0] || ssds[0];
-          build["storage"] = chosenSsd;
-          const remaining = totalStorageBudget - parseFloat(chosenSsd.price);
-          if (hdds.length > 0 && remaining > 20) {
-            const chosenHdd = hdds.filter(h => parseFloat(h.price) <= remaining).sort((a, b) => {
-              const aVal = parseFloat(a.price);
-              const bVal = parseFloat(b.price);
-              return Math.abs(aVal - remaining * 0.8) - Math.abs(bVal - remaining * 0.8);
-            })[0] || null;
-            if (chosenHdd) build["storage_hdd"] = chosenHdd;
-          }
+          build["ssd"] = chosenSsd;
           continue;
         }
         candidates = filterStorageForUseCase(candidates, useCase);
       } else {
         candidates = filterStorageForUseCase(candidates, useCase);
+      }
+    }
+    if (cat.id === "mass-storage") {
+      if (dualStorage && build.ssd) {
+        const totalStorageBudget = (budgetAllocation["ssd"] || 0) + catBudget;
+        const remaining = totalStorageBudget - parseFloat(build.ssd.price || 0);
+        const hddPool = candidates.filter(item => {
+          const p = parseFloat(item.price);
+          return !isNaN(p) && p >= 0 && p <= remaining * 1.15;
+        });
+        const hdds = hddPool.filter(h => {
+          const capacityGB = (parseFloat(h.capacity) || 0) * 1000;
+          return capacityGB >= 500;
+        }).sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+        if (hdds.length > 0 && remaining > 20) {
+          const chosenHdd = hdds.filter(h => parseFloat(h.price) <= remaining).sort((a, b) => {
+            const aVal = parseFloat(a.price);
+            const bVal = parseFloat(b.price);
+            return Math.abs(aVal - remaining * 0.8) - Math.abs(bVal - remaining * 0.8);
+          })[0] || null;
+          if (chosenHdd) build["mass-storage"] = chosenHdd;
+        }
+        continue;
       }
     }
 
@@ -282,6 +313,19 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
         } else if (hasIgpu) {
           continue;
         }
+      }
+    }
+
+    if (cat.id === "gpu" && build.cpu) {
+      if (candidates.length > 0) {
+        candidates.sort((a, b) => {
+          const aSynergy = cpuGpuSynergyScore(build.cpu, a);
+          const bSynergy = cpuGpuSynergyScore(build.cpu, b);
+          if (aSynergy !== bSynergy) return bSynergy - aSynergy;
+          const aPrice = parseFloat(a.price);
+          const bPrice = parseFloat(b.price);
+          return Math.abs(aPrice - catBudget) - Math.abs(bPrice - catBudget);
+        });
       }
     }
 
@@ -364,13 +408,35 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
       }
     }
 
-    if (cat.id !== "storage" || !dualStorage || !build.storage) {
+    if (cat.id !== "ssd" || !dualStorage || !build.ssd) {
       candidates.sort((a, b) => {
         const aPrice = parseFloat(a.price);
         const bPrice = parseFloat(b.price);
         const aOver = aPrice > catBudget ? 1 : 0;
         const bOver = bPrice > catBudget ? 1 : 0;
         if (aOver !== bOver) return aOver - bOver;
+        const aRel = scoreComponentReliability(cat.id, a);
+        const bRel = scoreComponentReliability(cat.id, b);
+        if (aRel !== bRel) return bRel - aRel;
+        let aScore = 0;
+        let bScore = 0;
+        if (cat.id === "cpu") {
+          aScore = scoreCpuForWorkload(a, workload, budget);
+          bScore = scoreCpuForWorkload(b, workload, budget);
+        } else if (cat.id === "gpu") {
+          aScore = scoreGpuForWorkload(a, workload, budget);
+          bScore = scoreGpuForWorkload(b, workload, budget);
+        } else if (cat.id === "ram") {
+          aScore = scoreRamForWorkload(a, workload, budget);
+          bScore = scoreRamForWorkload(b, workload, budget);
+        } else if (cat.id === "ssd") {
+          aScore = scoreStorageForWorkload(a, workload, budget);
+          bScore = scoreStorageForWorkload(b, workload, budget);
+        } else if (cat.id === "psu") {
+          aScore = scorePsuReliability(a) / 3;
+          bScore = scorePsuReliability(b) / 3;
+        }
+        if (aScore !== bScore) return bScore - aScore;
         return Math.abs(aPrice - catBudget) - Math.abs(bPrice - catBudget);
       });
 
@@ -491,10 +557,11 @@ export function explainBuild(build, label, useCase, budget, hiddenFees = 0) {
   const ramDdr = getRamDdr(build.ram);
   const partsTotal = Object.values(build).reduce((s, item) => s + (parseFloat(item.price) || 0), 0);
   const total = partsTotal + hiddenFees;
-  const use = (useCase || "").toLowerCase();
-  const isGaming = use.includes("gaming");
-  const isStream = use.includes("stream");
-  const isWork = use.includes("workstation") || use.includes("creation") || use.includes("render");
+  const wl = classifyWorkload(useCase);
+  const isGaming = wl.isGaming;
+  const isStream = wl.isStreaming;
+  const isWork = wl.isWorkstation || wl.isContentCreation;
+  const isMl = wl.isMachineLearning;
 
   const parts = [];
 
@@ -521,12 +588,21 @@ export function explainBuild(build, label, useCase, budget, hiddenFees = 0) {
     parts.push(`For content creation or workstation tasks, the ${cpu.split("(")[0].trim()} provides the multi-core muscle needed for rendering, encoding, and compiling.`);
   }
 
-  if (build.storage) {
-    const mainDrive = build.storage.name || "";
-    if (build.storage_hdd) {
-      parts.push(`Storage combines a fast ${mainDrive} for your operating system and favourite apps, plus a ${build.storage_hdd.name || "large hard drive"} for mass storage — best of both worlds.`);
+  if (isMl) {
+    const vram = parseFloat(build.gpu?.memory) || 0;
+    if (vram >= 12) {
+      parts.push(`For machine learning workloads, the ${vram}GB VRAM on the GPU provides enough memory for training models locally. The ${ramSize}GB system RAM helps with data preprocessing.`);
     } else {
-      parts.push(`The ${mainDrive} gives you fast boot times and snappy app loading.`);
+      parts.push(`This build handles entry-level ML inference and small model training. For larger models, a GPU with more VRAM (16GB+) would be recommended.`);
+    }
+  }
+
+  if (build.ssd) {
+    const mainDrive = build.ssd.name || "";
+    if (build["mass-storage"]) {
+      parts.push(`Storage combines a fast ${mainDrive} for your operating system and favourite apps, plus a ${build["mass-storage"].name || "large hard drive"} for mass storage — best of both worlds.`);
+    } else {
+      parts.push(`Storage: ${mainDrive}.`);
     }
   }
 
@@ -537,6 +613,28 @@ export function explainBuild(build, label, useCase, budget, hiddenFees = 0) {
       parts.push(`This motherboard has built-in WiFi, so no separate adapter is needed.`);
     } else {
       parts.push(`A WiFi adapter is included since the motherboard doesn't have built-in wireless. If you prefer a WiFi motherboard instead, we can swap it in.`);
+    }
+  }
+
+  if (build.psu) {
+    const psuRelScore = scorePsuReliability(build.psu);
+    if (psuRelScore >= 10) {
+      parts.push(`The power supply is a reliable, well-rated unit that will deliver clean, stable power for years.`);
+    } else if (psuRelScore < 5) {
+      parts.push(`The power supply is functional but from a less proven brand. If reliability is a priority, upgrading to a Gold-rated unit from Seasonic, Corsair, or be quiet! is worthwhile.`);
+    }
+  }
+
+  if (isGaming && build.cpu && build.gpu) {
+    const cpuTier = getCpuTier(build.cpu);
+    const gpuTier = getGpuTier(build.gpu);
+    const diff = cpuTier - gpuTier;
+    if (diff >= 2) {
+      parts.push(`Note: The CPU is significantly more powerful than the GPU. You may see better value by allocating more budget to the graphics card for gaming.`);
+    } else if (diff <= -2) {
+      parts.push(`Note: The GPU is significantly more powerful than the CPU. In some games, the CPU may limit your frame rates before the GPU reaches full potential.`);
+    } else {
+      parts.push(`The CPU and GPU are well-matched — neither component will bottleneck the other.`);
     }
   }
 
@@ -551,9 +649,7 @@ export function explainBuild(build, label, useCase, budget, hiddenFees = 0) {
   }
 
   if (isGaming && build.gpu) {
-    const gpuName = String(build.gpu.name || "").toUpperCase();
     const vram = parseFloat(build.gpu.memory) || 0;
-    const gpuPrice = parseFloat(build.gpu.price) || 0;
     if (budget < 800) {
       parts.push(`At this budget, smooth 1080p gaming is the realistic target. The GPU in this build handles most titles well at medium-to-high settings. Pushing to 1440p or 4K would require a significantly more expensive graphics card.`);
     } else if (budget < 1200) {
@@ -604,19 +700,21 @@ function gpuRequired(useCase, cpu) {
 }
 
 function allocateBudget(totalBudget, useCase) {
-  const gamingAlloc = { cpu: 0.18, gpu: 0.30, motherboard: 0.09, cooler: 0.04, ram: 0.08, storage: 0.04, "case-fan": 0.01, "storage_hdd": 0.02, psu: 0.05, os: 0.08, monitor: 0.05, headphones: 0.01, keyboard: 0.01, mouse: 0.01, speakers: 0.01, webcam: 0.01 };
-  const streamingAlloc = { cpu: 0.20, gpu: 0.28, motherboard: 0.09, cooler: 0.05, ram: 0.08, storage: 0.05, "case-fan": 0.01, "storage_hdd": 0.02, psu: 0.04, os: 0.08, monitor: 0.03, headphones: 0.02, keyboard: 0.01, mouse: 0.01, speakers: 0.01, webcam: 0.01 };
-  const workstationAlloc = { cpu: 0.23, gpu: 0.24, motherboard: 0.09, cooler: 0.06, ram: 0.08, storage: 0.05, "case-fan": 0.01, "storage_hdd": 0.03, psu: 0.04, os: 0.08, monitor: 0.04, headphones: 0.01, keyboard: 0.01, mouse: 0.01, speakers: 0.0, webcam: 0.01 };
-  const contentCreationAlloc = { cpu: 0.21, gpu: 0.23, motherboard: 0.08, cooler: 0.05, ram: 0.09, storage: 0.07, "case-fan": 0.01, "storage_hdd": 0.03, psu: 0.04, os: 0.08, monitor: 0.05, headphones: 0.01, keyboard: 0.01, mouse: 0.01, speakers: 0.0, webcam: 0.01 };
-  const generalAlloc = { cpu: 0.18, gpu: 0.23, motherboard: 0.10, cooler: 0.05, ram: 0.09, storage: 0.05, "case-fan": 0.01, "storage_hdd": 0.02, psu: 0.06, os: 0.08, monitor: 0.05, headphones: 0.01, keyboard: 0.01, mouse: 0.01, speakers: 0.01, webcam: 0.01 };
+  const gamingAlloc = { cpu: 0.18, gpu: 0.25, motherboard: 0.09, cooler: 0.04, "case": 0.04, ram: 0.08, ssd: 0.04, "case-fan": 0.01, "mass-storage": 0.02, psu: 0.05, os: 0.08, monitor: 0.05, headphones: 0.01, keyboard: 0.01, mouse: 0.01, speakers: 0.01, webcam: 0.01, "wireless-network-card": 0.01, "thermal-paste": 0.005, "fan-controller": 0.005 };
+  const streamingAlloc = { cpu: 0.20, gpu: 0.23, motherboard: 0.09, cooler: 0.05, "case": 0.04, ram: 0.08, ssd: 0.05, "case-fan": 0.01, "mass-storage": 0.02, psu: 0.04, os: 0.08, monitor: 0.03, headphones: 0.02, keyboard: 0.01, mouse: 0.01, speakers: 0.01, webcam: 0.01, "wireless-network-card": 0.01, "thermal-paste": 0.005, "fan-controller": 0.005 };
+  const workstationAlloc = { cpu: 0.23, gpu: 0.19, motherboard: 0.09, cooler: 0.06, "case": 0.04, ram: 0.08, ssd: 0.05, "case-fan": 0.01, "mass-storage": 0.03, psu: 0.04, os: 0.08, monitor: 0.04, headphones: 0.01, keyboard: 0.01, mouse: 0.01, speakers: 0.0, webcam: 0.01, "wireless-network-card": 0.01, "thermal-paste": 0.005, "fan-controller": 0.005 };
+  const contentCreationAlloc = { cpu: 0.21, gpu: 0.19, motherboard: 0.08, cooler: 0.05, "case": 0.04, ram: 0.09, ssd: 0.07, "case-fan": 0.01, "mass-storage": 0.03, psu: 0.04, os: 0.08, monitor: 0.05, headphones: 0.01, keyboard: 0.01, mouse: 0.01, speakers: 0.0, webcam: 0.01, "wireless-network-card": 0.01, "thermal-paste": 0.005, "fan-controller": 0.005 };
+  const machineLearningAlloc = { cpu: 0.20, gpu: 0.30, motherboard: 0.08, cooler: 0.05, "case": 0.03, ram: 0.10, ssd: 0.08, "case-fan": 0.01, "mass-storage": 0.02, psu: 0.06, os: 0.04, monitor: 0.01, headphones: 0.0, keyboard: 0.0, mouse: 0.0, speakers: 0.0, webcam: 0.0, "wireless-network-card": 0.01, "thermal-paste": 0.005, "fan-controller": 0.005 };
+  const generalAlloc = { cpu: 0.18, gpu: 0.19, motherboard: 0.10, cooler: 0.05, "case": 0.04, ram: 0.09, ssd: 0.05, "case-fan": 0.01, "mass-storage": 0.02, psu: 0.06, os: 0.08, monitor: 0.05, headphones: 0.01, keyboard: 0.01, mouse: 0.01, speakers: 0.01, webcam: 0.01, "wireless-network-card": 0.01, "thermal-paste": 0.005, "fan-controller": 0.005 };
 
+  const wl = classifyWorkload(useCase);
   let alloc = generalAlloc;
-  const use = (useCase || "").toLowerCase();
-  if (use.includes("gaming") && use.includes("stream")) alloc = streamingAlloc;
-  else if (use.includes("gaming")) alloc = gamingAlloc;
-  else if (use.includes("creation")) alloc = contentCreationAlloc;
-  else if (use.includes("stream") || use.includes("content")) alloc = streamingAlloc;
-  else if (use.includes("workstation") || use.includes("render") || use.includes("video") || use.includes("3d") || use.includes("cad")) alloc = workstationAlloc;
+  if (wl.isGaming && wl.isStreaming) alloc = streamingAlloc;
+  else if (wl.isMachineLearning) alloc = machineLearningAlloc;
+  else if (wl.isGaming) alloc = gamingAlloc;
+  else if (wl.isContentCreation) alloc = contentCreationAlloc;
+  else if (wl.isStreaming) alloc = streamingAlloc;
+  else if (wl.isWorkstation) alloc = workstationAlloc;
 
   const allocation = {};
   for (const [cat, pct] of Object.entries(alloc)) {
@@ -707,8 +805,8 @@ function estimateTotalWattage(build) {
   if (build.cpu) total += parseFloat(build.cpu.tdp) || 65;
   if (build.gpu) total += parseFloat(build.gpu.tdp) || 150;
   if (build.ram) total += 10;
-  if (build.storage) total += 10;
-  if (build.storage_hdd) total += 10;
+  if (build.ssd) total += 10;
+  if (build["mass-storage"]) total += 10;
   if (build.cooler) total += parseFloat(build.cooler.wattage) || 10;
   return total + 150;
 }
@@ -718,4 +816,253 @@ function parseRadiatorMm(cooler) {
   if (!raw || raw.toLowerCase().includes("radiator size")) return 0;
   const m = raw.match(/(\d+)\s*mm/i);
   return m ? parseInt(m[1], 10) : 0;
+}
+
+function classifyWorkload(useCase) {
+  const u = (useCase || "").toLowerCase();
+  const wl = {
+    isGaming: false,
+    isStreaming: false,
+    isContentCreation: false,
+    isWorkstation: false,
+    isMachineLearning: false,
+    isGeneral: false,
+  };
+  if (u.includes("gaming")) wl.isGaming = true;
+  if (u.includes("stream")) wl.isStreaming = true;
+  if (u.includes("creation") || u.includes("content")) wl.isContentCreation = true;
+  if (u.includes("workstation") || u.includes("cad") || u.includes("3d") || u.includes("render") || u.includes("video editing")) wl.isWorkstation = true;
+  if (u.includes("machine learning") || u.includes("ml") || u.includes("ai") || u.includes("deep learning")) wl.isMachineLearning = true;
+  if (u.includes("general") || u.includes("office") || u.includes("home") || u.includes("student")) wl.isGeneral = true;
+  if (!Object.values(wl).some(v => v)) wl.isGeneral = true;
+  return wl;
+}
+
+const CPU_TIER = {
+  "ryzen 5 9600x": 3, "ryzen 7 9700x": 4, "ryzen 9 9900x": 5, "ryzen 9 9950x": 6,
+  "ryzen 5 7600x": 3, "ryzen 7 7700x": 4, "ryzen 9 7900x": 5, "ryzen 9 7950x": 6,
+  "core i5-14600k": 3, "core i7-14700k": 4, "core i9-14900k": 6,
+  "core i5-13600k": 3, "core i7-13700k": 4, "core i9-13900k": 6,
+  "core i5-12600k": 3, "core i7-12700k": 4, "core i9-12900k": 5,
+  "ryzen 5 5600x": 3, "ryzen 7 5800x": 4, "ryzen 9 5900x": 5, "ryzen 9 5950x": 6,
+  "ultra 5": 3, "ultra 7": 4, "ultra 9": 6,
+  "core i5": 3, "core i7": 4, "core i9": 6,
+  "ryzen 5": 3, "ryzen 7": 4, "ryzen 9": 6,
+  "pentium": 1, "celeron": 1, "athlon": 2,
+};
+
+const GPU_TIER = {
+  "rtx 5090": 6, "rtx 5080": 5, "rtx 5070 ti": 5, "rtx 5070": 4,
+  "rtx 4090": 6, "rtx 4080": 5, "rtx 4070 ti super": 5, "rtx 4070 super": 4, "rtx 4070": 4, "rtx 4060 ti": 3, "rtx 4060": 3,
+  "rx 7900 xtx": 6, "rx 7900 xt": 5, "rx 7800 xt": 4, "rx 7700 xt": 4, "rx 7600 xt": 3, "rx 7600": 3,
+  "arc b580": 3, "arc b570": 3, "arc a770": 4, "arc a750": 3, "arc a580": 3,
+  "gtx 1660": 2, "gtx 1650": 2, "gtx 1080": 3, "gtx 1070": 2,
+  "rx 6600": 3, "rx 6650 xt": 3, "rx 6700 xt": 3, "rx 6800": 4, "rx 6900 xt": 5,
+};
+
+function getCpuTier(cpu) {
+  const name = String(cpu.name || "").toLowerCase();
+  for (const [key, tier] of Object.entries(CPU_TIER)) {
+    if (name.includes(key)) return tier;
+  }
+  const cores = parseFloat(cpu.core_count) || 0;
+  if (cores >= 16) return 6;
+  if (cores >= 12) return 5;
+  if (cores >= 8) return 4;
+  if (cores >= 6) return 3;
+  if (cores >= 4) return 2;
+  return 1;
+}
+
+function getGpuTier(gpu) {
+  const name = String(gpu.name || "").toLowerCase();
+  for (const [key, tier] of Object.entries(GPU_TIER)) {
+    if (name.includes(key)) return tier;
+  }
+  const vram = parseFloat(gpu.memory) || 0;
+  if (vram >= 16) return 5;
+  if (vram >= 12) return 4;
+  if (vram >= 8) return 3;
+  if (vram >= 6) return 2;
+  return 1;
+}
+
+function cpuGpuSynergyScore(cpu, gpu) {
+  const cpuTier = getCpuTier(cpu);
+  const gpuTier = getGpuTier(gpu);
+  const diff = Math.abs(cpuTier - gpuTier);
+  if (diff === 0) return 1.0;
+  if (diff === 1) return 0.8;
+  if (diff === 2) return 0.5;
+  return 0.2;
+}
+
+const PSU_RELIABILITY_BRANDS = [
+  { pattern: /seasonic/i, tier: 1 },
+  { pattern: /super\s*flower/i, tier: 1 },
+  { pattern: /corsair.*(?:rm[xi]?|hx[xi]?|ax[xi]?|tx[mi]?|sf)/i, tier: 1 },
+  { pattern: /corsair/i, tier: 2 },
+  { pattern: /evga.*(?:g[2-9]|p[2-6]|t[2-6]|b[2-6]|super\s*nova)/i, tier: 1 },
+  { pattern: /evga/i, tier: 2 },
+  { pattern: /be\s*quiet/i, tier: 1 },
+  { pattern: /thermaltake.*toughpower/i, tier: 1 },
+  { pattern: /thermaltake/i, tier: 2 },
+  { pattern: /silverstone/i, tier: 1 },
+  { pattern: /cooler\s*master.*(?:v\s*\d|master\s*power)/i, tier: 1 },
+  { pattern: /cooler\s*master/i, tier: 2 },
+  { pattern: /fractal\s*design/i, tier: 1 },
+  { pattern: /deepcool/i, tier: 2 },
+  { pattern: /mushkin/i, tier: 2 },
+  { pattern: /xpg/i, tier: 2 },
+  { pattern: /msi.*(?:mag|meg)/i, tier: 1 },
+  { pattern: /msi/i, tier: 2 },
+  { pattern: /nzxt/i, tier: 2 },
+  { pattern: /lian\s*li/i, tier: 2 },
+  { pattern: /aerocool/i, tier: 3 },
+  { pattern: /gigabyte.*(?:aorus|ud|gp)/i, tier: 2 },
+  { pattern: /gigabyte/i, tier: 3 },
+  { pattern: /power\s*man/i, tier: 3 },
+  { pattern: /deer/i, tier: 3 },
+  { pattern: /hec/i, tier: 3 },
+  { pattern: /diablotek/i, tier: 3 },
+  { pattern: /arena/i, tier: 3 },
+];
+
+function scorePsuReliability(psu) {
+  const name = String(psu.name || "");
+  let brandScore = 2;
+  for (const { pattern, tier } of PSU_RELIABILITY_BRANDS) {
+    if (pattern.test(name)) { brandScore = tier; break; }
+  }
+  let ratingMult = 1.0;
+  const lowerName = name.toLowerCase();
+  if (/80\s*\+\s*titanium/i.test(lowerName)) ratingMult = 1.3;
+  else if (/80\s*\+\s*platinum/i.test(lowerName)) ratingMult = 1.2;
+  else if (/80\s*\+\s*gold/i.test(lowerName)) ratingMult = 1.1;
+  else if (/80\s*\+\s*bronze/i.test(lowerName)) ratingMult = 1.0;
+  else if (/80\s*\+\s*(?:white|standard)/i.test(lowerName)) ratingMult = 0.9;
+  const base = brandScore === 1 ? 10 : brandScore === 2 ? 7 : 4;
+  return base * ratingMult;
+}
+
+const COMPONENT_RELIABILITY = {
+  cpu: { boost: ["amd.*ryzen.*9", "amd.*ryzen.*7", "intel.*core.*i7", "intel.*core.*i9"], penalty: ["intel.*pentium", "intel.*celeron"] },
+  gpu: { boost: ["nvidia.*rtx.*[45]0[789]", "amd.*rx.*7[89]00", "intel.*arc.*b"], penalty: ["nvidia.*gt[71]0", "amd.*rx.*5[05]0"] },
+  ram: { boost: ["corsair.*vengeance", "g\.skill.*trident", "kingston.*fury.*beast", "teamgroup.*t-force"], penalty: [] },
+  storage: { boost: ["samsung.*9[89]0", "samsung.*970", "wd.*black.*sn[89]", "crucial.*t[57]00"], penalty: ["kingston.*a400", "teamgroup.*cx2"] },
+  motherboard: { boost: ["asus.* rog", "msi.*meg", "gigabyte.*aorus", "asrock.*taichi"], penalty: ["gigabyte.*b[46]50.*d3hp", "asrock.*b[46]50.*hdv"] },
+  cooler: { boost: ["noctua", "arctic.*liquid.*freezer", "be\s*quiet.*dark.*rock", "corsair.*icue.*h1[57]0"], penalty: [] },
+};
+
+function scoreComponentReliability(category, part) {
+  const rules = COMPONENT_RELIABILITY[category];
+  if (!rules) return 0;
+  const name = String(part.name || "");
+  for (const pat of rules.boost) {
+    if (new RegExp(pat, "i").test(name)) return 3;
+  }
+  for (const pat of rules.penalty) {
+    if (new RegExp(pat, "i").test(name)) return -2;
+  }
+  return 0;
+}
+
+function scoreCpuForWorkload(cpu, workload, budget) {
+  let score = 0;
+  const cores = parseFloat(cpu.core_count) || 0;
+  const boost = parseFloat(cpu.boost_clock) || 0;
+  const tdp = parseFloat(cpu.tdp) || 65;
+  if (workload.isGaming) {
+    if (boost >= 5.0) score += 5;
+    else if (boost >= 4.7) score += 4;
+    else if (boost >= 4.5) score += 3;
+    if (cores >= 6 && cores <= 8) score += 3;
+    else if (cores >= 12) score += 1;
+  }
+  if (workload.isStreaming) {
+    if (cores >= 8) score += 4;
+    else if (cores >= 6) score += 2;
+  }
+  if (workload.isContentCreation || workload.isWorkstation) {
+    if (cores >= 16) score += 5;
+    else if (cores >= 12) score += 4;
+    else if (cores >= 8) score += 2;
+    const name = (cpu.name || "").toLowerCase();
+    if (name.includes("x3d")) score -= 1;
+  }
+  if (workload.isMachineLearning) {
+    if (cores >= 12) score += 4;
+    else if (cores >= 8) score += 2;
+    if (tdp <= 125) score += 1;
+  }
+  return score;
+}
+
+function scoreGpuForWorkload(gpu, workload, budget) {
+  let score = 0;
+  const vram = parseFloat(gpu.memory) || 0;
+  const name = String(gpu.name || "").toLowerCase();
+  if (workload.isGaming) {
+    if (vram >= 12) score += 4;
+    else if (vram >= 8) score += 3;
+    else if (vram >= 6) score += 1;
+    if (name.includes("rtx")) score += 2;
+    if (name.includes("rx 7")) score += 1;
+  }
+  if (workload.isStreaming) {
+    if (name.includes("nvenc") || name.includes("rtx")) score += 3;
+    if (vram >= 8) score += 1;
+  }
+  if (workload.isContentCreation || workload.isWorkstation) {
+    if (vram >= 16) score += 5;
+    else if (vram >= 12) score += 4;
+    else if (vram >= 8) score += 2;
+    if (name.includes("rtx")) score += 2;
+    if (name.includes("quadro") || name.includes("rtx a")) score += 3;
+  }
+  if (workload.isMachineLearning) {
+    if (vram >= 16) score += 5;
+    else if (vram >= 12) score += 4;
+    else if (vram >= 8) score += 2;
+    if (name.includes("rtx")) score += 3;
+  }
+  return score;
+}
+
+function scoreRamForWorkload(ram, workload, budget) {
+  let score = 0;
+  const totalGB = getRamCapacityGB(ram);
+  if (workload.isGaming) {
+    if (totalGB >= 32) score += 3;
+    else if (totalGB >= 16) score += 2;
+  }
+  if (workload.isStreaming || workload.isContentCreation || workload.isWorkstation) {
+    if (totalGB >= 64) score += 5;
+    else if (totalGB >= 32) score += 3;
+  }
+  if (workload.isMachineLearning) {
+    if (totalGB >= 64) score += 5;
+    else if (totalGB >= 32) score += 3;
+  }
+  return score;
+}
+
+function scoreStorageForWorkload(storage, workload, budget) {
+  let score = 0;
+  const capacityGB = (parseFloat(storage.capacity) || 0) * 1000;
+  const isSsdItem = isSsd(storage);
+  if (workload.isGaming) {
+    if (capacityGB >= 2000 && isSsdItem) score += 4;
+    else if (capacityGB >= 1000 && isSsdItem) score += 3;
+    else if (capacityGB >= 500 && isSsdItem) score += 2;
+  }
+  if (workload.isContentCreation || workload.isWorkstation) {
+    if (capacityGB >= 4000 && isSsdItem) score += 5;
+    else if (capacityGB >= 2000 && isSsdItem) score += 3;
+  }
+  if (workload.isMachineLearning) {
+    if (capacityGB >= 4000 && isSsdItem) score += 5;
+    else if (capacityGB >= 2000 && isSsdItem) score += 3;
+  }
+  return score;
 }
