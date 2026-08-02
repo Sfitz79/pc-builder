@@ -15,3 +15,5 @@ master-*-status.txt
 dist_electron/
 dist_electron_packager/
 *.exe
+obscura/
+obscura/cookies/

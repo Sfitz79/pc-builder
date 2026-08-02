@@ -75,13 +75,17 @@ const CATEGORY_IMAGE_KEYWORDS = {
   'os': ['windows'],
 };
 
+/*
+ * FAST RETAILERS: ordered by observed speed/reliability for image extraction.
+ * We keep these limited — more concurrent retailers ≠ faster results.
+ */
 const RETAILERS = [
   ['amazon.co.uk', (q) => `https://www.amazon.co.uk/s?k=${encodeURIComponent(q)}`],
   ['ebuyer.com', (q) => `https://www.ebuyer.com/search?q=${encodeURIComponent(q)}`],
-  ['box.co.uk', (q) => `https://www.box.co.uk/search?q=${encodeURIComponent(q)}`],
   ['scan.co.uk', (q) => `https://www.scan.co.uk/search#q=${encodeURIComponent(q)}`],
-  ['cclonline.com', (q) => `https://www.cclonline.com/catalogsearch/result/?q=${encodeURIComponent(q)}`],
   ['overclockers.co.uk', (q) => `https://www.overclockers.co.uk/search?search=${encodeURIComponent(q)}`],
+  ['box.co.uk', (q) => `https://www.box.co.uk/search?q=${encodeURIComponent(q)}`],
+  ['cclonline.com', (q) => `https://www.cclonline.com/catalogsearch/result/?q=${encodeURIComponent(q)}`],
 ];
 
 const EXCLUDE_PATTERNS = [
@@ -189,11 +193,27 @@ async function verifyAndDownload(url, dest) {
       const channels = meta.channels || 3;
       let sampleCount = 0;
       const rSum = [], gSum = [], bSum = [];
+      let skinPixels = 0, lowSatPixels = 0;
       for (let y = 0; y < h; y += Math.max(1, Math.floor(h / 20))) {
         for (let x = 0; x < w; x += Math.max(1, Math.floor(w / 20))) {
           const idx = (y * w + x) * channels;
-          rSum.push(pixels[idx]); gSum.push(pixels[idx + 1]); bSum.push(pixels[idx + 2]);
+          const r = pixels[idx], g = pixels[idx + 1], b = pixels[idx + 2];
+          rSum.push(r); gSum.push(g); bSum.push(b);
           sampleCount++;
+
+          const maxC = Math.max(r, g, b), minC = Math.min(r, g, b);
+          const d = maxC - minC;
+
+          // skin tone detection (RGB heuristic)
+          if (r > 95 && g > 40 && b > 20 && d > 15 && Math.abs(r - g) > 15 && r > g && r > b) {
+            skinPixels++;
+          }
+
+          // low saturation / grayscale pixel
+          if (maxC > 0) {
+            const s = d / maxC;
+            if (s < 0.05) lowSatPixels++;
+          }
         }
       }
       const rMean = rSum.reduce((a, b) => a + b, 0) / sampleCount;
@@ -204,6 +224,8 @@ async function verifyAndDownload(url, dest) {
       const bVar = bSum.reduce((a, b) => a + (b - bMean) ** 2, 0) / sampleCount;
       const avgVariance = (rVar + gVar + bVar) / 3;
       if (avgVariance < 50) return false;
+      if (lowSatPixels > sampleCount * 0.8) return false;
+      if (skinPixels > sampleCount * 0.25) return false;
       if (channels >= 4) {
         let transparentPixels = 0;
         for (let y = 0; y < h; y += Math.max(1, Math.floor(h / 10))) {
@@ -605,6 +627,44 @@ async function searchWebImages(name, category) {
   return Array.from(allUrls);
 }
 
+/*
+ * Google Images — single fast HTTP request (~3-5s) that often returns product images.
+ * Much faster than scraping 6 retailer pages sequentially.
+ */
+async function searchGoogleImages(name, category) {
+  const queries = [
+    `${name} ${category} product`,
+    `${name} pc component`,
+  ];
+  for (const q of queries.slice(0, 1)) {
+    try {
+      const resp = await fetchWithTimeout(
+        `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(q)}`,
+        10000
+      );
+      if (!resp || !resp.ok) continue;
+      const html = await resp.text();
+      const patterns = [
+        /"(https?:\/\/[^"]+\.(?:jpg|jpeg|png|webp)(?:\?[^"]*)?)"/gi,
+        /\["(https?:\/\/[^"]+\.(?:jpg|jpeg|png|webp)[^"]*)"/gi,
+        /"ou":"([^"]+\.(?:jpg|jpeg|png|webp)[^"]*)"/gi,
+      ];
+      for (const pat of patterns) {
+        const matches = [...html.matchAll(pat)];
+        for (const m of matches) {
+          let u = m[1].replace(/\\u003d/g, '=').replace(/\\u0026/g, '&').replace(/\\x3d/g, '=').replace(/\\x26/g, '&');
+          if (u.length > 50 && u.length < 500 &&
+              !/google|gstatic|pixel|tracking|logo|icon|favicon|data:/i.test(u) &&
+              !u.includes('encrypted-tbn')) {
+            return u;
+          }
+        }
+      }
+    } catch {}
+  }
+  return null;
+}
+
 async function downloadProductImages(categories, noScrape = false) {
   log('\n═══ Phase 3: Product Images ═══');
 
@@ -670,41 +730,45 @@ async function downloadProductImages(categories, noScrape = false) {
     const batchStart = Date.now();
     let batchDone = 0;
 
-    for (const item of batch) {
+    /* ── Process items concurrently in small groups ── */
+    const pool = async (items, concurrency, fn) => {
+      const results = [];
+      for (let i = 0; i < items.length; i += concurrency) {
+        const chunk = items.slice(i, i + concurrency);
+        const chunkResults = await Promise.all(chunk.map(item => fn(item)));
+        results.push(...chunkResults);
+      }
+      return results;
+    };
+
+    const processOne = async (item) => {
       const sanitized = sanitize(item.name);
       const shortName = item.name.length > 55 ? item.name.substring(0, 52) + '...' : item.name;
       const destExts = ['.jpg', '.png', '.webp'];
       const existing = destExts.find(e => fs.existsSync(path.join(THUMB_DIR, `${category}_${sanitized}${e}`)));
-      if (existing) { skipped++; batchDone++; continue; }
-
-      // Show current item being processed
-      progress.currentItem = shortName;
-      progress.batchTotal = batchTotal;
-      if (batchDone % 5 === 0 || batchDone === 0) {
-        log(`  [SCRAPE] ${category} [${batchDone}/${batchTotal}] ${shortName}`);
-      }
+      if (existing) return { item, saved: false, skipped: true };
 
       let saved = false;
       let source = '';
 
-      // Try existing URL first
+      // 1. Existing URL (from PCPP CDN) — instant if URL present
       if (item.existingUrl && /^https?:\/\//i.test(item.existingUrl)) {
         const ext = (item.existingUrl.match(/\.(jpg|jpeg|png|webp|avif)/i) || [])[0] || '.jpg';
         const dest = path.join(THUMB_DIR, `${category}_${sanitized}${ext}`);
         if (await verifyAndDownload(item.existingUrl, dest)) { saved = true; source = 'url'; }
       }
 
-      // Try retailer scraping
-      if (!saved && !noScrape) {
-        const retailerUrls = await scrapeRetailerImages(item.name, category);
-        for (const url of retailerUrls) {
-          const ext = (url.match(/\.(jpg|jpeg|png|webp|avif)/i) || [])[0] || '.jpg';
+      // 2. Google Images — fast single request
+      if (!saved) {
+        const url = await searchGoogleImages(item.name, category);
+        if (url) {
+          const ext = (url.match(/\.(jpg|jpeg|png|webp)/i) || [])[0] || '.jpg';
           const dest = path.join(THUMB_DIR, `${category}_${sanitized}${ext}`);
-          if (await verifyAndDownload(url, dest)) { saved = true; source = 'retailer'; break; }
+          if (await verifyAndDownload(url, dest)) { saved = true; source = 'google'; }
         }
       }
 
-      // Try web search
+      // 3. Web search (Jina/DuckDuckGo)
       if (!saved) {
         const webUrls = await searchWebImages(item.name, category);
         for (const url of webUrls) {
@@ -714,22 +778,45 @@ async function downloadProductImages(categories, noScrape = false) {
         }
       }
 
-      if (saved) {
+      // 4. Retailer scraping (last resort — slow)
+      if (!saved && !noScrape) {
+        const retailerUrls = await scrapeRetailerImages(item.name, category);
+        for (const url of retailerUrls) {
+          const ext = (url.match(/\.(jpg|jpeg|png|webp|avif)/i) || [])[0] || '.jpg';
+          const dest = path.join(THUMB_DIR, `${category}_${sanitized}${ext}`);
+          if (await verifyAndDownload(url, dest)) { saved = true; source = 'retailer'; break; }
+        }
+      }
+
+      return { item, saved, skipped: false, shortName, sanitized, source, destExts };
+    };
+
+    const results = await pool(batch, CONCURRENCY, processOne);
+
+    for (const r of results) {
+      if (r.skipped) { skipped++; batchDone++; continue; }
+
+      batchDone++;
+      progress.currentItem = r.shortName;
+      progress.batchTotal = batchTotal;
+      if (batchDone % 5 === 0 || batchDone === 0) {
+        log(`  [SCRAPE] ${category} [${batchDone}/${batchTotal}] ${r.shortName}`);
+      }
+
+      if (r.saved) {
         found++; progress.imagesFound++;
-        log(`  [OK] ${category}: ${shortName} (${source})`);
-        const outParts = parseCSVLine(csv.lines[item.i]);
+        log(`  [OK] ${category}: ${r.shortName} (${r.source})`);
+        const outParts = parseCSVLine(csv.lines[r.item.i]);
         while (outParts.length <= actualImgIdx) outParts.push('');
-        const ext = destExts.find(e => fs.existsSync(path.join(THUMB_DIR, `${category}_${sanitized}${e}`))) || '.jpg';
-        outParts[actualImgIdx] = `thumbnails/${category}_${sanitized}${ext}`;
-        csv.lines[item.i] = outParts.join(',');
-        // Write CSV immediately so dashboard sees live updates
+        const ext = r.destExts.find(e => fs.existsSync(path.join(THUMB_DIR, `${category}_${r.sanitized}${e}`))) || '.jpg';
+        outParts[actualImgIdx] = `thumbnails/${category}_${r.sanitized}${ext}`;
+        csv.lines[r.item.i] = outParts.join(',');
         writeCSV(csv.filePath, csv.lines);
-        progress.latestThumbnail = `thumbnails/${category}_${sanitized}${ext}`;
+        progress.latestThumbnail = `thumbnails/${category}_${r.sanitized}${ext}`;
       } else {
         failed++; progress.imagesFailed++;
       }
       total++;
-      batchDone++;
       progress.batchDone = batchDone;
       progress.overallProcessed++;
       writeProgress();

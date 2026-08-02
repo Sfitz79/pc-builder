@@ -4,6 +4,13 @@ import os from 'os';
 import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
 import http from 'http';
+import dotenv from 'dotenv';
+dotenv.config();
+import puppeteer from 'puppeteer-extra';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+puppeteer.use(StealthPlugin());
+import puppeteerCore from 'puppeteer-core';
+import { chromium as playwrightChromium } from 'playwright';
 import { main as runUpdateAll, auditCSVs, fixImagePaths, filterDiscontinued, downloadProductImages, downloadDocyxDataset, resolveBrandLogos, generateAIStatus } from '../update-all.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -19,6 +26,100 @@ const MASTER_PROGRESS = path.join(ROOT, 'master-update-progress.json');
 const PROGRESS_JSON = MASTER_PROGRESS;
 const DASHBOARD_HTML = path.join(ROOT, 'aioupdate-dashboard.html');
 
+export { APP_CONFIG, DB_TABLES, DATA_SOURCES };
+
+const APP_CONFIG = {
+  package: 'com.indraanisa.pcbuilder',
+  version: '2.6.1',
+  author: 'http://bit.ly/2BF4Qi9',
+  firebase: {
+    apiKey: 'AIzaSyB1-Nfh7NUh-C1NJCX_UTWpmDL4W8TZugU',
+    projectId: 'pc-builder-eebc7',
+    storageBucket: 'pc-builder-eebc7.appspot.com',
+    appId: '1:608081718634:android:f6681d263159365d37c913',
+    oauthClientId: '608081718634-nlaq402cea0npisc45d0egg5m82hg1g5.apps.googleusercontent.com',
+    analyticsUrl: 'https://app-measurement.com/a',
+    analyticsSgtmUrl: 'https://app-measurement.com/s/d',
+  },
+  admob: {
+    appId: 'ca-app-pub-1342416559539205~72650633488',
+  },
+  s3: {
+    assetBucket: 'https://pcbuilderapp.s3.us-east-2.amazonaws.com/',
+    updateJson: 'update.json',
+  },
+  google: {
+    conversionUrl: 'https://www.googleadservices.com/pagead/conversion/app/deeplink?id_type=adid&sdk_version=%s&rdid=%s&bundleid=%s&retry=%s',
+    pageadUrl: 'https://pagead2.googlesyndication.com/pagead/gen_204?id=gmob-apps',
+  },
+  amazon: {
+    us: 'https://www.amazon.com/dp/',
+    uk: 'https://www.amazon.co.uk/dp/',
+    de: 'https://www.amazon.de/dp/',
+    fr: 'https://www.amazon.fr/dp/',
+    es: 'https://www.amazon.es/dp/',
+    it: 'https://www.amazon.it/dp/',
+    ca: 'https://www.amazon.ca/dp/',
+    in: 'https://www.amazon.in/dp/',
+    au: 'https://www.amazon.com.au/dp/',
+  },
+};
+
+const DB_TABLES = {
+  pc_build: 'PC build configurations',
+  pc_build_dtl: 'PC build detail/line items',
+  pc_parts: 'Parts catalog (bundled locally)',
+  fav_parts: "User's favorite parts",
+  socket_proc: 'CPU socket/Motherboard compatibility',
+};
+
+const DATA_SOURCES = {
+  s3_assets: {
+    base_url: APP_CONFIG.s3.assetBucket,
+    update_check: `${APP_CONFIG.s3.assetBucket}${APP_CONFIG.s3.updateJson}`,
+    prices: `${APP_CONFIG.s3.assetBucket}prices/`,
+    images: `${APP_CONFIG.s3.assetBucket}images/`,
+    csvs: `${APP_CONFIG.s3.assetBucket}csvs/`,
+  },
+  affiliate_amazon: {
+    _priority: 'primary',
+    ...Object.fromEntries(
+      Object.entries(APP_CONFIG.amazon).map(([region, url]) => [`amazon_${region}`, url])
+    ),
+  },
+  uk_retailers: {
+    overclockers_uk: 'https://www.overclockers.co.uk/',
+    scan_uk: 'https://www.scan.co.uk/',
+    box_uk: 'https://www.box.co.uk/',
+    ccl_uk: 'https://www.cclonline.com/',
+    novatech_uk: 'https://www.novatech.co.uk/',
+    argos_uk: 'https://www.argos.co.uk/browse/technology/computing/pc-components/c:30049/',
+    currys_uk: 'https://www.currys.co.uk/pc-components/',
+    awdit_uk: 'https://www.awd-it.co.uk/',
+    laptops_direct_uk: 'https://www.laptopsdirect.co.uk/pc-components',
+  },
+  uk_price_comparison: {
+    pcpartpicker_uk: 'https://uk.pcpartpicker.com/',
+    marginseye: 'https://www.marginseye.com/',
+    cex_used_parts: 'https://uk.webuy.com/',
+  },
+  open_source_datasets: {
+    hardwaredealsco_gpu: 'https://hardwaredeals.co/datasets/gpu.json',
+    hardwaredealsco_ram: 'https://hardwaredeals.co/datasets/ram.json',
+    hardwaredealsco_ssd: 'https://hardwaredeals.co/datasets/drives.json',
+    hardwaredealsco_monitors: 'https://hardwaredeals.co/datasets/monitors.json',
+    pc_retailer_list: 'https://github.com/ElBozoII/PC-Retailer-List',
+  },
+  firebase: {
+    analytics: APP_CONFIG.firebase.analyticsUrl,
+    analytics_sgtm: APP_CONFIG.firebase.analyticsSgtmUrl,
+  },
+  google_tracking: {
+    conversion: APP_CONFIG.google.conversionUrl,
+    pagead: APP_CONFIG.google.pageadUrl,
+  },
+};
+
 function readProgress() {
   for (const fp of [UPDATE_ALL_PROGRESS, MASTER_PROGRESS]) {
     try {
@@ -27,6 +128,15 @@ function readProgress() {
   }
   return null;
 }
+
+const PUPPETEER_DELAY_MS = 1500;
+let lastPuppeteerTime = 0;
+let browserInstance = null;
+
+const OBSCURA_PORT = 9222;
+const OBSCURA_PATH = path.join(ROOT, 'obscura', 'obscura.exe');
+let obscuraProcess = null;
+let obscuraBrowser = null;
 
 const HEALTH_CHECK_INTERVAL = 5 * 60 * 1000;
 const DASHBOARD_POLL_INTERVAL = 1000;
@@ -782,27 +892,34 @@ async function importPCPPData() {
   const pcppFiles = fs.existsSync(downloadDir) ? fs.readdirSync(downloadDir).filter(f => f.startsWith('uk-pcpartpicker-com-') && f.endsWith('.csv')) : [];
   if (pcppFiles.length === 0) { log('  No PCPP CSVs in Downloads'); return; }
 
-  const CATEGORY_MAP2 = {
-    'cpu': { file: 'cpu.csv', urlCol: 'Image URL', priceCol: 'Sale Price' },
-    'video-card': { file: 'gpu.csv', urlCol: 'Image URL', priceCol: 'Sale Price' },
-    'case-fan': { file: 'case-fan.csv', urlCol: 'Image URL', priceCol: 'Sale Price' },
-    'power-supply': { file: 'power-supply.csv', urlCol: 'Image URL', priceCol: 'Sale Price' },
-    'internal-hard-drive': { file: 'storage.csv', urlCol: 'Image URL', priceCol: 'Sale Price' },
-    'cpu-cooler': { file: 'cooler.csv', urlCol: 'Image URL', priceCol: 'Sale Price' },
-    'memory': { file: 'ram.csv', urlCol: 'Image URL', priceCol: 'Sale Price' },
-  };
+  // Detect category by column signature (PCPP exports have date-based filenames)
+  const COLUMN_SIGNATURES = [
+    { match: ['performance_core_clock', 'core_count', 'tdp', 'integrated_graphics'], file: 'cpu.csv', urlCol: 'Image URL', priceCol: 'Sale Price' },
+    { match: ['chipset', 'memory', 'core_clock', 'boost_clock'], file: 'gpu.csv', urlCol: 'Image URL', priceCol: 'Sale Price' },
+    { match: ['fan_rpm', 'noise_level', 'radiator_size'], file: 'cooler.csv', urlCol: 'Image URL', priceCol: 'Sale Price' },
+    { match: ['speed', 'modules', 'cas_latency', 'first_word_latency'], file: 'ram.csv', urlCol: 'Image URL', priceCol: 'Sale Price' },
+    { match: ['capacity', 'interface', 'type', 'form_factor'], file: 'storage.csv', urlCol: 'Image URL', priceCol: 'Sale Price' },
+    { match: ['wattage', 'efficiency_rating', 'modular'], file: 'power-supply.csv', urlCol: 'Image URL', priceCol: 'Sale Price' },
+    { match: ['chipset', 'form_factor', 'socket'], file: 'motherboard.csv', urlCol: 'Image URL', priceCol: 'Sale Price' },
+    { match: ['case_fan'], file: 'case-fan.csv', urlCol: 'Image URL', priceCol: 'Sale Price' },
+  ];
 
   for (const pf of pcppFiles) {
-    const catKey = pf.replace('uk-pcpartpicker-com-', '').replace('.csv', '');
-    if (!CATEGORY_MAP2[catKey]) { log(`  ${pf}: no category mapping, skipping`); continue; }
-    const cfg = CATEGORY_MAP2[catKey];
-    const csvPath = path.join(DATA_DIR, cfg.file);
-    const existing = readCSV(csvPath);
-    if (!existing) continue;
     const pcppText = fs.readFileSync(path.join(downloadDir, pf), 'utf-8');
     const pcppLines = pcppText.split(/\r?\n/).filter(l => l.trim());
     if (pcppLines.length < 2) continue;
     const pcppHeader = parseCSVLine(pcppLines[0]);
+    const headerSet = new Set(pcppHeader.map(h => h.toLowerCase().replace(/[0-9]/g, '').trim()));
+
+    let cfg = null;
+    for (const sig of COLUMN_SIGNATURES) {
+      if (sig.match.every(col => headerSet.has(col))) { cfg = sig; break; }
+    }
+    if (!cfg) { log(`  ${pf}: unrecognised columns, skipping`); continue; }
+    log(`  ${pf}: detected as ${cfg.file}`);
+    const csvPath = path.join(DATA_DIR, cfg.file);
+    const existing = readCSV(csvPath);
+    if (!existing) continue;
     const urlIdx = pcppHeader.indexOf(cfg.urlCol);
     const priceIdx = pcppHeader.indexOf(cfg.priceCol);
     const pNameIdx = pcppHeader.indexOf('Product Name');
@@ -853,6 +970,930 @@ async function importPCPPData() {
   }
 }
 
+async function importOpenSourceDatasets() {
+  log('\n=== Phase: Import Open Source Datasets ===');
+  const datasets = DATA_SOURCES.open_source_datasets;
+  const CATEGORY_MAP = {
+    gpu: 'hardwaredealsco_gpu',
+    ram: 'hardwaredealsco_ram',
+    storage: 'hardwaredealsco_ssd',
+    monitor: 'hardwaredealsco_monitors',
+  };
+
+  for (const [csvName, sourceKey] of Object.entries(CATEGORY_MAP)) {
+    const url = datasets[sourceKey];
+    if (!url) continue;
+    const targetFile = `${csvName}.csv`;
+    const targetPath = path.join(DATA_DIR, targetFile);
+    const existing = readCSV(targetPath);
+    if (!existing) { log(`  ${targetFile}: no existing CSV, skipping`); continue; }
+
+    try {
+      const resp = await fetch(url);
+      if (!resp.ok) { log(`  ${sourceKey}: HTTP ${resp.status}`); continue; }
+      const items = await resp.json();
+      if (!Array.isArray(items) || items.length === 0) { log(`  ${sourceKey}: empty`); continue; }
+
+      const nameIdx = existing.header.indexOf('name');
+      const priceIdx = existing.header.indexOf('price');
+      const existingMap = new Map();
+      for (let i = 1; i < existing.lines.length; i++) {
+        const parts = parseCSVLine(existing.lines[i]);
+        existingMap.set((parts[nameIdx] || '').toLowerCase(), i);
+      }
+
+      let updated = 0, added = 0;
+      for (const item of items) {
+        const name = item.name || item.title || item.product_name || '';
+        if (!name) continue;
+        const key = name.toLowerCase();
+        const price = item.price || item.sale_price || item.current_price || '';
+
+        if (existingMap.has(key)) {
+          const ourIdx = existingMap.get(key);
+          const ourParts = parseCSVLine(existing.lines[ourIdx]);
+          let modified = false;
+          if (priceIdx >= 0 && price && (!ourParts[priceIdx] || ourParts[priceIdx] === '' || ourParts[priceIdx] === '0')) {
+            ourParts[priceIdx] = String(price);
+            modified = true;
+          }
+          if (modified) { existing.lines[ourIdx] = ourParts.join(','); updated++; }
+        } else if (price) {
+          const newParts = existing.header.map(() => '');
+          newParts[nameIdx] = `"${name}"`;
+          if (priceIdx >= 0) newParts[priceIdx] = String(price);
+          existing.lines.push(newParts.join(','));
+          added++;
+        }
+      }
+
+      fs.writeFileSync(targetPath, existing.lines.join('\n'), 'utf-8');
+      log(`  ${targetFile}: ${updated} updated, ${added} added`);
+    } catch (e) {
+      log(`  ${sourceKey}: error - ${e.message}`);
+    }
+  }
+}
+
+const PRICE_RETAILERS = {
+  'amazon.co.uk': (q) => `https://www.amazon.co.uk/s?k=${encodeURIComponent(q)}&i=computers&rh=p_6%3AA3P5ROKF5B19Y3`,
+  'scan.co.uk': (q) => `https://www.scan.co.uk/search#q=${encodeURIComponent(q)}`,
+  'overclockers.co.uk': (q) => `https://www.overclockers.co.uk/search?search=${encodeURIComponent(q)}`,
+  'box.co.uk': (q) => `https://www.box.co.uk/search?q=${encodeURIComponent(q)}`,
+  'cclonline.com': (q) => `https://www.cclonline.com/catalogsearch/result/?q=${encodeURIComponent(q)}`,
+  'novatech.co.uk': (q) => `https://www.novatech.co.uk/search/?q=${encodeURIComponent(q)}`,
+  'awd-it.co.uk': (q) => `https://www.awd-it.co.uk/catalogsearch/result/?q=${encodeURIComponent(q)}`,
+};
+
+const CATEGORY_MIN_PRICE = {
+  cpu: 30, gpu: 50, motherboard: 40, ram: 10, cooler: 10,
+  storage: 15, 'power-supply': 20, case: 20, 'case-fan': 3,
+  monitor: 80, keyboard: 10, mouse: 5, webcam: 15, speakers: 10,
+  headphones: 10, 'sound-card': 20, 'optical-drive': 10,
+  'thermal-paste': 2, ups: 30, os: 20,
+  'external-hard-drive': 15, 'fan-controller': 10,
+  'wired-network-card': 10, 'wireless-network-card': 10,
+  'case-accessory': 5,
+};
+
+const CATEGORY_MAX_PRICE = {
+  cpu: 6000, gpu: 3000, motherboard: 1500, ram: 800, cooler: 500,
+  storage: 800, 'power-supply': 600, case: 800, 'case-fan': 80,
+  monitor: 5000, keyboard: 500, mouse: 300, webcam: 300, speakers: 2000,
+  headphones: 2000, 'sound-card': 800, 'optical-drive': 200,
+  'thermal-paste': 30, ups: 2000, os: 400,
+  'external-hard-drive': 600, 'fan-controller': 100,
+  'wired-network-card': 200, 'wireless-network-card': 200,
+  'case-accessory': 100,
+};
+
+function isValidPrice(price, csvFile) {
+  if (!price || isNaN(price) || price <= 0) return false;
+  const cat = csvFile ? csvFile.replace('.csv', '') : '';
+  const min = CATEGORY_MIN_PRICE[cat] || 1;
+  const max = CATEGORY_MAX_PRICE[cat] || 10000;
+  return price >= min && price <= max;
+}
+
+function isUnavailable(html) {
+  const unavailPatterns = [
+    /currently\s+unavailable/i,
+    /out\s+of\s+stock/i,
+    /not\s+currently\s+available/i,
+    /we\s+don't\s+know\s+when/i,
+    /this\s+product\s+is\s+no\s+longer/i,
+    /discontinued/i,
+    /price\s+not\s+available/i,
+  ];
+  return unavailPatterns.some(p => p.test(html));
+}
+
+async function fetchWithTimeout(url, timeout = 8000) {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+  try {
+    const res = await fetch(url, { signal: controller.signal, headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', 'Accept-Language': 'en-GB,en;q=0.9' } });
+    clearTimeout(id); return res;
+  } catch (e) { clearTimeout(id); throw e; }
+}
+
+async function getBrowser() {
+  if (browserInstance && browserInstance.connected) return browserInstance;
+  log('  [PUPPETEER] Launching browser...');
+  browserInstance = await puppeteer.launch({
+    headless: 'new',
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--disable-web-security'],
+    defaultViewport: { width: 1366, height: 768 },
+  });
+  log('  [PUPPETEER] Browser launched');
+  return browserInstance;
+}
+
+async function puppeteerScrape(url, opts = {}) {
+  const now = Date.now();
+  const wait = PUPPETEER_DELAY_MS - (now - lastPuppeteerTime);
+  if (wait > 0) await new Promise(r => setTimeout(r, wait));
+
+  let browser;
+  let page;
+  try {
+    browser = await getBrowser();
+    page = await browser.newPage();
+    lastPuppeteerTime = Date.now();
+
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+    await page.setExtraHTTPHeaders({ 'Accept-Language': 'en-GB,en;q=0.9' });
+
+    const waitUntil = opts.waitUntil || 'networkidle2';
+    await page.goto(url, { waitUntil, timeout: 30000 });
+
+    if (opts.waitForSelector) {
+      try {
+        await page.waitForSelector(opts.waitForSelector, { timeout: 10000 });
+      } catch {
+        log(`  [PUPPETEER] Selector "${opts.waitForSelector}" not found, continuing with current content`);
+      }
+    }
+
+    await new Promise(r => setTimeout(r, opts.delay || 1500));
+
+    const html = await page.content();
+    return { html };
+  } catch (e) {
+    log(`  [PUPPETEER] Error scraping ${url}: ${e.message}`);
+    throw e;
+  } finally {
+    if (page) {
+      try { await page.close(); } catch {}
+    }
+  }
+}
+
+async function closeBrowser() {
+  if (browserInstance) {
+    try { await browserInstance.close(); } catch {}
+    browserInstance = null;
+  }
+}
+
+async function startObscura() {
+  if (!fs.existsSync(OBSCURA_PATH)) {
+    log(`  [OBSCURA] Binary not found at ${OBSCURA_PATH}`);
+    return false;
+  }
+  return true;
+}
+
+async function getObscuraBrowser() {
+  throw new Error('Use obscuraScrape() with CLI fetch instead of CDP');
+}
+
+async function obscuraScrape(url, opts = {}) {
+  if (!fs.existsSync(OBSCURA_PATH)) throw new Error('Obscura binary not found');
+
+  const now = Date.now();
+  const wait = PUPPETEER_DELAY_MS - (now - lastPuppeteerTime);
+  if (wait > 0) await new Promise(r => setTimeout(r, wait));
+  lastPuppeteerTime = Date.now();
+
+  const timeoutSec = Math.min(Math.max(opts.timeout || 60, 30), 120);
+  const waitSec = Math.min(Math.max(opts.delay || 15, 5), 60);
+
+  const args = ['fetch', '--stealth', '--quiet', '--wait', String(waitSec), '--timeout', String(timeoutSec), '--dump', 'html', url];
+
+  log(`  [OBSCURA] CLI fetch: ${url} (wait=${waitSec}s, timeout=${timeoutSec}s)`);
+  try {
+    const { execFileSync } = await import('child_process');
+    const html = execFileSync(OBSCURA_PATH, args, {
+      timeout: (timeoutSec + waitSec + 30) * 1000,
+      maxBuffer: 50 * 1024 * 1024,
+      encoding: 'utf-8',
+      windowsHide: true,
+    });
+    log(`  [OBSCURA] Got ${html.length} chars`);
+    return { html };
+  } catch (e) {
+    const stderr = e.stderr || '';
+    const stdout = e.stdout || '';
+    const output = stdout + stderr;
+    if (output.includes('Just a moment') || output.includes('page loaded')) {
+      log(`  [OBSCURA] Page loaded (may have Cloudflare challenge)`);
+      return { html: output };
+    }
+    log(`  [OBSCURA] Error: ${e.message}`);
+    throw e;
+  }
+}
+
+async function closeObscura() {
+  if (obscuraBrowser) {
+    try { await obscuraBrowser.disconnect(); } catch {}
+    obscuraBrowser = null;
+  }
+}
+
+let playwrightBrowser = null;
+
+async function getPlaywrightBrowser() {
+  if (playwrightBrowser && playwrightBrowser.isConnected()) return playwrightBrowser;
+  log('  [PLAYWRIGHT] Launching browser...');
+  playwrightBrowser = await playwrightChromium.launch({
+    headless: true,
+    args: ['--disable-blink-features=AutomationControlled'],
+  });
+  log('  [PLAYWRIGHT] Browser launched');
+  return playwrightBrowser;
+}
+
+async function closePlaywrightBrowser() {
+  if (playwrightBrowser) {
+    try { await playwrightBrowser.close(); } catch {}
+    playwrightBrowser = null;
+  }
+}
+
+async function playwrightScrape(url, opts = {}) {
+  const now = Date.now();
+  const wait = PUPPETEER_DELAY_MS - (now - lastPuppeteerTime);
+  if (wait > 0) await new Promise(r => setTimeout(r, wait));
+
+  let browser;
+  let context;
+  let page;
+  try {
+    browser = await getPlaywrightBrowser();
+    context = await browser.newContext({
+      userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      locale: 'en-GB',
+      viewport: { width: 1366, height: 768 },
+    });
+    page = await context.newPage();
+    lastPuppeteerTime = Date.now();
+
+    await page.goto(url, { waitUntil: opts.waitUntil || 'domcontentloaded', timeout: opts.timeout || 30000 });
+
+    if (opts.waitForCloudflare) {
+      for (let i = 0; i < 15; i++) {
+        const title = await page.title();
+        if (!title.includes('moment') && !title.includes('challenge')) break;
+        log(`  [PLAYWRIGHT] Cloudflare challenge, waiting... (${i + 1}/15)`);
+        await page.waitForTimeout(3000);
+      }
+    }
+
+    if (opts.waitForSelector) {
+      try {
+        await page.waitForSelector(opts.waitForSelector, { timeout: opts.selectorTimeout || 10000 });
+      } catch {
+        log(`  [PLAYWRIGHT] Selector "${opts.waitForSelector}" not found, continuing`);
+      }
+    }
+
+    await page.waitForTimeout(opts.delay || 1500);
+
+    const html = await page.content();
+    return { html };
+  } catch (e) {
+    log(`  [PLAYWRIGHT] Error scraping ${url}: ${e.message}`);
+    throw e;
+  } finally {
+    if (page) { try { await page.close(); } catch {} }
+    if (context) { try { await context.close(); } catch {} }
+  }
+}
+
+const BROWSERLESS_TOKEN = process.env.BROWSERLESS_TOKEN || '';
+const BROWSERLESS_FLEET = 'production-lon';
+
+async function browserlessScrape(url, opts = {}) {
+  if (!BROWSERLESS_TOKEN) throw new Error('BROWSERLESS_TOKEN not set');
+
+  const timeout = opts.timeout || 120000;
+  const proxy = opts.proxy || 'residential';
+  const proxyCountry = opts.proxyCountry || 'gb';
+
+  const queryParams = new URLSearchParams({
+    timeout,
+    proxy,
+    proxyCountry,
+    token: BROWSERLESS_TOKEN,
+  }).toString();
+
+  const unblockURL = `https://${BROWSERLESS_FLEET}.browserless.io/chromium/unblock?${queryParams}`;
+
+  log(`  [BROWSERLESS] Unblocking ${url}`);
+  const resp = await fetch(unblockURL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      url,
+      content: true,
+      cookies: false,
+      screenshot: false,
+    }),
+  });
+
+  if (!resp.ok) {
+    const errText = await resp.text();
+    throw new Error(`Browserless unblock ${resp.status}: ${errText}`);
+  }
+
+  const data = await resp.json();
+  const html = data.content || '';
+  if (!html) throw new Error('Browserless returned empty content');
+  log(`  [BROWSERLESS] Got ${html.length} chars`);
+  return { html };
+}
+
+function parseAmazonSearchHtml(html, searchName) {
+  if (!html) return [];
+  const results = [];
+  const seen = new Set();
+
+  const linkPattern = /href="(\/[^"]*\/dp\/([A-Z0-9]{10})[^"]*)"/gi;
+  let m;
+  while ((m = linkPattern.exec(html)) !== null) {
+    if (seen.has(m[2])) continue;
+    seen.add(m[2]);
+    const asin = m[2];
+
+    const startIdx = Math.max(0, m.index - 2000);
+    const endIdx = Math.min(html.length, m.index + 3000);
+    const context = html.substring(startIdx, endIdx);
+
+    const priceMatch = context.match(/£([\d,]+\.?\d{2})/);
+    const price = priceMatch ? parseFloat(priceMatch[1].replace(/,/g, '')) : null;
+
+    const titleMatch = context.match(/class="a-size-?medium[^"]*"[^>]*>\s*<span[^>]*>([^<]+)/i) ||
+                       context.match(/class="a-size-?base[^"]*"[^>]*>\s*<span[^>]*>([^<]+)/i) ||
+                       context.match(/alt="([^"]{10,})"/i);
+    const title = titleMatch ? titleMatch[1].trim().replace(/&amp;/g, '&') : null;
+
+    const imgMatch = context.match(/src="(https:\/\/m\.media-amazon\.com\/images\/I\/[^"]+)"/i);
+    const image = imgMatch ? imgMatch[1] : null;
+
+    results.push({ price, asin, image, title });
+  }
+
+  if (results.length === 0) {
+    const allAsins = [...html.matchAll(/\/dp\/([A-Z0-9]{10})/gi)].map(m => m[1]);
+    const allPrices = [...html.matchAll(/£([\d,]+\.\d{2})/g)].map(m => parseFloat(m[1].replace(/,/g, '')));
+    const uniqueAsins = [...new Set(allAsins)];
+    for (let i = 0; i < Math.min(uniqueAsins.length, 5); i++) {
+      const price = allPrices[i] || null;
+      if (price && !seen.has(uniqueAsins[i])) {
+        seen.add(uniqueAsins[i]);
+        results.push({ price, asin: uniqueAsins[i], image: null, title: null });
+      }
+    }
+  }
+  return results;
+}
+
+function parseAmazonProductHtml(html) {
+  if (!html) return { price: null, available: true, image: null, title: null };
+
+  let price = null;
+  const pricePatterns = [
+    /class="a-price-whole">([\d,]+)<.*?class="a-price-fraction">(\d+)/s,
+    /<span[^>]*class="a-offscreen"[^>]*>£([\d,]+\.?\d*)/,
+    /"priceAmount":([\d.]+)/,
+    /id="priceblock_ourprice"[^>]*>£([\d,]+\.?\d{2})/,
+    /id="priceblock_dealprice"[^>]*>£([\d,]+\.?\d{2})/,
+  ];
+  for (const p of pricePatterns) {
+    const m = html.match(p);
+    if (m) {
+      const priceStr = m[2] ? `${m[1]}.${m[2]}` : m[1];
+      price = parseFloat(priceStr.replace(/,/g, ''));
+      if (price > 0) break;
+    }
+  }
+
+  let available = true;
+  if (/currently\s+unavailable/i.test(html)) available = false;
+  if (/out\s+of\s+stock/i.test(html)) available = false;
+  if (/we\s+don.t\s+know\s+when/i.test(html)) available = false;
+  if (/this\s+product\s+is\s+no\s+longer/i.test(html)) available = false;
+
+  let image = null;
+  const imgPatterns = [
+    /"hiRes":"(https?:\/\/[^"]+)"/i,
+    /"large":"(https?:\/\/[^"]+)"/i,
+    /id="landingImage"[^>]*src="(https?:\/\/[^"]+)"/i,
+    /data-old-hires="(https?:\/\/[^"]+\.jpg)"/i,
+    /https?:\/\/m\.media-amazon\.com\/images\/I\/[A-Za-z0-9]+(?:\._[A-Z0-9_]+)?\.(?:jpg|png|webp)/i,
+  ];
+  for (const p of imgPatterns) {
+    const m = html.match(p);
+    if (m) { image = m[1] || m[0]; break; }
+  }
+
+  return { price, available, image, title: null };
+}
+
+const PCPP_CATEGORY_MAP = {
+  cpu: 'https://uk.pcpartpicker.com/products/cpu/',
+  cooler: 'https://uk.pcpartpicker.com/products/cpu-cooler/',
+  motherboard: 'https://uk.pcpartpicker.com/products/motherboard/',
+  ram: 'https://uk.pcpartpicker.com/products/memory/',
+  gpu: 'https://uk.pcpartpicker.com/products/video-card/',
+  storage: 'https://uk.pcpartpicker.com/products/internal-hard-drive/',
+  'power-supply': 'https://uk.pcpartpicker.com/products/power-supply/',
+  case: 'https://uk.pcpartpicker.com/products/case/',
+  'case-fan': 'https://uk.pcpartpicker.com/products/case-fan/',
+  monitor: 'https://uk.pcpartpicker.com/products/monitor/',
+  keyboard: 'https://uk.pcpartpicker.com/products/keyboard/',
+  mouse: 'https://uk.pcpartpicker.com/products/mouse/',
+  webcam: 'https://uk.pcpartpicker.com/products/webcam/',
+  speakers: 'https://uk.pcpartpicker.com/products/speakers/',
+  headphones: 'https://uk.pcpartpicker.com/products/headphones/',
+  'external-hard-drive': 'https://uk.pcpartpicker.com/products/external-hard-drive/',
+  'sound-card': 'https://uk.pcpartpicker.com/products/sound-card/',
+};
+
+const pcppIndexCache = {};
+
+function parsePCPPHtml(html) {
+  const products = [];
+  const rows = html.match(/<tr[^>]*class="[^"]*tr__product[^"]*"[^>]*>[\s\S]*?<\/tr>/gi) || [];
+  for (const row of rows) {
+    const nameMatch = row.match(/td__nameWrapper[^>]*>\s*<p>([^<]+)/i);
+    const altMatch = row.match(/alt="([^"]{5,})"/i);
+    const priceMatch = row.match(/£([\d,]+\.?\d{2})/);
+    const imgMatch = row.match(/src="(https:\/\/cdna\.pcpartpicker\.com\/[^"]+)"/i);
+    const linkMatch = row.match(/href="(https:\/\/uk\.pcpartpicker\.com\/product\/[^"]+)"/i);
+    const name = nameMatch ? nameMatch[1].trim() : (altMatch ? altMatch[1].trim() : null);
+    const price = priceMatch ? parseFloat(priceMatch[1].replace(/,/g, '')) : null;
+    if (name && price && price > 0) {
+      products.push({ name, price, image: imgMatch ? imgMatch[1] : null, link: linkMatch ? linkMatch[1] : null });
+    }
+  }
+  if (products.length > 0) return products;
+
+  const productLinks = [...html.matchAll(/href="(https:\/\/uk\.pcpartpicker\.com\/product\/[^"]+)"/gi)];
+  const seen = new Set();
+  for (const linkMatch of productLinks) {
+    const link = linkMatch[1];
+    if (seen.has(link)) continue;
+    seen.add(link);
+    const startIdx = Math.max(0, linkMatch.index - 2000);
+    const endIdx = Math.min(html.length, linkMatch.index + 2000);
+    const context = html.substring(startIdx, endIdx);
+    const nameMatch = context.match(/alt="([^"]{10,})"/i) || context.match(/<p[^>]*>([^<]{10,})<\/p>/i);
+    const priceMatch = context.match(/£([\d,]+\.?\d{2})/);
+    const imgMatch = context.match(/src="(https:\/\/cdna\.pcpartpicker\.com\/[^"]+)"/i);
+    const name = nameMatch ? nameMatch[1].trim() : null;
+    const price = priceMatch ? parseFloat(priceMatch[1].replace(/,/g, '')) : null;
+    if (name && price && price > 0) {
+      products.push({ name, price, image: imgMatch ? imgMatch[1] : null, link });
+    }
+  }
+  return products;
+}
+
+function parsePCPPProductPage(html) {
+  const result = { name: null, price: null, image: null, available: false, retailers: [] };
+  if (!html || html.length < 1000) return result;
+
+  const titleMatch = html.match(/<title>([^<]+)<\/title>/i);
+  if (titleMatch) {
+    const rawTitle = titleMatch[1].replace(/\s*-\s*PCPartPicker\s*$/i, '').trim();
+    result.name = rawTitle;
+  }
+
+  const priceMatches = [...html.matchAll(/£([\d,]+\.?\d{2})/g)];
+  if (priceMatches.length > 0) {
+    const prices = priceMatches.map(m => parseFloat(m[1].replace(/,/g, ''))).filter(p => p > 0);
+    if (prices.length > 0) result.price = Math.min(...prices);
+  }
+
+  const imgPatterns = [
+    /src="(https:\/\/cdna\.pcpartpicker\.com\/static\/img\/[^"]+)"/i,
+    /src="(https:\/\/[^"]*pcpartpicker[^"]*\.(?:jpg|png|webp))/i,
+  ];
+  for (const p of imgPatterns) {
+    const m = html.match(p);
+    if (m && !m[1].includes('vendor-logos') && !m[1].includes('icon')) {
+      result.image = m[1]; break;
+    }
+  }
+
+  const availMatches = [...html.matchAll(/class="td__availability[^"]*"[^>]*>([^<]+)</gi)];
+  result.available = availMatches.some(m => /in\s*stock/i.test(m[1]));
+
+  const rowPattern = /<tr>\s*<td class="td__logo">([\s\S]*?)<\/tr>/gi;
+  let rowMatch;
+  while ((rowMatch = rowPattern.exec(html)) !== null) {
+    const rowHtml = rowMatch[1] + (html.substring(rowMatch.index, rowMatch.index + rowMatch[0].length));
+    const retailerMatch = rowHtml.match(/alt="([^"]+)"/);
+    const priceMatch = rowHtml.match(/£([\d,]+\.?\d{2})/);
+    const availMatch = rowHtml.match(/class="td__availability[^"]*"[^>]*>([^<]+)</);
+    const urlMatch = rowHtml.match(/href="(https?:\/\/[^"]+)"/);
+    if (retailerMatch && priceMatch) {
+      result.retailers.push({
+        retailer: retailerMatch[1].trim(),
+        price: parseFloat(priceMatch[1].replace(/,/g, '')),
+        available: availMatch ? /in\s*stock/i.test(availMatch[1]) : false,
+        url: urlMatch ? urlMatch[1] : null,
+      });
+    }
+  }
+
+  return result;
+}
+
+async function buildPCPPIndex(csvFile) {
+  const cat = csvFile.replace('.csv', '');
+  if (pcppIndexCache[cat]) return pcppIndexCache[cat];
+
+  const url = PCPP_CATEGORY_MAP[cat];
+  if (!url) { pcppIndexCache[cat] = []; return []; }
+
+  log(`  [PCPP] Building index for ${cat} from ${url}`);
+  try {
+    let products = [];
+
+    if (fs.existsSync(OBSCURA_PATH)) {
+      log(`  [PCPP] Using Obscura for ${cat}...`);
+      try {
+        const data = await obscuraScrape(url, { delay: 20000 });
+        products = parsePCPPHtml(data.html || '');
+        if (products.length === 0 && !data.html.includes('Just a moment')) {
+          log(`  [PCPP] ${cat}: Obscura loaded page but API blocked (403), category listing unavailable`);
+        } else if (products.length === 0) {
+          log(`  [PCPP] ${cat}: Cloudflare still blocking via Obscura`);
+        }
+      } catch (e) {
+        log(`  [PCPP] ${cat}: Obscura error: ${e.message}, falling back...`);
+      }
+    }
+
+    if (products.length === 0 && BROWSERLESS_TOKEN) {
+      log(`  [PCPP] Trying Browserless for ${cat}...`);
+      try {
+        const data = await browserlessScrape(url);
+        products = parsePCPPHtml(data.html || '');
+      } catch (e) {
+        log(`  [PCPP] ${cat}: Browserless error: ${e.message}`);
+      }
+    }
+
+    if (products.length === 0) {
+      log(`  [PCPP] ${cat}: No index available (Obscura/Browserless both failed or API blocked)`);
+    }
+
+    pcppIndexCache[cat] = products;
+    log(`  [PCPP] ${cat}: ${products.length} products indexed`);
+    return products;
+  } catch (e) {
+    log(`  [PCPP] ${cat} error: ${e.message}`);
+    pcppIndexCache[cat] = [];
+    return [];
+  }
+}
+
+function lookupPCPPIndex(name, csvFile) {
+  const cat = csvFile.replace('.csv', '');
+  const index = pcppIndexCache[cat] || [];
+  if (index.length === 0) return null;
+
+  let best = null;
+  let bestScore = 0;
+  for (const item of index) {
+    const score = nameSimilarity(name, item.name);
+    if (score > bestScore && score >= 0.5) {
+      bestScore = score;
+      best = item;
+    }
+  }
+  return best;
+}
+
+const MODERN_PATTERNS = {
+  cpu: /(?:ryzen\s*[3579]\s*[456789]\d{3}|ryzen\s*[3579]\s*[456789]00x|core\s*i[3579]\s*1[2-5]\d{3}|core\s*i[3579]\s*1[2-5]00[fk]?|athlon\s*(?:3|4)\d{3}|epyc\s*9\d{3}|threadripper\s*7\d{3})/i,
+  gpu: /(?:rtx\s*[345]\d{2}|rx\s*[67]\d{0,2}\d{2}\d?|arc\s*a[0-9]{3}|geforce\s*(?:rtx|gtx)\s*[345]\d{2}|radeon\s*rx\s*[67]\d)/i,
+  motherboard: /(?:b[56]50|x[56]70|z[67]90|b[67]0|h[67]0|x870|z890|b850|a620|trx40|sWRX8)/i,
+  ram: /(?:ddr[45]\s*\d{4,}|ddr[45]$)/i,
+  cooler: /(?:240|280|360|420)\s*(?:mm|rad)/i,
+  storage: /(?:nvme|ssd|m\.2|pcie\s*gen\s*[45]|gen\s*4|gen\s*5)/i,
+};
+
+const DISCONTINUED_PATTERNS = [
+  /\b(?:fx|phenom|athlon\s*ii|sempron|opteron|turion)\b/i,
+  /\b(?:core\s*i[3579]\s*[1-4]\d{3}|pentium\s*(?:g|j)\d{3}|celeron\s*g\d{3})\b/i,
+  /\b(?:gtx\s*[12]\d{2}|gt\s*[12]\d{2}|gts\s*450|gtx\s*6\d{2}|gtx\s*7\d{2}|gtx\s*9\d{2}|gtx\s*10[01]\d)\b/i,
+  /\b(?:hd\s*[5678]\d{3|r[79]\s*[23]\d{2})\b/i,
+  /\b(?:ddr[23]|sdr|rdram)\b/i,
+  /\b(?:lga\s*(?:115[056]|2011|1366|775|478))\b/i,
+  /\b(?:socket\s*(?:AM[234]|FM[12]|TR4|sTRX4|sWRX8))\b/i,
+  /\b(?:z\d{3}|h\d{3}[0-9]?|b\d{3}[0-9]?)\s*(?:201[0-9]|2020)\b/i,
+  /\b(?:radeon\s*rx\s*5[0-9]{2}|radeon\s*rx\s*v\d{2})\b/i,
+  /\b(?:geforce\s*gtx\s*16[0-5]\d)\b/i,
+  /(?:eol|end.of.life|discontinued|legacy|obsolete)/i,
+];
+
+function isDiscontinued(name) {
+  if (!name) return true;
+  return DISCONTINUED_PATTERNS.some(p => p.test(name));
+}
+
+function isModernPart(name) {
+  if (!name || isDiscontinued(name)) return false;
+  const lower = name.toLowerCase();
+  for (const [cat, pattern] of Object.entries(MODERN_PATTERNS)) {
+    if (pattern.test(lower)) return true;
+  }
+  if (/\b(20[2-3]\d)\b/.test(name)) return true;
+  if (/\b(ryzen|core\s*i[3579]|rtx|rx\s*[67]|ddr[45]|nvme|pcie)\b/i.test(name)) return true;
+  return false;
+}
+
+function extractAmazonImage(html) {
+  const patterns = [
+    /"hiRes":"(https?:\/\/[^"]+)"/i,
+    /"large":"(https?:\/\/[^"]+)"/i,
+    /id="landingImage"[^>]*src="(https?:\/\/[^"]+)"/i,
+    /data-old-hires="(https?:\/\/[^"]+\.jpg)"/i,
+    /https?:\/\/m\.media-amazon\.com\/images\/I\/[A-Za-z0-9]+(?:\._[A-Z0-9_]+)?\.(?:jpg|png|webp)/i,
+  ];
+  for (const p of patterns) {
+    const m = html.match(p);
+    if (m) return m[1] || m[0];
+  }
+  return null;
+}
+
+function nameSimilarity(a, b) {
+  const wordsA = new Set(a.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/).filter(w => w.length > 1));
+  const wordsB = new Set(b.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/).filter(w => w.length > 1));
+  let matches = 0;
+  for (const w of wordsA) { if (wordsB.has(w)) matches++; }
+  const unionSize = new Set([...wordsA, ...wordsB]).size;
+  const jaccard = matches / Math.max(unionSize, 1);
+  const digitsA = [...wordsA].filter(w => /\d{3,}/.test(w));
+  const digitsB = [...wordsB].filter(w => /\d{3,}/.test(w));
+  if (digitsA.length > 0 && digitsB.length > 0) {
+    const numMatch = digitsA.some(d => digitsB.some(d2 => d2.startsWith(d) || d.startsWith(d2)));
+    if (!numMatch && jaccard < 0.8) return 0;
+  }
+  return jaccard;
+}
+
+function findAmazonProductUrl(html) {
+  const seen = new Set();
+  const linkPattern = /href="(\/[^"]*\/dp\/([A-Z0-9]{10})[^"]*)"/gi;
+  let m;
+  while ((m = linkPattern.exec(html)) !== null) {
+    if (!seen.has(m[2])) {
+      seen.add(m[2]);
+      return `https://www.amazon.co.uk${m[1]}`;
+    }
+  }
+  return null;
+}
+
+function extractProductPagePrice(html) {
+  const patterns = [
+    /class="a-price-whole">([\d,]+)<.*?class="a-price-fraction">(\d+)/s,
+    /<span[^>]*class="a-offscreen"[^>]*>£([\d,]+\.?\d*)/,
+    /"priceAmount":([\d.]+)/,
+  ];
+  for (const p of patterns) {
+    const m = html.match(p);
+    if (m) {
+      const priceStr = m[2] ? `${m[1]}.${m[2]}` : m[1];
+      const price = parseFloat(priceStr.replace(/,/g, ''));
+      if (price > 0) return price;
+    }
+  }
+  return null;
+}
+
+function isProductAvailable(html) {
+  if (/currently\s+unavailable/i.test(html)) return false;
+  if (/out\s+of\s+stock/i.test(html)) return false;
+  if (/we\s+don.t\s+know\s+when/i.test(html)) return false;
+  if (/this\s+product\s+is\s+no\s+longer/i.test(html)) return false;
+  return true;
+}
+
+async function scrapeRetailerPrices(name, csvFile) {
+  const searchName = name.replace(/[^\w\s]/g, ' ').trim().substring(0, 100);
+  const results = { prices: [], image: null, available: true };
+
+  const pcppMatch = lookupPCPPIndex(name, csvFile);
+  if (pcppMatch) {
+    log(`  [PCPP] Match: ${pcppMatch.name} => £${pcppMatch.price}`);
+    if (isValidPrice(pcppMatch.price, csvFile)) results.prices.push(pcppMatch.price);
+    if (pcppMatch.image) results.image = pcppMatch.image;
+    if (pcppMatch.link && fs.existsSync(OBSCURA_PATH)) {
+      try {
+        log(`  [OBSCURA] Scraping PCPP product page: ${pcppMatch.link}`);
+        const pData = await obscuraScrape(pcppMatch.link, { delay: 25000 });
+        const pResult = parsePCPPProductPage(pData.html);
+        if (pResult.price && isValidPrice(pResult.price, csvFile)) {
+          results.prices = [pResult.price];
+        }
+        if (pResult.image && !results.image) results.image = pResult.image;
+        if (!pResult.available) results.available = false;
+        if (pResult.retailers.length > 0) {
+          log(`  [OBSCURA] PCPP retailers: ${pResult.retailers.map(r => `${r.retailer} £${r.price}`).join(', ')}`);
+        }
+      } catch (e) {
+        log(`  [OBSCURA] PCPP product page error: ${e.message}`);
+      }
+    }
+    return results;
+  }
+
+  const scraper = fs.existsSync(OBSCURA_PATH) ? obscuraScrape : puppeteerScrape;
+  const scraperTag = fs.existsSync(OBSCURA_PATH) ? 'OBSCURA' : 'PUPPETEER';
+
+  try {
+    const searchUrl = PRICE_RETAILERS['amazon.co.uk'](searchName);
+    log(`  [${scraperTag}] Scraping amazon.co.uk for "${searchName}"`);
+    const data = await scraper(searchUrl, { delay: 3000 });
+    const items = parseAmazonSearchHtml(data.html, searchName);
+    if (items.length > 0) {
+      let bestMatch = null;
+      let bestScore = 0;
+      for (const item of items) {
+        const title = item.title || '';
+        const score = nameSimilarity(searchName, title);
+        if (score > bestScore && score >= 0.25) { bestScore = score; bestMatch = item; }
+      }
+      if (!bestMatch && items.length > 0) bestMatch = items[0];
+
+      if (bestMatch) {
+        if (bestMatch.price && isValidPrice(bestMatch.price, csvFile)) results.prices.push(bestMatch.price);
+        if (bestMatch.image && !results.image) results.image = bestMatch.image;
+
+        if (bestMatch.asin && bestScore < 0.5) {
+          const productUrl = `https://www.amazon.co.uk/dp/${bestMatch.asin}`;
+          try {
+            const pData = await scraper(productUrl, { delay: 3000 });
+            const pResult = parseAmazonProductHtml(pData.html);
+            if (pResult.price && isValidPrice(pResult.price, csvFile)) {
+              results.prices = [pResult.price];
+            }
+            if (pResult.image && !results.image) results.image = pResult.image;
+            if (!pResult.available) results.available = false;
+          } catch (e) {
+            log(`    [${scraperTag}] Product page error: ${e.message}`);
+          }
+        }
+      }
+    }
+  } catch (e) {
+    log(`  [${scraperTag}] amazon.co.uk error: ${e.message}`);
+  }
+
+  return results;
+}
+
+async function scrapeMissingPrices() {
+  log('\n=== Phase: Scrape Modern Parts (UK/GBP + Availability) ===');
+  const csvFiles = fs.readdirSync(DATA_DIR).filter(f => f.endsWith('.csv'));
+  const eligibleFiles = [];
+  for (const file of csvFiles) {
+    const csvPath = path.join(DATA_DIR, file);
+    const csv = readCSV(csvPath);
+    if (!csv) continue;
+    const nameIdx = csv.header.indexOf('name');
+    const priceIdx = csv.header.indexOf('price');
+    if (nameIdx < 0 || priceIdx < 0) continue;
+    eligibleFiles.push(file);
+  }
+  state.totalCategories = eligibleFiles.length;
+  state.categoryIndex = 0;
+  state.itemsProcessed = 0;
+  state.itemsTotal = 0;
+  writeProgress();
+
+  let totalChecked = 0, totalUpdated = 0, totalModern = 0, totalOld = 0, totalDiscontinued = 0, totalUnavailable = 0;
+
+  for (let fi = 0; fi < eligibleFiles.length; fi++) {
+    const file = eligibleFiles[fi];
+    state.categoryIndex = fi + 1;
+    state.category = file.replace('.csv', '');
+    writeProgress();
+
+    const csvPath = path.join(DATA_DIR, file);
+    const csv = readCSV(csvPath);
+    if (!csv) continue;
+    const nameIdx = csv.header.indexOf('name');
+    const priceIdx = csv.header.indexOf('price');
+    const imgIdx = csv.header.indexOf('image');
+
+    await buildPCPPIndex(file);
+
+    let updated = 0, modernCount = 0, oldCount = 0, discCount = 0, unavailCount = 0;
+    const keptLines = [csv.lines[0]];
+    for (let i = 1; i < csv.lines.length; i++) {
+      const parts = parseCSVLine(csv.lines[i]);
+      const name = (parts[nameIdx] || '').trim();
+      if (!name) continue;
+
+      if (isDiscontinued(name)) { discCount++; totalDiscontinued++; continue; }
+      keptLines.push(csv.lines[i]);
+    }
+
+    let categoryItemsProcessed = 0;
+    const categoryModernCount = keptLines.length - 1;
+
+    for (let i = 1; i < keptLines.length; i++) {
+      const parts = parseCSVLine(keptLines[i]);
+      const name = (parts[nameIdx] || '').trim();
+      if (!name) continue;
+
+      const modern = isModernPart(name);
+      if (!modern) { oldCount++; categoryItemsProcessed++; continue; }
+      modernCount++;
+      totalChecked++;
+      categoryItemsProcessed++;
+
+      state.itemsProcessed = totalChecked;
+      state.progressPct = Math.min(100, (totalChecked / Math.max(categoryModernCount, 1)) * ((fi + 1) / eligibleFiles.length) * 100);
+      if (categoryItemsProcessed % 5 === 0) writeProgress();
+
+      const result = await scrapeRetailerPrices(name, file);
+      let modified = false;
+
+      if (!result.available) {
+        log(`  [UNAVAIL] ${file.replace('.csv','')}: ${name}`);
+        keptLines.splice(i, 1);
+        i--;
+        unavailCount++;
+        totalUnavailable++;
+        continue;
+      }
+
+      if (result.prices.length > 0) {
+        const avgPrice = result.prices.reduce((a, b) => a + b, 0) / result.prices.length;
+        if (isValidPrice(avgPrice, file)) {
+          const oldPrice = parts[priceIdx] ? parseFloat(parts[priceIdx]) : 0;
+          if (Math.abs(avgPrice - oldPrice) > 0.50) {
+            parts[priceIdx] = avgPrice.toFixed(2);
+            log(`  [PRICE] ${file.replace('.csv','')}: ${name} => £${avgPrice.toFixed(2)} (was £${oldPrice || '0'})`);
+            modified = true;
+          }
+        } else {
+          log(`  [SKIP] ${file.replace('.csv','')}: ${name} => £${avgPrice.toFixed(2)} out of range`);
+        }
+      }
+
+      if (result.image && imgIdx >= 0) {
+        const oldImg = (parts[imgIdx] || '').trim();
+        if (!oldImg || oldImg === '""' || oldImg === '') {
+          parts[imgIdx] = `"${result.image}"`;
+          log(`  [IMAGE] ${file.replace('.csv','')}: ${name} => image added`);
+          modified = true;
+        }
+      }
+
+      if (modified) {
+        keptLines[i] = parts.join(',');
+        updated++;
+        totalUpdated++;
+      }
+    }
+
+    totalModern += modernCount;
+    totalOld += oldCount;
+    state.itemsTotal = totalModern + totalOld;
+    writeProgress();
+
+    if (discCount > 0 || updated > 0 || unavailCount > 0) {
+      fs.writeFileSync(csvPath, keptLines.join('\n'), 'utf-8');
+      log(`  ${file}: ${updated} refreshed, ${modernCount} modern, ${oldCount} old, ${discCount} disc, ${unavailCount} unavail`);
+    } else {
+      log(`  ${file}: 0 changed, ${modernCount} modern, ${oldCount} old`);
+    }
+  }
+  log(`  Total: ${totalUpdated} refreshed, ${totalModern} modern, ${totalOld} old, ${totalDiscontinued} disc, ${totalUnavailable} unavail`);
+}
+
 async function runUpdateDirectly() {
   state.status = 'running';
   state.restartCount = (state.restartCount || 0) + 1;
@@ -887,8 +1928,19 @@ async function runUpdateDirectly() {
     writeProgress();
     await importDocyxData();
 
+    state.phase = 'Import Open Source Datasets';
+    state.phaseNumber = 0;
+    writeProgress();
+    await importOpenSourceDatasets();
+
+    state.phase = 'Scrape Missing Prices';
+    state.phaseNumber = 0;
+    writeProgress();
+    await scrapeMissingPrices();
+
     // Run the main update-all pipeline
     await runUpdateAll();
+    deployToVercel();
     state.status = 'complete';
     state.lastSuccess = Date.now();
     state.restartCount = 0;
@@ -897,12 +1949,19 @@ async function runUpdateDirectly() {
     log(`Update failed: ${err.message}`);
     state.status = 'error';
     state.phase = `Error: ${err.message}`;
+    await cleanupAll();
     if (state.restartCount < 10) {
       setTimeout(() => runUpdateDirectly(), 5000);
     }
   }
   saveState();
   writeProgress();
+}
+
+async function cleanupAll() {
+  await closeBrowser().catch(() => {});
+  await closePlaywrightBrowser().catch(() => {});
+  await closeObscura().catch(() => {});
 }
 
 function deployToVercel() {
@@ -1095,6 +2154,78 @@ async function runLoop() {
   }
 }
 
+function isInTimeWindow() {
+  const hour = new Date().getHours();
+  return hour >= 23 || hour < 8;
+}
+
+function msUntilWindowEnd() {
+  const now = new Date();
+  const end = new Date(now);
+  if (now.getHours() >= 23) {
+    end.setDate(end.getDate() + 1);
+  }
+  end.setHours(8, 0, 0, 0);
+  return Math.max(0, end - now);
+}
+
+function msUntilWindowStart() {
+  const now = new Date();
+  const hour = now.getHours();
+  if (hour >= 8 && hour < 23) {
+    const start = new Date(now);
+    start.setHours(23, 0, 0, 0);
+    return Math.max(0, start - now);
+  }
+  return 0;
+}
+
+async function scheduledLoop() {
+  log('Scheduled mode: will run daily 23:00-08:00');
+
+  while (true) {
+    const waitStart = msUntilWindowStart();
+    if (waitStart > 0) {
+      const waitMin = Math.round(waitStart / 60000);
+      log(`Waiting ${waitMin}min until 23:00 start...`);
+      await new Promise(r => setTimeout(r, Math.min(waitStart, 60000)));
+      continue;
+    }
+
+    if (!isInTimeWindow()) {
+      log('Outside scheduled window (08:00-23:00). Exiting.');
+      stopDashboard();
+      await cleanupAll();
+      process.exit(0);
+    }
+
+    log('Starting update within scheduled window...');
+    runUpdateDirectly();
+    await waitForCompletion();
+
+    const windowMsLeft = msUntilWindowEnd();
+    if (windowMsLeft <= 0) {
+      log('Scheduled window ended. Exiting.');
+      stopDashboard();
+      await cleanupAll();
+      process.exit(0);
+    }
+
+    if (state.status === 'idle' || state.status === 'complete') {
+      const imagesNeeded = countImagesNeeded();
+      if (imagesNeeded === 0) {
+        log('All images resolved. Waiting in window in case of new data...');
+        await new Promise(r => setTimeout(r, Math.min(windowMsLeft, 300000)));
+      } else {
+        log(`${imagesNeeded} images still needed, continuing...`);
+        await new Promise(r => setTimeout(r, 5000));
+      }
+    } else {
+      await new Promise(r => setTimeout(r, 15000));
+    }
+  }
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const showHelp = args.includes('--help') || args.includes('-h');
@@ -1107,6 +2238,7 @@ Options:
   --no-dashboard    Do not start the dashboard server
   --once            Run one cycle then exit
   --force           Force run even if not due
+  --scheduled       Run in scheduled window (23:00-08:00 daily, auto-exit)
   --dashboard-only  Just start the dashboard (for monitoring existing process)
   --help            Show this help
     `);
@@ -1117,9 +2249,13 @@ Options:
   const runOnce = args.includes('--once');
   const forceRun = args.includes('--force');
   const dashboardOnly = args.includes('--dashboard-only');
+  const scheduled = args.includes('--scheduled');
 
   fs.mkdirSync(THUMB_DIR, { recursive: true });
   loadState();
+
+  process.on('SIGINT', async () => { log('SIGINT received'); await cleanupAll(); process.exit(0); });
+  process.on('SIGTERM', async () => { log('SIGTERM received'); await cleanupAll(); process.exit(0); });
 
   log('Checking network connectivity (VPN check)...');
   for (let i = 0; i < 12; i++) {
@@ -1128,19 +2264,20 @@ Options:
     await new Promise(r => setTimeout(r, 10000));
   }
 
-  if (!noDashboard) {
+  if (!noDashboard && !scheduled) {
     await startDashboard();
   }
-
-  // Deploy after 30s (let pipeline start first), then every 30min
-  setTimeout(deployToVercel, 30000);
-  startDeployTimer();
 
   if (dashboardOnly) {
     log('Dashboard-only mode. Monitoring existing process...');
     state.status = 'monitoring';
     writeProgress();
     await new Promise(() => {});
+    return;
+  }
+
+  if (scheduled) {
+    await scheduledLoop();
     return;
   }
 
@@ -1153,14 +2290,16 @@ Options:
       log('Not due yet. Use --force to override.');
     }
     stopDashboard();
+    await cleanupAll();
     process.exit(0);
   }
 
   await runLoop();
 }
 
-main().catch(err => {
+main().catch(async err => {
   log(`FATAL: ${err.message}`);
   log(err.stack);
+  await cleanupAll();
   process.exit(1);
 });

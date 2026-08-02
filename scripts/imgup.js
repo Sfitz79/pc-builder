@@ -643,6 +643,304 @@ function writeCSV(filePath, header, rows) {
 
 
 
+// ─── Data Sources ──────────────────────────────────────────
+
+const DATA_SOURCES_FILE = path.join(ROOT, 'src', 'data-sources.json');
+
+async function fetchWithTimeout(url, timeout = 15000, opts = {}) {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+  try {
+    const fetchOpts = { signal: controller.signal, ...opts };
+    fetchOpts.headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36', ...(opts.headers || {}) };
+    const res = await fetch(url, fetchOpts);
+    clearTimeout(id); return res;
+  } catch (e) { clearTimeout(id); throw e; }
+}
+
+function getValue(obj, pathStr) {
+  if (!pathStr || !obj) return undefined;
+  const parts = pathStr.split('.');
+  let val = obj;
+  for (const p of parts) {
+    if (val == null) return undefined;
+    val = val[p];
+  }
+  return val;
+}
+
+async function fetchDataSource(source) {
+  const { name, type, endpoint, auth, params, mapping, token, method, responseKey } = source;
+
+  if (type === 'api' && auth && typeof auth === 'object') {
+    const { access_key, secret_key, associate_tag } = auth;
+    if (!access_key || access_key.startsWith('YOUR_')) {
+      log(`  ${name}: skipped (credentials not configured)`);
+      return [];
+    }
+  }
+
+  let response;
+  try {
+    const headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' };
+    let url = endpoint;
+    const httpMethod = (method || 'GET').toUpperCase();
+
+    if (type === 'apify_actor') {
+      if (token) url += `?token=${encodeURIComponent(token)}`;
+      headers['Content-Type'] = 'application/json';
+      response = await fetchWithTimeout(url, 30000, { method: 'POST', headers, body: JSON.stringify(params || {}) });
+    } else if (type === 'feed') {
+      response = await fetchWithTimeout(url, 30000);
+    } else {
+      // type === 'api'
+      if (typeof auth === 'string') headers['Authorization'] = auth.startsWith('Bearer ') ? auth : `Bearer ${auth}`;
+      if (httpMethod === 'POST') {
+        headers['Content-Type'] = 'application/json';
+        response = await fetchWithTimeout(url, 30000, { method: 'POST', headers, body: JSON.stringify(params || {}) });
+      } else {
+        if (params) {
+          const paramStr = Object.entries(params).map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join('&');
+          url += (url.includes('?') ? '&' : '?') + paramStr;
+        }
+        response = await fetchWithTimeout(url, 30000, { headers });
+      }
+    }
+
+    if (!response.ok) {
+      log(`  ${name}: HTTP ${response.status}`);
+      return [];
+    }
+
+    const data = await response.json();
+    let items;
+    if (responseKey) {
+      items = data[responseKey] || [];
+    } else {
+      items = Array.isArray(data) ? data : (data.products || data.results || data.data || data.items || [data]);
+    }
+    if (!Array.isArray(items)) items = [items];
+    return items;
+  } catch (e) {
+    log(`  ${name}: error - ${e.message}`);
+    return [];
+  }
+}
+
+function mapSourceItem(item, mapping) {
+  const result = {};
+  for (const [key, pathExpr] of Object.entries(mapping)) {
+    if (key === 'retailers') {
+      if (Array.isArray(pathExpr)) {
+        result.retailers = pathExpr.map(r => ({
+          name: r.name,
+          price: getValue(item, r.price),
+          currency: r.currency,
+          url: getValue(item, r.url),
+        })).filter(r => r.price != null);
+      } else {
+        result.retailers = getValue(item, pathExpr) || [];
+      }
+    } else {
+      result[key] = getValue(item, pathExpr);
+    }
+  }
+  return result;
+}
+
+const CATEGORY_CSV_MAP = {
+  'cpu': 'cpu.csv', 'processor': 'cpu.csv', 'processors': 'cpu.csv',
+  'gpu': 'gpu.csv', 'graphics card': 'gpu.csv', 'graphics cards': 'gpu.csv', 'video card': 'gpu.csv', 'video-card': 'gpu.csv',
+  'memory': 'ram.csv', 'ram': 'ram.csv',
+  'motherboard': 'motherboard.csv', 'motherboards': 'motherboard.csv',
+  'storage': 'storage.csv', 'drive': 'storage.csv', 'drives': 'storage.csv', 'ssd': 'storage.csv', 'hard drive': 'storage.csv', 'internal-hard-drive': 'storage.csv',
+  'cooler': 'cooler.csv', 'cpu cooler': 'cooler.csv', 'cpu-cooler': 'cooler.csv', 'cooling': 'cooler.csv',
+  'case': 'case.csv', 'cases': 'case.csv', 'computer case': 'case.csv',
+  'case fan': 'case-fan.csv', 'case-fan': 'case-fan.csv', 'case fans': 'case-fan.csv',
+  'power supply': 'power-supply.csv', 'psu': 'power-supply.csv', 'power-supply': 'power-supply.csv',
+  'monitor': 'monitor.csv', 'monitors': 'monitor.csv', 'display': 'monitor.csv',
+  'keyboard': 'keyboard.csv', 'keyboards': 'keyboard.csv',
+  'mouse': 'mouse.csv', 'mice': 'mouse.csv',
+  'headphones': 'headphones.csv', 'headset': 'headphones.csv', 'headsets': 'headphones.csv',
+  'speakers': 'speakers.csv', 'speaker': 'speakers.csv',
+  'webcam': 'webcam.csv', 'webcams': 'webcam.csv', 'camera': 'webcam.csv',
+  'fan controller': 'fan-controller.csv', 'fan-controller': 'fan-controller.csv',
+  'thermal paste': 'thermal-paste.csv', 'thermal-paste': 'thermal-paste.csv', 'thermal compound': 'thermal-paste.csv',
+  'wired network card': 'wired-network-card.csv', 'wired-network-card': 'wired-network-card.csv', 'ethernet': 'wired-network-card.csv',
+  'wireless network card': 'wireless-network-card.csv', 'wireless-network-card': 'wireless-network-card.csv', 'wifi card': 'wireless-network-card.csv',
+  'sound card': 'sound-card.csv', 'sound-card': 'sound-card.csv',
+  'optical drive': 'optical-drive.csv', 'optical-drive': 'optical-drive.csv', 'dvd': 'optical-drive.csv',
+  'os': 'os.csv', 'operating system': 'os.csv',
+  'ups': 'ups.csv', 'battery': 'ups.csv',
+  'case accessory': 'case-accessory.csv', 'case-accessory': 'case-accessory.csv',
+  'external hard drive': 'external-hard-drive.csv', 'external-hard-drive': 'external-hard-drive.csv', 'external drive': 'external-hard-drive.csv',
+};
+
+function mapCategoryToFile(category) {
+  if (!category) return null;
+  const key = category.toLowerCase().trim();
+  if (CATEGORY_CSV_MAP[key]) return CATEGORY_CSV_MAP[key];
+  for (const [pattern, file] of Object.entries(CATEGORY_CSV_MAP)) {
+    if (key.includes(pattern)) return file;
+  }
+  return null;
+}
+
+function categoryMismatch(category, csvFile) {
+  if (!category) return false;
+  const expectedFile = mapCategoryToFile(category);
+  if (!expectedFile) return false;
+  return expectedFile !== csvFile;
+}
+
+async function importDataSources() {
+  log('=== Phase: Import Data Sources ===');
+  if (!fs.existsSync(DATA_SOURCES_FILE)) { log('  src/data-sources.json not found, skipping'); return; }
+
+  let config;
+  try { config = JSON.parse(fs.readFileSync(DATA_SOURCES_FILE, 'utf-8')); }
+  catch (e) { log(`  Failed to parse data-sources.json: ${e.message}`); return; }
+
+  let sources = config.sources || [];
+  sources = sources.filter(s => s.enabled !== false);
+  if (sources.length === 0) { log('  No enabled sources configured'); return; }
+
+  const sourceResults = await Promise.all(sources.map(async (source) => {
+    const items = await fetchDataSource(source);
+    return { source, items };
+  }));
+
+  const allProducts = [];
+  const productMap = new Map();
+  for (const { source, items } of sourceResults) {
+    if (items.length === 0) continue;
+    let mapped = items.map(item => mapSourceItem(item, source.mapping)).filter(p => p.name);
+    log(`  ${source.name}: ${mapped.length} products`);
+
+    for (const p of mapped) {
+      const retailers = Array.isArray(p.retailers) ? p.retailers : [];
+      allProducts.push({
+        id: p.id, brand: p.brand, model: p.model, category: p.category,
+        name: p.name, image: p.image, mpn: p.mpn, sku: p.sku,
+        retailers, source: source.name,
+      });
+
+      const key = p.name.toLowerCase().trim();
+      if (!productMap.has(key) || p.image) {
+        productMap.set(key, { name: p.name, price: p.price, image: p.image, category: p.category, source: source.name });
+      }
+    }
+  }
+
+  if (productMap.size === 0) { log('  No products fetched'); return; }
+
+  const csvFiles = fs.readdirSync(DATA_DIR).filter(f => f.endsWith('.csv'));
+  let totalUpdated = 0, totalAdded = 0;
+
+  for (const file of csvFiles) {
+    const csvPath = path.join(DATA_DIR, file);
+    const csv = readCSV(csvPath);
+    if (!csv) continue;
+    const nameIdx = csv.header.indexOf('name');
+    const priceIdx = csv.header.indexOf('price');
+    const imgIdx = csv.header.indexOf('image');
+    if (nameIdx < 0) continue;
+
+    const existingMap = new Map();
+    for (let i = 1; i < csv.lines.length; i++) {
+      const parts = parseCSVLine(csv.lines[i]);
+      existingMap.set((parts[nameIdx]||'').toLowerCase().trim(), { lineIdx: i, parts });
+    }
+
+    let updated = 0, added = 0;
+    for (const [key, product] of productMap) {
+      if (categoryMismatch(product.category, file)) continue;
+
+      if (existingMap.has(key)) {
+        const { lineIdx, parts } = existingMap.get(key);
+        let modified = false;
+
+        if (priceIdx >= 0 && product.price != null) {
+          const p = parseFloat(product.price);
+          if (!isNaN(p) && p > 0) {
+            const current = parts[priceIdx] ? parseFloat(parts[priceIdx]) : NaN;
+            if (!current || isNaN(current) || current === 0) {
+              parts[priceIdx] = p.toFixed(2);
+              modified = true;
+            }
+          }
+        }
+
+        if (imgIdx >= 0 && product.image && (!parts[imgIdx] || parts[imgIdx] === '' || parts[imgIdx] === '""')) {
+          parts[imgIdx] = `"${product.image}"`;
+          modified = true;
+        }
+
+        if (modified) {
+          csv.lines[lineIdx] = parts.join(',');
+          updated++;
+        }
+      } else if (product.price != null || product.image) {
+        const newParts = csv.header.map(() => '');
+        newParts[nameIdx] = `"${product.name}"`;
+        if (priceIdx >= 0 && product.price != null) {
+          const p = parseFloat(product.price);
+          if (!isNaN(p) && p > 0) newParts[priceIdx] = p.toFixed(2);
+        }
+        if (imgIdx >= 0 && product.image) newParts[imgIdx] = `"${product.image}"`;
+        csv.lines.push(newParts.join(','));
+        existingMap.set(key, { lineIdx: csv.lines.length - 1, parts: newParts });
+        added++;
+      }
+    }
+
+    if (updated > 0 || added > 0) {
+      fs.writeFileSync(csvPath, csv.lines.join('\n'), 'utf-8');
+      log(`  ${file}: ${updated} updated, ${added} added`);
+    }
+    totalUpdated += updated;
+    totalAdded += added;
+  }
+
+  log(`  Total from data sources: ${totalUpdated} updated, ${totalAdded} added`);
+
+  if (allProducts.length > 0) {
+    const mergeKey = p => `${p.sku || ''}|${p.mpn || ''}|${p.brand || ''}|${p.model || ''}`;
+    const mergeMap = new Map();
+    for (const p of allProducts) {
+      const key = mergeKey(p);
+      if (!mergeMap.has(key)) {
+        mergeMap.set(key, { ...p, retailers: [...p.retailers] });
+      } else {
+        mergeMap.get(key).retailers.push(...p.retailers);
+      }
+    }
+
+    const merged = [];
+    for (const [, p] of mergeMap) {
+      const validPrices = p.retailers.filter(r => r.price != null);
+      const lowest = validPrices.length ? validPrices.reduce((a, b) => (a.price < b.price ? a : b)) : null;
+      merged.push({
+        id: p.id, brand: p.brand, model: p.model, category: p.category, name: p.name, image: p.image,
+        mpn: p.mpn, sku: p.sku,
+        lowest_price: lowest ? lowest.price : null,
+        lowest_price_currency: lowest ? lowest.currency : 'GBP',
+        lowest_price_retailer: lowest ? lowest.name : null,
+        lowest_price_url: lowest ? lowest.url : null,
+        stock_status: lowest ? lowest.stock : 'unknown',
+        retailers: p.retailers,
+      });
+    }
+
+    const pricesPath = path.join(ROOT, 'public', 'prices.json');
+    try {
+      if (!fs.existsSync(path.dirname(pricesPath))) fs.mkdirSync(path.dirname(pricesPath), { recursive: true });
+      fs.writeFileSync(pricesPath, JSON.stringify(merged, null, 2));
+      log(`  Wrote ${merged.length} merged products to public/prices.json`);
+    } catch (e) { log(`  Failed to write prices.json: ${e.message}`); }
+  }
+}
+
 async function runUpdateDirectly() {
   state.status = 'running';
   state.restartCount = (state.restartCount || 0) + 1;
@@ -660,6 +958,11 @@ async function runUpdateDirectly() {
     state.phaseNumber = 0;
     writeProgress();
     bumpVersion();
+
+    state.phase = 'Import Data Sources';
+    state.phaseNumber = 0;
+    writeProgress();
+    await importDataSources();
 
     state.phase = 'Download Missing Thumbnails';
     state.phaseNumber = 0;

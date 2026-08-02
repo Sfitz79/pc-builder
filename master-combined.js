@@ -374,6 +374,28 @@ async function verifyAndDownload(url, dest) {
     try {
       const meta = await sharp(buffer).metadata();
       if (meta.width < 200 || meta.height < 200) return false;
+      const pixels = await sharp(buffer).raw().toBuffer();
+      const w = meta.width, h = meta.height;
+      const channels = meta.channels || 3;
+      let sampleCount = 0, skinPixels = 0, lowSatPixels = 0;
+      for (let y = 0; y < h; y += Math.max(1, Math.floor(h / 20))) {
+        for (let x = 0; x < w; x += Math.max(1, Math.floor(w / 20))) {
+          const idx = (y * w + x) * channels;
+          const r = pixels[idx], g = pixels[idx + 1], b = pixels[idx + 2];
+          sampleCount++;
+          const maxC = Math.max(r, g, b), minC = Math.min(r, g, b);
+          const d = maxC - minC;
+          if (r > 95 && g > 40 && b > 20 && d > 15 && Math.abs(r - g) > 15 && r > g && r > b) {
+            skinPixels++;
+          }
+          if (maxC > 0) {
+            const s = d / maxC;
+            if (s < 0.05) lowSatPixels++;
+          }
+        }
+      }
+      if (lowSatPixels > sampleCount * 0.8) return false;
+      if (skinPixels > sampleCount * 0.25) return false;
     } catch { return false; }
     fs.writeFileSync(dest, buffer);
     return true;

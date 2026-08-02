@@ -1,6 +1,6 @@
 {
   "name": "indraanisa-pc-builder",
-  "version": "2.6.25",
+  "version": "2.6.63",
   "type": "module",
   "main": "electron/main.js",
   "homepage": "./",
