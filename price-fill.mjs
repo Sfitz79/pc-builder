@@ -5,6 +5,8 @@
  * but no price, visit its uk.pcpartpicker.com/product/<id> page via Byparr,
  * extract the lowest retailer price, and write it back into the JSON. After
  * each category finishes, src/data CSVs are regenerated via mergeCategory.
+ * Availability is tracked per item; listings with no price AND confirmed no
+ * availability are skipped (dead listings).
  *
  * The pass is resumable: progress is stored in price-fill-state.json and
  * every item is logged to price-fill.log (tail-able by the dashboard).
@@ -152,27 +154,32 @@ async function processCategory(jsonFile, def, byparrUrl) {
   const byName = new Map(items.map(i => [String(i.productName || '').trim().toLowerCase(), i]));
 
   const catState = state.categories[jsonFile] ||= {
-    total: 0, need: 0, urlmiss: 0, done: 0, found: 0, notfound: 0, failed: 0, doneNames: [], status: 'pending',
+    total: 0, need: 0, urlmiss: 0, deadSkip: 0, done: 0, found: 0, notfound: 0, failed: 0, doneNames: [], status: 'pending',
   };
   catState.status = 'running';
   catState.total = keptMap.size;
 
   const tasks = [];
   let urlmiss = 0;
+  let deadSkip = 0;
   for (const [mapKey, clone] of keptMap) {
     const lower = String(clone.productName || '').trim().toLowerCase();
     const orig = byName.get(lower);
     if (!orig) continue;
     const hasPrice = typeof orig.price === 'number' && orig.price > 0;
     if (hasPrice) continue;
+    // Items here have no stored price; if the last scrape confirmed no
+    // availability too, they are dead listings — skip re-scraping them.
+    if (orig.availability === false) { deadSkip++; continue; }
     if (!orig.url) { urlmiss++; continue; }
     if (catState.doneNames.includes(mapKey)) continue;
     tasks.push({ mapKey, name: clone.productName, url: orig.url });
   }
   catState.urlmiss = urlmiss;
+  catState.deadSkip = deadSkip;
   catState.need = catState.done + tasks.length + urlmiss;
 
-  log(`CAT_START ${jsonFile} total=${catState.total} need=${catState.need} remaining=${tasks.length} urlmiss=${urlmiss}`);
+  log(`CAT_START ${jsonFile} total=${catState.total} need=${catState.need} remaining=${tasks.length} urlmiss=${urlmiss} deadSkip=${deadSkip}`);
   if (dryRun) return;
 
   for (const task of tasks) {
@@ -183,9 +190,15 @@ async function processCategory(jsonFile, def, byparrUrl) {
         orig.price = res.price;
         orig.priceCurrency = orig.priceCurrency || 'gbp';
         orig.priceUpdatedAt = new Date().toISOString();
+        orig.availability = true;
       }
       catState.found++;
     } else if (res.status === 'notfound') {
+      const orig = byName.get(String(task.name).trim().toLowerCase());
+      if (orig) {
+        orig.availability = false;
+        orig.priceCheckedAt = new Date().toISOString();
+      }
       catState.notfound++;
     } else {
       catState.failed++;
@@ -211,7 +224,7 @@ async function processCategory(jsonFile, def, byparrUrl) {
   fs.writeFileSync(srcPath, JSON.stringify(items, null, 2), 'utf-8');
   catState.status = 'done';
   saveState();
-  log(`CAT_DONE ${jsonFile} found=${catState.found} notfound=${catState.notfound} failed=${catState.failed} urlmiss=${urlmiss}`);
+  log(`CAT_DONE ${jsonFile} found=${catState.found} notfound=${catState.notfound} failed=${catState.failed} urlmiss=${urlmiss} deadSkip=${deadSkip}`);
   console.log(`[${jsonFile}] regenerating CSVs...`);
   try {
     mergeCategory(def, items);
