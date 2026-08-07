@@ -14,6 +14,11 @@ import {
   isModernComponent,
   isWindows11Compatible,
   inferChipset,
+  isSodimmRam,
+  isEccRam,
+  isRegisteredEccRam,
+  motherboardSupportsEcc,
+  inferCoolerSockets,
 } from "../common";
 
 describe("toNumber", () => {
@@ -259,12 +264,44 @@ describe("isModernComponent", () => {
     expect(isModernComponent("psu", { wattage: "750" })).toBe(true);
   });
 
+  it("returns false for non-Gold+ efficiency PSU", () => {
+    expect(isModernComponent("psu", { wattage: "750", efficiency: "80+ Bronze" })).toBe(false);
+    expect(isModernComponent("psu", { wattage: "750", efficiency: "80+ Silver" })).toBe(false);
+    expect(isModernComponent("psu", { wattage: "750", efficiency: "80+" })).toBe(false);
+  });
+
+  it("returns true for Gold/Platinum/Titanium PSU", () => {
+    expect(isModernComponent("psu", { wattage: "750", efficiency: "80+ Gold" })).toBe(true);
+    expect(isModernComponent("psu", { wattage: "750", efficiency: "80+ Platinum" })).toBe(true);
+    expect(isModernComponent("psu", { wattage: "750", efficiency: "80+ Titanium" })).toBe(true);
+  });
+
+  it("allows PSUs with unknown efficiency", () => {
+    expect(isModernComponent("psu", { wattage: "750", efficiency: "" })).toBe(true);
+  });
+
   it("returns true for modern GPU", () => {
     expect(isModernComponent("gpu", { name: "RTX 4070", memory: "12" })).toBe(true);
   });
 
   it("returns false for old GPU", () => {
     expect(isModernComponent("gpu", { name: "GTX 980", memory: "4" })).toBe(false);
+  });
+
+  it("returns true for Windows 11 OS", () => {
+    expect(isModernComponent("os", { name: "Microsoft Windows 11 Home OEM - DVD 64-bit" })).toBe(true);
+    expect(isModernComponent("os", { name: "Microsoft Windows 11 Pro Retail - Download 64-bit" })).toBe(true);
+  });
+
+  it("returns true for Windows 10 IoT/LTSC OS", () => {
+    expect(isModernComponent("os", { name: "Microsoft Windows 10 IoT Enterprise LTSC 2021" })).toBe(true);
+    expect(isModernComponent("os", { name: "Microsoft Windows 10 Pro LTSC 64-bit" })).toBe(true);
+  });
+
+  it("returns false for old Windows versions", () => {
+    expect(isModernComponent("os", { name: "Microsoft Windows 10 Home OEM - DVD 64-bit" })).toBe(false);
+    expect(isModernComponent("os", { name: "Microsoft Windows 7 Professional Full 32/64-bit" })).toBe(false);
+    expect(isModernComponent("os", { name: "Microsoft Windows 8.1 Pro OEM 64-bit" })).toBe(false);
   });
 
   it("returns true for other categories", () => {
@@ -313,5 +350,85 @@ describe("isWindows11Compatible", () => {
   it("returns false for null/undefined", () => {
     expect(isWindows11Compatible(null)).toBe(false);
     expect(isWindows11Compatible(undefined)).toBe(false);
+  });
+});
+
+describe("isSodimmRam", () => {
+  it("detects SO-DIMM RAM", () => {
+    expect(isSodimmRam({ name: "Crucial 32GB DDR5-4800 SODIMM" })).toBe(true);
+    expect(isSodimmRam({ name: "Kingston Fury 16GB SO-DIMM DDR4 3200" })).toBe(true);
+    expect(isSodimmRam({ name: "G.Skill SO DIMM 8GB" })).toBe(true);
+  });
+
+  it("returns false for desktop DIMM RAM", () => {
+    expect(isSodimmRam({ name: "Corsair Vengeance LPX 16GB DDR4" })).toBe(false);
+    expect(isSodimmRam(null)).toBe(false);
+  });
+});
+
+describe("isEccRam", () => {
+  it("detects ECC RAM", () => {
+    expect(isEccRam({ name: "Samsung 32GB DDR4 3200 ECC" })).toBe(true);
+    expect(isEccRam({ name: "Samsung 64GB DDR4 LRDIMM ECC" })).toBe(true);
+  });
+
+  it("detects concatenated RegECC form", () => {
+    expect(isEccRam({ name: "Samsung 16GB RegECC DDR4 2933" })).toBe(true);
+  });
+
+  it("returns false for non-ECC RAM", () => {
+    expect(isEccRam({ name: "Corsair Vengeance 32GB DDR5" })).toBe(false);
+  });
+});
+
+describe("isRegisteredEccRam", () => {
+  it("detects registered/buffered ECC RAM", () => {
+    expect(isRegisteredEccRam({ name: "Samsung 64GB DDR4 LRDIMM" })).toBe(true);
+    expect(isRegisteredEccRam({ name: "Samsung 16GB DDR4 RegECC" })).toBe(true);
+    expect(isRegisteredEccRam({ name: "Samsung 16GB DDR4 REGISTERED" })).toBe(true);
+    expect(isRegisteredEccRam({ name: "Samsung 16GB DDR4 RDIMM" })).toBe(true);
+  });
+
+  it("returns false for unbuffered ECC RAM", () => {
+    expect(isRegisteredEccRam({ name: "Samsung 32GB DDR4 3200 ECC" })).toBe(false);
+    expect(isRegisteredEccRam({ name: "Corsair Vengeance 32GB DDR5" })).toBe(false);
+  });
+});
+
+describe("motherboardSupportsEcc", () => {
+  it("returns true for AMD consumer sockets", () => {
+    expect(motherboardSupportsEcc({ socket: "AM5" })).toBe(true);
+    expect(motherboardSupportsEcc({ socket: "AM4" })).toBe(true);
+  });
+
+  it("returns true for Threadripper/WRX sockets", () => {
+    expect(motherboardSupportsEcc({ socket: "sTRX4" })).toBe(true);
+    expect(motherboardSupportsEcc({ socket: "TRX40" })).toBe(true);
+    expect(motherboardSupportsEcc({ socket: "WRX80" })).toBe(true);
+    expect(motherboardSupportsEcc({ socket: "sWRX8" })).toBe(true);
+  });
+
+  it("returns false for Intel sockets", () => {
+    expect(motherboardSupportsEcc({ socket: "LGA1700" })).toBe(false);
+    expect(motherboardSupportsEcc({ socket: "2 x LGA1700" })).toBe(false);
+  });
+
+  it("returns false for missing board", () => {
+    expect(motherboardSupportsEcc(null)).toBe(false);
+    expect(motherboardSupportsEcc({})).toBe(false);
+  });
+});
+
+describe("inferCoolerSockets", () => {
+  it("extracts socket from cooler name", () => {
+    expect(inferCoolerSockets({ name: "Noctua NH-L9A-AM5" })).toEqual(["AM5"]);
+    expect(inferCoolerSockets({ name: "Noctua NH-U12S SE-AM4" })).toEqual(["AM4"]);
+    expect(inferCoolerSockets({ name: "Noctua NH-U12A LGA1700" })).toEqual(["LGA1700"]);
+  });
+
+  it("returns empty array for universal coolers", () => {
+    expect(inferCoolerSockets({ name: "Noctua NH-D15" })).toEqual([]);
+    expect(inferCoolerSockets({ name: "ARCTIC Liquid Freezer III 360" })).toEqual([]);
+    expect(inferCoolerSockets(null)).toEqual([]);
   });
 });

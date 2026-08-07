@@ -6,7 +6,7 @@ import { spawn } from 'child_process';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.join(__dirname, '..');
 const STATE_FILE = path.join(ROOT_DIR, 'aioupdate-state.json');
-const ORCHESTRATOR_SCRIPT = path.join(__dirname, 'aioupdate.js');
+const ORCHESTRATOR_SCRIPT = path.join(ROOT_DIR, 'master-update.js');
 const UPDATE_INTERVAL_DAYS = 5;
 
 function shouldUpdate() {
@@ -23,16 +23,16 @@ function shouldUpdate() {
 }
 
 async function runUpdate() {
-  console.log(`[Auto-Update] Triggering aioupdate (every ${UPDATE_INTERVAL_DAYS} days)...`);
+  console.log(`[Auto-Update] Triggering master-update (every ${UPDATE_INTERVAL_DAYS} days)...`);
 
-  const child = spawn('node', [ORCHESTRATOR_SCRIPT, '--once', '--force'], {
+  const child = spawn('node', [ORCHESTRATOR_SCRIPT, '--no-dashboard', '--no-deploy'], {
     cwd: ROOT_DIR,
     detached: true,
     stdio: 'ignore',
   });
 
   child.unref();
-  console.log('[Auto-Update] AIO update started in background.');
+  console.log('[Auto-Update] Master update started in background.');
 }
 
 if (shouldUpdate()) {

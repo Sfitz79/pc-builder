@@ -1,7 +1,7 @@
 /**
  * MASTER UPDATE - Electron Dashboard Launcher
  *
- * Spawns master-update-fast.js as a child process, opens an Electron
+ * Spawns master-update.js as a child process, opens an Electron
  * BrowserWindow that loads the live progress dashboard at localhost:3333.
  *
  * Usage: npm run master-update  (default)
@@ -28,7 +28,7 @@ function waitForServer(url, retries = 90) {
 }
 
 app.whenReady().then(async () => {
-  const child = spawn('node', [path.join(ROOT, 'master-update-fast.js')], {
+  const child = spawn('node', [path.join(ROOT, 'master-update.js')], {
     cwd: ROOT, stdio: 'inherit', shell: true,
     env: { ...process.env, ELECTRON_RUN: '1' },
   });

@@ -61,6 +61,7 @@ const maxArg = args.find(a => a.startsWith('--max='));
 const byparrArg = args.find(a => a.startsWith('--byparr='));
 const concurrencyArg = args.find(a => a.startsWith('--concurrency='));
 const freshDaysArg = args.find(a => a.startsWith('--fresh-days='));
+const proxyFileArg = args.find(a => a.startsWith('--proxy-file='));
 const onlyPrices = args.includes('--prices-only');
 const onlyImages = args.includes('--images-only');
 const noDashboard = args.includes('--no-dashboard');
@@ -93,7 +94,9 @@ Options:
   --concurrency=N      price pass: parallel Byparr requests per category (default 3)
   --fresh-days=N       price pass: skip items whose price was fetched within N days
                        (default 7). Use 0 to always re-scrape.
-  --byparr=http://...  Byparr URL (default http://localhost:8191/v1)
+   --byparr=http://...  Byparr URL (default http://localhost:8191/v1)
+   --proxy-file=file    proxy pool (one host:port per line) rotated per attempt
+                        in the price pass, sent via the X-Proxy-Server header
 
 Pipeline:
   1. Version bump            5. Filter discontinued / non-modern only
@@ -116,6 +119,26 @@ const PRICE_CONCURRENCY = concurrencyArg ? Math.max(1, parseInt(concurrencyArg.s
 const FRESH_DAYS = freshDaysArg ? Math.max(0, parseInt((freshDaysArg.split('=')[1] ?? ''), 10) || 0) : 7;
 const IMAGE_MAX_PASSES = 20;
 
+// Optional free-proxy pool (one proxy per line) for the PCPP price pass.
+// Rotated per attempt so a dead/blocked proxy doesn't stall the run.
+const PROXY_FILE = proxyFileArg ? proxyFileArg.split('=')[1] : '';
+const proxies = (() => {
+  try {
+    if (!PROXY_FILE) return [];
+    const txt = fs.readFileSync(path.join(ROOT, PROXY_FILE), 'utf-8');
+    return txt.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+  } catch {
+    return [];
+  }
+})();
+let proxyIdx = 0;
+function nextProxy() {
+  if (!proxies.length) return null;
+  const p = proxies[proxyIdx % proxies.length];
+  proxyIdx++;
+  return p;
+}
+
 // Modern part list: categories covered by modern_pc_parts.json get a precise
 // list match ON TOP of the isModern heuristic; other categories rely on isModern.
 const MODERN_PARTS = (() => {
@@ -125,7 +148,7 @@ const MODERN_PARTS = (() => {
     return {};
   }
 })();
-const LIST_CATEGORIES = new Set(['cpu', 'motherboard', 'ram', 'gpu']);
+const LIST_CATEGORIES = new Set(['cpu', 'motherboard', 'ram', 'gpu', 'case']);
 
 const MBOARD_TOKEN_RE = (() => {
   const tokens = new Set();
@@ -172,6 +195,14 @@ const progressState = {
   status: 'initialising',
   phase: '',
 };
+
+// Seed every catalog category up front so the dashboard lists them all from
+// the start (they fill in as each category is processed).
+for (const jsonFile of PRIORITY_ORDER.filter(jf => CATEGORY_DEFS[jf])) {
+  progressState.categories[jsonFile] = {
+    processed: 0, total: 0, images: 0, prices: 0, active: false, done: false, remaining: 0,
+  };
+}
 
 function writeProgress() {
   try {
@@ -404,14 +435,25 @@ function savePriceState() {
   fs.writeFileSync(PRICE_STATE_FILE, JSON.stringify(priceState, null, 2), 'utf-8');
 }
 
-async function fetchPage(url, byparrUrl) {
+// True when a page is a block/challenge page rather than real product content.
+function isBlockedPage(html) {
+  const title = (/<title>([^<]*)<\/title>/i.exec(html) || [])[1] || '';
+  if (/Unavailable/i.test(title) && /Refcode|unavailable/i.test(html)) return true;
+  if (/Just a moment/i.test(title)) return true;
+  if (/PCPartPicker is unavailable/i.test(html)) return true;
+  return false;
+}
+
+async function fetchPage(url, byparrUrl, proxy) {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 130000);
   try {
+    const headers = { 'Content-Type': 'application/json' };
+    if (proxy) headers['X-Proxy-Server'] = `http://${proxy}`;
     const resp = await fetch(byparrUrl, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ cmd: 'request.get', url, max_timeout: 60 }),
+      headers,
+      body: JSON.stringify({ cmd: 'request.get', url, max_timeout: 75 }),
       signal: ctrl.signal,
     });
     if (!resp.ok) {
@@ -420,7 +462,10 @@ async function fetchPage(url, byparrUrl) {
     }
     const data = await resp.json();
     const sol = data.solution;
-    if (sol && sol.status === 200 && sol.response) return sol.response;
+    if (sol && sol.status === 200 && sol.response) {
+      if (isBlockedPage(sol.response)) throw new Error('blocked-page');
+      return sol.response;
+    }
     throw new Error(`byparr status=${sol && sol.status} msg=${data.message || ''}`);
   } finally {
     clearTimeout(timer);
@@ -436,22 +481,38 @@ function extractPrice(html) {
   return null;
 }
 
+// Grab the product image from the same page we already fetch for the price.
+// Prefer the full-res (1600px) variant of the og:image hash; fall back to the
+// og:image itself. Returns '' when the page has none.
+function extractImage(html) {
+  const og = /<meta[^>]+property=["']og:image["'][^>]*content=["']([^"']+)["']/i.exec(html);
+  if (!og || !og[1]) return '';
+  const ogUrl = og[1].trim();
+  const hash = ogUrl.match(/images\/product\/([a-f0-9]+)\.256p\.jpg/);
+  if (hash && new RegExp(`images\\/product\\/${hash[1]}\\.1600\\.jpg`).test(html)) {
+    return `https://cdna.pcpartpicker.com/static/forever/images/product/${hash[1]}.1600.jpg`;
+  }
+  return ogUrl.replace(/^http:/, 'https:');
+}
+
 async function fillOne(task, jsonFile, byparrUrl) {
   const t0 = Date.now();
   const backoffs = [0, 3000, 8000, 20000];
   let lastErr = '';
   for (let i = 0; i < backoffs.length; i++) {
     if (i > 0) await sleep(backoffs[i]);
+    const proxy = nextProxy();
     try {
-      const html = await fetchPage(task.url, byparrUrl);
+      const html = await fetchPage(task.url, byparrUrl, proxy);
       const price = extractPrice(html);
+      const imageUrl = extractImage(html);
       const took = (Date.now() - t0) / 1000;
       if (price !== null) {
-        priceLog(`ITEM OK T=${Math.floor(t0 / 1000)} cat=${jsonFile} price=${price} took=${took.toFixed(1)} name=${task.name}`);
-        return { status: 'found', price, took };
+        priceLog(`ITEM OK T=${Math.floor(t0 / 1000)} cat=${jsonFile} price=${price} img=${imageUrl ? 'Y' : 'N'} took=${took.toFixed(1)} name=${task.name}`);
+        return { status: 'found', price, imageUrl, took };
       }
-      priceLog(`ITEM NO T=${Math.floor(t0 / 1000)} cat=${jsonFile} took=${took.toFixed(1)} name=${task.name}`);
-      return { status: 'notfound', took };
+      priceLog(`ITEM NO T=${Math.floor(t0 / 1000)} cat=${jsonFile} img=${imageUrl ? 'Y' : 'N'} took=${took.toFixed(1)} name=${task.name}`);
+      return { status: 'notfound', imageUrl, took };
     } catch (e) {
       lastErr = e.message;
     }
@@ -499,6 +560,10 @@ function listMatch(categoryId, item) {
       if (/RADEON.*W7\d{3}\b/.test(chipset)) return true;
       if (/ARC PRO B/.test(chipset)) return true;
       return false;
+    }
+    case 'case': {
+      const n = (name + ' ' + String(specs.type || '')).toUpperCase();
+      return (MODERN_PARTS.cases || []).some(t => n.includes(String(t).toUpperCase()));
     }
     default:
       return true;
@@ -600,6 +665,10 @@ async function processPriceCategory(jsonFile, def, byparrUrl) {
       const res = chunkResults[k];
       const orig = byName.get(String(task.name).trim().toLowerCase());
       const prevPrice = orig ? orig.price : null;
+      if (orig && res.imageUrl && !orig.imageUrl) {
+        orig.imageUrl = res.imageUrl;
+        changedAny = true;
+      }
       if (res.status === 'found') {
         if (orig) {
           orig.price = res.price;

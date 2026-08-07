@@ -1,78 +1,78 @@
 name,price,image,resolution,connection,focus_type,operating_system,fov_angle,rating
-Logitech BRIO STREAM,280.5,4k,1080p,720p,4k, 1080p, 720p,USB 3.2 Gen 1 Type-A,Auto,Windows, OS X, ChromeOS,90°,4.5
-Logitech BRIO Ultra HD Pro,132.99,https://cdna.pcpartpicker.com/static/forever/images/product/6c931846f8b1f5346a3700526272ea24.256p.jpg,4k, 1080p, 720p,USB 3.2 Gen 1 Type-A,Auto,Windows, OS X, ChromeOS,82°,4.5
+Logitech BRIO STREAM,280.5,,"4k, 1080p, 720p",USB 3.2 Gen 1 Type-A,Auto,"Windows, OS X, ChromeOS",90°,4.5
+Logitech BRIO Ultra HD Pro,,https://cdna.pcpartpicker.com/static/forever/images/product/6c931846f8b1f5346a3700526272ea24.256p.jpg,"4k, 1080p, 720p",USB 3.2 Gen 1 Type-A,Auto,"Windows, OS X, ChromeOS",82°,4.5
 OBSBOT Tiny 3,,https://cdna.pcpartpicker.com/static/forever/images/product/8353ad0d73dbc39a872a9dd34a242556.256p.jpg,"4k, 1080p, 720p, 480p",USB 2.0 Type-C,Auto,"Windows, OS X",82.4°,0
-Anker PowerConf C200,39.89,2k,1080p,720p,2k, 1080p, 720p,USB 3.2 Gen 1 Type-C,Auto,Windows, OS X,95°,5
+Anker PowerConf C200,39.89,,"2k, 1080p, 720p",USB 3.2 Gen 1 Type-C,Auto,"Windows, OS X",95°,5
 UGREEN 65381,29.95,,"4k, 1080p",USB 2.0 Type-A,Auto,"Windows, OS X, Android",70°,5
 Elgato Facecam 4K,188.99,https://cdna.pcpartpicker.com/static/forever/images/product/fcb546952f33b450a2fe310c1ebfff5f.256p.jpg,"4k, 2k, 1080p, 720p",USB 3.2 Gen 1 Type-C,Fixed,"Windows, OS X",90°,0
 Insta360 Link2 Pro,239,,"4k, 1080p, 720p",USB 2.0 Type-C,Auto,"Windows, OS X",83.9°,0
-Logitech C920 HD Pro,79.9,https://cdna.pcpartpicker.com/static/forever/images/product/c62b66e9b02a82a043c913ff5f43b4f4.256p.jpg,1080p, 720p,USB 2.0 Type-A,Auto,Windows, OS X, ChromeOS, Android,78°,4
+Logitech C920 HD Pro,,https://cdna.pcpartpicker.com/static/forever/images/product/c62b66e9b02a82a043c913ff5f43b4f4.256p.jpg,"1080p, 720p",USB 2.0 Type-A,Auto,"Windows, OS X, ChromeOS, Android",78°,4
 Logitech C270,39.61,https://cdna.pcpartpicker.com/static/forever/images/product/2ea46c5847b08c504b33b7d4c8ef39d7.256p.jpg,720p,USB 2.0 Type-A,Fixed,"Windows, OS X, ChromeOS, Android",60°,3.5
 NexiGo N60,31.99,,1080p,USB 2.0 Type-A,Fixed,"Windows, OS X, Linux, ChromeOS, Android",110°,4
-Green Extreme T200,14.99,https://cdna.pcpartpicker.com/static/forever/images/product/d63b78bf4915b1cba7284a5fb1c4dcaa.256p.jpg,1080p, 720p, 480p,USB 2.0 Type-A,Auto,Windows, OS X, Android,65°,3
+Green Extreme T200,,https://cdna.pcpartpicker.com/static/forever/images/product/d63b78bf4915b1cba7284a5fb1c4dcaa.256p.jpg,"1080p, 720p, 480p",USB 2.0 Type-A,Auto,"Windows, OS X, Android",65°,3
 Logitech MX BRIO,164.97,https://cdna.pcpartpicker.com/static/forever/images/product/79f6e956fa576b73514f69ad5b0053bb.256p.jpg,"4k, 1080p",USB 3.2 Gen 1 Type-C,Auto,"Windows, ChromeOS",90°,0
-Logitech C920s HD Pro,91.27,1080p,720p,1080p, 720p,USB 2.0 Type-A,Auto,Windows, OS X, ChromeOS, Android,78°,4
+Logitech C920s HD Pro,91.27,,"1080p, 720p",USB 2.0 Type-A,Auto,"Windows, OS X, ChromeOS, Android",78°,4
 Elgato FACECAM MK.2,100,https://cdna.pcpartpicker.com/static/forever/images/product/e585bff6bd397c38e48a1f9ee7362038.256p.jpg,"1080p, 720p",USB 3.2 Gen 1 Type-C,Fixed,"Windows, OS X",84°,5
 Razer Kiyo Pro,252.81,https://cdna.pcpartpicker.com/static/forever/images/product/3ab4d36d1a140e821e72a40ca75b3372.256p.jpg,"1080p, 720p, 480p",USB 3.2 Gen 1 Type-A,Auto,Windows,103°,4
-Razer Kiyo Pro Ultra,299.99,https://cdna.pcpartpicker.com/static/forever/images/product/f0281d7b65771dacec49d796123aa7f6.256p.jpg,4k, 2k, 1080p, 720p,USB 3.2 Gen 1 Type-A,Auto,Windows,82°,5
+Razer Kiyo Pro Ultra,,https://cdna.pcpartpicker.com/static/forever/images/product/f0281d7b65771dacec49d796123aa7f6.256p.jpg,"4k, 2k, 1080p, 720p",USB 3.2 Gen 1 Type-A,Auto,Windows,82°,5
 Logitech C922 Pro Stream HD,83.35,https://cdna.pcpartpicker.com/static/forever/images/product/a0b4b1c257ffd6fdd62efe95b9c29201.256p.jpg,"1080p, 720p",USB 2.0 Type-A,Auto,"Windows, OS X, ChromeOS, Android",78°,4
-Elgato Facecam Pro,299.99,https://cdna.pcpartpicker.com/static/forever/images/product/320ed317251127b3af9dad5fa21f1a23.256p.jpg,4k, 1080p, 720p,USB 3.2 Gen 1 Type-C,Auto,Windows, OS X,90°,0
-OBSBOT Tiny 2,299,https://cdna.pcpartpicker.com/static/forever/images/product/4d3cc6020ee43a53aaacdefd372595a1.256p.jpg,4k, 2k, 1080p, 720p, 480p,USB 3.2 Gen 1 Type-A,Auto,Windows, OS X,85.5°,0
-aoni A31,31.9,https://cdna.pcpartpicker.com/static/forever/images/product/6a4921a86a061ce0d1436bbaaedabafb.256p.jpg,1080p, 720p, 480p,USB 2.0 Type-A,Auto,Windows, OS X, Linux, ChromeOS, Android,84°,5
+Elgato Facecam Pro,,https://cdna.pcpartpicker.com/static/forever/images/product/320ed317251127b3af9dad5fa21f1a23.256p.jpg,"4k, 1080p, 720p",USB 3.2 Gen 1 Type-C,Auto,"Windows, OS X",90°,0
+OBSBOT Tiny 2,,https://cdna.pcpartpicker.com/static/forever/images/product/4d3cc6020ee43a53aaacdefd372595a1.256p.jpg,"4k, 2k, 1080p, 720p, 480p",USB 3.2 Gen 1 Type-A,Auto,"Windows, OS X",85.5°,0
+aoni A31,,https://cdna.pcpartpicker.com/static/forever/images/product/6a4921a86a061ce0d1436bbaaedabafb.256p.jpg,"1080p, 720p, 480p",USB 2.0 Type-A,Auto,"Windows, OS X, Linux, ChromeOS, Android",84°,5
 Razer Kiyo V2 X,70.17,https://cdna.pcpartpicker.com/static/forever/images/product/25708e46666dac781e6ca7f25c4d3a74.256p.jpg,"2k, 1080p, 720p",USB 2.0 Type-A,Auto,Windows,80°,0
-NexiGo N660P,65.76,1080p,720p,480p,1080p, 720p, 480p,USB 2.0 Type-A,Auto,Windows, OS X, ChromeOS,,0
+NexiGo N660P,65.76,,"1080p, 720p, 480p",USB 2.0 Type-A,Auto,"Windows, OS X, ChromeOS",,0
 Elgato Facecam Neo,,https://cdna.pcpartpicker.com/static/forever/images/product/2137c5bafb5a77d2753f9f101fe626ca.256p.jpg,"1080p, 720p",USB 3.2 Gen 1 Type-C,Auto,"Windows, OS X",77°,0
 Adesso CyberTrack H3,20,https://cdna.pcpartpicker.com/static/forever/images/product/ac3d8ee27fabd3bfbd1532c21979049f.256p.jpg,720p,USB 2.0 Type-A,Manual,"Windows, OS X",,0
-Insta360 Link 2,199.99,4k,1080p,720p,4k, 1080p, 720p,USB 2.0 Type-C,Auto,Windows, OS X,79.5°,0
+Insta360 Link 2,199.99,,"4k, 1080p, 720p",USB 2.0 Type-C,Auto,"Windows, OS X",79.5°,0
 Asus ROG EYE S,69.94,,1080p,USB 2.0 Type-A,Auto,,,0
-Anker AnkerWork C310,99.99,4k,1080p,4k, 1080p,USB 3.2 Gen 1 Type-C,Auto,Windows, OS X,95°,0
+Anker AnkerWork C310,,,"4k, 1080p",USB 3.2 Gen 1 Type-C,Auto,"Windows, OS X",95°,0
 Insta360 Link2C Pro,,,"4k, 1080p, 720p",USB 2.0 Type-C,Auto,"Windows, OS X",83.9°,0
 Logitech C925e,97.63,https://cdna.pcpartpicker.com/static/forever/images/product/ff4f6037a18e3094582e405b4343ebf1.256p.jpg,"1080p, 720p",USB 2.0 Type-A,Auto,"Windows, OS X, Linux",78°,4.5
-OBSBOT MEET 2,99,4k,1080p,720p,480p,4k, 1080p, 720p, 480p,USB 2.0 Type-C,Auto,Windows, OS X,79.4°,0
-Adesso Cybertrack H2,13.97,https://cdna.pcpartpicker.com/static/forever/images/product/d76586e4e1025fc9083aff89ac83f25d.256p.jpg,480p,USB 2.0 Type-A,Fixed,Windows, OS X,62°,0
+OBSBOT MEET 2,99,,"4k, 1080p, 720p, 480p",USB 2.0 Type-C,Auto,"Windows, OS X",79.4°,0
+Adesso Cybertrack H2,,https://cdna.pcpartpicker.com/static/forever/images/product/d76586e4e1025fc9083aff89ac83f25d.256p.jpg,480p,USB 2.0 Type-A,Fixed,"Windows, OS X",62°,0
 YoloLiv YoloCam S3,232,,"4k, 1080p, 720p",USB 3.2 Gen 1 Type-A,Auto,"Windows, OS X",82°,0
 Razer Kiyo,59.95,https://cdna.pcpartpicker.com/static/forever/images/product/9a20036a42989c40ac4815feccc3c380.256p.jpg,"1080p, 720p, 480p",USB 2.0 Type-A,Auto,Windows,81.6°,4
 Adesso Cybertrack H4,35,https://cdna.pcpartpicker.com/static/forever/images/product/609bd822e89f8c8fd2362da74f2a46fe.256p.jpg,1080p,USB 2.0 Type-A,Manual,"Windows, OS X",78°,4.5
 Adesso Cybertrack H6,39.99,https://cdna.pcpartpicker.com/static/forever/images/product/3f2fca48bf142ce9c9046c57213e3df8.256p.jpg,4k,USB 2.0 Type-A,Fixed,"Windows, OS X",80°,0
 Adesso Cybertrack H5,35,https://cdna.pcpartpicker.com/static/forever/images/product/3905d8fd8428368c185dd6803ac03429.256p.jpg,1080p,USB 2.0 Type-A,Auto,"Windows, OS X",80°,0
-Logitech StreamCam,159,https://cdna.pcpartpicker.com/static/forever/images/product/837554dab5fa5f580779ab36e44f3e21.256p.jpg,1080p, 720p,USB 3.2 Gen 1 Type-C,Auto,Windows, OS X,78°,4
+Logitech StreamCam,,https://cdna.pcpartpicker.com/static/forever/images/product/837554dab5fa5f580779ab36e44f3e21.256p.jpg,"1080p, 720p",USB 3.2 Gen 1 Type-C,Auto,"Windows, OS X",78°,4
 Logitech Brio 500,74.98,https://cdna.pcpartpicker.com/static/forever/images/product/e6220abd58c36f62784aca82523ae5a0.256p.jpg,"1080p, 720p",USB 2.0 Type-C,Auto,"Windows, OS X, ChromeOS",90°,0
 Razer Kiyo X,39.99,https://cdna.pcpartpicker.com/static/forever/images/product/c38deaf6584dbc0f0ec53a2f11b486d9.256p.jpg,"1080p, 720p",USB 2.0 Type-A,Auto,Windows,82°,5
 Dell WB3023,54.18,https://cdna.pcpartpicker.com/static/forever/images/product/62ca4fa0dffb5cad36155f12e7512d29.256p.jpg,"2k, 1080p, 720p",USB 2.0 Type-A,Auto,"Windows, OS X",78°,0
-Logitech C930e,78.29,https://cdna.pcpartpicker.com/static/forever/images/product/2a631278e6f31ff2b7e56515a98465d4.256p.jpg,1080p, 720p,USB 2.0 Type-A,Auto,Windows, OS X, ChromeOS,90°,4.5
-Creative Labs Live! Cam Sync 1080p,62,https://cdna.pcpartpicker.com/static/forever/images/product/559d0c014a8ed673269ee19bab60e646.256p.jpg,1080p, 720p,USB 2.0 Type-A,Auto,Windows, OS X,77°,4
+Logitech C930e,,https://cdna.pcpartpicker.com/static/forever/images/product/2a631278e6f31ff2b7e56515a98465d4.256p.jpg,"1080p, 720p",USB 2.0 Type-A,Auto,"Windows, OS X, ChromeOS",90°,4.5
+Creative Labs Live! Cam Sync 1080p,,https://cdna.pcpartpicker.com/static/forever/images/product/559d0c014a8ed673269ee19bab60e646.256p.jpg,"1080p, 720p",USB 2.0 Type-A,Auto,"Windows, OS X",77°,4
 OBSBOT Tiny 3 Lite,199,https://cdna.pcpartpicker.com/static/forever/images/product/e7bf12af991683f4817b4f7c3a6e3d53.256p.jpg,"4k, 1080p, 720p, 480p",USB 2.0 Type-C,Auto,"Windows, OS X",79.1°,0
-Insta360 Insta360 Link,179,https://cdna.pcpartpicker.com/static/forever/images/product/d0984d0f24918d0e630272f95c2635de.256p.jpg,4k, 1080p, 720p,USB 2.0 Type-C,Auto,Windows, OS X,79.5°,5
-Elgato Facecam Premium,129.99,https://cdna.pcpartpicker.com/static/forever/images/product/5cbc1fbecdd593379e7b61441df163ed.256p.jpg,1080p, 720p,USB 3.2 Gen 1 Type-A,Manual,Windows, OS X,82°,3.5
-Asus Webcam C3,43.59,https://cdna.pcpartpicker.com/static/forever/images/product/88b6f76371bca51927ef59daf3eae23c.256p.jpg,1080p,USB 2.0 Type-A,Windows,OS X,ChromeOS,Windows, OS X, ChromeOS,,0
+Insta360 Insta360 Link,,https://cdna.pcpartpicker.com/static/forever/images/product/d0984d0f24918d0e630272f95c2635de.256p.jpg,"4k, 1080p, 720p",USB 2.0 Type-C,Auto,"Windows, OS X",79.5°,5
+Elgato Facecam Premium,,https://cdna.pcpartpicker.com/static/forever/images/product/5cbc1fbecdd593379e7b61441df163ed.256p.jpg,"1080p, 720p",USB 3.2 Gen 1 Type-A,Manual,"Windows, OS X",82°,3.5
+Asus Webcam C3,43.59,https://cdna.pcpartpicker.com/static/forever/images/product/88b6f76371bca51927ef59daf3eae23c.256p.jpg,1080p,USB 2.0 Type-A,,"Windows, OS X, ChromeOS",,0
 OBSBOT Tiny SE,129,,"1080p, 720p, 480p",USB 3.2 Gen 1 Type-C,Auto,"Windows, OS X",78°,0
 Avermedia PW513,152.37,https://cdna.pcpartpicker.com/static/forever/images/product/9b3296db77fc58a6c82f0accd32173a9.256p.jpg,"4k, 1080p",USB 3.2 Gen 1 Type-C,Fixed,"Windows, OS X",94°,0
-Logitech StreamCam Plus,159.99,https://cdna.pcpartpicker.com/static/forever/images/product/e35cd1f2bf8c802838304d97f03d2d51.256p.jpg,1080p, 720p, 480p,USB 3.2 Gen 1 Type-C,Auto,Windows, OS X,,5
+Logitech StreamCam Plus,,https://cdna.pcpartpicker.com/static/forever/images/product/e35cd1f2bf8c802838304d97f03d2d51.256p.jpg,"1080p, 720p, 480p",USB 3.2 Gen 1 Type-C,Auto,"Windows, OS X",,5
 Logitech B525,39.99,https://cdna.pcpartpicker.com/static/forever/images/product/cc7558d9e0f09bdad3d7b5b4bc2b6a6a.256p.jpg,"1080p, 720p",USB 2.0 Type-A,Auto,"Windows, OS X",69°,4
 Anker B600 Video Bar,,https://cdna.pcpartpicker.com/static/forever/images/product/fb53c5e92f522fcdaa6010f2c0574857.256p.jpg,"2k, 1080p, 720p",USB 3.2 Gen 1 Type-C,Auto,"Windows, OS X",95°,0
-Logitech C910,87.99,1080p,720p,1080p, 720p,USB 2.0 Type-A,Auto,Windows, OS X,78°,5
+Logitech C910,,,"1080p, 720p",USB 2.0 Type-A,Auto,"Windows, OS X",78°,5
 ROCWARE RC08,46.99,,"1080p, 720p, 480p",USB 2.0 Type-C,Auto,"Windows, OS X, Linux, ChromeOS",90°,0
-Microsoft LifeCam HD-3000,48.99,https://cdna.pcpartpicker.com/static/forever/images/product/4c166ff82cbd102d2cdcb007f5e867e9.256p.jpg,720p,USB 2.0 Type-A,Fixed,Windows, OS X,,3
-Asus ROG EYE,,1080p,1080p,USB 2.0 Type-A,Auto,Windows, OS X,,4
+Microsoft LifeCam HD-3000,,https://cdna.pcpartpicker.com/static/forever/images/product/4c166ff82cbd102d2cdcb007f5e867e9.256p.jpg,720p,USB 2.0 Type-A,Fixed,"Windows, OS X",,3
+Asus ROG EYE,,,1080p,USB 2.0 Type-A,Auto,"Windows, OS X",,4
 Logitech C505,65.02,https://cdna.pcpartpicker.com/static/forever/images/product/14bd98c81302eaea1d110f7ce601b2e7.256p.jpg,720p,USB 2.0 Type-A,Fixed,"Windows, OS X, ChromeOS",60°,4.5
 Avermedia PW315,121.2,https://cdna.pcpartpicker.com/static/forever/images/product/589062177bcb9c09411ed9add3fa4a70.256p.jpg,1080p,USB 2.0 Type-A,Fixed,"Windows, OS X, ChromeOS",95.8°,0
-AUKEY PC-LM1,,1080p,720p,480p,1080p, 720p, 480p,USB 2.0 Type-A,Manual,Windows, OS X, Android,55°,3.5
-Logitech C505e,69.98,https://cdna.pcpartpicker.com/static/forever/images/product/1cc5a995953b6b6f672289a7a400586e.256p.jpg,720p,USB 2.0 Type-A,Fixed,Windows, OS X, ChromeOS,60°,0
+AUKEY PC-LM1,,,"1080p, 720p, 480p",USB 2.0 Type-A,Manual,"Windows, OS X, Android",55°,3.5
+Logitech C505e,,https://cdna.pcpartpicker.com/static/forever/images/product/1cc5a995953b6b6f672289a7a400586e.256p.jpg,720p,USB 2.0 Type-A,Fixed,"Windows, OS X, ChromeOS",60°,0
 OBSBOT Tiny 4K,,https://cdna.pcpartpicker.com/static/forever/images/product/b33ef459d60d84878397cfd778895141.256p.jpg,"4k, 1080p, 720p",USB 3.2 Gen 1 Type-A,Auto,"Windows, OS X",90°,0
 Creative Labs Live! Cam Sync HD,,https://cdna.pcpartpicker.com/static/forever/images/product/5b828c70f7e7f095f5cb344d85dd028e.256p.jpg,720p,USB 2.0 Type-A,Fixed,"Windows, OS X",,0
-Green Extreme T1000,129,https://cdna.pcpartpicker.com/static/forever/images/product/e410ce7f3958ee615aafc65cbfaaaa92.256p.jpg,1080p,USB 2.0 Type-A,Auto,Windows, OS X,120°,0
+Green Extreme T1000,,https://cdna.pcpartpicker.com/static/forever/images/product/e410ce7f3958ee615aafc65cbfaaaa92.256p.jpg,1080p,USB 2.0 Type-A,Auto,"Windows, OS X",120°,0
 Avermedia Live Streamer CAM 313,49.99,https://cdna.pcpartpicker.com/static/forever/images/product/40c54a365eecec3c8a2ed3ed8f8bdba5.256p.jpg,1080p,USB 2.0 Type-A,Fixed,"Windows, OS X",,4.5
 Anker PowerConf C300,,https://cdna.pcpartpicker.com/static/forever/images/product/891c66e519ea2dc961736d4ce527aac1.256p.jpg,"1080p, 720p",USB 3.2 Gen 1 Type-C,Auto,"Windows, OS X",115°,0
-Logitech C615 Portable,49.99,https://cdna.pcpartpicker.com/static/forever/images/product/69265d5978d471b96008706a9a8ce830.256p.jpg,1080p, 720p,USB 2.0 Type-A,Auto,Windows, OS X, ChromeOS, Android,78°,4
-Microsoft LifeCam Studio,64.98,https://cdna.pcpartpicker.com/static/forever/images/product/3c91dfebe3e19e8f34be04eceb27f37c.256p.jpg,1080p, 720p,USB 2.0 Type-A,Auto,Windows, OS X,75°,5
+Logitech C615 Portable,,https://cdna.pcpartpicker.com/static/forever/images/product/69265d5978d471b96008706a9a8ce830.256p.jpg,"1080p, 720p",USB 2.0 Type-A,Auto,"Windows, OS X, ChromeOS, Android",78°,4
+Microsoft LifeCam Studio,,https://cdna.pcpartpicker.com/static/forever/images/product/3c91dfebe3e19e8f34be04eceb27f37c.256p.jpg,"1080p, 720p",USB 2.0 Type-A,Auto,"Windows, OS X",75°,5
 Microsoft LifeCam CinemaaFor Business,68,https://cdna.pcpartpicker.com/static/forever/images/product/a50f76b93f27307e52589e86ca926451.256p.jpg,720p,USB 2.0 Type-A,Auto,"Windows, OS X",,0
-Avermedia PW310P,42.99,1080p,1080p,USB 2.0 Type-A,Auto,Windows, OS X, ChromeOS,73°,0
-Logitech C525,99.99,720p,720p,USB 2.0 Type-A,Auto,Windows, OS X, ChromeOS, Android,69°,3.5
+Avermedia PW310P,42.99,,1080p,USB 2.0 Type-A,Auto,"Windows, OS X, ChromeOS",73°,0
+Logitech C525,,,720p,USB 2.0 Type-A,Auto,"Windows, OS X, ChromeOS, Android",69°,3.5
 Anker PowerConf C302,,https://cdna.pcpartpicker.com/static/forever/images/product/0c93df2016d73542bef2c237a8a1a1ee.256p.jpg,"2k, 1080p, 720p",USB 3.2 Gen 1 Type-C,Auto,"Windows, OS X",115°,0
 OBSBOT Tiny,,https://cdna.pcpartpicker.com/static/forever/images/product/98fe8af9b7c8e972ce09b8aa5fe5932a.256p.jpg,"1080p, 720p",USB 2.0 Type-A,Auto,"Windows, OS X",86°,0
-Logitech C310,44.23,720p,720p,USB 2.0 Type-A,Fixed,Windows, OS X, ChromeOS, Android,60°,5
-Microsoft Lifecam Cinema,85.99,https://cdna.pcpartpicker.com/static/forever/images/product/cb6c32d086c6810b738a8b870a139fa0.256p.jpg,720p,USB 2.0 Type-A,Auto,Windows,73°,4
-Avermedia 4K UHD Webcam 510,,https://cdna.pcpartpicker.com/static/forever/images/product/2b6ff015cbe3af7f030c781aaf9b71d5.256p.jpg,4k, 1080p, 720p, 480p,USB 3.2 Gen 1 Type-C,Windows,Windows,85°,0
+Logitech C310,44.23,,720p,USB 2.0 Type-A,Fixed,"Windows, OS X, ChromeOS, Android",60°,5
+Microsoft Lifecam Cinema,,https://cdna.pcpartpicker.com/static/forever/images/product/cb6c32d086c6810b738a8b870a139fa0.256p.jpg,720p,USB 2.0 Type-A,Auto,Windows,73°,4
+Avermedia 4K UHD Webcam 510,,https://cdna.pcpartpicker.com/static/forever/images/product/2b6ff015cbe3af7f030c781aaf9b71d5.256p.jpg,"4k, 1080p, 720p, 480p",USB 3.2 Gen 1 Type-C,,Windows,85°,0
 Wansview 105JD,,https://cdna.pcpartpicker.com/static/forever/images/product/bddb68bb7b9cda8859ed8ae5aa7c4a55.256p.jpg,1080p,USB 2.0 Type-A,Manual,"Windows, OS X, Android",90°,0
 Microsoft LifeCam Studio for Business,57.7,https://cdna.pcpartpicker.com/static/forever/images/product/1a9648fa4c69787cf6f231687203d856.256p.jpg,"1080p, 720p",USB 2.0 Type-A,Auto,"Windows, OS X",75°,0
 Microsoft LifeCam HD-3000 L2,,https://cdna.pcpartpicker.com/static/forever/images/product/af905f6aabce307ac01e86d331d39e45.256p.jpg,720p,USB 2.0 Type-A,Fixed,"Windows, OS X",,0
@@ -80,9 +80,9 @@ Adesso Cybertrack H4P,,https://cdna.pcpartpicker.com/static/forever/images/produ
 Creative Labs BlasterX Senz3D,,https://cdna.pcpartpicker.com/static/forever/images/product/4779680dd6345bf28871941d4cb9a8e4.256p.jpg,"1080p, 720p",USB 3.2 Gen 1 Type-A,Auto,Windows,77°,0
 Green Extreme T300,,https://cdna.pcpartpicker.com/static/forever/images/product/09106d7c834ed70a77594bab094304f1.256p.jpg,"1080p, 720p, 480p",USB 2.0 Type-A,Auto,"Windows, OS X, Android",94°,3
 Green Extreme T200 + Live Streaming Bundle,,https://cdna.pcpartpicker.com/static/forever/images/product/6742a2747e6eae9251b49c0b97d75cd7.256p.jpg,1080p,USB 2.0 Type-A,Auto,"Windows, OS X, Android",,0
-VDO360 2SEE,49.95,https://cdna.pcpartpicker.com/static/forever/images/product/8ac7231db1827f258d7698eaa9ed3aaf.256p.jpg,1080p, 720p,USB 2.0 Type-A,Windows,OS X,Linux,Android,Windows, OS X, Linux, Android,75°,0
-Avermedia HD Webcam 310,,1080p,720p,480p,1080p, 720p, 480p,USB 2.0 Type-A,Auto,Windows, OS X, Android,,0
-Wansview 101JD,22.99,https://cdna.pcpartpicker.com/static/forever/images/product/4669f48df62932d8e9ea3f01ac00eda0.256p.jpg,1080p,USB 2.0 Type-A,Windows,OS X,Android,Windows, OS X, Android,90°,3.5
-Wansview 102JD,,https://cdna.pcpartpicker.com/static/forever/images/product/6f682b778fe8b18a3dc633ad5e241a74.256p.jpg,1080p,USB 2.0 Type-A,Windows,OS X,Android,Windows, OS X, Android,90°,0
+VDO360 2SEE,,https://cdna.pcpartpicker.com/static/forever/images/product/8ac7231db1827f258d7698eaa9ed3aaf.256p.jpg,"1080p, 720p",USB 2.0 Type-A,,"Windows, OS X, Linux, Android",75°,0
+Avermedia HD Webcam 310,,,"1080p, 720p, 480p",USB 2.0 Type-A,Auto,"Windows, OS X, Android",,0
+Wansview 101JD,,https://cdna.pcpartpicker.com/static/forever/images/product/4669f48df62932d8e9ea3f01ac00eda0.256p.jpg,1080p,USB 2.0 Type-A,,"Windows, OS X, Android",90°,3.5
+Wansview 102JD,,https://cdna.pcpartpicker.com/static/forever/images/product/6f682b778fe8b18a3dc633ad5e241a74.256p.jpg,1080p,USB 2.0 Type-A,,"Windows, OS X, Android",90°,0
 Wansview 106JD,,https://cdna.pcpartpicker.com/static/forever/images/product/bff192640f123c0be0efd4c9ee997c95.256p.jpg,1080p,USB 2.0 Type-A,Auto,"Windows, OS X, Android",60°,0
 VIZOLINK W4DS,,,"2k, 1080p, 720p",USB 2.0 Type-A,Auto,"Windows, OS X, ChromeOS, Android",65°,0

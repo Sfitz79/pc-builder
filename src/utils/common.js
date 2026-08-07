@@ -263,7 +263,7 @@ export function getItemImageUrls(item) {
   });
 }
 
-const VALID_SOCKETS = new Set(["AM4", "AM5", "LGA1700", "LGA1851"]);
+const VALID_SOCKETS = new Set(["AM4", "AM5", "LGA1700", "LGA1851", "LGA1200"]);
 
 export function isModernComponent(categoryId, item) {
   if (!item) return true;
@@ -313,6 +313,8 @@ export function isModernComponent(categoryId, item) {
     case "cooler": {
       const socket = normalizeToken(item.socket);
       if (socket && socket !== "Universal" && !VALID_SOCKETS.has(socket)) return false;
+      const coolerSockets = inferCoolerSockets(item);
+      if (coolerSockets.length > 0 && !coolerSockets.some(s => VALID_SOCKETS.has(s))) return false;
       return true;
     }
     case "ram": {
@@ -329,10 +331,16 @@ export function isModernComponent(categoryId, item) {
     case "psu": {
       const wattage = toNumber(item.wattage);
       if (wattage > 0 && wattage < 450) return false;
-      return true;
+      return isModernPsu(item);
     }
     case "gpu": {
       return isModernGpu(item);
+    }
+    case "os": {
+      const name = String(item.name || "").toUpperCase();
+      if (name.includes("WINDOWS 11")) return true;
+      if (name.includes("WINDOWS 10") && (name.includes("IOT") || name.includes("LTSC"))) return true;
+      return false;
     }
     default:
       return true;
@@ -363,8 +371,8 @@ export function isWindows11Compatible(cpu) {
     return false;
   }
 
-  // Intel: LGA1700, LGA1851 always compatible
-  if (socket === "LGA1700" || socket === "LGA1851") return true;
+  // Intel: LGA1700, LGA1851, LGA1200 always compatible
+  if (socket === "LGA1700" || socket === "LGA1851" || socket === "LGA1200") return true;
 
   // LGA1151: only Coffee Lake (8th gen) and newer
   if (socket === "LGA1151") {
@@ -376,14 +384,74 @@ export function isWindows11Compatible(cpu) {
   return false;
 }
 
+export function isSodimmRam(item) {
+  const name = String(item?.name ?? "");
+  return /\bSODIMM\b|\bSO-DIMM\b|\bSO DIMM\b/i.test(name);
+}
+
+export function isRegisteredEccRam(item) {
+  const name = String(item?.name ?? "").toUpperCase();
+  return /REG(?:ISTERED)?\s*(?:ECC)?|RDIMM|LRDIMM|LOAD\s*REDUCED|REG\s*ECC/i.test(name);
+}
+
+export function isEccRam(item) {
+  const name = String(item?.name ?? "");
+  return /\bECC\b|\bREGECC\b|\bREGISTERED\b|\bRDIMM\b|\bLRDIMM\b/i.test(name);
+}
+
+export function motherboardSupportsEcc(motherboard) {
+  if (!motherboard) return false;
+  const socket = normalizeToken(motherboard.socket);
+  if (!socket) return false;
+  const clean = socket.replace(/^2 X /, "");
+  // AMD consumer (AM4/AM5) accepts unbuffered ECC; TR/TRX/WRX accept registered ECC too
+  return /^(AM\d|S?TRX?|S?WRX)/.test(clean);
+}
+
+export function inferCoolerSockets(item) {
+  const name = String(item?.name ?? "").toUpperCase();
+  const sockets = [];
+  const patterns = [
+    ["AM5", /\bAM5\b/],
+    ["AM4", /\bAM4\b/],
+    ["AM1", /\bAM1\b/],
+    ["LGA1851", /\bLGA1851\b/],
+    ["LGA1700", /\bLGA1700\b/],
+    ["LGA1200", /\bLGA1200\b/],
+    ["LGA1151", /\bLGA1151\b/],
+    ["LGA1150", /\bLGA1150\b/],
+    ["LGA1156", /\bLGA1156\b/],
+    ["LGA1155", /\bLGA1155\b/],
+    ["LGA2066", /\bLGA2066\b/],
+    ["LGA2011", /\bLGA2011(-3)?\b/],
+    ["LGA1366", /\bLGA1366\b/],
+    ["LGA775", /\bLGA775\b/],
+    ["LGA4677", /\bLGA4677\b/],
+    ["TR4", /\b(S?TRX?\d{2,}|S?WRX\d{2,})\b/],
+  ];
+  for (const [label, re] of patterns) {
+    if (re.test(name) && !sockets.includes(label)) sockets.push(label);
+  }
+  return sockets;
+}
+
+function isModernPsu(psu) {
+  const eff = String(psu?.efficiency ?? "").toLowerCase();
+  if (eff) {
+    return /\b(?:gold|platinum|titanium)\b/.test(eff);
+  }
+  // Unknown efficiency: don't block — many modern units lack the scraped field
+  return true;
+}
+
 function isModernGpu(gpu) {
   if (!gpu) return false;
   
   const search = (String(gpu.name ?? "") + " " + String(gpu.chipset ?? "")).toUpperCase();
   const memory = toNumber(gpu.memory);
   
-  // Require at least 6GB VRAM for modern gaming
-  if (memory > 0 && memory < 6) return false;
+  // Require at least 5GB VRAM for modern builds
+  if (memory > 0 && memory < 5) return false;
   
   // Block all old NVIDIA GeForce series (GT, GTS, GTX older than 16-series)
   if (search.includes("GT ") || search.includes("GTS ") || search.includes("GEFORCE GT")) return false;

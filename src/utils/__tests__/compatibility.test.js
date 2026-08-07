@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { checkCompatibility, isOptionCompatible, estimateRequiredWattage } from "../compatibility";
+import { checkCompatibility, isOptionCompatible, estimateRequiredWattage, isRamAllowedForBuild, isCoolerCompatibleWithCpu } from "../compatibility";
 
 describe("checkCompatibility", () => {
   it("returns issues for missing required components", () => {
@@ -130,5 +130,53 @@ describe("estimateRequiredWattage", () => {
 
   it("returns 0 for missing GPU", () => {
     expect(estimateRequiredWattage({ tdp: "125" }, null)).toBe(0);
+  });
+});
+
+describe("isRamAllowedForBuild", () => {
+  it("blocks SO-DIMM RAM", () => {
+    expect(isRamAllowedForBuild({ name: "Kingston 8GB SO-DIMM DDR4 3200" }, { socket: "AM5" })).toBe(false);
+  });
+
+  it("allows normal desktop RAM", () => {
+    expect(isRamAllowedForBuild({ name: "Corsair Vengeance 32GB" }, { socket: "AM5" })).toBe(true);
+  });
+
+  it("blocks ECC RAM without an ECC-capable board", () => {
+    expect(isRamAllowedForBuild({ name: "Samsung ECC DDR4 2933" }, { socket: "LGA1700" })).toBe(false);
+    expect(isRamAllowedForBuild({ name: "Samsung ECC DDR4 2933" }, null)).toBe(false);
+  });
+
+  it("allows unbuffered ECC on AMD consumer boards", () => {
+    expect(isRamAllowedForBuild({ name: "Samsung ECC DDR4 3200" }, { socket: "AM5" })).toBe(true);
+  });
+
+  it("blocks registered ECC on AMD consumer boards", () => {
+    expect(isRamAllowedForBuild({ name: "Samsung 16GB RegECC DDR4 2933" }, { socket: "AM5" })).toBe(false);
+  });
+
+  it("allows registered ECC on Threadripper boards", () => {
+    expect(isRamAllowedForBuild({ name: "Samsung 16GB RegECC DDR4 2933" }, { socket: "sTRX4" })).toBe(true);
+  });
+});
+
+describe("isCoolerCompatibleWithCpu", () => {
+  it("treats universal coolers as compatible", () => {
+    expect(isCoolerCompatibleWithCpu({ name: "Noctua NH-D15" }, { socket: "AM5" })).toBe(true);
+  });
+
+  it("matches cooler socket to CPU socket", () => {
+    expect(isCoolerCompatibleWithCpu({ name: "Noctua NH-L9A-AM5" }, { socket: "AM5" })).toBe(true);
+    expect(isCoolerCompatibleWithCpu({ name: "Noctua NH-L9a-AM4" }, { socket: "AM5" })).toBe(false);
+  });
+});
+
+describe("isOptionCompatible with new rules", () => {
+  it("excludes SO-DIMM RAM from RAM options", () => {
+    expect(isOptionCompatible("ram", { name: "Kingston 8GB SO-DIMM DDR4 3200", ram_type: "DDR4", speed: "3200" }, { motherboard: { socket: "AM4", ram_type: "DDR4" } })).toBe(false);
+  });
+
+  it("excludes ECC RAM on non-ECC motherboards", () => {
+    expect(isOptionCompatible("ram", { name: "Samsung ECC DDR4 2933", ram_type: "DDR4", speed: "2933" }, { motherboard: { socket: "LGA1700", ram_type: "DDR4" } })).toBe(false);
   });
 });

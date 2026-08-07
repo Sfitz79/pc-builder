@@ -1,76 +1,76 @@
 name,price,image,channels,digital_audio,interface,chipset,snr,sample_rate,rating
-Creative Labs Sound Blaster AE-9,427.49,https://cdna.pcpartpicker.com/static/forever/images/product/3f127cbdd92c06b33328f8b1e9ae2740.256p.jpg,5.1,32-bit,PCIe x1,Sound Core3D,129 dB,384 kHz,4
+Creative Labs Sound Blaster AE-9,,https://cdna.pcpartpicker.com/static/forever/images/product/3f127cbdd92c06b33328f8b1e9ae2740.256p.jpg,5.1,32-bit,PCIe x1,Sound Core3D,129 dB,384 kHz,4
 Creative Labs Sound BlasterX AE-5 Plus,122.4,https://cdna.pcpartpicker.com/static/forever/images/product/6b7658e696cb51349bcc73ea46059669.256p.jpg,5.1,32-bit,PCIe x1,Sound Core3D,122 dB,384 kHz,4.5
-Creative Labs Sound Blaster AE-7,209.99,https://cdna.pcpartpicker.com/static/forever/images/product/3bc971273a6158eaffb924e541e55f91.256p.jpg,5.1,32-bit,PCIe x1,Sound Core3D,127 dB,384 kHz,4.5
+Creative Labs Sound Blaster AE-7,,https://cdna.pcpartpicker.com/static/forever/images/product/3bc971273a6158eaffb924e541e55f91.256p.jpg,5.1,32-bit,PCIe x1,Sound Core3D,127 dB,384 kHz,4.5
 Asus STRIX SOAR,69.94,https://cdna.pcpartpicker.com/static/forever/images/product/f60cfa38268cb87ff4a377931f682c77.256p.jpg,7.1,24-bit,PCIe x1,,116 dB,192 kHz,4
-Creative Labs Sound Blaster Audigy Fx V2,56.99,https://cdna.pcpartpicker.com/static/forever/images/product/3a67bc25f6a1a9c0a102ab27b8d0eec2.256p.jpg,5.1,24-bit,PCIe x1,,120 dB,192 kHz,5
-Asus Xonar SE,81.26,https://cdna.pcpartpicker.com/static/forever/images/product/44d27c13de46b5eb697cfd598740f3a2.256p.jpg,5.1,24-bit,PCIe x1,,120 dB,192 kHz,5
+Creative Labs Sound Blaster Audigy Fx V2,,https://cdna.pcpartpicker.com/static/forever/images/product/3a67bc25f6a1a9c0a102ab27b8d0eec2.256p.jpg,5.1,24-bit,PCIe x1,,120 dB,192 kHz,5
+Asus Xonar SE,,https://cdna.pcpartpicker.com/static/forever/images/product/44d27c13de46b5eb697cfd598740f3a2.256p.jpg,5.1,24-bit,PCIe x1,,120 dB,192 kHz,5
 Creative Labs Sound Blaster Z SE,79.99,https://cdna.pcpartpicker.com/static/forever/images/product/671e129ab2b2a84930e765dcf6d60fe7.256p.jpg,5.1,24-bit,PCIe x1,Sound Core3D,116 dB,192 kHz,4.5
-Asus Xonar Essence STX,,7.1,7.1,24-bit,PCIe x1,ASUS AV100,124 dB,192 kHz,4.5
-Creative Labs ZXR,802.11,5.1,5.1,24-bit,PCIe x1,,124 dB,192 kHz,4.5
-Creative Labs Sound BlasterX AE-5 Plus Pure,,5.1,5.1,32-bit,PCIe x1,Sound Core3D,122 dB,384 kHz,0
-Asus Essence STX II 7.1,,7.1,7.1,24-bit,PCIe x1,ASUS AV100,124 dB,192 kHz,0
-Asus Xonar AE,69.99,https://cdna.pcpartpicker.com/static/forever/images/product/974fe1baf579715ee071900b1c3864ff.256p.jpg,7.1,24-bit,PCIe x1,,110 dB,192 kHz,0
-Creative Labs Sound Blaster X-Fi Titanium HD,,7.1,7.1,24-bit,PCIe x1,X-Fi,122 dB,96 kHz,4.5
-Creative Labs Sound Blaster Audigy Rx,66.48,https://cdna.pcpartpicker.com/static/forever/images/product/2ac66de878c9627fb10cc0c67a680b57.256p.jpg,7.1,24-bit,PCIe x1,Creative E-MU,106 dB,192 kHz,4.5
-Creative Labs Sound Blaster Z w/Shield,,5.1,5.1,24-bit,PCIe x1,Sound Core3D,116 dB,192 kHz,4
-Creative Labs Sound Blaster Zx,,5.1,5.1,24-bit,PCIe x1,,116 dB,192 kHz,4.5
+Asus Xonar Essence STX,,,7.1,24-bit,PCIe x1,ASUS AV100,124 dB,192 kHz,4.5
+Creative Labs ZXR,802.11,,5.1,24-bit,PCIe x1,,124 dB,192 kHz,4.5
+Creative Labs Sound BlasterX AE-5 Plus Pure,,,5.1,32-bit,PCIe x1,Sound Core3D,122 dB,384 kHz,0
+Asus Essence STX II 7.1,,,7.1,24-bit,PCIe x1,ASUS AV100,124 dB,192 kHz,0
+Asus Xonar AE,,https://cdna.pcpartpicker.com/static/forever/images/product/974fe1baf579715ee071900b1c3864ff.256p.jpg,7.1,24-bit,PCIe x1,,110 dB,192 kHz,0
+Creative Labs Sound Blaster X-Fi Titanium HD,,,7.1,24-bit,PCIe x1,X-Fi,122 dB,96 kHz,4.5
+Creative Labs Sound Blaster Audigy Rx,,https://cdna.pcpartpicker.com/static/forever/images/product/2ac66de878c9627fb10cc0c67a680b57.256p.jpg,7.1,24-bit,PCIe x1,Creative E-MU,106 dB,192 kHz,4.5
+Creative Labs Sound Blaster Z w/Shield,,,5.1,24-bit,PCIe x1,Sound Core3D,116 dB,192 kHz,4
+Creative Labs Sound Blaster Zx,,,5.1,24-bit,PCIe x1,,116 dB,192 kHz,4.5
 EVGA NU AUDIO PRO,,https://cdna.pcpartpicker.com/static/forever/images/product/e391f1d7e06e84b33a82e559c144e1f5.256p.jpg,2.0,32-bit,PCIe x1,,123 dB,384 kHz,5
-Asus STRIX RAID PRO,129.99,7.1,7.1,24-bit,PCIe x1,,116 dB,192 kHz,0
+Asus STRIX RAID PRO,,,7.1,24-bit,PCIe x1,,116 dB,192 kHz,0
 Asus STRIX RAID DLX,,https://cdna.pcpartpicker.com/static/forever/images/product/771b65ae71626caf3c50d6e0698cfc30.256p.jpg,7.1,24-bit,PCIe x1,,124 dB,192 kHz,0
-Creative Labs Sound BlasterX AE-5,,5.1,5.1,32-bit,PCIe x1,Sound Core3D,122 dB,384 kHz,0
+Creative Labs Sound BlasterX AE-5,,,5.1,32-bit,PCIe x1,Sound Core3D,122 dB,384 kHz,0
 Asus Xonar DX,,https://cdna.pcpartpicker.com/static/forever/images/product/e786d6797f84c4514334f267794381dd.256p.jpg,7.1,24-bit,PCIe x1,ASUS AV100,116 dB,192 kHz,4
 Creative Labs Sound Blaster Audigy Fx,,https://cdna.pcpartpicker.com/static/forever/images/product/b4946156e65ec36ee43442b1be7c4d25.256p.jpg,5.1,24-bit,PCIe x1,,106 dB,192 kHz,4.5
-Creative Labs Sound BlasterX AE-5 Pure,,5.1,5.1,32-bit,PCIe x1,Sound Core3D,122 dB,384 kHz,0
+Creative Labs Sound BlasterX AE-5 Pure,,,5.1,32-bit,PCIe x1,Sound Core3D,122 dB,384 kHz,0
 Asus Essence STX II,,https://cdna.pcpartpicker.com/static/forever/images/product/6ab2119d580c39340adadd1441ede095.256p.jpg,2.0,24-bit,PCIe x1,ASUS AV100,124 dB,192 kHz,5
 EVGA NU,,https://cdna.pcpartpicker.com/static/forever/images/product/0128d820d36b1c94ef43efb973e48836.256p.jpg,5.1,24-bit,PCIe x1,,123 dB,192 kHz,5
 Asus Xonar DGX,,https://cdna.pcpartpicker.com/static/forever/images/product/4da5bda7fde70caba20f22e7803675bc.256p.jpg,5.1,24-bit,PCIe x1,C-Media CMI8786,105 dB,96 kHz,4
-Creative Labs Sound Blaster X-Fi Xtreme Audio,,7.1,7.1,24-bit,PCI,,108 dB,96 kHz,5
+Creative Labs Sound Blaster X-Fi Xtreme Audio,,,7.1,24-bit,PCI,,108 dB,96 kHz,5
 Creative Labs Recon3D Fatal1ty Professional,,https://cdna.pcpartpicker.com/static/forever/images/product/b5b77cdf46ec2628800cd60a82fc76ae.med.256p.jpg,5.1,24-bit,PCIe x1,Sound Core3D,102 dB,96 kHz,4.5
 Asus Xonar DSX,,https://cdna.pcpartpicker.com/static/forever/images/product/168f243535e994ded84c4a50a3a7338c.256p.jpg,7.1,24-bit,PCIe x1,ASUS AV66,107 dB,192 kHz,4
 Asus Xonar Phoebus,,https://cdna.pcpartpicker.com/static/forever/images/product/ddd086034ba45c40449cc08ad71741f8.256p.jpg,7.1,24-bit,PCIe x1,C-Media CMI8888DHT,118 dB,96 kHz,3
-Creative Labs Sound Blaster Z,,5.1,5.1,24-bit,PCIe x1,,116 dB,192 kHz,4.5
-SIIG DP SoundWave,,5.1,5.1,24-bit,PCIe x1,,PCIe x1,,0
-Creative Labs Sound Blaster Audigy2 ZS,,5.1,5.1,24-bit,PCI,Audigy2,PCI,192 kHz,5
-HT Omega FENIX,,https://cdna.pcpartpicker.com/static/forever/images/product/98d2c8b09833407496405db4d5e72d98.256p.jpg,7.1,24-bit,PCIe x1,,PCIe x1,192 kHz,0
-StarTech PCISOUND4CH,,4,4.0,16-bit,PCI,C-Media CMI8738,PCI,48 kHz,0
+Creative Labs Sound Blaster Z,,,5.1,24-bit,PCIe x1,,116 dB,192 kHz,4.5
+SIIG DP SoundWave,,,5.1,24-bit,PCIe x1,,,,0
+Creative Labs Sound Blaster Audigy2 ZS,,,5.1,24-bit,PCI,Audigy2,,192 kHz,5
+HT Omega FENIX,,https://cdna.pcpartpicker.com/static/forever/images/product/98d2c8b09833407496405db4d5e72d98.256p.jpg,7.1,24-bit,PCIe x1,,,192 kHz,0
+StarTech PCISOUND4CH,,,4.0,16-bit,PCI,C-Media CMI8738,,48 kHz,0
 Creative Labs Sound Blaster Audigy SE OEM,,https://cdna.pcpartpicker.com/static/forever/images/product/796309151625a3a9bbd39a39b98b3c71.256p.jpg,7.1,24-bit,PCI,,100 dB,96 kHz,3
-Creative Labs Recon3D PCIe,,5.1,5.1,24-bit,PCIe x1,Sound Core3D,102 dB,96 kHz,4.5
-Creative Labs SB X-Fi Xtreme Audio,,7.1,7.1,24-bit,PCIe x1,,100 dB,96 kHz,4
-HT Omega eClaro,,https://cdna.pcpartpicker.com/static/forever/images/product/7a24007a56338f471183085868459022.256p.jpg,7.1,24-bit,PCIe x1,C-Media CMI8788,PCIe x1,192 kHz,5
+Creative Labs Recon3D PCIe,,,5.1,24-bit,PCIe x1,Sound Core3D,102 dB,96 kHz,4.5
+Creative Labs SB X-Fi Xtreme Audio,,,7.1,24-bit,PCIe x1,,100 dB,96 kHz,4
+HT Omega eClaro,,https://cdna.pcpartpicker.com/static/forever/images/product/7a24007a56338f471183085868459022.256p.jpg,7.1,24-bit,PCIe x1,C-Media CMI8788,,192 kHz,5
 Creative Labs Sound Blaster X-Fi,,https://cdna.pcpartpicker.com/static/forever/images/product/6338680b5e161a81a478d125f17076f7.256p.jpg,7.1,24-bit,PCI,,109 dB,192 kHz,0
-Creative Labs Sound Blaster Audigy SE,,7.1,7.1,24-bit,PCI,Audigy SE,PCI,96 kHz,4
+Creative Labs Sound Blaster Audigy SE,,,7.1,24-bit,PCI,Audigy SE,,96 kHz,4
 Asus Xonar DG,,https://cdna.pcpartpicker.com/static/forever/images/product/049578956aac1a19ab8e7ce994f9d8fc.256p.jpg,5.1,24-bit,PCI,C-Media CMI8786,105 dB,96 kHz,4
-Creative Labs Sound Blaster Z OEM,,5.1,5.1,24-bit,PCIe x1,,116 dB,192 kHz,4.5
-Creative Labs 70SB157000000,80.2,https://cdna.pcpartpicker.com/static/forever/images/product/ad92118b4c80e93bddee4297f507213f.256p.jpg,5.1,106,PCIe x1,,106 dB,,4.5
-SIIG IC-510111-S2,,5.1,5.1,24-bit,PCIe x1,VIA VT1723,90 dB,96 kHz,0
-Creative Labs Recon3D Fatal1ty Champion,,5.1,5.1,24-bit,PCIe x1,Sound Core3D,102 dB,96 kHz,4
-Asus Xonar DS,,7.1,7.1,24-bit,PCI,ASUS AV200,107 dB,192 kHz,5
-Asus Xonar Essence ST,,7.1,7.1,24-bit,PCI,ASUS AV100,124 dB,192 kHz,5
-Rosewill RC-703,,7.1,7.1,,PCIe x1,,PCIe x1,44.1 kHz,0
-Creative Labs 70SB135A00002,,5.1,5.1,24-bit,PCIe x1,Sound Core3D,102 dB,96 kHz,1
+Creative Labs Sound Blaster Z OEM,,,5.1,24-bit,PCIe x1,,116 dB,192 kHz,4.5
+Creative Labs 70SB157000000,,https://cdna.pcpartpicker.com/static/forever/images/product/ad92118b4c80e93bddee4297f507213f.256p.jpg,5.1,,PCIe x1,,106 dB,,4.5
+SIIG IC-510111-S2,,,5.1,24-bit,PCIe x1,VIA VT1723,90 dB,96 kHz,0
+Creative Labs Recon3D Fatal1ty Champion,,,5.1,24-bit,PCIe x1,Sound Core3D,102 dB,96 kHz,4
+Asus Xonar DS,,,7.1,24-bit,PCI,ASUS AV200,107 dB,192 kHz,5
+Asus Xonar Essence ST,,,7.1,24-bit,PCI,ASUS AV100,124 dB,192 kHz,5
+Rosewill RC-703,,,7.1,,PCIe x1,,,44.1 kHz,0
+Creative Labs 70SB135A00002,,,5.1,24-bit,PCIe x1,Sound Core3D,102 dB,96 kHz,1
 SIIG IC-710012-S2,,https://cdna.pcpartpicker.com/static/forever/images/product/31d6918aaa94b6c42f3a7dcc05e497ae.256p.jpg,7.1,24-bit,PCI,,92 dB,96 kHz,0
-Syba SD-PEX63034,,7.1,7.1,24-bit,PCIe x1,,PCIe x1,48 kHz,0
-PowerColor DEVIL HDX 7.1,,https://cdna.pcpartpicker.com/static/forever/images/product/76e888b33f109d3f06747fed62c3ff21.256p.jpg,7.1,124,PCIe x1,,124 dB,192 kHz,0
-HT Omega CLARO II,,7.1,7.1,24-bit,PCI,C-Media CMI8788,120 dB,192 kHz,0
-StarTech PCISOUND5CH,,5.1,5.1,24-bit,PCI,C-Media CMI8738,PCI,48 kHz,5
-Diamond XtremeSound XS71,,7.1,7.1,16-bit,PCI,,PCI,96 kHz,0
-Rosewill RC-702,,7.1,7.1,16-bit,PCI,C-Media CMI8768,PCI,96 kHz,0
-M-Audio Audiophile 192,,4,4.0,24-bit,PCI,,PCI,192 kHz,0
-Turtle Beach TBS-3429,,5.1,5.1,24-bit,PCI,,PCI,48 kHz,0
+Syba SD-PEX63034,,,7.1,24-bit,PCIe x1,,,48 kHz,0
+PowerColor DEVIL HDX 7.1,,https://cdna.pcpartpicker.com/static/forever/images/product/76e888b33f109d3f06747fed62c3ff21.256p.jpg,7.1,,PCIe x1,,124 dB,192 kHz,0
+HT Omega CLARO II,,,7.1,24-bit,PCI,C-Media CMI8788,120 dB,192 kHz,0
+StarTech PCISOUND5CH,,,5.1,24-bit,PCI,C-Media CMI8738,,48 kHz,5
+Diamond XtremeSound XS71,,,7.1,16-bit,PCI,,,96 kHz,0
+Rosewill RC-702,,,7.1,16-bit,PCI,C-Media CMI8768,,96 kHz,0
+M-Audio Audiophile 192,,,4.0,24-bit,PCI,,,192 kHz,0
+Turtle Beach TBS-3429,,,5.1,24-bit,PCI,,,48 kHz,0
 Creative Labs Sound Blaster Audigy Rx OEM,,https://cdna.pcpartpicker.com/static/forever/images/product/a76d36481a8f4942ebe9c4b78e3907ac.256p.jpg,7.1,24-bit,PCIe x1,Creative E-MU,106 dB,192 kHz,0
-Diamond XtremeSound XS51,,5.1,5.1,16-bit,PCI,,PCI,48 kHz,0
-PPA International 1431v,,5.1,5.1,16-bit,PCI,,PCI,,0
-Encore ENM232-6VIA,,https://cdna.pcpartpicker.com/static/forever/images/product/21704dbd994309b24c3fd8b1799bb27d.med.256p.jpg,5.1,24-bit,PCI,VIA VT1723,PCI,96 kHz,0
-HT Omega STRIKER,,7.1,7.1,,PCI,C-Media CMI8770,PCI,,0
-Vantec UGT-S100,,https://cdna.pcpartpicker.com/static/forever/images/product/9b247a5ae0262e8f385e4fcf0b8e2574.256p.jpg,7.1,,PCI,,PCI,48 kHz,5
-Rosewill RC-701,,5.1,5.1,,PCI,C-Media CMI8738,PCI,,3
-Asus Xonar D1,,7.1,7.1,24-bit,PCI,ASUS AV100,116 dB,192 kHz,4
-Asus Xonar Essence,,7.1,7.1,24-bit,PCI,ASUS AV100,124 dB,192 kHz,4
-HT Omega Claro Halo XT,,7.1,7.1,24-bit,PCI,C-Media CMI8788,PCI,192 kHz,0
-Encore ENM232-8VIA,,https://cdna.pcpartpicker.com/static/forever/images/product/d4f6814b3c6cffd1cc5924c0493bf0a8.256p.jpg,7.1,24-bit,PCI,VIA VT1723,PCI,96 kHz,0
-HT Omega Claro Halo,,5.1,5.1,24-bit,PCI,C-Media CMI8788,PCI,192 kHz,5
-StarTech PCISOUND4LP,,4,4.0,16-bit,PCI,C-Media CMI8738,PCI,48 kHz,0
-SIIG LP-000022-S2,,5.1,5.1,24-bit,PCI,VIA VT1723,90 dB,96 kHz,0
-M-Audio US41500C,,2,2.0,24-bit,PCI,,104 dB,96 kHz,0
+Diamond XtremeSound XS51,,,5.1,16-bit,PCI,,,48 kHz,0
+PPA International 1431v,,,5.1,16-bit,PCI,,,,0
+Encore ENM232-6VIA,,https://cdna.pcpartpicker.com/static/forever/images/product/21704dbd994309b24c3fd8b1799bb27d.med.256p.jpg,5.1,24-bit,PCI,VIA VT1723,,96 kHz,0
+HT Omega STRIKER,,,7.1,,PCI,C-Media CMI8770,,,0
+Vantec UGT-S100,,https://cdna.pcpartpicker.com/static/forever/images/product/9b247a5ae0262e8f385e4fcf0b8e2574.256p.jpg,7.1,,PCI,,,48 kHz,5
+Rosewill RC-701,,,5.1,,PCI,C-Media CMI8738,,,3
+Asus Xonar D1,,,7.1,24-bit,PCI,ASUS AV100,116 dB,192 kHz,4
+Asus Xonar Essence,,,7.1,24-bit,PCI,ASUS AV100,124 dB,192 kHz,4
+HT Omega Claro Halo XT,,,7.1,24-bit,PCI,C-Media CMI8788,,192 kHz,0
+Encore ENM232-8VIA,,https://cdna.pcpartpicker.com/static/forever/images/product/d4f6814b3c6cffd1cc5924c0493bf0a8.256p.jpg,7.1,24-bit,PCI,VIA VT1723,,96 kHz,0
+HT Omega Claro Halo,,,5.1,24-bit,PCI,C-Media CMI8788,,192 kHz,5
+StarTech PCISOUND4LP,,,4.0,16-bit,PCI,C-Media CMI8738,,48 kHz,0
+SIIG LP-000022-S2,,,5.1,24-bit,PCI,VIA VT1723,90 dB,96 kHz,0
+M-Audio US41500C,,,2.0,24-bit,PCI,,104 dB,96 kHz,0
 SIIG IC-510012-S2,,https://cdna.pcpartpicker.com/static/forever/images/product/78b5c15aa2d952ca58be56de3625bbfa.256p.jpg,5.1,16-bit,PCI,,68 dB,,4.5

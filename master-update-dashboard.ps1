@@ -1,5 +1,5 @@
-# master-update-dashboard.ps1
-# Windows-native GUI dashboard showing live progress for master-update-fast
+﻿# master-update-dashboard.ps1
+# Windows-native GUI dashboard showing live progress for master-update.js
 # Opens as a separate window with real progress bars
 
 Add-Type -AssemblyName System.Windows.Forms
@@ -7,7 +7,7 @@ Add-Type -AssemblyName System.Drawing
 
 $script:baseDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $script:progressFile = Join-Path $baseDir "master-update-progress.json"
-$script:logFile = Join-Path $baseDir "master-update-fast.log"
+$script:logFile = Join-Path $baseDir "master-update.log"
 $script:updateProcess = $null
 
 # ---- GUI Setup ----
@@ -175,14 +175,14 @@ $timer.Add_Tick({
 
 # ---- Start the update process ----
 function Start-UpdateProcess {
-  $scriptPath = Join-Path $script:baseDir "master-update-fast.js"
+  $scriptPath = Join-Path $script:baseDir "master-update.js"
   if (!(Test-Path $scriptPath)) {
-    $lblStatus.Text = "ERROR: master-update-fast.js not found!"
+    $lblStatus.Text = "ERROR: master-update.js not found!"
     return
   }
   try {
     $script:updateProcess = Start-Process -FilePath "node" -ArgumentList $scriptPath -WorkingDirectory $script:baseDir -NoNewWindow -PassThru -RedirectStandardOutput (Join-Path $env:TEMP "mu-stdout.txt") -RedirectStandardError (Join-Path $env:TEMP "mu-stderr.txt")
-    $lblStatus.Text = "Started master-update-fast.js (PID: $($script:updateProcess.Id))"
+    $lblStatus.Text = "Started master-update.js (PID: $($script:updateProcess.Id))"
   } catch {
     $lblStatus.Text = "ERROR starting process: $_"
   }

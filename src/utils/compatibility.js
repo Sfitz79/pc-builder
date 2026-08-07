@@ -1,4 +1,4 @@
-import { toNumber as commonToNumber, normalizeToken as commonNormalizeToken, inferCpuSocket as commonInferCpuSocket, inferCoolerType as commonInferCoolerType, isWindows11Compatible } from "./common.js";
+import { toNumber as commonToNumber, normalizeToken as commonNormalizeToken, inferCpuSocket as commonInferCpuSocket, inferCoolerType as commonInferCoolerType, isWindows11Compatible, isSodimmRam, isEccRam, isRegisteredEccRam, motherboardSupportsEcc, inferCoolerSockets } from "./common.js";
 
 export function checkCompatibility(selections) {
   const issues = [];
@@ -35,6 +35,14 @@ export function checkCompatibility(selections) {
 
   if (mobo && ram && !isRamCompatibleWithMotherboard(ram, mobo)) {
     issues.push("Motherboard RAM type and selected RAM type differ.");
+  }
+
+  if (ram && !isRamAllowedForBuild(ram, mobo)) {
+    issues.push("Selected RAM is not compatible with this motherboard (SO-DIMM, ECC, or server memory).");
+  }
+  
+  if (cpu && cooler && !isCoolerCompatibleWithCpu(cooler, cpu)) {
+    issues.push("Selected CPU cooler does not support the CPU socket.");
   }
   
   if (gpu && psu && !isPsuCompatibleWithBuild(psu, gpu, cpu)) {
@@ -75,7 +83,8 @@ export function isOptionCompatible(categoryId, option, selections) {
         isMotherboardCompatibleWithCase(option, selections.case)
       );
     case "ram":
-      return isRamCompatibleWithMotherboard(option, selections.motherboard);
+      return isRamCompatibleWithMotherboard(option, selections.motherboard) &&
+             isRamAllowedForBuild(option, selections.motherboard);
     case "gpu":
       return isGpuCompatibleWithPsu(option, selections.psu, selections.cpu) &&
              isGpuCompatibleWithCase(option, selections.case);
@@ -86,7 +95,8 @@ export function isOptionCompatible(categoryId, option, selections) {
              isCaseCompatibleWithCooler(option, selections.cooler) &&
              isCaseCompatibleWithGpu(option, selections.gpu);
     case "cooler":
-      return isCoolerCompatibleWithCase(option, selections.case);
+      return isCoolerCompatibleWithCase(option, selections.case) &&
+             isCoolerCompatibleWithCpu(option, selections.cpu);
     default:
       return true;
   }
@@ -123,6 +133,33 @@ function isCaseCompatibleWithCooler(caseObj, cooler) {
 
 function isCoolerCompatibleWithCase(cooler, caseObj) {
   return isCaseCompatibleWithCooler(caseObj, cooler);
+}
+
+export function isCoolerCompatibleWithCpu(cooler, cpu) {
+  if (!cooler || !cpu) return true;
+
+  const cpuSocket = inferCpuSocket(cpu);
+  if (!cpuSocket) return true;
+
+  const coolerSockets = inferCoolerSockets(cooler);
+  if (coolerSockets.length === 0) return true;
+
+  return coolerSockets.includes(cpuSocket);
+}
+
+export function isRamAllowedForBuild(ram, motherboard) {
+  if (isSodimmRam(ram)) return false;
+
+  const ecc = isEccRam(ram);
+  if (!ecc) return true;
+
+  if (!motherboardSupportsEcc(motherboard)) return false;
+
+  // Consumer AMD boards (AM4/AM5) accept unbuffered ECC only
+  const socket = String(motherboard.socket ?? "").toUpperCase().replace(/^2 X /, "");
+  if (/^AM\d/.test(socket)) return !isRegisteredEccRam(ram);
+
+  return true;
 }
 
 function isMotherboardCompatibleWithCase(motherboard, caseObj) {

@@ -45,7 +45,18 @@ const BATCH_SIZE = 100;
 const TIMEOUT = 15000;
 const startTime = Date.now();
 
-const MODERN_SOCKETS = new Set(['AM4', 'AM5', 'LGA1700', 'LGA1851']);
+const MODERN_SOCKETS = new Set(['AM4', 'AM5', 'LGA1700', 'LGA1851', 'LGA1200']);
+
+// Curated modern PC case series (substring tokens, uppercase). Anything not
+// matching is treated as discontinued/out-of-catalog and filtered from the CSV.
+const MODERN_CASES = (() => {
+  try {
+    const parts = JSON.parse(fs.readFileSync(path.join(ROOT, 'modern_pc_parts.json'), 'utf-8')).modern_relevant_pc_tech;
+    return (parts.cases || []).map(t => String(t).toUpperCase());
+  } catch {
+    return [];
+  }
+})();
 
 const CATEGORY_IMAGE_KEYWORDS = {
   'case': ['case', 'chassis', 'tower'],
@@ -99,6 +110,24 @@ const EXCLUDE_PATTERNS = [
   /thumb|thumbnail|_tn|\/small\/|\/tiny\/|\/mini\//i,
   /50x50|75x75|100x100|150x150|200x200|badge_/i,
 ];
+
+const DUMMY_IMAGE_MAX_BYTES = 8192;
+
+export function isDummyImage(filePath) {
+  try {
+    const st = fs.statSync(filePath);
+    if (!st.isFile()) return true;
+    if (st.size < DUMMY_IMAGE_MAX_BYTES) return true;
+    if (/\.svg$/i.test(filePath)) return true;
+    return false;
+  } catch {
+    return true;
+  }
+}
+
+function hasUsableImage(thumbPath) {
+  return fs.existsSync(thumbPath) && !isDummyImage(thumbPath);
+}
 
 /* ── Helpers ── */
 
@@ -474,8 +503,12 @@ function isModern(categoryId, item) {
         if (name.includes('3200') || name.includes('2200') || name.includes('1200') || name.includes('1600')) return false;
       }
       if (name.includes('I3') || name.includes('I5') || name.includes('I7') || name.includes('I9')) {
-        const m = name.match(/(\d{4})/);
-        if (m) { const gen = parseInt(m[1].charAt(0)); if (gen < 10) return false; }
+        const m = name.match(/I\d\s*-?\s*(\d{4,5})/);
+        if (m) {
+          const model = m[1];
+          const gen = model.length >= 5 ? parseInt(model.slice(0, 2), 10) : parseInt(model.slice(0, 1), 10);
+          if (gen < 10) return false;
+        }
       }
       return true;
     }
@@ -506,6 +539,16 @@ function isModern(categoryId, item) {
     }
     case 'storage': { const c = parseFloat(item.capacity); if (c > 0 && c < 120) return false; return true; }
     case 'monitor': { const r = (item.resolution || '').toUpperCase(); if (r && (r.includes('1366') || r.includes('1280'))) return false; return true; }
+    case 'os': {
+      const n = (item.name || '').toUpperCase();
+      if (n.includes('WINDOWS 11')) return true;
+      if (n.includes('WINDOWS 10') && (n.includes('IOT') || n.includes('LTSC'))) return true;
+      return false;
+    }
+    case 'case': {
+      const n = (item.name || '').toUpperCase();
+      return MODERN_CASES.some(t => n.includes(t));
+    }
     default: return true;
   }
 }
@@ -681,7 +724,7 @@ async function downloadProductImages(categories, noScrape = false) {
       const currentImage = (parts[imgIdx] || '').trim();
       if (currentImage && currentImage.startsWith('thumbnails/')) {
         const ip = path.join(THUMB_DIR, currentImage.replace('thumbnails/', ''));
-        if (fs.existsSync(ip)) continue;
+        if (hasUsableImage(ip)) continue;
       }
       totalNeedingImages++;
     }
@@ -714,7 +757,7 @@ async function downloadProductImages(categories, noScrape = false) {
       if (currentImage) {
         if (currentImage.startsWith('thumbnails/')) {
           const ip = path.join(THUMB_DIR, currentImage.replace('thumbnails/', ''));
-          if (fs.existsSync(ip)) { skipped++; continue; }
+          if (hasUsableImage(ip)) { skipped++; continue; }
         }
       }
       needsImage.push({ i, name, existingUrl: currentImage });
@@ -745,7 +788,7 @@ async function downloadProductImages(categories, noScrape = false) {
       const sanitized = sanitize(item.name);
       const shortName = item.name.length > 55 ? item.name.substring(0, 52) + '...' : item.name;
       const destExts = ['.jpg', '.png', '.webp'];
-      const existing = destExts.find(e => fs.existsSync(path.join(THUMB_DIR, `${category}_${sanitized}${e}`)));
+      const existing = destExts.find(e => hasUsableImage(path.join(THUMB_DIR, `${category}_${sanitized}${e}`)));
       if (existing) return { item, saved: false, skipped: true };
 
       let saved = false;
@@ -808,7 +851,7 @@ async function downloadProductImages(categories, noScrape = false) {
         log(`  [OK] ${category}: ${r.shortName} (${r.source})`);
         const outParts = parseCSVLine(csv.lines[r.item.i]);
         while (outParts.length <= actualImgIdx) outParts.push('');
-        const ext = r.destExts.find(e => fs.existsSync(path.join(THUMB_DIR, `${category}_${r.sanitized}${e}`))) || '.jpg';
+        const ext = r.destExts.find(e => hasUsableImage(path.join(THUMB_DIR, `${category}_${r.sanitized}${e}`))) || '.jpg';
         outParts[actualImgIdx] = `thumbnails/${category}_${r.sanitized}${ext}`;
         csv.lines[r.item.i] = outParts.join(',');
         writeCSV(csv.filePath, csv.lines);
@@ -906,7 +949,7 @@ async function downloadDocyxDataset() {
       const existingImg = (parts[imgIdx] || '').trim();
       if (existingImg && existingImg.startsWith('thumbnails/')) {
         const thumbPath = path.join(THUMB_DIR, existingImg.replace('thumbnails/', ''));
-        if (fs.existsSync(thumbPath)) continue;
+        if (hasUsableImage(thumbPath)) continue;
       }
 
       const nameNorm = name.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -922,7 +965,7 @@ async function downloadDocyxDataset() {
 
       const sanitized = sanitize(name);
       const dest = path.join(THUMB_DIR, `${category}_${sanitized}.jpg`);
-      if (fs.existsSync(dest)) continue;
+      if (hasUsableImage(dest)) continue;
 
       const pcppUrl = `https://cdnd.pcpartpicker.com/images/static/parts/${pcppCat}/${pcppId}.jpg`;
       if (await verifyAndDownload(pcppUrl, dest)) {
@@ -1148,12 +1191,12 @@ function linkThumbnails() {
 
       if (currentImage && currentImage.startsWith('thumbnails/')) {
         const thumbPath = path.join(THUMB_DIR, currentImage.replace('thumbnails/', ''));
-        if (fs.existsSync(thumbPath)) continue;
+        if (hasUsableImage(thumbPath)) continue;
       }
 
       const sanitized = sanitize(name);
       const exts = ['.jpg', '.png', '.webp'];
-      const found = exts.find(e => fs.existsSync(path.join(THUMB_DIR, `${category}_${sanitized}${e}`)));
+      const found = exts.find(e => hasUsableImage(path.join(THUMB_DIR, `${category}_${sanitized}${e}`)));
       if (found) {
         parts[imgIdx] = `thumbnails/${category}_${sanitized}${found}`;
         csv.lines[i] = parts.join(',');
@@ -1346,5 +1389,6 @@ async function main() {
   if (showDashboard) { await new Promise(r => setTimeout(r, 5000)); stopDashboard(); }
 }
 
-if (import.meta.url === `file:///${process.argv[1].replace(/\\/g, '/')}`) { main(); }
-export { main, auditCSVs, fixImagePaths, filterDiscontinued, downloadProductImages, downloadDocyxDataset, resolveBrandLogos, generateAIStatus, linkThumbnails };
+const isMain = process.argv[1] && import.meta.url === `file:///${process.argv[1].replace(/\\/g, '/')}`;
+if (isMain) { main(); }
+export { main, auditCSVs, fixImagePaths, filterDiscontinued, downloadProductImages, downloadDocyxDataset, resolveBrandLogos, generateAIStatus, linkThumbnails, isModern };

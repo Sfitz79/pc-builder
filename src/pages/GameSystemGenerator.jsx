@@ -4,6 +4,7 @@ import { usePCStore } from "../store/usePCStore";
 import { generateBuild } from "../utils/aiBuildGenerator";
 import { GAME_REQUIREMENTS, GAME_CATEGORIES } from "../utils/partsKnowledgeBase";
 import { BUILDER_CATEGORIES, SUBCATEGORY_GROUPS } from "../utils/builderConfig";
+import { useLivePrices } from "../hooks/useLivePrices";
 
 const GAME_LIST = Object.entries(GAME_REQUIREMENTS).map(([id, game]) => ({
   id, name: game.name, icon: game.icon || "🎮", category: game.category || "fps"
@@ -30,6 +31,7 @@ export default function GameSystemGenerator() {
   const [activeTierTabs, setActiveTierTabs] = useState({});
   const setComponent = usePCStore(s => s.setComponent);
   const navigate = useNavigate();
+  const { prices: livePrices } = useLivePrices();
 
   const filteredGames = useMemo(() => {
     if (!search.trim()) return GAME_LIST.filter(g => g.category === activeGameCategory);
@@ -67,7 +69,7 @@ export default function GameSystemGenerator() {
         try {
           const build = await generateBuild(tier.budget, "gaming", "any", {
             needMonitor: false, needMouse: true, needKeyboard: true,
-            needSpeakers: false, needWifi: false, consumerOnly: true, dualStorage: true
+            needSpeakers: false, needWifi: false, consumerOnly: true, dualStorage: true, livePrices
           });
           gameTiers.push({ tier, build });
         } catch {

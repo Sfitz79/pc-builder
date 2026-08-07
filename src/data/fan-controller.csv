@@ -1,64 +1,63 @@
 name,price,image,channels,channel_wattage,pwm_(4-pin),form_factor,color,rating
-ARCTIC Case Fan Hub,6.95,https://cdna.pcpartpicker.com/static/forever/images/product/efadfdb330778f08668a183b3932948f.256p.jpg,10,true,Yes,Internal,Black,4.5
-Noctua NV-FH2,49.95,https://cdna.pcpartpicker.com/static/forever/images/product/8f1b6e255d2c645d43fb2115a78ea164.256p.jpg,8,true,Yes,Internal,Black,5
-Lian Li UNI HUB – SL Controller,,4,4,true,Yes,Internal,Black,5
-Noctua NA-FH1,31.08,8,8,6 W,Yes,Internal,Black,4.5
+ARCTIC Case Fan Hub,6.95,https://cdna.pcpartpicker.com/static/forever/images/product/efadfdb330778f08668a183b3932948f.256p.jpg,10,,Yes,Internal,Black,4.5
+Noctua NV-FH2,,https://cdna.pcpartpicker.com/static/forever/images/product/8f1b6e255d2c645d43fb2115a78ea164.256p.jpg,8,,Yes,Internal,Black,5
+Lian Li UNI HUB – SL Controller,,,4,,Yes,Internal,Black,5
+Noctua NA-FH1,31.08,,8,6 W,Yes,Internal,Black,4.5
 NZXT RGB &amp; Fan Controller (2022),24.99,https://cdna.pcpartpicker.com/static/forever/images/product/84c5c9ec20981b5cc9958c9f2c3faecd.256p.jpg,3,36 W,Yes,Internal,Black,4
-Thermalright TL-FAN and ARGB HUB x8,,https://cdna.pcpartpicker.com/static/forever/images/product/0fe563f978f6ca22fc4986657257b95e.256p.jpg,4,true,Yes,Internal,Black,4.5
-Thermalright TL-FAN-HUB-Controller,10.59,4,4,true,Yes,Internal,Black,4
+Thermalright TL-FAN and ARGB HUB x8,,https://cdna.pcpartpicker.com/static/forever/images/product/0fe563f978f6ca22fc4986657257b95e.256p.jpg,4,,Yes,Internal,Black,4.5
+Thermalright TL-FAN-HUB-Controller,,,4,,Yes,Internal,Black,4
 DARKROCK DR-FAN-CONTROLLER,33.74,,10,,Yes,Internal,Black,0
 Cooler Master MasterFan ARGB and PWM HUB,37.22,,6,,Yes,Internal,Black,0
-Razer RZ34-02140700-R3M1,49.99,https://cdna.pcpartpicker.com/static/forever/images/product/ab2043638e65519e544de947a22adfb3.256p.jpg,8,true,Yes,Internal,Black,5
+Razer RZ34-02140700-R3M1,,https://cdna.pcpartpicker.com/static/forever/images/product/ab2043638e65519e544de947a22adfb3.256p.jpg,8,,Yes,Internal,Black,5
 Lian Li UNI HUB – SLV2 Controller,,,4,,Yes,Internal,Black,0
 Fractal Design Adjust Pro Hub,39.99,https://cdna.pcpartpicker.com/static/forever/images/product/d623f65b1799b293a23e0a09468adfa8.256p.jpg,4,,Yes,Internal,Black,0
-Thermalright TL-FAN-HUB Controller Rev.A,,10,10,true,Yes,Internal,Black,5
+Thermalright TL-FAN-HUB Controller Rev.A,,,10,,Yes,Internal,Black,5
 Phanteks Nexlinq,16.99,https://cdna.pcpartpicker.com/static/forever/images/product/78185a1b8845add099314285e1a3268f.256p.jpg,3,,Yes,Internal,Black,0
-Deepcool FH-04,,https://cdna.pcpartpicker.com/static/forever/images/product/9835ea94302c8b39b2509f01934b4ee6.256p.jpg,4,true,Yes,Internal,Black,4.5
-Deepcool FH-10,,https://cdna.pcpartpicker.com/static/forever/images/product/7ea84f7f19f2842191362180668b985a.256p.jpg,10,true,Yes,Internal,Black,5
-Thermaltake Commander FT,54.98,https://cdna.pcpartpicker.com/static/forever/images/product/5922edfffc1124cc53871aa4c3ac1b88.256p.jpg,5,10 W,Yes,5.25,,5
-EZDIY-FAB US-12V 5V fan hub-16P,23.99,8,8,true,Yes,Internal,Black,0
-Thermalright TL-FAN HUB X4,,4,4,true,Yes,Internal,Black,3.5
-Deepcool SC790,,https://cdna.pcpartpicker.com/static/forever/images/product/11a72bf70b5ddcea72a329776fe9a71e.256p.jpg,6,false,No,Internal,Black,5
-EZDIY-FAB US-PWM fan hub,,10,10,true,Yes,Internal,Black,0
+Deepcool FH-04,,https://cdna.pcpartpicker.com/static/forever/images/product/9835ea94302c8b39b2509f01934b4ee6.256p.jpg,4,,Yes,Internal,Black,4.5
+Deepcool FH-10,,https://cdna.pcpartpicker.com/static/forever/images/product/7ea84f7f19f2842191362180668b985a.256p.jpg,10,,Yes,Internal,Black,5
+Thermaltake Commander FT,,https://cdna.pcpartpicker.com/static/forever/images/product/5922edfffc1124cc53871aa4c3ac1b88.256p.jpg,5,10 W,Yes,"5.25""",,5
+EZDIY-FAB US-12V 5V fan hub-16P,,,8,,Yes,Internal,Black,0
+Thermalright TL-FAN HUB X4,,,4,,Yes,Internal,Black,3.5
+Deepcool SC790,,https://cdna.pcpartpicker.com/static/forever/images/product/11a72bf70b5ddcea72a329776fe9a71e.256p.jpg,6,,No,Internal,Black,5
+EZDIY-FAB US-PWM fan hub,,,10,,Yes,Internal,Black,0
 Vetroo VT-HUB-10A10P-WT,,,10,,Yes,Internal,White,0
-NZXT Sentry 2,,5,5,10 W,No,5.25,,4
+NZXT Sentry 2,,,5,10 W,No,"5.25""",,4
 upHere FH07 AU,,,7,,Yes,Internal,Black,0
 Lamptron FC-FC5V2-B,,https://cdna.pcpartpicker.com/static/forever/images/product/d68e4903e5ef1df6f0908fe993045f37.256p.jpg,4,30 W,No,"5.25""",,0
-Kingwin FPX-001,53.42,4,4,8 W,No,3.5,,3.5
-NZXT Sentry Mix 2,,6,6,30 W,Yes,5.25,,4
-NZXT SENTRY 3,,5,5,15 W,Yes,5.25,,4
+Kingwin FPX-001,53.42,,4,8 W,No,"3.5""",,3.5
+NZXT Sentry Mix 2,,,6,30 W,Yes,"5.25""",,4
+NZXT SENTRY 3,,,5,15 W,Yes,"5.25""",,4
 Thermaltake Commander F6 RGB,,https://cdna.pcpartpicker.com/static/forever/images/product/fd8b4df1e1965922aaee7862a53213f4.256p.jpg,6,0.03 W,Yes,"5.25""",Black,0
-Aerocool Touch 2100,,5,5,25 W,No,2 x 5.25,,5
-NZXT Sentry LX,,5,5,6 W,No,2 x 5.25,,3.5
-Aerocool Touch 2000,,4,4,6 W,No,2 x 5.25,,4
+Aerocool Touch 2100,,,5,25 W,No,"2 x 5.25""",,5
+NZXT Sentry LX,,,5,6 W,No,"2 x 5.25""",,3.5
+Aerocool Touch 2000,,,4,6 W,No,"2 x 5.25""",,4
 Vetroo VT-HUB-10A10P-PK,,,10,,Yes,Internal,Pink,0
-Aerocool CoolTouch-R Black,,4,4,20 W,Yes,5.25,,3
+Aerocool CoolTouch-R Black,,,4,20 W,Yes,"5.25""",,3
 BitFenix Recon (Black),,https://cdna.pcpartpicker.com/static/forever/images/product/5f0ef6074aa20b5f6aff22660f89d25a.med.256p.jpg,5,10 W,Yes,"5.25""",,4
-Lamptron Fanatic,,5,5,60 W,Yes,5.25,,0
+Lamptron Fanatic,,,5,60 W,Yes,"5.25""",,0
 Lamptron FC6,,https://cdna.pcpartpicker.com/static/forever/images/product/97fa9ed9f470db654ead95c8d0f9584a.256p.jpg,4,10 W,Yes,"5.25""",,5
-Kingwin FPX-003,,4,4,8 W,No,5.25,,4.5
+Kingwin FPX-003,,,4,8 W,No,"5.25""",,4.5
 Lamptron FC-CM615-BK,,https://cdna.pcpartpicker.com/static/forever/images/product/d91a16c86fe6578748302a0611d15a47.256p.jpg,6,15 W,No,"5.25""",,0
 Lamptron FC-FC5V3-BK,,https://cdna.pcpartpicker.com/static/forever/images/product/b68ace7e9b7418b919d464a44077a2f1.256p.jpg,6,30 W,Yes,"5.25""",,4
-Kingwin FPX-005,,5,5,8 W,Yes,5.25,,4.5
-Silverstone FP59B,,https://cdna.pcpartpicker.com/static/forever/images/product/b07394b07acac69dd1e4fdb162b17ba3.256p.jpg,1,false,No,5.25,Black,0
-Aerocool CoolTouch E,,4,4,20 W,Yes,5.25,White,0
+Kingwin FPX-005,,,5,8 W,Yes,"5.25""",,4.5
+Silverstone FP59B,,https://cdna.pcpartpicker.com/static/forever/images/product/b07394b07acac69dd1e4fdb162b17ba3.256p.jpg,1,,No,"5.25""",Black,0
+Aerocool CoolTouch E,,,4,20 W,Yes,"5.25""",White,0
 Vetroo VT-HUB-10A10P,,,10,,Yes,Internal,Black,0
-NZXT Sentry Mesh,,5,5,30 W,No,5.25,,4
-Aerocool F6XT,,6,6,12 W,Yes,5.25,,0
-Aerocool Touch-1000,,4,4,false,No,5.25,,4.5
-Aerocool V12XT,,4,4,6 W,No,2 x 5.25,,0
+NZXT Sentry Mesh,,,5,30 W,No,"5.25""",,4
+Aerocool F6XT,,,6,12 W,Yes,"5.25""",,0
+Aerocool Touch-1000,,,4,,No,"5.25""",,4.5
+Aerocool V12XT,,,4,6 W,No,"2 x 5.25""",,0
 BitFenix Recon (White),,https://cdna.pcpartpicker.com/static/forever/images/product/55565c09798810f5c0df3f407eeec412.med.256p.jpg,5,10 W,Yes,"5.25""",,4
 Gelid Solutions SpeedTouch6,,https://cdna.pcpartpicker.com/static/forever/images/product/235ebfc2193f5d732f3212b894aed4e2.256p.jpg,6,30 W,Yes,"5.25""",,3
-Thermaltake AC-001-BN1NAN-A1,,5,5,8 W,Yes,5.25,,4
-Lamptron FC2,,6,6,45 W,Yes,5.25,,5
+Thermaltake AC-001-BN1NAN-A1,,,5,8 W,Yes,"5.25""",,4
+Lamptron FC2,,,6,45 W,Yes,"5.25""",,5
 Lamptron FC9,,https://cdna.pcpartpicker.com/static/forever/images/product/05a760e613a86e79c42f6b12dcf1c02d.256p.jpg,4,50 W,Yes,"5.25""",,2
 Lamptron FC Touch,,https://cdna.pcpartpicker.com/static/forever/images/product/9fe9a114181a666bd6b65ae1ba7ebe89.256p.jpg,6,30 W,Yes,"5.25""",,0
 Lamptron CW611-B,,https://cdna.pcpartpicker.com/static/forever/images/product/11f94ccabdf8e6386ab84279dbc2138f.256p.jpg,6,36 W,No,"5.25""",,4
 Lamptron FC-FC2-B,,https://cdna.pcpartpicker.com/static/forever/images/product/1ca1cc56b0e8ec299dd8991696fc29ac.256p.jpg,6,45 W,No,"5.25""",,0
 Lamptron FC-CF525-BK,,https://cdna.pcpartpicker.com/static/forever/images/product/eab690a01fd51d6b19622e24d426d59e.256p.jpg,5,60 W,Yes,"5.25""",,5
 Lamptron FC-FANATIC-B,,https://cdna.pcpartpicker.com/static/forever/images/product/221b83885e3e1a8f2076bf2fe87ae215.256p.jpg,5,60 W,Yes,"5.25""",,4
-Aerocool Strike-X-X1000,,5,5,25 W,No,5.25,,0
-Deepcool ROCK MASTER V3.0,,4,4,10 W,Yes,5.25,,2.5
-Scythe Kaze Master Flat II,,4,4,36 W,No,5.25,Black,0
-Aerocool X-Vision,,5,5,0.008 W,No,5.25,Black,0
-NZXT RGB & Fan Controller (2022),34.99,3,36,true,,Black,,
+Aerocool Strike-X-X1000,,,5,25 W,No,"5.25""",,0
+Deepcool ROCK MASTER V3.0,,,4,10 W,Yes,"5.25""",,2.5
+Scythe Kaze Master Flat II,,,4,36 W,No,"5.25""",Black,0
+Aerocool X-Vision,,,5,0.008 W,No,"5.25""",Black,0

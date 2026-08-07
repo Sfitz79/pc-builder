@@ -1,8 +1,50 @@
 import { loadCSV } from "./loadCSV";
-import { inferCpuSocket, isModernComponent, isWindows11Compatible } from "./common";
+import { inferCpuSocket, isModernComponent, isWindows11Compatible, isEccRam } from "./common";
+import { isRamAllowedForBuild, isCoolerCompatibleWithCpu } from "./compatibility";
 import { filterCasesByStyle, filterCasesByColor } from "./caseStyles";
 
 const REQUIRED_CATEGORIES = ["case", "case-fan", "cooler", "cpu", "motherboard", "ram", "ssd", "psu", "os", "thermal-paste"];
+
+// The live price feed (public/prices.json / Supabase) uses different category
+// ids than the app's internal builder category ids for a few slots.
+const PRICE_CATEGORY_MAP = {
+  psu: "power-supply",
+  ssd: "storage",
+  "mass-storage": "storage",
+};
+
+// Build a lookup from the live price feed. Returns null when no live data is
+// available (e.g. the feed failed to load), which disables live availability
+// checking entirely rather than wrongly flagging parts as unavailable.
+function buildLivePriceMap(livePrices) {
+  if (!Array.isArray(livePrices) || livePrices.length === 0) return null;
+  const names = new Set();
+  const cats = new Set();
+  for (const entry of livePrices) {
+    const cat = String(entry.category || "").trim();
+    const name = String(entry.name || "").trim().toLowerCase();
+    if (!cat || !name) continue;
+    cats.add(cat);
+    names.add(`${cat}\u0000${name}`);
+  }
+  if (cats.size === 0) return null;
+  return { names, cats };
+}
+
+// A part is "live-available" when it has a real price AND the live price feed
+// currently lists it (when a feed is supplied). Categories the feed does not
+// track at all are assumed available.
+function isPartAvailable(categoryId, item, liveMap) {
+  if (!item) return false;
+  if (String(item.outOfStock).toLowerCase() === "true") return false;
+  const price = parseFloat(item.price);
+  if (!(price > 0)) return false;
+  if (!liveMap) return true;
+  const feedCat = PRICE_CATEGORY_MAP[categoryId] || categoryId;
+  if (!liveMap.cats.has(feedCat)) return true;
+  const name = String(item.name || "").trim().toLowerCase();
+  return liveMap.names.has(`${feedCat}\u0000${name}`);
+}
 
 const STREAMING_REQUIRED = ["webcam", "headphones"];
 
@@ -54,7 +96,7 @@ export function getRamDdr(ram) {
 
 function isModernGpu(gpu) {
   const memory = parseFloat(gpu.memory) || 0;
-  if (memory > 0 && memory < 6) return false;
+  if (memory > 0 && memory < 5) return false;
 
   const search = (String(gpu.name ?? "") + " " + String(gpu.chipset ?? "")).toUpperCase();
 
@@ -113,6 +155,7 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
     needFanController = false,
     needOpticalDrive = false,
     needUps = false,
+    livePrices = null,
   } = options;
 
   const SKIP_CATEGORIES = new Set();
@@ -186,13 +229,18 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
           if (name.includes("XEON")) return false;
           if (name.includes("EPYC")) return false;
           const socket = inferCpuSocket(c);
-          if (socket && (socket === "LGA1151" || socket === "LGA1150" || socket === "LGA1155" || socket === "LGA775" || socket === "LGA1200")) return false;
+          if (socket && (socket === "LGA1151" || socket === "LGA1150" || socket === "LGA1155" || socket === "LGA775")) return false;
           return true;
         });
       }
     }
     if (cat.id === "ram") {
       candidates = filterRamForUseCase(candidates, useCase);
+      candidates = candidates.filter(ram => {
+        if (!isRamAllowedForBuild(ram, build.motherboard)) return false;
+        if (isEccRam(ram) && useCase !== "workstation") return false;
+        return true;
+      });
       if (build.motherboard) {
         const moboGen = (() => {
           const t = String(build.motherboard.ram_type || "").toLowerCase();
@@ -281,6 +329,7 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
     }
 
     if (cat.id === "cooler" && build.cpu) {
+      candidates = candidates.filter(c => isCoolerCompatibleWithCpu(c, build.cpu));
       const cpuTdp = parseFloat(build.cpu.tdp) || 65;
       if (cpuTdp > 150) {
         candidates = candidates.filter(c => {
@@ -340,7 +389,7 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
 
     if (cat.id === "psu") {
       const totalWattage = estimateTotalWattage(build);
-      candidates = candidates.filter(p => parseFloat(p.wattage) >= totalWattage);
+      candidates = candidates.filter(p => isModernComponent("psu", p) && parseFloat(p.wattage) >= totalWattage);
     }
 
     if (cat.id === "os") {
@@ -468,7 +517,7 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
             const name = (c.name || "").toUpperCase();
             if (name.includes("THREADRIPPER") || name.includes("XEON") || name.includes("EPYC")) return false;
             const socket = inferCpuSocket(c);
-            if (socket && (socket === "LGA1151" || socket === "LGA1150" || socket === "LGA1155" || socket === "LGA775" || socket === "LGA1200")) return false;
+            if (socket && (socket === "LGA1151" || socket === "LGA1150" || socket === "LGA1155" || socket === "LGA775")) return false;
             return true;
           });
         }
@@ -549,7 +598,137 @@ export async function generateBuild(budget, useCase, color = "any", options = {}
     }
   }
 
+  resolveAvailability(build, allParts, budgetAllocation, { ...options, livePrices, workload, useCase });
+
   return build;
+}
+
+// Swap any chosen part that is not currently live-available for the best
+// available alternative in the same category. Keeps the build budget-aware and
+// re-applies the same modern/compatibility gates as the main generation loop.
+function resolveAvailability(build, allParts, budgetAllocation, options) {
+  const liveMap = buildLivePriceMap(options.livePrices);
+  if (!liveMap) return;
+  const swaps = [];
+  for (const [catId, item] of Object.entries(build)) {
+    if (!item || typeof item !== "object" || !item.name) continue;
+    if (isPartAvailable(catId, item, liveMap)) continue;
+    const alt = pickAvailableAlternative(catId, item, allParts, liveMap, options, build);
+    if (alt) {
+      swaps.push({ category: catId, from: item.name, to: alt.name });
+      build[catId] = alt;
+    }
+  }
+  if (swaps.length > 0) {
+    Object.defineProperty(build, "swapLog", { value: swaps, enumerable: false, writable: true });
+  }
+}
+
+function pickAvailableAlternative(categoryId, current, allParts, liveMap, options, build) {
+  const pool = (allParts[categoryId] || []).filter(item => {
+    const currentName = String(current?.name || "").trim().toLowerCase();
+    if (currentName && String(item.name || "").trim().toLowerCase() === currentName) return false;
+    const price = parseFloat(item.price);
+    if (!(price > 0)) return false;
+    if (!isPartAvailable(categoryId, item, liveMap)) return false;
+    return true;
+  });
+
+  let candidates = pool.filter(item => isModernComponent(categoryId, item));
+
+  if (categoryId === "cpu") {
+    candidates = filterCpuForUseCase(candidates, options.useCase, options.monitorResolution);
+    if (options.consumerOnly) {
+      candidates = candidates.filter(c => {
+        const name = (c.name || "").toUpperCase();
+        if (name.includes("THREADRIPPER") || name.includes("XEON") || name.includes("EPYC")) return false;
+        const socket = inferCpuSocket(c);
+        if (socket && (socket === "LGA1151" || socket === "LGA1150" || socket === "LGA1155" || socket === "LGA775")) return false;
+        return true;
+      });
+    }
+  }
+  if (categoryId === "motherboard" && build.cpu) {
+    const cpuSocket = inferCpuSocket(build.cpu);
+    if (cpuSocket) {
+      candidates = candidates.filter(m => String(m.socket || "").toUpperCase().trim() === cpuSocket);
+    }
+  }
+  if (categoryId === "ram" && build.motherboard) {
+    const moboGen = (() => {
+      const t = String(build.motherboard.ram_type || "").toLowerCase();
+      const n = String(build.motherboard.name || "").toUpperCase();
+      const s = String(build.motherboard.socket || "").toUpperCase();
+      if (t.includes("ddr5") || n.includes("DDR5") || s === "AM5" || s === "LGA1851") return "DDR5";
+      if (t.includes("ddr4") || n.includes("DDR4") || n.includes(" D4")) return "DDR4";
+      return null;
+    })();
+    if (moboGen === "DDR5") candidates = candidates.filter(c => isDdr5(c));
+    else if (moboGen === "DDR4") candidates = candidates.filter(c => !isDdr5(c));
+    candidates = candidates.filter(ram => {
+      if (!isRamAllowedForBuild(ram, build.motherboard)) return false;
+      if (isEccRam(ram) && options.useCase !== "workstation") return false;
+      return true;
+    });
+  }
+  if (categoryId === "cooler" && build.cpu) {
+    candidates = candidates.filter(c => isCoolerCompatibleWithCpu(c, build.cpu));
+  }
+  if (categoryId === "gpu") {
+    candidates = filterGpuForUseCase(candidates, options.useCase);
+    candidates = candidates.filter(isModernGpu);
+    if (options.monitorResolution === "1440p") candidates = candidates.filter(g => (parseFloat(g.memory) || 0) >= 8);
+    else if (options.monitorResolution === "4k") candidates = candidates.filter(g => (parseFloat(g.memory) || 0) >= 12);
+  }
+  if (categoryId === "psu") {
+    const totalWattage = estimateTotalWattage(build);
+    candidates = candidates.filter(p => parseFloat(p.wattage) >= totalWattage);
+  }
+  if (categoryId === "case" && build.motherboard) {
+    const moboFormFactor = String(build.motherboard.form_factor || "").toUpperCase();
+    candidates = candidates.filter(c => {
+      const caseType = String(c.type || "").toUpperCase();
+      if (moboFormFactor === "EATX") return caseType.includes("EATX") || caseType.includes("FULL");
+      if (moboFormFactor === "ATX") return caseType.startsWith("ATX") || caseType.includes("EATX") || caseType === "HTPC";
+      if (moboFormFactor === "MICRO ATX") return caseType.includes("MICRO ATX") || caseType.includes("ATX/MICRO") || caseType === "HTPC";
+      if (moboFormFactor === "MINI ITX" || moboFormFactor === "MINI DTX") return caseType.includes("ITX") || caseType.includes("MICRO ATX") || caseType.includes("ATX/MICRO");
+      return true;
+    });
+    if (options.color && options.color !== "any") candidates = filterCasesByColor(candidates, options.color);
+    if (options.caseStyle && options.caseStyle !== "any") {
+      const styled = filterCasesByStyle(candidates, options.caseStyle);
+      if (styled.length > 0) candidates = styled;
+    }
+  }
+  if (categoryId === "os") {
+    const winPro = candidates.filter(o => /windows.*11.*pro/i.test(o.name));
+    if (winPro.length > 0) candidates = winPro;
+  }
+
+  if (candidates.length === 0) return null;
+
+  const catBudget = budgetAllocation[categoryId] || Infinity;
+  candidates.sort((a, b) => {
+    const aPrice = parseFloat(a.price);
+    const bPrice = parseFloat(b.price);
+    const aOver = aPrice > catBudget ? 1 : 0;
+    const bOver = bPrice > catBudget ? 1 : 0;
+    if (aOver !== bOver) return aOver - bOver;
+    const aRel = scoreComponentReliability(categoryId, a);
+    const bRel = scoreComponentReliability(categoryId, b);
+    if (aRel !== bRel) return bRel - aRel;
+    let aScore = 0;
+    let bScore = 0;
+    if (categoryId === "cpu") { aScore = scoreCpuForWorkload(a, options.workload, catBudget); bScore = scoreCpuForWorkload(b, options.workload, catBudget); }
+    else if (categoryId === "gpu") { aScore = scoreGpuForWorkload(a, options.workload, catBudget); bScore = scoreGpuForWorkload(b, options.workload, catBudget); }
+    else if (categoryId === "ram") { aScore = scoreRamForWorkload(a, options.workload, catBudget); bScore = scoreRamForWorkload(b, options.workload, catBudget); }
+    else if (categoryId === "ssd" || categoryId === "mass-storage") { aScore = scoreStorageForWorkload(a, options.workload, catBudget); bScore = scoreStorageForWorkload(b, options.workload, catBudget); }
+    else if (categoryId === "psu") { aScore = scorePsuReliability(a) / 3; bScore = scorePsuReliability(b) / 3; }
+    if (aScore !== bScore) return bScore - aScore;
+    return Math.abs(aPrice - catBudget) - Math.abs(bPrice - catBudget);
+  });
+
+  return candidates[0];
 }
 
 export async function generateRecommendedBuild(budget, useCase, color = "any", options = {}) {
@@ -766,7 +945,7 @@ function filterGpuForUseCase(gpus, useCase) {
   return gpus.filter(gpu => {
     const vram = parseFloat(gpu.memory) || 0;
     if (isWorkstation && vram < 8) return false;
-    if (vram < 6) return false;
+    if (vram < 5) return false;
     return true;
   });
 }

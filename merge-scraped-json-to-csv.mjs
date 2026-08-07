@@ -27,6 +27,91 @@ const SPEC_KEY = {
   image: 'imageUrl',
 };
 
+// ─── Catalog shaping: curated + top-selling caps ───────────────────────────
+//
+// Core categories (cpu, gpu, motherboard, ram, storage) keep every item.
+// Every other category is capped to the TOP_SELLING_CAP "best" items, ranked
+// by (has price, most recent price check, then original order). Cases are
+// additionally restricted to the curated modern-case list in
+// modern_pc_parts.json before ranking.
+const TOP_SELLING_CAP = 200;
+const CAPPED_CATEGORIES = new Set([
+  'case', 'power-supply', 'cooler', 'case-fan', 'monitor', 'keyboard',
+  'mouse', 'headphones', 'speakers', 'webcam', 'external-hard-drive', 'os',
+  'optical-drive', 'ups', 'fan-controller', 'thermal-paste',
+  'wired-network-card', 'wireless-network-card', 'sound-card', 'case-accessory',
+]);
+
+const MODERN_CASES = (() => {
+  try {
+    const parts = JSON.parse(fs.readFileSync(path.join(__dirname, 'modern_pc_parts.json'), 'utf-8')).modern_relevant_pc_tech;
+    return (parts.cases || []).map(t => String(t).toUpperCase());
+  } catch {
+    return [];
+  }
+})();
+
+function rankSelling(item) {
+  const hasPrice = item.price != null && item.price !== '' ? 1 : 0;
+  const t = Date.parse(item.priceCheckedAt || item.priceUpdatedAt || '');
+  return (hasPrice * 1e15) + (t > 0 ? t : 0);
+}
+
+function shapeCatalog(items, categoryKey) {
+  if (categoryKey === 'case') {
+    items = items.filter(i => MODERN_CASES.some(t => String(i.productName || '').toUpperCase().includes(t)));
+  }
+  return items;
+}
+
+// After dedup: cap capped categories to the top-selling items (exactly 200).
+function capKept(kept, categoryKey) {
+  if (categoryKey === 'case') return capCaseKept(kept);
+  if (!CAPPED_CATEGORIES.has(categoryKey) || kept.size <= TOP_SELLING_CAP) return kept;
+  const entries = [...kept.entries()]
+    .sort((a, b) => rankSelling(b[1]) - rankSelling(a[1]))
+    .slice(0, TOP_SELLING_CAP);
+  return new Map(entries);
+}
+
+// Cases: after the curated modern-case filter, also guarantee coverage per
+// motherboard form factor (ATX / mATX / ITX) and per size/form factor
+// (full/mid/mini tower, desktop, slim, HTPC, test bench, rackmount, generic
+// tower), keeping the top CASE_GROUP_PER selling items in each group. The
+// union is still bounded by TOP_SELLING_CAP.
+const CASE_GROUP_PER = 20;
+
+function caseGroups(item) {
+  const t = String(item.specs?.type || item.type || '').toLowerCase();
+  const groups = [];
+  if (t.includes('microatx')) groups.push('mb:matx');
+  else if (t.includes('mini itx')) groups.push('mb:itx');
+  else if (t.includes('atx')) groups.push('mb:atx');
+  if (t.includes('full tower')) groups.push('size:full');
+  else if (t.includes('mid tower')) groups.push('size:mid');
+  else if (t.includes('mini tower')) groups.push('size:mini');
+  else if (t.includes('rackmount')) groups.push('size:rack');
+  else if (t.includes('test bench')) groups.push('size:bench');
+  else if (t.includes('desktop')) groups.push('size:desktop');
+  else if (t.includes('slim')) groups.push('size:slim');
+  else if (t.includes('htpc')) groups.push('size:htpc');
+  else if (t.includes('tower')) groups.push('size:tower');
+  return groups;
+}
+
+function capCaseKept(kept) {
+  const entries = [...kept.entries()].sort((a, b) => rankSelling(b[1]) - rankSelling(a[1]));
+  const selected = new Map();
+  const perGroup = {};
+  for (const [key, item] of entries) {
+    for (const g of caseGroups(item)) {
+      perGroup[g] = (perGroup[g] || 0) + 1;
+      if (perGroup[g] <= CASE_GROUP_PER && !selected.has(key)) selected.set(key, item);
+    }
+  }
+  return selected.size > TOP_SELLING_CAP ? new Map([...selected].slice(0, TOP_SELLING_CAP)) : selected;
+}
+
 // scraped spec key → output column (order matters for column layout)
 export const CATEGORY_DEFS = {
   'cpu.json': {
@@ -43,13 +128,14 @@ export const CATEGORY_DEFS = {
   },
   'motherboard.json': {
     out: ['motherboard.csv'],
-    cols: ['name', 'price', 'image', 'socket', 'form_factor', 'memory_max', 'memory_slots', 'color', 'rating'],
+    cols: ['name', 'price', 'image', 'socket', 'form_factor', 'memory_max', 'memory_slots', 'color', 'rating', 'rating_count'],
     map: {
       socket: 'socketCPU',
       form_factor: 'formFactor',
       memory_max: 'memoryMax',
       memory_slots: 'memorySlots',
       color: 'color',
+      rating_count: 'ratingCount',
     },
   },
   'ram.json': {
@@ -349,28 +435,13 @@ function writeCSV(filePath, header, rows) {
 
 // Per-category merge → writes CSVs, returns kept rows
 export function mergeCategory(def, items) {
+  const kept = buildKeptMap(def, items);
   const perFile = {};
   for (const out of def.out) perFile[out] = [];
 
-  const seen = new Set();
-  for (const item of items) {
+  for (const item of kept.values()) {
     const target = def.split ? def.split(item) : def.out[0];
-    const key = String(item.productName || '').trim().toLowerCase();
-    if (!key) continue;
-
-    if (def.derive) def.derive(item);
-    const row = toRow(item, def);
-
-    if (seen.has(target + '|' + key)) {
-      const existing = perFile[target].find(r => r.name.toLowerCase() === key);
-      if (existing && shouldReplace(existing, row)) {
-        const idx = perFile[target].indexOf(existing);
-        perFile[target][idx] = row;
-      }
-      continue;
-    }
-    seen.add(target + '|' + key);
-    perFile[target].push(row);
+    perFile[target].push(toRow(item, def));
   }
 
   for (const out of def.out) {
@@ -398,6 +469,8 @@ export function mergeCategory(def, items) {
 // "target|lowerName" → the kept item (derive already applied).
 export function buildKeptMap(def, items) {
   const kept = new Map();
+  const catKey = def.out[0].replace(/\.csv$/, '');
+  items = shapeCatalog(items, catKey);
   for (const item of items) {
     const target = def.split ? def.split(item) : def.out[0];
     const key = String(item.productName || '').trim().toLowerCase();
@@ -412,7 +485,7 @@ export function buildKeptMap(def, items) {
     }
     kept.set(mapKey, item);
   }
-  return kept;
+  return capKept(kept, catKey);
 }
 
 // Main

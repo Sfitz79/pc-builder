@@ -12,6 +12,8 @@ export default function ComponentSelector({ category, selections, selectedItem, 
   const [rangeFilters, setRangeFilters] = useState({});
   const [sortBy, setSortBy] = useState("price-asc");
   const [showAvailableOnly, setShowAvailableOnly] = useState(true);
+  const [topRatedView, setTopRatedView] = useState(true);
+  const [topRatedGroupBy, setTopRatedGroupBy] = useState("form_factor");
   const panelRef = useRef(null);
 
   const multiMode = isMultiSelect(category.id);
@@ -37,6 +39,9 @@ export default function ComponentSelector({ category, selections, selectedItem, 
         if (category.id === "motherboard" && !newItem.chipset) {
           const c = inferChipset(newItem.name);
           if (c) newItem.chipset = c;
+        }
+        if (category.id === "motherboard" && !newItem.wifi_enabled) {
+          newItem.wifi_enabled = /wifi|wi-fi|wireless/i.test(newItem.name || "") ? "Yes" : "No";
         }
         if (category.id === "cooler" && !newItem.type) {
           newItem.type = inferCoolerType(newItem);
@@ -70,6 +75,8 @@ export default function ComponentSelector({ category, selections, selectedItem, 
     setActiveFilters({});
     setRangeFilters({});
     setSortBy("price-asc");
+    setTopRatedView(true);
+    setTopRatedGroupBy("form_factor");
   }, [category.file, category.id]);
 
   const compatibleItems = useMemo(() => {
@@ -90,6 +97,7 @@ export default function ComponentSelector({ category, selections, selectedItem, 
       if (sortBy === "speed") return (toNumber(b.speed) || 0) - (toNumber(a.speed) || 0);
       if (sortBy === "wattage") return (toNumber(b.wattage) || 0) - (toNumber(a.wattage) || 0);
       if (sortBy === "memory") return (toNumber(b.memory) || 0) - (toNumber(a.memory) || 0);
+      if (sortBy === "rating") return (toNumber(b.rating) || 0) - (toNumber(a.rating) || 0);
       return (a.name || "").localeCompare(b.name || "", undefined, { numeric: true, sensitivity: "base" });
     }),
     [compatibleItems, sortBy]
@@ -165,6 +173,28 @@ export default function ComponentSelector({ category, selections, selectedItem, 
     }, {});
     return Object.entries(groups).sort(([a], [b]) => a.localeCompare(b));
   }, [category.id, filteredItems]);
+
+  const motherboardGroups = useMemo(() => {
+    if (category.id !== "motherboard" || !topRatedView) return [];
+    const groups = filteredItems.reduce((acc, item) => {
+      const key = String(item[topRatedGroupBy] || "").trim() || "Unknown";
+      if (!acc[key]) acc[key] = [];
+      acc[key].push(item);
+      return acc;
+    }, {});
+    return Object.entries(groups)
+      .map(([key, list]) => ({
+        key,
+        list: [...list]
+          .sort((a, b) =>
+            (toNumber(b.rating) || 0) - (toNumber(a.rating) || 0) ||
+            (toNumber(b.rating_count) || 0) - (toNumber(a.rating_count) || 0) ||
+            (a.name || "").localeCompare(b.name || "", undefined, { numeric: true, sensitivity: "base" })
+          )
+          .slice(0, 10),
+      }))
+      .sort((a, b) => a.key.localeCompare(b.key));
+  }, [category.id, filteredItems, topRatedView, topRatedGroupBy]);
 
   const toggleFilter = (header, value) => {
     setActiveFilters(prev => {
@@ -244,6 +274,7 @@ export default function ComponentSelector({ category, selections, selectedItem, 
             <option value="speed">Speed (high first)</option>
             <option value="wattage">Wattage (high first)</option>
             <option value="memory">VRAM (high first)</option>
+            <option value="rating">Rating (high first)</option>
           </select>
           <label style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "11px", color: "#888", cursor: "pointer", whiteSpace: "nowrap" }}>
             <input type="checkbox" checked={showAvailableOnly} onChange={e => setShowAvailableOnly(e.target.checked)}
@@ -280,6 +311,27 @@ export default function ComponentSelector({ category, selections, selectedItem, 
         </div>
 
         <div style={{ flex: 1, overflowY: "auto", padding: "4px 0" }}>
+          {category.id === "motherboard" && (
+            <div style={{ padding: "6px 20px", display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap", fontSize: "11px", color: "#888", background: "rgba(255,183,3,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+              <label style={{ display: "flex", alignItems: "center", gap: "6px", cursor: "pointer" }}>
+                <input type="checkbox" checked={topRatedView} onChange={e => setTopRatedView(e.target.checked)}
+                  style={{ accentColor: "#00eaff", width: "13px", height: "13px", cursor: "pointer" }} />
+                <span style={{ color: "#ffb703" }}>★</span> Top 10 rated per group
+              </label>
+              {topRatedView && (
+                <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                  <span>Group by:</span>
+                  {["form_factor", "chipset"].map(g => (
+                    <button key={g} onClick={() => setTopRatedGroupBy(g)} style={{
+                      padding: "2px 8px", fontSize: "10px", cursor: "pointer", border: "none", borderRadius: "3px",
+                      background: topRatedGroupBy === g ? "linear-gradient(135deg,#00eaff,#ff005e)" : "#1a1a2e",
+                      color: topRatedGroupBy === g ? "#fff" : "#888", fontWeight: topRatedGroupBy === g ? 700 : 400,
+                    }}>{g === "form_factor" ? "Form Factor" : "Chipset"}</button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
           {category.id === "cpu" ? (
             cpuItemsBySocket.map(([socket, socketItems]) => (
               <div key={socket}>
@@ -287,6 +339,17 @@ export default function ComponentSelector({ category, selections, selectedItem, 
                   Socket {socket} — {socketItems.length} CPU{socketItems.length !== 1 ? "s" : ""}
                 </div>
                 {socketItems.map((item, i) => (
+                  <ItemRow key={i} item={item} category={category} multiMode={multiMode} isMultiSelected={isMultiSelected} onSelect={handleSelect} onClose={onClose} showPrices={showPrices} />
+                ))}
+              </div>
+            ))
+          ) : category.id === "motherboard" && topRatedView ? (
+            motherboardGroups.map(({ key, list }) => (
+              <div key={key}>
+                <div style={{ padding: "5px 20px", fontSize: "10px", color: "#ffb703", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px", background: "rgba(255,183,3,0.08)", position: "sticky", top: 0, zIndex: 2 }}>
+                  ★ {topRatedGroupBy === "form_factor" ? "Form Factor" : "Chipset"}: {key} — Top {list.length} Rated
+                </div>
+                {list.map((item, i) => (
                   <ItemRow key={i} item={item} category={category} multiMode={multiMode} isMultiSelected={isMultiSelected} onSelect={handleSelect} onClose={onClose} showPrices={showPrices} />
                 ))}
               </div>
@@ -361,6 +424,9 @@ function ItemRow({ item, category, multiMode, isMultiSelected, onSelect, onClose
     if (item.modules) specItems.push({ label: "Modules", value: item.modules });
     if (item.form_factor) specItems.push({ label: "Form Factor", value: item.form_factor });
     if (item.rgb === "Yes") specItems.push({ label: "RGB", value: "Yes" });
+    if (item.wifi_enabled === "Yes") specItems.push({ label: "WiFi", value: "Yes" });
+    const ratingNum = toNumber(item.rating);
+    if (ratingNum > 0) specItems.push({ label: "Rating", value: "★ " + ratingNum + (item.rating_count ? " (" + item.rating_count + ")" : "") });
     if (item.screen_size) specItems.push({ label: "Screen", value: item.screen_size });
     if (item.resolution) specItems.push({ label: "Resolution", value: item.resolution });
     if (item.refresh_rate) specItems.push({ label: "Refresh", value: item.refresh_rate });

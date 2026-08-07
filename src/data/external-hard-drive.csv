@@ -1,6 +1,6 @@
 name,price,image,capacity,interface,type,price_gb,color,rating
 Apricorn Aegis Fortress L3,509.11,https://cdna.pcpartpicker.com/static/forever/images/product/c2466eb5b56ef38b04ecd3fd981faa73.256p.jpg,5000 GB,"USB Type-A 3.2 Gen 1, USB Type-C 3.2 Gen 1",Portable,£0.102,Black,0
-Western Digital My Book Duo,1199.99,https://cdna.pcpartpicker.com/static/forever/images/product/79382e732eb79c802239d346232806dd.256p.jpg,44000 GB,USB Type-A 3.2 Gen 1, USB Type-C 3.2 Gen 1,Desktop,Black,Black,0
+Western Digital My Book Duo,,https://cdna.pcpartpicker.com/static/forever/images/product/79382e732eb79c802239d346232806dd.256p.jpg,44000 GB,"USB Type-A 3.2 Gen 1, USB Type-C 3.2 Gen 1",Desktop,,Black,0
 Corsair EX400U,1594.99,https://cdna.pcpartpicker.com/static/forever/images/product/828b8a7dc129a36eab7452c860af056a.256p.jpg,4000 GB,USB Type-C 4.0 Gen 3x2,Portable,£0.399,Black,0
 Western Digital WD_BLACK P10,222.35,https://cdna.pcpartpicker.com/static/forever/images/product/54c824b6d7b74a8c35f60f0f9353e05d.256p.jpg,5000 GB,USB Type-A 3.2 Gen 1,Portable,£0.044,Black,5
 Seagate Expansion with Rescue Data Recovery Services,865.47,https://cdna.pcpartpicker.com/static/forever/images/product/3544aded28cecd5fd301acc3071a7ba2.256p.jpg,28000 GB,USB Type-A 3.2 Gen 1,Desktop,£0.031,,0
@@ -13,11 +13,11 @@ Apricorn Aegis Padlock 3.0,228.75,https://cdna.pcpartpicker.com/static/forever/i
 Samsung T5 EVO Portable,411.48,https://cdna.pcpartpicker.com/static/forever/images/product/e59e18d45f84834f029764bc2ff4c3cf.256p.jpg,4000 GB,USB Type-C 3.2 Gen 1,Portable,£0.103,Black,0
 SanDisk Extreme Portable V2,159.99,https://cdna.pcpartpicker.com/static/forever/images/product/47b0f29ce9983baefd3004486a38c942.256p.jpg,1000 GB,USB Type-C 3.2 Gen 1,Portable,£0.160,Black / Orange,5
 Western Digital My Passport,165.46,https://cdna.pcpartpicker.com/static/forever/images/product/a3ce06adf10c0085047493942c396d85.256p.jpg,4000 GB,USB Type-A 3.2 Gen 1,Portable,£0.041,Black,4.5
-ADATA CH11,65.68,https://cdna.pcpartpicker.com/static/forever/images/product/bade7f2875b86dc6cac4962d2507234d.256p.jpg,500 GB,USB Type-A 3.2 Gen 1,Portable,,,0
+ADATA CH11,,https://cdna.pcpartpicker.com/static/forever/images/product/bade7f2875b86dc6cac4962d2507234d.256p.jpg,500 GB,USB Type-A 3.2 Gen 1,Portable,,,0
 Crucial X10,470.03,https://cdna.pcpartpicker.com/static/forever/images/product/b8485858947a843c6f3275344ffec332.256p.jpg,4000 GB,USB Type-C 3.2 Gen 2x2,Portable,£0.118,Blue,0
 SanDisk SDSSDT40-8T00-NA25,1799.99,https://cdna.pcpartpicker.com/static/forever/images/product/2a867ad8de3efd7ec5185780ab67fce9.256p.jpg,8000 GB,USB Type-C 3.2 Gen 2,Desktop,£0.225,Black,0
 Samsung T7 Shield,562.79,https://cdna.pcpartpicker.com/static/forever/images/product/9535dcc9d6613903c9baef79bc12a852.256p.jpg,2000 GB,USB Type-C 3.2 Gen 2,Portable,£0.281,Black,0
-Apricorn Aegis Fortress,2626.72,https://cdna.pcpartpicker.com/static/forever/images/product/e5395ec82eb740b850307629d26403e4.256p.jpg,16000 GB,USB Type-A 3.2 Gen 1,Portable,Black,Black,0
+Apricorn Aegis Fortress,,https://cdna.pcpartpicker.com/static/forever/images/product/e5395ec82eb740b850307629d26403e4.256p.jpg,16000 GB,USB Type-A 3.2 Gen 1,Portable,,Black,0
 Seagate One Touch,182.67,https://cdna.pcpartpicker.com/static/forever/images/product/a3ab8ad288e6f94b6bed6d8b16b20048.256p.jpg,8000 GB,USB Type-A 3.2 Gen 1,Desktop,£0.023,Black,0
 Samsung T7 Portable,297.66,https://cdna.pcpartpicker.com/static/forever/images/product/08192a87197a80158890051fbdc3469a.256p.jpg,2000 GB,USB Type-C 3.2 Gen 1,Portable,£0.149,Black / Silver,0
 Western Digital My Book,475.03,https://cdna.pcpartpicker.com/static/forever/images/product/39dfd901c64d00e12e2a9ec873fc480a.256p.jpg,8000 GB,USB Type-A 3.2 Gen 1,Desktop,£0.059,Black,4.5
@@ -25,167 +25,166 @@ SanDisk Professional PRO-Blade Transport,704.53,https://cdna.pcpartpicker.com/st
 Western Digital Elements Portable,169,https://cdna.pcpartpicker.com/static/forever/images/product/6536017eba11759b60f279c18df6ddbf.256p.jpg,5000 GB,USB Type-A 3.2 Gen 1,Portable,£0.034,Black,0
 Crucial X9,269.02,https://cdna.pcpartpicker.com/static/forever/images/product/a8189fe5af43080a57407f629beb3a3a.256p.jpg,2000 GB,USB Type-C 3.2 Gen 2,Portable,£0.135,Black,0
 Western Digital WD_BLACK D10,419.92,https://cdna.pcpartpicker.com/static/forever/images/product/90a877442a10e9ace1615dcbc206995f.256p.jpg,8000 GB,USB Type-A 3.2 Gen 2,Desktop,£0.052,Black,0
-Corsair EX100U,234.8,https://cdna.pcpartpicker.com/static/forever/images/product/1fb9c6151730e5538c614d8705ce534c.256p.jpg,4000 GB,USB Type-C 3.2 Gen 2x2,Portable,Black,Black,0
+Corsair EX100U,,https://cdna.pcpartpicker.com/static/forever/images/product/1fb9c6151730e5538c614d8705ce534c.256p.jpg,4000 GB,USB Type-C 3.2 Gen 2x2,Portable,,Black,0
 TEAMGROUP M200,346.22,https://cdna.pcpartpicker.com/static/forever/images/product/7a3d854abb182237b0e59a3e0286ed43.256p.jpg,4000 GB,USB Type-C 3.2 Gen 2x2,Portable,£0.087,Black,0
 Corsair EX400U SURVIVOR,398.16,https://cdna.pcpartpicker.com/static/forever/images/product/7de1b26686c13cab970fb8942b0fd7d2.256p.jpg,2000 GB,USB Type-C 4.0 Gen 3x2,Portable,£0.199,Black,0
-Crucial X10 Pro,254.99,Portable,2000 GB,USB Type-C 3.2 Gen 2x2,Portable,Black,Black,0
+Crucial X10 Pro,,,2000 GB,USB Type-C 3.2 Gen 2x2,Portable,,Black,0
 Asus ROG Strix Arion S500,,https://cdna.pcpartpicker.com/static/forever/images/product/8d116ac01a6ced20b371f5c3291157b9.256p.jpg,500 GB,USB Type-C 3.2 Gen 2,Portable,,Black,0
-Seagate Backup Plus,248,https://cdna.pcpartpicker.com/static/forever/images/product/40206b14ba80836113d364bb877efcdf.256p.jpg,2000 GB,USB Type-A 3.2 Gen 1,Portable,Black,,4.5
-Apricorn Aegis Padlock DT,622.75,Desktop,10000 GB,USB Type-A 3.2 Gen 1,Desktop,£0.062,Black,0
+Seagate Backup Plus,,https://cdna.pcpartpicker.com/static/forever/images/product/40206b14ba80836113d364bb877efcdf.256p.jpg,2000 GB,USB Type-A 3.2 Gen 1,Portable,,,4.5
+Apricorn Aegis Padlock DT,622.75,,10000 GB,USB Type-A 3.2 Gen 1,Desktop,£0.062,Black,0
 Sabrent Rocket Nano V2,370.59,https://cdna.pcpartpicker.com/static/forever/images/product/1924408f7cb5d1d88b1f7546f64bb9a1.256p.jpg,4000 GB,USB Type-C 3.2 Gen 2x2,Portable,£0.093,Black,0
-Western Digital easystore,199.99,https://cdna.pcpartpicker.com/static/forever/images/product/9cd244d9e226798cf82fb7a702e9b510.256p.jpg,20000 GB,USB Type-A,Desktop,Black,Black,0
-Apricorn Padlock SSD,1047.95,https://cdna.pcpartpicker.com/static/forever/images/product/459bab2b45e4a9a9a113a8a76752588b.256p.jpg,4000 GB,USB Type-A 3.2 Gen 1,Portable,Black,Black,0
+Western Digital easystore,,https://cdna.pcpartpicker.com/static/forever/images/product/9cd244d9e226798cf82fb7a702e9b510.256p.jpg,20000 GB,USB Type-A,Desktop,,Black,0
+Apricorn Padlock SSD,,https://cdna.pcpartpicker.com/static/forever/images/product/459bab2b45e4a9a9a113a8a76752588b.256p.jpg,4000 GB,USB Type-A 3.2 Gen 1,Portable,,Black,0
 Toshiba Canvio Basics,213.79,https://cdna.pcpartpicker.com/static/forever/images/product/5dd5712e1524101ba7f45d326f55c6bd.256p.jpg,1000 GB,USB Type-A 3.2 Gen 1,Portable,£0.214,,4.5
 ADATA DashDrive Durable HD650,113.01,https://cdna.pcpartpicker.com/static/forever/images/product/b43b9fa5a61ca902b7c8c00ed1ae4937.256p.jpg,1000 GB,USB Type-A 3.2 Gen 1,Portable,£0.113,,4.5
-Seagate Backup Plus Hub,,https://cdna.pcpartpicker.com/static/forever/images/product/110922cc0212a27f0e6a70527634ad47.256p.jpg,10000 GB,USB Type-A 3.2 Gen 1,Desktop,Black,Black,0
-Toshiba Canvio Basics 3.0,79.98,https://cdna.pcpartpicker.com/static/forever/images/product/b4cf492f2598c616dca925fd262860d1.256p.jpg,2000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
+Seagate Backup Plus Hub,,https://cdna.pcpartpicker.com/static/forever/images/product/110922cc0212a27f0e6a70527634ad47.256p.jpg,10000 GB,USB Type-A 3.2 Gen 1,Desktop,,Black,0
+Toshiba Canvio Basics 3.0,,https://cdna.pcpartpicker.com/static/forever/images/product/b4cf492f2598c616dca925fd262860d1.256p.jpg,2000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
 Kingston XS1000,143,https://cdna.pcpartpicker.com/static/forever/images/product/9c85da5d4b5eba4e9d237d89994c2fa2.256p.jpg,1000 GB,USB Type-C 3.2 Gen 2,Portable,£0.143,Black,0
-Seagate Barracuda Fast,,https://cdna.pcpartpicker.com/static/forever/images/product/108fa03fe79ae8b0d146db169fcb2aeb.256p.jpg,2000 GB,USB Type-C,Portable,Black,Black,0
-Samsung T5,239.99,https://cdna.pcpartpicker.com/static/forever/images/product/6cfd5346e71b782269c85f891a591163.256p.jpg,1000 GB,USB Type-C 3.2 Gen 1,Portable,Black,,4.5
+Seagate Barracuda Fast,,https://cdna.pcpartpicker.com/static/forever/images/product/108fa03fe79ae8b0d146db169fcb2aeb.256p.jpg,2000 GB,USB Type-C,Portable,,Black,0
+Samsung T5,,https://cdna.pcpartpicker.com/static/forever/images/product/6cfd5346e71b782269c85f891a591163.256p.jpg,1000 GB,USB Type-C 3.2 Gen 1,Portable,,,4.5
 Sabrent Rocket Nano,281.51,https://cdna.pcpartpicker.com/static/forever/images/product/6ebcabc4687c960973ec96ca54f0abe1.256p.jpg,2000 GB,USB Type-C 3.2 Gen 2,Portable,£0.141,Silver,0
 LaCie Rugged Mini,100.99,https://cdna.pcpartpicker.com/static/forever/images/product/4c35be8041a39900a4aa0c744eb3881b.256p.jpg,1000 GB,USB Type-A 3.2 Gen 1,Portable,£0.101,,0
 Kingston XS2000,392.1,https://cdna.pcpartpicker.com/static/forever/images/product/0a6b3159a7fb1601e8cde5385b9fda2d.256p.jpg,4000 GB,USB Type-C 3.2 Gen 2x2,Portable,£0.098,Silver,0
-Toshiba Canvio Desk,228.88,Desktop,4000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
-Verbatim Vx460,37.4,https://cdna.pcpartpicker.com/static/forever/images/product/7bfaceb4129fdae0ef83b5b81c3b8803.256p.jpg,128 GB,USB Type-A 3.2 Gen 1,Portable,Black,Black,0
-Samsung T5 Portable,,https://cdna.pcpartpicker.com/static/forever/images/product/23f37998f60908dd772468b0d033a8b7.256p.jpg,500 GB,USB Type-C 3.2 Gen 2,Portable,Red,Red,0
-SanDisk Extreme 900,150.44,https://cdna.pcpartpicker.com/static/forever/images/product/49f596585e7a37e4c28a56026effae6a.256p.jpg,960 GB,USB Type-A 3.2 Gen 2,Portable,,,0
-Seagate Backup Plus Portable,105,https://cdna.pcpartpicker.com/static/forever/images/product/0c4965545798ec33baa72485e771ffac.256p.jpg,4000 GB,USB Type-A 3.2 Gen 1,Portable,Black,Black,4.5
-Seagate Backup Plus Slim,59,https://cdna.pcpartpicker.com/static/forever/images/product/948ff978be37e52e1ad00302589ef204.256p.jpg,1000 GB,USB Type-A 3.2 Gen 1,Portable,Black,Black,4.5
+Toshiba Canvio Desk,,,4000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
+Verbatim Vx460,,https://cdna.pcpartpicker.com/static/forever/images/product/7bfaceb4129fdae0ef83b5b81c3b8803.256p.jpg,128 GB,USB Type-A 3.2 Gen 1,Portable,,Black,0
+Samsung T5 Portable,,https://cdna.pcpartpicker.com/static/forever/images/product/23f37998f60908dd772468b0d033a8b7.256p.jpg,500 GB,USB Type-C 3.2 Gen 2,Portable,,Red,0
+SanDisk Extreme 900,,https://cdna.pcpartpicker.com/static/forever/images/product/49f596585e7a37e4c28a56026effae6a.256p.jpg,960 GB,USB Type-A 3.2 Gen 2,Portable,,,0
+Seagate Backup Plus Portable,,https://cdna.pcpartpicker.com/static/forever/images/product/0c4965545798ec33baa72485e771ffac.256p.jpg,4000 GB,USB Type-A 3.2 Gen 1,Portable,,Black,4.5
+Seagate Backup Plus Slim,,https://cdna.pcpartpicker.com/static/forever/images/product/948ff978be37e52e1ad00302589ef204.256p.jpg,1000 GB,USB Type-A 3.2 Gen 1,Portable,,Black,4.5
 Crucial X6,255,https://cdna.pcpartpicker.com/static/forever/images/product/0ad02a4971629a3620c6c04c9a55c1d0.256p.jpg,2000 GB,USB Type-C 3.2 Gen 2,Portable,£0.128,Black,0
-Integral SlimXpress,,Portable,500 GB,USB Type-C 3.2 Gen 2,Portable,Black,Black,0
-TEAMGROUP T-Create CinemaPr P31,339.99,https://cdna.pcpartpicker.com/static/forever/images/product/6838abd911e29f483735af2983b6b8b1.256p.jpg,4000 GB,USB Type-C 3.2 Gen 2x2,Portable,Black,Black,0
-Seagate Game Drive Xbox GamePass Edition,229,https://cdna.pcpartpicker.com/static/forever/images/product/b595e32b18fc9661bc5c59f35f98d53d.256p.jpg,4000 GB,USB Type-A 3.2 Gen 1,Portable,White,White,0
+Integral SlimXpress,,,500 GB,USB Type-C 3.2 Gen 2,Portable,,Black,0
+TEAMGROUP T-Create CinemaPr P31,,https://cdna.pcpartpicker.com/static/forever/images/product/6838abd911e29f483735af2983b6b8b1.256p.jpg,4000 GB,USB Type-C 3.2 Gen 2x2,Portable,,Black,0
+Seagate Game Drive Xbox GamePass Edition,,https://cdna.pcpartpicker.com/static/forever/images/product/b595e32b18fc9661bc5c59f35f98d53d.256p.jpg,4000 GB,USB Type-A 3.2 Gen 1,Portable,,White,0
 TEAMGROUP PD20M Mag,153.11,https://cdna.pcpartpicker.com/static/forever/images/product/1ac43c4f91e78148493260cb6b03c65a.256p.jpg,1000 GB,USB Type-C 3.2 Gen 2,Portable,£0.153,Black,0
 TEAMGROUP PD1000,179.87,https://cdna.pcpartpicker.com/static/forever/images/product/cd848e72cadcabe963b21660a06ce411.256p.jpg,1000 GB,USB Type-C 3.2 Gen 2,Portable,£0.180,Teal,0
 Corsair EX300U,164.8,https://cdna.pcpartpicker.com/static/forever/images/product/8c2e0af3adc332b7e3d19e3d77098f91.256p.jpg,1000 GB,USB Type-C 3.2 Gen 2,Portable,£0.165,Black,0
-KIOXIA EXCERIA PLUS,214.53,https://cdna.pcpartpicker.com/static/forever/images/product/6caf074ccb3de8a99af44c2f869cd07c.256p.jpg,1000 GB,USB Type-C 3.2 Gen 2,Portable,Gray,Gray,0
-Western Digital My Passport Ultra Portable,149.99,Portable,2000 GB,USB Type-A 3.2 Gen 1,Portable,,,4.5
-Crucial X9 Pro,80,Portable,2000 GB,USB Type-C 3.2 Gen 2,Portable,Silver,Silver,0
-Sabrent Rocket XTRM-Q,,Desktop,16000 GB,USB Type-C 3.2 Gen 2,Desktop,Black,,0
-LaCie 5big,,Desktop,25000 GB,Thunderbolt,Desktop,,,0
-Buffalo Technology DriveStation Combo 4,,Desktop,2000 GB,IEEE 1394A 6-Pin, IEEE 1394B 9-Pin, eSATA 3.0 Gb/s, USB Type-A 2.0,Desktop,,,0
-Crucial X8,229,https://cdna.pcpartpicker.com/static/forever/images/product/45a7a3bfd894864872981486e2373ae1.256p.jpg,1000 GB,USB Type-A 3.2 Gen 1, USB Type-C 3.2 Gen 2,Portable,Black,Black,0
+KIOXIA EXCERIA PLUS,,https://cdna.pcpartpicker.com/static/forever/images/product/6caf074ccb3de8a99af44c2f869cd07c.256p.jpg,1000 GB,USB Type-C 3.2 Gen 2,Portable,,Gray,0
+Western Digital My Passport Ultra Portable,,,2000 GB,USB Type-A 3.2 Gen 1,Portable,,,4.5
+Crucial X9 Pro,,,2000 GB,USB Type-C 3.2 Gen 2,Portable,,Silver,0
+Sabrent Rocket XTRM-Q,,,16000 GB,USB Type-C 3.2 Gen 2,Desktop,,,0
+LaCie 5big,,,25000 GB,Thunderbolt,Desktop,,,0
+Buffalo Technology DriveStation Combo 4,,,2000 GB,"IEEE 1394A 6-Pin, IEEE 1394B 9-Pin, eSATA 3.0 Gb/s, USB Type-A 2.0",Desktop,,,0
+Crucial X8,,https://cdna.pcpartpicker.com/static/forever/images/product/45a7a3bfd894864872981486e2373ae1.256p.jpg,1000 GB,"USB Type-A 3.2 Gen 1, USB Type-C 3.2 Gen 2",Portable,,Black,0
 Western Digital WD_BLACK P50,284.3,https://cdna.pcpartpicker.com/static/forever/images/product/5c42db8966e5db4c748ab44134cd11e2.256p.jpg,1000 GB,USB Type-C 3.2 Gen 1,Portable,£0.284,Black / Silver,0
-ADATA SD700,173.71,Portable,256 GB,USB Type-A 3.2 Gen 1,Portable,,,0
+ADATA SD700,,,256 GB,USB Type-A 3.2 Gen 1,Portable,,,0
 Transcend StoreJet,125.03,https://cdna.pcpartpicker.com/static/forever/images/product/6956bb469c3caa80f77be62fd8d4f067.256p.jpg,1000 GB,USB Type-A 3.2 Gen 1,Portable,£0.125,,5
 Axiom Mobile-D,,https://cdna.pcpartpicker.com/static/forever/images/product/a39ebff641d8bda1e7a79db24cb4d7c5.256p.jpg,250 GB,USB Type-A 3.2 Gen 1,Portable,,,0
-Toshiba Canvio Connect,74.98,Portable,500 GB,USB Type-A 3.2 Gen 1,Portable,,,3
+Toshiba Canvio Connect,,,500 GB,USB Type-A 3.2 Gen 1,Portable,,,3
 LaCie Rugged,,https://cdna.pcpartpicker.com/static/forever/images/product/2dfa3b8f373126b38f809ebc907e15b7.256p.jpg,500 GB,"IEEE 1394B 9-Pin, USB Type-A 3.2 Gen 1",Portable,,,0
-Toshiba Canvio Slim II,105,Portable,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
-Seagate STEB6000403,224.5,https://cdna.pcpartpicker.com/static/forever/images/product/17fe19c597f20beb9733644a7bc812d0.256p.jpg,6000 GB,USB Type-A 3.2 Gen 1,Desktop,Black,Black,0
+Toshiba Canvio Slim II,,,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
+Seagate STEB6000403,,https://cdna.pcpartpicker.com/static/forever/images/product/17fe19c597f20beb9733644a7bc812d0.256p.jpg,6000 GB,USB Type-A 3.2 Gen 1,Desktop,,Black,0
 Lexar ARMOR 700,159.99,https://cdna.pcpartpicker.com/static/forever/images/product/64aee134134ca2900e48c834c82830a2.256p.jpg,1000 GB,USB Type-C 3.2 Gen 2x2,Portable,£0.160,Black,0
 Samsung D3 Station,,https://cdna.pcpartpicker.com/static/forever/images/product/0504197d33d831f0fa427e56a2f186e9.256p.jpg,4000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
-Buffalo Technology DriveStation Axis Velocity,109.99,https://cdna.pcpartpicker.com/static/forever/images/product/a6e1da31c151781e35662a034970a1be.256p.jpg,3000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
+Buffalo Technology DriveStation Axis Velocity,,https://cdna.pcpartpicker.com/static/forever/images/product/a6e1da31c151781e35662a034970a1be.256p.jpg,3000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
 Lexar SL500,149.06,https://cdna.pcpartpicker.com/static/forever/images/product/f4e1f7bbf83e6d9ca19b6a4ef297237b.256p.jpg,512 GB,USB Type-C 3.2 Gen 2x2,Portable,£0.291,Black,0
-VisionTek 901195,,Portable,512 GB,USB Type-C,Portable,Black,Black,0
+VisionTek 901195,,,512 GB,USB Type-C,Portable,,Black,0
 Silicon Power PC60,94.49,https://cdna.pcpartpicker.com/static/forever/images/product/b89839cf227ea50107768254cce85084.256p.jpg,256 GB,USB Type-C 3.2 Gen 2,Portable,£0.369,Black,0
-Western Digital G-DRIVE ev RaW,,https://cdna.pcpartpicker.com/static/forever/images/product/ffeb13f9aa93b6ce54c2db130fbb08b9.256p.jpg,2000 GB,USB Type-A 2.0, USB Type-A 3.2 Gen 1,Portable,Silver,Silver,0
-Seagate Backup Plus Ultra Touch,149.94,https://cdna.pcpartpicker.com/static/forever/images/product/cecb830aa9059f213f2e68e99ad42199.256p.jpg,2000 GB,USB Type-A 3.2 Gen 1,Portable,White,White,0
-Asus FX HDD,,Portable,2000 GB,USB Type-A 3.2 Gen 2,Portable,Black,Black,0
-ADATA SE730,,Portable,250 GB,USB Type-C 3.2 Gen 1,Portable,,,0
+Western Digital G-DRIVE ev RaW,,https://cdna.pcpartpicker.com/static/forever/images/product/ffeb13f9aa93b6ce54c2db130fbb08b9.256p.jpg,2000 GB,"USB Type-A 2.0, USB Type-A 3.2 Gen 1",Portable,,Silver,0
+Seagate Backup Plus Ultra Touch,,https://cdna.pcpartpicker.com/static/forever/images/product/cecb830aa9059f213f2e68e99ad42199.256p.jpg,2000 GB,USB Type-A 3.2 Gen 1,Portable,,White,0
+Asus FX HDD,,,2000 GB,USB Type-A 3.2 Gen 2,Portable,,Black,0
+ADATA SE730,,,250 GB,USB Type-C 3.2 Gen 1,Portable,,,0
 Apricorn Aegis Padlock Fortress,378.85,https://cdna.pcpartpicker.com/static/forever/images/product/d9faa26216e3e2f9b1c956bcdf981ccc.256p.jpg,2000 GB,USB Type-A 3.2 Gen 1,Portable,£0.189,Black,0
 ADATA DashDrive SE720,,https://cdna.pcpartpicker.com/static/forever/images/product/851ec3b93de00547fe1d62cbc7320ea4.256p.jpg,128 GB,USB Type-A 3.2 Gen 1,Portable,,,0
-Hitachi HGST Touro Mobile,,Portable,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,5
+Hitachi HGST Touro Mobile,,,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,5
 Verbatim Store 'n' Go,,https://cdna.pcpartpicker.com/static/forever/images/product/5d3bbe092c618fa5c90d95fb4276a8db.256p.jpg,128 GB,USB Type-A 3.2 Gen 1,Portable,,,0
-Western Digital My Passport Studio,,Portable,2000 GB,IEEE 1394B 9-Pin, USB Type-A 2.0,Portable,,,0
-Western Digital My Passport Air,,Portable,500 GB,USB Type-A 3.2 Gen 1,Portable,,,4
-LaCie Porsche Design,,Desktop,1000 GB,USB Type-A 3.2 Gen 1,Portable,Silver,,0
+Western Digital My Passport Studio,,,2000 GB,"IEEE 1394B 9-Pin, USB Type-A 2.0",Portable,,,0
+Western Digital My Passport Air,,,500 GB,USB Type-A 3.2 Gen 1,Portable,,,4
+LaCie Porsche Design,,,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
 TEAMGROUP PD20 Eco Mini,401.87,https://cdna.pcpartpicker.com/static/forever/images/product/e9fb411c1ca8a5bd9f8914a6668607cc.256p.jpg,4000 GB,USB Type-C,Portable,£0.100,White / Green,0
 Sabrent Rocket Nano Rugged,195.73,https://cdna.pcpartpicker.com/static/forever/images/product/4de327fbeb6dc7d02c5cec4c2463c959.256p.jpg,1000 GB,USB Type-C 3.2 Gen 2,Portable,£0.196,Silver,0
-SanDisk SDSSDT40-4T00-NA25,289.99,Desktop,4000 GB,USB Type-C 3.2 Gen 2,Desktop,Black,Black,0
-Western Digital My Passport For Mac,128,https://cdna.pcpartpicker.com/static/forever/images/product/cb7f54b747644357e294c444fe2a980a.256p.jpg,1000 GB,USB Type-A 3.2 Gen 1, USB Type-C 3.2 Gen 1,Portable,Black,Black,0
-Western Digital WDBGPU0010BBK-NESN,119.99,Portable,1000 GB,1000,Portable,,,5
-Koss Kanguru Ultra,,https://cdna.pcpartpicker.com/static/forever/images/product/96f3045b604308bac7ef2e1bef8c0108.256p.jpg,2000 GB,USB Type-C,Desktop,Black,Black,0
-Verbatim 99399,,https://cdna.pcpartpicker.com/static/forever/images/product/accda46d7fd1149854f40d978b582078.256p.jpg,4000 GB,USB Type-A 3.2 Gen 1,Desktop,Black,Black,0
-G-Technology G-DRIVE,,Desktop,4000 GB,IEEE 1394B 9-Pin, eSATA 6.0 Gb/s, USB Type-A 3.2 Gen 1,Desktop,,,0
-Apricorn ASSD-3PL256-120F,,Desktop,120 GB,USB Type-A 2.0,Desktop,,,0
-Edge Tech EDGDG-236236-PE,,Desktop,4000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
-Buslink CipherShield,,Desktop,6000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
-Transcend StoreJet 35T3,,Desktop,2000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
+SanDisk SDSSDT40-4T00-NA25,,,4000 GB,USB Type-C 3.2 Gen 2,Desktop,,Black,0
+Western Digital My Passport For Mac,,https://cdna.pcpartpicker.com/static/forever/images/product/cb7f54b747644357e294c444fe2a980a.256p.jpg,1000 GB,"USB Type-A 3.2 Gen 1, USB Type-C 3.2 Gen 1",Portable,,Black,0
+Western Digital WDBGPU0010BBK-NESN,,,1000 GB,,Portable,,,5
+Koss Kanguru Ultra,,https://cdna.pcpartpicker.com/static/forever/images/product/96f3045b604308bac7ef2e1bef8c0108.256p.jpg,2000 GB,USB Type-C,Desktop,,Black,0
+Verbatim 99399,,https://cdna.pcpartpicker.com/static/forever/images/product/accda46d7fd1149854f40d978b582078.256p.jpg,4000 GB,USB Type-A 3.2 Gen 1,Desktop,,Black,0
+G-Technology G-DRIVE,,,4000 GB,"IEEE 1394B 9-Pin, eSATA 6.0 Gb/s, USB Type-A 3.2 Gen 1",Desktop,,,0
+Apricorn ASSD-3PL256-120F,,,120 GB,USB Type-A 2.0,Desktop,,,0
+Edge Tech EDGDG-236236-PE,,,4000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
+Buslink CipherShield,,,6000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
+Transcend StoreJet 35T3,,,2000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
 Imation Apollo Pro UX,,https://cdna.pcpartpicker.com/static/forever/images/product/c276ff3ed90321a07ba7ebe62f81b88a.256p.jpg,1000 GB,USB Type-A 2.0,Desktop,,,0
 Buslink CSC-2T-U3,,https://cdna.pcpartpicker.com/static/forever/images/product/26756797a22058d15a742b9ec02f83e1.256p.jpg,2000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
-Buslink CSC-1T-U2,,Desktop,1000 GB,USB Type-A 2.0,Desktop,,,0
-Buslink CRF-2T-U2,,Desktop,2000 GB,USB Type-A 2.0,Desktop,,,0
-Axiom USB3HD35S500-AX,,Desktop,500 GB,500,Desktop,,,0
-Axiom USB3HD35S3TB-AX,,Desktop,3000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
-Axiom USB3HD35S2TB-AX,,Desktop,2000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
-Axiom USB3HD35S250-AX,,Desktop,250 GB,250,Desktop,,,0
-Axiom USB3HD35S1TB-AX,,Desktop,1000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
-Hitachi HGST Touro Desk Pro,,Desktop,4000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
-Hitachi HGST Touro Desk,,Desktop,4000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
-Seagate FreeAgent GoFlex Desk,,Desktop,1000 GB,USB Type-A 2.0,Desktop,,,5
-LaCie d2,,Desktop,4000 GB,Thunderbolt, USB Type-A 3.2 Gen 1,Desktop,,,0
-LaCie d2 Quadra,,Desktop,5000 GB,IEEE 1394B 9-Pin, eSATA 3.0 Gb/s, USB Type-A 3.2 Gen 1,Desktop,,,0
-LaCie 2big,,Desktop,10000 GB,Thunderbolt,Desktop,,,0
-LaCie 4big Quadra,,Desktop,8000 GB,IEEE 1394B 9-Pin, USB Type-A 3.2 Gen 1,Desktop,,,0
-LaCie Minimus,,Desktop,3000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
-LaCie 2big Quadra,,Desktop,6000 GB,IEEE 1394B 9-Pin, USB Type-A 3.2 Gen 1,Desktop,,,0
-LaCie Little Big Disk,,Desktop,1000 GB,Thunderbolt,Desktop,,,0
-Western Digital My Book for Mac,,Desktop,3000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
+Buslink CSC-1T-U2,,,1000 GB,USB Type-A 2.0,Desktop,,,0
+Buslink CRF-2T-U2,,,2000 GB,USB Type-A 2.0,Desktop,,,0
+Axiom USB3HD35S500-AX,,,500 GB,,Desktop,,,0
+Axiom USB3HD35S3TB-AX,,,3000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
+Axiom USB3HD35S2TB-AX,,,2000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
+Axiom USB3HD35S250-AX,,,250 GB,,Desktop,,,0
+Axiom USB3HD35S1TB-AX,,,1000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
+Hitachi HGST Touro Desk Pro,,,4000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
+Hitachi HGST Touro Desk,,,4000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
+Seagate FreeAgent GoFlex Desk,,,1000 GB,USB Type-A 2.0,Desktop,,,5
+LaCie d2,,,4000 GB,"Thunderbolt, USB Type-A 3.2 Gen 1",Desktop,,,0
+LaCie d2 Quadra,,,5000 GB,"IEEE 1394B 9-Pin, eSATA 3.0 Gb/s, USB Type-A 3.2 Gen 1",Desktop,,,0
+LaCie 2big,,,10000 GB,Thunderbolt,Desktop,,,0
+LaCie 4big Quadra,,,8000 GB,"IEEE 1394B 9-Pin, USB Type-A 3.2 Gen 1",Desktop,,,0
+LaCie Minimus,,,3000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
+LaCie 2big Quadra,,,6000 GB,"IEEE 1394B 9-Pin, USB Type-A 3.2 Gen 1",Desktop,,,0
+LaCie Little Big Disk,,,1000 GB,Thunderbolt,Desktop,,,0
+Western Digital My Book for Mac,,,3000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
 Western Digital My Book Thunderbolt Duo,,https://cdna.pcpartpicker.com/static/forever/images/product/542c030fe124c8e60d5cfa3c3d5c0348.256p.jpg,4000 GB,Thunderbolt,Desktop,,,5
-Western Digital My Book Studio,259.52,Desktop,4000 GB,USB Type-A 3.2 Gen 1,Desktop,,,5
-Western Digital My Book Essential,258,Desktop,1000 GB,USB Type-A 3.2 Gen 1,Desktop,£0.258,,3.5
-LaCie Blade Runner,,Desktop,4000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
-Buffalo Technology DriveStation,,Desktop,512 GB,Thunderbolt,Desktop,,,0
-Buffalo Technology DriveStation Duo,,Desktop,8000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
-Buffalo Technology DriveStation Axis,,Desktop,1000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
-MSI DATAMAG,139.99,https://cdna.pcpartpicker.com/static/forever/images/product/fa44613346e36fa2126f9254ed9f4f47.256p.jpg,2000 GB,USB Type-C 3.2 Gen 2x2,Portable,Black,Black,0
-Integral SlimXpress Pro,,https://cdna.pcpartpicker.com/static/forever/images/product/38f2db084668d309c077a3ba1bd496b0.256p.jpg,1000 GB,USB Type-C 3.2 Gen 2x2,Portable,Silver / Black,Silver / Black,0
-Lexar Professional SL600,84.99,https://cdna.pcpartpicker.com/static/forever/images/product/c0b42ff136df4e3e48a47807ff520c6d.256p.jpg,512 GB,USB Type-C 3.2 Gen 2x2,Portable,Black,Black,0
-Lexar SL210,262.64,Portable,2000 GB,USB Type-C 3.2 Gen 1,Portable,£0.131,Black,0
-Lexar SL200,,https://cdna.pcpartpicker.com/static/forever/images/product/679e0c73dab795ff535c5b7fc9c466b9.256p.jpg,2000 GB,USB Type-C 3.2 Gen 1,Portable,Black,Black,0
-Lexar SL100 Pro,,https://cdna.pcpartpicker.com/static/forever/images/product/f6dfc2e6fbaa52dd777243c3f635aaa0.256p.jpg,1000 GB,USB Type-C 3.2 Gen 1,Portable,Black,Black,0
+Western Digital My Book Studio,,,4000 GB,USB Type-A 3.2 Gen 1,Desktop,,,5
+Western Digital My Book Essential,258,,1000 GB,USB Type-A 3.2 Gen 1,Desktop,£0.258,,3.5
+LaCie Blade Runner,,,4000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
+Buffalo Technology DriveStation,,,512 GB,Thunderbolt,Desktop,,,0
+Buffalo Technology DriveStation Duo,,,8000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
+Buffalo Technology DriveStation Axis,,,1000 GB,USB Type-A 3.2 Gen 1,Desktop,,,0
+MSI DATAMAG,,https://cdna.pcpartpicker.com/static/forever/images/product/fa44613346e36fa2126f9254ed9f4f47.256p.jpg,2000 GB,USB Type-C 3.2 Gen 2x2,Portable,,Black,0
+Integral SlimXpress Pro,,https://cdna.pcpartpicker.com/static/forever/images/product/38f2db084668d309c077a3ba1bd496b0.256p.jpg,1000 GB,USB Type-C 3.2 Gen 2x2,Portable,,Silver / Black,0
+Lexar Professional SL600,,https://cdna.pcpartpicker.com/static/forever/images/product/c0b42ff136df4e3e48a47807ff520c6d.256p.jpg,512 GB,USB Type-C 3.2 Gen 2x2,Portable,,Black,0
+Lexar SL210,262.64,,2000 GB,USB Type-C 3.2 Gen 1,Portable,£0.131,Black,0
+Lexar SL200,,https://cdna.pcpartpicker.com/static/forever/images/product/679e0c73dab795ff535c5b7fc9c466b9.256p.jpg,2000 GB,USB Type-C 3.2 Gen 1,Portable,,Black,0
+Lexar SL100 Pro,,https://cdna.pcpartpicker.com/static/forever/images/product/f6dfc2e6fbaa52dd777243c3f635aaa0.256p.jpg,1000 GB,USB Type-C 3.2 Gen 1,Portable,,Black,0
 Lexar SL660 BLAZE,137.99,https://cdna.pcpartpicker.com/static/forever/images/product/bc9e7858729748d0699c6799f8b881a1.256p.jpg,512 GB,USB Type-C 3.2 Gen 2x2,Portable,£0.270,Black,0
-Sabrent Rocket nano XTRM,281.98,Portable,1000 GB,USB Type-C 3.2 Gen 2,Portable,£0.282,Black,0
-Sabrent Rocket Pro,,https://cdna.pcpartpicker.com/static/forever/images/product/845735b9f7967158c8517725bd9cb662.256p.jpg,512 GB,USB Type-C 3.2 Gen 2,Portable,Silver,Silver,0
+Sabrent Rocket nano XTRM,281.98,,1000 GB,USB Type-C 3.2 Gen 2,Portable,£0.282,Black,0
+Sabrent Rocket Pro,,https://cdna.pcpartpicker.com/static/forever/images/product/845735b9f7967158c8517725bd9cb662.256p.jpg,512 GB,USB Type-C 3.2 Gen 2,Portable,,Silver,0
 Apricorn NVX,708.17,https://cdna.pcpartpicker.com/static/forever/images/product/a7679639c1a1de0cb7ca87a8b766fa2c.256p.jpg,2000 GB,USB Type-C 3.2 Gen 2,Portable,£0.354,Black,0
-VisionTek 901378,,Portable,8000 GB,USB Type-C,Portable,Black,Black,0
-VisionTek 901377,,Portable,4000 GB,USB Type-C,Portable,Black,Black,0
-VisionTek 901196,,Portable,1000 GB,USB Type-C,Portable,Black,Black,0
-Silicon Power Stream S05,,Portable,1000 GB,USB Type-A 3.2 Gen 1,Portable,Black,Black,0
+VisionTek 901378,,,8000 GB,USB Type-C,Portable,,Black,0
+VisionTek 901377,,,4000 GB,USB Type-C,Portable,,Black,0
+VisionTek 901196,,,1000 GB,USB Type-C,Portable,,Black,0
+Silicon Power Stream S05,,,1000 GB,USB Type-A 3.2 Gen 1,Portable,,Black,0
 Silicon Power Bolt B75,234.53,https://cdna.pcpartpicker.com/static/forever/images/product/d852f5a01d78a3a2c49b62a2044babe9.256p.jpg,960 GB,USB Type-C 3.2 Gen 1,Portable,£0.244,Silver,0
-Silicon Power Bolt B75 Pro,,Portable,256 GB,USB Type-C 3.2 Gen 2,Portable,Black,Black,0
-Toshiba Canvio Connect II,221.3,Portable,1000 GB,USB Type-A 3.2 Gen 1,Portable,£0.221,Black,0
-Samsung T3 Portable,179,https://cdna.pcpartpicker.com/static/forever/images/product/81411a4250ad0fcd2232126991f9ea6a.256p.jpg,250 GB,USB Type-C 3.2 Gen 1,Portable,,,0
-Western Digital My Passport Ultra,,Portable,3000 GB,USB Type-A 3.2 Gen 2,Portable,White,White,0
+Silicon Power Bolt B75 Pro,,,256 GB,USB Type-C 3.2 Gen 2,Portable,,Black,0
+Toshiba Canvio Connect II,221.3,,1000 GB,USB Type-A 3.2 Gen 1,Portable,£0.221,Black,0
+Samsung T3 Portable,,https://cdna.pcpartpicker.com/static/forever/images/product/81411a4250ad0fcd2232126991f9ea6a.256p.jpg,250 GB,USB Type-C 3.2 Gen 1,Portable,,,0
+Western Digital My Passport Ultra,,,3000 GB,USB Type-A 3.2 Gen 2,Portable,,White,0
 SanDisk G-DRIVE ArmorLock,399,https://cdna.pcpartpicker.com/static/forever/images/product/283aa7c0cc9c6ff261b57cc8c4af51fe.256p.jpg,2000 GB,USB Type-C 3.2 Gen 1,Portable,£0.199,Black / Yellow,0
-Sabrent ROCKET XTRM,,https://cdna.pcpartpicker.com/static/forever/images/product/3373f947117bfa851ba8e1c230eac427.256p.jpg,4000 GB,Thunderbolt,Portable,Silver,Silver,0
-Apacer AS721,,Portable,1000 GB,USB Type-C 3.2 Gen 1,Portable,Black,Black,0
-Apacer AS722,,https://cdna.pcpartpicker.com/static/forever/images/product/8213ae37318a82ef6af3805667d3b570.256p.jpg,512 GB,USB Type-C 3.2 Gen 1,Portable,Black,Black,0
-Western Digital G-DRIVE Mobile,,https://cdna.pcpartpicker.com/static/forever/images/product/7bd5fe5b6091d468938cc53914e59502.256p.jpg,1000 GB,USB Type-C 3.2 Gen 1,Portable,Silver,Silver,0
-Buslink DL-4TSDU31G2,499.99,https://cdna.pcpartpicker.com/static/forever/images/product/288d5ab732b621482816c442e5b57468.256p.jpg,4000 GB,USB Type-A 3.2 Gen 2,Portable,Black,Black,0
-Buffalo Technology Americas MiniStation,66.98,https://cdna.pcpartpicker.com/static/forever/images/product/fa662133ab183642e9af20bcd3096436.256p.jpg,1000 GB,USB Type-A 3.2 Gen 1,Portable,Black,Black,5
-Apricorn Apricorn Aegis Padlock,,https://cdna.pcpartpicker.com/static/forever/images/product/b774d153e54365e8c4556e6f055885ce.256p.jpg,128 GB,USB Type-A 3.2 Gen 1,Portable,Black,Black,0
-Freecom Mobile Drive Classic 3.0,,https://cdna.pcpartpicker.com/static/forever/images/product/bd41159b673850ac5e103274e1b61b8b.256p.jpg,1000 GB,USB Type-A 3.2 Gen 1,Portable,Black,Black,0
-ADATA SD600,,Portable,512 GB,USB Type-A 3.2 Gen 1,Portable,,,0
-Seagate STDR5000100,,https://cdna.pcpartpicker.com/static/forever/images/product/34581cf837ab0142fbb1ab86579cb38e.256p.jpg,5000 GB,5000,Portable,,,0
+Sabrent ROCKET XTRM,,https://cdna.pcpartpicker.com/static/forever/images/product/3373f947117bfa851ba8e1c230eac427.256p.jpg,4000 GB,Thunderbolt,Portable,,Silver,0
+Apacer AS721,,,1000 GB,USB Type-C 3.2 Gen 1,Portable,,Black,0
+Apacer AS722,,https://cdna.pcpartpicker.com/static/forever/images/product/8213ae37318a82ef6af3805667d3b570.256p.jpg,512 GB,USB Type-C 3.2 Gen 1,Portable,,Black,0
+Western Digital G-DRIVE Mobile,,https://cdna.pcpartpicker.com/static/forever/images/product/7bd5fe5b6091d468938cc53914e59502.256p.jpg,1000 GB,USB Type-C 3.2 Gen 1,Portable,,Silver,0
+Buslink DL-4TSDU31G2,,https://cdna.pcpartpicker.com/static/forever/images/product/288d5ab732b621482816c442e5b57468.256p.jpg,4000 GB,USB Type-A 3.2 Gen 2,Portable,,Black,0
+Buffalo Technology Americas MiniStation,,https://cdna.pcpartpicker.com/static/forever/images/product/fa662133ab183642e9af20bcd3096436.256p.jpg,1000 GB,USB Type-A 3.2 Gen 1,Portable,,Black,5
+Apricorn Apricorn Aegis Padlock,,https://cdna.pcpartpicker.com/static/forever/images/product/b774d153e54365e8c4556e6f055885ce.256p.jpg,128 GB,USB Type-A 3.2 Gen 1,Portable,,Black,0
+Freecom Mobile Drive Classic 3.0,,https://cdna.pcpartpicker.com/static/forever/images/product/bd41159b673850ac5e103274e1b61b8b.256p.jpg,1000 GB,USB Type-A 3.2 Gen 1,Portable,,Black,0
+ADATA SD600,,,512 GB,USB Type-A 3.2 Gen 1,Portable,,,0
+Seagate STDR5000100,,https://cdna.pcpartpicker.com/static/forever/images/product/34581cf837ab0142fbb1ab86579cb38e.256p.jpg,5000 GB,,Portable,,,0
 Samsung T1,,https://cdna.pcpartpicker.com/static/forever/images/product/fe42042506a349f0de6dc5bd5ab54973.256p.jpg,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,5
-Transcend TS128GSJC10K,,Portable,128 GB,USB Type-A 3.2 Gen 1,Portable,,,0
-Transcend TS128GESD200K,,Portable,128 GB,USB Type-A 3.2 Gen 1,Portable,,,0
+Transcend TS128GSJC10K,,,128 GB,USB Type-A 3.2 Gen 1,Portable,,,0
+Transcend TS128GESD200K,,,128 GB,USB Type-A 3.2 Gen 1,Portable,,,0
 Lenovo ThinkPad,,https://cdna.pcpartpicker.com/static/forever/images/product/9929dda355e3a9cda6b766cc389b9192.256p.jpg,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
-Imation Apollo Expert,,Portable,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
-Apricorn Aegis Padlock,493,https://cdna.pcpartpicker.com/static/forever/images/product/d6e35008954d2c021870028854097996.256p.jpg,1000 GB,eSATA 3.0 Gb/s, USB Type-A 2.0,Portable,,,0
+Imation Apollo Expert,,,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
+Apricorn Aegis Padlock,,https://cdna.pcpartpicker.com/static/forever/images/product/d6e35008954d2c021870028854097996.256p.jpg,1000 GB,"eSATA 3.0 Gb/s, USB Type-A 2.0",Portable,,,0
 Apricorn Aegis Portable 3.0,,https://cdna.pcpartpicker.com/static/forever/images/product/ee24318a0d1433bee8ee22e137009671.256p.jpg,500 GB,USB Type-A 3.2 Gen 1,Portable,,,0
-Apricorn Aegis Bio 3.0,,Portable,512 GB,USB Type-A 3.2 Gen 1,Portable,,,0
+Apricorn Aegis Bio 3.0,,,512 GB,USB Type-A 3.2 Gen 1,Portable,,,0
 Apricorn Aegis Bio,,https://cdna.pcpartpicker.com/static/forever/images/product/78090b54f34e3ab62202a1d732c2e76a.256p.jpg,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
 ADATA SH14,,https://cdna.pcpartpicker.com/static/forever/images/product/a4a3089575c39e68f949178ca05969d3.256p.jpg,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
 ADATA AHV620-500GU3-CBK,,https://cdna.pcpartpicker.com/static/forever/images/product/2acba091c6ed87164a2367aebac9fb7a.256p.jpg,500 GB,USB Type-A 3.2 Gen 1,Portable,,,0
 ADATA AHV620-2TU3-CBK,,https://cdna.pcpartpicker.com/static/forever/images/product/b79a782940e7c015517a725052259494.256p.jpg,2000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
-HP HPHDD2E30500AS1-RBU,,Portable,500 GB,USB Type-A 3.2 Gen 1,Portable,,,0
+HP HPHDD2E30500AS1-RBU,,,500 GB,USB Type-A 3.2 Gen 1,Portable,,,0
 Hitachi HGST Touro Mobile Pro,,https://cdna.pcpartpicker.com/static/forever/images/product/11306d2827d3e2dd93b6edae1622311e.256p.jpg,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
 Hitachi GST Touro Mobile Pro,,https://cdna.pcpartpicker.com/static/forever/images/product/021e30fdd4bcfacc5900cdbcd0e52c8f.256p.jpg,500 GB,USB Type-A 3.2 Gen 1,Portable,,,0
-Seagate GoFlex for Mac,,Portable,1000 GB,Thunderbolt,Portable,,,0
-Samsung MU-PS500B/AM,,Portable,500 GB,USB Type-A 3.2 Gen 1,Portable,,,0
-Samsung MU-PS250B/AM,,Portable,250 GB,USB Type-A 3.2 Gen 1,Portable,,,0
-Samsung P3 Portable,,Portable,2000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
-Samsung P3,,Portable,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
+Seagate GoFlex for Mac,,,1000 GB,Thunderbolt,Portable,,,0
+Samsung MU-PS500B/AM,,,500 GB,USB Type-A 3.2 Gen 1,Portable,,,0
+Samsung MU-PS250B/AM,,,250 GB,USB Type-A 3.2 Gen 1,Portable,,,0
+Samsung P3 Portable,,,2000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
+Samsung P3,,,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
 Verbatim 97806,,https://cdna.pcpartpicker.com/static/forever/images/product/e9bdfe9c93c7357d21db2a3c7cef90ca.256p.jpg,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
 Verbatim 97805,,https://cdna.pcpartpicker.com/static/forever/images/product/f2c172bb06beb5434c1613bcee92cdb3.256p.jpg,500 GB,USB Type-A 3.2 Gen 1,Portable,,,0
-Verbatim Freecom,,Portable,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
-Verbatim Titan XS,,Portable,1000 GB,1000,Portable,,,0
-Western Digital My Passport Slim,,Portable,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,4
-LaCie Rikiki,,Portable,500 GB,USB Type-A 3.2 Gen 1,Portable,,,0
-Buffalo Technology MiniStation Extreme,,Portable,500 GB,USB Type-A 3.2 Gen 1,Portable,,,0
-Buffalo Technology MiniStation,,Portable,500 GB,USB Type-A 3.2 Gen 1,Portable,,,0
+Verbatim Freecom,,,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
+Verbatim Titan XS,,,1000 GB,,Portable,,,0
+Western Digital My Passport Slim,,,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,4
+LaCie Rikiki,,,500 GB,USB Type-A 3.2 Gen 1,Portable,,,0
+Buffalo Technology MiniStation Extreme,,,500 GB,USB Type-A 3.2 Gen 1,Portable,,,0
+Buffalo Technology MiniStation,,,500 GB,USB Type-A 3.2 Gen 1,Portable,,,0
 ADATA DashDrive,,https://cdna.pcpartpicker.com/static/forever/images/product/71ee7d674eb4577308c84a94e36e9c54.256p.jpg,1000 GB,USB Type-A 3.2 Gen 1,Portable,,,0
-Western Digital ‎WDBU6Y0050BBK-WESN,117.49,Portable,USB Type-A 3.2 Gen 1,5000,0.023,Black,,

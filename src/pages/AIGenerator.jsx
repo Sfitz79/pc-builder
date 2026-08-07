@@ -7,6 +7,7 @@ import { BUILDER_CATEGORIES, SUBCATEGORY_GROUPS, ADDON_GROUPS } from "../utils/b
 import { getCaseStyles, getCaseStyleImage } from "../utils/caseStyles";
 import { assetPath } from "../utils/assetPath";
 import { loadCSV } from "../utils/loadCSV";
+import { useLivePrices } from "../hooks/useLivePrices";
 
 const USE_CASES = [
   { id: "gaming", label: "Gaming", icon: "🎮", desc: "High FPS for the latest games" },
@@ -153,6 +154,7 @@ export default function AIGenerator() {
   const [activeGameTier, setActiveGameTier] = useState(0);
   const adminMode = usePCStore(s => s.adminMode);
   const setComponent = usePCStore(s => s.setComponent);
+  const { prices: livePrices } = useLivePrices();
 
   function colorToSwatch(name) {
     const map = {
@@ -198,7 +200,7 @@ export default function AIGenerator() {
     setError("");
     try {
       const isGaming = useCase === "gaming" || useCase === "streaming+gaming" || useCase === "streaming" || useCase === "general";
-      const options = { needMonitor, monitorResolution, needMouse, needKeyboard, needSpeakers, needWifi, consumerOnly: isGaming, caseStyle, needStreaming, needFlightSim, needRacingSim, needGameControllers, needCablesAccessories, needFanController, needOpticalDrive, needUps };
+      const options = { needMonitor, monitorResolution, needMouse, needKeyboard, needSpeakers, needWifi, consumerOnly: isGaming, caseStyle, needStreaming, needFlightSim, needRacingSim, needGameControllers, needCablesAccessories, needFanController, needOpticalDrive, needUps, livePrices };
       const partsBudget = Math.max(Math.round(budget / (1 + PAYPAL_RATE)) - HIDDEN_FEES, 0);
       const variants = [
         {
@@ -261,7 +263,7 @@ export default function AIGenerator() {
         try {
           const build = await generateBuild(tier.budget, "gaming", "any", {
             needMonitor: false, needMouse: true, needKeyboard: true,
-            needSpeakers: false, needWifi: false, consumerOnly: true, dualStorage: true
+            needSpeakers: false, needWifi: false, consumerOnly: true, dualStorage: true, livePrices
           });
           tiers.push({ tier, build });
         } catch {
