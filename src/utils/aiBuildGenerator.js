@@ -613,7 +613,7 @@ function resolveAvailability(build, allParts, budgetAllocation, options) {
   for (const [catId, item] of Object.entries(build)) {
     if (!item || typeof item !== "object" || !item.name) continue;
     if (isPartAvailable(catId, item, liveMap)) continue;
-    const alt = pickAvailableAlternative(catId, item, allParts, liveMap, options, build);
+    const alt = pickAvailableAlternative(catId, item, allParts, liveMap, budgetAllocation, options, build);
     if (alt) {
       swaps.push({ category: catId, from: item.name, to: alt.name });
       build[catId] = alt;
@@ -624,7 +624,7 @@ function resolveAvailability(build, allParts, budgetAllocation, options) {
   }
 }
 
-function pickAvailableAlternative(categoryId, current, allParts, liveMap, options, build) {
+function pickAvailableAlternative(categoryId, current, allParts, liveMap, budgetAllocation, options, build) {
   const pool = (allParts[categoryId] || []).filter(item => {
     const currentName = String(current?.name || "").trim().toLowerCase();
     if (currentName && String(item.name || "").trim().toLowerCase() === currentName) return false;
