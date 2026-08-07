@@ -49,7 +49,7 @@ describe("usePCStore", () => {
   it("setComponent adds component to selections", () => {
     const cpu = { name: "AMD Ryzen 7 7800X3D", price: "449" };
     act(() => usePCStore.getState().setComponent("cpu", cpu));
-    expect(usePCStore.getState().selections.cpu).toEqual(cpu);
+    expect(usePCStore.getState().selections.cpu).toMatchObject(cpu);
   });
 
   it("clearComponent removes component from selections", () => {

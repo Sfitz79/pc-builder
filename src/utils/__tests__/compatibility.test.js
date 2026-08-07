@@ -18,7 +18,7 @@ describe("checkCompatibility", () => {
 
   it("does not require GPU when CPU has integrated graphics", () => {
     const issues = checkCompatibility({
-      cpu: { name: "AMD Ryzen 7 8700G", integrated_graphics: "Radeon 780M" },
+      cpu: { name: "AMD Ryzen 7 8700G", graphics: "Radeon 780M" },
     });
     expect(issues.some(i => i.includes("GPU is required"))).toBe(false);
   });
