@@ -1,0 +1,2 @@
+const a=`web_scraper_order,web_scraper_start_url,pagination,name,price,image\r
+1784224112-1,https://www.scan.co.uk/shop/computer-hardware/racing-shifters/all,,Fanatec ClubSport Shifter SQ V 1.5, Aluminium/Metal Construction, Sequential/H-Pattern, PC/PlayStation/Xbox,£199.99,thumbnails/racing-shifters_1784224112_1.png`;export{a as default};

@@ -1,0 +1,2 @@
+const e=`web_scraper_order,web_scraper_start_url,pagination,name,price,image\r
+1784224109-1,https://www.scan.co.uk/shop/computer-hardware/racing-wheels/all,,Fanatec CSL DD Wheel Base, 8Nm, Direct Drive, QR2, PC/Xbox, Brushless Motor,£349.99,thumbnails/racing-wheels_1784224109_1.jpg`;export{e as default};

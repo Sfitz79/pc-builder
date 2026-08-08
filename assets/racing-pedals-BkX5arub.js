@@ -1,0 +1,2 @@
+const a=`web_scraper_order,web_scraper_start_url,pagination,name,price,image\r
+"1784224110-1","https://www.scan.co.uk/shop/computer-hardware/racing-pedals/all","","Fanatec Clubsport V3 Pedals, Load Cell, Vibration Motor, Adjustable, PC/Xbox/PlayStation","£349.99",""`;export{a as default};

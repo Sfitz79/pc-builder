@@ -1,0 +1,2 @@
+const t=`web_scraper_order,web_scraper_start_url,pagination,name,price,image\r
+1784224108-1,https://www.scan.co.uk/shop/computer-hardware/flight-instruments/all,,Logitech G Flight Instrument Panel, Backlit LCD, Altimeter/Airspeed Indicator, USB, PC,£79.99,thumbnails/flight-instruments_1784224108_1.jpg`;export{t as default};
