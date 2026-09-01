@@ -1,0 +1,17 @@
+# Dependencies are installed by the vercel-php runtime during the build.
+/vendor
+/node_modules
+
+# Local SQLite database must never be deployed (read-only + useless in serverless).
+/database/*.sqlite
+
+# Local-only state.
+/storage/logs/*.log
+/.env
+.env
+.env.*
+!.env.example
+/phpunit.xml
+/tests
+/.vscode
+/.idea

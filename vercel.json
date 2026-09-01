@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "framework": null,
+  "buildCommand": "npm run build",
+  "builds": [
+    { "src": "/api/index.php", "use": "vercel-php@0.9.0" },
+    { "src": "/public/build/**", "use": "@vercel/static" },
+    { "src": "/public/favicon*", "use": "@vercel/static" },
+    { "src": "/public/robots.txt", "use": "@vercel/static" },
+    { "src": "/public/.*", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/build/assets/(.*)", "dest": "/public/build/assets/$1" },
+    { "src": "/build/manifest.json", "dest": "/public/build/manifest.json" },
+    { "src": "/favicon(.*)", "dest": "/public/favicon$1" },
+    { "src": "/robots.txt", "dest": "/public/robots.txt" },
+    { "src": "/(.*)", "dest": "/api/index.php" }
+  ],
+  "env": {
+    "APP_ENV": "production",
+    "APP_DEBUG": "false",
+    "APP_CONFIG_CACHE": "/tmp/config.php",
+    "APP_EVENTS_CACHE": "/tmp/events.php",
+    "APP_PACKAGES_CACHE": "/tmp/packages.php",
+    "APP_ROUTES_CACHE": "/tmp/routes.php",
+    "APP_SERVICES_CACHE": "/tmp/services.php",
+    "VIEW_COMPILED_PATH": "/tmp",
+    "LOG_CHANNEL": "stderr"
+  }
+}

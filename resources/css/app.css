@@ -1,0 +1,540 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --pctg-bg: #0b0d12;
+    --pctg-surface: #171a21;
+    --pctg-surface-elevated: #212733;
+    --pctg-primary: #e53935;
+    --pctg-primary-hover: #ff5a52;
+    --pctg-text: #ffffff;
+    --pctg-muted: #9da7b8;
+    --pctg-success: #00c853;
+    --pctg-warning: #ffc107;
+}
+
+@layer base {
+    [x-cloak] {
+        display: none !important;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background: var(--pctg-bg);
+        color: var(--pctg-text);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Space Grotesk', sans-serif;
+    }
+}
+
+@keyframes powerPulse {
+    0% {
+        box-shadow: 0 0 0 rgba(229, 57, 53, 0);
+    }
+
+    50% {
+        box-shadow:
+            0 0 20px rgba(229, 57, 53, .5),
+            0 0 50px rgba(229, 57, 53, .3),
+            0 0 100px rgba(229, 57, 53, .15);
+    }
+
+    100% {
+        box-shadow: 0 0 0 rgba(229, 57, 53, 0);
+    }
+}
+
+@keyframes pctgBootReveal {
+    0% {
+        opacity: 0;
+        transform: scale(.8);
+        filter: blur(20px);
+    }
+
+    50% {
+        opacity: .6;
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes pctgPowerPulse {
+    0% {
+        text-shadow: 0 0 0 rgba(229, 57, 53, 0);
+    }
+
+    50% {
+        text-shadow:
+            0 0 20px rgba(229, 57, 53, .9),
+            0 0 50px rgba(229, 57, 53, .5),
+            0 0 100px rgba(229, 57, 53, .2);
+    }
+
+    100% {
+        text-shadow: 0 0 0 rgba(229, 57, 53, 0);
+    }
+}
+
+@keyframes pctgProgress {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes pctgScanLine {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(400%);
+    }
+}
+
+@keyframes pctgGridDrift {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 0 100px;
+    }
+}
+
+@keyframes pctgStatusFade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pctgLandingReveal {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pctgFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes floatParticle {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+}
+
+@keyframes pctgIntroExit {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes pctgCheckPop {
+    0% {
+        transform: scale(.4);
+        opacity: 0;
+    }
+
+    60% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes pctgFpsPop {
+    0% {
+        transform: scale(.85);
+        opacity: .5;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@layer components {
+    .power-pulse {
+        animation: powerPulse 3s infinite;
+    }
+
+    .pctg-card {
+        @apply rounded-3xl border border-slate-800 bg-[#171a21] p-5;
+    }
+
+    .pctg-card-hover {
+        @apply rounded-3xl
+            border
+            border-slate-800
+            bg-[#171a21]
+            p-5
+            transition-all
+            duration-300
+            hover:border-red-500/40
+            hover:shadow-[0_0_25px_rgba(229,57,53,.20)]
+            hover:-translate-y-1;
+    }
+
+    .pctg-glass {
+        @apply bg-[#171a21]/80
+            backdrop-blur-xl
+            border
+            border-slate-800
+            rounded-3xl;
+    }
+
+    .pctg-button {
+        @apply rounded-xl
+            bg-red-600
+            px-6
+            py-3
+            text-white
+            font-semibold
+            transition-all
+            hover:bg-red-500
+            hover:shadow-[0_0_25px_rgba(229,57,53,.50)];
+    }
+
+    .pctg-button-secondary {
+        @apply rounded-xl
+            border
+            border-slate-700
+            px-6
+            py-3
+            text-slate-200
+            font-medium
+            transition-all
+            hover:border-red-500
+            hover:bg-red-500/10;
+    }
+
+    .pctg-button-danger {
+        @apply rounded-xl
+            bg-red-900
+            text-white
+            px-6
+            py-3
+            hover:bg-red-700;
+    }
+
+    .pctg-badge {
+        @apply inline-flex
+            items-center
+            rounded-full
+            px-3
+            py-1
+            text-xs
+            font-semibold;
+    }
+
+    .pctg-sidebar-item {
+        @apply flex
+            items-center
+            justify-between
+            border
+            border-slate-800
+            rounded-xl
+            px-4
+            py-3
+            transition-all
+            hover:border-red-500
+            hover:bg-red-500/5;
+    }
+
+    .pctg-sidebar-item-active {
+        @apply border-red-500
+            bg-red-500/10
+            shadow-[0_0_20px_rgba(229,57,53,.2)];
+    }
+
+    .pctg-hero {
+        @apply rounded-3xl
+            border
+            border-red-500/20
+            bg-gradient-to-br
+            from-red-900/20
+            via-[#171a21]
+            to-black
+            p-8
+            lg:p-12
+            overflow-hidden
+            relative;
+    }
+
+    .pctg-metric {
+        @apply rounded-2xl
+            border
+            border-slate-800
+            bg-[#12151c]
+            p-5;
+    }
+
+    .pctg-progress {
+        @apply h-3
+            overflow-hidden
+            rounded-full
+            bg-slate-800;
+    }
+
+    .pctg-progress-bar {
+        @apply h-full
+            rounded-full
+            bg-gradient-to-r
+            from-red-500
+            via-red-600
+            to-red-700;
+    }
+
+    .pctg-stat-tag {
+        @apply inline-flex
+            rounded-full
+            bg-slate-800
+            px-3
+            py-1
+            text-xs;
+    }
+
+    .pctg-input {
+        @apply w-full
+            rounded-xl
+            border
+            border-slate-700
+            bg-[#12151c]
+            p-3
+            text-white
+            placeholder:text-slate-500
+            focus:border-red-500
+            focus:outline-none;
+    }
+
+    .pctg-reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+            opacity .7s cubic-bezier(.22, 1, .36, 1),
+            transform .7s cubic-bezier(.22, 1, .36, 1);
+        transition-delay: var(--reveal-delay, 0ms);
+        will-change: opacity, transform;
+    }
+
+    .pctg-reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .pctg-reveal {
+            opacity: 1;
+            transform: none;
+            transition: none;
+            will-change: auto;
+        }
+    }
+
+    .pctg-boot-logo {
+        animation: pctgBootReveal 1.2s cubic-bezier(.16, 1, .3, 1) forwards;
+    }
+
+    .pctg-pulse {
+        animation: pctgPowerPulse 2s infinite;
+    }
+
+    .pctg-boot-bar {
+        animation: pctgProgress 3.2s linear forwards;
+        background: linear-gradient(90deg, #e53935, #ff5a52);
+    }
+
+    .pctg-scan-line {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(transparent, rgba(229, 57, 53, .08), transparent);
+        animation: pctgScanLine 2s linear infinite;
+    }
+
+    .pctg-grid-bg {
+        background-image:
+            linear-gradient(rgba(229, 57, 53, .05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(229, 57, 53, .05) 1px, transparent 1px);
+        background-size: 45px 45px;
+        animation: pctgGridDrift 8s linear infinite;
+    }
+
+    .pctg-status {
+        animation: pctgStatusFade .5s ease-out forwards;
+    }
+
+    .pctg-landing-reveal {
+        opacity: 0;
+        animation: pctgLandingReveal .8s cubic-bezier(.16, 1, .3, 1) forwards;
+    }
+
+    body:not(.is-intro-done) .pctg-landing-reveal {
+        opacity: 0;
+        animation-play-state: paused;
+    }
+
+    .pctg-float {
+        animation: pctgFloat 6s ease-in-out infinite;
+    }
+
+    .pctg-particle {
+        animation: floatParticle 5s ease-in-out infinite;
+    }
+
+    .pctg-hero-reveal {
+        animation: pctgLandingReveal 1s cubic-bezier(.16, 1, .3, 1) forwards;
+    }
+
+    .pctg-check-pop {
+        animation: pctgCheckPop .45s cubic-bezier(.34, 1.56, .64, 1) forwards;
+    }
+
+    .pctg-fps-pop {
+        animation: pctgFpsPop .35s ease-out;
+    }
+
+    .demo-case-btn {
+        @apply rounded-xl
+            border
+            border-slate-700
+            bg-slate-900
+            px-4
+            py-3
+            text-sm
+            font-semibold
+            text-slate-300
+            transition-all
+            hover:border-red-500/40
+            hover:text-white;
+    }
+
+    .demo-case-btn.is-active {
+        @apply border-red-500/50
+            bg-red-500/10
+            text-red-300;
+    }
+
+    .fps-res-btn {
+        @apply rounded-lg
+            border
+            border-slate-700
+            bg-slate-900
+            px-4
+            py-2
+            text-sm
+            font-semibold
+            text-slate-300
+            transition-all
+            hover:border-red-500/40
+            hover:text-white;
+    }
+
+    .fps-res-btn.is-active {
+        @apply border-red-500/50
+            bg-red-500/10
+            text-red-300;
+    }
+
+    .pctg-select {
+        @apply w-full
+            appearance-none
+            rounded-xl
+            border
+            border-slate-700
+            bg-[#12151c]
+            px-4
+            py-3
+            text-white
+            focus:border-red-500
+            focus:outline-none;
+    }
+
+    .pctg-intro {
+        transition: opacity .6s ease, visibility .6s ease;
+    }
+
+    .pctg-intro-exit {
+        animation: pctgIntroExit .7s ease forwards;
+    }
+
+    html.no-js .pctg-intro {
+        display: none !important;
+    }
+
+    html.no-js body .pctg-landing-reveal {
+        opacity: 1 !important;
+        animation-play-state: running !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .pctg-boot-logo,
+        .pctg-pulse,
+        .pctg-boot-bar,
+        .pctg-scan-line,
+        .pctg-grid-bg,
+        .pctg-status,
+        .pctg-landing-reveal,
+        .pctg-float,
+        .pctg-particle,
+        .pctg-hero-reveal,
+        .pctg-check-pop,
+        .pctg-fps-pop {
+            animation: none;
+        }
+
+        .pctg-boot-bar {
+            width: 100%;
+        }
+    }
+}
