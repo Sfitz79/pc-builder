@@ -75,7 +75,7 @@ class BuilderController extends Controller
             'resolution' => ['nullable', Rule::in(['1080P', '1440P', '4K'])],
         ]);
 
-        $cpu = $data['cpu_id'] ? Component::find($data['cpu_id']) : null;
+        $cpu = ! empty($data['cpu_id']) ? Component::find($data['cpu_id']) : null;
         $gpu = Component::find($data['gpu_id']);
 
         return response()->json(

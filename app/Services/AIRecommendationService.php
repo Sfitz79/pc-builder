@@ -83,29 +83,49 @@ class AIRecommendationService
                 ->filter(fn (Component $component) => (float) $component->price <= $allow
                     && ($spent + (float) $component->price) <= $hardCap);
 
-            if ($slug === 'motherboard' && $cpuSocket !== null) {
-                $socketMatch = $candidates
+            if ($slug === 'motherboard') {
+                // A motherboard is only ever valid when it shares the CPU
+                // socket. If the CPU carries no socket (e.g. older Intel
+                // parts the catalogue can no longer pair with a board), we
+                // omit the motherboard slot rather than ship an incompatible
+                // pair — a build without a board is honest; one with a
+                // mismatched socket is not.
+                if ($cpuSocket === null) {
+                    continue;
+                }
+
+                $candidates = $candidates
                     ->filter(fn (Component $component) => $component->socket === $cpuSocket)
                     ->sortByDesc('score');
 
-                if ($socketMatch->isNotEmpty()) {
-                    $candidates = $socketMatch;
+                $pick = $candidates->sortByDesc('score')->first();
+
+                if ($pick === null) {
+                    // Nothing matches within the share — widen to anything in
+                    // the overall budget, still constrained to the socket.
+                    $pick = $pool
+                        ->filter(fn (Component $component) => $component->socket === $cpuSocket
+                            && ($spent + (float) $component->price) <= $hardCap)
+                        ->sortByDesc('score')
+                        ->first();
                 }
-            }
 
-            $pick = $candidates->sortByDesc('score')->first();
+                if ($pick === null) {
+                    continue;
+                }
+            } else {
+                $pick = $candidates->sortByDesc('score')->first();
 
-            if ($pick === null) {
-                // Nothing fits this category within the share — try anything
-                // that still fits the overall budget before giving up on it.
-                $pick = $pool
-                    ->filter(fn (Component $component) => ($spent + (float) $component->price) <= $hardCap)
-                    ->sortByDesc('score')
-                    ->first();
-            }
+                if ($pick === null) {
+                    $pick = $pool
+                        ->filter(fn (Component $component) => ($spent + (float) $component->price) <= $hardCap)
+                        ->sortByDesc('score')
+                        ->first();
+                }
 
-            if ($pick === null) {
-                continue;
+                if ($pick === null) {
+                    continue;
+                }
             }
 
             $selection[$slug] = [

@@ -360,7 +360,7 @@ class ScrapedCatalogSeeder extends Seeder
             str_contains($upper, 'THREADRIPPER') => 'sTR5',
             str_contains($upper, 'RYZEN') => 'AM5',
             str_contains($upper, 'CORE ULTRA') => 'LGA1851',
-            preg_match('/CORE I(12|13|14)-/', $upper) === 1 => 'LGA1700',
+            preg_match('/CORE I[5-9]-1(?:[234])\d{2}/', $upper) === 1 => 'LGA1700',
             default => null,
         };
     }
