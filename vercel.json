@@ -19,7 +19,7 @@
   ],
   "env": {
     "APP_ENV": "production",
-    "APP_DEBUG": "true",
+    "APP_DEBUG": "false",
     "APP_CONFIG_CACHE": "/tmp/config.php",
     "APP_EVENTS_CACHE": "/tmp/events.php",
     "APP_PACKAGES_CACHE": "/tmp/packages.php",
@@ -29,8 +29,8 @@
     "LOG_CHANNEL": "stderr",
     "MIGRATE_ON_DEPLOY": "1",
     "SEED_CATALOG_ONCE": "1",
-    "SESSION_DRIVER": "file",
-    "CACHE_STORE": "file",
+    "SESSION_DRIVER": "cookie",
+    "CACHE_STORE": "array",
     "QUEUE_CONNECTION": "sync"
   }
 }
