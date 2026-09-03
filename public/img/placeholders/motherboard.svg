@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <rect width="256" height="256" fill="#171a21"/>
+  <rect x="38" y="66" width="180" height="124" rx="10" fill="#2a2f3d" stroke="#3a4152" stroke-width="3"/>
+  <rect x="56" y="84" width="64" height="30" rx="5" fill="#1a1e28"/>
+  <rect x="140" y="84" width="60" height="30" rx="5" fill="#1a1e28"/>
+  <rect x="56" y="132" width="64" height="12" rx="3" fill="#3a4152"/>
+  <rect x="140" y="132" width="60" height="12" rx="3" fill="#3a4152"/>
+  <rect x="56" y="154" width="64" height="12" rx="3" fill="#3a4152"/>
+  <rect x="140" y="154" width="60" height="12" rx="3" fill="#3a4152"/>
+  <circle cx="128" cy="34" r="8" fill="#4c8dff"/>
+  <text x="128" y="206" font-family="Arial" font-size="13" fill="#8b93a7" text-anchor="middle">MOTHERBOARD</text>
+</svg>

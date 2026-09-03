@@ -140,7 +140,7 @@ class ScrapedCatalogSeeder extends Seeder
             Component::upsert(
                 $chunk,
                 ['slug'],
-                ['name', 'sku', 'description', 'price', 'currency', 'socket', 'wattage', 'stock', 'active', 'specs', 'manufacturer_id', 'updated_at']
+                ['name', 'sku', 'description', 'price', 'currency', 'socket', 'wattage', 'stock', 'active', 'specs', 'source_url', 'manufacturer_id', 'updated_at']
             );
         }
     }
@@ -169,41 +169,41 @@ class ScrapedCatalogSeeder extends Seeder
 
             switch ($slug) {
                 case 'cpu':
-                    if (! preg_match('/ryzen\s?[579]\s?[789]\d{2}|core i[5-9]-1\d|core i[5-9]-2\d|core ultra/', $name)) {
+                    if (! preg_match('/ryzen\s?[3579]\s?[1-9]\d{2,3}|core i[3579]-[1-4]\d{3}x?|core ultra|pentium|athlon|core i[3579]-1[0-3]\d{2}/i', $name)) {
                         continue 2;
                     }
                     break;
 
                 case 'gpu':
                     $chipset = strtolower((string) ($specs['chipset'] ?? ''));
-                    if (! preg_match('/rtx\s?4[0-9]|rtx\s?5[0-9]|rx\s?[679][0-9]|arc\s?[ab]/', $chipset)) {
+                    if (! preg_match('/rtx\s?[2-5][0-9]|gtx\s?1[0-9]{3}|rx\s?[5-9][0-9]{2}|rx\s?[1-5]\d{3}|arc\s?[ab]/i', $chipset) && ! preg_match('/geforce|radeon|arc/i', $name)) {
                         continue 2;
                     }
                     break;
 
                 case 'ram':
-                    if (! isset($specs['speed']) || ! str_contains(strtoupper($specs['speed']), 'DDR5')) {
+                    if (! isset($specs['speed'])) {
                         continue 2;
                     }
                     break;
 
                 case 'motherboard':
                     $socket = strtoupper((string) ($specs['socketCPU'] ?? ''));
-                    if (! in_array($socket, ['AM4', 'AM5', 'LGA1700', 'LGA1851'], true)) {
+                    if (! in_array($socket, ['AM4', 'AM5', 'LGA1200', 'LGA1700', 'LGA1851'], true)) {
                         continue 2;
                     }
                     break;
 
                 case 'psu':
                     $psuWatt = (string) ($specs['wattage'] ?? '');
-                    if (! preg_match('/\b([5-9]\d\d|1\d\d\d)\s*W\b/i', $psuWatt)) {
+                    if (! preg_match('/\b([3-9]\d\d|1\d\d\d)\s*W\b/i', $psuWatt)) {
                         continue 2;
                     }
                     break;
 
                 case 'storage':
                     $storageType = strtolower((string) ($specs['type'] ?? ''));
-                    if (! str_contains($storageType, 'ssd')) {
+                    if (! str_contains($storageType, 'ssd') && ! str_contains($storageType, 'nvme') && ! str_contains($storageType, 'hdd')) {
                         continue 2;
                     }
                     break;
@@ -224,32 +224,23 @@ class ScrapedCatalogSeeder extends Seeder
     protected function cap(string $slug): int
     {
         return match ($slug) {
-            'cpu' => 250,
-            'gpu' => 250,
-            'ram' => 150,
-            'motherboard' => 150,
-            'psu' => 150,
-            'storage' => 120,
-            'case' => 120,
-            'cooler' => 120,
-            default => 50,
+            'cpu' => 500,
+            'gpu' => 500,
+            'ram' => 500,
+            'motherboard' => 500,
+            'psu' => 500,
+            'storage' => 500,
+            'case' => 500,
+            'cooler' => 500,
+            default => 200,
         };
     }
 
     protected function resolvePath(string $file): ?string
     {
-        $candidates = [
-            base_path('database/scraped/' . $file),
-            'C:/Users/simon/WebstormProjects/pc-builder/scraped_data/' . $file,
-        ];
+        $path = base_path('database/scraped/' . $file);
 
-        foreach ($candidates as $candidate) {
-            if (is_file($candidate)) {
-                return $candidate;
-            }
-        }
-
-        return null;
+        return is_file($path) ? $path : null;
     }
 
     protected function category(string $slug): Category
@@ -349,6 +340,7 @@ class ScrapedCatalogSeeder extends Seeder
             'stock' => $available ? 1 : 0,
             'active' => true,
             'specs' => $specs !== [] ? $specs : null,
+            'source_url' => (string) ($item['url'] ?? null) ?: null,
         ];
     }
 

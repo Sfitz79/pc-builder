@@ -5,7 +5,7 @@
 @section('description', 'Your software purchase confirmation and key delivery.')
 
 @section('content')
-    <div class="mx-auto max-w-3xl" x-data="softwareKeys">
+                <div class="mx-auto max-w-3xl" x-data="softwareKeys({{ json_encode(['owner_token' => $purchase->owner_token, 'purchase_uuid' => $purchase->uuid]) }})">
         <div class="flex flex-wrap items-center justify-between gap-4">
             <div>
                 <p class="text-xs font-semibold uppercase tracking-[0.18em] text-pctg-primary-hover">Order complete</p>
@@ -126,7 +126,7 @@
 @push('scripts')
     <script>
         document.addEventListener('alpine:init', () => {
-            Alpine.data('softwareKeys', () => ({
+            Alpine.data('softwareKeys', (options) => ({
                 copied: null,
                 retrying: false,
 
@@ -158,7 +158,7 @@
 
                     try {
                         const response = await fetch(
-                            '/software/purchases/{{ $purchase->uuid }}/fulfil',
+                            '/software/purchases/' + options.purchase_uuid + '/fulfil?owner_token=' + encodeURIComponent(options.owner_token),
                             { method: 'POST', headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '' } }
                         );
                         const data = await response.json();

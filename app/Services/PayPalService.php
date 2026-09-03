@@ -69,7 +69,7 @@ class PayPalService
             ->post($this->baseUrl() . '/v2/checkout/orders', [
                 'intent' => 'CAPTURE',
                 'purchase_units' => [[
-                    'reference_id' => $description,
+                    'reference_id' => preg_replace('/[^A-Za-z0-9_-]/', '', $description),
                     'description' => $description,
                     'amount' => [
                         'currency_code' => $this->currency(),

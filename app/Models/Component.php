@@ -12,6 +12,17 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Component extends Model
 {
+    public static array $placeholderImages = [
+        'cpu' => '/img/placeholders/cpu.svg',
+        'cooler' => '/img/placeholders/cooler.svg',
+        'motherboard' => '/img/placeholders/motherboard.svg',
+        'gpu' => '/img/placeholders/gpu.svg',
+        'ram' => '/img/placeholders/ram.svg',
+        'storage' => '/img/placeholders/storage.svg',
+        'psu' => '/img/placeholders/psu.svg',
+        'case' => '/img/placeholders/case.svg',
+    ];
+
     protected $fillable = [
         'category_id',
         'manufacturer_id',
@@ -22,10 +33,13 @@ class Component extends Model
         'price',
         'currency',
         'socket',
+        'chipset',
         'wattage',
         'stock',
         'active',
         'specs',
+        'source_url',
+        'image_url',
     ];
 
     protected $casts = [
@@ -103,7 +117,7 @@ class Component extends Model
     public function formattedPrice(): Attribute
     {
         return Attribute::get(
-            fn (): string => '£' . number_format((float) $this->price, 0)
+            fn (): string => '£'.number_format((float) $this->price, 0)
         );
     }
 
@@ -119,7 +133,7 @@ class Component extends Model
             $parts = [];
 
             if (isset($specs['cores'], $specs['threads'])) {
-                $parts[] = $specs['cores'] . ' Core / ' . $specs['threads'] . ' Thread';
+                $parts[] = $specs['cores'].' Core / '.$specs['threads'].' Thread';
             }
 
             foreach (['memory', 'capacity', 'speed'] as $key) {
@@ -130,5 +144,24 @@ class Component extends Model
 
             return $parts !== [] ? implode(' / ', $parts) : null;
         });
+    }
+
+    /**
+     * Image used by the builder/checkout UI: the scraped image when present,
+     * otherwise a category-appropriate placeholder so components always render.
+     */
+    public function displayImage(): ?string
+    {
+        if (filled($this->image_url)) {
+            return $this->image_url;
+        }
+
+        $categorySlug = $this->category?->slug;
+
+        if ($categorySlug !== null && isset(self::$placeholderImages[$categorySlug])) {
+            return self::$placeholderImages[$categorySlug];
+        }
+
+        return null;
     }
 }

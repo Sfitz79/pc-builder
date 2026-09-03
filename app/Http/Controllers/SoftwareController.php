@@ -169,7 +169,11 @@ class SoftwareController extends Controller
             return response()->json($this->confirmationPayload($purchase));
         }
 
-        $capture = $this->paypal->captureOrder($data['paypal_order_id']);
+        try {
+            $capture = $this->paypal->captureOrder($data['paypal_order_id']);
+        } catch (\Throwable $e) {
+            return response()->json(['message' => 'Payment capture failed: ' . $e->getMessage()], 502);
+        }
 
         if ($capture === null || $capture['capture_status'] !== 'COMPLETED') {
             $purchase->update(['status' => SoftwarePurchase::STATUS_FAILED]);
@@ -398,6 +402,7 @@ class SoftwareController extends Controller
     {
         $payload = $this->purchasePayload($purchase);
         $payload['confirmed'] = true;
+        $payload['fulfilled'] = $purchase->isFulfilled();
         $payload['paypal_capture_id'] = $purchase->paypal_capture_id;
         $payload['paid_at'] = $purchase->paid_at?->toIso8601String();
         $payload['confirmation_url'] = url('/software/purchases/'.$purchase->uuid.'/confirmed?owner_token='.urlencode((string) $purchase->owner_token));

@@ -52,7 +52,7 @@
             @php
                 $links = [
                     'builder' => ['Builder', route('builder')],
-                    'ai' => ['AI Builder', route('builder.ai')],
+                    'ai' => ['AI Builder', route('builder.generate')],
                     'builds' => ['Saved Builds', route('builder.builds')],
                     'checkout' => ['Checkout', route('builder.checkout')],
                     'guides' => ['Guides', url('/best-gaming-pc-under-1500')],

@@ -29,3 +29,5 @@ yarn-error.log
 .DS_Store
 /.vercel
 /test-results
+.vercel
+.env*

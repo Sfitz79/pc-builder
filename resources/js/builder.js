@@ -7,7 +7,8 @@ window.builderState = () => ({
         ram: null,
         storage: null,
         psu: null,
-        case: null
+        case: null,
+        cooler: null
     },
 
     componentModal: false,
@@ -30,6 +31,8 @@ window.builderState = () => ({
     fpsResults: [],
 
     aiRecommendation: null,
+
+    aiIdealBuild: null,
 
     loading: false,
 
@@ -95,16 +98,16 @@ window.builderState = () => ({
             if (!response.ok) return;
 
             const data = await response.json();
-            const loaded = {};
+            const merged = { ...this.catalog };
 
-            for (const category of Object.keys(this.catalog)) {
+            for (const category of Object.keys(data)) {
                 if (Array.isArray(data[category]) && data[category].length) {
-                    loaded[category] = data[category];
+                    merged[category] = data[category];
                 }
             }
 
-            if (Object.keys(loaded).length) {
-                this.catalog = loaded;
+            if (Object.keys(merged).length) {
+                this.catalog = merged;
             }
         } catch (e) {
             // Keep the bundled static catalog as a fallback.
@@ -146,6 +149,11 @@ window.builderState = () => ({
             { name: 'Lian Li O11 Vision', price: 149, tags: 'Mid Tower / ATX' },
             { name: 'NZXT H6 Flow RGB', price: 129, tags: 'Mid Tower / ATX' },
             { name: 'Fractal North', price: 119, tags: 'Mid Tower / ATX' }
+        ],
+        cooler: [
+            { name: 'Noctua NH-D15', price: 109, tags: 'Air / Dual Tower' },
+            { name: 'Arctic Liquid Freezer III 360', price: 89, tags: 'AIO / 360mm' },
+            { name: 'DeepCool AK620', price: 54, tags: 'Air / Dual Tower' }
         ]
     },
 
@@ -156,7 +164,8 @@ window.builderState = () => ({
         ram: 'RAM',
         storage: 'Storage',
         psu: 'PSU',
-        case: 'Case'
+        case: 'Case',
+        cooler: 'CPU Cooler'
     },
 
     openSelector(category) {
@@ -258,9 +267,13 @@ window.builderState = () => ({
             if (!response.ok) return;
 
             const data = await response.json();
-            this.aiRecommendation = data;
 
-            for (const [category, component] of Object.entries(data.components || {})) {
+            this.aiRecommendation = data.budget || data;
+            this.aiIdealBuild = data.ideal || null;
+
+            const build = this.aiRecommendation;
+
+            for (const [category, component] of Object.entries(build.components || {})) {
                 this.selected[category] = component;
             }
 
@@ -381,6 +394,56 @@ window.builderState = () => ({
 
     categoryLabel(category) {
         return this.categoryLabels[category] || 'Component';
+    },
+
+    applyBuild(build) {
+        if (!build) return;
+
+        for (const [category, component] of Object.entries(build.components || {})) {
+            this.selected[category] = component;
+        }
+
+        this.persistSelection();
+        this.validateBuild();
+        this.refreshFps();
+    },
+
+    allIdealApplied() {
+        if (!this.aiIdealBuild) return false;
+
+        for (const [category, ideal] of Object.entries(this.aiIdealBuild.components)) {
+            const current = this.selected[category];
+            if (!current || !ideal || current.id !== ideal.id) {
+                return false;
+            }
+        }
+
+        return true;
+    },
+
+    healthScore() {
+        let score = 0;
+        let total = 0;
+
+        const checks = this.compatibility || {};
+        for (const key of ['cpuMotherboard', 'ramSupported', 'powerEnough', 'gpuClearance']) {
+            total += 1;
+            if (checks[key]) score += 1;
+        }
+
+        const filled = Object.values(this.selected).filter(Boolean).length;
+        const categories = Object.keys(this.selected).length;
+        score += filled / categories;
+
+        return Math.round((score / (total + 1)) * 100);
+    },
+
+    healthLabel() {
+        const s = this.healthScore();
+        if (s >= 80) return 'Excellent Build Balance';
+        if (s >= 60) return 'Good Build Balance';
+        if (s >= 40) return 'Build Needs Attention';
+        return 'Build Incomplete';
     }
 
 });

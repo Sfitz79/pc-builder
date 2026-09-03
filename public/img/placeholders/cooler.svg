@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <rect width="256" height="256" fill="#171a21"/>
+  <rect x="108" y="70" width="40" height="116" rx="8" fill="#232733" stroke="#3a4152" stroke-width="3"/>
+  <rect x="88" y="78" width="80" height="10" rx="3" fill="#3a4152"/>
+  <rect x="88" y="94" width="80" height="10" rx="3" fill="#3a4152"/>
+  <rect x="88" y="110" width="80" height="10" rx="3" fill="#3a4152"/>
+  <rect x="88" y="126" width="80" height="10" rx="3" fill="#3a4152"/>
+  <rect x="88" y="142" width="80" height="10" rx="3" fill="#3a4152"/>
+  <rect x="88" y="158" width="80" height="10" rx="3" fill="#3a4152"/>
+  <rect x="118" y="28" width="20" height="42" rx="4" fill="#3a4152"/>
+  <rect x="100" y="72" width="56" height="44" rx="6" fill="none" stroke="#4c8dff" stroke-width="3"/>
+  <text x="128" y="206" font-family="Arial" font-size="13" fill="#8b93a7" text-anchor="middle">COOLER</text>
+</svg>

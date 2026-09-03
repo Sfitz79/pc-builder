@@ -26,6 +26,7 @@ class BuildController extends Controller
         'storage',
         'psu',
         'case',
+        'cooler',
     ];
 
     public function __construct(
@@ -228,6 +229,7 @@ class BuildController extends Controller
                     'wattage' => $component->wattage,
                     'stock' => (int) $component->stock,
                     'tags' => $component->tags,
+                    'image' => $component->displayImage(),
                 ]),
         ];
     }

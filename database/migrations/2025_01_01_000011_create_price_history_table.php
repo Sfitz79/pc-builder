@@ -14,7 +14,6 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->string('currency', 3)->default('GBP');
             $table->timestamp('recorded_at')->useCurrent();
-            $table->timestamps();
 
             $table->index(['component_id', 'recorded_at']);
         });

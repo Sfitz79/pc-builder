@@ -272,36 +272,47 @@ waitForDom(() => {
 /* ---------------------------------------------------------------- */
 
 const FPS_MATRIX = {
-    'Ryzen 5 7600|RTX 4060|1080P': { fortnite: 180, warzone: 110, cyberpunk: 75 },
-    'Ryzen 5 7600|RTX 4060|1440P': { fortnite: 130, warzone: 85, cyberpunk: 55 },
-    'Ryzen 5 7600|RTX 4060|4K': { fortnite: 85, warzone: 55, cyberpunk: 35 },
-    'Ryzen 5 7600|RTX 5070|1080P': { fortnite: 210, warzone: 145, cyberpunk: 100 },
-    'Ryzen 5 7600|RTX 5070|1440P': { fortnite: 165, warzone: 120, cyberpunk: 75 },
-    'Ryzen 5 7600|RTX 5070|4K': { fortnite: 100, warzone: 70, cyberpunk: 48 },
-    'Ryzen 7 9700X|RTX 4060|1080P': { fortnite: 190, warzone: 115, cyberpunk: 80 },
-    'Ryzen 7 9700X|RTX 4060|1440P': { fortnite: 140, warzone: 90, cyberpunk: 58 },
-    'Ryzen 7 9700X|RTX 4060|4K': { fortnite: 90, warzone: 58, cyberpunk: 38 },
-    'Ryzen 7 9700X|RTX 5070|1080P': { fortnite: 240, warzone: 165, cyberpunk: 120 },
-    'Ryzen 7 9700X|RTX 5070|1440P': { fortnite: 190, warzone: 145, cyberpunk: 95 },
-    'Ryzen 7 9700X|RTX 5070|4K': { fortnite: 120, warzone: 85, cyberpunk: 58 },
-    'Ryzen 7 9700X|RTX 5080|1080P': { fortnite: 300, warzone: 215, cyberpunk: 160 },
-    'Ryzen 7 9700X|RTX 5080|1440P': { fortnite: 245, warzone: 185, cyberpunk: 128 },
-    'Ryzen 7 9700X|RTX 5080|4K': { fortnite: 165, warzone: 120, cyberpunk: 90 },
-    'Ryzen 7 9800X3D|RTX 4060|1080P': { fortnite: 230, warzone: 145, cyberpunk: 82 },
-    'Ryzen 7 9800X3D|RTX 4060|1440P': { fortnite: 175, warzone: 115, cyberpunk: 60 },
-    'Ryzen 7 9800X3D|RTX 4060|4K': { fortnite: 115, warzone: 72, cyberpunk: 40 },
-    'Ryzen 7 9800X3D|RTX 5070|1080P': { fortnite: 300, warzone: 200, cyberpunk: 125 },
-    'Ryzen 7 9800X3D|RTX 5070|1440P': { fortnite: 240, warzone: 175, cyberpunk: 100 },
-    'Ryzen 7 9800X3D|RTX 5070|4K': { fortnite: 160, warzone: 115, cyberpunk: 62 },
-    'Ryzen 7 9800X3D|RTX 5080|1080P': { fortnite: 380, warzone: 260, cyberpunk: 195 },
-    'Ryzen 7 9800X3D|RTX 5080|1440P': { fortnite: 320, warzone: 225, cyberpunk: 158 },
-    'Ryzen 7 9800X3D|RTX 5080|4K': { fortnite: 235, warzone: 165, cyberpunk: 125 },
-    'default|1080P': { fortnite: 200, warzone: 130, cyberpunk: 90 },
-    'default|1440P': { fortnite: 160, warzone: 110, cyberpunk: 75 },
-    'default|4K': { fortnite: 100, warzone: 75, cyberpunk: 50 },
+    'Ryzen 5 7600|RTX 4060|1080P': { fortnite: 180, warzone: 110, cyberpunk: 75, starfield: 60, baldursgate3: 95, marvelrivals: 145 },
+    'Ryzen 5 7600|RTX 4060|1440P': { fortnite: 130, warzone: 85, cyberpunk: 55, starfield: 45, baldursgate3: 70, marvelrivals: 105 },
+    'Ryzen 5 7600|RTX 4060|4K': { fortnite: 85, warzone: 55, cyberpunk: 35, starfield: 28, baldursgate3: 42, marvelrivals: 65 },
+    'Ryzen 5 7600|RTX 5070|1080P': { fortnite: 210, warzone: 145, cyberpunk: 100, starfield: 78, baldursgate3: 128, marvelrivals: 178 },
+    'Ryzen 5 7600|RTX 5070|1440P': { fortnite: 165, warzone: 120, cyberpunk: 75, starfield: 60, baldursgate3: 98, marvelrivals: 138 },
+    'Ryzen 5 7600|RTX 5070|4K': { fortnite: 100, warzone: 70, cyberpunk: 48, starfield: 38, baldursgate3: 60, marvelrivals: 82 },
+    'Ryzen 7 9700X|RTX 4060|1080P': { fortnite: 190, warzone: 115, cyberpunk: 80, starfield: 63, baldursgate3: 100, marvelrivals: 152 },
+    'Ryzen 7 9700X|RTX 4060|1440P': { fortnite: 140, warzone: 90, cyberpunk: 58, starfield: 47, baldursgate3: 72, marvelrivals: 110 },
+    'Ryzen 7 9700X|RTX 4060|4K': { fortnite: 90, warzone: 58, cyberpunk: 38, starfield: 30, baldursgate3: 44, marvelrivals: 66 },
+    'Ryzen 7 9700X|RTX 5070|1080P': { fortnite: 240, warzone: 165, cyberpunk: 120, starfield: 88, baldursgate3: 148, marvelrivals: 205 },
+    'Ryzen 7 9700X|RTX 5070|1440P': { fortnite: 190, warzone: 145, cyberpunk: 95, starfield: 72, baldursgate3: 115, marvelrivals: 168 },
+    'Ryzen 7 9700X|RTX 5070|4K': { fortnite: 120, warzone: 85, cyberpunk: 58, starfield: 46, baldursgate3: 72, marvelrivals: 100 },
+    'Ryzen 7 9700X|RTX 5080|1080P': { fortnite: 300, warzone: 215, cyberpunk: 160, starfield: 115, baldursgate3: 195, marvelrivals: 280 },
+    'Ryzen 7 9700X|RTX 5080|1440P': { fortnite: 245, warzone: 185, cyberpunk: 128, starfield: 95, baldursgate3: 158, marvelrivals: 225 },
+    'Ryzen 7 9700X|RTX 5080|4K': { fortnite: 165, warzone: 120, cyberpunk: 90, starfield: 68, baldursgate3: 108, marvelrivals: 155 },
+    'Ryzen 7 9800X3D|RTX 4060|1080P': { fortnite: 230, warzone: 145, cyberpunk: 82, starfield: 70, baldursgate3: 105, marvelrivals: 158 },
+    'Ryzen 7 9800X3D|RTX 4060|1440P': { fortnite: 175, warzone: 115, cyberpunk: 60, starfield: 50, baldursgate3: 78, marvelrivals: 118 },
+    'Ryzen 7 9800X3D|RTX 4060|4K': { fortnite: 115, warzone: 72, cyberpunk: 40, starfield: 33, baldursgate3: 48, marvelrivals: 70 },
+    'Ryzen 7 9800X3D|RTX 5070|1080P': { fortnite: 300, warzone: 200, cyberpunk: 125, starfield: 95, baldursgate3: 160, marvelrivals: 222 },
+    'Ryzen 7 9800X3D|RTX 5070|1440P': { fortnite: 240, warzone: 175, cyberpunk: 100, starfield: 78, baldursgate3: 128, marvelrivals: 178 },
+    'Ryzen 7 9800X3D|RTX 5070|4K': { fortnite: 160, warzone: 115, cyberpunk: 62, starfield: 50, baldursgate3: 80, marvelrivals: 110 },
+    'Ryzen 7 9800X3D|RTX 5080|1080P': { fortnite: 380, warzone: 260, cyberpunk: 195, starfield: 145, baldursgate3: 242, marvelrivals: 335 },
+    'Ryzen 7 9800X3D|RTX 5080|1440P': { fortnite: 320, warzone: 225, cyberpunk: 158, starfield: 118, baldursgate3: 185, marvelrivals: 265 },
+    'Ryzen 7 9800X3D|RTX 5080|4K': { fortnite: 235, warzone: 165, cyberpunk: 125, starfield: 95, baldursgate3: 140, marvelrivals: 202 },
+    'default|1080P': { fortnite: 200, warzone: 130, cyberpunk: 90, starfield: 70, baldursgate3: 115, marvelrivals: 160 },
+    'default|1440P': { fortnite: 160, warzone: 110, cyberpunk: 75, starfield: 60, baldursgate3: 90, marvelrivals: 130 },
+    'default|4K': { fortnite: 100, warzone: 75, cyberpunk: 50, starfield: 40, baldursgate3: 60, marvelrivals: 85 },
 };
 
-const normalizeGame = (value) => String(value).toLowerCase().replace(/[^a-z0-9]/g, '');
+const normalizeGame = (value) => {
+    const key = String(value).toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (key.includes('fortnite')) return 'fortnite';
+    if (key.includes('warzone')) return 'warzone';
+    if (key.includes('cyberpunk')) return 'cyberpunk';
+    if (key.includes('starfield')) return 'starfield';
+    if (key.includes('baldurs')) return 'baldursgate3';
+    if (key.includes('rivals')) return 'marvelrivals';
+    return key;
+};
+
+const FPS_GAMES = ['fortnite', 'warzone', 'cyberpunk', 'starfield', 'baldursgate3', 'marvelrivals'];
 
 const fpsFromRows = (rows) => {
     const map = {};
@@ -309,13 +320,9 @@ const fpsFromRows = (rows) => {
     rows.forEach((row) => {
         const game = normalizeGame(row && row.game);
 
-        if (!game) return;
+        if (!game || !FPS_GAMES.includes(game)) return;
 
-        const fps = Number(row.fps);
-
-        if (game.includes('fortnite')) map.fortnite = fps;
-        if (game.includes('warzone')) map.warzone = fps;
-        if (game.includes('cyberpunk')) map.cyberpunk = fps;
+        map[game] = Number(row.fps);
     });
 
     return map;
@@ -329,16 +336,38 @@ waitForDom(() => {
     const cpuSelect = container.querySelector('[data-fps-cpu]');
     const gpuSelect = container.querySelector('[data-fps-gpu]');
     const resolutionButtons = Array.from(container.querySelectorAll('[data-fps-res]'));
-    const valueNodes = {
-        fortnite: container.querySelector('[data-fps-value="fortnite"]'),
-        warzone: container.querySelector('[data-fps-value="warzone"]'),
-        cyberpunk: container.querySelector('[data-fps-value="cyberpunk"]'),
-    };
+    const resultPanel = container.querySelector('[data-fps-results]');
 
-    if (!cpuSelect || !gpuSelect || resolutionButtons.length === 0) return;
-    if (!valueNodes.fortnite || !valueNodes.warzone || !valueNodes.cyberpunk) return;
+    if (!cpuSelect || !gpuSelect || resolutionButtons.length === 0 || !resultPanel) return;
 
     let resolution = '1440P';
+
+    // --- Populate the result rows for every tracked game ---
+    const GAME_LABELS = {
+        fortnite: ['Fortnite', 'Competitive settings'],
+        warzone: ['Warzone', 'Balanced settings'],
+        cyberpunk: ['Cyberpunk 2077', 'Ray Tracing Ultra'],
+        starfield: ['Starfield', 'Ultra settings'],
+        baldursgate3: ['Baldur\'s Gate 3', 'Ultra settings'],
+        marvelrivals: ['Marvel Rivals', 'High settings'],
+    };
+
+    const valueNodes = {};
+
+    FPS_GAMES.forEach((game) => {
+        const [label, sublabel] = GAME_LABELS[game];
+        const wrapper = document.createElement('div');
+        wrapper.className = 'flex items-center justify-between rounded-2xl border border-slate-800 bg-[#12151c] p-5';
+        wrapper.innerHTML = `
+            <div>
+                <div class="font-bold">${label}</div>
+                <div class="text-xs text-slate-500">${sublabel}</div>
+            </div>
+            <div class="text-3xl font-black text-red-500" data-fps-value="${game}">0+</div>
+        `;
+        resultPanel.appendChild(wrapper);
+        valueNodes[game] = wrapper.querySelector('[data-fps-value]');
+    });
 
     const pop = (node) => {
         if (!node) return;
@@ -357,13 +386,27 @@ waitForDom(() => {
         pop(node);
     };
 
+    const resetResults = () => {
+        FPS_GAMES.forEach((game) => {
+            const node = valueNodes[game];
+            if (node) node.textContent = '0+';
+        });
+    };
+
+    const renderAll = (map) => {
+        FPS_GAMES.forEach((game) => setFps(game, map ? map[game] : undefined));
+    };
+
+    const selectedChipset = (select) => {
+        const option = select.selectedOptions[0];
+        return option ? option.dataset.chipset || option.textContent.trim() : null;
+    };
+
     const renderStatic = () => {
-        const key = `${cpuSelect.value}|${gpuSelect.value}|${resolution}`;
+        const key = `${selectedChipset(cpuSelect)}|${selectedChipset(gpuSelect)}|${resolution}`;
         const row = FPS_MATRIX[key] || FPS_MATRIX[`default|${resolution}`];
 
-        setFps('fortnite', row.fortnite);
-        setFps('warzone', row.warzone);
-        setFps('cyberpunk', row.cyberpunk);
+        renderAll(row || {});
     };
 
     const refreshFromApi = async () => {
@@ -386,17 +429,68 @@ waitForDom(() => {
 
             if (!Array.isArray(rows) || rows.length === 0) return;
 
-            const map = fpsFromRows(rows);
-
-            Object.keys(map).forEach((game) => setFps(game, map[game]));
+            renderAll(fpsFromRows(rows));
         } catch (error) {
             /* keep the static estimates */
         }
     };
 
     const refresh = () => {
+        resetResults();
         renderStatic();
         refreshFromApi();
+    };
+
+    // --- Load chipsets from the live catalog (fall back to current options) ---
+    const populateFromCatalog = async () => {
+        try {
+            const response = await fetch('/builder/catalog', {
+                headers: { 'Accept': 'application/json' },
+            });
+
+            if (!response.ok) return;
+
+            const catalog = await response.json();
+
+            const materialize = (select, slug) => {
+                const items = catalog && Array.isArray(catalog[slug]) ? catalog[slug] : [];
+
+                if (items.length === 0) return;
+
+                const seen = new Set();
+                const chipsets = [];
+
+                items.forEach((item) => {
+                    const label = item.chipset || item.name;
+                    if (seen.has(label)) return;
+                    seen.add(label);
+                    chipsets.push({ label, id: item.id });
+                });
+
+                if (chipsets.length === 0) return;
+
+                const current = select.value;
+                const opts = chipsets.map(({ label, id }, idx) => {
+                    const opt = document.createElement('option');
+                    opt.textContent = label;
+                    opt.value = label;
+                    opt.dataset.chipset = label;
+                    opt.dataset.apiId = String(id);
+                    return opt;
+                });
+
+                select.innerHTML = '';
+                opts.forEach((opt) => select.appendChild(opt));
+                select.value = current && seen.has(current) ? current : opts[0] ? opts[0].value : '';
+
+                refresh();
+            };
+
+            materialize(cpuSelect, 'cpu');
+            materialize(gpuSelect, 'gpu');
+        } catch (error) {
+            /* keep the bundled options */
+        }
     };
 
     cpuSelect.addEventListener('change', refresh);
@@ -412,4 +506,5 @@ waitForDom(() => {
     });
 
     refresh();
+    populateFromCatalog();
 });

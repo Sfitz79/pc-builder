@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <rect width="256" height="256" fill="#171a21"/>
+  <rect x="48" y="48" width="160" height="160" rx="16" fill="#232733" stroke="#3a4152" stroke-width="3"/>
+  <rect x="68" y="68" width="120" height="120" rx="8" fill="none" stroke="#4c8dff" stroke-width="3"/>
+  <line x1="68" y1="96" x2="188" y2="96" stroke="#4c8dff" stroke-width="3"/>
+  <line x1="68" y1="124" x2="188" y2="124" stroke="#4c8dff" stroke-width="3"/>
+  <line x1="68" y1="152" x2="188" y2="152" stroke="#4c8dff" stroke-width="3"/>
+  <rect x="48" y="20" width="60" height="14" rx="4" fill="#3a4152"/>
+  <rect x="124" y="218" width="60" height="14" rx="4" fill="#3a4152"/>
+  <text x="128" y="206" font-family="Arial" font-size="13" fill="#8b93a7" text-anchor="middle">CPU</text>
+</svg>

@@ -10,6 +10,7 @@
         'mode' => $paypalMode,
         'purchase_id' => $purchase->uuid,
         'currency' => $purchase->currency,
+        'owner_token' => $purchase->owner_token,
     ]) }})" x-init="init">
         <div class="flex flex-wrap items-center justify-between gap-4">
             <div>
@@ -124,7 +125,7 @@
                         createOrder: () => {
                             this.error = null;
 
-                            return fetch('/software/purchases/' + options.purchase_id + '/paypal', {
+                            return fetch('/software/purchases/' + options.purchase_id + '/paypal?owner_token=' + encodeURIComponent(options.owner_token), {
                                 method: 'POST',
                                 headers: {
                                     'Accept': 'application/json',
@@ -143,7 +144,7 @@
                         onApprove: (data) => {
                             this.status = 'processing';
 
-                            return fetch('/software/purchases/' + options.purchase_id + '/paypal/capture', {
+                            return fetch('/software/purchases/' + options.purchase_id + '/paypal/capture?owner_token=' + encodeURIComponent(options.owner_token), {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',

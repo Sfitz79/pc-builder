@@ -11,6 +11,7 @@ class CategorySeeder extends Seeder
     {
         $categories = [
             ['name' => 'CPU', 'slug' => 'cpu', 'sort_order' => 10],
+            ['name' => 'CPU Cooler', 'slug' => 'cooler', 'sort_order' => 15],
             ['name' => 'Motherboard', 'slug' => 'motherboard', 'sort_order' => 20],
             ['name' => 'GPU', 'slug' => 'gpu', 'sort_order' => 30],
             ['name' => 'RAM', 'slug' => 'ram', 'sort_order' => 40],

@@ -262,8 +262,7 @@
                 <div class="space-y-6">
                     <div>
                         <label for="demo-cpu" class="mb-2 block text-sm font-semibold text-slate-400">CPU</label>
-                        {{-- To use the live /builder/fps endpoint, add data-api-id with the
-                             seeded component id to each option, e.g. <option data-api-id="3">. --}}
+                        {{-- Options are populated from the live catalog, grouped by chipset. --}}
                         <select id="demo-cpu" data-fps-cpu class="pctg-select">
                             <option>Ryzen 5 7600</option>
                             <option selected>Ryzen 7 9700X</option>
@@ -290,32 +289,8 @@
                     </div>
                 </div>
 
-                {{-- Results --}}
-                <div class="space-y-4 lg:col-span-2">
-                    <div class="flex items-center justify-between rounded-2xl border border-slate-800 bg-[#12151c] p-5">
-                        <div>
-                            <div class="font-bold">Fortnite</div>
-                            <div class="text-xs text-slate-500">Competitive settings</div>
-                        </div>
-                        <div class="text-3xl font-black text-red-500" data-fps-value="fortnite">0+</div>
-                    </div>
-
-                    <div class="flex items-center justify-between rounded-2xl border border-slate-800 bg-[#12151c] p-5">
-                        <div>
-                            <div class="font-bold">Warzone</div>
-                            <div class="text-xs text-slate-500">Balanced settings</div>
-                        </div>
-                        <div class="text-3xl font-black text-red-500" data-fps-value="warzone">0+</div>
-                    </div>
-
-                    <div class="flex items-center justify-between rounded-2xl border border-slate-800 bg-[#12151c] p-5">
-                        <div>
-                            <div class="font-bold">Cyberpunk 2077</div>
-                            <div class="text-xs text-slate-500">Ray Tracing Ultra</div>
-                        </div>
-                        <div class="text-3xl font-black text-red-500" data-fps-value="cyberpunk">0+</div>
-                    </div>
-                </div>
+                {{-- Results (rows are built from the live benchmark grid by JS) --}}
+                <div class="grid gap-4 lg:col-span-2" data-fps-results></div>
             </div>
         </x-pctg.glass>
     </section>

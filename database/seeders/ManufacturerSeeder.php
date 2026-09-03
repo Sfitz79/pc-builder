@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Manufacturer;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class ManufacturerSeeder extends Seeder
 {
@@ -23,11 +23,11 @@ class ManufacturerSeeder extends Seeder
             ['name' => 'Fractal Design', 'slug' => 'fractal-design', 'website' => 'https://www.fractal-design.com'],
         ];
 
-        DB::table('manufacturers')->insert(
-            array_map(
-                fn (array $m): array => $m + ['active' => true, 'created_at' => now(), 'updated_at' => now()],
-                $manufacturers
-            )
-        );
+        foreach ($manufacturers as $manufacturer) {
+            Manufacturer::updateOrCreate(
+                ['slug' => $manufacturer['slug']],
+                $manufacturer + ['active' => true]
+            );
+        }
     }
 }

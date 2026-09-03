@@ -40,6 +40,20 @@
 
         </div>
 
+        <div
+            class="rounded-xl bg-purple-500/5 p-3 text-sm text-slate-400"
+            x-show="aiIdealBuild"
+            x-cloak
+        >
+            <p class="font-semibold text-purple-300">
+                Ideal (newest) build total:
+                <span class="text-white" x-text="'£' + Number(aiIdealBuild.total).toLocaleString()"></span>
+            </p>
+            <p class="mt-0.5">
+                Showcasing the best of current generation parts with no budget limit.
+            </p>
+        </div>
+
         <div class="grid gap-3 pt-2">
 
             <x-pctg.button

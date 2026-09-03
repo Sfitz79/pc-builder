@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedInteger('retail_price_cents')->default(0);
             $table->decimal('gbp_price', 10, 2)->default(0);          // converted for the store
             $table->string('currency', 3)->default('GBP');
-            $table->integer('stock')->default(0);
+            $table->unsignedInteger('stock')->default(0);
             $table->boolean('active')->default(true);
             $table->integer('warranty_days')->nullable();
             $table->string('image_url')->nullable();

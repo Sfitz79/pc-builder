@@ -25,7 +25,6 @@ class SoftwarePurchase extends Model
     public const STATUS_FAILED = 'failed';
 
     protected $fillable = [
-        'uuid',
         'owner_token',
         'product_id',
         'sku',

@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
             ManufacturerSeeder::class,
             ComponentSeeder::class,
             CompatibilityRuleSeeder::class,
+            ScrapedCatalogSeeder::class,
+            ChipsetBackfillSeeder::class,
             BenchmarkSeeder::class,
         ]);
     }

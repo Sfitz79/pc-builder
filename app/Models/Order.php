@@ -19,7 +19,6 @@ class Order extends Model
     public const STATUS_FAILED = 'failed';
 
     protected $fillable = [
-        'uuid',
         'user_id',
         'owner_token',
         'build_id',

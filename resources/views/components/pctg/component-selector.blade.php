@@ -41,22 +41,39 @@
 
             <template
                 x-for="item in filteredComponents()"
-                :key="item.name"
+                :key="item.id || item.name"
             >
 
                 <button
-                    class="pctg-card-hover text-left"
+                    class="pctg-card-hover flex w-full items-center gap-3 text-left"
                     @click="selectComponent(currentCategory, item)"
                 >
 
-                    <h3 class="font-semibold" x-text="item.name"></h3>
+                    <span class="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-slate-700 bg-slate-800/50">
+                        <template x-if="item.image">
+                            <img
+                                :src="item.image"
+                                alt=""
+                                loading="lazy"
+                                class="h-full w-full object-contain"
+                                @@error="$el.closest('span').classList.add('img-fallback')"
+                            >
+                        </template>
+                        <template x-if="!item.image">
+                            <x-pctg.icon name="cpu" class="h-6 w-6 text-slate-500" />
+                        </template>
+                    </span>
 
-                    <p
-                        class="mt-1 text-xs text-slate-400"
-                        x-text="item.tags || ''"
-                    ></p>
+                    <span class="min-w-0 flex-1">
+                        <h3 class="truncate font-semibold" x-text="item.name"></h3>
 
-                    <p class="mt-2 font-bold text-red-400" x-text="'£' + item.price"></p>
+                        <p
+                            class="mt-1 truncate text-xs text-slate-400"
+                            x-text="item.tags || ''"
+                        ></p>
+
+                        <p class="mt-2 font-bold text-red-400" x-text="'£' + item.price"></p>
+                    </span>
 
                 </button>
 

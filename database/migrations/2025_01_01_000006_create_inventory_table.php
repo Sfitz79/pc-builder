@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('component_id')->constrained('components')->cascadeOnDelete();
             $table->unsignedInteger('quantity')->default(0);
             $table->unsignedInteger('low_stock_threshold')->default(5);
-            $table->boolean('in_stock')->default(true);
+            $table->boolean('in_stock')->default(false);
             $table->timestamps();
         });
     }

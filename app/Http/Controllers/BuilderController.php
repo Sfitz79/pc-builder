@@ -19,8 +19,7 @@ class BuilderController extends Controller
         protected CompatibilityService $compatibility,
         protected FPSCalculationService $fps,
         protected AIRecommendationService $recommendations,
-    ) {
-    }
+    ) {}
 
     public function dashboard(): View
     {
@@ -84,8 +83,9 @@ class BuilderController extends Controller
     }
 
     /**
-     * AI build generation from budget / purpose / resolution. Returns the full
-     * catalog-shaped components so the Alpine store can populate `selected`.
+     * AI build generation from budget / purpose / resolution. Returns two
+     * catalog-shaped builds — the best-value build within the user's budget
+     * AND the ideal (newest/best) build regardless of price.
      */
     public function ai(Request $request): JsonResponse
     {
@@ -95,35 +95,47 @@ class BuilderController extends Controller
             'resolution' => ['nullable', Rule::in(['1080P', '1440P', '4K'])],
         ]);
 
-        $recommendation = $this->recommendations->recommend(
+        $recommendation = $this->recommendations->recommendBoth(
             (float) $data['budget'],
             $data['purpose'] ?? null,
             $data['resolution'] ?? null,
             auth()->id()
         );
 
-        $ids = collect($recommendation['components'])->pluck('id');
-        $components = Component::query()
-            ->with('category')
-            ->whereIn('id', $ids)
-            ->get()
-            ->keyBy('id');
+        $builds = [];
 
-        $catalog = [];
+        foreach (['budget', 'ideal'] as $which) {
+            $build = $recommendation[$which] ?? [];
 
-        foreach ($recommendation['components'] as $category => $item) {
-            $component = $components[$item['id']] ?? null;
+            $ids = collect($build['components'] ?? [])->pluck('id');
+            $components = Component::query()
+                ->with('category')
+                ->whereIn('id', $ids)
+                ->get()
+                ->keyBy('id');
 
-            if ($component !== null) {
-                $catalog[$category] = $this->catalogItem($component);
+            $catalog = [];
+
+            foreach (($build['components'] ?? []) as $category => $item) {
+                $component = $components[$item['id']] ?? null;
+
+                if ($component !== null) {
+                    $catalog[$category] = $this->catalogItem($component);
+                }
+            }
+
+            $builds[$which] = [
+                'components' => $catalog,
+                'total' => $build['total'] ?? 0,
+                'remaining' => $build['remaining'] ?? 0,
+            ];
+
+            if (! empty($build['ai'])) {
+                $builds[$which]['ai'] = $build['ai'];
             }
         }
 
-        return response()->json([
-            'components' => $catalog,
-            'total' => $recommendation['total'],
-            'remaining' => $recommendation['remaining'],
-        ]);
+        return response()->json($builds);
     }
 
     /**
@@ -136,29 +148,34 @@ class BuilderController extends Controller
             'selection' => ['required', 'array'],
         ]);
 
-        $categories = ['cpu', 'motherboard', 'gpu', 'ram', 'storage', 'psu', 'case'];
+        $categories = ['cpu', 'motherboard', 'gpu', 'ram', 'storage', 'psu', 'case', 'cooler'];
         $selection = [];
 
         foreach ($categories as $category) {
             $item = $data['selection'][$category] ?? null;
 
-            if (is_numeric($item)) {
-                $component = Component::find((int) $item);
-                $item = $component !== null ? [
-                    'id' => $component->id,
-                    'socket' => $component->socket,
-                    'wattage' => $component->wattage,
-                ] : null;
+            if (is_array($item)) {
+                $id = (int) ($item['id'] ?? 0);
+            } elseif (is_numeric($item)) {
+                $id = (int) $item;
+            } else {
+                $id = 0;
             }
 
-            $selection[$category] = $item;
+            $component = $id > 0 ? Component::find($id) : null;
+
+            // Resolve from the database so every compatibility rule has access
+            // to the same full spec data it gets at save/order time (socket,
+            // wattage and specs). Passing raw catalog items through would drop
+            // `specs` and make memory/clearance checks pass vacuously.
+            $selection[$category] = $component?->toArray() ?? (is_numeric($item) ? null : $item);
         }
 
         return response()->json($this->compatibility->summary($selection));
     }
 
     /**
-     * @return array{id: int, slug: string, name: string, price: float, socket: ?string, wattage: ?int, stock: int, tags: ?string}
+     * @return array{id: int, slug: string, name: string, price: float, socket: ?string, chipset: ?string, wattage: ?int, stock: int, tags: ?string, image: ?string}
      */
     protected function catalogItem(Component $component): array
     {
@@ -168,10 +185,17 @@ class BuilderController extends Controller
             'name' => $component->name,
             'price' => (float) $component->price,
             'socket' => $component->socket,
+            'chipset' => $component->chipset,
             'wattage' => $component->wattage,
             'stock' => $component->stock,
             'tags' => $this->tagsFor($component),
+            'image' => $this->imageFor($component),
         ];
+    }
+
+    protected function imageFor(Component $component): ?string
+    {
+        return $component->displayImage();
     }
 
     protected function tagsFor(Component $component): ?string

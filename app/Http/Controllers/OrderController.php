@@ -22,6 +22,7 @@ class OrderController extends Controller
         'storage',
         'psu',
         'case',
+        'cooler',
     ];
 
     public function __construct(
@@ -217,7 +218,11 @@ class OrderController extends Controller
             return response()->json($this->confirmationPayload($order));
         }
 
-        $capture = $this->paypal->captureOrder($data['paypal_order_id']);
+        try {
+            $capture = $this->paypal->captureOrder($data['paypal_order_id']);
+        } catch (\Throwable $e) {
+            return response()->json(['message' => 'Payment capture failed: ' . $e->getMessage()], 502);
+        }
 
         if ($capture === null || $capture['capture_status'] !== 'COMPLETED') {
             $order->update(['status' => Order::STATUS_FAILED]);
@@ -245,6 +250,10 @@ class OrderController extends Controller
         $order = Order::with('build.selectedComponents')
             ->where('uuid', $orderUuid)
             ->firstOrFail();
+
+        if (! $this->authorize($order, $request)) {
+            abort(403);
+        }
 
         return $this->view->make('builder.confirmation', [
             'order' => $order,

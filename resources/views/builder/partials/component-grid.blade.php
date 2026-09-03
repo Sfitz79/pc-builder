@@ -13,6 +13,7 @@
         <x-pctg.selected-component category="storage" label="Storage" />
         <x-pctg.selected-component category="psu" label="PSU" />
         <x-pctg.selected-component category="case" label="Case" />
+        <x-pctg.selected-component category="cooler" label="CPU Cooler" />
 
     </div>
 
