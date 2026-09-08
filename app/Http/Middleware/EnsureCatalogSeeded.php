@@ -29,9 +29,11 @@ class EnsureCatalogSeeded
             }
         }
 
-        if (env('SEED_CATALOG_ONCE') === '1') {
+        if (env('SEED_CATALOG_ONCE') === '1' || env('SEED_CATALOG_REFRESH') === '1') {
             try {
-                $hasScraped = DB::table('components')->where('sku', 'like', 'PCPP-%')->exists();
+                $hasScraped = env('SEED_CATALOG_REFRESH') === '1'
+                    ? false // Force-refresh: always re-run the upsert seeder.
+                    : DB::table('components')->where('sku', 'like', 'PCPP-%')->exists();
 
                 if (! $hasScraped) {
                     (new \Database\Seeders\ScrapedCatalogSeeder())->runFast();

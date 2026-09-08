@@ -57,7 +57,6 @@
                     <x-pctg.component-card
                         :title="$part->name"
                         :subtitle="$part->category?->name ?? $part->pivot->category"
-                        :price="number_format($part->pivot->price_snapshot, 0)"
                     >
                         <x-pctg.badge variant="success">
                             Compatible

@@ -3,34 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Build;
+use App\Models\Component;
 use App\Models\Order;
+use App\Services\BuildPricingService;
+use App\Services\CompatibilityService;
 use App\Services\PayPalService;
 use App\Services\SystemMockupService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\Factory as ViewFactory;
 
 class OrderController extends Controller
 {
-    protected array $validCategories = [
-        'cpu',
-        'motherboard',
-        'gpu',
-        'ram',
-        'storage',
-        'psu',
-        'case',
-        'cooler',
-    ];
+    protected array $validCategories = Component::REQUIRED_CATEGORIES;
 
     public function __construct(
         protected ViewFactory $view,
         protected PayPalService $paypal,
         protected SystemMockupService $mockup,
-    ) {
-    }
+        protected CompatibilityService $compatibility,
+        protected BuildPricingService $pricing,
+    ) {}
 
     /**
      * Create an order (and its backing build) from the current selection.
@@ -45,13 +41,22 @@ class OrderController extends Controller
             'budget' => ['nullable', 'numeric', 'min:0'],
             'customer_name' => ['nullable', 'string', 'max:255'],
             'customer_email' => ['nullable', 'email', 'max:255'],
-            'components' => ['required', 'array', 'min:1'],
-            'components.*.category' => ['required', Rule::in($this->validCategories)],
+            'components' => ['required', 'array', 'min:8', 'max:8'],
+            'components.*.category' => ['required', 'distinct', Rule::in($this->validCategories)],
             'components.*.id' => ['required', 'integer', 'exists:components,id'],
         ]);
 
         $selected = collect($data['components'])->keyBy('category');
-        $components = \App\Models\Component::query()
+
+        $missing = array_diff($this->validCategories, $selected->keys()->all());
+
+        if ($missing !== []) {
+            return response()->json([
+                'message' => 'A complete PC build requires all of the following components: '.implode(', ', $missing).'.',
+            ], 422);
+        }
+
+        $components = Component::query()
             ->whereIn('id', $selected->pluck('id'))
             ->with('category')
             ->get()
@@ -62,10 +67,18 @@ class OrderController extends Controller
         }
 
         $partsTotal = (float) $selected->sum(fn ($item) => (float) $components[$item['id']]->price);
+        $systemTotal = $this->pricing->completePrice($partsTotal);
         $buildDelivery = (float) config('pricing.build_delivery');
-        $subtotal = round($partsTotal + $buildDelivery, 2);
-        $paypalFee = round($subtotal * (float) config('pricing.paypal_fee_rate'), 2);
-        $total = round($subtotal + $paypalFee, 2);
+        $subtotal = round($systemTotal + $buildDelivery, 2);
+        // Merchant processing is covered by the hidden margin — the customer
+        // sees ONE complete system price, no itemised fee (Simon's mandate).
+        $merchantFeeIncluded = $subtotal - $partsTotal;
+        $total = round($subtotal, 2);
+
+        $selection = [];
+        foreach ($this->validCategories as $category) {
+            $selection[$category] = $components[$selected[$category]['id']]->toArray();
+        }
 
         $build = Build::create([
             'user_id' => auth()->id(),
@@ -74,10 +87,10 @@ class OrderController extends Controller
             'purpose' => $data['purpose'] ?? null,
             'resolution' => $data['resolution'] ?? '1440P',
             'budget' => $data['budget'] ?? null,
-            'total_price' => $partsTotal,
-            'performance_score' => 0,
-            'compatibility_checks' => [],
-            'share_slug' => \Illuminate\Support\Str::random(10),
+            'total_price' => $systemTotal,
+            'performance_score' => $this->compatibility->score($selection),
+            'compatibility_checks' => $this->compatibility->summary($selection),
+            'share_slug' => Str::random(10),
         ]);
 
         foreach ($selected as $category => $item) {
@@ -100,7 +113,7 @@ class OrderController extends Controller
             'parts_total' => $partsTotal,
             'build_delivery' => $buildDelivery,
             'subtotal' => $subtotal,
-            'paypal_fee' => $paypalFee,
+            'paypal_fee' => 0,
             'total' => $total,
             'payload' => [
                 'line_items' => $selected->map(fn ($item, $category) => [
@@ -108,7 +121,6 @@ class OrderController extends Controller
                     'id' => $item['id'],
                     'name' => $components[$item['id']]->name,
                     'detail' => (string) $components[$item['id']]->tags,
-                    'price' => (float) $components[$item['id']]->price,
                 ])->values()->all(),
             ],
         ]);
@@ -122,12 +134,13 @@ class OrderController extends Controller
             'resolution' => $build->resolution,
             'line_items' => $order->payload['line_items'] ?? [],
             'amounts' => [
-                'parts_total' => $partsTotal,
+                'system_price' => $systemTotal,
                 'build_delivery' => $buildDelivery,
-                'subtotal' => $subtotal,
-                'paypal_fee' => $paypalFee,
                 'total' => $total,
                 'currency' => $order->currency,
+                // Internal accounting fields, hidden from customer-facing UI.
+                '_parts_total' => $partsTotal,
+                '_merchant_included' => round($merchantFeeIncluded, 2),
             ],
             'mockup_url' => $this->mockupUrl($build),
         ], 201);
@@ -167,9 +180,9 @@ class OrderController extends Controller
         try {
             $paypalOrder = $this->paypal->createOrder(
                 (float) $order->total,
-                'PCTG Custom PC — ' . ($order->build?->name ?? 'Custom Build'),
-                url('/builder/orders/' . $order->uuid . '/paypal/return'),
-                url('/builder/checkout/payment?order=' . $order->uuid)
+                'PCTG Custom PC — '.($order->build?->name ?? 'Custom Build'),
+                url('/builder/orders/'.$order->uuid.'/paypal/return'),
+                url('/builder/checkout/payment?order='.$order->uuid)
             );
 
             $order->update([
@@ -221,7 +234,7 @@ class OrderController extends Controller
         try {
             $capture = $this->paypal->captureOrder($data['paypal_order_id']);
         } catch (\Throwable $e) {
-            return response()->json(['message' => 'Payment capture failed: ' . $e->getMessage()], 502);
+            return response()->json(['message' => 'Payment capture failed: '.$e->getMessage()], 502);
         }
 
         if ($capture === null || $capture['capture_status'] !== 'COMPLETED') {
@@ -288,11 +301,12 @@ class OrderController extends Controller
             ],
             'line_items' => $order->payload['line_items'] ?? [],
             'amounts' => [
-                'parts_total' => (float) $order->parts_total,
+                'system_price' => (float) ($order->palSystemPrice()),
                 'build_delivery' => (float) $order->build_delivery,
-                'subtotal' => (float) $order->subtotal,
-                'paypal_fee' => (float) $order->paypal_fee,
                 'total' => (float) $order->total,
+                'currency' => $order->currency,
+                '_parts_total' => (float) $order->parts_total,
+                '_merchant_included' => round((float) $order->total - (float) $order->parts_total - (float) $order->build_delivery, 2),
             ],
             'paypal_configured' => $this->paypal->configured(),
             'paypal_client_id' => $this->paypal->clientId(),
@@ -307,14 +321,14 @@ class OrderController extends Controller
         $payload['paypal_capture_id'] = $order->paypal_capture_id;
         $payload['paypal_invoice_id'] = $order->paypal_invoice_id;
         $payload['paid_at'] = $order->paid_at?->toIso8601String();
-        $payload['confirmation_url'] = url('/builder/orders/' . $order->uuid . '/confirmed');
+        $payload['confirmation_url'] = url('/builder/orders/'.$order->uuid.'/confirmed');
 
         return $payload;
     }
 
     protected function mockupUrl(?Build $build): ?string
     {
-        return $build === null ? null : url('/builder/builds/' . $build->uuid . '/mockup.png');
+        return $build === null ? null : url('/builder/builds/'.$build->uuid.'/mockup.png');
     }
 
     protected function authorize(Order $order, Request $request): bool

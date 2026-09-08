@@ -1,7 +1,7 @@
 @props([
     'title',
     'subtitle',
-    'price',
+    'price' => null,
     'image' => null
 ])
 
@@ -21,9 +21,11 @@
             </p>
         </div>
 
-        <span class="font-bold text-red-400">
-            £{{ $price }}
-        </span>
+        @if ($price)
+            <span class="font-bold text-red-400">
+                £{{ $price }}
+            </span>
+        @endif
     </div>
 
     <div class="mt-4 flex flex-wrap gap-2">

@@ -77,4 +77,14 @@ class Order extends Model
     {
         return $this->owner_token !== null && hash_equals($this->owner_token, $token);
     }
+
+    /**
+     * The single complete system price the customer pays (parts + hidden
+     * build/test/warranty + merchant margin), before delivery. Clients only
+     * ever see this one price, never a parts breakdown.
+     */
+    public function palSystemPrice(): float
+    {
+        return (float) $this->total - (float) $this->build_delivery;
+    }
 }

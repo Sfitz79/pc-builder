@@ -38,6 +38,8 @@ window.builderState = () => ({
 
     saving: false,
 
+    missingWarning: null,
+
     savedUrl: null,
 
     savedBuilds: [],
@@ -46,11 +48,14 @@ window.builderState = () => ({
 
     loadedBuild: null,
 
+    livePrice: null,
+
     endpoints: {
         catalog: '/builder/catalog',
         fps: '/builder/fps',
         ai: '/builder/ai',
         validate: '/builder/validate',
+        price: '/builder/price',
         builds: '/builder/builds'
     },
 
@@ -88,8 +93,28 @@ window.builderState = () => ({
     },
 
     checkout() {
+        if (!this.buildComplete) {
+            this.showMissingWarning();
+            return;
+        }
+
         this.persistSelection();
         window.location.href = '/builder/checkout';
+    },
+
+    missingComponents() {
+        return Object.entries(this.selected)
+            .filter(([category, item]) => !item || !item.id)
+            .map(([category]) => category);
+    },
+
+    get buildComplete() {
+        return this.missingComponents().length === 0;
+    },
+
+    showMissingWarning() {
+        const missing = this.missingComponents();
+        this.missingWarning = missing;
     },
 
     async loadCatalog() {
@@ -180,6 +205,7 @@ window.builderState = () => ({
         this.persistSelection();
         this.validateBuild();
         this.refreshFps();
+        this.refreshLivePrice();
     },
 
     validateBuild() {
@@ -219,6 +245,35 @@ window.builderState = () => ({
             this.compatibility = await response.json();
         } catch (e) {
             // Keep the instant client-side checks.
+        }
+    },
+
+    async refreshLivePrice() {
+        const components = Object.entries(this.selected)
+            .filter(([category, item]) => item && item.id)
+            .map(([category, item]) => ({ category, id: item.id }));
+
+        if (!components.length) {
+            this.livePrice = null;
+            return;
+        }
+
+        try {
+            const response = await fetch(this.endpoints.price, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': this.csrfToken(),
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ selection: this.selected })
+            });
+
+            if (!response.ok) return;
+
+            this.livePrice = await response.json();
+        } catch (e) {
+            // Keep the last known price.
         }
     },
 
@@ -273,6 +328,11 @@ window.builderState = () => ({
 
             const build = this.aiRecommendation;
 
+            if (build.complete === false) {
+                this.missingWarning = ['incomplete-ai-build'];
+                return;
+            }
+
             for (const [category, component] of Object.entries(build.components || {})) {
                 this.selected[category] = component;
             }
@@ -280,6 +340,7 @@ window.builderState = () => ({
             this.persistSelection();
             this.validateBuild();
             this.refreshFps();
+            this.refreshLivePrice();
 
             setTimeout(() => {
                 document.getElementById('build-results')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -292,6 +353,11 @@ window.builderState = () => ({
     },
 
     async saveBuild() {
+        if (!this.buildComplete) {
+            this.showMissingWarning();
+            return;
+        }
+
         const components = Object.entries(this.selected)
             .filter(([category, item]) => item && item.id)
             .map(([category, item]) => ({ category, id: item.id }));
@@ -366,6 +432,7 @@ window.builderState = () => ({
         this.persistSelection();
         this.validateBuild();
         this.refreshFps();
+        this.refreshLivePrice();
     },
 
     saveName() {
@@ -399,6 +466,11 @@ window.builderState = () => ({
     applyBuild(build) {
         if (!build) return;
 
+        if (build.complete === false) {
+            this.missingWarning = ['incomplete-ai-build'];
+            return;
+        }
+
         for (const [category, component] of Object.entries(build.components || {})) {
             this.selected[category] = component;
         }
@@ -406,6 +478,7 @@ window.builderState = () => ({
         this.persistSelection();
         this.validateBuild();
         this.refreshFps();
+        this.refreshLivePrice();
     },
 
     allIdealApplied() {

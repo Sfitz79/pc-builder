@@ -35,7 +35,7 @@
                                 <span class="text-xs uppercase text-slate-500" x-text="category"></span>
                                 <p class="truncate font-medium" x-text="item.name"></p>
                             </div>
-                            <span class="shrink-0 font-semibold text-red-400" x-text="'£' + item.price"></span>
+                            <x-pctg.badge variant="success" class="shrink-0">Included</x-pctg.badge>
                         </div>
 
                     </template>
@@ -45,9 +45,17 @@
                 <button
                     class="mt-4 w-full rounded-xl bg-red-500 px-4 py-2 text-sm font-semibold text-white hover:bg-red-600"
                     @click="applyBuild(aiRecommendation)"
+                    x-show="aiRecommendation.complete !== false"
                 >
                     Build this Value Build
                 </button>
+
+                <div
+                    class="mt-4 rounded-xl bg-amber-500/10 p-3 text-sm text-amber-300"
+                    x-show="aiRecommendation.complete === false"
+                >
+                    This build is missing components and cannot be assembled. Please adjust your budget.
+                </div>
 
             </div>
 
@@ -75,7 +83,7 @@
                                 <span class="text-xs uppercase text-slate-500" x-text="category"></span>
                                 <p class="truncate font-medium" x-text="item.name"></p>
                             </div>
-                            <span class="shrink-0 font-semibold text-purple-400" x-text="'£' + item.price"></span>
+                            <x-pctg.badge variant="success" class="shrink-0">Included</x-pctg.badge>
                         </div>
 
                     </template>
@@ -85,9 +93,17 @@
                 <button
                     class="mt-4 w-full rounded-xl bg-purple-500 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-600"
                     @click="applyBuild(aiIdealBuild)"
+                    x-show="aiIdealBuild.complete !== false"
                 >
                     Build this Ideal Build
                 </button>
+
+                <div
+                    class="mt-4 rounded-xl bg-amber-500/10 p-3 text-sm text-amber-300"
+                    x-show="aiIdealBuild.complete === false"
+                >
+                    This build is missing components and cannot be assembled.
+                </div>
 
             </div>
 

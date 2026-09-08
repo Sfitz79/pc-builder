@@ -5,37 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Build;
 use App\Models\Component;
 use App\Services\AIRecommendationService;
+use App\Services\BuildPricingService;
 use App\Services\CompatibilityService;
 use App\Services\FPSCalculationService;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\Factory as ViewFactory;
 
 class BuildController extends Controller
 {
-    protected array $validCategories = [
-        'cpu',
-        'motherboard',
-        'gpu',
-        'ram',
-        'storage',
-        'psu',
-        'case',
-        'cooler',
-    ];
+    protected array $validCategories = Component::REQUIRED_CATEGORIES;
 
     public function __construct(
         protected ViewFactory $view,
         protected CompatibilityService $compatibility,
         protected FPSCalculationService $fps,
         protected AIRecommendationService $recommendations,
-    ) {
-    }
+        protected BuildPricingService $pricing,
+    ) {}
 
     public function index(Request $request): View|JsonResponse
     {
@@ -76,12 +68,21 @@ class BuildController extends Controller
             'purpose' => ['nullable', 'string', 'max:255'],
             'resolution' => ['nullable', Rule::in(['1080P', '1440P', '4K'])],
             'budget' => ['nullable', 'numeric', 'min:0'],
-            'components' => ['required', 'array', 'min:1'],
-            'components.*.category' => ['required', Rule::in($this->validCategories)],
+            'components' => ['required', 'array', 'min:8', 'max:8'],
+            'components.*.category' => ['required', 'distinct', Rule::in($this->validCategories)],
             'components.*.id' => ['required', 'integer', 'exists:components,id'],
         ]);
 
         $selected = collect($data['components'])->keyBy('category');
+
+        $missing = array_diff($this->validCategories, $selected->keys()->all());
+
+        if ($missing !== []) {
+            throw ValidationException::withMessages([
+                'components' => 'A complete PC build requires all of the following components: '.implode(', ', $missing).'.',
+            ]);
+        }
+
         $components = Component::query()
             ->whereIn('id', $selected->pluck('id'))
             ->get()
@@ -93,7 +94,11 @@ class BuildController extends Controller
             ]);
         }
 
-        $total = $selected->sum(fn ($item) => (float) $components[$item['id']]->price);
+        // Complete price with the hidden build/test/warranty + merchant margin —
+        // the customer only ever sees ONE price, never a parts breakdown.
+        $total = $this->pricing->completePrice(
+            $selected->sum(fn ($item) => (float) $components[$item['id']]->price)
+        );
 
         $selection = $this->selectionMap($selected, $components);
 

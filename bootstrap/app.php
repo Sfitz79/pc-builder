@@ -20,8 +20,10 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // Metenzi delivers webhooks as unsigned-plain HMAC'd POSTs from its
         // servers, so the receiver skips the session CSRF check (the payload
-        // itself is verified inside the controller).
-        $middleware->validateCsrfTokens(except: ['webhooks/metenzi']);
+        // itself is verified inside the controller).  API routes are
+        // stateless external endpoints (AI Builder, auto-reply engine) that
+        // never carry a session CSRF token.
+        $middleware->validateCsrfTokens(except: ['webhooks/metenzi', 'api/*']);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

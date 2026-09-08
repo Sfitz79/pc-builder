@@ -108,14 +108,12 @@
                 </div>
             </div>
 
-            {{-- Line items --}}
+            {{-- Line items (components listed by name — no per-part prices) --}}
             <table class="mt-8 w-full text-sm">
                 <thead>
                     <tr class="border-b border-slate-200 text-left text-xs uppercase tracking-[0.14em] text-slate-500">
                         <th class="py-2 pr-4 font-semibold">Component</th>
-                        <th class="py-2 pr-4 font-semibold">Category</th>
-                        <th class="py-2 pr-4 text-right font-semibold">Qty</th>
-                        <th class="py-2 text-right font-semibold">Amount</th>
+                        <th class="py-2 text-right font-semibold">Qty</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
@@ -127,36 +125,26 @@
                                     <p class="text-xs text-slate-500">{{ $item['detail'] }}</p>
                                 @endif
                             </td>
-                            <td class="py-3 pr-4 capitalize text-slate-600">{{ $item['category'] }}</td>
-                            <td class="py-3 pr-4 text-right text-slate-600">1</td>
-                            <td class="py-3 text-right font-medium text-slate-900">{{ $money($item['price']) }}</td>
+                            <td class="py-3 text-right text-slate-600">1</td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="py-3 text-slate-500">No line items recorded.</td>
+                            <td colspan="2" class="py-3 text-slate-500">No line items recorded.</td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
 
-            {{-- Totals --}}
+            {{-- Totals (single complete system price — margin is internal) --}}
             <div class="mt-6 flex justify-end">
                 <dl class="w-full max-w-xs space-y-2 text-sm">
                     <div class="flex items-center justify-between">
-                        <dt class="muted text-slate-500">Components</dt>
-                        <dd class="font-medium text-slate-900">{{ $money($order->parts_total) }}</dd>
+                        <dt class="muted text-slate-500">System</dt>
+                        <dd class="font-medium text-slate-900">{{ $money($order->palSystemPrice()) }}</dd>
                     </div>
                     <div class="flex items-center justify-between">
                         <dt class="muted text-slate-500">Build &amp; delivery</dt>
                         <dd class="font-medium text-slate-900">{{ $money($order->build_delivery) }}</dd>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <dt class="muted text-slate-500">Subtotal</dt>
-                        <dd class="font-medium text-slate-900">{{ $money($order->subtotal) }}</dd>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <dt class="muted text-slate-500">PayPal processing fee</dt>
-                        <dd class="font-medium text-slate-900">{{ $money($order->paypal_fee) }}</dd>
                     </div>
                     <div class="flex items-center justify-between border-t border-slate-200 pt-3">
                         <dt class="font-semibold text-slate-900">Total paid</dt>

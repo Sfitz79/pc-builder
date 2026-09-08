@@ -11,14 +11,17 @@
     <div class="mt-6 space-y-4">
 
         <div class="flex justify-between">
-            <span>Components</span>
-            <span x-text="'£' + buildCost().toLocaleString()"></span>
+            <span>System price</span>
+            <span
+                class="font-bold text-red-400"
+                x-text="livePrice ? '£' + Number(livePrice.complete_price).toLocaleString() : '—'"
+            ></span>
         </div>
 
-        <div class="flex justify-between">
-            <span>Build &amp; Delivery</span>
-            <span>£{{ number_format($buildDelivery, 0) }}</span>
-        </div>
+        <p class="text-sm text-slate-400">
+            One complete price for your system — includes build, burn test, cable
+            management and warranty. Shown in full at checkout.
+        </p>
 
         <div class="flex justify-between">
             <span>Assembly, burn test &amp; cable management</span>
@@ -30,12 +33,12 @@
         <div class="flex justify-between">
 
             <span class="font-bold">
-                Total
+                Total (with delivery)
             </span>
 
             <span
                 class="text-2xl font-bold text-red-400"
-                x-text="'£' + (buildCost() + {{ $buildDelivery }}).toLocaleString()"
+                x-text="livePrice ? '£' + Number(livePrice.total).toLocaleString() : '—'"
             ></span>
 
         </div>
@@ -47,7 +50,7 @@
         >
             <p class="font-semibold text-purple-300">
                 Ideal (newest) build total:
-                <span class="text-white" x-text="'£' + Number(aiIdealBuild.total).toLocaleString()"></span>
+                <span class="text-white" x-text="aiIdealBuild ? '£' + Number(aiIdealBuild.total).toLocaleString() : ''"></span>
             </p>
             <p class="mt-0.5">
                 Showcasing the best of current generation parts with no budget limit.
@@ -56,9 +59,38 @@
 
         <div class="grid gap-3 pt-2">
 
+            <div
+                class="rounded-xl bg-emerald-500/10 p-3 text-center text-sm text-emerald-300"
+                x-show="buildComplete"
+                x-cloak
+            >
+                <p class="font-semibold">Build ready for checkout</p>
+                <p class="mt-0.5 text-xs">Final price confirmed at checkout.</p>
+            </div>
+
+            <div
+                class="rounded-xl bg-amber-500/10 p-3 text-sm text-amber-300"
+                x-show="!buildComplete"
+                x-cloak
+            >
+                <p class="font-semibold">
+                    Your build is not complete.
+                </p>
+                <ul class="mt-1 list-inside list-disc space-y-0.5 text-amber-200/80">
+                    <template x-for="category in missingComponents()" :key="category">
+                        <li>
+                            Missing:
+                            <span x-text="categoryLabel(category)"></span>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+
             <x-pctg.button
                 variant="secondary"
                 @click="checkout()"
+                x-bind:disabled="!buildComplete"
+                x-bind:class="buildComplete ? '' : 'opacity-50 cursor-not-allowed'"
             >
                 Checkout
             </x-pctg.button>
@@ -66,7 +98,8 @@
             <x-pctg.button
                 variant="secondary"
                 @click="saveBuild()"
-                x-bind:disabled="saving"
+                x-bind:disabled="saving || !buildComplete"
+                x-bind:class="buildComplete ? '' : 'opacity-50 cursor-not-allowed'"
             >
                 <span x-text="saving ? 'Saving…' : 'Save Build'"></span>
             </x-pctg.button>

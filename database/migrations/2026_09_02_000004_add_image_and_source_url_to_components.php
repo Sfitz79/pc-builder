@@ -8,6 +8,14 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // Idempotent: older prod databases already carry these columns (added
+        // directly via raw ALTER when Neon pooled DDL-in-transaction blocked
+        // this migration). Skip if present so the migration batch passes.
+        $cols = \Illuminate\Support\Facades\Schema::getColumnListing('components');
+        if (in_array('source_url', $cols, true) && in_array('image_url', $cols, true)) {
+            return;
+        }
+
         Schema::table('components', function (Blueprint $table) {
             $table->string('source_url')->nullable()->after('specs');
             $table->string('image_url')->nullable()->after('source_url');

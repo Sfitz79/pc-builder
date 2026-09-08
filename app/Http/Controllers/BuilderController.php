@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Component;
 use App\Services\AIRecommendationService;
+use App\Services\BuildPricingService;
 use App\Services\CompatibilityService;
 use App\Services\FPSCalculationService;
 use Illuminate\Contracts\View\View;
@@ -19,6 +20,7 @@ class BuilderController extends Controller
         protected CompatibilityService $compatibility,
         protected FPSCalculationService $fps,
         protected AIRecommendationService $recommendations,
+        protected BuildPricingService $pricing,
     ) {}
 
     public function dashboard(): View
@@ -128,6 +130,7 @@ class BuilderController extends Controller
                 'components' => $catalog,
                 'total' => $build['total'] ?? 0,
                 'remaining' => $build['remaining'] ?? 0,
+                'complete' => (bool) ($build['complete'] ?? false),
             ];
 
             if (! empty($build['ai'])) {
@@ -136,6 +139,38 @@ class BuilderController extends Controller
         }
 
         return response()->json($builds);
+    }
+
+    /**
+     * Server-authoritative complete price for the current selection.
+     *
+     * Clients never price a build client-side: this endpoint applies the
+     * hidden margin and returns ONE clean price. Perfect for the live summary
+     * so the total shown in the configurator always matches checkout exactly.
+     */
+    public function price(Request $request): JsonResponse
+    {
+        $data = $request->validate([
+            'selection' => ['required', 'array'],
+        ]);
+
+        $ids = collect($data['selection'])->map(fn ($item) => (int) ($item['id'] ?? 0))
+            ->filter(fn ($id) => $id > 0);
+
+        $parts = (float) Component::query()
+            ->whereIn('id', $ids)
+            ->get()
+            ->sum(fn (Component $component) => (float) $component->price);
+
+        $complete = $this->pricing->completePrice($parts);
+        $delivery = (float) config('pricing.build_delivery', 0);
+
+        return response()->json([
+            'parts_total' => $parts,
+            'complete_price' => $complete,
+            'build_delivery' => $delivery,
+            'total' => round($complete + $delivery, 2),
+        ]);
     }
 
     /**

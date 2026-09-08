@@ -18,7 +18,7 @@
                                     <span class="font-semibold text-white" x-text="ideal.name"></span>
                                 </p>
                             </div>
-                            <span class="shrink-0 text-sm text-green-400" x-text="'£' + (ideal.price - selected[category].price).toLocaleString()"></span>
+                            <x-pctg.badge variant="secondary" class="shrink-0">Upgrade</x-pctg.badge>
                         </div>
                     </div>
                 </template>

@@ -117,7 +117,7 @@ class Build extends Model
 
     public function recalculateTotal(): void
     {
-        $this->total_price = $this->getBuildCostAttribute();
+        $this->total_price = app(\App\Services\BuildPricingService::class)->fromBuild($this);
         $this->save();
     }
 }

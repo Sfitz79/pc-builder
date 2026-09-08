@@ -34,8 +34,20 @@ document.addEventListener('alpine:init', () => {
             return (this.order && this.order.build && this.order.build.name) || 'Custom Build';
         },
 
+        requiredCategories: ['cpu', 'motherboard', 'gpu', 'ram', 'storage', 'psu', 'case', 'cooler'],
+
         get hasSelection() {
             return this.selection !== null && this.selection.components.length > 0;
+        },
+
+        get missingCategories() {
+            if (!this.selection) return this.requiredCategories;
+            const present = this.selection.components.map(c => c.category);
+            return this.requiredCategories.filter(c => !present.includes(c));
+        },
+
+        get selectionComplete() {
+            return this.missingCategories.length === 0;
         },
 
         get hasOrder() {
@@ -133,6 +145,12 @@ document.addEventListener('alpine:init', () => {
         },
 
         async createOrder() {
+            if (!this.selectionComplete) {
+                this.status = 'idle';
+                this.error = 'Your build is incomplete. Please return to the builder and add all required components (CPU, motherboard, cooler, GPU, RAM, storage, PSU and case).';
+                return;
+            }
+
             this.creating = true;
             this.status = 'creating';
             this.error = null;

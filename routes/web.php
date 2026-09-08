@@ -42,6 +42,7 @@ Route::prefix('builder')->name('builder.')->group(function () {
     Route::get('/fps', [BuilderController::class, 'fps'])->name('fps');
     Route::post('/ai', [BuilderController::class, 'ai'])->name('ai');
     Route::post('/validate', [BuilderController::class, 'validate'])->name('validate');
+    Route::post('/price', [BuilderController::class, 'price'])->name('price');
 
     // Saved build lifecycle (guest + authenticated owners).
     Route::get('/builds', [BuildController::class, 'index'])->name('builds');
@@ -165,6 +166,30 @@ Route::view('/best-gaming-pc-under-3000', 'seo.budget.3000');
 Route::view('/best-pc-for-fortnite', 'seo.game.fortnite');
 Route::view('/best-pc-for-warzone', 'seo.game.warzone');
 Route::view('/best-pc-for-streaming', 'seo.use.streaming');
+
+/*
+|--------------------------------------------------------------------------
+| API Routes (web middleware)
+|--------------------------------------------------------------------------
+|
+| These API endpoints live under the web middleware group so they work on
+| the Vercel serverless runtime without requiring the separate api
+| middleware group.  The routes are CSRF-exempt so external POST callers
+| (the Genie auto-reply engine, AI Builder, etc.) can hit them without
+| a session token.
+|
+*/
+
+use App\Http\Controllers\Api\BuildRecommendationController;
+use App\Http\Controllers\Api\PriceComparisonController;
+
+Route::prefix('api')->group(function () {
+    Route::post('/build/recommend', [BuildRecommendationController::class, 'recommend']);
+    Route::post('/build/compare-prices', [PriceComparisonController::class, 'comparePrices']);
+    Route::get('/build/search/buywhere', [PriceComparisonController::class, 'searchBuyWhere']);
+    Route::post('/build/check-compatibility', [PriceComparisonController::class, 'checkCompatibility']);
+    Route::post('/build/summary', [PriceComparisonController::class, 'getBuildSummary']);
+});
 
 // Search-engine plumbing for the guide cluster.
 Route::get('/robots.txt', function () {

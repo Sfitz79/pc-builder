@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Component;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -23,7 +24,7 @@ class GeminiService
      * response is malformed, so callers always fall back to the heuristic.
      * Successful results are cached for six hours keyed by purpose + resolution.
      *
-     * @param  array<string, \Illuminate\Support\Collection<int, \App\Models\Component>>  $pools
+     * @param  array<string, Collection<int, Component>>  $pools
      * @return array{weights: array<string, float>, rationale: string}|null
      */
     public function scoreWeights(array $pools, float $budget, ?string $purpose = null, ?string $resolution = null): ?array
@@ -32,7 +33,7 @@ class GeminiService
             return null;
         }
 
-        $cacheKey = 'ai:gemini:weights:' . md5(($purpose ?? 'gaming') . '|' . ($resolution ?? '1440P'));
+        $cacheKey = 'ai:gemini:weights:'.md5(($purpose ?? 'gaming').'|'.($resolution ?? '1440P'));
 
         if ($cached = Cache::get($cacheKey)) {
             return $cached;
@@ -59,24 +60,28 @@ class GeminiService
     }
 
     /**
-     * @param  array<string, \Illuminate\Support\Collection<int, \App\Models\Component>>  $pools
+     * @param  array<string, Collection<int, Component>>  $pools
      * @return array<string, mixed>|null
      */
     protected function generate(array $pools, float $budget, ?string $purpose, ?string $resolution): ?array
     {
         $prompt = implode("\n", [
-            'You are the PCTG PC configurator engine. Recommend per-category scoring weights for a gaming PC build.',
+            'You are the PCTG PC configurator engine. Recommend per-category scoring weights for building a complete, working gaming PC using current UK market pricing (GBP).',
             '',
             'User context:',
-            '- Budget: £' . number_format($budget),
-            '- Purpose: ' . ($purpose ?? 'gaming'),
-            '- Target resolution: ' . ($resolution ?? '1440P'),
+            '- Budget: £'.number_format($budget),
+            '- Purpose: '.($purpose ?? 'gaming'),
+            '- Target resolution: '.($resolution ?? '1440P'),
             '',
-            'Available components per category (name, price, specs):',
+            'A complete, functional PC requires ALL of these categories: cpu, motherboard, cooler, gpu, ram, storage, psu, case. A build missing any one of them (e.g. no cooler or no motherboard) is NOT a working PC and must be avoided.',
+            '',
+            'Weight the categories so the picked parts stay within the budget while delivering the best real-world performance for the user\'s purpose and resolution at current market prices. Prefer the best value at the current price point — not the most expensive part. All weights must be between 0.5 and 1.5.',
+            '',
+            'Current UK market components and prices per category (this is the live catalog):',
             $this->summarise($pools),
             '',
             'Respond with ONLY valid JSON:',
-            '{"weights": {"category": 1.0}, "rationale": "1-2 sentence build strategy"}',
+            '{"weights": {"category": 1.0}, "rationale": "1-2 sentence build strategy referencing value-for-money and current market prices"}',
             'Weights should be between 0.5 and 1.5.',
         ]);
 
@@ -114,12 +119,12 @@ class GeminiService
     protected function endpoint(): string
     {
         return rtrim((string) config('gemini.base_url'), '/')
-            . '/models/' . config('gemini.model', 'gemini-2.5-flash')
-            . ':generateContent?key=' . config('gemini.key');
+            .'/models/'.config('gemini.model', 'gemini-2.5-flash')
+            .':generateContent?key='.config('gemini.key');
     }
 
     /**
-     * @param  array<string, \Illuminate\Support\Collection<int, \App\Models\Component>>  $pools
+     * @param  array<string, Collection<int, Component>>  $pools
      */
     protected function summarise(array $pools): string
     {
@@ -133,11 +138,11 @@ class GeminiService
                     '- %s (£%s)%s',
                     $component->name,
                     number_format((float) $component->price),
-                    $specs !== '' ? ' — ' . $specs : ''
+                    $specs !== '' ? ' — '.$specs : ''
                 );
             })->implode("\n");
 
-            $lines[] = $slug . ":\n" . $rows;
+            $lines[] = $slug.":\n".$rows;
         }
 
         return implode("\n\n", $lines);

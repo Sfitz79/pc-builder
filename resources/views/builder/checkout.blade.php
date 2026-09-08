@@ -61,7 +61,7 @@
                                 <p class="text-sm font-semibold text-white" x-text="item.name"></p>
                                 <p class="mt-0.5 text-xs text-pctg-text-secondary" x-text="item.detail || item.category"></p>
                             </div>
-                            <p class="shrink-0 font-display text-sm font-bold text-white" x-text="$store.checkout.money(item.price)"></p>
+                            <x-pctg.badge variant="success" class="shrink-0">Included</x-pctg.badge>
                         </li>
                     </template>
                 </ul>
@@ -90,30 +90,22 @@
             </x-pctg.card>
         </div>
 
-        <x-pctg.card :padded="false" class="h-fit overflow-hidden lg:sticky lg:top-24">
+            <x-pctg.card :padded="false" class="h-fit overflow-hidden lg:sticky lg:top-24">
             <div class="space-y-4 p-6">
                 <div>
-                    <p class="text-xs font-medium uppercase tracking-[0.14em] text-pctg-text-secondary">Total cost</p>
-                    <p class="mt-1 font-display text-4xl font-bold text-white" x-text="$store.checkout.amount ? $store.checkout.money($store.checkout.amount.total) : '…'"></p>
-                    <p class="mt-1 text-sm text-pctg-text-secondary">Built &amp; delivered in <span class="font-semibold text-white">5–7 working days</span></p>
+                    <p class="text-xs font-medium uppercase tracking-[0.14em] text-pctg-text-secondary">System price</p>
+                    <p class="mt-1 font-display text-4xl font-bold text-white" x-text="$store.checkout.amount ? $store.checkout.money($store.checkout.amount.system_price) : '…'"></p>
+                    <p class="mt-1 text-sm text-pctg-text-secondary">Includes build, burn test, cable management &amp; warranty</p>
                 </div>
 
                 <dl class="space-y-2 border-t border-white/5 pt-4 text-sm">
                     <div class="flex items-center justify-between">
-                        <dt class="text-pctg-text-secondary">Components</dt>
-                        <dd class="font-medium text-white" x-text="$store.checkout.amount ? $store.checkout.money($store.checkout.amount.parts_total) : '…'"></dd>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <dt class="text-pctg-text-secondary">Build &amp; delivery</dt>
+                        <dt class="text-pctg-text-secondary">Delivery</dt>
                         <dd class="font-medium text-white" x-text="$store.checkout.amount ? $store.checkout.money($store.checkout.amount.build_delivery) : '…'"></dd>
                     </div>
-                    <div class="flex items-center justify-between">
-                        <dt class="text-pctg-text-secondary">Subtotal</dt>
-                        <dd class="font-medium text-white" x-text="$store.checkout.amount ? $store.checkout.money($store.checkout.amount.subtotal) : '…'"></dd>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <dt class="text-pctg-text-secondary">PayPal fee</dt>
-                        <dd class="font-medium text-pctg-success" x-text="$store.checkout.amount ? $store.checkout.money($store.checkout.amount.paypal_fee) : '…'"></dd>
+                    <div class="flex items-center justify-between border-t border-white/5 pt-3">
+                        <dt class="font-semibold text-white">Total</dt>
+                        <dd class="font-display text-lg font-bold text-white" x-text="$store.checkout.amount ? $store.checkout.money($store.checkout.amount.total) : '…'"></dd>
                     </div>
                 </dl>
 

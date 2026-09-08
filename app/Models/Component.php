@@ -12,6 +12,24 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Component extends Model
 {
+    /**
+     * The full set of component categories required for a complete, working,
+     * buildable PC. A build is only "complete" when every one of these is
+     * present.
+     *
+     * @var list<string>
+     */
+    public const REQUIRED_CATEGORIES = [
+        'cpu',
+        'motherboard',
+        'gpu',
+        'ram',
+        'storage',
+        'psu',
+        'case',
+        'cooler',
+    ];
+
     public static array $placeholderImages = [
         'cpu' => '/img/placeholders/cpu.svg',
         'cooler' => '/img/placeholders/cooler.svg',

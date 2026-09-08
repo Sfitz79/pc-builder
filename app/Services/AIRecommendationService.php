@@ -8,7 +8,22 @@ use App\Models\Component;
 
 class AIRecommendationService
 {
-    public function __construct(protected GeminiService $gemini) {}
+    public function __construct(protected GeminiService $gemini)
+    {
+        $this->pricing = app(BuildPricingService::class);
+    }
+
+    /**
+     * Hidden-margin pricing engine (complete price = parts + margin).
+     */
+    protected BuildPricingService $pricing;
+
+    /**
+     * Categories that must all be present for a build to be complete.
+     *
+     * @var list<string>
+     */
+    protected array $requiredCategories = Component::REQUIRED_CATEGORIES;
 
     /**
      * Return both the best-value build for the customer's budget AND the
@@ -29,6 +44,11 @@ class AIRecommendationService
 
         $budgetBuild = $this->pickBudgetBuild($pools, $budget);
         $idealBuild = $this->pickIdealBuild($categories, $purpose, $resolution);
+
+        // Complete flag: prefers the decorated value (pickers already guarantee
+        // completeness, including APU builds that legitimately skip the GPU).
+        $budgetBuild['complete'] = $budgetBuild['complete'] ?? $this->isComplete($budgetBuild['components'], $this->hasApuComponents($budgetBuild['components']));
+        $idealBuild['complete'] = $idealBuild['complete'] ?? $this->isComplete($idealBuild['components'], $this->hasApuComponents($idealBuild['components']));
 
         if ($userId !== null) {
             AiRecommendation::create([
@@ -69,6 +89,7 @@ class AIRecommendationService
         }
 
         $result = $this->pickBudgetBuild($pools, $budget);
+        $result['complete'] = $this->isComplete($result['components']);
 
         if ($userId !== null) {
             AiRecommendation::create([
@@ -139,14 +160,60 @@ class AIRecommendationService
     /**
      * Greedy pick that respects per-category budget shares and a hard cap.
      * Slack from under-spending in one category rolls forward to the next.
+     *
+     * The customer-facing budget is the SYSTEM budget (the one complete price
+     * they see at checkout), so parts are picked against the effective parts
+     * budget that leaves room for the hidden margin. The returned total is the
+     * complete price — never a parts sum.
      */
     protected function pickBudgetBuild(array $pools, float $budget): array
+    {
+        // 1) Dedicated-GPU build.
+        $gpu = $this->pickBalancedBuild($pools, $budget, forceGpu: true, needApu: false);
+        if ($this->isComplete($gpu['components'])) {
+            return $this->decorateBuild($gpu, $budget, 'gpu', apuWarning: false);
+        }
+
+        // 2) APU (no dedicated GPU) build — complete + warning.
+        $apu = $this->pickBalancedBuild($pools, $budget, forceGpu: false, needApu: true);
+        if ($this->isComplete($apu['components'], allowMissingGpu: true)) {
+            return $this->decorateBuild($apu, $budget, 'apu', apuWarning: true);
+        }
+
+        // 3) Cheapest complete system we can physically build (nearest to budget).
+        $cheapest = $this->pickCheapestComplete($pools);
+        if ($cheapest !== null && $this->isComplete($cheapest['components'], allowMissingGpu: true)) {
+            return $this->decorateBuild($cheapest, $budget, 'cheapest', apuWarning: $this->hasApuComponents($cheapest['components']));
+        }
+
+        // 4) Absolute fallback — keep whatever we have (should never happen).
+        $components = array_merge($gpu['components'] ?? [], $apu['components'] ?? []);
+        $spent = collect($components)->sum('price');
+
+        return [
+            'components' => $components,
+            'total' => $this->pricing->completePrice($spent),
+            'remaining' => 0.0,
+            'complete' => false,
+        ];
+    }
+
+    /**
+     * Pick the best-scoring components within a budget while guaranteeing the
+     * cursor moves through every category. When a category has no candidate
+     * inside its share it relaxes to the cheapest component in that pool so
+     * the system can still be completed (spending may exceed the budget — the
+     * decorate step explains that in plain English).
+     */
+    protected function pickBalancedBuild(array $pools, float $budget, bool $forceGpu, bool $needApu): array
     {
         $selection = [];
         $spent = 0.0;
         $slack = 0.0;
         $cpuSocket = null;
-        $hardCap = $budget * 0.95;
+        $cpuBrand = null;
+        $partsBudget = $this->pricing->partsBudgetFor($budget);
+        $hardCap = $partsBudget * 0.95;
 
         $shares = [
             'cpu' => 0.30,
@@ -159,12 +226,52 @@ class AIRecommendationService
             'cooler' => 0.02,
         ];
 
-        foreach ($pools as $slug => $pool) {
+        // Socket-locked categories (motherboard, cooler) DEPEND on the CPU so
+        // they must run in a second pass, after the CPU socket is known.
+        // Category order in the DB is not guaranteed (cooler can sort first).
+        $ordered = array_merge(
+            array_values(array_diff(array_keys($pools), ['motherboard', 'cooler'])),
+            ['motherboard', 'cooler']
+        );
+
+        foreach ($ordered as $slug) {
+            $pool = $pools[$slug] ?? collect();
+
             if ($pool->isEmpty()) {
                 continue;
             }
 
-            $allow = $budget * ($shares[$slug] ?? 0.05) + $slack;
+            // APU mode has no GPU slot.
+            if (! $forceGpu && $slug === 'gpu') {
+                continue;
+            }
+
+            // Apply the quality floor so junk catalogue entries never ship.
+            $pool = $this->viablePool($slug, $pool, $cpuBrand);
+
+            // APU mode restricts the CPU to parts with built-in graphics.
+            if ($needApu && $slug === 'cpu') {
+                $pool = $pool->filter(fn (Component $component) => $this->hasIntegratedGraphics($component));
+                if ($pool->isEmpty()) {
+                    continue;
+                }
+            }
+
+            // RAM generation must match the CPU platform. The CPU is always
+            // picked first in the loop, so the socket is known here; a real
+            // motherboard that fits that socket inherently uses the same RAM
+            // generation (AM4=DDR4, AM5=DDR5, LGA1700/1851=the platform's gen).
+            if ($slug === 'ram' && $cpuSocket !== null) {
+                $ramGen = $this->ramGenerationForSocket($cpuSocket);
+                if ($ramGen !== null) {
+                    $pool = $pool->filter(fn (Component $component) => $this->ramGenerationMatches($component, $ramGen));
+                    if ($pool->isEmpty()) {
+                        continue;
+                    }
+                }
+            }
+
+            $allow = $partsBudget * ($shares[$slug] ?? 0.05) + $slack;
 
             $candidates = $pool
                 ->filter(fn (Component $component) => (float) $component->price <= $allow
@@ -177,22 +284,18 @@ class AIRecommendationService
 
                 $socketFits = fn (Component $component) => $this->fitsSocket($slug, $component, $cpuSocket);
 
-                $candidates = $candidates
+                $pick = $candidates
                     ->filter($socketFits)
-                    ->sortByDesc('score');
-
-                $pick = $candidates->sortByDesc('score')->first();
+                    ->sortByDesc('score')
+                    ->first();
 
                 if ($pick === null) {
+                    // No in-budget candidate that physically fits — relax to the
+                    // cheapest compatible part so the system can still complete.
                     $pick = $pool
-                        ->filter(fn (Component $component) => $socketFits($component)
-                            && ($spent + (float) $component->price) <= $hardCap)
-                        ->sortByDesc('score')
+                        ->filter($socketFits)
+                        ->sortBy('price')
                         ->first();
-                }
-
-                if ($pick === null) {
-                    continue;
                 }
             } else {
                 $pick = $candidates->sortByDesc('score')->first();
@@ -205,8 +308,16 @@ class AIRecommendationService
                 }
 
                 if ($pick === null) {
-                    continue;
+                    $pick = $pool->sortBy('price')->first();
                 }
+            }
+
+            if ($pick === null) {
+                if ($forceGpu && $slug === 'gpu') {
+                    return ['components' => $selection, 'complete' => false];
+                }
+
+                continue;
             }
 
             $selection[$slug] = [
@@ -217,7 +328,8 @@ class AIRecommendationService
             ];
 
             if ($slug === 'cpu') {
-                $cpuSocket = $pick->socket;
+                $cpuSocket = $this->canonicalSocket($pick);
+                $cpuBrand = $this->cpuBrandOf(['name' => $pick->name]);
             }
 
             $spent += (float) $pick->price;
@@ -226,8 +338,129 @@ class AIRecommendationService
 
         return [
             'components' => $selection,
-            'total' => round($spent, 2),
-            'remaining' => round(max(0, $budget - $spent), 2),
+            'total' => $this->pricing->completePrice($spent),
+            'remaining' => round(max(0, $budget - $this->pricing->completePrice($spent)), 2),
+        ];
+    }
+
+    /**
+     * The most cost-effective fully working system in the catalogue: cheapest
+     * CPU with built-in graphics (APU), the cheapest compatible motherboard
+     * and the cheapest part in every other category. No dedicated GPU — the
+     * CPU's integrated graphics drive the display. Used when a budget cannot
+     * complete even an APU build.
+     */
+    protected function pickCheapestComplete(array $pools): ?array
+    {
+        $selection = [];
+        $spent = 0.0;
+        $cpuSocket = null;
+        $cpuBrand = null;
+
+        foreach ($pools as $slug => $pool) {
+            if ($pool->isEmpty()) {
+                continue;
+            }
+
+            if ($slug === 'gpu') {
+                continue; // Cheapest APU build has no dedicated GPU.
+            }
+
+            if ($slug === 'cpu') {
+                $pool = $pool->filter(fn (Component $component) => $this->hasIntegratedGraphics($component));
+                if ($pool->isEmpty()) {
+                    continue;
+                }
+            }
+
+            $pool = $this->viablePool($slug, $pool, $cpuBrand);
+
+            // RAM generation must match the CPU platform (AM4=DDR4, AM5=DDR5,
+            // LGA1700/1851=that platform's generation ring).
+            if ($slug === 'ram' && $cpuSocket !== null) {
+                $ramGen = $this->ramGenerationForSocket($cpuSocket);
+                if ($ramGen !== null) {
+                    $pool = $pool->filter(fn (Component $component) => $this->ramGenerationMatches($component, $ramGen));
+                    if ($pool->isEmpty()) {
+                        continue;
+                    }
+                }
+            }
+
+            $pick = $pool->sortBy('price')->first();
+
+            if ($slug === 'motherboard' && $cpuSocket !== null) {
+                $fitting = $pool
+                    ->filter(fn (Component $component) => $component->socket === $cpuSocket)
+                    ->sortBy('price')
+                    ->first();
+
+                if ($fitting !== null) {
+                    $pick = $fitting;
+                }
+            }
+
+            if ($pick === null) {
+                continue;
+            }
+
+            $selection[$slug] = [
+                'id' => $pick->id,
+                'name' => $pick->name,
+                'price' => (float) $pick->price,
+                'score' => $pick->score,
+            ];
+
+            if ($slug === 'cpu') {
+                $cpuSocket = $this->canonicalSocket($pick);
+                $cpuBrand = $this->cpuBrandOf(['name' => $pick->name]);
+            }
+
+            $spent += (float) $pick->price;
+        }
+
+        if ($selection === []) {
+            return null;
+        }
+
+        return [
+            'components' => $selection,
+            'total' => $this->pricing->completePrice($spent),
+            'remaining' => 0.0,
+        ];
+    }
+
+    /**
+     * Add every explainer a displayed build needs: one complete price, mode,
+     * APU warning, cheapest-option flag and a plain-English pricing note tied
+     * to supply and demand when a budget can't stretch to a complete system.
+     */
+    protected function decorateBuild(array $build, float $budget, string $mode, bool $apuWarning): array
+    {
+        $components = $build['components'] ?? [];
+        $spent = (float) collect($components)->sum('price');
+        $total = $this->pricing->completePrice($spent);
+        $overBudget = $budget > 0 ? round(max(0.0, $total - $budget), 2) : 0.0;
+
+        $explanation = null;
+
+        if ($overBudget > 0) {
+            $explanation = 'Component prices move with global supply and demand, and right now graphics cards and the newest memory cost a lot. With a budget of GBP '
+                . number_format($budget)
+                . ' we cannot build a brand-new gaming PC for that price today - this is the most cost-effective complete system we can put together, and the cheapest option available right now. You can still spread the cost: PayPal Pay in 3 lets you split the total into 3 interest-free payments.';
+        }
+
+        return [
+            'components' => $components,
+            'total' => $total,
+            'remaining' => round(max(0, $budget - $total), 2),
+            'complete' => true,
+            'mode' => $mode,
+            'apuWarning' => $apuWarning,
+            'cheapestOption' => $overBudget > 0,
+            'overBudget' => $overBudget,
+            'explanation' => $explanation,
+            'payments' => ['card', 'paypal_pay_in_3'],
         ];
     }
 
@@ -244,7 +477,15 @@ class AIRecommendationService
         $spent = 0.0;
         $cpuSocket = null;
 
-        foreach ($pools as $slug => $pool) {
+        // Socket-locked categories come after the CPU so they can be matched.
+        $ordered = array_merge(
+            array_values(array_diff(array_keys($pools), ['motherboard', 'cooler'])),
+            ['motherboard', 'cooler']
+        );
+
+        foreach ($ordered as $slug) {
+            $pool = $pools[$slug] ?? collect();
+
             if ($pool->isEmpty()) {
                 continue;
             }
@@ -256,8 +497,15 @@ class AIRecommendationService
 
                 $socketFits = fn (Component $component) => $this->fitsSocket($slug, $component, $cpuSocket);
                 $pick = $pool->filter($socketFits)->sortByDesc('score')->first();
+
+                // No scored pick that fits — relax to the cheapest compatible
+                // part so the dream build is still a buildable PC.
+                if ($pick === null) {
+                    $pick = $pool->filter($socketFits)->sortBy('price')->first();
+                }
             } else {
-                $pick = $pool->sortByDesc('score')->first();
+                $pick = $pool->sortByDesc('score')->first()
+                    ?? $pool->sortBy('price')->first();
             }
 
             if ($pick === null) {
@@ -278,11 +526,16 @@ class AIRecommendationService
             $spent += (float) $pick->price;
         }
 
-        return [
-            'components' => $selection,
-            'total' => round($spent, 2),
-            'remaining' => 0.0,
-        ];
+        return $this->decorateBuild(
+            [
+                'components' => $selection,
+                'total' => $this->pricing->completePrice($spent),
+                'remaining' => 0.0,
+            ],
+            0,
+            'ideal',
+            apuWarning: ! isset($selection['gpu']),
+        );
     }
 
     /**
@@ -392,6 +645,81 @@ class AIRecommendationService
     }
 
     /**
+     * The RAM generation a CPU socket implies (mainstream consumer sockets).
+     * Returns null when the socket is unknown/unmapped so the pool is not
+     * filtered (unknown sockets fall back to the existing compatibility rules).
+     */
+    protected function ramGenerationForSocket(?string $cpuSocket): ?string
+    {
+        $socket = strtoupper((string) $cpuSocket);
+
+        return match (true) {
+            $socket === '' => null,
+            // AMD AM5, Intel Arrow Lake (LGA1851) — DDR5 only.
+            str_contains($socket, 'AM5') || str_contains($socket, '1851') => 'DDR5',
+            // AMD AM4 + Intel 12th/13th/14th gen (LGA1700) consumer ring — DDR4.
+            str_contains($socket, 'AM4') || str_contains($socket, '1700')
+                || str_contains($socket, '1151') || str_contains($socket, '1200')
+                || str_contains($socket, '2066') => 'DDR4',
+            default => null,
+        };
+    }
+
+    /**
+     * Whether a RAM component declares a current-generation memory type
+     * (DDR4 or DDR5) anywhere in its name/specs. Used as the quality floor —
+     * DDR3/DDR2 sticks are ancient and cannot be verified as compatible with
+     * any modern platform, so they never get recommended.
+     */
+    protected function ramGenerationKnown(Component $ram): bool
+    {
+        return str_contains($this->ramGenerationHaystack($ram), 'DDR4')
+            || str_contains($this->ramGenerationHaystack($ram), 'DDR5');
+    }
+
+    /**
+     * Whether a RAM component's declared spec matches the CPU platform's
+     * RAM generation. Generation is read from the `type` spec, the `speed`
+     * spec (e.g. "DDR4-3200") or the catalogue name (e.g. "32GB DDR5 6000").
+     * Any declared DDR-generation that differs from what the platform needs
+     * is rejected (DDR3 vs DDR4 etc). A stick with no generation signal at
+     * all stays eligible only if the quality floor has not already removed it
+     * (better safe than picking an unverifiable part as the cheapest).
+     */
+    protected function ramGenerationMatches(Component $ram, string $generation): bool
+    {
+        $haystack = $this->ramGenerationHaystack($ram);
+
+        if (str_contains($haystack, 'DDR4')) {
+            return $generation === 'DDR4';
+        }
+
+        if (str_contains($haystack, 'DDR5')) {
+            return $generation === 'DDR5';
+        }
+
+        if (str_contains($haystack, 'DDR')) {
+            return false; // DDR3/DDR2/etc — never fits a modern platform.
+        }
+
+        return true;
+    }
+
+    /**
+     * Combined name + spec text used for RAM generation detection.
+     */
+    protected function ramGenerationHaystack(Component $ram): string
+    {
+        $specs = $ram->specs ?? [];
+
+        return strtoupper(implode(' ', [
+            (string) ($specs['type'] ?? ''),
+            (string) ($specs['speed'] ?? ''),
+            (string) $ram->name,
+        ]));
+    }
+
+    /**
      * How close a component is to the newest hardware generation (0-100).
      *
      * Explicit chipset maps give exact tiers for the parts that carry a
@@ -497,5 +825,282 @@ class AIRecommendationService
         }
 
         return 30;
+    }
+
+    /**
+     * Whether a selection contains every category required for a working PC.
+     *
+     * @param  array<string, mixed>  $components
+     */
+    protected function isComplete(array $components, bool $allowMissingGpu = false): bool
+    {
+        $required = $this->requiredCategories;
+
+        if ($allowMissingGpu) {
+            $required = array_values(array_diff($required, ['gpu']));
+        }
+
+        return array_diff($required, array_keys($components)) === [];
+    }
+
+    /**
+     * Whether a CPU carries built-in graphics (an APU / iGPU) — the hardware
+     * the no-dedicated-GPU path depends on. Prefers explicit spec data and
+     * falls back to catalogue naming conventions (AMD G-suffix APUs, Intel
+     * non-F/Core-Pentium-Celeron desktop parts with HD/UHD/Iris graphics).
+     */
+    protected function hasIntegratedGraphics(Component $component): bool
+    {
+        $specs = $component->specs ?? [];
+
+        $explicit = $specs['integrated_graphics'] ?? $specs['graphics'] ?? null;
+        if ($explicit !== null) {
+            return ! in_array(strtolower((string) $explicit), ['', '0', 'false', 'no', 'none'], true);
+        }
+
+        $name = strtoupper((string) $component->name);
+
+        // AMD APUs — Ryzen G-series and Athlon G/GE parts carry Vega graphics.
+        if (preg_match('/(RYZEN|ATHLON).*\b(?:[\d]+[A-Z]*G)\b/', $name) === 1) {
+            return true;
+        }
+
+        // Intel — F/KF suffix means no graphics; everything else desktop has HD/UHD/Iris.
+        if (str_contains($name, 'INTEL') || str_contains($name, 'CORE I') || str_contains($name, 'PENTIUM') || str_contains($name, 'CELERON')) {
+            if (preg_match('/\bKF?\b/', $name) === 1) {
+                return false;
+            }
+
+            // Legacy Pentium E-series desktop chips had no integrated graphics.
+            if (preg_match('/PENTIUM E\d+/', $name) === 1) {
+                return false;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Whether a selection relies on integrated graphics (no GPU part).
+     *
+     * @param  array<string, mixed>  $components
+     */
+    protected function hasApuComponents(array $components): bool
+    {
+        return ! isset($components['gpu']);
+    }
+
+    /**
+     * Apply the quality floor per category so legacy/junk catalogue entries
+     * never get recommended. Anything that cannot be verified against a
+     * minimum sane spec is excluded (missing data is treated as sub-standard
+     * for the parts where we know the minimum that modern systems require).
+     *
+     * @param  \Illuminate\Support\Collection<int, Component>  $pool
+     * @return \Illuminate\Support\Collection<int, Component>
+     */
+    protected function viablePool(string $slug, $pool, ?string $cpuBrand = null)
+    {
+        return match ($slug) {
+            'ram' => $pool->filter(fn (Component $component) =>
+                $this->specCapacityGb($component) >= 16
+                // No platform in the catalogue runs DDR3/DDR2. A stick that
+                // declares a generation other than DDR4/DDR5 (or is ambiguous
+                // because the name/specs are missing) cannot be verified as
+                // current-gen, so it never ships in a complete build. This
+                // kills ancient DDR3 "cheapest RAM" junk that previously made
+                // physically impossible builds.
+                && $this->ramGenerationKnown($component)
+            ),
+            'storage' => $pool->filter(fn (Component $component) => $this->specCapacityGb($component) >= 240),
+            'psu' => $pool->filter(fn (Component $component) => $this->psuWattage($component) >= 400),
+            'cpu' => $pool->filter(fn (Component $component) =>
+                (int) ($component->specs['cores'] ?? 0) >= 4
+                // A CPU with an unknown socket cannot be paired safely, so it
+                // can never ship in a complete build. This kills legacy socket-
+                // less junk (e.g. i5-2400) at the source for every pick path.
+                && ! empty($this->canonicalSocket($component))
+            ),
+            'gpu' => $pool->filter(fn (Component $component) => (int) ($component->specs['memory'] ?? 0) >= 4),
+            'motherboard' => $pool->filter(fn (Component $component) => ! empty($component->socket) || ! empty($component->chipset)),
+            'cooler' => $cpuBrand === null || $cpuBrand === 'unknown'
+                ? $pool
+                : $pool->filter(fn (Component $component) => $this->coolerFitsBrand($component, $cpuBrand)),
+            default => $pool,
+        };
+    }
+
+    /**
+     * Capacity in GB from a spec value like "32GB", "1024GB" or "1TB".
+     */
+    protected function specCapacityGb(Component $component): int
+    {
+        $raw = strtoupper((string) ($component->specs['capacity'] ?? '0'));
+
+        if (str_contains($raw, 'TB')) {
+            return (int) ((float) str_replace('TB', '', $raw) * 1000);
+        }
+
+        if (str_contains($raw, 'GB')) {
+            return (int) str_replace('GB', '', $raw);
+        }
+
+        return (int) $raw;
+    }
+
+    /**
+     * Wattage from a PSU: explicit spec, then "N W" in the name, then the
+     * model number convention (PF400, A750GL, RM850e). Unknown returns 0 so
+     * unverifiable parts pass the floor rather than being wrongly rejected.
+     */
+    protected function psuWattage(Component $component): int
+    {
+        $specs = $component->specs ?? [];
+
+        $wattage = (int) ($specs['wattage'] ?? ($specs['power'] ?? 0));
+        if ($wattage > 0) {
+            return $wattage;
+        }
+
+        $name = strtoupper((string) $component->name);
+
+        if (preg_match('/(\d{3,4})\s*W/i', $name, $m) === 1 || preg_match('/\b(\d{3,4})W\b/', $name, $m) === 1) {
+            return (int) $m[1];
+        }
+
+        // Model-number conventions: PF400 = 400W, A750GL = 750W, RM850e = 850W.
+        if (preg_match('/\b(?:P|A|RM|VP|CV|CX|VS|MAG|MWE)\s?(\d{3,4})\b/i', $name, $m2) === 1) {
+            $value = (int) $m2[1];
+
+            return ($value >= 300 && $value <= 1600) ? $value : 0;
+        }
+
+        return 0;
+    }
+
+    /**
+     * The TRUE socket for a CPU, derived from the model name rather than the
+     * catalogue's `socket` column (which has proven unreliable — e.g. AMD
+     * 3000/4000G/5000-series parts mislabelled as AM5). Knowing the real
+     * socket is the foundation of every compatibility gate (motherboard,
+     * cooler, RAM generation), so this must never trust dirty data when the
+     * model number is recognisable.
+     */
+    protected function canonicalSocket(Component $component): ?string
+    {
+        $name = strtoupper((string) $component->name);
+        $h = $name;
+
+        // --- AMD desktop -------------------------------------------------
+        if (preg_match('/(?:RYZEN|ATHLON)/', $h) === 1) {
+            // Threadripper (TR4/sTRX4/sWRX8) — rare in consumer catalogue but
+            // a recognisable AM-series exception; keep their own socket.
+            if (preg_match('/THREADRIPPER/', $h) === 1) {
+                return str_contains($h, 'AI MAX') ? null : ($component->socket ?: null);
+            }
+
+            // Ryzen-series model number "Ryzen X YYYY" where YYYY's first
+            // digit is 1-5 => AM4 (incl. 5500, 5600G, 5700G, 3200G, 3600...).
+            if (preg_match('/\bRYZEN \d[ ]?(\d{4})/', $h, $m) === 1) {
+                $model = (int) $m[1];
+                // 7000/8000G/9000 series are AM5; 1000-5000 series are AM4.
+                return ($model >= 6000) ? 'AM5' : 'AM4';
+            }
+
+            // Athlon with a G-series / 200GE-3000G naming → AM4.
+            if (preg_match('/\b(?:200GE|220GE|240GE|3000G|320GE|240GE)\b/', $h) === 1) {
+                return 'AM4';
+            }
+
+            // Generic fallback — do not trust the dirty column for AMD.
+            return null;
+        }
+
+        // --- Intel desktop -------------------------------------------------
+        if (preg_match('/(?:CORE ULTRA|CORE I|PENTIUM|CELERON)/', $h) === 1) {
+            // Arrow Lake: Core Ultra 5/7/9 2xx → LGA1851.
+            if (preg_match('/CORE ULTRA \d \d{3}/', $h) === 1) {
+                return 'LGA1851';
+            }
+
+            // Core i3/i5/i7/i9: 12th-14th gen (12xxx-14xxx) → LGA1700.
+            if (preg_match('/CORE I\d[- ]?(\d{5})/', $h, $m) === 1) {
+                $generation = (int) substr($m[1], 0, 2);
+                if ($generation >= 12) {
+                    return 'LGA1700';
+                }
+                if ($generation >= 10) {
+                    return 'LGA1200';
+                }
+                if ($generation >= 6) {
+                    return 'LGA1151';
+                }
+                return 'LGA1150';
+            }
+
+            // Pentium/Celeron with a G-number (G4400, G7400...) → follow the
+            // same generation ladder by family number when recognisable.
+            if (preg_match('/(?:PENTIUM|CELERON).*?\bG(\d{4})/', $h, $m) === 1) {
+                $family = (int) $m[1];
+                if ($family >= 6900) {
+                    return 'LGA1700';
+                }
+                if ($family >= 5000) {
+                    return 'LGA1200';
+                }
+                return 'LGA1151';
+            }
+
+            return $component->socket;
+        }
+
+        // Unknown / legacy — return the raw value so a human-readable socket
+        // still appears, but the picker's viablePool() floor (require a
+        // non-empty canonical socket here) already stops unknown-socket CPUs
+        // from ever shipping in a complete build.
+        return $component->socket;
+    }
+
+    /**
+     * Rough CPU brand from a picked component (used for cooler sanity checks).
+     */
+    protected function cpuBrandOf(?array $cpu): string
+    {
+        $name = strtoupper((string) ($cpu['name'] ?? ''));
+
+        if ($name === '') {
+            return 'unknown';
+        }
+
+        if (str_contains($name, 'INTEL') || str_contains($name, 'CORE I') || str_contains($name, 'PENTIUM') || str_contains($name, 'CELERON')) {
+            return 'intel';
+        }
+
+        return str_contains($name, 'AMD') ? 'amd' : 'unknown';
+    }
+
+    /**
+     * Whether a cooler can pair with a CPU brand. Branded stock coolers
+     * (AMD Wraith, Intel Laminar/stock) are restricted to their own brand;
+     * aftermarket coolers fit anything.
+     */
+    protected function coolerFitsBrand(Component $cooler, string $cpuBrand): bool
+    {
+        $name = strtoupper((string) $cooler->name);
+
+        $isIntelBranded = str_contains($name, 'LAMINAR') || (str_contains($name, 'INTEL') && ! str_contains($name, 'ARCTIC'));
+        $isAmdBranded = str_contains($name, 'WRATH') || (str_contains($name, 'AMD') && ! str_contains($name, 'ARCTIC'));
+
+        if ($isIntelBranded) {
+            return $cpuBrand === 'intel';
+        }
+
+        if ($isAmdBranded) {
+            return $cpuBrand === 'amd';
+        }
+
+        return true; // Aftermarket cooler — fits both CPUs.
     }
 }
