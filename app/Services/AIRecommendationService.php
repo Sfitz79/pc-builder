@@ -325,6 +325,9 @@ class AIRecommendationService
                 'name' => $pick->name,
                 'price' => (float) $pick->price,
                 'score' => $pick->score,
+                // Internal-only wattage used by the power-adequacy pass so a
+                // GPU's real draw can never be paired with an undersized PSU.
+                'wattage' => in_array($slug, ['cpu', 'gpu', 'psu'], true) ? $this->componentWattage($slug, $pick) : 0,
             ];
 
             if ($slug === 'cpu') {
@@ -335,6 +338,9 @@ class AIRecommendationService
             $spent += (float) $pick->price;
             $slack = max(0.0, $allow - (float) $pick->price);
         }
+
+        $selection = $this->ensurePowerAdequacy($selection, $pools);
+        $spent = (float) collect($selection)->sum('price');
 
         return [
             'components' => $selection,
@@ -409,6 +415,7 @@ class AIRecommendationService
                 'name' => $pick->name,
                 'price' => (float) $pick->price,
                 'score' => $pick->score,
+                'wattage' => in_array($slug, ['cpu', 'gpu', 'psu'], true) ? $this->componentWattage($slug, $pick) : 0,
             ];
 
             if ($slug === 'cpu') {
@@ -422,6 +429,9 @@ class AIRecommendationService
         if ($selection === []) {
             return null;
         }
+
+        $selection = $this->ensurePowerAdequacy($selection, $pools);
+        $spent = (float) collect($selection)->sum('price');
 
         return [
             'components' => $selection,
@@ -517,6 +527,7 @@ class AIRecommendationService
                 'name' => $pick->name,
                 'price' => (float) $pick->price,
                 'score' => $pick->score,
+                'wattage' => in_array($slug, ['cpu', 'gpu', 'psu'], true) ? $this->componentWattage($slug, $pick) : 0,
             ];
 
             if ($slug === 'cpu') {
@@ -525,6 +536,9 @@ class AIRecommendationService
 
             $spent += (float) $pick->price;
         }
+
+        $selection = $this->ensurePowerAdequacy($selection, $pools);
+        $spent = (float) collect($selection)->sum('price');
 
         return $this->decorateBuild(
             [
@@ -978,6 +992,170 @@ class AIRecommendationService
         }
 
         return 0;
+    }
+
+    /**
+     * Internal wattage estimate used to size the PSU safely:
+     * explicit DB column first, then the GPU reference-TDP map (the catalogue
+     * has no wattage for 99% of GPUs), then the PSU model-number parser.
+     */
+    protected function componentWattage(string $slug, Component $component): int
+    {
+        $explicit = (int) ($component->wattage ?? 0);
+        if ($explicit > 0) {
+            return $explicit;
+        }
+
+        return match ($slug) {
+            'gpu' => $this->gpuTdp((string) $component->name),
+            'psu' => $this->psuWattage($component),
+            default => 0,
+        };
+    }
+
+    /**
+     * Reference TDP (board power) for known dedicated GPUs, used to pick a PSU
+     * with real headroom. Values are the published reference/typical figures
+     * (e.g. RX 7900 XTX ≈ 355W, RTX 5090 ≈ 575W). Unknown models return 0 so
+     * the power pass simply skips them rather than rejecting a build.
+     */
+    protected function gpuTdp(string $name): int
+    {
+        $h = strtoupper($name);
+
+        $known = [
+            '/\bRTX 5090\b/' => 575,
+            '/\bRTX 5080\b/' => 360,
+            '/\bRTX 5070 TI\b/' => 300,
+            '/\bRTX 5070\b/' => 250,
+            '/\bRTX 5060 TI\b/' => 180,
+            '/\bRTX 5060\b/' => 145,
+            '/\bRTX 4090\b/' => 450,
+            '/\bRTX 4080 SUPER\b/' => 320,
+            '/\bRTX 4080\b/' => 320,
+            '/\bRTX 4070 TI SUPER\b/' => 285,
+            '/\bRTX 4070 TI\b/' => 285,
+            '/\bRTX 4070 SUPER\b/' => 220,
+            '/\bRTX 4070\b/' => 200,
+            '/\bRTX 4060 TI\b/' => 160,
+            '/\bRTX 4060\b/' => 115,
+            '/\bRTX 3090 TI\b/' => 450,
+            '/\bRTX 3090\b/' => 350,
+            '/\bRTX 3080 TI\b/' => 350,
+            '/\bRTX 3080\b/' => 320,
+            '/\bRTX 3070 TI\b/' => 290,
+            '/\bRTX 3070\b/' => 220,
+            '/\bRTX 3060 TI\b/' => 200,
+            '/\bRTX 3060\b/' => 170,
+            '/\bRTX 3050\b/' => 130,
+            '/\bRTX 2080 TI\b/' => 250,
+            '/\bRTX 2070 SUPER\b/' => 215,
+            '/\bRTX 2070\b/' => 175,
+            '/\bRTX 2060 SUPER\b/' => 175,
+            '/\bRTX 2060\b/' => 160,
+            '/\bRTX 1660 SUPER\b/' => 125,
+            '/\bRTX 1660 TI\b/' => 120,
+            '/\bRTX 1660\b/' => 120,
+            '/\bGTX 1080 TI\b/' => 250,
+            '/\bGTX 1080\b/' => 180,
+            '/\bGTX 1070\b/' => 150,
+            '/\bGTX 1060\b/' => 120,
+            '/\bGTX 1050 TI\b/' => 75,
+            '/\bRX 7900 XTX\b/' => 355,
+            '/\bRX 7900 XT\b/' => 315,
+            '/\bRX 7900 GRE\b/' => 260,
+            '/\bRX 7800 XT\b/' => 263,
+            '/\bRX 7700 XT\b/' => 245,
+            '/\bRX 7600 XT\b/' => 148,
+            '/\bRX 7600\b/' => 165,
+            '/\bRX 6950 XT\b/' => 335,
+            '/\bRX 6900 XT\b/' => 300,
+            '/\bRX 6800 XT\b/' => 300,
+            '/\bRX 6800\b/' => 250,
+            '/\bRX 6750 XT\b/' => 250,
+            '/\bRX 6700 XT\b/' => 230,
+            '/\bRX 6600 XT\b/' => 160,
+            '/\bRX 6600\b/' => 132,
+            '/\bRX 5700 XT\b/' => 225,
+            '/\bRX 5700\b/' => 180,
+            '/\bRX 5600 XT\b/' => 160,
+            '/\bRX 5500 XT\b/' => 130,
+            '/\bRX VEGA 64\b/' => 295,
+            '/\bRX VEGA 56\b/' => 210,
+            '/\bRX 580\b/' => 185,
+            '/\bRX 570\b/' => 150,
+            '/\bARC B580\b/' => 190,
+            '/\bARC A770\b/' => 225,
+            '/\bARC A750\b/' => 225,
+            '/\bARC A580\b/' => 185,
+            '/\bARC A380\b/' => 75,
+        ];
+
+        foreach ($known as $pattern => $tdp) {
+            if (preg_match($pattern, $h) === 1) {
+                return $tdp;
+            }
+        }
+
+        return 0;
+    }
+
+    /**
+     * Guarantee every shipped build is physically powered: required wattage is
+     * CPU draw + GPU draw + 200W headroom (same convention as the database's
+     * `wattage_sufficient` rule). If the picked PSU is too small, upgrade to
+     * the cheapest unit in the catalogue that can do the job. The upgrade may
+     * push the build over budget — decorateBuild explains that honestly.
+     *
+     * @param  array<string, array<string, mixed>>  $selection
+     * @param  array<string, \Illuminate\Support\Collection<int, Component>>  $pools
+     * @return array<string, array<string, mixed>>
+     */
+    protected function ensurePowerAdequacy(array $selection, array $pools): array
+    {
+        $cpuW = (int) ($selection['cpu']['wattage'] ?? 0);
+        $gpuW = (int) ($selection['gpu']['wattage'] ?? 0);
+
+        // No wattage signal at all → nothing to enforce; every PSU in the
+        // viable pool already passes the 400W floor.
+        if ($cpuW === 0 && $gpuW === 0) {
+            return $selection;
+        }
+
+        $need = $cpuW + $gpuW + 200;
+
+        $psu = $selection['psu'] ?? null;
+        $psuW = (int) ($psu['wattage'] ?? 0);
+
+        if ($psu !== null && $psuW >= $need) {
+            return $selection;
+        }
+
+        $pool = $pools['psu'] ?? collect();
+        if ($pool->isEmpty()) {
+            return $selection;
+        }
+
+        $better = $pool
+            ->filter(fn (Component $component) => $this->psuWattage($component) >= $need)
+            ->sortBy('price')
+            ->first();
+
+        if ($better === null) {
+            // Nothing in the catalogue can safely power this GPU combo — keep
+            // the original pick (decorateBuild's honest explanation covers it).
+            return $selection;
+        }
+
+        $selection['psu'] = [
+            'id' => $better->id,
+            'name' => $better->name,
+            'price' => (float) $better->price,
+            'score' => $better->score,
+            'wattage' => $this->psuWattage($better),
+        ];
+
+        return $selection;
     }
 
     /**
