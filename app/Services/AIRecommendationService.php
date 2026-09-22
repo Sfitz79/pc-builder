@@ -45,6 +45,24 @@ class AIRecommendationService
         $budgetBuild = $this->pickBudgetBuild($pools, $budget);
         $idealBuild = $this->pickIdealBuild($categories, $purpose, $resolution);
 
+        // Attach the AI metadata AFTER per-build rationale is resolved so the
+        // weights strategy line and the build-specific line can coexist.
+        $budgetBuild['ai'] = $ai !== null ? [
+            'provider' => 'gemini',
+            'model' => config('gemini.model'),
+            'rationale' => $budgetBuild['ai']['rationale'] ?? ($ai['rationale'] ?? null),
+        ] : null;
+        $idealBuild['ai'] = $ai !== null ? [
+            'provider' => 'gemini',
+            'model' => config('gemini.model'),
+            'rationale' => $idealBuild['ai']['rationale'] ?? ($ai['rationale'] ?? null),
+        ] : null;
+
+        // Per-build rationale (why THESE parts) — cached and optional; falls
+        // back to weights-strategy rationale or nothing when Gemini is off.
+        $this->attachBuildRationale($budgetBuild, $budget, $purpose, $resolution);
+        $this->attachBuildRationale($idealBuild, 0, $purpose, $resolution);
+
         // Complete flag: prefers the decorated value (pickers already guarantee
         // completeness, including APU builds that legitimately skip the GPU).
         $budgetBuild['complete'] = $budgetBuild['complete'] ?? $this->isComplete($budgetBuild['components'], $this->hasApuComponents($budgetBuild['components']));
@@ -59,12 +77,6 @@ class AIRecommendationService
                 'recommendation' => $budgetBuild['components'],
             ]);
         }
-
-        $budgetBuild['ai'] = $ai !== null ? [
-            'provider' => 'gemini',
-            'model' => config('gemini.model'),
-            'rationale' => $ai['rationale'] ?? null,
-        ] : null;
 
         return [
             'budget' => $budgetBuild,
@@ -91,6 +103,18 @@ class AIRecommendationService
         $result = $this->pickBudgetBuild($pools, $budget);
         $result['complete'] = $this->isComplete($result['components']);
 
+        if ($ai !== null) {
+            $result['ai'] = [
+                'provider' => 'gemini',
+                'model' => config('gemini.model'),
+                'rationale' => $ai['rationale'] ?? null,
+            ];
+        }
+
+        // Per-build rationale (why THESE parts) — cached and optional; must run
+        // after the ai block or it would be clobbered.
+        $this->attachBuildRationale($result, $budget, $purpose, $resolution);
+
         if ($userId !== null) {
             AiRecommendation::create([
                 'user_id' => $userId,
@@ -99,14 +123,6 @@ class AIRecommendationService
                 'resolution' => $resolution,
                 'recommendation' => $result['components'],
             ]);
-        }
-
-        if ($ai !== null) {
-            $result['ai'] = [
-                'provider' => 'gemini',
-                'model' => config('gemini.model'),
-                'rationale' => $ai['rationale'] ?? null,
-            ];
         }
 
         return $result;
@@ -137,6 +153,26 @@ class AIRecommendationService
         }
 
         return $pools;
+    }
+
+    /**
+     * Attach a cached, per-build rationale (why these specific parts) to a
+     * build. Pure enhancement: any failure just leaves the build without it.
+     *
+     * @param  array<string, mixed>  $build
+     */
+    protected function attachBuildRationale(array &$build, float $budget, ?string $purpose, ?string $resolution): void
+    {
+        $rationale = $this->gemini->describeBuild(
+            $build['components'] ?? [],
+            $budget,
+            $purpose,
+            $resolution
+        );
+
+        if (is_string($rationale) && $rationale !== '') {
+            $build['ai']['rationale'] = $rationale;
+        }
     }
 
     /**

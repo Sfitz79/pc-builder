@@ -113,8 +113,15 @@
 
     <template x-if="aiRecommendation && aiRecommendation.ai && aiRecommendation.ai.rationale">
         <div class="mt-4 rounded-xl border border-purple-500/20 bg-purple-500/5 p-4 text-sm text-purple-200">
-            <p class="font-semibold">Gemini insight</p>
+            <p class="font-semibold">Why this build works</p>
             <p class="mt-1 text-purple-200/80" x-text="aiRecommendation.ai.rationale"></p>
+        </div>
+    </template>
+
+    <template x-if="aiIdealBuild && aiIdealBuild.ai && aiIdealBuild.ai.rationale">
+        <div class="mt-4 rounded-xl border border-red-500/20 bg-red-500/5 p-4 text-sm text-red-200">
+            <p class="font-semibold">Why the ideal build goes further</p>
+            <p class="mt-1 text-red-200/80" x-text="aiIdealBuild.ai.rationale"></p>
         </div>
     </template>
 

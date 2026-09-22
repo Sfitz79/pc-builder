@@ -183,6 +183,9 @@ Route::view('/best-pc-for-streaming', 'seo.use.streaming');
 use App\Http\Controllers\Api\BuildRecommendationController;
 use App\Http\Controllers\Api\PriceComparisonController;
 
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
+
 Route::prefix('api')->group(function () {
     Route::post('/build/recommend', [BuildRecommendationController::class, 'recommend']);
     Route::post('/build/compare-prices', [PriceComparisonController::class, 'comparePrices']);
@@ -199,39 +202,46 @@ Route::get('/robots.txt', function () {
 });
 
 Route::get('/sitemap.xml', function () {
-    $paths = [
-        '/',
-        '/builder',
-        '/components',
-        '/prebuilts',
-        '/software',
-        '/support',
-        '/privacy',
-        '/terms',
-        '/best-gaming-pc-under-1000',
-        '/best-gaming-pc-under-1500',
-        '/best-gaming-pc-under-2000',
-        '/best-gaming-pc-under-2500',
-        '/best-gaming-pc-under-3000',
-        '/best-pc-for-fortnite',
-        '/best-pc-for-warzone',
-        '/best-pc-for-streaming',
+    $entries = [
+        // Core pages.
+        ['/', 1.0, Url::CHANGE_FREQUENCY_WEEKLY],
+        ['/builder', 0.9, Url::CHANGE_FREQUENCY_WEEKLY],
+        ['/builder/ai', 0.8, Url::CHANGE_FREQUENCY_MONTHLY],
+        ['/builder/manual', 0.8, Url::CHANGE_FREQUENCY_MONTHLY],
+
+        // Catalogue / public guides.
+        ['/components', 0.8, Url::CHANGE_FREQUENCY_MONTHLY],
+        ['/prebuilts', 0.8, Url::CHANGE_FREQUENCY_MONTHLY],
+        ['/software', 0.8, Url::CHANGE_FREQUENCY_MONTHLY],
+
+        // SEO budget guide cluster.
+        ['/best-gaming-pc-under-1000', 0.7, Url::CHANGE_FREQUENCY_MONTHLY],
+        ['/best-gaming-pc-under-1500', 0.7, Url::CHANGE_FREQUENCY_MONTHLY],
+        ['/best-gaming-pc-under-2000', 0.7, Url::CHANGE_FREQUENCY_MONTHLY],
+        ['/best-gaming-pc-under-2500', 0.7, Url::CHANGE_FREQUENCY_MONTHLY],
+        ['/best-gaming-pc-under-3000', 0.7, Url::CHANGE_FREQUENCY_MONTHLY],
+
+        // SEO use-case / game guide cluster.
+        ['/best-pc-for-fortnite', 0.7, Url::CHANGE_FREQUENCY_MONTHLY],
+        ['/best-pc-for-warzone', 0.7, Url::CHANGE_FREQUENCY_MONTHLY],
+        ['/best-pc-for-streaming', 0.7, Url::CHANGE_FREQUENCY_MONTHLY],
+
+        // Company / support pages.
+        ['/support', 0.3, Url::CHANGE_FREQUENCY_YEARLY],
+        ['/privacy', 0.2, Url::CHANGE_FREQUENCY_YEARLY],
+        ['/terms', 0.2, Url::CHANGE_FREQUENCY_YEARLY],
+        ['/admin', 0.1, Url::CHANGE_FREQUENCY_YEARLY],
     ];
 
-    $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+    $sitemap = Sitemap::create();
 
-    foreach ($paths as $path) {
-        $xml .= "  <url>\n";
-        $xml .= "    <loc>" . url($path) . "</loc>\n";
-        $xml .= "    <changefreq>monthly</changefreq>\n";
-        $xml .= "    <priority>" . ($path === '/' ? '1.0' : '0.8') . "</priority>\n";
-        $xml .= "  </url>\n";
+    foreach ($entries as [$path, $priority, $changeFrequency]) {
+        $sitemap->add(
+            Url::create(url($path))
+                ->setPriority($priority)
+                ->setChangeFrequency($changeFrequency)
+        );
     }
 
-    $xml .= '</urlset>';
-
-    return response($xml, 200, [
-        'Content-Type' => 'application/xml',
-    ]);
-});
+    return $sitemap->toResponse(request());
+})->name('sitemap');

@@ -60,31 +60,73 @@ class GeminiService
     }
 
     /**
-     * @param  array<string, Collection<int, Component>>  $pools
-     * @return array<string, mixed>|null
+     * Ask Gemini for a short, per-build rationale that explains WHY the actual
+     * picked parts suit the user (CPU + GPU lead, socket/cooler sanity, value
+     * and purpose). Returns null whenever the provider is disabled, the request
+     * fails, or the response is malformed, so callers always degrade to the
+     * strategy-level rationale (or none at all).
+     *
+     * Part NAMES only — no per-part prices, honouring the hidden-margin mandate.
+     * Results are cached six hours keyed by the exact component set, so repeat
+     * generations for the same build are free.
+     *
+     * @param  array<string, array{id: int, name: string}>  $components
      */
-    protected function generate(array $pools, float $budget, ?string $purpose, ?string $resolution): ?array
+    public function describeBuild(array $components, float $budget, ?string $purpose = null, ?string $resolution = null): ?string
     {
+        if (! $this->available()) {
+            return null;
+        }
+
+        $ids = collect($components)->pluck('id')->filter()->sort()->implode('-');
+        $cacheKey = 'ai:gemini:build:'.md5($ids.'|'.(int) round($budget).'|'.($purpose ?? 'gaming').'|'.($resolution ?? '1440P'));
+
+        if ($cached = Cache::get($cacheKey)) {
+            return $cached;
+        }
+
+        $lines = collect($components)->map(
+            fn (array $item, string $category) => $category.': '.(string) ($item['name'] ?? '')
+        )->implode("\n");
+
         $prompt = implode("\n", [
-            'You are the PCTG PC configurator engine. Recommend per-category scoring weights for building a complete, working gaming PC using current UK market pricing (GBP).',
+            'You are the PCTG PC configurator assistant. Explain this specific build to the customer in a friendly, knowledgeable, UK-English tone (no corporate jargon, no Americanisms).',
             '',
             'User context:',
             '- Budget: £'.number_format($budget),
             '- Purpose: '.($purpose ?? 'gaming'),
             '- Target resolution: '.($resolution ?? '1440P'),
             '',
-            'A complete, functional PC requires ALL of these categories: cpu, motherboard, cooler, gpu, ram, storage, psu, case. A build missing any one of them (e.g. no cooler or no motherboard) is NOT a working PC and must be avoided.',
+            'The build chosen (part names only):',
+            $lines,
             '',
-            'Weight the categories so the picked parts stay within the budget while delivering the best real-world performance for the user\'s purpose and resolution at current market prices. Prefer the best value at the current price point — not the most expensive part. All weights must be between 0.5 and 1.5.',
+            'Write 2-3 concise sentences: why these parts are a good fit for the purpose and resolution at this price point, leading with the CPU/GPU pairing, and noting anything genuinely notable (e.g. APU-only build = no discrete GPU, DDR5 platform, overspec look). Never invent specs or prices that are not listed. Never mention that PCTG applies a margin.',
             '',
-            'Current UK market components and prices per category (this is the live catalog):',
-            $this->summarise($pools),
-            '',
-            'Respond with ONLY valid JSON:',
-            '{"weights": {"category": 1.0}, "rationale": "1-2 sentence build strategy referencing value-for-money and current market prices"}',
-            'Weights should be between 0.5 and 1.5.',
+            'Respond with ONLY valid JSON: {"rationale": "..."}',
         ]);
 
+        $response = $this->call($prompt);
+
+        if ($response === null) {
+            return null;
+        }
+
+        $rationale = is_string($response['rationale'] ?? null) ? trim($response['rationale']) : '';
+
+        if ($rationale === '') {
+            return null;
+        }
+
+        Cache::put($cacheKey, $rationale, now()->addHours(6));
+
+        return $rationale;
+    }
+
+    /**
+     * @return array<string, mixed>|null
+     */
+    protected function call(string $prompt): ?array
+    {
         try {
             $response = Http::timeout((int) config('gemini.timeout', 15))
                 ->acceptJson()
@@ -114,6 +156,34 @@ class GeminiService
         } catch (\Throwable $e) {
             return null;
         }
+    }
+
+    /**
+     * @return array<string, mixed>|null
+     */
+    protected function generate(array $pools, float $budget, ?string $purpose, ?string $resolution): ?array
+    {
+        $prompt = implode("\n", [
+            'You are the PCTG PC configurator engine. Recommend per-category scoring weights for building a complete, working gaming PC using current UK market pricing (GBP).',
+            '',
+            'User context:',
+            '- Budget: £'.number_format($budget),
+            '- Purpose: '.($purpose ?? 'gaming'),
+            '- Target resolution: '.($resolution ?? '1440P'),
+            '',
+            'A complete, functional PC requires ALL of these categories: cpu, motherboard, cooler, gpu, ram, storage, psu, case. A build missing any one of them (e.g. no cooler or no motherboard) is NOT a working PC and must be avoided.',
+            '',
+            'Weight the categories so the picked parts stay within the budget while delivering the best real-world performance for the user\'s purpose and resolution at current market prices. Prefer the best value at the current price point — not the most expensive part. All weights must be between 0.5 and 1.5.',
+            '',
+            'Current UK market components and prices per category (this is the live catalog):',
+            $this->summarise($pools),
+            '',
+            'Respond with ONLY valid JSON:',
+            '{"weights": {"category": 1.0}, "rationale": "1-2 sentence build strategy referencing value-for-money and current market prices"}',
+            'Weights should be between 0.5 and 1.5.',
+        ]);
+
+        return $this->call($prompt);
     }
 
     protected function endpoint(): string

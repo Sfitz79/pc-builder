@@ -34,3 +34,5 @@ yarn-error.log
 /test-results
 .vercel
 .env*
+# Secrets - never commit admin credentials
+/docs/ADMIN_CREDENTIALS.txt
