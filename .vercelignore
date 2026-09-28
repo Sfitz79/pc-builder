@@ -15,3 +15,16 @@
 /tests
 /.vscode
 /.idea
+
+# Scraped component imagery: 2,603 JPEGs, ~199.9 MB. Without this line every
+# `vercel` deploy uploads the lot, because .vercelignore takes precedence over
+# .gitignore and did not inherit the /public/img/components entry added there.
+#
+# Safe to exclude: the storefront renders item.image_url, which holds the remote
+# vendor/CDN URL (see App\Services\ComponentImageService), not this cache. These
+# files are a rot fallback, and production currently has image_url unpopulated
+# for all 2,708 components, so nothing on the live site is serving them.
+/public/img/components
+
+# Local integrity/quarantine state.
+/storage/framework/*.json
