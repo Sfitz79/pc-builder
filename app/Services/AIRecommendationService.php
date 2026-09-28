@@ -3425,8 +3425,20 @@ class AIRecommendationService
      */
     protected function gpuPerformanceTier(Component $gpu): int
     {
+        // (2026-09-28): read specs.chipset as well as the chipset COLUMN.
+        // The column is null on every GPU row in production - the scraper left
+        // it empty - but the real model is in specs.chipset ("Arc A310",
+        // "GeForce RTX 3050 6GB"). So the tier was previously being decided
+        // against a blank string plus a title that had the model stripped out
+        // ("Asus DUAL OC"), which is why an Arc A310 came back tier 0 "no
+        // opinion" and failed open into the 1080p band. One card, one fix.
+        $specs = (array) ($gpu->specs ?? []);
+
         $h = strtoupper(trim(
-            (string) ($gpu->chipset ?? '') . ' ' . (string) $gpu->name
+            (string) ($gpu->chipset ?? '')
+            .' '.(string) ($specs['chipset'] ?? '')
+            .' '.(string) ($specs['gpu_chipset'] ?? '')
+            .' '.(string) $gpu->name
         ));
 
         // --- Tier 5: proper 4K (RTX 5070 Ti / RX 9070 class and above) ---
@@ -3477,6 +3489,25 @@ class AIRecommendationService
             if (preg_match($t1, $h) === 1) {
                 return 1;
             }
+        }
+
+        // --- Tail: the last cards left unclassified (2026-09-28) ---
+        // Every remaining unclassified row in the live catalogue, named
+        // explicitly. "Unclassified" is NOT a safe resting place: tier 0 means
+        // "no opinion" and the band gate fails OPEN on it, so an unlisted card
+        // quietly inherits whatever the customer was promised. A deliberately
+        // modest tier is always safer than silence.
+        foreach (['/RTX 2060\b/', '/RX 6600\b/'] as $t2b) {
+            if (preg_match($t2b, $h) === 1) {
+                return 2;
+            }
+        }
+
+        // A workstation card, not a gaming one. Tier 1 keeps it out of the 1080p
+        // and above bands - it belongs on a professional build and must not be
+        // allowed to satisfy a gaming promise.
+        if (preg_match('/RADEON PRO\b|WX 5100/', $h) === 1) {
+            return 1;
         }
 
         return 0;

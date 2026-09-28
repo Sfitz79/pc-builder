@@ -16,15 +16,18 @@
 /.vscode
 /.idea
 
-# Scraped component imagery: 2,603 JPEGs, ~199.9 MB. Without this line every
-# `vercel` deploy uploads the lot, because .vercelignore takes precedence over
-# .gitignore and did not inherit the /public/img/components entry added there.
+# NOTE: /public/img/components is DELIBERATELY NOT EXCLUDED.
 #
-# Safe to exclude: the storefront renders item.image_url, which holds the remote
-# vendor/CDN URL (see App\Services\ComponentImageService), not this cache. These
-# files are a rot fallback, and production currently has image_url unpopulated
-# for all 2,708 components, so nothing on the live site is serving them.
-/public/img/components
+# It was excluded earlier to keep the deploy small, on the assumption we would
+# host component imagery on a third-party CDN. We do not have (and do not need)
+# one: Vercel already serves everything in public/ from its global edge network,
+# so pctechguy.app/img/components/<id>.jpg IS the CDN. No extra account, no
+# credentials, no cost. The storefront's image_url points at these copies rather
+# than at vendor URLs, which also removes the hotlinking and vendor-URL-rot risk.
+#
+# The files stay out of GIT (see .gitignore) - they are build assets, not source.
+# They are named by component id (100.jpg, 1000.jpg, ...), so the mapping to
+# components.image_url is exact and needs no fuzzy matching.
 
 # Local integrity/quarantine state.
 /storage/framework/*.json
