@@ -36,15 +36,29 @@ class BuildRecommendationController extends Controller
 
         $data = $request->validate([
             'budget' => ['nullable', 'numeric', 'min:0', 'max:100000'],
-            'purpose' => ['nullable', 'string', 'max:60'],
+            'purpose' => ['nullable', Rule::in('gaming', 'streaming', 'creation', 'ai')],
             'resolution' => ['nullable', Rule::in(['1080P', '1440P', '4K'])],
             'pick' => ['nullable', Rule::in(['auto', 'budget', 'ideal'])],
         ]);
 
-        $budget = isset($data['budget']) ? (float) $data['budget'] : 0.0;
+        $asked = isset($data['budget']) ? (float) $data['budget'] : 0.0;
         $purpose = $data['purpose'] ?? null;
         $resolution = $data['resolution'] ?? '1440P';
         $pick = $data['pick'] ?? 'auto';
+
+        // Clamp a below-minimum budget here too (boss directive 2026-09-28).
+        //
+        // This endpoint posts real builds into the auto-reply engine, so a lead
+        // saying "I have about GBP 700" must NOT receive a GBP 1,362 machine
+        // presented as though it met their budget - that is the exact
+        // overclaim the 5-star reputation cannot afford. The budget is raised
+        // to the honest floor and the caller is told what happened, so the
+        // reply can lead with the part-new/part-used route instead.
+        $notice = $this->recommendations->budgetNotice($asked, $resolution);
+
+        $budget = ($notice !== null && $notice['raised'])
+            ? (float) $notice['min']
+            : $asked;
 
         // auto = the budget-sensible build when a budget is given, else the ideal.
         $want = $pick === 'auto'
@@ -61,9 +75,12 @@ class BuildRecommendationController extends Controller
             'ok' => true,
             'source' => $want,
             'mode' => $build['mode'] ?? $want,
-            'budget' => $budget,
+            'budget' => $asked,
+            'budget_used' => $budget,
             'purpose' => $purpose,
             'resolution' => $resolution,
+            'notice' => $notice,
+            'bands' => $this->recommendations->workableBands(),
             'build' => [
                 'components' => collect($build['components'] ?? [])
                     ->map(fn (array $item, string $category) => [

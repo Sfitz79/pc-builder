@@ -65,7 +65,7 @@ class BuildController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'purpose' => ['nullable', 'string', 'max:255'],
+            'purpose' => ['nullable', Rule::in('gaming', 'streaming', 'creation', 'ai')],
             'resolution' => ['nullable', Rule::in(['1080P', '1440P', '4K'])],
             'budget' => ['nullable', 'numeric', 'min:0'],
             'components' => ['required', 'array', 'min:8', 'max:8'],
@@ -139,7 +139,7 @@ class BuildController extends Controller
     {
         $data = $request->validate([
             'budget' => ['required', 'numeric', 'min:0'],
-            'purpose' => ['nullable', 'string', 'max:255'],
+            'purpose' => ['nullable', Rule::in('gaming', 'streaming', 'creation', 'ai')],
             'resolution' => ['nullable', Rule::in(['1080P', '1440P', '4K'])],
         ]);
 
@@ -159,7 +159,7 @@ class BuildController extends Controller
 
         $data = $request->validate([
             'name' => ['nullable', 'string', 'max:255'],
-            'purpose' => ['nullable', 'string', 'max:255'],
+            'purpose' => ['nullable', Rule::in('gaming', 'streaming', 'creation', 'ai')],
             'resolution' => ['nullable', Rule::in(['1080P', '1440P', '4K'])],
         ]);
 

@@ -36,7 +36,7 @@ class OrderController extends Controller
     {
         $data = $request->validate([
             'name' => ['nullable', 'string', 'max:255'],
-            'purpose' => ['nullable', 'string', 'max:255'],
+            'purpose' => ['nullable', Rule::in('gaming', 'streaming', 'creation', 'ai')],
             'resolution' => ['nullable', Rule::in(['1080P', '1440P', '4K'])],
             'budget' => ['nullable', 'numeric', 'min:0'],
             'customer_name' => ['nullable', 'string', 'max:255'],
@@ -68,7 +68,17 @@ class OrderController extends Controller
 
         $partsTotal = (float) $selected->sum(fn ($item) => (float) $components[$item['id']]->price);
         $systemTotal = $this->pricing->completePrice($partsTotal);
-        $buildDelivery = (float) config('pricing.build_delivery');
+
+        // Delivery is folded INTO the single system price (Simon's directive
+        // 2026-09-28), so it must not be added on top as well. When folded we
+        // record 0 in the order's build_delivery column, which keeps the stored
+        // order maths correct (total == system price) and stops PayPal billing
+        // a second GBP 250 line item. Historical orders that still carry a real
+        // delivery figure are unaffected - only new ones are written with 0.
+        $buildDelivery = $this->pricing->foldedDelivery() > 0
+            ? 0.0
+            : (float) config('pricing.build_delivery', 0);
+
         $subtotal = round($systemTotal + $buildDelivery, 2);
         // Merchant processing is covered by the hidden margin — the customer
         // sees ONE complete system price, no itemised fee (Simon's mandate).

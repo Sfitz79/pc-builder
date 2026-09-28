@@ -50,18 +50,144 @@ window.builderState = () => ({
 
     livePrice: null,
 
+    // --- 3D Build View -------------------------------------------------------
+    viewportOpen: false,
+
+    viewportHandle: null,
+
+    viewportParts: [],
+
+    rendering3d: false,
+
+    render3dUrl: null,
+
+    render3dError: null,
+
     endpoints: {
         catalog: '/builder/catalog',
         fps: '/builder/fps',
+        bands: '/builder/bands',
         ai: '/builder/ai',
         validate: '/builder/validate',
         price: '/builder/price',
         builds: '/builder/builds'
     },
 
+    // --- Honest, measured price bands (boss directive 2026-09-28) ----------
+    // Every band floor is the price of a real, complete, AAA-at-high-settings
+    // machine measured from the live catalogue. Until the endpoint answers we
+    // use the published fallback so the slider is never briefly wrong.
+    bands: {
+        '1080p': { min: 1350, max: 1500, label: '1080p' },
+        '1440p': { min: 1530, max: 2500, label: '1440p' },
+        '4k': { min: 1960, max: 3500, label: '4K' }
+    },
+
+    bandsLoaded: false,
+
+    // Set when a typed budget is below the honest minimum. Drives the on-screen
+    // explanation and the part-new/part-used suggestion.
+    budgetNotice: null,
+
     init() {
         this.loadCatalog();
         this.loadBuilds();
+        this.loadBands();
+    },
+
+    bandKey() {
+        return (this.resolution || '').toString().toUpperCase().includes('4K') ? '4k'
+            : (this.resolution || '').toString().toUpperCase().includes('1440') ? '1440p'
+            : '1080p';
+    },
+
+    currentBand() {
+        return this.bands[this.bandKey()] || this.bands['1080p'];
+    },
+
+    // The smallest budget that will actually produce a build at this
+    // resolution. The slider starts here, so every value it can show is a
+    // value that gets a machine.
+    budgetFloor() {
+        return Math.ceil((this.currentBand().min || 0) / 10) * 10;
+    },
+
+    async loadBands() {
+        try {
+            const response = await fetch(this.endpoints.bands, {
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (!response.ok) return;
+
+            const data = await response.json();
+
+            if (data && data.bands) {
+                this.bands = data.bands;
+                this.bandsLoaded = true;
+            }
+        } catch (e) {
+            // Keep the published fallback bands. A failed fetch must never be
+            // the reason a customer is shown a slider that cannot build.
+        }
+    },
+
+    /**
+     * Called whenever the budget changes. If the customer has typed less than
+     * the honest minimum, move the value up to that minimum and explain why in
+     * plain English, offering the part-new/part-used route on WhatsApp.
+     *
+     * The server clamps too. This is not duplication for its own sake - it is
+     * so the customer is corrected while they are looking at the field,
+     * instead of discovering it after pressing the button.
+     */
+    applyBudgetFloor() {
+        const floor = this.budgetFloor();
+
+        if (!floor || this.budget === null || this.budget === undefined || this.budget === '') {
+            this.budgetNotice = null;
+
+            return false;
+        }
+
+        const asked = Number(this.budget);
+
+        if (Number.isNaN(asked) || asked >= floor) {
+            this.budgetNotice = null;
+
+            return false;
+        }
+
+        this.budget = floor;
+        this.budgetNotice = {
+            raised: true,
+            min: floor,
+            label: this.currentBand().label,
+            message: 'We have moved your budget to ' + this.money(floor) + ', which is the least a brand-new '
+                + this.currentBand().label + ' machine costs when it comes to us fully built, tested and covered '
+                + 'by our two-year warranty. Below that we would have to leave something out - the memory, the '
+                + 'proper cooling, or the graphics card - and we would rather be straight with you than hand you '
+                + 'a PC we would not put our name on.',
+            hybrid: {
+                available: true,
+                headline: 'Want to spend less?',
+                message: 'We can mix brand-new parts with parts we have already checked, tested and graded, '
+                    + 'which brings the price down while keeping the warranty on the whole machine. It is not '
+                    + 'something we put on the website, so give us a ring and we will price one up for you.',
+                whatsapp: '+447933101083',
+                whatsapp_url: 'https://wa.me/447933101083'
+            }
+        };
+
+        return true;
+    },
+
+    money(value) {
+        return '£' + Math.round(Number(value) || 0).toLocaleString('en-GB');
+    },
+
+    dismissBudgetNotice() {
+        this.budgetNotice = null;
     },
 
     csrfToken() {
@@ -133,6 +259,8 @@ window.builderState = () => ({
 
             if (Object.keys(merged).length) {
                 this.catalog = merged;
+                // Expose the DB-dimensioned catalogue to the 3D viewport.
+                window.pctgCatalog = merged;
             }
         } catch (e) {
             // Keep the bundled static catalog as a fallback.
@@ -277,6 +405,95 @@ window.builderState = () => ({
         }
     },
 
+    toggleViewport() {
+        this.viewportOpen = !this.viewportOpen;
+        if (this.viewportOpen) {
+            // Let the x-show'd container render before mounting.
+            requestAnimationFrame(() => this.initViewport());
+        }
+    },
+
+    initViewport() {
+        if (!window.mountPcViewport) return;
+
+        const el = document.getElementById('pc-viewport');
+        if (!el) return;
+
+        if (this.viewportHandle) {
+            this.viewportHandle.assemble();
+            return;
+        }
+
+        // Read the live selection through a closure so the viewport can be
+        // re-assembled as the user swaps parts.
+        this.viewportHandle = window.mountPcViewport(el, () => this.selected, {
+            onDimsChange: (parts) => this.refreshViewportParts(),
+        });
+
+        // Keep the part list + dims panel in sync on every catalog refresh.
+        this.refreshViewportParts();
+    },
+
+    refreshViewportParts() {
+        const categories = ['case', 'gpu', 'cpu', 'motherboard', 'ram', 'storage', 'psu', 'cooler'];
+        const catalog = window.pctgCatalog || {};
+
+        this.viewportParts = categories
+            .map((category) => {
+                const picked = this.selected[category];
+                if (!picked?.id) return null;
+                const full = (catalog[category] || []).find((c) => c.id === picked.id) || picked;
+                return {
+                    category,
+                    name: full.name,
+                    dims: full.dims || null
+                };
+            })
+            .filter(Boolean);
+    },
+
+    snapshotViewport() {
+        if (this.viewportHandle) {
+            this.viewportHandle.snapshot();
+        }
+    },
+
+    renderStorefront() {
+        if (!this.viewportHandle) return;
+
+        // Build the parts payload from the live selection (names, not ids).
+        const parts = {};
+        for (const [category, item] of Object.entries(this.selected)) {
+            if (item && item.name) parts[category] = item.name;
+        }
+
+        this.rendering3d = true;
+        this.render3dError = null;
+        this.render3dUrl = null;
+
+        this.viewportHandle.renderStorefront({ prompt: '', parts, denoise: 0.42 })
+            .then((url) => { this.render3dUrl = url; this.rendering3d = false; })
+            .catch((e) => { this.render3dError = e.message || 'Render failed'; this.rendering3d = false; });
+    },
+
+    downloadUrl(url) {
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `pctg-build-render-${Date.now()}.png`;
+        a.target = '_blank';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    },
+
+    viewportHint() {
+        if (!this.viewportOpen) return '';
+        const count = this.viewportParts.length;
+        return count
+            ? `${count} component${count === 1 ? '' : 's'} rendered · dimensions in millimetres`
+            : 'Select components to see them rendered.';
+    },
+
     async refreshFps() {
         const gpu = this.selected.gpu;
 
@@ -305,6 +522,9 @@ window.builderState = () => ({
         this.loading = true;
 
         try {
+            // Clamp before we spend a request on a budget we know cannot build.
+            this.applyBudgetFloor();
+
             const response = await fetch(this.endpoints.ai, {
                 method: 'POST',
                 headers: {
@@ -325,6 +545,20 @@ window.builderState = () => ({
 
             this.aiRecommendation = data.budget || data;
             this.aiIdealBuild = data.ideal || null;
+
+            // The server is the authority on the minimum. If it clamped a
+            // budget this client had not yet corrected, adopt its number and
+            // its wording so the field and the explanation can never disagree.
+            if (data.notice && data.notice.raised) {
+                this.budget = data.budget_used ?? data.notice.min;
+                this.budgetNotice = {
+                    raised: true,
+                    min: data.notice.min,
+                    label: data.notice.label,
+                    message: data.notice.message,
+                    hybrid: data.notice.hybrid
+                };
+            }
 
             const build = this.aiRecommendation;
 

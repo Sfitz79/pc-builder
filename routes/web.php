@@ -40,9 +40,18 @@ Route::prefix('builder')->name('builder.')->group(function () {
     // Alpine JSON endpoints (feed the builder store from the database).
     Route::get('/catalog', [BuilderController::class, 'catalog'])->name('catalog');
     Route::get('/fps', [BuilderController::class, 'fps'])->name('fps');
+    // Measured, achievable price bands. The budget slider and the below-minimum
+    // clamp both read this, so the smallest budget a customer can pick is
+    // always a budget that genuinely produces a build.
+    Route::get('/bands', [BuilderController::class, 'bands'])->name('bands');
     Route::post('/ai', [BuilderController::class, 'ai'])->name('ai');
     Route::post('/validate', [BuilderController::class, 'validate'])->name('validate');
     Route::post('/price', [BuilderController::class, 'price'])->name('price');
+
+    // 3D build viewport: same-origin part-image proxy (textures) + the
+    // render-to-Storefront bridge (3D geometry → aigen → photoreal render).
+    Route::get('/part-image/{component}', [BuilderController::class, 'partImage'])->name('part-image');
+    Route::post('/render-3d', [BuilderController::class, 'render3d'])->name('render-3d');
 
     // Saved build lifecycle (guest + authenticated owners).
     Route::get('/builds', [BuildController::class, 'index'])->name('builds');
@@ -156,6 +165,16 @@ Route::view('/terms', 'info-page', [
 ])->name('terms');
 
 // SEO budget guide cluster (public, static Blade pages).
+Route::view('/faq', 'faq')->name('faq');
+
+// Buyer-intent guide cluster (public, static Blade pages).
+Route::view('/guides/best-uk-custom-gaming-pc-builder', 'seo.guides.best-uk-custom-gaming-pc-builder');
+Route::view('/guides/custom-gaming-pc-under-1000-uk', 'seo.guides.custom-gaming-pc-under-1000-uk');
+Route::view('/guides/prebuilt-gaming-pc-under-800-uk', 'seo.guides.prebuilt-gaming-pc-under-800-uk');
+Route::view('/guides/best-value-gaming-pc-builder-uk', 'seo.guides.best-value-gaming-pc-builder-uk');
+Route::view('/guides/gaming-pc-900-1440p-uk', 'seo.guides.gaming-pc-900-1440p-uk');
+Route::view('/guides/custom-gaming-pc-warranty-support-uk', 'seo.guides.custom-gaming-pc-warranty-support-uk');
+
 Route::view('/best-gaming-pc-under-1000', 'seo.budget.1000');
 Route::view('/best-gaming-pc-under-1500', 'seo.budget.1500');
 Route::view('/best-gaming-pc-under-2000', 'seo.budget.2000');
@@ -195,10 +214,27 @@ Route::prefix('api')->group(function () {
 });
 
 // Search-engine plumbing for the guide cluster.
-Route::get('/robots.txt', function () {
-    return response("User-agent: *\nAllow: /\nSitemap: " . url('/sitemap.xml') . "\n", 200, [
-        'Content-Type' => 'text/plain',
+Route::get('/llms.txt', function () {
+    return response(file_get_contents(public_path('llms.txt')), 200, [
+        'Content-Type' => 'text/plain; charset=utf-8',
     ]);
+})->name('llms.txt');
+
+Route::get('/robots.txt', function () {
+    return response(
+        "User-agent: *\nAllow: /\nDisallow: /404\n\n" .
+        "User-agent: GPTBot\nAllow: /\n\n" .
+        "User-agent: OAI-SearchBot\nAllow: /\n\n" .
+        "User-agent: ChatGPT-User\nAllow: /\n\n" .
+        "User-agent: ClaudeBot\nAllow: /\n\n" .
+        "User-agent: PerplexityBot\nAllow: /\n\n" .
+        "User-agent: Google-Extended\nAllow: /\n\n" .
+        "User-agent: CCBot\nAllow: /\n\n" .
+        "Sitemap: " . secure_url('/sitemap.xml') . "\n" .
+        "Sitemap: " . secure_url('/llms.txt') . "\n",
+        200,
+        ['Content-Type' => 'text/plain']
+    );
 });
 
 Route::get('/sitemap.xml', function () {
@@ -226,6 +262,17 @@ Route::get('/sitemap.xml', function () {
         ['/best-pc-for-warzone', 0.7, Url::CHANGE_FREQUENCY_MONTHLY],
         ['/best-pc-for-streaming', 0.7, Url::CHANGE_FREQUENCY_MONTHLY],
 
+        // Buyer-intent guide cluster.
+        ['/guides/best-uk-custom-gaming-pc-builder', 0.7, Url::CHANGE_FREQUENCY_MONTHLY],
+        ['/guides/custom-gaming-pc-under-1000-uk', 0.7, Url::CHANGE_FREQUENCY_MONTHLY],
+        ['/guides/prebuilt-gaming-pc-under-800-uk', 0.7, Url::CHANGE_FREQUENCY_MONTHLY],
+        ['/guides/best-value-gaming-pc-builder-uk', 0.7, Url::CHANGE_FREQUENCY_MONTHLY],
+        ['/guides/gaming-pc-900-1440p-uk', 0.7, Url::CHANGE_FREQUENCY_MONTHLY],
+        ['/guides/custom-gaming-pc-warranty-support-uk', 0.7, Url::CHANGE_FREQUENCY_MONTHLY],
+
+        // FAQ.
+        ['/faq', 0.6, Url::CHANGE_FREQUENCY_MONTHLY],
+
         // Company / support pages.
         ['/support', 0.3, Url::CHANGE_FREQUENCY_YEARLY],
         ['/privacy', 0.2, Url::CHANGE_FREQUENCY_YEARLY],
@@ -234,12 +281,14 @@ Route::get('/sitemap.xml', function () {
     ];
 
     $sitemap = Sitemap::create();
+    $lastmod = now();
 
     foreach ($entries as [$path, $priority, $changeFrequency]) {
         $sitemap->add(
-            Url::create(url($path))
+            Url::create(secure_url($path))
                 ->setPriority($priority)
                 ->setChangeFrequency($changeFrequency)
+                ->setLastModificationDate($lastmod)
         );
     }
 

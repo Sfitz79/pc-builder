@@ -36,3 +36,16 @@ yarn-error.log
 .env*
 # Secrets - never commit admin credentials
 /docs/ADMIN_CREDENTIALS.txt
+
+# Local integrity/quarantine state. This is machine-local output written by the
+# price-integrity tooling, not part of the application - the sibling entries
+# above cover cache/sessions/views/logs but not the framework root, so
+# `git add -A` would otherwise sweep it in.
+/storage/framework/*.json
+
+# Scraped component imagery: 2,603 JPEGs totalling ~200 MB. These are downloaded
+# product photos, not source. The components table already carries an image_url
+# column, so the images belong on a CDN/object store with the URL in the
+# database; committing them would add 200 MB of permanent history to the repo
+# and slow or break every Vercel build.
+/public/img/components/

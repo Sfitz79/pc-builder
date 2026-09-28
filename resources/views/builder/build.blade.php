@@ -3,6 +3,43 @@
     active="builds"
 >
 
+    @push('schema')
+        <script type="application/ld+json">
+        {
+            "@@context": "https://schema.org",
+            "@type": "Product",
+            "name": {!! json_encode($build->name, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!},
+            "description": "Custom gaming PC built by {{ $build->user->name ?? 'PCTG Community' }}{{ $build->purpose ? ', optimised for ' . $build->purpose : '' }}{{ $build->resolution ? ', targeting ' . $build->resolution : '' }}. Configured with the PCTG AI builder and assembled in the UK.",
+            "image": "{{ url('/img/logo.svg') }}",
+            "@id": "{{ url()->current() }}#product",
+            "brand": {
+                "@type": "Brand",
+                "name": "PCTechGuy Online"
+            },
+            "offers": {
+                "@type": "Offer",
+                "priceCurrency": "GBP",
+                "price": {{ number_format($build->total_price, 2, '.', '') }},
+                "availability": "https://schema.org/PreOrder",
+                "url": "{{ url()->current() }}",
+                "itemCondition": "https://schema.org/NewCondition",
+                "seller": {
+                    "@id": "{{ url('/') }}#organization"
+                }
+            },
+            "additionalProperty": [
+                @foreach ($build->components as $index => $part)
+                {
+                    "@type": "PropertyValue",
+                    "name": {!! json_encode($part->category?->name ?? $part->pivot->category, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!},
+                    "value": {!! json_encode($part->name, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+                }{{ ! $loop->last ? ',' : '' }}
+                @endforeach
+            ]
+        }
+        </script>
+    @endpush
+
     <div class="space-y-6">
 
         <x-pctg.card>

@@ -19,6 +19,8 @@
 
             <div class="lg:col-span-4 space-y-6">
 
+                @include('builder.partials.build-3d')
+
                 @include('builder.partials.build-summary')
 
                 @include('builder.partials.compatibility')

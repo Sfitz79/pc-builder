@@ -42,4 +42,17 @@ return [
         'currency' => env('PAYPAL_CURRENCY', 'GBP'),
     ],
 
+    /*
+     * Byparr is the anti-bot proxy the live price pass runs through.
+     * PCPartPicker sits behind a Cloudflare managed challenge, so a plain HTTP
+     * client never sees the price table. Launch it with
+     * scripts\launch-byparr.ps1 before running components:refresh-prices.
+     *
+     * Do not run this pass over a VPN: a VPN address is precisely the profile
+     * Cloudflare challenges, and every item times out until the VPN is off.
+     */
+    'byparr' => [
+        'url' => env('BYPARR_URL', 'http://localhost:8191/v1'),
+    ],
+
 ];

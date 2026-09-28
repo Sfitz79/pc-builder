@@ -142,10 +142,15 @@
                         <dt class="muted text-slate-500">System</dt>
                         <dd class="font-medium text-slate-900">{{ $money($order->palSystemPrice()) }}</dd>
                     </div>
-                    <div class="flex items-center justify-between">
-                        <dt class="muted text-slate-500">Build &amp; delivery</dt>
-                        <dd class="font-medium text-slate-900">{{ $money($order->build_delivery) }}</dd>
-                    </div>
+                    {{-- Delivery is folded into the single system price for new
+                         orders (build_delivery is 0), so this line only shows for
+                         historical orders that were billed separately. --}}
+                    @if ((float) $order->build_delivery > 0)
+                        <div class="flex items-center justify-between">
+                            <dt class="muted text-slate-500">Build &amp; delivery</dt>
+                            <dd class="font-medium text-slate-900">{{ $money($order->build_delivery) }}</dd>
+                        </div>
+                    @endif
                     <div class="flex items-center justify-between border-t border-slate-200 pt-3">
                         <dt class="font-semibold text-slate-900">Total paid</dt>
                         <dd class="font-display text-lg font-bold text-slate-900">{{ $money($order->total) }}</dd>

@@ -95,11 +95,14 @@
                 <div>
                     <p class="text-xs font-medium uppercase tracking-[0.14em] text-pctg-text-secondary">System price</p>
                     <p class="mt-1 font-display text-4xl font-bold text-white" x-text="$store.checkout.amount ? $store.checkout.money($store.checkout.amount.system_price) : '…'"></p>
-                    <p class="mt-1 text-sm text-pctg-text-secondary">Includes build, burn test, cable management &amp; warranty</p>
+                    <p class="mt-1 text-sm text-pctg-text-secondary">Includes build, burn test, cable management, delivery &amp; warranty</p>
                 </div>
 
                 <dl class="space-y-2 border-t border-white/5 pt-4 text-sm">
-                    <div class="flex items-center justify-between">
+                    {{-- Delivery is folded into the single system price (Simon's
+                         directive 2026-09-28), so this row only appears if we ever
+                         go back to billing it as a separate line. --}}
+                    <div class="flex items-center justify-between" x-show="$store.checkout.amount ? $store.checkout.amount.build_delivery : false">
                         <dt class="text-pctg-text-secondary">Delivery</dt>
                         <dd class="font-medium text-white" x-text="$store.checkout.amount ? $store.checkout.money($store.checkout.amount.build_delivery) : '…'"></dd>
                     </div>

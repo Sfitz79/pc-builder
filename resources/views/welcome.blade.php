@@ -217,11 +217,16 @@
 
                     <h3 class="mt-8 text-lg font-bold">Budget</h3>
 
+                    {{-- Starts at the cheapest machine we can genuinely build
+                         and deliver at 1080p, not a round number we cannot
+                         honour (boss directive 2026-09-28). pctg-landing-demos.js
+                         overwrites these from /builder/bands so the slider can
+                         never drift from the real measured floor. --}}
                     <input
                         type="range"
-                        min="800"
-                        max="3000"
-                        step="50"
+                        min="1350"
+                        max="3500"
+                        step="10"
                         value="1500"
                         data-demo-budget
                         class="mt-4 w-full accent-red-500"
@@ -229,10 +234,19 @@
                     >
 
                     <div class="mt-2 flex items-center justify-between text-sm">
-                        <span class="text-slate-400">£800</span>
+                        <span class="text-slate-400" data-demo-budget-floor>£1,350</span>
                         <span class="font-bold text-white" data-demo-budget-label>£1,500</span>
-                        <span class="text-slate-400">£3,000</span>
+                        <span class="text-slate-400" data-demo-budget-ceiling>£3,500</span>
                     </div>
+
+                    <div
+                        data-demo-budget-notice
+                        x-cloak
+                        hidden
+                        class="mt-3 rounded-xl border border-amber-500/50 bg-amber-500/10 p-3 text-sm text-amber-100"
+                        role="status"
+                        aria-live="polite"
+                    ></div>
 
                     <div class="mt-8">
                         <x-pctg.button data-demo-generate>

@@ -1,4 +1,7 @@
-@props(['title' => null])
+@props([
+    'title' => null,
+    'description' => 'PCTG Builder — configure a custom gaming PC to your own spec, assembled and tested in the UK. Free UK delivery, warranty and lifetime remote support.',
+])
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="no-js dark">
@@ -10,11 +13,30 @@
 
     <title>{{ ($title ? $title . ' | ' : '') . config('app.name', 'PCTG Builder') }}</title>
 
+    <meta name="description" content="{{ $description }}">
+
+    <link rel="canonical" href="{{ $canonical ?? url()->current() }}">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ config('app.name', 'PCTG Builder') }}">
+    <meta property="og:url" content="{{ $canonical ?? url()->current() }}">
+    <meta property="og:title" content="{{ ($title ? $title . ' | ' : '') . config('app.name', 'PCTG Builder') }}">
+    <meta property="og:description" content="{{ $description }}">
+    <meta property="og:locale" content="en_GB">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ ($title ? $title . ' | ' : '') . config('app.name', 'PCTG Builder') }}">
+    <meta name="twitter:description" content="{{ $description }}">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    @include('partials.schema-localbusiness')
+
+    @stack('schema')
 
     @livewireStyles
     @stack('styles')

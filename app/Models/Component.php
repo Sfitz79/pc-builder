@@ -58,6 +58,7 @@ class Component extends Model
         'specs',
         'source_url',
         'image_url',
+        'price_checked_at',
     ];
 
     protected $casts = [
@@ -66,6 +67,7 @@ class Component extends Model
         'stock' => 'integer',
         'active' => 'boolean',
         'specs' => 'array',
+        'price_checked_at' => 'datetime',
     ];
 
     public function category(): BelongsTo

@@ -176,6 +176,9 @@ waitForDom(() => {
     const caseButtons = Array.from(container.querySelectorAll('[data-demo-case]'));
     const budgetInput = container.querySelector('[data-demo-budget]');
     const budgetLabel = container.querySelector('[data-demo-budget-label]');
+    const budgetFloorLabel = container.querySelector('[data-demo-budget-floor]');
+    const budgetCeilingLabel = container.querySelector('[data-demo-budget-ceiling]');
+    const budgetNotice = container.querySelector('[data-demo-budget-notice]');
     const generateButton = container.querySelector('[data-demo-generate]');
     const resultPanel = container.querySelector('[data-demo-result]');
 
@@ -183,6 +186,84 @@ waitForDom(() => {
 
     let useCase = 'gaming';
     let budget = Number(budgetInput.value) || 1500;
+
+    // Fallback until /builder/bands answers, so the slider is never briefly
+    // showing a budget we cannot build.
+    let floor = 1350;
+    let ceiling = 3500;
+
+    const WHATSAPP = '+447933101083';
+
+    const money = (value) => formatGBP(value);
+
+    // Boss directive 2026-09-28: the slider must only offer values that get a
+    // build, and a typed value below the honest minimum moves itself up with a
+    // plain-English explanation plus the part-new/part-used option.
+    const applyFloor = (quiet) => {
+        if (Number.isFinite(budget) && budget >= floor) {
+            if (budgetNotice) {
+                budgetNotice.hidden = true;
+                budgetNotice.textContent = '';
+            }
+
+            return budget;
+        }
+
+        budget = floor;
+        budgetInput.value = String(floor);
+        budgetLabel.textContent = money(floor);
+
+        if (quiet || !budgetNotice) return floor;
+
+        budgetNotice.hidden = false;
+        budgetNotice.innerHTML = ''
+            + '<p class="font-semibold text-amber-200">We have moved your budget to '
+            + money(floor) + ', which is the least a brand-new 1080p machine costs when it comes to us '
+            + 'fully built, tested and covered by our two-year warranty.</p>'
+            + '<p class="mt-1">Below that we would have to leave something out - the memory, the proper '
+            + 'cooling, or the graphics card - and we would rather be straight with you than hand you a PC '
+            + 'we would not put our name on.</p>'
+            + '<p class="mt-2 font-semibold text-white">Want to spend less?</p>'
+            + '<p class="mt-1 text-slate-300">We can mix brand-new parts with parts we have already checked, '
+            + 'tested and graded, which brings the price down while keeping the warranty on the whole machine. '
+            + 'It is not something we put on the website, so give us a ring and we will price one up for you.</p>'
+            + '<a class="mt-3 inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-3 py-1.5 text-sm '
+            + 'font-bold text-white hover:bg-emerald-400" href="https://wa.me/447933101083" '
+            + 'target="_blank" rel="noopener"><span aria-hidden="true">💬</span> Message us on WhatsApp</a>';
+
+        return floor;
+    };
+
+    const loadBands = async () => {
+        try {
+            const response = await fetch('/builder/bands', { headers: { Accept: 'application/json' } });
+
+            if (!response.ok) return;
+
+            const data = await response.json();
+            const band = data && data.bands ? data.bands['1080p'] : null;
+
+            if (!band) return;
+
+            floor = Math.ceil((Number(band.min) || 1350) / 10) * 10;
+            ceiling = Number(band.max) || 3500;
+
+            budgetInput.min = String(floor);
+            budgetInput.max = String(Math.max(ceiling, floor));
+
+            if (budgetFloorLabel) budgetFloorLabel.textContent = money(floor);
+            if (budgetCeilingLabel) budgetCeilingLabel.textContent = money(budgetInput.max);
+
+            if (Number(budgetInput.value) < floor) {
+                budgetInput.value = String(floor);
+                budget = floor;
+                budgetLabel.textContent = money(floor);
+            }
+        } catch (error) {
+            // Keep the published fallback. A failed fetch must never be the
+            // reason a customer is shown a slider that cannot build.
+        }
+    };
 
     const tierFor = (useCase, value) => (value >= 1200 ? 'premium' : 'entry');
 
@@ -239,6 +320,8 @@ waitForDom(() => {
     };
 
     const generate = async () => {
+        budget = applyFloor(false);
+
         resultPanel.innerHTML = builderLoadingMarkup();
         generateButton.disabled = true;
 
@@ -259,10 +342,16 @@ waitForDom(() => {
 
     budgetInput.addEventListener('input', () => {
         budget = Number(budgetInput.value) || 0;
-        budgetLabel.textContent = formatGBP(budget);
+        budgetLabel.textContent = money(budget);
+    });
+
+    budgetInput.addEventListener('change', () => {
+        budget = applyFloor(false);
     });
 
     generateButton.addEventListener('click', generate);
+
+    loadBands();
 
     renderStatic();
 });

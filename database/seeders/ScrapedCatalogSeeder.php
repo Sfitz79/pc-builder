@@ -341,6 +341,16 @@ class ScrapedCatalogSeeder extends Seeder
             'active' => true,
             'specs' => $specs !== [] ? $specs : null,
             'source_url' => (string) ($item['url'] ?? null) ?: null,
+            // Product photography, exported by scripts/export-catalogue-to-seed.php.
+            //
+            // Without this the deployed site has no product images at all:
+            // displayImage() falls back to the per-category placeholder, so
+            // production would show generic category art for every component
+            // even though 2,446 seed records now carry a real image URL.
+            'image_url' => trim((string) ($item['imageUrl'] ?? '')) ?: null,
+            // Stamped so the price-freshness gate starts its 7-day window at
+            // deploy time rather than at some unknown earlier scrape.
+            'price_checked_at' => now(),
         ];
     }
 
