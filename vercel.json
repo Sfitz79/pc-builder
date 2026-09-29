@@ -3,18 +3,28 @@
   "framework": null,
   "buildCommand": "npm run build",
   "builds": [
-    { "src": "/api/index.php", "use": "vercel-php@0.9.0" },
+    { "src": "/api/index.php", "use": "vercel-php@0.9.0", "config": { "excludeFiles": "{public/img/**,node_modules/**,.opencode/**,.git/**,.vercel/**,tests/**,test-results/**,storage/logs/**,database/scraped/**,.phpunit.result.cache}" } },
     { "src": "/public/build/**", "use": "@vercel/static" },
+    { "src": "/public/css/**", "use": "@vercel/static" },
+    { "src": "/public/js/**", "use": "@vercel/static" },
+    { "src": "/public/fonts/**", "use": "@vercel/static" },
+    { "src": "/public/img/**", "use": "@vercel/static" },
+    { "src": "/public/generated/**", "use": "@vercel/static" },
     { "src": "/public/favicon*", "use": "@vercel/static" },
     { "src": "/public/robots.txt", "use": "@vercel/static" },
-    { "src": "/public/.*", "use": "@vercel/static" }
+    { "src": "/public/llms.txt", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/build/assets/(.*)", "dest": "/public/build/assets/$1" },
     { "src": "/build/manifest.json", "dest": "/public/build/manifest.json" },
+    { "src": "/css/(.*)", "dest": "/public/css/$1" },
+    { "src": "/js/(.*)", "dest": "/public/js/$1" },
+    { "src": "/fonts/(.*)", "dest": "/public/fonts/$1" },
+    { "src": "/generated/(.*)", "dest": "/public/generated/$1" },
+    { "src": "/img/(.*)", "dest": "/public/img/$1" },
     { "src": "/favicon(.*)", "dest": "/public/favicon$1" },
     { "src": "/robots.txt", "dest": "/public/robots.txt" },
-    { "src": "/img/(.*)", "dest": "/public/img/$1" },
+    { "src": "/llms.txt", "dest": "/public/llms.txt" },
     { "src": "/(.*)", "dest": "/api/index.php" }
   ],
   "env": {

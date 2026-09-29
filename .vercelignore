@@ -2,6 +2,22 @@
 /vendor
 /node_modules
 
+# Git metadata is NEVER deployable. Measured 2026-09-29: .git/objects was
+# 16.7 GB (plus 582 MB of corruption debris in .git/lost-found) because this
+# working tree had a damaged object store. It was not listed here, so it was
+# uploaded into the lambda and the production deploy failed at:
+#   The Vercel Function "api/index.php" is 784.38mb uncompressed
+# Nothing under .git is read at runtime; Vercel builds from the uploaded
+# source tree, and the commit history already lives on GitHub.
+/.git
+
+# Vercel's own builder cache. Measured 2026-09-29: .vercel/builders/node_modules
+# was 145.4 MB of build tooling that is re-fetched on every remote build and is
+# read by nothing at runtime. It was uploading into the lambda and is a direct
+# cause of the function blowing the 250 MB limit. The `.vercel/project.json` link
+# file is also local state, not source.
+/.vercel
+
 # Local SQLite database must never be deployed (read-only + useless in serverless).
 /database/*.sqlite
 
@@ -28,6 +44,55 @@
 # The files stay out of GIT (see .gitignore) - they are build assets, not source.
 # They are named by component id (100.jpg, 1000.jpg, ...), so the mapping to
 # components.image_url is exact and needs no fuzzy matching.
+#
+# PROVEN WRONG AT SCALE on 2026-09-28 - DO NOT TRUST THE PARAGRAPH ABOVE.
+# A preview deploy of 232.8 MB uploaded fine and then failed the build with:
+#
+#   The Vercel Function "api/index.php" is 443.54mb uncompressed which
+#   exceeds the maximum uncompressed size limit of 250mb.
+#
+# The "Vercel serves public/ from its edge" claim is true, but it is not a
+# separate concern from the function: vercel-php bundles the project into the
+# lambda, so every cached image is also shipped inside the function. The static
+# build and the function cannot be sized independently via .vercelignore, which
+# applies globally.
+#
+# RESOLVED 2026-09-28: the real cause was 90% oversized images plus two
+# directories of build-time junk, not an architecture that needed a CDN.
+#
+# Measured composition of the 443.54 MB function:
+#   public/ 242.9 MB  (of which the component cache is 234.7 MB)
+#   vendor/  93.3 MB  (Composer install - genuinely needed)
+#   .opencode/ 52.4 MB (local agent config - shipped to production for no reason)
+#   database/ 31.5 MB (scraper source data + .bak backups - never read at runtime)
+#
+# 2,226 of 3,290 cached images (210.9 MB, 90% of the cache) were larger than
+# 600px. A storefront thumbnail at 2x does not need 1600px, so they are now
+# downscaled to a max 600px box at JPEG q82 by scripts/downscale-component-images.php.
+# That took the cache from 234.7 MB to 96.7 MB with 0 files over 600px and 0
+# unreadable files. The placeholders and the storefront are unchanged; only the
+# pixel budget moved.
+#
+# .opencode and database/scraped are excluded as pure build-time junk. Verified no
+# runtime code opens a file under either (app/, routes/, bootstrap/, config/ scanned
+# for scraped/, database_path( and .opencode - only hit is the unused sqlite default
+# fallback in config/database.php, which does not apply on pgsql).
+#
+# The cache is therefore DEPLOYED again. If the function ever approaches the 250 MB
+# limit again, re-add "/public/img/components" here and the storefront falls back to
+# the placeholders rather than failing the whole build.
+
 
 # Local integrity/quarantine state.
 /storage/framework/*.json
+
+# Test artefacts from local runs.
+/.phpunit.result.cache
+/test-results
+
+# Build-time only. Never read at runtime: the catalogue lives in Neon (pgsql).
+/.opencode
+/database/scraped
+/database/*.sqlite-journal
+/database/*.bak
+**/*.bak
