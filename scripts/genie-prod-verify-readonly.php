@@ -11,6 +11,8 @@ require __DIR__.'/../vendor/autoload.php';
 $app = require_once __DIR__.'/../bootstrap/app.php';
 $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
+
+require __DIR__ . '/genie-prod-guard.php';
 use App\Models\Component;
 use App\Services\AIRecommendationService;
 use App\Services\PriceIntegrityService;
