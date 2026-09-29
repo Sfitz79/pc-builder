@@ -297,7 +297,51 @@ class BuilderController extends Controller
     {
         $url = $component->image_url;
 
-        if (! filled($url) || ! str_starts_with($url, 'http')) {
+        if (! filled($url)) {
+            return $this->imagePlaceholderResponse($component);
+        }
+
+        // Root-relative local cache. Two environments, two correct answers:
+        //
+        //  - Local/dev: the file is in public/, so read and stream it.
+        //  - Production: public/img/** is EXCLUDED from the lambda (it would
+        //    otherwise blow the 250 MB function limit) and is served by
+        //    @vercel/static at /img/(.*). The file is therefore NOT on the
+        //    function's disk, so a disk read alone would silently return the
+        //    placeholder in production while working fine locally.
+        //
+        // So: stream from disk when it is there, otherwise redirect to the same
+        // root-relative path, which the edge serves. Neither path self-proxies
+        // over HTTP, which is both slow and fragile in serverless.
+        if (str_starts_with($url, '/')) {
+            $path = public_path(ltrim($url, '/'));
+            if (is_file($path)) {
+                $body = @file_get_contents($path);
+                if ($body !== false) {
+                    $info = @getimagesizefromstring($body);
+                    $contentType = 'image/jpeg';
+                    if ($info !== false && ! empty($info['mime'])) {
+                        $contentType = $info['mime'];
+                    } elseif (str_ends_with(strtolower($url), '.png')) {
+                        $contentType = 'image/png';
+                    } elseif (str_ends_with(strtolower($url), '.webp')) {
+                        $contentType = 'image/webp';
+                    } elseif (str_ends_with(strtolower($url), '.gif')) {
+                        $contentType = 'image/gif';
+                    }
+
+                    return response($body, 200, [
+                        'Content-Type' => $contentType,
+                        'Cache-Control' => 'public, max-age=86400',
+                    ]);
+                }
+            }
+
+            // Not on this filesystem: hand the browser the edge-served path.
+            return redirect($url, 302, ['Cache-Control' => 'public, max-age=86400']);
+        }
+
+        if (! str_starts_with($url, 'http')) {
             return $this->imagePlaceholderResponse($component);
         }
 

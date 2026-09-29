@@ -18,6 +18,17 @@ use Illuminate\Support\Facades\DB;
  * This is strictly better than the old remote vendor URLs: nothing is hotlinked,
  * a vendor cannot rot or rate-limit us, and we control the file.
  *
+ * URL FORM - ROOT-RELATIVE, ON PURPOSE. Measured 2026-09-29: APP_URL is NOT set
+ * in the Vercel production env, and config/app.php falls back to
+ * 'http://localhost'. An earlier version of this command built absolute URLs
+ * from config('app.url'), so running it against production would have stamped
+ * all 2,708 rows with http://localhost/img/components/... and broken every
+ * product image on the live storefront. Root-relative paths have no domain to
+ * get wrong, work identically on production, preview and staging, and match
+ * what ComponentImageService::resolveFor() already returns when $useLocalUrl is
+ * set. Do not "improve" this to an absolute URL without first setting APP_URL
+ * in the Vercel env AND proving it resolves.
+ *
  * SAFEGUARDS:
  *  - Dry-run unless --apply is passed. A mass write to a live storefront should
  *    never be the default.
@@ -47,16 +58,23 @@ class PopulateComponentImageUrls extends Command
             return self::FAILURE;
         }
 
-        $base = rtrim((string) config('app.url'), '/').'/img/components';
+        // Root-relative on purpose - see the class docblock. Building this from
+        // config('app.url') silently produced http://localhost/... in production
+        // because APP_URL is not set in the Vercel env.
+        $base = '/img/components';
         $apply = (bool) $this->option('apply');
         $force = (bool) $this->option('force');
         $includeInactive = (bool) $this->option('include-inactive');
 
         // Build the id => file map once, keyed on the bare numeric stem so
         // "100.jpg" and "100.JPG" cannot both land in the same slot.
+        // The extensions match what ComponentImageService::writeCache() can emit
+        // (it derives the extension from the upstream content type). Matching
+        // only .jpg once hid a real failure mode: a component whose photo was
+        // cached as .png looked to this command like it had no image at all.
         $files = [];
         foreach (scandir($dir) ?: [] as $f) {
-            if (preg_match('/^(\d+)\.jpe?g$/i', $f, $m)) {
+            if (preg_match('/^(\d+)\.(jpe?g|png|webp|gif)$/i', $f, $m)) {
                 $files[(int) $m[1]] = $f;
             }
         }
@@ -74,7 +92,7 @@ class PopulateComponentImageUrls extends Command
         $rows = [];
 
         $q->orderBy('id')->chunk(300, function ($components) use (
-            $files, $base, $force, &$stamp, &$updatable, &$skippedSet, &$skippedNoFile, &$rows
+            $files, $base, $apply, $force, &$stamp, &$updatable, &$skippedSet, &$skippedNoFile, &$rows
         ) {
             foreach ($components as $c) {
                 $file = $files[(int) $c->id] ?? null;
