@@ -19,6 +19,13 @@ $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
 use Illuminate\Support\Facades\DB;
 
+// PRODUCTION GUARD: reads .env.production.neon. Assert the driver before
+// querying so a misconfigured run cannot report local sqlite as production.
+if (DB::connection()->getDriverName() !== 'pgsql') {
+    fwrite(STDERR, "ABORT: expected the pgsql (Neon) driver, got '" . DB::connection()->getDriverName() . "'. Refusing to report production data.\n");
+    exit(2);
+}
+
 // Load the migration class and read its private const via reflection.
 $path = $root . '/database/migrations/2026_09_23_120000_add_3d_dimensions_to_component_specs.php';
 $migration = require $path;

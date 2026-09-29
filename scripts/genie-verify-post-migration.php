@@ -20,6 +20,13 @@ $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
 use Illuminate\Support\Facades\DB;
 
+// PRODUCTION GUARD: reads .env.production.neon. Assert the driver before
+// verifying, or a "successful" check could be against local sqlite.
+if (DB::connection()->getDriverName() !== 'pgsql') {
+    fwrite(STDERR, "ABORT: expected the pgsql (Neon) driver, got '" . DB::connection()->getDriverName() . "'. Refusing to verify.\n");
+    exit(2);
+}
+
 echo "=== 1. migration ledger ===\n";
 $pending = DB::table('migrations')->where('migration', 'like', '2026_09%')->orderBy('id')->pluck('migration');
 foreach ($pending as $m) echo "  recorded: {$m}\n";

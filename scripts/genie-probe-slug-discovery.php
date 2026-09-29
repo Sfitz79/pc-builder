@@ -17,6 +17,13 @@ $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
 use Illuminate\Support\Facades\DB;
 
+// PRODUCTION GUARD: this script reads .env.production.neon. Assert the driver
+// before querying, or a misconfigured run silently reports local sqlite data.
+if (DB::connection()->getDriverName() !== 'pgsql') {
+    fwrite(STDERR, "ABORT: expected the pgsql (Neon) driver, got '" . DB::connection()->getDriverName() . "'. Refusing to report production data.\n");
+    exit(2);
+}
+
 $families = [
     'lian_li_o11'    => ['o11', 'lian-li'],
     'nzxt_h6'        => ['h6', 'nzxt-h6'],

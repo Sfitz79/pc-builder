@@ -21,6 +21,13 @@ $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
 use Illuminate\Support\Facades\DB;
 
+// PRODUCTION GUARD: this script reads .env.production.neon. If the driver is
+// not pgsql we are pointed at local sqlite and every number below is fiction.
+if (DB::connection()->getDriverName() !== 'pgsql') {
+    fwrite(STDERR, "ABORT: expected the pgsql (Neon) driver, got '" . DB::connection()->getDriverName() . "'. Refusing to report production numbers.\n");
+    exit(2);
+}
+
 $conn = DB::connection();
 $cfg = $conn->getConfig();
 echo "driver=" . $conn->getDriverName() . "\n";

@@ -21,6 +21,13 @@ $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
 use Illuminate\Support\Facades\DB;
 
+// PRODUCTION GUARD: this snapshots .env.production.neon. Assert the driver
+// before reading, so we never snapshot local sqlite and call it production.
+if (DB::connection()->getDriverName() !== 'pgsql') {
+    fwrite(STDERR, "ABORT: expected the pgsql (Neon) driver, got '" . DB::connection()->getDriverName() . "'. Refusing to snapshot.\n");
+    exit(2);
+}
+
 $path = $root . '/database/migrations/2026_09_23_120000_add_3d_dimensions_to_component_specs.php';
 $ref = new ReflectionClass(require $path);
 $dims = $ref->getConstant('DIMS');
