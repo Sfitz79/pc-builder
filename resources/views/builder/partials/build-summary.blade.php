@@ -8,6 +8,21 @@
         title="Build Summary"
     />
 
+    {{-- Announced pre-built load (deep link from /prebuilts). Prevents the
+         screen changing silently. --}}
+    <div
+        x-show="prebuiltNotice"
+        x-cloak
+        class="mt-4 rounded-xl border border-red-500/20 bg-red-500/10 p-3"
+    >
+        <p class="text-sm font-bold text-red-300">
+            Showing the <span x-text="prebuiltNotice"></span> pre-built
+        </p>
+        <p class="mt-1 text-xs text-slate-400">
+            Every part below is loaded from that build. Swap anything before ordering.
+        </p>
+    </div>
+
     <div class="mt-6 space-y-4">
 
         <div class="flex justify-between">

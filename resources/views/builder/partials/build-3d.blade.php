@@ -8,10 +8,15 @@
 
         <div class="flex gap-2">
 
+            {{-- Only offered when the server says the render studio can actually
+                 be reached. Previously this button was always shown and could
+                 only fail for a real customer, after a 150 second wait. --}}
             <x-pctg.button
                 variant="secondary"
                 size="sm"
                 @click.prevent="renderStorefront()"
+                x-show="storefrontRenderAvailable"
+                x-cloak
                 x-bind:disabled="rendering3d"
             >
                 <span x-text="rendering3d ? 'Rendering…' : 'Storefront Render'"></span>
@@ -21,6 +26,8 @@
                 variant="secondary"
                 size="sm"
                 @click.prevent="snapshotViewport()"
+                x-show="viewportOpen"
+                x-cloak
             >
                 Save PNG
             </x-pctg.button>
@@ -39,28 +46,55 @@
     <p class="mt-2 text-sm text-slate-400">
         True-to-scale reference of your configured build
         <span class="text-slate-400/60">(dimensions from the live catalogue)</span>.
+        <span class="text-slate-400/60">Updates as you change parts.</span>
     </p>
 
     <div
         x-show="viewportOpen"
         x-cloak
         class="mt-4"
-        x-init="window.pctgComfyUrl = {{ Js::from(config('aigenstudio.comfyUrl')) }}; initViewport()"
+        x-init="initViewport()"
     >
         <p
             class="mb-2 text-xs text-slate-500"
             x-text="viewportHint()"
         ></p>
 
+        {{-- WebGL can be unavailable (old GPU, VM, locked-down browser). The
+             old code threw out of the mount and left this black rectangle with
+             no explanation, so the failure is stated in words instead. --}}
+        <div
+            class="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-200"
+            x-show="viewportUnavailableReason"
+            x-cloak
+        >
+            <p x-text="viewportUnavailableReason"></p>
+        </div>
+
+        {{-- three.js is fetched on first open, so the panel is briefly empty
+             by design. A visible "loading" state is better than a black
+             rectangle that looks like a broken renderer. --}}
+        <div
+            class="flex h-[380px] w-full items-center justify-center rounded-xl border border-slate-800 bg-[#0b0d12]"
+            x-show="viewportLoading"
+            x-cloak
+        >
+            <p class="text-sm text-slate-500">Loading the 3D view…</p>
+        </div>
+
         <div
             id="pc-viewport"
             class="h-[380px] w-full overflow-hidden rounded-xl border border-slate-800 bg-[#0b0d12]"
+            x-show="!viewportUnavailableReason && !viewportLoading"
         ></div>
 
-        <p class="mt-2 text-xs text-slate-500">
+        <p class="mt-2 text-xs text-slate-500" x-show="!viewportUnavailableReason && !viewportLoading">
             Drag to orbit · scroll to zoom · right-drag to pan
         </p>
 
+        {{-- Parts whose real millimetre dimensions are unknown are labelled as
+             unknown rather than omitted. A silent gap in a spec list reads as
+             "we have this covered" when it means the opposite. --}}
         <div
             class="mt-3 grid grid-cols-2 gap-2 text-xs"
             x-show="viewportParts && viewportParts.length"
@@ -72,7 +106,9 @@
                     <p class="font-semibold text-white" x-text="part.name"></p>
                     <p
                         class="text-slate-400"
-                        x-text="part.dims ? part.dims.x + ' × ' + part.dims.y + ' × ' + part.dims.z + ' mm' : ''"
+                        x-text="part.dims
+                            ? part.dims.x + ' × ' + part.dims.y + ' × ' + part.dims.z + ' mm'
+                            : 'dimensions not published for this part'"
                     ></p>
                 </div>
             </template>
@@ -127,9 +163,15 @@
     >
         Pick your parts and hit
         <span class="font-semibold text-white">Show</span>
-        to preview the physical build — then
-        <span class="font-semibold text-white">Storefront Render</span>
-        to turn the true-to-scale geometry into a photoreal shot via Aigen Studio.
+        to preview the physical build at true scale — it re-renders itself every
+        time you change a part.
+        <template x-if="storefrontRenderAvailable">
+            <span>
+                Then
+                <span class="font-semibold text-white">Storefront Render</span>
+                turns the 3D geometry into a photoreal shot.
+            </span>
+        </template>
     </div>
 
 </x-pctg.card>

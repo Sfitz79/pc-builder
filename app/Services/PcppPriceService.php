@@ -26,6 +26,23 @@ namespace App\Services;
  * current structure (td__finalPrice / td__availability--inStock), and
  * extractRows() is pure so it can be unit tested against a saved page without
  * a browser in the loop.
+ *
+ * Fetcher lanes, in order of preference:
+ *  1. ScraperAPI render mode (SCRAPER_API_KEY) - a cloud headless browser whose
+ *     egress is not the VPN, added 2026-09-29 after the Boss supplied a key.
+ *     `render=true` returns the fully-rendered page, so the Cloudflare managed
+ *     challenge is solved before we ever parse. Verified live same day: the
+ *     video-card listing returned real UK prices (GBP values present) and a
+ *     real product page returned the exact td__finalPrice / data-merchant-tag
+ *     markup this parser expects.
+ *  2. Byparr (BYPARR_URL) - local Camoufox browser, works while it is running
+ *     and off-VPN. This was the original lane; PCPartPicker's challenge has
+ *     intermittently returned the "Unavailable" page even to it.
+ *
+ * When --byparr= is passed explicitly, Byparr wins (it is an explicit
+ * override, used when testing Byparr itself); otherwise ScraperAPI wins when a
+ * key is present, because it needs no local process and its egress is not the
+ * VPN.
  */
 class PcppPriceService
 {
@@ -39,13 +56,29 @@ class PcppPriceService
 
     public function __construct(
         private readonly ?string $byparrUrl = null,
+        private readonly ?string $scraperApiKey = null,
         private readonly int $timeout = 130,
     ) {
     }
 
     public function configured(): bool
     {
-        return $this->baseUrl() !== null;
+        return $this->scraperApiKeyValue() !== null || $this->baseUrl() !== null;
+    }
+
+    /**
+     * Human label for the active fetch lane, for the refresh command header.
+     */
+    public function laneDescription(): string
+    {
+        if ($this->byparrUrl !== null) {
+            return 'Byparr (explicit --byparr): '.$this->baseUrl();
+        }
+        if ($this->scraperApiKeyValue() !== null) {
+            return 'ScraperAPI render (cloud browser)';
+        }
+
+        return 'Byparr: '.($this->baseUrl() ?? 'not configured');
     }
 
     public function baseUrl(): ?string
@@ -59,6 +92,17 @@ class PcppPriceService
         return rtrim(trim($url), '/');
     }
 
+    public function scraperApiKeyValue(): ?string
+    {
+        $key = $this->scraperApiKey ?? env('SCRAPER_API_KEY') ?? config('services.scraperapi.key');
+
+        if (! is_string($key) || trim($key) === '') {
+            return null;
+        }
+
+        return trim($key);
+    }
+
     /**
      * True when a source_url is a PCPartPicker UK product page we can refresh.
      */
@@ -68,13 +112,76 @@ class PcppPriceService
     }
 
     /**
-     * Fetch a product page through Byparr and return the rendered HTML.
+     * Fetch a product page through the active lane and return the rendered HTML.
+     *
+     * Lane order: explicit --byparr wins (testing Byparr itself); otherwise
+     * ScraperAPI render when a key is set; otherwise Byparr.
      *
      * @throws \RuntimeException on transport or challenge failure, so the caller
      *                           can count a failure rather than silently storing
      *                           a zero price.
      */
     public function fetchHtml(string $url): string
+    {
+        if ($this->byparrUrl === null && $this->scraperApiKeyValue() !== null) {
+            return $this->fetchHtmlViaScraperApi($url);
+        }
+
+        return $this->fetchHtmlViaByparr($url);
+    }
+
+    /**
+     * Fetch through ScraperAPI render mode: a cloud headless browser solves
+     * PCPartPicker's Cloudflare managed challenge and returns the fully
+     * rendered page. The response body IS the HTML (render=true with no
+     * output_format), so unlike Byparr there is no envelope to unwrap.
+     */
+    private function fetchHtmlViaScraperApi(string $url): string
+    {
+        $api = 'https://api.scraperapi.com/?'
+            . 'api_key='.rawurlencode((string) $this->scraperApiKeyValue())
+            . '&url='.rawurlencode($url)
+            . '&country_code=uk&device_type=desktop&render=true';
+
+        $context = stream_context_create(['http' => [
+            'method' => 'GET',
+            'header' => "Accept: text/html\r\n",
+            'timeout' => $this->timeout,
+            'ignore_errors' => true,
+        ]]);
+
+        $raw = @file_get_contents($api, false, $context);
+
+        if ($raw === false || $raw === '') {
+            throw new \RuntimeException('ScraperAPI did not respond within '.$this->timeout.'s.');
+        }
+
+        // ScraperAPI error responses are a small JSON object, not HTML.
+        $trimmed = ltrim($raw);
+        if (str_starts_with($trimmed, '{')) {
+            $decoded = json_decode($raw, true);
+            if (is_array($decoded) && isset($decoded['error'])) {
+                throw new \RuntimeException('ScraperAPI error: '.(string) $decoded['error']);
+            }
+        }
+
+        // A challenge page can come back with HTTP 200 if it was served without
+        // a redirect, so treat the interstitial text as a hard failure.
+        if (preg_match('/Just a moment|Perform(?:ing)? security verification|Checking your browser|Attention Required!|PCPartPicker is unavailable/i', $raw) === 1) {
+            throw new \RuntimeException('Cloudflare challenge was not solved (ScraperAPI render served a block page).');
+        }
+
+        return $raw;
+    }
+
+    /**
+     * Fetch through Byparr (local Camoufox browser) and return the rendered HTML.
+     *
+     * @throws \RuntimeException on transport or challenge failure, so the caller
+     *                           can count a failure rather than silently storing
+     *                           a zero price.
+     */
+    private function fetchHtmlViaByparr(string $url): string
     {
         $base = $this->baseUrl();
         if ($base === null) {

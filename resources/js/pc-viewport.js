@@ -5,11 +5,18 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
  * PCTG 3D Build Viewport
  *
  * Assembles a true-to-scale visual reference of the configured build from the
- * catalogue's real spec dimensions (mm). Internal reference tool — not the
- * BuildCores 3D-product-mesh approach; every part is a procedural mesh sized
- * to its physical dims and placed into the case by slot. Real product photos
- * (GPU shroud, motherboard, PSU face) are applied as textures through the
- * same-origin /builder/part-image proxy so WebGL never taints on CORS.
+ * catalogue's real spec dimensions (mm). Every part is a procedural mesh sized
+ * to its physical dims and placed into the case by slot, in the same physical
+ * layout a real PC uses: motherboard standing vertically on the tray wall, CPU
+ * on the socket, RAM beside it, GPU hung in a PCIe slot, cooler above the CPU,
+ * PSU in the basement. Coordinates are one consistent convention:
+ *   x = case width (glass at -x, tray wall at +x)
+ *   y = up
+ *   z = front-to-back (rear I/O at -z, front intake at +z)
+ *
+ * Real product photos (GPU shroud, motherboard, PSU face) are applied as
+ * textures through the same-origin /builder/part-image proxy so WebGL never
+ * taints on CORS.
  *
  * Richer procedural detail (all original, mm-scaled):
  *  - RGB: animated cycling LED rings on fans + perimeter glow strips in the
@@ -64,9 +71,21 @@ function loadTexture(url) {
 export function mountPcViewport(container, getSelection, callbacks = {}) {
     if (!container) return null;
 
-    const { onRender, onDimsChange } = callbacks;
+    const { onRender, onDimsChange, onFailure } = callbacks;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+    // WebGL is not universal. A customer on a locked-down machine, a VM, or an
+    // old integrated GPU can fail here, and the old code threw straight out of
+    // mountPcViewport: the button said "Show", the panel stayed blank, and the
+    // only symptom was a black rectangle. Fail to the caller's handler so the
+    // panel can explain itself instead of pretending to render.
+    let renderer;
+    try {
+        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+    } catch (e) {
+        onFailure?.('webgl-unavailable', 'This browser could not start WebGL, so the 3D view is unavailable. Every other part of the builder still works normally.');
+        return null;
+    }
+
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.shadowMap.enabled = true;
@@ -114,6 +133,9 @@ export function mountPcViewport(container, getSelection, callbacks = {}) {
     }
 
     // --- Animated state (reset on every assemble) --------------------------
+    let lastSignature = null;
+    let lastCaseSignature = null;
+    let buildGroup = null;
     let rgbPhase = 0;
     const rgbMats = [];          // emissive materials cycled each frame
     const spinBlades = [];       // { group, speed, wobble } fan blade rotors
@@ -211,7 +233,35 @@ export function mountPcViewport(container, getSelection, callbacks = {}) {
         return parts;
     }
 
+    /**
+     * A fingerprint of the CURRENT selection, so assemble() can tell a real
+     * part swap from a no-op re-render.
+     *
+     * This is what makes the viewport a builder rather than a one-shot preview.
+     * Without it the only way to see a swap was to Hide then Show again, because
+     * nothing in builder.js reacted to the selection changing - there was no
+     * watcher anywhere in the Alpine store. Rebuilding 200+ procedural meshes
+     * and re-creating the scene on every unrelated state change is wasteful and
+     * resets the camera, so the signature is checked first.
+     */
+    function selectionSignature(parts) {
+        return Object.keys(parts)
+            .sort()
+            .map((cat) => `${cat}:${parts[cat]?.id ?? 'none'}`)
+            .join('|');
+    }
+
     function assemble() {
+        // Build once, or only when the selection has genuinely changed. The
+        // signature is checked BEFORE any scene mutation, so a redundant call
+        // is free and cannot leave a half-disposed scene behind.
+        const pending = buildFromSelection();
+        const signature = selectionSignature(pending);
+        if (signature === lastSignature && buildGroup) {
+            return buildGroup;
+        }
+        lastSignature = signature;
+
         // dispose old scene children (build group only — keep light + floor)
         [...scene.children].forEach((c) => {
             if (c.type === 'Group' || (c.isMesh && c !== floor)) {
@@ -227,95 +277,116 @@ export function mountPcViewport(container, getSelection, callbacks = {}) {
 
         const parts = buildFromSelection();
         const caseP = parts.case;
-        const caseDims = caseP?.dims || { x: 460, y: 471, z: 426, glass: 'side', max_gpu: 420, max_cooler: 167, rad_top: 360 };
+        const caseDims = caseP?.dims || { x: 210, y: 460, z: 460, glass: 'side', max_gpu: 400, max_cooler: 170, rad_top: 360 };
 
         const build = new THREE.Group();
 
         // --- Case frame -----------------------------------------------------
         const cw = caseDims.x, ch = caseDims.y, cd = caseDims.z;
-        const casing = box(cw, ch, cd, COLORS.case, { transparent: true, opacity: 0.35, roughness: 0.35, metalness: 0.5 });
+        const casing = box(cw, ch, cd, COLORS.case, { transparent: true, opacity: 0.28, roughness: 0.35, metalness: 0.5 });
 
-        // Tempered glass side panel (the showcase panel)
-        const glassSide = box(cd, ch - 60, 6, COLORS.glass, {
+        // Tempered glass side panel — the showcase panel on the LEFT (-x wall).
+        // The mesh is thickness (x=6) × height (y) × depth (z), flush into the
+        // left wall, so it reads as a side panel, not a floating divider.
+        const glassSide = box(6, ch - 60, cd - 8, COLORS.glass, {
             transparent: true, opacity: 0.22, roughness: 0.08, metalness: 0.6, side: THREE.DoubleSide,
         });
-        glassSide.position.set(0, 0, cw / 2 - 8);
+        glassSide.position.set(-cw / 2 + 4, 0, 0);
         casing.add(glassSide);
         build.add(casing);
 
         // Front glass for front-glass cases (O11 Vision, Y70)
         if ((caseDims.glass || '').includes('front')) {
-            const glassFront = box(cw - 40, ch - 40, 6, COLORS.glass, {
+            const glassFront = box(cw - 8, ch - 40, 6, COLORS.glass, {
                 transparent: true, opacity: 0.16, roughness: 0.08, metalness: 0.6, side: THREE.DoubleSide,
             });
-            glassFront.position.set(0, 0, -cd / 2 + 10);
+            glassFront.position.set(0, 0, cd / 2 - 4);
             casing.add(glassFront);
         }
 
         // --- Case RGB perimeter (subtle, along the glass edge + top lip) -----
         if (cw > 0 && ch > 0) {
             // vertical strip beside the glass panel, facing the viewer
-            const sideStrip = rgbStrip(4, ch * 0.55, 4, 0x0a0a0f, 0.15);
-            sideStrip.position.set(-cw / 2 * 0.25, 0, cw / 2 - 26);
+            const sideStrip = rgbStrip(4, ch * 0.5, 6, 0x0a0a0f, 0.15);
+            sideStrip.position.set(-cw / 2 * 0.45, 0, 0);
             build.add(sideStrip);
             // top lip strip
-            const topStrip = rgbStrip(cd * 0.5, 4, 4, 0x0a0a0f, 0.45);
-            topStrip.position.set(0, ch / 2 - 14, cw / 2 - 60);
+            const topStrip = rgbStrip(cd * 0.5, 4, 8, 0x0a0a0f, 0.45);
+            topStrip.position.set(0, ch / 2 - 14, 0);
             build.add(topStrip);
             // basement glow strip
-            const baseStrip = rgbStrip(cd * 0.42, 4, 4, 0x0a0a0f, 0.7);
-            baseStrip.position.set(0, -ch / 2 + 26, cw / 2 - 60);
+            const baseStrip = rgbStrip(cd * 0.42, 4, 6, 0x0a0a0f, 0.7);
+            baseStrip.position.set(0, -ch / 2 + 26, 0);
             build.add(baseStrip);
         }
 
-        // --- Motherboard ------------------------------------------------------
+        // --- Coordinate basis (one convention for every part) ----------------
+        // x = case width (glass at -x, tray wall at +x)
+        // y = up
+        // z = front-to-back (rear I/O at -z, front intake at +z)
+        // The motherboard stands vertically on the +x tray wall, facing the
+        // glass; everything else mounts off it exactly like a real build. */
         const mbDims = parts.motherboard?.dims || { x: 305, y: 25, z: 244 };
-        const mb = box(mbDims.x, mbDims.y, mbDims.z, COLORS.mb);
-        // Mounted on the right wall (when viewed from glass side): x = depth axis of case, z = width axis
-        mb.rotation.y = Math.PI / 2;
-        mb.position.set(-cd / 2 + 12, ch / 2 - 70, -cw / 6);
+        const mbThick = 10;                        // board + standoffs, visual only
+        const mbH = mbDims.x || 305;               // long axis runs VERTICALLY (y)
+        const mbD = mbDims.z || 244;               // short axis runs front-back (z)
+        const mbX = cw / 2 - mbThick / 2 - 16;     // tray wall: on the +x side
+        const mbY = ch / 2 - mbH / 2 - 70;         // top of the board below any top rad
+        const mbZ = -cd / 2 + mbD / 2 + 14;         // I/O edge against the rear panel
+
+        // --- Motherboard ------------------------------------------------------
+        const mb = box(mbThick, mbH, mbD, COLORS.mb);
+        // No rotation: thickness along x, long axis along y, depth along z —
+        // a board standing on the tray wall facing the glass.
+        mb.position.set(mbX, mbY, mbZ);
         build.add(mb);
 
-        // --- CPU ---------------------------------------------------------------
+        // --- CPU -------------------------------------------------------------
         let cpuCenter = null;
         if (parts.cpu) {
-            const cpuDims = parts.cpu.dims || { x: 40, y: 9, z: 90 };
+            const cpuDims = parts.cpu.dims || { x: 40, y: 9, z: 40 };
+            // Socket is up the board, toward the I/O edge (rear, -z).
+            const cpuX = mbX + mbThick;                 // on the glass-facing face
+            const cpuY = mbY + mbH * 0.30;              // upper half of the board
+            const cpuZ = mbZ - mbD * 0.18;              // toward the rear I/O
             const cpu = box(cpuDims.x, cpuDims.y, cpuDims.z, COLORS.cpu);
-            cpu.position.set(
-                mb.position.x - 12,
-                mb.position.y + mbDims.y / 2 + cpuDims.y / 2 + 2,
-                mb.position.z + 32
-            );
+            cpu.position.set(cpuX, cpuY, cpuZ);
             cpuCenter = cpu.position.clone();
             build.add(cpu);
+
+            // Socket base (the raised metal frame around the IHS)
+            const socket = box(cpuDims.x + 12, 3, cpuDims.z + 12, COLORS.mb);
+            socket.position.set(cpuX, cpuY - cpuDims.y / 2 - 2, cpuZ);
+            build.add(socket);
         }
 
-        // --- RAM sticks ----------------------------------------------------------
+        // --- RAM sticks ---------------------------------------------------------
         if (parts.ram) {
             const ramDims = parts.ram.dims || { x: 133, y: 32, z: 7 };
+            // Two sticks stand upright beside the socket, slats facing the glass.
             for (let i = 0; i < 2; i++) {
-                const stick = box(ramDims.x, ramDims.y, ramDims.z, COLORS.ram);
+                const stick = box(ramDims.z, ramDims.y, ramDims.x, COLORS.ram);
                 stick.position.set(
-                    mb.position.x,
-                    mb.position.y + mbDims.y / 2 + ramDims.y / 2,
-                    mb.position.z - 60 + i * 20
+                    mbX + mbThick + 12 + i * 15,
+                    mbY + mbH * 0.30 + ramDims.y / 2 + 4,
+                    mbZ - mbD * 0.12 + (i % 2) * 4
                 );
                 build.add(stick);
             }
         }
 
-        // --- GPU in the primary PCIe slot -----------------------------------------
+        // --- GPU in the primary PCIe slot --------------------------------
         let gpu = null, gpuDims = { x: 300, y: 120, z: 55 }, gpuPos = { x: 0, y: 0, z: 0 };
         if (parts.gpu) {
             gpuDims = parts.gpu.dims || { x: 300, y: 120, z: 55 };
-            gpu = box(gpuDims.x, gpuDims.y, gpuDims.z, COLORS.gpu);
-            // PCIe slot on the motherboard, horizontal across the depth axis
-            gpu.rotation.y = Math.PI / 2;
-            gpu.position.set(
-                mb.position.x + mbDims.x / 2 - gpuDims.x + 30,
-                mb.position.y - mbDims.y / 2 - gpuDims.z / 2,
-                mb.position.z + 12
-            );
+            // The card sits in a PCIe slot below the CPU, parallel to the board,
+            // its long axis (x=300) pointing down into the case depth (-z is
+            // toward the rear panel where the bracket mounts).
+            gpu = box(gpuDims.x, gpuDims.z, gpuDims.y, COLORS.gpu);
+            const gpuY = mbY + mbH * 0.30 - 90;              // below the CPU
+            const gpuZ = mbZ - mbD * 0.32;                    // slot position on board
+            // Two-slot card: hang from the slot, bracket faces the rear panel.
+            gpu.position.set(mbX + mbThick + 18, gpuY, gpuZ);
             gpuPos = gpu.position;
 
             // Real product shot as the shroud texture when the part has one.
@@ -331,19 +402,20 @@ export function mountPcViewport(container, getSelection, callbacks = {}) {
             }
 
             // RGB accent strip along the shroud's top edge (visible under glass)
-            const gpuRgb = rgbStrip(gpuDims.x * 0.72, 3, 3, 0x0a0a0f, 0.9);
-            gpuRgb.position.set(gpu.position.x, gpu.position.y - gpuDims.y / 2 + 4, gpu.position.z + gpuDims.x * 0.1);
+            const gpuRgb = rgbStrip(gpuDims.x * 0.8, 3, 3, 0x0a0a0f, 0.9);
+            gpuRgb.position.set(gpuPos.x, gpuPos.y + gpuDims.z / 2 + 4, gpuPos.z);
             build.add(gpuRgb);
 
-            // Fan accents (spinning GPU shroud fans)
+            // Spinning GPU shroud fans (underside of the card, visible under glass)
+            const fanSpacing = [gpuDims.y / 4, 0, -gpuDims.y / 4];
             for (let i = 0; i < 3; i++) {
-                const fanAccent = fan(42, COLORS.fan, { spin: true, rgb: true, blades: 7, offset: 0.3 + i * 0.15, speed: Math.PI * 1.6 });
+                const fanAccent = fan(40, COLORS.fan, { spin: true, rgb: true, blades: 7, offset: 0.3 + i * 0.15, speed: Math.PI * 1.6 });
                 fanAccent.position.set(
-                    gpu.position.x + (i - 1) * 72,
-                    gpu.position.y + gpuDims.y / 4,
-                    gpu.position.z + gpuDims.z / 2 + 14
+                    gpuPos.x,
+                    gpuPos.y + gpuDims.y * 0.25,
+                    gpuPos.z + fanSpacing[i]
                 );
-                fanAccent.rotation.x = 0;
+                fanAccent.rotation.x = Math.PI / 2;    // blow down toward the floor
                 build.add(fanAccent);
             }
             build.add(gpu);
@@ -355,48 +427,54 @@ export function mountPcViewport(container, getSelection, callbacks = {}) {
         if (cooler?.type === 'aio') {
             const radLen = cooler.radiator_length || 360;
             const fans = cooler.fan_count || 3;
-            // Top-mounted radiator
-            const rad = box(radLen, 30, 54, COLORS.rad);
-            rad.position.set(0, ch / 2 - 18, -cw / 6);
+            // Top-mounted radiator, sitting flush against the roof (y = ch/2),
+            // length spans the case depth, width spans the case width.
+            const rad = box(cw * 0.72, 28, Math.min(radLen, cd - 40), COLORS.rad);
+            rad.position.set(0, ch / 2 - 14, 0);
             build.add(rad);
-            const gap = radLen / (fans + 1);
+            const gap = (Math.min(radLen, cd - 40)) / (fans + 1);
             for (let i = 1; i <= fans; i++) {
                 const f = fan(60, COLORS.fan, { spin: true, rgb: true, blades: 9, offset: 0.05 * i, speed: Math.PI * 1.1 });
-                f.position.set(rad.position.x + (i - (fans + 1) / 2) * gap, ch / 2 - 42, -cw / 6);
-                f.rotation.x = Math.PI; // blow down into case
+                f.position.set(0, ch / 2 - 52, 0 + (i - (fans + 1) / 2) * gap);
+                f.rotation.x = Math.PI / 2; // blow DOWN into case (-y)
                 build.add(f);
             }
-            // Tube runs
-            const tube = box(8, 140, 8, COLORS.aioTube);
-            tube.position.set(rad.position.x + radLen / 2 - 40, ch / 2 - 110, -cw / 6 + 30);
+            // Tube runs from the pump block up to the rad edge
+            const tube = box(10, 140, 10, COLORS.aioTube);
+            tube.position.set(mbX + mbThick + 6, ch / 2 - 110, mbZ + 30);
             build.add(tube);
         } else if (cooler?.type === 'air') {
-            const air = box(cooler.x || 125, cooler.y || 160, cooler.z || 135, COLORS.rad);
-            air.position.set(mb.position.x - 20, mb.position.y + 100, mb.position.z + 32);
+            // Air tower over the CPU: tall fin stack, sits on the socket.
+            const air = box(cooler.z || 130, cooler.y || 160, cooler.x || 120, COLORS.rad);
+            air.position.set(mbX + mbThick + 20, mbY + mbH * 0.30 + (cooler.y || 160) / 2 - 8, mbZ - mbD * 0.18 + 30);
             build.add(air);
         } else {
             // No cooler → a couple of top exhaust fans make the case feel alive
             const gap = cd / (topFanCount + 1);
             for (let i = 1; i <= topFanCount; i++) {
                 const f = fan(60, COLORS.fan, { spin: true, rgb: true, blades: 9, offset: 0.2 * i, speed: Math.PI * 1.0 });
-                f.position.set(0, ch / 2 - 42, -cw / 6 + (i - (topFanCount + 1) / 2) * gap * 0.4);
-                f.rotation.x = Math.PI; // exhaust up
+                f.position.set(0, ch / 2 - 42, 0 + (i - (topFanCount + 1) / 2) * gap);
+                f.rotation.x = -Math.PI / 2; // exhaust UP out of the roof (+y)
                 build.add(f);
             }
         }
 
         // --- Case airflow fans ----------------------------------------------------
-        // Rear exhaust near the motherboard tray (visible from the back)
+        // Rear exhaust on the rear wall (z = -cd/2), beside the I/O, blowing
+        // OUT toward -z (the back of the case).
         const rear = fan(60, COLORS.fan, { spin: true, rgb: true, blades: 9, offset: 0.55, speed: Math.PI * 1.05 });
-        rear.position.set(-cd / 2 + 8, ch / 2 - 160, -cw / 6);
+        rear.position.set(0, mbY + mbH * 0.30, -cd / 2 + 12);
+        rear.rotation.x = Math.PI; // blow OUT the rear panel (-z)
         build.add(rear);
 
-        // Front intake (hidden against the front panel but present at scale)
-        const intakeY = ch * 0.28, intakeGap = cd / 6;
+        // Front intake column hidden against the front panel (z = +cd/2),
+        // blowing inward across the build toward the rear.
+        const intakeY = [mbY + mbH * 0.42, ch * 0.15, ch * 0.42];
+        const intakeGap = [cd * 0.18, 0, -cd * 0.18];   // x offsets for depth column
         for (let i = 0; i < 3; i++) {
             const front = fan(52, COLORS.fan, { spin: true, rgb: false, blades: 7, speed: Math.PI * 0.9 });
-            front.position.set(0, intakeY, -cd / 2 + 12 + i * intakeGap);
-            front.rotation.x = 0; // blow inward
+            front.position.set(intakeGap[i], intakeY[i], cd / 2 - 12);
+            front.rotation.x = 0; // face inward: fan axis already +z
             build.add(front);
         }
 
@@ -405,7 +483,8 @@ export function mountPcViewport(container, getSelection, callbacks = {}) {
         if (parts.psu) {
             psuDims = parts.psu.dims || { x: 140, y: 86, z: 150 };
             psu = box(psuDims.x, psuDims.y, psuDims.z, COLORS.psu);
-            psu.position.set(0, -ch / 2 + psuDims.y / 2 + 20, cw / 6);
+            // Bottom of the case, toward the rear, fan face to the floor
+            psu.position.set(0, -ch / 2 + psuDims.y / 2 + 16, mbZ - 30);
             psuPos = psu.position;
             build.add(psu);
         }
@@ -414,21 +493,22 @@ export function mountPcViewport(container, getSelection, callbacks = {}) {
         let storageP = null;
         if (parts.storage) {
             const stDims = parts.storage.dims || { x: 80, y: 22, z: 3 };
-            const st = box(stDims.x, stDims.y, stDims.z, COLORS.storage);
-            st.position.set(mb.position.x - 10, mb.position.y + 10, mb.position.z - 80);
+            // M.2 / 2.5” drive behind the board tray (hidden side), facing inward
+            const st = box(stDims.y, stDims.x, stDims.z, COLORS.storage);
+            st.position.set(cw / 2 - 28, mbY - mbH * 0.12, mbZ + 66);
             storageP = st.position;
             build.add(st);
         }
 
         // --- Cables (sleeved CatmullRom runs, true thickness-scale) ---------------
         const psuTop = psu ? psuPos.y + psuDims.y / 2 : -60;
-        // 24-pin ATX: motherboard right edge -> down to the PSU front
+        // 24-pin ATX: board I/O edge -> down to the PSU front
         if (psu && mb) {
-            const src = [mb.position.x + mbDims.x / 2 - 6, mb.position.y + 24, mb.position.z + 40];
-            const dst = [psuPos.x + 4, psuTop - 4, psuPos.z - psuDims.z / 2 + 8];
+            const src = [mbX + mbThick + 18, mbY - 10, mbZ + 40];
+            const dst = [psuPos.x + 4, psuTop + 6, psuPos.z - psuDims.z / 2 + 8];
             const atx = cable([
                 src,
-                [src[0] - 8, src[1] - 60, src[2] + 18],
+                [src[0] + 10, src[1] - 60, src[2] + 16],
                 [dst[0], dst[1] - 6, dst[2] + 14],
                 dst,
             ], 3.6, 0x10151c, 0.8);
@@ -441,27 +521,27 @@ export function mountPcViewport(container, getSelection, callbacks = {}) {
         // Dual PCIe 6+2 power to the GPU
         if (psu && gpu) {
             for (let k = 0; k < 2; k++) {
-                const src = [gpu.position.x - gpuDims.x / 2 + 18, gpu.position.y - gpuDims.y / 2 - 4, gpu.position.z - 10 + k * 8];
-                const dst = [psuPos.x - 6 + k * 20, psuTop - 2, psuPos.z - 14];
+                const src = [gpuPos.x - gpuDims.x / 2 + 18, gpuPos.y - gpuDims.z / 2 - 4, gpuPos.z - 10 + k * 8];
+                const dst = [psuPos.x - 6 + k * 20, psuTop + 6, psuPos.z - 14];
                 const pcie = cable([
                     src,
-                    [src[0] + 6, src[1] - 30, src[2] + 10 + k * 20],
+                    [src[0] + 6, src[1] - 40, src[2] + 10 + k * 20],
                     [dst[0], dst[1] - 8, dst[2] + 18],
                     dst,
                 ], 3.0, 0x151a22, 0.78);
                 build.add(pcie);
             }
             const gpuConn = box(30, 12, 14, COLORS.conRad);
-            gpuConn.position.set(gpu.position.x - gpuDims.x / 2 + 6, gpu.position.y - gpuDims.y / 2 - 6, gpu.position.z - 4);
+            gpuConn.position.set(gpuPos.x - gpuDims.x / 2 + 6, gpuPos.y - gpuDims.z / 2 - 6, gpuPos.z - 4);
             build.add(gpuConn);
         }
         // SATA data + power run to storage
         if (psu && storageP && parts.storage) {
-            const src = [storageP.x + 20, storageP.y + 6, storageP.z + 12];
-            const dst = [mb.position.x - 10, mb.position.y + 14, mb.position.z - 70];
+            const src = [storageP.x + 12, storageP.y + 6, storageP.z + 10];
+            const dst = [mbX - 10, mbY + 14, mbZ - 70];
             const sata = cable([
                 src,
-                [src[0] + 4, src[1] - 20, src[2] + 24],
+                [src[0] - 12, src[1] - 24, src[2] + 22],
                 [dst[0] + 8, dst[1] - 10, dst[2] + 20],
                 dst,
             ], 2.2, 0x1a2029, 0.8);
@@ -469,13 +549,23 @@ export function mountPcViewport(container, getSelection, callbacks = {}) {
         }
 
         scene.add(build);
+        buildGroup = build;
         onDimsChange?.(parts);
 
         // Frame the build in mm space: place camera so the whole case is visible.
-        const diag = Math.max(cw, ch, cd) * 2.6;
-        camera.position.set(-diag * 0.55, diag * 0.55, diag * 0.85);
-        controls.target.set(0, 0, 0);
-        controls.update();
+        //
+        // The camera is only re-framed when the CASE changes size. Re-framing on
+        // every swap yanks the camera away from wherever the customer had
+        // orbited to, which is the single most irritating way a 3D preview can
+        // behave while someone is inspecting their build.
+        const caseSignature = `${cw}x${ch}x${cd}`;
+        if (caseSignature !== lastCaseSignature) {
+            lastCaseSignature = caseSignature;
+            const diag = Math.max(cw, ch, cd) * 2.6;
+            camera.position.set(-diag * 0.55, diag * 0.55, diag * 0.85);
+            controls.target.set(0, 0, 0);
+            controls.update();
+        }
 
         return build;
     }
@@ -628,5 +718,31 @@ export function mountPcViewport(container, getSelection, callbacks = {}) {
     assemble();
     loop();
 
-    return { assemble, snapshot, renderStorefront, renderer, destroy: () => { cancelAnimationFrame(raf); observer.disconnect(); renderer.dispose(); container.innerHTML = ''; } };
+    return {
+        assemble,
+        snapshot,
+        renderStorefront,
+        renderer,
+
+        /**
+         * True when the scene matches the current selection. Used by the caller
+         * to decide whether a re-render is needed, and by the test to prove a
+         * part swap actually changes the scene.
+         */
+        currentSignature: () => lastSignature,
+        isBuilt: () => Boolean(buildGroup),
+
+        destroy: () => {
+            cancelAnimationFrame(raf);
+            observer.disconnect();
+            window.removeEventListener('resize', resize);
+            scene.traverse?.((n) => {
+                n.geometry?.dispose?.();
+                if (Array.isArray(n.material)) n.material.forEach((m) => m.dispose?.());
+                else n.material?.dispose?.();
+            });
+            renderer.dispose();
+            container.innerHTML = '';
+        },
+    };
 }

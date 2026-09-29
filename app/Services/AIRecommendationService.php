@@ -3445,7 +3445,13 @@ class AIRecommendationService
         foreach ([
             '/RTX 5090/', '/RTX 5080/', '/RTX 4090/', '/RTX 4080/',
             '/RTX 5070\s*TI/', '/RX 9070 XT/', '/RX 9070 GRE/', '/RX 9070\b/',
-            '/RX 7900 XTX/', '/RX 7900 XT\b/', '/RX 6950 XT/', '/RX 6800 XT/',
+            '/RX 7900 XTX/', '/RX 7900 XT\b/', '/RX 6950 XT/',
+            // NOTE: RX 6800 XT was previously listed here. It is a 16GB
+            // 3070 Ti-class card, not a 4K flagship: sitting it alongside the
+            // RTX 5090 / 4090 / 7900 XTX also made every tier-4 and tier-3 gate
+            // silently satisfiable by a mid-range card. Verified against the
+            // measured top-150 demand (Warhammer 40K: Space Marine 2 asks for
+            // exactly "RX 6800 XT / RTX 3070"), so it belongs in tier 3.
         ] as $t5) {
             if (preg_match($t5, $h) === 1) {
                 return 5;
@@ -3453,7 +3459,15 @@ class AIRecommendationService
         }
 
         // --- Tier 4: strong 1440p, entry 4K (RTX 5070 / RX 7700 XT class) ---
-        foreach (['/RTX 5070\b/', '/RX 7800 XT/', '/RX 7700 XT/', '/RX 6800\b/'] as $t4) {
+        foreach ([
+            '/RTX 5070\b/', '/RX 7800 XT/', '/RX 7700 XT/',
+            // The RTX 4070 family also belongs here. It previously matched the
+            // TIER 3 pattern '/RTX 4070/', which has no word boundary, so the Ti
+            // and Ti Super variants fell into a 1440p bucket they exceed - and
+            // disagreed with the separate score table in this same class, which
+            // rates RTX 4070 TI SUPER at 750.
+            '/RTX 4070\s*TI\s*SUPER/', '/RTX 4070\s*TI/', '/RTX 4070\b/',
+        ] as $t4) {
             if (preg_match($t4, $h) === 1) {
                 return 4;
             }
@@ -3461,9 +3475,14 @@ class AIRecommendationService
 
         // --- Tier 3: real 1440p (RTX 5060 Ti / RX 6600 XT class) -----------
         foreach ([
-            '/RTX 5060\s*TI/', '/RTX 4060\s*TI/', '/RTX 4070/', '/RTX 3070\s*TI/',
-            '/RX 9060 XT/', '/RX 6600 XT/', '/RX 6700 XT/', '/RTX 3060\s*TI/',
-            '/RTX 2080\s*TI/', '/RTX 2080\b/',
+            '/RTX 5060\s*TI/', '/RTX 4060\s*TI/',
+            '/RX 9060 XT/', '/RX 6600 XT/', '/RX 6700 XT/',
+            '/RX 6800 XT/', '/RX 6800\b/',
+            // Keep the Ti explicit: tier 2 matches '/RTX 3070\b/', and a word
+            // boundary exists at the space in "RTX 3070 Ti", so without this the
+            // Ti would silently drop from tier 3 to tier 2.
+            '/RTX 3070\s*TI/',
+            '/RTX 3060\s*TI/', '/RTX 2080\s*TI/', '/RTX 2080\b/',
         ] as $t3) {
             if (preg_match($t3, $h) === 1) {
                 return 3;

@@ -44,8 +44,9 @@ class RefreshComponentPrices extends Command
         }
 
         if (! $pcpp->configured()) {
-            $this->error('Byparr is not configured. Set BYPARR_URL or pass --byparr=http://localhost:8191/v1');
-            $this->line('  Start it with: powershell -ExecutionPolicy Bypass -File scripts\launch-byparr.ps1');
+            $this->error('No price lane configured. Set SCRAPER_API_KEY or BYPARR_URL (or pass --byparr=http://localhost:8191/v1)');
+            $this->line('  Byparr:        powershell -ExecutionPolicy Bypass -File scripts\launch-byparr.ps1');
+            $this->line('  ScraperAPI:    add SCRAPER_API_KEY to .env (cloud browser, no local process)');
 
             return self::FAILURE;
         }
@@ -87,7 +88,7 @@ class RefreshComponentPrices extends Command
         $dryRun = (bool) $this->option('dry-run');
         $verifyMerchant = ! $this->option('skip-merchant-check');
 
-        $this->line("Byparr      : ".$pcpp->baseUrl());
+        $this->line("Lane        : ".$pcpp->laneDescription());
         $this->line("Candidates  : ".$total);
         $this->line('Processing  : '.$rows->count().($limit > 0 ? " (capped at --limit={$limit})" : ''));
         $this->line('Tolerance   : GBP '.$tolerance.'   Mode: '.($dryRun ? 'DRY RUN' : 'write'));

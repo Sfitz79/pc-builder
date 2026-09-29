@@ -346,6 +346,103 @@ class BuilderController extends Controller
      *
      * @return JsonResponse{prompt_id:string, reference:string, render:?string, error:?string}
      */
+    /**
+     * Is the storefront-render bridge actually usable right now?
+     *
+     * The 3D "Storefront Render" action sends the frame to aigen Studio's
+     * ComfyUI. Three things can make that impossible, and all three used to
+     * produce a button that looked available and then failed after a long wait:
+     *
+     *  1. The bridge host is still the 127.0.0.1 default. On a customer's
+     *     machine that is THEIR laptop, not the studio, so the request can
+     *     never succeed. Production must set AIGEN_URL/COMFYUI_URL to the
+     *     studio host.
+     *  2. The host is set but nothing is listening on it.
+     *  3. It is the studio host, but unreachable from the deployed app
+     *     (firewall / tunnel down).
+     *
+     * The client asks this before offering the button, so a dead affordance is
+     * never shown. Answering is cheap and cached for a short window because
+     * the check touches the network.
+     */
+    public function renderCapability(): JsonResponse
+    {
+        $configured = $this->renderBridgeConfigured();
+        $reason = null;
+        $available = false;
+
+        if (! $configured['ok']) {
+            $reason = $configured['reason'];
+        } else {
+            // 2s is deliberate. A render takes minutes; this only proves
+            // something answers. Long enough to survive a slow tunnel,
+            // short enough that the builder never feels stuck.
+            //
+            // The catch is NOT defensive padding. Guzzle THROWS a
+            // ConnectionException on DNS failure, refused connection and TLS
+            // error, and Laravel renders that exception's message - which
+            // contains the full internal studio URL - straight into the HTTP
+            // 500 body. So an unreachable studio produced a 500 that both broke
+            // the capability check and published the internal host to anyone who
+            // looked. A capability probe must never throw.
+            try {
+                $probe = \Illuminate\Support\Facades\Http::timeout(2)
+                    ->withOptions(['http_errors' => false])
+                    ->get($configured['comfyUrl'].'/system_stats');
+
+                $available = $probe->successful();
+            } catch (\Throwable $e) {
+                // Intentionally swallowed and never echoed: the exception text
+                // is exactly the host we must not disclose.
+                $available = false;
+            }
+
+            if (! $available) {
+                $reason = 'The render studio is not reachable at the moment. Your 3D view and build are unaffected - try the render again later.';
+            }
+        }
+
+        // Deliberately NO host in this payload.
+        //
+        // The first version of this endpoint published the studio origin so the
+        // frontend could show "studio online". That handed every visitor the
+        // internal hostname and port of the render machine, which is both an
+        // unnecessary disclosure and a free reconnaissance target for anyone who
+        // knows how to look. The browser only needs a yes/no.
+        return response()->json([
+            'available' => $available,
+            'reason' => $reason,
+        ])->header('Cache-Control', 'private, max-age=60');
+    }
+
+    /**
+     * Is the render bridge pointed at a real host, or still at the localhost
+     * default that only works on the developer's own machine?
+     *
+     * @return array{ok: bool, reason: ?string, comfyUrl: string, studio: bool}
+     */
+    private function renderBridgeConfigured(): array
+    {
+        $comfyUrl = rtrim((string) config('aigenstudio.comfyUrl'), '/');
+        $aigenUrl = rtrim((string) config('aigenstudio.aigenUrl'), '/');
+
+        $localhost = static fn (string $url): bool => (bool) preg_match(
+            '#^https?://(127\.0\.0\.1|localhost|\[::1\]|0\.0\.0\.0)(:|/|$)#i',
+            $url
+        );
+
+        if ($localhost($comfyUrl) || $localhost($aigenUrl)) {
+            return [
+                'ok' => false,
+                'studio' => false,
+                'comfyUrl' => $comfyUrl,
+                'reason' => 'Photoreal renders need the PCTG render studio, which is not configured for this site. The 3D view and your build are unaffected.',
+            ];
+        }
+
+        return ['ok' => true, 'studio' => true, 'comfyUrl' => $comfyUrl, 'reason' => null];
+    }
+
     public function render3d(Request $request): JsonResponse
     {
         $data = $request->validate([

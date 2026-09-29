@@ -65,8 +65,13 @@ class GpuTierSpecsChipsetTest extends TestCase
 
     public function test_midrange_and_strong_cards_classify_from_specs_chipset(): void
     {
-        $this->assertSame(3, $this->tierFor('Asus DUAL OC', ['chipset' => 'GeForce RTX 4070']),
-            'RTX 4070 is a real 1440p card (tier 3) even behind a stripped title.');
+        // CHANGED 2026-09-28: this previously asserted tier 3 and passed only
+        // because the tier-3 pattern '/RTX 4070/' had no word boundary, which
+        // also dragged the 4070 Ti and Ti Super down. The RTX 4070 is a strong
+        // 1440p / entry-4K card, so tier 3 was wrong. See GpuTierLadderTest,
+        // which pins the whole reconciled ladder.
+        $this->assertSame(4, $this->tierFor('Asus DUAL OC', ['chipset' => 'GeForce RTX 4070']),
+            'RTX 4070 is a strong 1440p / entry 4K card (tier 4), even behind a stripped title.');
 
         $this->assertSame(1, $this->tierFor('MSI VENTUS 2X E OC', ['chipset' => 'GeForce RTX 3050 6GB']),
             'RTX 3050 is tier 1.');

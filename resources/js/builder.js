@@ -50,6 +50,11 @@ window.builderState = () => ({
 
     livePrice: null,
 
+    // Set when the store loads a pre-built via ?prebuilt={slug} (deep link
+    // from /prebuilts). Drives the on-screen notice so the load is announced
+    // rather than silent.
+    prebuiltNotice: null,
+
     // --- 3D Build View -------------------------------------------------------
     viewportOpen: false,
 
@@ -63,6 +68,29 @@ window.builderState = () => ({
 
     render3dError: null,
 
+    // Set when the 3D scene needs rebuilding. See init()'s watcher.
+    viewportDirty: false,
+
+    viewportRaf: 0,
+
+    /**
+     * Storefront-render availability, reported by the SERVER rather than guessed
+     * in the browser.
+     *
+     * The render bridge needs aigen Studio's ComfyUI. On a customer's machine
+     * that is 127.0.0.1:8188 - their own laptop, not ours - so the button could
+     * only ever fail for every real customer, after a 150 second wait. The
+     * server knows whether the bridge is configured and reachable, so the button
+     * is only offered when it can actually work.
+     */
+    storefrontRenderAvailable: false,
+
+    viewportUnavailableReason: null,
+
+    // three.js is still being fetched. Distinct from "unavailable" because the
+    // remedy differs: wait, versus no WebGL support.
+    viewportLoading: false,
+
     endpoints: {
         catalog: '/builder/catalog',
         fps: '/builder/fps',
@@ -70,7 +98,9 @@ window.builderState = () => ({
         ai: '/builder/ai',
         validate: '/builder/validate',
         price: '/builder/price',
-        builds: '/builder/builds'
+        builds: '/builder/builds',
+        renderCapability: '/builder/render-capability',
+        preset: (slug) => `/builder/preset/${slug}`
     },
 
     // --- Honest, measured price bands (boss directive 2026-09-28) ----------
@@ -93,6 +123,74 @@ window.builderState = () => ({
         this.loadCatalog();
         this.loadBuilds();
         this.loadBands();
+        this.loadRenderCapability();
+        this.loadPrebuiltFromUrl();
+
+        // Re-assemble the 3D scene whenever the build changes.
+        //
+        // This watcher did not exist before 2026-09-29, and its absence is why
+        // the 3D view was not a builder: it drew once when the panel was first
+        // shown and then went stale. Swapping the GPU, using an AI build, or
+        // loading a saved build all left the old hardware in the case, with
+        // nothing on screen saying so. Every path that writes this.selected
+        // (selectComponent, the AI wizard, loadBuild, the budget auto-swap) goes
+        // through the same object, so one deep watcher covers all of them.
+        this.$watch(
+            'selected',
+            () => {
+                this.viewportDirty = true;
+                this.syncViewport();
+            },
+            { deep: true }
+        );
+    },
+
+    /**
+     * Re-assemble the 3D viewport if it is mounted and the selection moved.
+     *
+     * Debounced through requestAnimationFrame: the AI wizard and the auto-swap
+     * write several categories in a row, and rebuilding 200+ procedural meshes
+     * per write would stutter. assemble() is also signature-guarded, so a
+     * redundant call costs nothing.
+     */
+    syncViewport() {
+        if (!this.viewportHandle || !this.viewportDirty) return;
+
+        this.viewportDirty = false;
+        cancelAnimationFrame(this.viewportRaf);
+        this.viewportRaf = requestAnimationFrame(() => {
+            this.viewportHandle?.assemble();
+            this.refreshViewportParts();
+        });
+    },
+
+    /**
+     * Deep-link from /prebuilts: /builder?prebuilt={slug} loads that build into
+     * the store exactly like an AI build, so every category lands at once and
+     * the 3D viewport (which watches this.selected) re-assembles.
+     */
+    async loadPrebuiltFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        const slug = params.get('prebuilt');
+        if (!slug) return;
+
+        try {
+            const response = await fetch(this.endpoints.preset(slug));
+            if (!response.ok) return;
+
+            const payload = await response.json();
+            if (!payload?.success || !payload.build) return;
+
+            const build = payload.build;
+            this.loadedBuild = { name: build.name, components: [] };
+            this.applyBuild(build);
+
+            // Tell the customer what just happened rather than quietly changing
+            // their screen (Rule 5: silent fallbacks announce themselves).
+            this.prebuiltNotice = build.name;
+        } catch (e) {
+            this.prebuiltNotice = null;
+        }
     },
 
     bandKey() {
@@ -110,6 +208,29 @@ window.builderState = () => ({
     // value that gets a machine.
     budgetFloor() {
         return Math.ceil((this.currentBand().min || 0) / 10) * 10;
+    },
+
+    /**
+     * Ask the server whether the storefront-render bridge is actually usable.
+     *
+     * Deliberately server-side: the browser cannot tell whether the studio's
+     * ComfyUI is up, and guessing wrong means showing a customer a button that
+     * hangs for two and a half minutes and then errors.
+     */
+    async loadRenderCapability() {
+        try {
+            const response = await fetch(this.endpoints.renderCapability, {
+                headers: { Accept: 'application/json' },
+            });
+            if (!response.ok) return;
+
+            const data = await response.json();
+            this.storefrontRenderAvailable = Boolean(data?.available);
+            this.renderCapabilityReason = data?.reason || null;
+        } catch (e) {
+            // No capability = no button. Fail closed.
+            this.storefrontRenderAvailable = false;
+        }
     },
 
     async loadBands() {
@@ -413,9 +534,7 @@ window.builderState = () => ({
         }
     },
 
-    initViewport() {
-        if (!window.mountPcViewport) return;
-
+    async initViewport() {
         const el = document.getElementById('pc-viewport');
         if (!el) return;
 
@@ -424,11 +543,46 @@ window.builderState = () => ({
             return;
         }
 
+        // three.js arrives on demand (see app.js). Until it has, the panel is
+        // "loading", not "broken" - a failed chunk fetch must be distinguishable
+        // from a browser without WebGL, because the fixes are different.
+        if (!window.mountPcViewport) {
+            this.viewportLoading = true;
+            try {
+                await (window.loadPcViewportModule ? window.loadPcViewportModule() : null);
+            } catch (e) {
+                this.viewportLoading = false;
+                this.viewportUnavailableReason = 'The 3D view could not be loaded. Check your connection and try again - everything else in the builder works as normal.';
+                return;
+            }
+            this.viewportLoading = false;
+        }
+
+        if (!window.mountPcViewport) {
+            this.viewportUnavailableReason = 'The 3D view is unavailable. Every other part of the builder still works normally.';
+            return;
+        }
+
         // Read the live selection through a closure so the viewport can be
         // re-assembled as the user swaps parts.
         this.viewportHandle = window.mountPcViewport(el, () => this.selected, {
-            onDimsChange: (parts) => this.refreshViewportParts(),
+            onDimsChange: () => this.refreshViewportParts(),
+
+            // WebGL can be unavailable. Say so in words rather than leaving a
+            // black rectangle where the build should be.
+            onFailure: (code, message) => {
+                this.viewportUnavailableReason = message;
+            },
         });
+
+        // A null handle means the viewport could not start at all. Reopening the
+        // panel must not spin forever trying to mount it again.
+        if (!this.viewportHandle) {
+            return;
+        }
+
+        this.viewportDirty = false;
+        this.viewportUnavailableReason = null;
 
         // Keep the part list + dims panel in sync on every catalog refresh.
         this.refreshViewportParts();
@@ -460,6 +614,13 @@ window.builderState = () => ({
 
     renderStorefront() {
         if (!this.viewportHandle) return;
+
+        // Never let a customer start a 150 second job that cannot succeed.
+        if (!this.storefrontRenderAvailable) {
+            this.render3dError = this.renderCapabilityReason
+                || 'Photoreal renders are not available right now. The 3D view and your build are unaffected.';
+            return;
+        }
 
         // Build the parts payload from the live selection (names, not ids).
         const parts = {};

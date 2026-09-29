@@ -28,6 +28,20 @@ class BuildRecommendationController extends Controller
 
     public function recommend(Request $request): JsonResponse
     {
+        // Accept the site's own public vocabulary.
+        //
+        // GET /builder/bands publishes its band keys as "1080p", "1440p" and
+        // "4k", but this endpoint validated against "1080P", "1440P" and "4K".
+        // A client that read the bands and passed the key straight through hit
+        // a failed validation, and a non-JSON 302 redirect back to the
+        // homepage instead of a build - so the two halves of the same feature
+        // disagreed on how a resolution is spelled.
+        if ($request->has('resolution') && is_string($request->input('resolution'))) {
+            $request->merge([
+                'resolution' => strtoupper(trim($request->input('resolution'))),
+            ]);
+        }
+
         $expected = env('BUILDER_GENIE_TOKEN');
 
         if ($expected !== null && $expected !== '' && ! hash_equals((string) $expected, (string) $request->header('X-Genie-Token', ''))) {
