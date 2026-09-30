@@ -121,6 +121,26 @@ function Invoke-Vercel {
 # The domains that must never move without an explicit -Promote.
 $liveDomains = @('https://pctechguy.app', 'https://www.pctechguy.app')
 
+# Sample ONE real component image from the local cache, once, at the top level,
+# because BOTH the deploy gate and the promote verification need it.
+#
+# Added 2026-09-30 after the gate passed a deployment that was serving every
+# component photo as a 404. It checked a placeholder SVG and a stylesheet but
+# never a product photo, so www.pctechguy.app sat two days on a stale
+# deployment and reported itself perfectly healthy: every HTML route returned
+# 200 while every /img/components/*.jpg 404'd. A gate that cannot see the thing
+# you just released is not a gate.
+#
+# Sampled rather than hard-coded so it can never go stale or assert on a
+# component that no longer exists.
+$imgSample = Get-ChildItem -LiteralPath (Join-Path $PSScriptRoot '..\public\img\components') -Filter '*.jpg' -ErrorAction SilentlyContinue |
+    Get-Random -Count 1
+if ($imgSample) {
+    Write-Host "component image check: $($imgSample.Name)" -ForegroundColor Cyan
+} else {
+    Write-Warning 'no component image found in the cache; gates cannot verify product photos'
+}
+
 # ------------------------------------------------------- preflight gates ---
 # Run the mechanical checks BEFORE any deploy. Every gate here corresponds to a
 # real error made on 2026-09-28 (phantom gate path, read-but-never-applied
@@ -231,6 +251,12 @@ if ($Production) {
         '/build/manifest.json'
     )
 
+    # A REAL component image, sampled from the local cache at the top of this
+    # script. See the comment there for why the gate needs one.
+    if ($imgSample) {
+        $gate += "/img/components/$($imgSample.BaseName).jpg"
+    }
+
     $failed = @()
     foreach ($domain in $liveDomains) {
         foreach ($path in $gate) {
@@ -321,14 +347,29 @@ if ($info.Output -notmatch 'Ready') {
 }
 Write-Host 'Verified: target=production, status=Ready' -ForegroundColor Green
 
-# If it already serves the live domain, say so instead of pretending to work.
-$alreadyLive = $false
+# Report which domains are ALREADY on this deployment, one by one.
+#
+# This used to be a single $alreadyLive boolean, which produced the note
+# "already holds the live alias. Nothing to change." while only the APEX domain
+# was actually on the deployment - www was still two days stale, serving 404s
+# for every component image. A boolean hides a partial state behind a sentence
+# that claims there is nothing to do. Ask per domain, and if any domain is NOT
+# already there, say which one.
+$staleDomains = @()
 foreach ($domain in $liveDomains) {
-    $probe = & curl.exe -s -o NUL -w "%{http_code}" --max-time 60 "$domain/" 2>$null
-    if ($probe -eq '200') { $alreadyLive = $true }
+    $current = Invoke-Vercel @('inspect', $domain)
+    if ($current.Output -match [regex]::Escape($Promote)) {
+        Write-Host "$domain is already on $Promote" -ForegroundColor DarkGray
+    } else {
+        $staleDomains += $domain
+        $found = if ($current.Output -match 'Fetched deployment "([^"]+)"') { $Matches[1] } else { 'unknown' }
+        Write-Host "$domain is NOT on this deployment (currently: $found)" -ForegroundColor Yellow
+    }
 }
-if ($alreadyLive -and $info.Output -match [regex]::Escape($Promote)) {
-    Write-Host "Note: $Promote already holds the live alias. Nothing to change." -ForegroundColor Yellow
+if ($staleDomains.Count -eq 0) {
+    Write-Host 'Both live domains already serve this deployment.' -ForegroundColor Green
+} else {
+    Write-Host "Moving $($staleDomains.Count) domain(s) onto $Promote" -ForegroundColor Yellow
 }
 
 foreach ($domain in $liveDomains) {
@@ -345,14 +386,25 @@ foreach ($domain in $liveDomains) {
 Write-Host ''
 Write-Host 'Verifying live domains...' -ForegroundColor Cyan
 $failed = $false
+# Check a real component image on every domain, not just the homepage. A domain
+# can serve a perfect 200 on every HTML route while every product photo 404s -
+# that is exactly the state www.pctechguy.app was in, and the homepage check
+# called it healthy. The homepage is no longer accepted as proof on its own.
+$verifyImage = if ($imgSample) { "/img/components/$($imgSample.BaseName).jpg" } else { $null }
 foreach ($domain in $liveDomains) {
     $code = & curl.exe -s -o NUL -w "%{http_code}" --max-time 60 "$domain/" 2>$null
     Write-Host ("  {0,-30} HTTP {1}" -f $domain, $code)
     if ($code -ne '200') { $failed = $true }
+    if ($verifyImage) {
+        $imgCode = & curl.exe -s -o NUL -w "%{http_code}" --max-time 60 "$domain$verifyImage" 2>$null
+        $imgLabel = if ($imgCode -eq '200') { 'ok' } else { 'MISSING' }
+        Write-Host ("  {0,-30} image HTTP {1}  {2}" -f $domain, $imgCode, $imgLabel)
+        if ($imgCode -ne '200') { $failed = $true }
+    }
 }
 
 if ($failed) {
-    Write-Error 'one or more live domains did not return 200 after promotion. Investigate before retrying.'
+    Write-Error 'one or more live domains failed after promotion (page or component image). Investigate before retrying.'
 }
 
 Write-Host ''
