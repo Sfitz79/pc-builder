@@ -148,7 +148,18 @@ if ($neonScripts === []) {
         // Two distinct mistakes, both made on 2026-09-28:
         //   a) reading the production env file but never APPLYING it (queried sqlite)
         //   b) not asserting the driver afterwards
-        if (!str_contains($src, 'putenv(') && !str_contains($src, '$_ENV[')) {
+        //
+        // There are TWO safe ways to reach production, and only the first was
+        // recognised. The second is an EXPLICIT pgsql connection built from the
+        // .neon values, which is what scripts legitimately use when they must
+        // read local SQLite as well - genie-download-cdn-images.php and
+        // genie-measure-name-join.php both need the local name->cdn-url map
+        // while reading the production rows, so applying the production env
+        // globally would be actively wrong for them. Demanding putenv() would
+        // have pushed those scripts towards the bug instead of away from it.
+        $appliesEnv = str_contains($src, 'putenv(') || str_contains($src, '$_ENV[');
+        $explicitConn = (bool) preg_match("/['\"]driver['\"]\s*=>\s*['\"]pgsql['\"]/", $src);
+        if (!$appliesEnv && !$explicitConn) {
             $fail($name . ' reads .env.production.neon but never applies it', 'it will silently query local sqlite');
             continue;
         }
