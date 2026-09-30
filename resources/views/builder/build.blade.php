@@ -94,6 +94,7 @@
                     <x-pctg.component-card
                         :title="$part->name"
                         :subtitle="$part->category?->name ?? $part->pivot->category"
+                        :image="$part->displayImage()"
                     >
                         <x-pctg.badge variant="success">
                             Compatible

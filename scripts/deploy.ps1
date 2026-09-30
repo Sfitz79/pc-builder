@@ -288,6 +288,54 @@ if ($Production) {
         Write-Error "rolled back. Failures:`n$($failed -join "`n")"
     }
 
+    # `vercel deploy --prod` assigns the APEX alias. It does NOT move
+    # www.pctechguy.app - measured twice on 2026-09-30, both times leaving www
+    # silently one deployment behind while the verification gate passed it
+    # cleanly, because a stale domain is a perfectly healthy domain serving
+    # slightly older code.
+    #
+    # The gate above cannot catch that: it asks "does www serve the right
+    # things?", not "is www serving THIS deployment?". The second question is
+    # the one that matters, so ask it directly and move anything that drifted.
+    Write-Host ''
+    Write-Host 'Checking both live domains actually point at this deployment...' -ForegroundColor Cyan
+    $drifted = @()
+    foreach ($domain in $liveDomains) {
+        $current = Invoke-Vercel @('inspect', $domain)
+        if ($current.Output -match [regex]::Escape($newUrl)) {
+            Write-Host "  $domain is current" -ForegroundColor DarkGray
+        } else {
+            $found = if ($current.Output -match 'Fetched deployment "([^"]+)"') { $Matches[1] } else { 'unknown' }
+            Write-Host "  $domain is STALE (serving: $found)" -ForegroundColor Yellow
+            $drifted += $domain
+        }
+    }
+    if ($drifted.Count -gt 0) {
+        Write-Host "Moving $($drifted.Count) stale domain(s) onto $newUrl" -ForegroundColor Yellow
+        foreach ($domain in $drifted) {
+            $domainHost = ([uri]$domain).Host
+            $a = Invoke-Vercel @('alias', 'set', $newUrl, $domainHost)
+            if ($a.ExitCode -ne 0) {
+                Write-Error "alias set failed for $domainHost :`n$($a.Output)"
+            } else {
+                Write-Host "  aliased $domainHost -> $newUrl" -ForegroundColor Green
+            }
+        }
+    }
+
+    # Re-verify after moving, so "deployed and verified" can never mean
+    # "verified before the domains were corrected".
+    $postFail = @()
+    foreach ($domain in $liveDomains) {
+        $check = Invoke-Vercel @('inspect', $domain)
+        if ($check.Output -notmatch [regex]::Escape($newUrl)) {
+            $postFail += $domain
+        }
+    }
+    if ($postFail.Count -gt 0) {
+        Write-Error "these domains are not serving $newUrl after aliasing: $($postFail -join ', ')"
+    }
+
     Write-Host ''
     Write-Host "PRODUCTION DEPLOYED AND VERIFIED: $newUrl" -ForegroundColor Green
     return
