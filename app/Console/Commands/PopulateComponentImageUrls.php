@@ -45,12 +45,28 @@ class PopulateComponentImageUrls extends Command
     protected $signature = 'components:populate-image-urls
         {--apply : Actually write. Without this it only reports.}
         {--force : Also overwrite image_url values that are already set.}
-        {--include-inactive : Also stamp components that are not active.}';
+        {--include-inactive : Also stamp components that are not active.}
+        {--expect-driver= : Abort unless the DB driver matches, e.g. pgsql. Use for any production run.}';
 
     protected $description = 'Point components.image_url at the Vercel-served local image cache';
 
     public function handle(): int
     {
+        // MEASURED 2026-09-29: a bare `php artisan components:populate-image-urls`
+        // runs against the LOCAL sqlite database and reports a completely
+        // different catalogue from production - it claimed 2,604 rows already
+        // had an image_url while production has 0. Every report from this
+        // command therefore states which database it is talking about, and
+        // --expect-driver makes a production run fail loudly instead of
+        // quietly operating on the wrong data.
+        $driver = (string) DB::connection()->getDriverName();
+        $expected = (string) $this->option('expect-driver');
+        if ($expected !== '' && $driver !== $expected) {
+            $this->error("ABORT: expected the '{$expected}' driver but this is '{$driver}'. Refusing to continue.");
+
+            return self::FAILURE;
+        }
+
         $dir = public_path('img/components');
         if (! is_dir($dir)) {
             $this->error("No image cache at {$dir}");
@@ -80,6 +96,9 @@ class PopulateComponentImageUrls extends Command
         }
 
         $this->info(sprintf('image cache: %d file(s) in %s', count($files), $dir));
+        $this->info(sprintf('DATABASE: driver=%s host=%s database=%s', $driver,
+            (string) (DB::connection()->getConfig()['host'] ?? '?'),
+            (string) (DB::connection()->getConfig()['database'] ?? '?')));
         $this->info("target base:  {$base}");
         $this->line($apply ? '<fg=yellow>MODE: APPLY (writing)</>' : '<fg=cyan>MODE: DRY-RUN (no writes)</>');
 

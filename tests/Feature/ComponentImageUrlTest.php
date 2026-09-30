@@ -170,6 +170,23 @@ class ComponentImageUrlTest extends TestCase
         $this->assertStringEndsWith('/img/components/999999-missing.jpg', $response->headers->get('Location'));
     }
 
+    public function test_part_image_returns_a_placeholder_not_a_500_when_there_is_no_image_url(): void
+    {
+        // MEASURED 2026-09-30 in production: /builder/part-image/41637 (a real
+        // component, Zalman S2, image_url empty) returned HTTP 500. The
+        // placeholder branch used to be an unconditional File::get(), which
+        // throws in production because public/img/** is excluded from the
+        // lambda. That is every one of the 2,022 components with no cached
+        // photo, so the 3D viewport was broken for 75% of the catalogue.
+        $component = $this->makeComponent();
+        $component->update(['image_url' => null]);
+
+        $response = $this->get('/builder/part-image/'.$component->id);
+
+        $this->assertNotSame(500, $response->getStatusCode(),
+            'a missing image must degrade to a placeholder, never a server error');
+    }
+
     public function test_display_image_falls_back_when_there_is_no_image_at_all(): void
     {
         $component = $this->makeComponent();

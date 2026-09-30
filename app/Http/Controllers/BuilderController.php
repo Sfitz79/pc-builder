@@ -593,9 +593,23 @@ class BuilderController extends Controller
             default => '/img/placeholders/cooler.svg',
         };
 
-        return response(\Illuminate\Support\Facades\File::get(public_path($path)), 200, [
-            'Content-Type' => 'image/svg+xml',
-            'Cache-Control' => 'public, max-age=86400',
-        ]);
+        // Same two-environment problem as partImage() above, with a much worse
+        // failure mode: this used to be an unconditional File::get(), which
+        // THROWS when the file is absent. In production public/img/** is
+        // excluded from the lambda, so every component without a cached photo
+        // 500'd here - that is 2,022 of 2,708 components, i.e. the 3D viewport
+        // broke for 75% of the catalogue instead of showing a placeholder.
+        if (is_file($full = public_path(ltrim($path, '/')))) {
+            $body = @file_get_contents($full);
+            if ($body !== false) {
+                return response($body, 200, [
+                    'Content-Type' => 'image/svg+xml',
+                    'Cache-Control' => 'public, max-age=86400',
+                ]);
+            }
+        }
+
+        // Not on the function's filesystem: the edge serves it.
+        return redirect($path, 302, ['Cache-Control' => 'public, max-age=86400']);
     }
 }
