@@ -367,26 +367,48 @@ window.builderState = () => ({
     async loadCatalog() {
         try {
             const response = await fetch(this.endpoints.catalog);
-            if (!response.ok) return;
+            if (!response.ok) throw new Error('catalog HTTP ' + response.status);
 
             const data = await response.json();
             const merged = { ...this.catalog };
+            const empty = [];
 
             for (const category of Object.keys(data)) {
                 if (Array.isArray(data[category]) && data[category].length) {
                     merged[category] = data[category];
+                } else if (Array.isArray(data[category])) {
+                    // The API answered, and the answer was an EMPTY list. Keeping
+                    // the bundled placeholder here is what made a category look
+                    // "missing" while showing 3 demo parts, so it is recorded and
+                    // surfaced instead of being papered over.
+                    empty.push(category);
+                    delete merged[category];
                 }
             }
 
             if (Object.keys(merged).length) {
                 this.catalog = merged;
-                // Expose the DB-dimensioned catalogue to the 3D viewport.
                 window.pctgCatalog = merged;
             }
+            this.catalogEmpty = empty;
+            if (empty.length) {
+                console.warn('[builder] catalogue empty from API, not showing demo parts for: ' + empty.join(', '));
+            }
         } catch (e) {
-            // Keep the bundled static catalog as a fallback.
+            // A SILENT fallback is how "only 3 CPUs exist" became invisible. The
+            // demo list is 3 parts per category; if it is what the customer is
+            // looking at, they must be told, or they will report missing parts.
+            this.catalogStale = true;
+            console.error('[builder] catalogue fetch failed, showing BUNDLED DEMO parts (' +
+                (e && e.message ? e.message : e) + '). Real stock is not loaded.');
         }
     },
+
+    // Set by loadCatalog(). catalogStale means the customer is looking at the
+    // bundled 3-part demo list rather than live stock; catalogEmpty lists
+    // categories the API returned empty for. Both are surfaced, not swallowed.
+    catalogStale: false,
+    catalogEmpty: [],
 
     catalog: {
         cpu: [
