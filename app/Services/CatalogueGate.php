@@ -254,12 +254,28 @@ class CatalogueGate
         return strtoupper($chipset);
     }
 
+    /**
+     * ASUS Crosshair boards are branded with a ROMAN NUMERAL, not a chipset:
+     * "ROG Crosshair VIII Hero" is an X570 (AM4) board. The plain pattern match
+     * missed it and the gate was about to hide a top-end AM4 board that is
+     * inside the Boss's floor. Caught by the production check, not locally -
+     * that row only exists in Neon.
+     *
+     *   VIII -> X570 (AM4)   VII -> X470   VI -> X370
+     */
+    public const ROMAN_CHIPSETS = ['VIII' => 'X570', 'VII' => 'X470', 'VI' => 'X370'];
+
     private static function matchChipset(string $name): string
     {
         $n = strtoupper((string) $name);
         $norm = trim((string) preg_replace('/[^A-Z0-9]+/', ' ', $n));
         foreach (self::CHIPSET_PATTERNS as $cs) {
             if (preg_match('/(?<![A-Z0-9])' . $cs . '(?![0-9])/', $norm)) return $cs;
+        }
+        if (preg_match('/CROSSHAIR/', $norm)) {
+            foreach (self::ROMAN_CHIPSETS as $roman => $cs) {
+                if (preg_match('/(?<![A-Z0-9])' . $roman . '(?![A-Z0-9])/', $norm)) return $cs;
+            }
         }
         return self::UNKNOWN;
     }
