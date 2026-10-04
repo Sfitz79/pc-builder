@@ -11,6 +11,7 @@ use App\Services\PartDimensions;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Illuminate\View\Factory as ViewFactory;
 
@@ -57,14 +58,18 @@ class BuilderController extends Controller
      */
     public function catalog(): JsonResponse
     {
-        $components = Component::query()
-            ->with('category', 'manufacturer')
-            ->active()
-            // Modern gate. Read-only: nothing is deactivated or deleted, this is
-            // a filter on what the storefront shows. Reversible by removing the
-            // reject() call.
-            ->get()
-            ->reject(fn (Component $c) => CatalogueGate::rejectReason($c) !== null)
+        // Modern gate. Read-only: nothing is deactivated or deleted, this is a
+        // filter on what the storefront shows. Reversible by removing the
+        // gateComponents() call.
+        //
+        // FAIL SAFE, deliberately. A customer-facing catalogue must never go dark
+        // because a filter threw. If the gate errors for any reason we log it and
+        // return the UNGATED catalogue, so the worst case is the pre-gate
+        // behaviour the site already has - not a 500 on the builder. That is the
+        // difference between a cosmetic regression and a dead shop.
+        $components = $this->gateComponents(
+            Component::query()->with('category', 'manufacturer')->active()->get()
+        )
             ->groupBy(fn (Component $component) => $component->category?->slug ?? 'misc')
             ->map(fn ($items) => $items->map(fn (Component $component) => $this->catalogItem($component))->values());
 
@@ -258,6 +263,26 @@ class BuilderController extends Controller
     /**
      * @return array{id: int, slug: string, name: string, price: float, socket: ?string, chipset: ?string, wattage: ?int, stock: int, tags: ?string, image: ?string}
      */
+    /**
+     * Apply the modern gate, falling back to the ungated list on any error.
+     * See the note in catalog(): the gate is an enhancement and must never be
+     * able to take the storefront offline.
+     */
+    protected function gateComponents($components)
+    {
+        try {
+            return $components->reject(
+                fn (Component $c) => CatalogueGate::rejectReason($c) !== null
+            );
+        } catch (\Throwable $e) {
+            report($e);
+            Log::warning('[catalogue] modern gate failed, serving ungated list', [
+                'error' => $e->getMessage(),
+            ]);
+            return $components;
+        }
+    }
+
     protected function catalogItem(Component $component): array
     {
         $specsArray = is_array($component->specs) ? $component->specs : [];
