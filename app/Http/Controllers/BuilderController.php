@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Component;
 use App\Services\AIRecommendationService;
 use App\Services\BuildPricingService;
+use App\Services\CatalogueGate;
 use App\Services\CompatibilityService;
 use App\Services\FPSCalculationService;
 use App\Services\PartDimensions;
