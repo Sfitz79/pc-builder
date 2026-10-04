@@ -60,7 +60,11 @@ class BuilderController extends Controller
         $components = Component::query()
             ->with('category', 'manufacturer')
             ->active()
+            // Modern gate. Read-only: nothing is deactivated or deleted, this is
+            // a filter on what the storefront shows. Reversible by removing the
+            // reject() call.
             ->get()
+            ->reject(fn (Component $c) => CatalogueGate::rejectReason($c) !== null)
             ->groupBy(fn (Component $component) => $component->category?->slug ?? 'misc')
             ->map(fn ($items) => $items->map(fn (Component $component) => $this->catalogItem($component))->values());
 
@@ -259,19 +263,56 @@ class BuilderController extends Controller
         $specsArray = is_array($component->specs) ? $component->specs : [];
         $category = $component->category?->slug;
 
+        /*
+         * PLATFORM IS DERIVED, NOT READ FROM THE COLUMN.
+         *
+         * Measured 2026-10-04: socket was NULL on 100 of 237 active CPUs and
+         * WRONG on 86 more - Ryzen 3 3200G / 5 1600 / 5 3600 are all stored as
+         * AM5 when they are AM4. chipset was NULL on 370 of 400 boards.
+         *
+         * This matters beyond display. CompatibilityCheckerService compares
+         * $parts['cpu']['socket'] against $parts['motherboard']['socket'], so
+         * feeding it the stored column let the custom part selector approve a
+         * physically impossible pairing: a stored-AM5 Ryzen 5 3600 (really AM4)
+         * "matched" an AM5 board. Emitting the derived value at this one point
+         * fixes the checker and the grouping together, so there is a single
+         * source of truth instead of two that can disagree.
+         */
+        $group = CatalogueGate::groupFor($component);
+        $socket = match ($category) {
+            'cpu' => CatalogueGate::cpuSocket((string) $component->name),
+            'motherboard' => CatalogueGate::boardSocket((string) $component->name),
+            default => $component->socket,
+        };
+        $chipset = $category === 'motherboard'
+            ? CatalogueGate::chipset((string) $component->name)
+            : $component->chipset;
+
         return [
             'id' => $component->id,
             'slug' => $component->slug,
             'name' => $component->name,
             'price' => (float) $component->price,
-            'socket' => $component->socket,
-            'chipset' => $component->chipset,
+            'socket' => $socket,
+            'chipset' => $chipset,
             'wattage' => $component->wattage,
             'stock' => $component->stock,
             'tags' => $this->tagsFor($component),
             'image' => $this->imageFor($component),
             'specs' => $specsArray,
             'dims' => $this->dimensions->resolve($category, $component->name, $specsArray),
+            // Grouping metadata for the selection UI: CPUs by platform then
+            // series, RAM by DDR generation, boards by chipset, storage by
+            // interface. The UI reads these instead of re-deriving anything.
+            'platform' => $group['platform'],
+            'series' => $group['series'],
+            'group' => $group['key'],
+            'ram_type' => $category === 'ram'
+                ? CatalogueGate::ramType((string) $component->name, $specsArray)
+                : null,
+            'storage_type' => $category === 'storage'
+                ? CatalogueGate::storageType((string) $component->name, $specsArray)
+                : null,
         ];
     }
 
@@ -348,11 +389,16 @@ class BuilderController extends Controller
         try {
             // PCPartPicker's CDN 403s agents without a browser User-Agent/
             // Referer. Send polite browser headers so product textures load.
-            // Guzzle must use the global cacert.pem or HTTPS product images
-            // fail with "unable to get local issuer certificate".
-            $cafile = 'C:\Users\simon\cacert.pem';
+            //
+            // The CA bundle is resolved by App\Support\Tls, not hardcoded. This
+            // line used to read
+            //     $cafile = 'C:\Users\simon\cacert.pem';
+            //     ->withOptions(is_file($cafile) ? ['verify' => $cafile] : [])
+            // which could never be true in the deployed copy, so the `verify`
+            // option was silently never applied there - it only ever worked on the
+            // developer's machine, and it put a personal directory into the repo.
             $upstream = \Illuminate\Support\Facades\Http::timeout(15)
-                ->withOptions(is_file($cafile) ? ['verify' => $cafile] : [])
+                ->withOptions(\App\Support\Tls::guzzleOptions())
                 ->withHeaders([
                     'Accept' => 'image/webp,image/apng,image/*,*/*;q=0.8',
                     'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
