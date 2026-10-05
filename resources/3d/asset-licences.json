@@ -1,0 +1,26 @@
+{
+  "_comment": [
+    "Manifest of third-party 3D assets sampled for INTERNAL reference use.",
+    "",
+    "Meshes here are never served to the public. Customers receive a rendered image",
+    "of their own build, never a source file. Every entry must state its licence and,",
+    "if CC-BY, the author to credit. Entries with no licence are REJECTED by the gate,",
+    "because an unlicensed upload is not public domain.",
+    "",
+    "Verdicts are computed by app/Services/ThreeD/AssetLicenceGate.php. Run",
+    "php scripts/verify-3d-licence-gate.php to check the policy and",
+    "php scripts/verify-3d-licences.php to check this manifest.",
+    "",
+    "Field reference:",
+    "  name         what it is",
+    "  source       platform",
+    "  licence      EXACT string shown on the asset page - do not paraphrase",
+    "  attribution  creator name + page URL, required for anything CC-BY",
+    "  url          direct link to the asset page",
+    "  retrieved    ISO date sampled",
+    "  purpose      what we used it for (proportions, material study, ...)"
+  ],
+  "_allowed": "CC0 / Public Domain only, or CC-BY with a completed attribution field.",
+  "_rejected": "CC-BY-SA, CC-BY-NC, CC-BY-ND, Editorial, Personal Use, or anything unstated.",
+  "assets": []
+}

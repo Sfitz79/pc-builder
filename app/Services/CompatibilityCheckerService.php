@@ -61,41 +61,39 @@ class CompatibilityCheckerService
             }
         }
 
-        // Case form factor compatibility
-        if (!empty($parts['case']) && !empty($parts['motherboard'])) {
-            $caseFormFactor = $parts['case']['form_factor'] ?? null;
-            $mbFormFactor = $parts['motherboard']['form_factor'] ?? null;
+        // ------------------------------------------------------------------
+        // PHYSICAL FIT - fail-closed via FitVerification.
+        //
+        // This block previously read:
+        //     $maxGpuLength = $parts['case']['max_gpu_length'] ?? null;
+        //     if ($maxGpuLength && $gpuLength && $gpuLength > $maxGpuLength) {...}
+        // The comparison only runs when BOTH values are truthy, so a missing
+        // dimension meant the check silently did nothing and `compatible` came
+        // back true. Measured on production Neon on 2026-10-05: gpu.length 306/306
+        // missing, case.max_gpu_length 399/399 missing, cooler.height 372/372
+        // missing, case.form_factor 399/399 missing. All three checks were dead and
+        // every build was being declared compatible.
+        //
+        // FitVerification distinguishes pass / fail / UNVERIFIED so an unchecked
+        // dimension can never be reported as a checked one.
+        // ------------------------------------------------------------------
+        $fit = FitVerification::assess($parts);
 
-            if ($caseFormFactor && $mbFormFactor) {
-                $caseCompat = $this->getCaseCompatibility($caseFormFactor);
-                if (!in_array($mbFormFactor, $caseCompat)) {
-                    $errors[] = "Motherboard form factor ({$mbFormFactor}) is not compatible with case ({$caseFormFactor})";
-                }
-            }
-        }
-
-        // GPU length check
-        if (!empty($parts['case']) && !empty($parts['gpu'])) {
-            $maxGpuLength = $parts['case']['max_gpu_length'] ?? null;
-            $gpuLength = $parts['gpu']['length'] ?? null;
-
-            if ($maxGpuLength && $gpuLength && $gpuLength > $maxGpuLength) {
-                $errors[] = "GPU length ({$gpuLength}mm) exceeds case maximum ({$maxGpuLength}mm)";
-            }
-        }
-
-        // CPU cooler height check
-        if (!empty($parts['case']) && !empty($parts['cooler'])) {
-            $maxCoolerHeight = $parts['case']['max_cooler_height'] ?? null;
-            $coolerHeight = $parts['cooler']['height'] ?? null;
-
-            if ($maxCoolerHeight && $coolerHeight && $coolerHeight > $maxCoolerHeight) {
-                $errors[] = "CPU cooler height ({$coolerHeight}mm) exceeds case maximum ({$maxCoolerHeight}mm)";
+        foreach ($fit['checks'] as $check) {
+            if ($check['state'] === FitVerification::FAIL) {
+                $errors[] = $check['detail'];
+            } elseif ($check['state'] === FitVerification::UNVERIFIED) {
+                $warnings[] = 'Clearance not verified - ' . $check['detail'];
             }
         }
 
         return [
             'compatible' => empty($errors),
+            // Explicitly separate from 'compatible'. True means every physical fit
+            // check actually ran. A caller that only reads 'compatible' is still
+            // correct - it is just not being told the clearance was proven.
+            'fit_verified' => $fit['verified'],
+            'fit_checks' => $fit['checks'],
             'errors' => $errors,
             'warnings' => $warnings,
             'estimated_power' => $totalPower,
