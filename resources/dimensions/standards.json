@@ -1,0 +1,98 @@
+{
+  "_comment": [
+    "Published industry-standard dimensions. These are NOT estimates and NOT",
+    "inferred from product names - each entry names the specification it comes",
+    "from so a reviewer can check it.",
+    "",
+    "Why this file exists: for six of the eight component categories the fit-critical",
+    "number is fixed by a published standard, so there is nothing to guess and",
+    "nothing to scrape. Motherboard size IS the form factor. A PSU envelope IS the",
+    "ATX/SFX spec. Storage IS M.2 2280 or 2.5 inch. Guessing those would be both",
+    "unnecessary and a brand-integrity risk.",
+    "",
+    "What is deliberately NOT here: per-model values. GPU length, CPU cooler height,",
+    "case clearance and RAM heatspreader height differ per SKU and must come from the",
+    "manufacturer's own specification for that exact model. There is no standard to",
+    "fall back on, and inventing one is the failure this project keeps getting wrong.",
+    "",
+    "Fields:",
+    "  key            the value written into components.specs",
+    "  value          the dimension in millimetres",
+    "  source         the published specification it comes from",
+    "  confidence     'standard' = fixed by a spec; 'varies' = per-model, absent here"
+  ],
+
+  "motherboard_forms": {
+    "_source": "Intel ATX Design Guide / MicroATX and Mini-ITX form factor specifications; AMD socket form factors",
+    "_note": "Width x Depth. A motherboard's form factor literally IS its size, so this is derivable rather than looked up.",
+    "e-atx":     { "width": 305, "depth": 330, "label": "E-ATX" },
+    "atx":       { "width": 305, "depth": 244, "label": "ATX" },
+    "micro-atx": { "width": 244, "depth": 244, "label": "Micro-ATX" },
+    "matx":      { "width": 244, "depth": 244, "label": "Micro-ATX" },
+    "mini-itx":  { "width": 170, "depth": 170, "label": "Mini-ITX" },
+    "itx":       { "width": 170, "depth": 170, "label": "Mini-ITX" },
+    "micro-itx": { "width": 170, "depth": 170, "label": "Mini-ITX" },
+    "e-micro-atx": { "width": 244, "depth": 244, "label": "Micro-ATX" },
+    "thin-mini-itx": { "width": 170, "depth": 170, "label": "Mini-ITX" }
+  },
+
+  "psu_envelopes": {
+    "_source": "Intel ATX Power Supply Design Guide; SFX12V specification",
+    "_note": "W x H x D envelope is fixed by the standard. LENGTH is per-model and is deliberately absent - that is the fit-critical number and varies widely across otherwise identical PSUs.",
+    "atx": {
+      "width": 150, "height": 86, "depth": 140,
+      "label": "ATX",
+      "source": "Intel ATX Power Supply Design Guide"
+    },
+    "sfx": {
+      "width": 125, "height": 63.5, "depth": 100,
+      "label": "SFX",
+      "source": "SFX12V 3.1 specification"
+    },
+    "sxl": {
+      "width": 125, "height": 63.5, "depth": 100,
+      "label": "SFX-L",
+      "source": "SFX-L specification"
+    },
+    "atx12vo": {
+      "width": 150, "height": 86, "depth": 140,
+      "label": "ATX12VO",
+      "source": "ATX12VO specification"
+    }
+  },
+
+  "ram_modules": {
+    "_source": "JEDEC DDR DIMM and SO-DIMM specifications",
+    "_note": "Length and PCB height are standard. HEATSPREADER height is NOT - it varies from roughly 31mm to 45mm across kits and is the number that decides whether a cooler overhangs the first DIMM slot. Left absent on purpose.",
+    "dimm": { "length": 133.35, "pcb_height": 31.25, "label": "DIMM" },
+    "sodimm": { "length": 69.6, "pcb_height": 30, "label": "SO-DIMM" },
+    "ecc-dimm": { "length": 133.35, "pcb_height": 31.25, "label": "ECC DIMM" },
+    "ecc-sodimm": { "length": 69.6, "pcb_height": 30, "label": "ECC SO-DIMM" }
+  },
+
+  "storage_devices": {
+    "_source": "NVMe M.2 and SFF/ATA device form factor specifications",
+    "_note": "Fixed by the device form factor, which is why storage can be closed out as standard shapes.",
+    "m2-2280": { "length": 80, "width": 22, "label": "M.2 2280" },
+    "m2-2242": { "length": 42, "width": 22, "label": "M.2 2242" },
+    "m2-2230": { "length": 30, "width": 22, "label": "M.2 2230" },
+    "m2-22110": { "length": 110, "width": 22, "label": "M.2 22110" },
+    "2.5-ssd": { "length": 100, "width": 70, "height": 7, "label": "2.5 inch" },
+    "2.5-hdd": { "length": 100, "width": 70, "height": 7, "label": "2.5 inch" },
+    "3.5-hdd": { "length": 147, "width": 101.6, "height": 26.1, "label": "3.5 inch" }
+  },
+
+  "bays": {
+    "_source": "ATX case specification",
+    "note": "Drive bay counts are a case property and are per-model; only the device sizes above are standard."
+  },
+
+  "_varies_per_model": {
+    "gpu": ["length", "height", "slot_width", "tdp"],
+    "cooler": ["height", "radiator_length"],
+    "case": ["width", "height", "depth", "form_factor", "max_gpu_length", "max_cpu_cooler_height"],
+    "ram": ["heatspreader_height"],
+    "psu": ["length"],
+    "_why": "No published standard fixes these. They differ per SKU from the same manufacturer, so they can only come from that model's own specification sheet. Source them, do not infer them."
+  }
+}
