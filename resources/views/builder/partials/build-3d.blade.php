@@ -22,6 +22,34 @@
                 <span x-text="rendering3d ? 'Rendering…' : 'Storefront Render'"></span>
             </x-pctg.button>
 
+            {{--
+                INTERACTIVE 3D VIEWPORT - WITHDRAWN FROM CUSTOMERS 2026-10-06.
+
+                scripts/verify-3d-render.mjs renders the real scene in a
+                headless browser and screenshots the framebuffer. The geometry
+                is dimensionally correct - 230 x 432 x 460 mm, 372 meshes, every
+                mesh added, zero page errors - and it passes all ten of its own
+                automated checks. The captured frame is still not recognisable
+                as a PC: a large featureless slab where the graphics card
+                should be, several intersecting translucent planes, and no
+                readable case, fan or memory module.
+
+                Those checks cannot catch that, which is the point worth
+                recording. They assert "not empty", "is lit" and "has N colour
+                buckets" - all of which pass comfortably on an unusable frame.
+                A green result that is quietly worse than intended is a failure.
+
+                Verified LIVE on pctechguy.app/builder, so a customer could open
+                this. It shipped nothing a customer could buy. The approved
+                customer-facing visual, Storefront Render, stays available.
+
+                The replacement is asset-driven: authored low-poly .glb parts
+                with a separate interaction mesh for raycasting and a named
+                RGB_Zone sub-mesh, rather than procedural primitives. Set
+                config('builder.enable_3d_viewport') = true to restore it.
+            --}}
+            @if (config('builder.enable_3d_viewport'))
+
             <x-pctg.button
                 variant="secondary"
                 size="sm"
@@ -39,16 +67,24 @@
                 x-text="viewportOpen ? 'Hide' : 'Show'"
             ></x-pctg.button>
 
+            @endif
+
         </div>
 
     </div>
 
     <p class="mt-2 text-sm text-slate-400">
-        True-to-scale reference of your configured build
-        <span class="text-slate-400/60">(dimensions from the live catalogue)</span>.
-        <span class="text-slate-400/60">Updates as you change parts.</span>
+        @if (config('builder.enable_3d_viewport'))
+            True-to-scale reference of your configured build
+            <span class="text-slate-400/60">(dimensions from the live catalogue)</span>.
+            <span class="text-slate-400/60">Updates as you change parts.</span>
+        @else
+            A photoreal render of your configured build, generated from the
+            exact parts listed below.
+        @endif
     </p>
 
+    @if (config('builder.enable_3d_viewport'))
     <div
         x-show="viewportOpen"
         x-cloak
@@ -114,6 +150,8 @@
             </template>
         </div>
 
+    @endif
+
         <div
             class="mt-4"
             x-show="render3dUrl"
@@ -154,8 +192,15 @@
         >
             <p x-text="render3dError"></p>
         </div>
+
+        {{-- Any customer-facing image built from a third-party 3D asset carries
+             its credit. Renders nothing when no asset is registered. --}}
+        <div x-show="render3dUrl" x-cloak>
+            @include('builder.partials.asset-credits')
+        </div>
     </div>
 
+    @if (config('builder.enable_3d_viewport'))
     <div
         class="mt-4 rounded-xl bg-slate-900/60 p-3 text-sm text-slate-400"
         x-show="!viewportOpen"
@@ -173,5 +218,6 @@
             </span>
         </template>
     </div>
+    @endif
 
 </x-pctg.card>
