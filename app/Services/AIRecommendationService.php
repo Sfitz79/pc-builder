@@ -231,28 +231,43 @@ class AIRecommendationService
     /**
      * Is this CPU one we are willing to put in a sub-GBP 1,300 build?
      *
-     * Matches Ryzen 5000 desktop silicon on AM4 and 12th-generation Core
-     * i5/i7 on LGA1700. Deliberately does NOT match the Ryzen 3000/4000
-     * entry chips (3200G and similar): those are APU-class parts that only
-     * make sense in the GPU-less lane, and the dGPU CPU floor already bans
-     * them there.
+     * SOCKET IS THE AUTHORITY, not a list of model names. A name list is a
+     * list that rots: the first version matched only Ryzen 5000-series, so a
+     * Ryzen 5 4500 was invisible to it, and the £1,700 build the Boss
+     * complained about was exactly that part. The follow-up attempt matched
+     * 4000/5000 and then a Ryzen 5 2600 walked straight through it. Any EOL
+     * socket - AM4, LGA1200, LGA1700 - is an entry platform; AM5 and LGA1851
+     * are not. If the socket cannot be determined we fall back to the name
+     * test and, failing that, treat it as modern so an unknown part is never
+     * silently banned from a build (Rule 6 applies to guarantees we enforce,
+     * not to bans we impose).
+     *
+     * @see MODERN_PLATFORM_SOCKETS
      */
     public function isEntryPlatformCpu(Component $cpu): bool
     {
-        $name = strtoupper((string) $cpu->name);
+        $socket = $this->canonicalSocket($cpu);
 
-        // AMD Ryzen 5000 desktop: 5600, 5600X, 5700X, 5800X, 5900X, 5950X.
-        if (preg_match('/RYZEN\s+[3579]\s*5\d{3}[A-Z]*/', $name)) {
-            return true;
+        if ($socket !== null) {
+            return ! in_array($socket, self::MODERN_PLATFORM_SOCKETS, true);
         }
 
-        // Intel 12th-generation Core i5/i7: i5-12400F, i5-12600K, i7-12700K...
-        if (preg_match('/CORE\s+I[57]\s*-?\s*1[23]\d{2,3}/', $name)) {
+        if ($this->isEntryPlatformCpuName((string) $cpu->name)) {
             return true;
         }
 
         return false;
     }
+
+    /**
+     * Sockets we will put in a build sold at or above ENTRY_PLATFORM_CEILING.
+     *
+     * AM5 (Zen 3 Zen 4 / Zen 5) and LGA1851 (Core Ultra / Arrow Lake). AM4,
+     * LGA1200 and LGA1700 are end-of-life: no new stock of consequence, no
+     * platform upgrade path, and PCIe 4.0 boards that cannot carry the
+     * graphics cards these machines are sold with.
+     */
+    public const MODERN_PLATFORM_SOCKETS = ['AM5', 'LGA1851'];
 
     /**
      * The published PCTG price ladder (boss directive 2026-09-28).
@@ -445,8 +460,22 @@ class AIRecommendationService
 
         $best = null;
 
+        // Never downgrade a MODERN platform to an EOL one. The trim used to
+        // swap a Ryzen 7 7800X3D + B650 + AM5 build down to a Ryzen 5 4500 +
+        // A520M + AM4 whenever the cap demanded it, which is how a GBP 1,700
+        // customer ask kept coming back with a 2020 platform under it
+        // (boss complaint 2026-10-06). If the current build is on a modern
+        // platform, entry CPUs are simply not a legal swap target. If the
+        // current build is already entry-platform, entry swaps are still
+        // allowed (that is the sub-GBP 1,300 value lane).
+        $keepModern = ! $this->isEntryPlatformCpu($currentCpu);
+
         foreach ($cpuPool as $cpu) {
             if ($forceGpu && ! $this->meetsDgpuCpuStandard($cpu)) {
+                continue;
+            }
+
+            if ($keepModern && $this->isEntryPlatformCpu($cpu)) {
                 continue;
             }
 
@@ -1215,8 +1244,26 @@ class AIRecommendationService
         $tolerance = (float) config('pricing.budget_ceiling_tolerance', 0.05);
         $ceiling = $budget * (1 + $tolerance);
 
+        // Quoted-budget platform floor (boss complaint 2026-10-06): a build
+        // sold at GBP 1,700 must not be built on a 2020 AM4 platform. The
+        // pick lanes re-admit entry-platform CPUs whenever the damped retry
+        // budget dips below GBP 1,300, and the old "cheapest complete wins"
+        // rule always preferred that attempt - which is why the 4500 came
+        // back no matter what the pool gate said. So attempts at/above the
+        // entry ceiling are only accepted if their CPU is a modern-platform
+        // part. If no modern attempt completes, we still return the cheapest
+        // (better to quote something than vanish), but never before trying.
+        $wantModernPlatform = ! $allowMissingGpu && $budget >= self::ENTRY_PLATFORM_CEILING;
+        $modernBest = null;
+        $modernBestTotal = null;
+
         $best = $picker($budget);
         $bestTotal = $this->allInFor($best['components'] ?? []);
+
+        if ($wantModernPlatform && $this->isComplete($best['components'] ?? [], $allowMissingGpu) && $this->attemptHasModernCpu($best)) {
+            $modernBest = $best;
+            $modernBestTotal = $bestTotal;
+        }
 
         if (! $this->isComplete($best['components'] ?? [], $allowMissingGpu)) {
             // Nothing complete yet; a lower target will not rescue an
@@ -1226,6 +1273,12 @@ class AIRecommendationService
         }
 
         if ($bestTotal <= $ceiling) {
+            // Fits on the first try - and modern if required (already
+            // captured above), otherwise the attempt is the same one.
+            if ($wantModernPlatform) {
+                return $modernBest ?? $best;
+            }
+
             return $best;
         }
 
@@ -1250,12 +1303,71 @@ class AIRecommendationService
                 $bestTotal = $candidateTotal;
             }
 
+            if ($wantModernPlatform && $this->attemptHasModernCpu($candidate)) {
+                if ($modernBest === null || $candidateTotal < $modernBestTotal) {
+                    $modernBest = $candidate;
+                    $modernBestTotal = $candidateTotal;
+                }
+
+                if ($modernBestTotal <= $ceiling) {
+                    return $modernBest;
+                }
+            }
+
             if ($bestTotal <= $ceiling) {
                 break;
             }
         }
 
-        return $best;
+        // A modern build that fits beats a cheaper EOL-platform one.
+        return $modernBest ?? $best;
+    }
+
+    /**
+     * Is the CPU in this attempt's component list a modern-platform part?
+     * Build component arrays carry name/price, not full Component models, so
+     * the row is re-read for the authoritative socket test. One row per
+     * attempt, and only on the attempts that matter - it is cheaper than the
+     * mistake it prevents.
+     */
+    protected function attemptHasModernCpu(array $attempt): bool
+    {
+        $id = (int) ($attempt['components']['cpu']['id'] ?? 0);
+
+        if ($id <= 0) {
+            return false;
+        }
+
+        $cpu = Component::find($id);
+
+        if ($cpu === null) {
+            // Cannot prove it is modern, so it cannot satisfy a gate that
+            // promises a modern platform. Fall through to the name test so a
+            // readable catalogue row is not discarded on a lookup miss.
+            return ! $this->isEntryPlatformCpuName(
+                (string) ($attempt['components']['cpu']['name'] ?? '')
+            );
+        }
+
+        return ! $this->isEntryPlatformCpu($cpu);
+    }
+
+    /**
+     * Name-based twin of isEntryPlatformCpu() for build component arrays.
+     */
+    protected function isEntryPlatformCpuName(string $name): bool
+    {
+        $name = strtoupper($name);
+
+        if (preg_match('/RYZEN\s+[3579]\s*[45]\d{3}[A-Z]*/', $name)) {
+            return true;
+        }
+
+        if (preg_match('/CORE\s+I[57]\s*-?\s*1[23]\d{2,3}/', $name)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -1406,6 +1518,21 @@ class AIRecommendationService
             // fitted. Applied to the POOL so every fallback below (spendable
             // pass, relax-to-cheapest) still meets it â€” a rule that only the
             // happy path honours is not a rule.
+            // Mirror gate (boss complaint 2026-10-06): above the entry
+            // ceiling, the pool must NOT contain a 2020-era platform CPU.
+            // Previously the entry-platform rule only narrowed the pool below
+            // GBP 1,300 - at or above it the scorer was free to land on a
+            // Ryzen 5 4500 + A520M + DDR4 build, which is exactly the
+            // shocking-system-for-the-money the Boss flagged at GBP 1,700.
+            // Below the ceiling nothing changes: AM4/LGA1700 is still the
+            // honest choice when the money only stretches that far.
+            if ($slug === 'cpu' && $forceGpu && $budget >= self::ENTRY_PLATFORM_CEILING) {
+                $modernPool = $pool->reject(fn (Component $c) => $this->isEntryPlatformCpu($c));
+                if ($modernPool->isNotEmpty()) {
+                    $pool = $modernPool;
+                }
+            }
+
             if ($slug === 'cpu' && $budget < self::ENTRY_PLATFORM_CEILING) {
                 // Entry-platform rule (boss directive 2026-09-28). Only bites
                 // below GBP 1,300; at or above that the customer's money buys
