@@ -279,30 +279,153 @@ export function mountPcViewport(container, getSelection, callbacks = {}) {
     // --- Spec materials ----------------------------------------------------
     // One shared MeshStandardMaterial per key, so 360 primitives still cost
     // ~40 draw calls' worth of material churn instead of 360.
-    const specMaterials = new Map();
-    function specMaterial(key) {
-        if (specMaterials.has(key)) return specMaterials.get(key);
-        const def = MATERIALS[key] || MATERIALS.casePanel;
-        const m = new THREE.MeshStandardMaterial({
-            color: def.color,
-            roughness: def.roughness ?? 0.6,
-            metalness: def.metalness ?? 0.2,
-        });
-        if (def.emissive) {
-            m.emissive = new THREE.Color(def.emissive);
-            m.emissiveIntensity = def.emissiveIntensity ?? 1.5;
-        }
-        if (def.transparent) {
-            m.transparent = true;
-            m.opacity = def.opacity ?? 0.6;
-        }
-        if (key === 'gpuLed' || key === 'ramLight' || key === 'ramDiffuser' || key === 'caseLed' || key === 'fanLed') {
-            m.userData.rgbOffset = RGB_OFFSETS[key] ?? 0;
-            rgbMats.push(m);
-        }
-        specMaterials.set(key, m);
-        return m;
-    }
+      const specMaterials = new Map();
+      function specMaterial(key) {
+          if (specMaterials.has(key)) return specMaterials.get(key);
+          const def = MATERIALS[key] || MATERIALS.casePanel;
+          const m = new THREE.MeshStandardMaterial({
+              color: def.color,
+              roughness: def.roughness ?? 0.6,
+              metalness: def.metalness ?? 0.2,
+          });
+          if (def.emissive) {
+              m.emissive = new THREE.Color(def.emissive);
+              m.emissiveIntensity = def.emissiveIntensity ?? 1.5;
+          }
+          if (def.transparent) {
+              m.transparent = true;
+              m.opacity = def.opacity ?? 0.6;
+          }
+          if (key === 'gpuLed' || key === 'ramLight' || key === 'ramDiffuser' || key === 'caseLed' || key === 'fanLed') {
+              m.userData.rgbOffset = RGB_OFFSETS[key] ?? 0;
+              rgbMats.push(m);
+          }
+          // PBR upgrade, applied AFTER the brand palette so the flat values remain
+          // the fallback. If a map 404s or is blocked, the material keeps the brand
+          // colour and roughness and nothing else changes.
+          applyPbr(m, key);
+          specMaterials.set(key, m);
+          return m;
+      }
+
+      // -----------------------------------------------------------------------
+      // CC0 PBR MAPS
+      // -----------------------------------------------------------------------
+      // scripts/fetch-pbr-textures.php installs three maps per material class from
+      // Poly Haven under CC0 1.0 - commercial use and redistribution both permitted,
+      // with no attribution obligation. 7.78MB across four classes, because only
+      // base colour, one normal and ORM are downloaded: nor_dx/nor_gl are one map in
+      // two conventions, bump repeats normal, and separate AO/Roughness/Metallic are
+      // already packed into ORM.
+      //
+      // ORM is sampled rather than bound as three textures: R = ambient occlusion,
+      // G = roughness, B = metalness.
+      //
+      // THE KEYS HERE ARE MATERIAL KEYS, NOT SLOT NAMES. The first version of this
+      // block was keyed by slot ('gpu_shroud') and therefore matched nothing at all,
+      // because specMaterial() is handed 'backplate' or 'casePanel'. It installed
+      // 7.78MB of textures and applied none of them - the exact silent-no-op failure
+      // this project keeps hitting. The mapping below is the client half of
+      // App\Services\ThreeD\MaterialLibrary.php, which is the gate.
+      //
+      // Shroud names are per-vendor (shroudAsus ... shroudArc), so they are matched
+      // by pattern rather than listed 16 times.
+      const PBR_SLOT = {
+          // GPU: shroud, backplate, bracket and bare-metal heatsinks
+          backplate: ['gpu_shroud', 1],
+          backplateGroove: ['gpu_shroud', 1],
+          bracket: ['gpu_shroud', 1],
+          ioShroud: ['gpu_shroud', 1],
+          heatsink: ['gpu_shroud', 1],
+          fin: ['gpu_shroud', 1],
+          coolerBase: ['gpu_shroud', 1],
+          coolerTop: ['gpu_shroud', 1],
+          coolerTrim: ['gpu_shroud', 1],
+          coolerMount: ['gpu_shroud', 1],
+          radCore: ['gpu_shroud', 1],
+          radFrame: ['gpu_shroud', 1],
+          m2Heatsink: ['gpu_shroud', 1],
+          // PSU
+          psuBody: ['psu_casing', 1],
+          psuTop: ['psu_casing', 1],
+          psuPanel: ['psu_casing', 1],
+          psuGrillFrame: ['psu_casing', 1],
+          psuChamfer: ['psu_casing', 1],
+          pumpCap: ['psu_casing', 1],
+          // Case: the large tiled surfaces
+          casePanel: ['case_panel', 2],
+          caseFront: ['case_panel', 2],
+          caseShroud: ['case_panel', 2],
+          caseTray: ['case_panel', 2],
+          // Polymer: cables, fan hubs, RAM spreaders, drive bays
+          caseTrim: ['dark_polymer', 1],
+          caseFoot: ['dark_polymer', 1],
+          caseCutout: ['dark_polymer', 1],
+          caseMesh: ['dark_polymer', 1],
+          driveBay: ['dark_polymer', 1],
+          antenna: ['dark_polymer', 1],
+          pumpMotor: ['dark_polymer', 1],
+          radTank: ['dark_polymer', 1],
+          cable: ['dark_polymer', 1],
+          cableSata: ['dark_polymer', 1],
+      };
+
+      // Every shroud* variant and the tier names share one finish.
+      const PBR_SHROUD_RE = /^shroud(Asus|Gigabyte|Msi|Evga|Zotac|Pny|Sapphire|Powercolor|Asrock|Corsair|Amd|Arc|Entry|Mid|Upper|Flagship|Lip)?$/;
+
+      const PBR_BASE = '/textures/pbr';
+
+      function applyPbr(material, key) {
+          let entry = PBR_SLOT[key];
+          if (!entry && PBR_SHROUD_RE.test(key)) {
+              entry = ['gpu_shroud', 1];
+          }
+          if (!entry) return material;
+          const [slot, repeat] = entry;
+
+          // Base colour + normal load asynchronously; roughness/metalness wait for
+          // the ORM, so a material is never left with an albedo and a stale
+          // roughness. Callers get the material immediately and it upgrades in place.
+          loadTexture(`${PBR_BASE}/${slot}_basecolor.jpg`).then((map) => {
+              if (!map) return;
+              map.wrapS = map.wrapT = THREE.RepeatWrapping;
+              map.repeat.set(repeat, repeat);
+              map.colorSpace = THREE.SRGBColorSpace;
+              material.map = map;
+              material.needsUpdate = true;
+          });
+
+          // Normals are data, not colour. Three defaults new textures to sRGB, which
+          // would decode the normal's blue channel wrongly and tilt every highlight.
+          loadTexture(`${PBR_BASE}/${slot}_normal.jpg`).then((map) => {
+              if (!map) return;
+              map.wrapS = map.wrapT = THREE.RepeatWrapping;
+              map.repeat.set(repeat, repeat);
+              map.colorSpace = THREE.NoColorSpace;
+              material.normalMap = map;
+              material.normalScale.set(0.6, 0.6);
+              material.needsUpdate = true;
+          });
+
+          loadTexture(`${PBR_BASE}/${slot}_orm.jpg`).then((map) => {
+              if (!map) return;
+              map.wrapS = map.wrapT = THREE.RepeatWrapping;
+              map.repeat.set(repeat, repeat);
+              map.colorSpace = THREE.NoColorSpace;
+              // Pack ORM into the three maps MeshStandardMaterial expects. Red is
+              // AO, green is roughness, blue is metalness - no channel conversion.
+              material.aoMap = map;
+              material.roughnessMap = map;
+              material.metalnessMap = map;
+              // ORM packs AO in R; the material's own R would multiply it a second
+              // time, so aoMapIntensity is set from the same image and the base
+              // colour is left unmultiplied.
+              material.aoMapIntensity = 0.85;
+              material.needsUpdate = true;
+          });
+
+          return material;
+      }
 
     const RGB_OFFSETS = {
         gpuLed: 0.85, ramLight: 0.55, ramDiffuser: 0.6, caseLed: 0.2, fanLed: 0.35,
