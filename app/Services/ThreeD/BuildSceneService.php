@@ -5,6 +5,11 @@ namespace App\Services\ThreeD;
 use App\Services\PartDimensions;
 
 /**
+ * The geometry this produces is only as true as the dimensions behind it, so the
+ * spec says which. See trustSummary() and PartDimensions for the measurement.
+ */
+
+/**
  * Assembles the whole build into one declarative geometry spec, in REAL
  * MILLIMETRES, ready for the browser to turn into meshes.
  *
@@ -283,15 +288,85 @@ final class BuildSceneService
             ];
         }
 
+        // ---- DIMENSION TRUST ---------------------------------------------------
+        // Measured on PRODUCTION Neon (2026-10-06): 0.4% of the 5626 dimension keys
+        // the resolvers read are present in the catalogue; every GPU length, case
+        // clearance and cooler height is an invented fallback. The spec therefore
+        // carries a trust summary, so the browser can say so out loud instead of
+        // presenting an illustrative render as a measured one.
+        //
+        // Nothing here changes the CUSTOMER-FACING fit promise. FitVerification reads
+        // the raw parts and reports `unverified`, so it still fails closed. This is
+        // only about the honesty of the viewport.
+        $trust = $this->trustSummary($selection);
+
         return [
             'v' => self::VERSION,
             'unit' => 'mm',
             'case' => ['x' => $cw, 'y' => $ch, 'z' => $cd],
             'parts' => $parts,
+            'trust' => $trust,
             'stats' => [
                 'parts' => count($parts),
                 'primitives' => array_sum(array_map(fn ($p) => count($p['meshes']), $parts)),
             ],
+        ];
+    }
+
+    /**
+     * Where every dimension this scene is built from actually came from.
+     *
+     * @return array<string,mixed>
+     */
+    private function trustSummary(array $selection): array
+    {
+        $perCat = [];
+        $assumed = 0;
+        $standard = 0;
+        $sourced = 0;
+        $total = 0;
+
+        foreach (self::CATEGORIES as $cat) {
+            if (! $this->has($selection, $cat)) {
+                continue;
+            }
+            $dims = $this->dimsFor($selection, $cat);
+            if (! $dims) {
+                continue;
+            }
+            $s = PartDimensions::summarise($dims);
+            $sourced += $s['sourced'];
+            $standard += $s['standard'];
+            $assumed += $s['assumed'];
+            $total += $s['total'];
+            $perCat[$cat] = [
+                'dims' => ['x' => $dims['x'] ?? null, 'y' => $dims['y'] ?? null, 'z' => $dims['z'] ?? null],
+                'sourced' => $s['sourced'],
+                'standard' => $s['standard'],
+                'assumed' => $s['assumed'],
+                'total' => $s['total'],
+                'assumed_fields' => $s['fields'],
+            ];
+        }
+
+        return [
+            // A scene is only trusted when every dimension in it was measured or
+            // taken from a published standard. Anything else is a picture, and the
+            // viewport must present it as one.
+            'trusted' => $assumed === 0,
+            'sourced' => $sourced,
+            'standard' => $standard,
+            'assumed' => $assumed,
+            'total' => $total,
+            'per_category' => $perCat,
+            'note' => $assumed === 0
+                ? 'Every dimension in this scene is measured or taken from a published standard.'
+                : sprintf(
+                    '%d of %d dimensions are assumed, not measured. This render is ILLUSTRATIVE: '
+                    . 'it shows a plausible machine, not your parts to scale. Fit is confirmed separately '
+                    . 'from measured dimensions only.',
+                    $assumed, $total
+                ),
         ];
     }
 

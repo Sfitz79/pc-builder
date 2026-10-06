@@ -217,6 +217,15 @@ export function mountPcViewport(container, getSelection, callbacks = {}) {
 
     const { onRender, onDimsChange, onFailure } = callbacks;
 
+    // The illustrative-geometry badge is absolutely positioned inside this
+    // container. Without an explicit positioning context it would anchor to
+    // whatever ancestor happens to be positioned - usually the page - and end up
+    // in a corner of the document instead of on the render. Set only if unset, so
+    // the surrounding layout still wins where it already declares one.
+    if (!container.style.position) {
+        container.style.position = 'relative';
+    }
+
     // WebGL is not universal. A customer on a locked-down machine, a VM, or an
     // old integrated GPU can fail here, and the old code threw straight out of
     // mountPcViewport: the button said "Show", the panel stayed blank, and the
@@ -793,12 +802,27 @@ export function mountPcViewport(container, getSelection, callbacks = {}) {
             if (specCache.size > SPEC_CACHE_MAX) {
                 specCache.delete(specCache.keys().next().value);
             }
-            if (requestedSignature !== lastSignature) return; // superseded
+            // Superseded-check against the CURRENT selection, not against
+            // lastSignature.
+            //
+            // lastSignature is only assigned on the cached path (assemble) and by
+            // assembleLegacy, so on a first fetch it is still null while
+            // requestedSignature holds the real signature. Comparing the two meant
+            // `signature !== null` -> true -> "superseded" -> the spec was DISCARDED
+            // and never applied.
+            //
+            // That is why a first load showed the legacy box scene and produced no
+            // dimension-trust warning: applySpec() was never reached. It was a silent
+            // wrong result, not a crash - the fallback concealed it. Recomputing the
+            // signature from the live selection asks the question actually being
+            // asked: "is this response still about what is on screen?"
+            if (requestedSignature !== selectionSignature(buildFromSelection())) return;
             specState = 'ready';
             specSignature = signature;
+            lastSignature = signature;
             applySpec(body.spec);
         } catch (e) {
-            if (requestedSignature !== lastSignature) return;
+            if (requestedSignature !== selectionSignature(buildFromSelection())) return;
             // Announce the fallback in words (Rule 5): a silent drop back to
             // boxes would read as "this part just has less detail".
             specState = 'failed';
@@ -814,6 +838,67 @@ export function mountPcViewport(container, getSelection, callbacks = {}) {
 
     let requestedSignature = null;
 
+    /**
+     * Announce when the geometry is built on assumed dimensions.
+     *
+     * WHY THIS EXISTS
+     *
+     * Production carries almost no physical dimensions: measured on Neon 2026-10-06,
+     * 0 of 306 GPUs record a length and 0 of 399 cases record a height, width or
+     * depth. PartDimensions fills those gaps with defaults, so the scene draws a
+     * confident, to-scale machine built from guesses. Nothing on screen said so, and
+     * a customer looking at a tidy render concludes their card fits.
+     *
+     * The fix is not to refuse to draw - an empty panel sells nothing - but to stop
+     * presenting an illustration as a measurement. The server now sends a `trust`
+     * block on every spec; when dimensions are assumed, this says so on the canvas
+     * and hands the caller the same detail so it can be surfaced in the UI.
+     *
+     * This does not touch the customer-facing fit promise. That is FitVerification,
+     * which reads measured values only and reports `unverified` when they are absent.
+     */
+    let trustBadge = null;
+
+    function clearTrustBadge() {
+        if (!trustBadge) return;
+        trustBadge.parentNode?.removeChild(trustBadge);
+        trustBadge = null;
+    }
+
+    function showTrustBadge(trust) {
+        clearTrustBadge();
+        if (!trust || trust.trusted || !trust.assumed) return;
+
+        const el = document.createElement('div');
+        el.id = 'pctg-3d-illustrative';
+        // Inline styles on purpose: this must appear even if the page stylesheet
+        // fails to load or the panel is themed differently, and a badge that
+        // silently does not render is worse than none.
+        el.style.cssText = [
+            'position:absolute', 'left:8px', 'bottom:8px', 'z-index:20',
+            'max-width:min(420px, calc(100% - 16px))',
+            'padding:8px 10px', 'border-radius:8px',
+            'background:rgba(11,18,32,0.92)', 'border:1px solid #b8860b',
+            'color:#f5d78a', 'font:12px/1.45 system-ui, sans-serif',
+            'pointer-events:none',
+        ].join(';');
+        el.innerHTML = `<strong style="display:block;margin-bottom:2px">Illustrative view</strong>`
+            + `<span>${trust.assumed} of ${trust.total} dimensions are assumed, not measured.`
+            + ` This shows a plausible machine, not your parts to scale &mdash; fit is confirmed separately.`
+            + `</span>`;
+        container.appendChild(el);
+        trustBadge = el;
+
+        // Loud in the console too. A fallback that changes what the result MEANS has
+        // to announce itself; a silent one is how an illustrative render came to be
+        // read as a measurement.
+        console.warn(
+            `[3d] ILLUSTRATIVE GEOMETRY: ${trust.assumed} of ${trust.total} dimensions are assumed.`
+            + ' Do not treat this render as a clearance check.'
+        );
+        onDimsChange?.(buildFromSelection(), { trust });
+    }
+
     /** Swap the live scene for the generated one, keeping lights and floor. */
     function applySpec(spec) {
         disposeBuild();
@@ -822,6 +907,7 @@ export function mountPcViewport(container, getSelection, callbacks = {}) {
         buildGroup = build;
         lastCaseSignature = `${spec.case?.x}x${spec.case?.y}x${spec.case?.z}`;
         frameCamera(spec.case);
+        showTrustBadge(spec.trust);
         onDimsChange?.(buildFromSelection());
     }
 

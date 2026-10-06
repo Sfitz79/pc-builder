@@ -226,12 +226,71 @@ foreach ($spec['parts'] as $p) {
 }
 
 echo "\n";
+
+// ---- WHAT THIS PASS IS AND IS NOT ---------------------------------------
+//
+// "Every internal sits inside the case envelope" is a GEOMETRY result, and it is
+// worth having. But on this data it is close to a tautology, and printing it as a
+// bare PASS is the kind of green that gets quoted as "we checked it fits".
+//
+// The envelope being checked is a 230x460x460 case whose width, height and depth
+// were INVENTED, because 0 of 399 production cases record any of them
+// (scripts/dimension-provenance.php --production). The GPU is drawn 300mm long
+// because 0 of 306 production GPUs record a length. So the test compares a
+// fabricated card against a fabricated case and finds they agree - which they must,
+// since both numbers came from the same defaults.
+//
+// What this gate can honestly say:
+//   PASS  the geometry is self-consistent: given these dimensions, the parts do
+//         not collide with the walls. That is a real class of bug and this catches it.
+//   NOT   that a customer's card fits their case. That needs measured dimensions,
+//         and the customer-facing FitVerification is what does it, fail-closed.
+//
+// So the verdict names the scope, and refuses to certify anything as a clearance
+// check while assumed dimensions are present.
+$trust = $spec['trust'] ?? null;
+if ($trust && ! $trust['trusted']) {
+    echo "DIMENSION TRUST\n";
+    printf(
+        "  %d of %d dimensions in this scene are ASSUMED, not measured\n",
+        $trust['assumed'],
+        $trust['total']
+    );
+    printf("  %s\n", $trust['note']);
+    echo "\n  per category (assumed/total):\n";
+    foreach ($trust['per_category'] as $cat => $c) {
+        printf(
+            "    %-12s %d/%d%s\n",
+            $cat,
+            $c['assumed'],
+            $c['total'],
+            $c['assumed_fields'] ? '  <- ' . implode(', ', $c['assumed_fields']) : ''
+        );
+    }
+    echo "\n  The case envelope above is itself a default (230x460x460, no case in the\n";
+    echo "  catalogue records a height, width or depth) and the GPU is drawn 300mm long\n";
+    echo "  because no GPU records a length. A part fitting inside a guessed envelope is\n";
+    echo "  one guess agreeing with another, not a measurement.\n";
+    echo "\n";
+}
+
 if ($offenders === []) {
-    echo "VERDICT: every internal sits inside the case envelope.\n";
+    echo "VERDICT: GEOMETRY PASS - every internal sits inside the case envelope.\n";
+    if ($trust && ! $trust['trusted']) {
+        echo "\n";
+        echo "  SCOPE: this certifies that the geometry is self-consistent, i.e. that the\n";
+        echo "  parts do not poke through the walls. It does NOT certify that a customer's\n";
+        echo "  components physically fit. That is FitVerification's job, it reads measured\n";
+        echo "  values only, and it fails closed - so this must not be quoted as evidence\n";
+        echo "  of clearance.\n";
+        exit(0);
+    }
+    echo "  Every dimension here is measured or taken from a published standard, so this\n";
+    echo "  is a real clearance result.\n";
     exit(0);
 }
 
-echo "VERDICT: geometry does NOT assemble. Overflow by category:\n";
+echo "VERDICT: GEOMETRY FAIL - parts do NOT assemble. Overflow by category:\n";
 foreach ($offenders as $cat => $o) {
     printf("  %-16s x:%smm z:%smm  %s\n", $cat, round($o['x']), round($o['z']), $o['worst']);
 }
