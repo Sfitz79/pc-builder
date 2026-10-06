@@ -87,11 +87,11 @@ const table = await page.evaluate(async (VITE_BASE) => {
   // Count distinct slot names that appear as PBR values instead, and cross-check
   // against the textures the module actually requests over the network.
   const slotNames = [...new Set([...src.matchAll(/\[(?:'|")(\w+)(?:'|")\s*,\s*\d+\]/g)].map(m => m[1]))];
-  const keyLike = [...new Set([...src.matchAll(/\\b(backplate|casePanel|psuBody|ramSpreader|shroudEntry|bracket|radCore)\\b/g)].map(m => m[1]))];
+  const keyLike = [...new Set([...src.matchAll(/\b(backplate|casePanel|psuBody|ramSpreader|shroudEntry|bracket|radCore)\b/g)].map(m => m[1]))];
   const slots = slotNames.map(s => ({ key: '(pattern-matched)', slot: s, repeat: 1 }));
   const shroud = /PBR_SHROUD_RE\s*=\s*(\/.*?\/[a-z]*)/s.exec(src);
   const materialKeys = [...src.matchAll(/^\s{4}(\w+):\s*\{\s*color:/gm)].map(m => m[1]);
-  return { slots, materialKeys, hasShroudRe: !!shroud, base: (/PBR_BASE\s*=\s*'([^']+)'/.exec(src) || [])[1] || null };
+  return { slots, keyLike, materialKeys, hasShroudRe: !!shroud, base: (/PBR_BASE\s*=\s*'([^']+)'/.exec(src) || [])[1] || null };
 }, VITE);
 
 console.log(`\n  PBR_SLOT entries : ${table.slots.length}`);
@@ -118,125 +118,143 @@ check('every mapped map is served', missing.length === 0,
 
 check('no texture request failed at runtime', badTextures.length === 0, badTextures.slice(0, 4).join(' | ') || 'none');
 
-// The assertion that actually matters: drive the REAL mountPcViewport with the
-// live scene and count how many materials end up carrying a texture. Not that maps
-// exist on disk, and not that the table parses - that they LAND.
+// THE ASSERTION THAT ACTUALLY MATTERS: prove the maps really BOUND, behaviourally.
+//
+// Three previous attempts to inspect materials all failed for structural reasons,
+// not app bugs. The scene is a closure variable the API does not expose, and Vite's
+// pre-bundled three destructures its exports at module init, so patching the
+// namespace cannot intercept the app's own `new THREE.Scene`. Reading internals
+// was the wrong tool.
+//
+// So use the NETWORK as the lever instead. Render the real scene twice through the
+// real mountPcViewport - texture requests allowed, then refused - and compare the
+// actual framebuffer. If nothing were bound the two frames would be IDENTICAL,
+// which is precisely the silent no-op that already shipped once: 7.78MB of CC0
+// maps installed, applied to nothing, every check green. A file that never
+// reaches a mesh cannot change a pixel.
 const SCENE = readFileSync('C:/Users/simon/AppData/Local/Temp/opencode/mesh-spec-live.json', 'utf8');
 
-const bound = await page.evaluate(async ({ viteBase, sceneJson }) => {
-  // The scene is a CLOSURE variable inside mountPcViewport and the API does not
-  // expose it - api is { assemble, snapshot, renderStorefront, renderer,
-  // currentSignature, isBuilt, destroy }. Rather than edit app code to reach it,
-  // instrument three FIRST so every Scene the module constructs is recorded. That
-  // keeps the probe entirely outside the application.
-  // Instrument by importing the SAME specifier the app's own module uses. Reading
-  // window.THREE does not work: the app pulls three through Vite, so there is no
-  // global, and guessing Vite's hashed dep path fails because the hash is per-run.
-  let three = null;
-  try {
-    const mod = await import('three');
-    three = mod.Scene ? mod : mod.default;
-  } catch { three = window.THREE; }
-  if (!three || !three.Scene) return { ok: false, why: 'could not resolve a THREE instance to instrument' };
-
-  if (!window.__scenes) {
-    window.__scenes = [];
-    const OrigScene = three.Scene;
-    three.Scene = function (...a) { const s = new OrigScene(...a); window.__scenes.push(s); return s; };
-    three.Scene.prototype = OrigScene.prototype;
-    const OrigStd = three.MeshStandardMaterial;
-    three.MeshStandardMaterial = function (...a) { const m = new OrigStd(...a); (window.__mats ||= []).push(m); return m; };
-    three.MeshStandardMaterial.prototype = OrigStd.prototype;
+// Phase-tag texture requests so "did it ask for the maps" and "were they refused"
+// are measured, not assumed.
+let pbrPhase = 'allowed';
+let pbrReqAllowed = 0;
+let pbrReqBlocked = 0;
+await page.route('**/*', async (route) => {
+  const url = route.request().url();
+  if (url.includes('/textures/pbr/')) {
+    if (pbrPhase === 'allowed') { pbrReqAllowed++; return route.continue(); }
+    pbrReqBlocked++;
+    return route.abort();
   }
+  return route.continue();
+});
 
-  const mod = await import(viteBase + '/resources/js/pc-viewport.js');
-  const mount = mod.mountPcViewport;
-  if (typeof mount !== 'function') return { ok: false, why: 'mountPcViewport is not a function' };
+// Mount the real viewport, let the async TextureLoader settle, then read the
+// framebuffer back off the canvas.
+const grabFrame = async (slot) => {
+  await page.evaluate(async ({ viteBase, sceneJson, slot }) => {
+    const mod = await import(viteBase + '/resources/js/pc-viewport.js');
+    const mount = mod.mountPcViewport;
+    if (typeof mount !== 'function') { window.__pbrErr = 'mountPcViewport is not a function'; return; }
 
-  const host = document.getElementById('pc-viewport') || document.body;
-  host.style.width = '1200px';
-  host.style.height = '800px';
-  if (!host.id) host.id = 'pc-viewport-probe';
+    const host = document.createElement('div');
+    host.id = 'pbr-probe-' + slot;
+    host.style.cssText = 'width:900px;height:640px;position:fixed;left:0;top:0;z-index:99999';
+    document.body.appendChild(host);
 
-  let api = null;
-  try {
-    // The SECOND argument is getSelection - a FUNCTION returning the selection -
-    // not the scene itself. Passing the scene made the viewport call
-    // getSelection(...) and die with "getSelection is not a function".
     const selection = JSON.parse(sceneJson);
-    api = mount(host, () => selection.spec, {});
-  } catch (e) {
-    return { ok: false, why: String((e && e.message) || e) };
-  }
-  if (!api) return { ok: false, why: 'mountPcViewport returned null (no WebGL)' };
-
-  // mountPcViewport returns an API, not the scene: { assemble, snapshot, renderer,
-  // isBuilt, destroy }. The scene is reached through the renderer's WebGL context's
-  // owning Object3D, or via api.assemble's return. Reach it the way the app does -
-  // call assemble() - then walk api.renderer for the tree.
-  let built = null;
-  try {
-    built = api.assemble ? await api.assemble() : null;
-  } catch (e) {
-    return { ok: false, why: 'assemble threw: ' + String((e && e.message) || e) };
-  }
-
-  // Let the async map loads settle before counting.
-  await new Promise(r => setTimeout(r, 3000));
-
-  const found = { total: 0, textured: 0, orm: 0, normal: 0, bySlot: {} };
-  const visit = (o, depth = 0) => {
-    if (!o || depth > 40) return;
-    const m = o.material;
-    if (m && !Array.isArray(m)) {
-      found.total++;
-      const slot = (m.map && m.map.name) || m.name || 'unnamed';
-      if (m.map && m.map.image) { found.textured++; found.bySlot[slot] = (found.bySlot[slot] || 0) + 1; }
-      if (m.roughnessMap && m.roughnessMap.image) found.orm++;
-      if (m.normalMap && m.normalMap.image) found.normal++;
+    // The second argument is getSelection - a FUNCTION returning the selection.
+    let api = null;
+    try {
+      api = mount(host, () => selection.spec, {});
+    } catch (e) {
+      window.__pbrErr = 'mount threw: ' + String((e && e.message) || e);
+      host.remove();
+      return;
     }
-    const kids = o.children || [];
-    for (const k of kids) visit(k, depth + 1);
-  };
+    if (!api) { window.__pbrErr = 'mountPcViewport returned null (no WebGL)'; host.remove(); return; }
 
-  // Every scene the module built, plus whatever the API exposed.
-  const roots = [...(window.__scenes || []), built, api.scene, api.root].filter(Boolean);
-  for (const r of roots) visit(r);
+    // The renderer owns a rAF loop; wait long enough for TextureLoader to land.
+    await new Promise(r => setTimeout(r, 4000));
+    if (api.renderStorefront) api.renderStorefront();
 
-  // Independent cross-check: tally the recorded materials directly, so a scene
-  // graph that failed to walk cannot hide a bound texture.
-  const mats = window.__mats || [];
-  const direct = {
-    mats: mats.length,
-    map: mats.filter(m => m.map && m.map.image).length,
-    orm: mats.filter(m => m.roughnessMap && m.roughnessMap.image).length,
-    normal: mats.filter(m => m.normalMap && m.normalMap.image).length,
-  };
+    const canvas = host.querySelector('canvas');
+    if (!canvas) { window.__pbrErr = 'viewport produced no canvas'; api.destroy?.(); host.remove(); return; }
 
-  return {
-    ok: true, ...found, direct,
-    apiKeys: Object.keys(api || {}).slice(0, 12),
-    isBuilt: api.isBuilt ? !!api.isBuilt() : null,
-    scenesCaptured: (window.__scenes || []).length,
-  };
-}, { viteBase: VITE, sceneJson: SCENE });
+    const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
+    if (!gl) { window.__pbrErr = 'no WebGL context to read back'; api.destroy?.(); host.remove(); return; }
 
-if (!bound.ok) {
-  check('viewport mounts with the live scene', false, bound.why);
+    // preserveDrawingBuffer is set in the renderer, so the last frame is readable.
+    const w = canvas.width, h = canvas.height;
+    const px = new Uint8Array(w * h * 4);
+    gl.readPixels(0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, px);
+
+    window['__frame_' + slot] = { w, h, px };
+    api.destroy?.();
+    host.remove();
+  }, { viteBase: VITE, sceneJson: SCENE, slot });
+};
+
+await grabFrame('A');
+const errA = await page.evaluate(() => window.__pbrErr || null);
+
+// Same render, textures refused. Any material that had a bound map must now fall
+// back to the flat brand palette, so the frame has to change.
+pbrPhase = 'blocked';
+await grabFrame('B');
+const errB = await page.evaluate(() => window.__pbrErr || null);
+
+if (errA || errB) {
+  check('viewport renders with textures both available and blocked', false, errA || errB);
 } else {
-  check('viewport mounts with the live scene', true, `api: ${(bound.apiKeys || []).join(', ')}`);
-  console.log(`\n  scenes captured  : ${bound.scenesCaptured}`);
-  console.log(`  graph materials  : ${bound.total}`);
-  console.log(`  recorded mats    : ${bound.direct?.mats}`);
-  console.log(`  with base colour : ${bound.textured} (graph) / ${bound.direct?.map} (recorded)`);
-  console.log(`  with ORM         : ${bound.orm} (graph) / ${bound.direct?.orm} (recorded)`);
-  console.log(`  with normal      : ${bound.normal} (graph) / ${bound.direct?.normal} (recorded)`);
+  const cmp = await page.evaluate(() => {
+    const A = window.__frame_A, B = window.__frame_B;
+    if (!A || !B) return { ok: false, why: `missing frame(s): A=${!!A} B=${!!B}` };
+    if (A.w !== B.w || A.h !== B.h) return { ok: false, why: 'frame sizes differ' };
 
-  const mats = bound.direct?.mats || 0;
-  check('materials exist in the scene graph', bound.total > 100, `${bound.total} in graph, ${mats} recorded`);
-  check('PBR base colour actually BOUND', (bound.direct?.map || 0) > 4, `${bound.direct?.map} materials textured`);
-  check('ORM (roughness+metalness+AO) actually BOUND', (bound.direct?.orm || 0) > 4, `${bound.direct?.orm}`);
-  check('normal maps actually BOUND', (bound.direct?.normal || 0) > 4, `${bound.direct?.normal}`);
+    const n = A.px.length;
+    const stride = 28; // sample every 7th pixel: plenty for a mean, cheap to ship
+    let sum = 0, changed = 0, samples = 0;
+    let litA = 0, litTotal = 0;
+    for (let i = 0; i < n; i += stride) {
+      const d = Math.abs(A.px[i] - B.px[i])
+        + Math.abs(A.px[i + 1] - B.px[i + 1])
+        + Math.abs(A.px[i + 2] - B.px[i + 2]);
+      sum += d; samples++;
+      if (d > 12) changed++;
+      if (i % (stride * 11) === 0) {
+        litTotal++;
+        if (A.px[i] + A.px[i + 1] + A.px[i + 2] > 30) litA++;
+      }
+    }
+    return {
+      ok: true,
+      w: A.w, h: A.h,
+      meanDiff: sum / samples,
+      pctChanged: (changed / samples) * 100,
+      pctLit: (litA / litTotal) * 100,
+      identical: sum === 0,
+    };
+  });
+
+  if (!cmp.ok) {
+    check('framebuffers captured for comparison', false, cmp.why);
+  } else {
+    console.log(`\n  framebuffer       : ${cmp.w} x ${cmp.h}`);
+    console.log(`  texture requests  : ${pbrReqAllowed} allowed / ${pbrReqBlocked} refused`);
+    console.log(`  lit pixels (A)    : ${cmp.pctLit.toFixed(1)}%`);
+    console.log(`  mean pixel delta  : ${cmp.meanDiff.toFixed(2)} / 765`);
+    console.log(`  pixels changed    : ${cmp.pctChanged.toFixed(1)}%`);
+
+    check('viewport actually requested the PBR maps', pbrReqAllowed > 0, `${pbrReqAllowed} requests`);
+    check('refusing the maps changes the render', pbrReqBlocked > 0 && !cmp.identical,
+      `${pbrReqBlocked} refused, mean delta ${cmp.meanDiff.toFixed(2)}`);
+    check('render is not a blank frame', cmp.pctLit > 20, `${cmp.pctLit.toFixed(1)}% lit`);
+    // A bound PBR map changes shading over the parts it covers. The bar is set low
+    // on purpose: this asserts the maps REACH the scene, not that they look good.
+    check('delta is large enough to be textures, not antialiasing', cmp.meanDiff > 1.0,
+      `mean delta ${cmp.meanDiff.toFixed(2)}`);
+  }
 }
 
 check('builder page has a canvas', await page.evaluate(() => document.querySelectorAll('canvas').length > 0),
