@@ -1,0 +1,82 @@
+[
+    {
+        "name": "High End 1440p",
+        "total": 2244.83,
+        "socket": "AM5",
+        "estimated_draw_watts": 410,
+        "psu_watts": 600,
+        "headroom": 1.46,
+        "case_form_factor": "ATX",
+        "board_form_factor": "unknown (treated as ATX-width; no board FF evidence exists)",
+        "parts": [
+            {
+                "type": "CPU",
+                "id": 38997,
+                "name": "AMD Ryzen 9 7950X3D",
+                "price": 590.99
+            },
+            {
+                "type": "GPU",
+                "id": 40130,
+                "name": "Sapphire PULSE",
+                "price": 899
+            },
+            {
+                "type": "Motherboard",
+                "id": 39539,
+                "name": "Asus B650E MAX GAMING WIFI W",
+                "price": 149.99
+            },
+            {
+                "type": "RAM",
+                "id": 40328,
+                "name": "Kingston FURY Beast 32 GB",
+                "price": 299.99
+            },
+            {
+                "type": "Storage",
+                "id": 40614,
+                "name": "Kingston NV3",
+                "price": 128.94
+            },
+            {
+                "type": "PSU",
+                "id": 40982,
+                "name": "Thermaltake Smart",
+                "price": 65.25
+            },
+            {
+                "type": "Case",
+                "id": 41602,
+                "name": "Cooler Master Q300L V2",
+                "price": 70.53
+            },
+            {
+                "type": "Cooler",
+                "id": 39522,
+                "name": "Thermalright Ultra 120 Extreme EVO REV.5",
+                "price": 40.14
+            }
+        ],
+        "evidence": {
+            "cpu_cores": 16,
+            "cpu_threads": 32,
+            "cpu_tdp_source": "components.wattage",
+            "gpu_chipset": "Radeon RX 6700 XT",
+            "gpu_chipset_source": "specs.chipset",
+            "gpu_vram_gb": 12,
+            "gpu_watts_source": "default 200W (no TDP recorded)",
+            "ram_capacity_source": "specs.capacity",
+            "ram_speed": "DDR5-5600",
+            "case_form_factor_source": "specs.form_factor (verified backfill 2026-09-29, 399/399)",
+            "case_price_floor": "£70 enforced (brand integrity: cheapest 4 ATX cases are £17.99-£19.99)",
+            "board_chipset_class": "/\\bB650E?\\b/i | /\\bX670[E]?\\b/i required by tier",
+            "board_chipset_source": "NAME MATCH ONLY - 0/397 production motherboards carry specs, so chipset is unverified",
+            "cooler_brand_source": "NAME MATCH only (whitelist: Noctua, Arctic, be quiet, Thermalright, NZXT, Corsair, Cooler Master)",
+            "cooler_thermal_evidence": "NONE - 0/372 production coolers carry specs, so TDP/socket coverage is NOT verified. No cooling capacity is claimed.",
+            "board_form_factor_source": "NONE in production data - ATX-width assumed, fail closed",
+            "gpu_length_fit": "NOT CHECKED - 0/399 production cases carry max_gpu_length, so no GPU length gate is enforced",
+            "price_source": "catalogue price - NOT merchant-verified"
+        }
+    }
+]

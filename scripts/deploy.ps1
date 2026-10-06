@@ -119,7 +119,64 @@ function Invoke-Vercel {
 }
 
 # The domains that must never move without an explicit -Promote.
-$liveDomains = @('https://pctechguy.app', 'https://www.pctechguy.app')
+#
+# pcbuilder.pctechguyonline.com added 2026-10-02. The Boss linked it to this
+# project, and the gate could not see it - which is the same failure this script
+# already documents below about component images. A gate that does not know about
+# a domain cannot notice that domain going stale: `vercel deploy --prod` only
+# assigns the apex alias, so a production deploy would have moved pctechguy.app
+# and www.pctechguy.app correctly while leaving pcbuilder.pctechguyonline.com
+# serving the PREVIOUS build, and the gate would have reported success.
+#
+# Every domain this project serves must be in this list, or it is unguarded.
+#
+# Resolution gate added 2026-10-02.
+#
+# Measured: pcbuilder.pctechguyonline.com has NO DNS record ("DNS name does not
+# exist"). Vercel HOLDS the alias for it, but pctechguyonline.com is on
+# third-party nameservers, so Vercel cannot create the record itself - it needs a
+# CNAME at the registrar. Until that exists the host does not resolve.
+#
+# That made the verification gate below fail on all 8 paths for that domain and
+# trigger a full ROLLBACK of a perfectly good production deploy on 2026-10-02,
+# even though pctechguy.app and www.pctechguy.app both served 200 from the new
+# build. The gate was measuring something that is not a property of this deploy.
+#
+# So a domain is only gated if it RESOLVES. An unresolvable host is reported and
+# skipped, never asserted on. The fix is a DNS record, not a code change:
+#
+#     pcbuilder  CNAME  cname.vercel-dns.com.
+#
+# $env:PCTG_STRICT_DOMAINS=1 restores strict behaviour for CI/release gating,
+# where an unresolvable domain genuinely should block a release.
+$liveDomains = @(
+    'https://pctechguy.app'
+    'https://www.pctechguy.app'
+    'https://pcbuilder.pctechguyonline.com'
+)
+
+$strictDomains = $env:PCTG_STRICT_DOMAINS -eq '1'
+$gatedDomains = @()
+$skippedDomains = @()
+foreach ($domain in $liveDomains) {
+    $hostName = ([uri]$domain).Host
+    $resolves = $true
+    try {
+        Resolve-DnsName -Name $hostName -ErrorAction Stop | Out-Null
+    } catch {
+        $resolves = $false
+    }
+    if ($resolves) {
+        $gatedDomains += $domain
+    } elseif ($strictDomains) {
+        Write-Error "$hostName does not resolve and PCTG_STRICT_DOMAINS=1 is set. Refusing to deploy."
+    } else {
+        $skippedDomains += $domain
+        Write-Warning "$hostName does not resolve (no DNS record) - excluded from the verification gate."
+        Write-Warning "  fix at the registrar: $hostName CNAME cname.vercel-dns.com."
+    }
+}
+$liveDomains = $gatedDomains
 
 # Sample ONE real component image from the local cache, once, at the top level,
 # because BOTH the deploy gate and the promote verification need it.
@@ -336,6 +393,15 @@ if ($Production) {
         Write-Error "these domains are not serving $newUrl after aliasing: $($postFail -join ', ')"
     }
 
+    # Say plainly what was NOT checked. A gate that silently drops a domain is
+    # the exact failure this file documents twice already (www going stale while
+    # the gate passed; a component-image 404 while every HTML route returned 200).
+    if ($skippedDomains.Count -gt 0) {
+        Write-Host ''
+        Write-Host 'NOT VERIFIED (no DNS record):' -ForegroundColor Yellow
+        foreach ($d in $skippedDomains) { Write-Host "  $d" -ForegroundColor Yellow }
+    }
+
     Write-Host ''
     Write-Host "PRODUCTION DEPLOYED AND VERIFIED: $newUrl" -ForegroundColor Green
     return
@@ -439,8 +505,15 @@ $failed = $false
 # that is exactly the state www.pctechguy.app was in, and the homepage check
 # called it healthy. The homepage is no longer accepted as proof on its own.
 $verifyImage = if ($imgSample) { "/img/components/$($imgSample.BaseName).jpg" } else { $null }
-foreach ($domain in $liveDomains) {
+foreach ($domain in ($liveDomains + $skippedDomains)) {
     $code = & curl.exe -s -o NUL -w "%{http_code}" --max-time 60 "$domain/" 2>$null
+    if ($skippedDomains -contains $domain) {
+        # Reported, never asserted on: a host with no DNS record is not this
+        # deploy's regression. See the resolution gate above.
+        $label = if ($code -eq '200') { 'ok (unexpectedly resolves now)' } else { 'unresolved - not gated' }
+        Write-Host ("  {0,-30} HTTP {1}  {2}" -f $domain, $code, $label) -ForegroundColor Yellow
+        continue
+    }
     Write-Host ("  {0,-30} HTTP {1}" -f $domain, $code)
     if ($code -ne '200') { $failed = $true }
     if ($verifyImage) {

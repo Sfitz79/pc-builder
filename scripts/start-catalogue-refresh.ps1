@@ -30,13 +30,16 @@ Add-Content -LiteralPath $log -Value "`n===== catalogue refresh started $stamp =
 # Ordered by price descending inside the command, so GPU/RAM/storage get
 # fetched first: they are both the highest-value rows and the categories the
 # 2026 shortage hit hardest. Delay is polite to PCPP's Cloudflare edge.
-$args = @(
+# `$args` is a READ-ONLY automatic variable in PowerShell. Assigning to it is
+# the same class of bug as the `$host` collision that aborted deploy.ps1 on
+# 2026-09-28 - it fails at runtime, long after it looks fine on screen.
+$refreshArgs = @(
     'artisan', 'components:refresh-catalogue',
     '--delay=1.5', '--attempts=3'
 )
 
 $p = Start-Process -FilePath 'php' `
-    -ArgumentList $args `
+    -ArgumentList $refreshArgs `
     -WorkingDirectory $root `
     -RedirectStandardOutput $log `
     -RedirectStandardError "$log.err" `

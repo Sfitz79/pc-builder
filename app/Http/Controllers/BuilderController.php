@@ -9,9 +9,11 @@ use App\Services\CatalogueGate;
 use App\Services\CompatibilityService;
 use App\Services\FPSCalculationService;
 use App\Services\PartDimensions;
+use App\Services\ThreeD\BuildSceneService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Illuminate\View\Factory as ViewFactory;
@@ -110,6 +112,87 @@ class BuilderController extends Controller
         return response()->json([
             'bands' => $this->recommendations->workableBands(),
             'whatsapp' => AIRecommendationService::WHATSAPP_NUMBER,
+        ]);
+    }
+
+    /**
+     * The procedural 3D geometry for the current selection, as a declarative
+     * mesh spec in real millimetres.
+     *
+     * WHY A ROUND TRIP INSTEAD OF GENERATING IN THE BROWSER
+     *
+     * The geometry has to be generated in PHP, because the only way to prove
+     * "the GPU is not a box, and its dimensions are real millimetres" is a PHP
+     * script that can read PartDimensions and hash the output
+     * (scripts/verify-3d-geometry.php). Generating in both languages would mean
+     * two implementations quietly diverging, which is the failure mode this
+     * whole project exists to remove.
+     *
+     * Three properties keep this off the critical path for a customer:
+     *  - it is cached by selection signature, so a repeated swap of the same
+     *    part costs nothing;
+     *  - generation measures ~0.5ms, so a cold cache is not a stall either;
+     *  - and it fails SAFE. A bad request, an unknown category or a generator
+     *    that throws all return a 200 with `ok:false` and a reason, never a 500.
+     *    The viewport then draws the legacy primitive scene. A dead shop is not
+     *    an acceptable failure mode for a 3D preview.
+     */
+    public function meshSpec(Request $request): JsonResponse
+    {
+        $selection = $request->input('parts', []);
+        if (! is_array($selection)) {
+            return response()->json(['ok' => false, 'reason' => 'parts must be an object']);
+        }
+
+        // Only known categories, only real ids. Anything else is dropped rather
+        // than trusted, so a crafted payload cannot make the endpoint load
+        // arbitrary components or wander outside the catalogue.
+        $clean = [];
+        foreach (BuildSceneService::CATEGORIES as $category) {
+            $id = (int) ($selection[$category]['id'] ?? $selection[$category] ?? 0);
+            if ($id <= 0) {
+                continue;
+            }
+            $component = Component::with('category')->find($id);
+            if (! $component || $component->category?->slug !== $category) {
+                continue;
+            }
+            $clean[$category] = [
+                'id' => $component->id,
+                'name' => (string) $component->name,
+                'specs' => is_array($component->specs) ? $component->specs : [],
+            ];
+        }
+
+        if ($clean === []) {
+            return response()->json(['ok' => false, 'reason' => 'no valid parts in the selection']);
+        }
+
+        $signature = 'pctg3d:v' . BuildSceneService::VERSION . ':' . sha1(json_encode($clean));
+
+        try {
+            $spec = Cache::remember($signature, 3600, function () use ($clean) {
+                return app(BuildSceneService::class)->forSelection($clean);
+            });
+        } catch (\Throwable $e) {
+            // Announce the fallback rather than degrading quietly (Rule 5): a
+            // silent return of the legacy scene would look like "the new
+            // geometry is just sparse on this part".
+            Log::warning('[3d] mesh spec generation failed, client will draw the legacy scene', [
+                'error' => $e->getMessage(),
+            ]);
+
+            return response()->json([
+                'ok' => false,
+                'reason' => 'geometry generation failed',
+                'signature' => $signature,
+            ]);
+        }
+
+        return response()->json([
+            'ok' => true,
+            'signature' => $signature,
+            'spec' => $spec,
         ]);
     }
 

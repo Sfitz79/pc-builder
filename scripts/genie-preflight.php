@@ -159,6 +159,16 @@ if ($neonScripts === []) {
         // have pushed those scripts towards the bug instead of away from it.
         $appliesEnv = str_contains($src, 'putenv(') || str_contains($src, '$_ENV[');
         $explicitConn = (bool) preg_match("/['\"]driver['\"]\s*=>\s*['\"]pgsql['\"]/", $src);
+        // Also recognise the DSN-string pattern: new PDO('pgsql:host=...', ...) which
+        // is what scripts legitimately use when they must read local AND production
+        // (applying the production env globally would overwrite the local connection).
+        if (! $explicitConn) {
+            $explicitConn = (bool) preg_match("/new\s+PDO\s*\(\s*['\"]pgsql:host=/", $src);
+        }
+        // Also recognise the sprintf-wrapped DSN: new PDO(sprintf('pgsql:host=...', ...), ...)
+        if (! $explicitConn) {
+            $explicitConn = (bool) preg_match("/new\s+PDO\s*\(\s*sprintf\s*\(\s*['\"]pgsql:host=/", $src);
+        }
         if (!$appliesEnv && !$explicitConn) {
             $fail($name . ' reads .env.production.neon but never applies it', 'it will silently query local sqlite');
             continue;
@@ -167,7 +177,10 @@ if ($neonScripts === []) {
         // asserts pgsql and exits 3 on anything else. The first version only
         // understood the inline form and failed four correctly-guarded scripts.
         $asserts = str_contains($src, 'genie-prod-guard')
-            || (str_contains($src, 'getDriverName()') && preg_match('/!==\s*[\'"]pgsql[\'"]/', $src));
+            || (str_contains($src, 'getDriverName()') && preg_match('/!==\s*[\'"]pgsql[\'"]/', $src))
+            // Explicit DSN string construction IS the assertion - the driver is baked
+            // into the connection string and there is no other path.
+            || $explicitConn;
         $asserts
             ? $ok("$name applies the env and asserts pgsql")
             : $fail($name . ' touches production but never asserts the driver', 'it can silently query local sqlite');

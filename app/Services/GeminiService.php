@@ -3,7 +3,8 @@
 namespace App\Services;
 
 use App\Models\Component;
-use Illuminate\Support\Collection;
+  use App\Support\Tls;
+  use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -197,8 +198,13 @@ class GeminiService
         try {
             $request = Http::timeout((int) config('gemini.timeout', 15));
 
-            if (is_file('C:\Users\simon\cacert.pem')) {
-                $request = $request->withOptions(['verify' => 'C:\Users\simon\cacert.pem']);
+            // CA bundle resolution, not a hardcoded Windows path. This used to be
+            // `is_file('C:\Users\simon\cacert.pem')`, which could never be true in
+            // the deployed copy and so silently did nothing there while baking a
+            // developer's directory layout into production code. See App\Support\Tls.
+            $tlsOptions = Tls::guzzleOptions();
+            if ($tlsOptions !== []) {
+                $request = $request->withOptions($tlsOptions);
             }
 
             $response = $request->acceptJson()

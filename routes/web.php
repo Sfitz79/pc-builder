@@ -3,6 +3,7 @@
 use App\Http\Controllers\BuilderController;
 use App\Http\Controllers\BuildController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PrebuiltController;
 use App\Http\Controllers\SoftwareController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,7 +52,15 @@ Route::prefix('builder')->name('builder.')->group(function () {
     // 3D build viewport: same-origin part-image proxy (textures) + the
     // render-to-Storefront bridge (3D geometry → aigen → photoreal render).
     Route::get('/part-image/{component}', [BuilderController::class, 'partImage'])->name('part-image');
+    // Procedural 3D geometry for the current selection. Cached by signature,
+    // and answerless-but-safe: it returns ok:false rather than 500 so the
+    // viewport falls back to the legacy primitive scene instead of breaking.
+    Route::post('/mesh-spec', [BuilderController::class, 'meshSpec'])->name('mesh-spec');
     Route::post('/render-3d', [BuilderController::class, 'render3d'])->name('render-3d');
+    // Whether the render bridge is usable, so the button is only shown when it
+    // can actually work. See BuilderController::renderCapability().
+    Route::get('/render-capability', [BuilderController::class, 'renderCapability'])
+        ->name('render-capability');
 
     // Saved build lifecycle (guest + authenticated owners).
     Route::get('/builds', [BuildController::class, 'index'])->name('builds');
@@ -111,18 +120,10 @@ Route::view('/components', 'info-page', [
     ],
 ])->name('components');
 
-Route::view('/prebuilts', 'info-page', [
-    'title' => 'Pre-Builts',
-    'subtitle' => 'Hand-tuned systems that come pre-configured with the PCTG AI build under the hood — ready to ship.',
-    'items' => [
-        ['icon' => 'trophy', 'title' => 'Competitive Gaming', 'body' => 'High-FPS Fortnite and Warzone machines tuned for minimum input lag, not just maximum frames.'],
-        ['icon' => 'gpu', 'title' => '4K Ultra', 'body' => 'RTX 5080-powered rigs that hold 4K ultra settings in the latest AAA releases.'],
-        ['icon' => 'headset', 'title' => 'Streaming', 'body' => 'Dual-PC-grade CPU headroom with NVENC encoding for smooth 1440P gaming plus a 1080P broadcast.'],
-        ['icon' => 'sparkles', 'title' => 'Customisable', 'body' => 'Every pre-built can be tweaked in the builder before you order — swap parts, not the whole system.'],
-        ['icon' => 'box', 'title' => 'Shipped Built & Tested', 'body' => 'Burn tested and cable managed in the UK, with full warranty coverage included.'],
-        ['icon' => 'credit-card', 'title' => 'Finance Available', 'body' => 'Spread the cost on quality systems from £59.97/month with flexible payment options.'],
-    ],
-])->name('prebuilts');
+// Pre-built configurator listings (live catalogue prices with an honest
+// price-fluctuation disclaimer, per Boss decision 2026-09-29).
+Route::get('/prebuilts', [PrebuiltController::class, 'index'])->name('prebuilts');
+Route::get('/builder/preset/{slug}', [PrebuiltController::class, 'preset'])->name('prebuilts.preset');
 
 Route::view('/support', 'info-page', [
     'title' => 'Support',

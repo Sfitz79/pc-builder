@@ -55,3 +55,24 @@ yarn-error.log
 # pinned Poly Haven asset names. manifest.json IS committed, so the material slots
 # and their licences stay reviewable in code.
 public/textures/pbr/*.jpg
+
+# --- Pre-refresh catalogue backups (2026-10-06) ----------------------------
+# 13.6MB of .bak snapshots taken before the case/cooler/cpu/gpu/ram refresh.
+# The live scraped/*.json files are already tracked, so these are redundant
+# rollback copies that only ever grow. The refresh is reproducible from
+# scripts/start-catalogue-refresh.ps1, so the backups are not history.
+database/scraped/*.bak
+
+# --- Scratch files ---------------------------------------------------------
+# One-off batch generators written to be run and thrown away. A file named
+# tmp-*.php has never once been the thing we wanted to keep.
+database/scraped/tmp-*.php
+scripts/tmp-*.php
+
+# --- Runtime state, not source ---------------------------------------------
+# mesh-spec-trust.json is written at runtime by the 3D trust gate. Committing
+# it would freeze a machine-specific verdict into the repo.
+storage/app/
+
+# Batch sweep output: empty stub files and logs from a one-off run.
+database/scraped/prod-batches/
