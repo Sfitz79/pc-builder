@@ -1,0 +1,55 @@
+{
+    "parts": {
+        "gpu": {
+            "id": 39940,
+            "name": "PNY OC",
+            "specs": {
+                "memory": "16GB",
+                "chipset": "GeForce RTX 5080"
+            }
+        },
+        "motherboard": {
+            "id": 39536,
+            "name": "MSI MAG B850 TOMAHAWK MAX WIFI",
+            "specs": []
+        },
+        "cpu": {
+            "id": 38930,
+            "name": "AMD Ryzen 7 9800X3D",
+            "specs": {
+                "cores": 8,
+                "threads": 16
+            }
+        },
+        "ram": {
+            "id": 40239,
+            "name": "Corsair Vengeance RGB 32 GB",
+            "specs": {
+                "speed": "DDR5-6000",
+                "capacity": "32GB"
+            }
+        },
+        "storage": {
+            "id": 40614,
+            "name": "Kingston NV3",
+            "specs": {
+                "capacity": "1024GB"
+            }
+        },
+        "psu": {
+            "id": 40952,
+            "name": "MSI MAG A750GL PCIE5",
+            "specs": []
+        },
+        "case": {
+            "id": 41239,
+            "name": "Montech XR",
+            "specs": []
+        },
+        "cooler": {
+            "id": 39164,
+            "name": "ARCTIC Liquid Freezer III Pro 360",
+            "specs": []
+        }
+    }
+}

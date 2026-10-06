@@ -36,7 +36,15 @@ use App\Services\PartDimensions;
  */
 final class BuildSceneService
 {
-    public const VERSION = 3;
+    // Bumped to 4 when the AIO/ram placement bugs were fixed.
+    //
+    // meshSpec() keys its Cache::remember() on 'pctg3d:v'.VERSION . ':' . sha1(...),
+    // so this is also how a geometry fix reaches the browser. Left at 3, the
+    // corrected scene sat behind a 1-hour TTL and the render kept showing hour-old
+    // geometry - pixel-identical screenshots across every code change, which is
+    // exactly the sort of thing that makes a visual test look broken rather than
+    // stale. Any change to the geometry MUST bump this.
+    public const VERSION = 4;
 
     /** Categories a build can hold, in assembly order. */
     public const CATEGORIES = ['case', 'motherboard', 'cpu', 'cooler', 'ram', 'gpu', 'storage', 'psu'];
@@ -135,23 +143,42 @@ final class BuildSceneService
             $coolerGeom = $coolerGen->generate($coolerDims, $this->specsFor($selection, 'cooler'),
                 $this->nameFor($selection, 'cooler'), 'cooler', $context);
 
-            foreach ($coolerGeom['groups'] ?? [] as $group) {
-                $t = $group['t'];
-                $parts[] = $this->part('cooler:' . $group['key'], $this->idFor($selection, 'cooler'),
-                    [$t[0], $t[1] + $yLift, $t[2]], $this->identity(),
-                    ['meshes' => $group['meshes'], 'meta' => ['group' => $group['key']]],
-                    $group['envelope']);
-            }
+              foreach ($coolerGeom['groups'] ?? [] as $group) {
+                  $t = $group['t'];
+                  // AIO groups are marked 'space' => 'case': CoolerGeometry has
+                  // already placed them in case space, using a roof_y that INCLUDES
+                  // $yLift and a socket that came from $cpuTop, which is also
+                  // already lifted. Adding $yLift again pushed the whole cooler
+                  // 250mm too high - measured at 180mm outside the case wall.
+                  //
+                  // Air-tower meshes are in the cooler's OWN local frame and still
+                  // need the lift applied by the caller's basis, which is why only
+                  // the lifted case-space groups were wrong.
+                  $inCaseSpace = ($group['space'] ?? 'case') === 'case';
+                  $origin = $inCaseSpace
+                      ? [$t[0], $t[1], $t[2]]
+                      : [$t[0], $t[1] + $yLift, $t[2]];
+                  $parts[] = $this->part('cooler:' . $group['key'], $this->idFor($selection, 'cooler'),
+                      $origin, $this->identity(),
+                      ['meshes' => $group['meshes'], 'meta' => ['group' => $group['key']]],
+                      $group['envelope']);
+              }
 
-            if (! empty($coolerGeom['meshes'])) {
-                // Air tower: stand it up on the CPU. The contact plate sits on the
-                // IHS and the +Y height axis points out of the board toward the
-                // glass, which is the direction `max_cpu_cooler_height` measures.
-                $towerW = (float) ($coolerDims['x'] ?? 125);
-                $towerD = (float) ($coolerDims['z'] ?? 135);
-                $t = $this->applyBasis([$towerW / 2, 0.0, $towerD / 2], $cpuTop, $airBasis);
-                $parts[] = $this->part('cooler', $this->idFor($selection, 'cooler'),
-                    [$t[0], $t[1] + $yLift, $t[2]], $airBasis, $coolerGeom);
+              // An AIO returns empty 'meshes' and fills 'groups' instead. Drawing the
+              // air tower as well put a 125mm-tall tower with heatpipes and fins
+              // alongside a 360mm radiator - a cooler that is neither - and the
+              // tower's origin, derived from $cpuTop through $airBasis, landed
+              // 180mm outside the case wall. Gate the air branch on the geometry
+              // actually being an air cooler, not merely on meshes being present.
+              if (! empty($coolerGeom['meshes']) && ($coolerDims['type'] ?? 'air') !== 'aio') {
+                  // Air tower: stand it up on the CPU. The contact plate sits on the
+                  // IHS and the +Y height axis points out of the board toward the
+                  // glass, which is the direction `max_cpu_cooler_height` measures.
+                  $towerW = (float) ($coolerDims['x'] ?? 125);
+                  $towerD = (float) ($coolerDims['z'] ?? 135);
+                  $t = $this->applyBasis([$towerW / 2, 0.0, $towerD / 2], $cpuTop, $airBasis);
+                  $parts[] = $this->part('cooler', $this->idFor($selection, 'cooler'),
+                      [$t[0], $t[1] + $yLift, $t[2]], $airBasis, $coolerGeom);
             }
         }
 
@@ -165,14 +192,27 @@ final class BuildSceneService
             // glass. Two sticks, because that is how they are sold and fitted.
             $dimmSlots = (int) (($mbGeom['meta']['dimm_slots'] ?? 4));
             $count = min(4, max(2, $dimmSlots));
-            $ramBasis = [[0.0, 0.0, 1.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]];
-            for ($i = 0; $i < $count; $i++) {
-                $base = $mbAnchors['dimm'] ?? [160.0, 80.0, 4.6];
-                $local = [$base[0] + $i * 3.4, $base[1], $base[2] + $i * 9.5];
-                $t = $onBoard($local);
-                $parts[] = $this->part('ram', $this->idFor($selection, 'ram'),
-                    [$t[0], $t[1] + $yLift, $t[2]], $ramBasis, $ramGeom,
-                    ['x' => $ramDims['y'], 'y' => $ramDims['z'], 'z' => $ramDims['x']]);
+              $ramBasis = [[0.0, 0.0, 1.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]];
+              for ($i = 0; $i < $count; $i++) {
+                  $base = $mbAnchors['dimm'] ?? [160.0, 80.0, 4.6];
+                  // Slot pitch goes along the board's LENGTH (local X), which is
+                  // how DIMM slots actually sit: side by side across a 305mm edge.
+                  // The old +$i * 9.5 was on local Z, the board's width, walking the
+                  // sticks out through the case wall instead of along the board.
+                  $local = [$base[0] + $i * 8.0, $base[1], $base[2]];
+
+                  // $mbAnchors['dimm'] is a BOARD-LOCAL anchor, so the part origin
+                  // must be rotated into case space by $onBoard(). It then carries
+                  // $ramBasis to stand the stick up on the board.
+                  //
+                  // These are two different jobs and must both happen: rotating the
+                  // anchor AND orienting the stick. Dropping $ramBasis leaves a
+                  // 133mm DIMM lying flat (116mm outside the case); keeping the
+                  // pre-rotated origin AND the basis rotates twice and does the same.
+                  $t = $onBoard($local);
+                  $parts[] = $this->part('ram', $this->idFor($selection, 'ram'),
+                      [$t[0], $t[1] + $yLift, $t[2]], $ramBasis, $ramGeom,
+                      ['x' => $ramDims['y'], 'y' => $ramDims['z'], 'z' => $ramDims['x']]);
             }
         }
 

@@ -55,7 +55,19 @@ final class CaseGeometry implements PartGeometry
             'psu_top' => [0.0, self::FOOT_H + $shrouder, -($d * 0.08)],
             'roof' => [0.0, self::FOOT_H + $h, 0.0],
             'tray_face' => [$w / 2 - 22.0, self::FOOT_H + $shrouder, 0.0],
-            'board_origin' => [$w / 2 - 12.0, self::FOOT_H + $shrouder + 8.0, -($d / 2) + 12.0],
+            // The board is mounted flat against the tray, whose face is on the +X
+            // side, and extends AWAY from it across the case. MotherboardGeometry
+            // draws the PCB from its own origin toward +X, so that origin has to
+            // sit at the tray face MINUS the board's rear standoff.
+            //
+            // It used to be +($w / 2 - 12), which put the origin just INSIDE the
+            // right-hand wall and then extended a 305mm ATX board a further 305mm
+            // to the right - 190mm outside a 230mm case, and impossible for any
+            // board larger than the case. Found by rendering the scene in a
+            // browser and measuring it, which is the only way this shows up: the
+            // geometry proofs check each part in isolation and never compared a
+            // part against the case it has to fit inside.
+            'board_origin' => [($w / 2) - 12.0, self::FOOT_H + $shrouder + 8.0, -($d / 2) + 12.0],
             'shroud_height' => [0.0, $shrouder, 0.0],
             'foot_height' => [0.0, self::FOOT_H, 0.0],
         ];
