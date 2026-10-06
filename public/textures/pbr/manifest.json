@@ -1,0 +1,62 @@
+{
+    "licence": "CC0 1.0, Poly Haven. Attribution not required and not claimed.",
+    "note": "Install at 1k/2k only. A full build geometry is about 34KB; a 4k PBR set per part would dwarf it.",
+    "materials": [
+        {
+            "slot": "gpu_shroud",
+            "asset": "metal_plate",
+            "resolution": "1k",
+            "applies_to": "GPU shroud, fan faces, PCIe bracket",
+            "licence": "CC0 1.0 (Poly Haven)",
+            "source": "https://api.polyhaven.com/files/metal_plate",
+            "files": {
+                "basecolor": "gpu_shroud_basecolor.jpg",
+                "normal": "gpu_shroud_normal.jpg",
+                "orm": "gpu_shroud_orm.jpg"
+            },
+            "retrieved": "2026-10-06"
+        },
+        {
+            "slot": "psu_casing",
+            "asset": "metal_plate_02",
+            "resolution": "1k",
+            "applies_to": "PSU casing and fan grille",
+            "licence": "CC0 1.0 (Poly Haven)",
+            "source": "https://api.polyhaven.com/files/metal_plate_02",
+            "files": {
+                "basecolor": "psu_casing_basecolor.jpg",
+                "normal": "psu_casing_normal.jpg",
+                "orm": "psu_casing_orm.jpg"
+            },
+            "retrieved": "2026-10-06"
+        },
+        {
+            "slot": "case_panel",
+            "asset": "painted_metal_shutter",
+            "resolution": "1k",
+            "applies_to": "chassis panels, the largest tiled surface in the scene",
+            "licence": "CC0 1.0 (Poly Haven)",
+            "source": "https://api.polyhaven.com/files/painted_metal_shutter",
+            "files": {
+                "basecolor": "case_panel_basecolor.jpg",
+                "normal": "case_panel_normal.jpg",
+                "orm": "case_panel_orm.jpg"
+            },
+            "retrieved": "2026-10-06"
+        },
+        {
+            "slot": "dark_polymer",
+            "asset": "black_painted_planks",
+            "resolution": "1k",
+            "applies_to": "RAM heatspreader, cooler fan hub, cable combs",
+            "licence": "CC0 1.0 (Poly Haven)",
+            "source": "https://api.polyhaven.com/files/black_painted_planks",
+            "files": {
+                "basecolor": "dark_polymer_basecolor.jpg",
+                "normal": "dark_polymer_normal.jpg",
+                "orm": "dark_polymer_orm.jpg"
+            },
+            "retrieved": "2026-10-06"
+        }
+    ]
+}

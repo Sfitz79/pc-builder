@@ -49,3 +49,9 @@ yarn-error.log
 # database; committing them would add 200 MB of permanent history to the repo
 # and slow or break every Vercel build.
 /public/img/components/
+
+# CC0 PBR textures are fetched by scripts/fetch-pbr-textures.php, not committed.
+# 7.8MB of binaries in git is a bad trade for files that are reproducible from
+# pinned Poly Haven asset names. manifest.json IS committed, so the material slots
+# and their licences stay reviewable in code.
+public/textures/pbr/*.jpg
