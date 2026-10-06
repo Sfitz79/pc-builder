@@ -1,0 +1,50 @@
+[
+    {
+        "id": 41331,
+        "name": "Fractal Design Node 304",
+        "form_factor": null,
+        "status": "blocked-page"
+    },
+    {
+        "id": 41342,
+        "name": "Fractal Design Define R5",
+        "form_factor": null,
+        "status": "blocked-page"
+    },
+    {
+        "id": 41364,
+        "name": "Fractal Design Node 804",
+        "form_factor": null,
+        "status": "blocked-page"
+    },
+    {
+        "id": 41398,
+        "name": "Silverstone SG13",
+        "form_factor": null,
+        "status": "blocked-page"
+    },
+    {
+        "id": 41403,
+        "name": "Cooler Master N200",
+        "form_factor": null,
+        "status": "blocked-page"
+    },
+    {
+        "id": 41504,
+        "name": "Fractal Design Core 1000 USB 3.0",
+        "form_factor": null,
+        "status": "blocked-page"
+    },
+    {
+        "id": 41516,
+        "name": "Silverstone FLP01",
+        "form_factor": null,
+        "status": "blocked-page"
+    },
+    {
+        "id": 41601,
+        "name": "Silverstone GD09 Type-C",
+        "form_factor": null,
+        "status": "blocked-page"
+    }
+]

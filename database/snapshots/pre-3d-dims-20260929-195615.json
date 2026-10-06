@@ -1,0 +1,63 @@
+{
+    "captured_at": "2026-09-29T19:56:15+00:00",
+    "purpose": "Pre-migration snapshot for 2026_09_23_120000_add_3d_dimensions_to_component_specs",
+    "db_host": "ep-bold-grass-zamkpj3f.c-2.eu-west-2.aws.neon.tech",
+    "rows": [
+        {
+            "id": 41321,
+            "slug": "lian-li-o11-vision-48d17f",
+            "name": "Lian Li O11 Vision",
+            "category_id": 7,
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\/\\/uk.pcpartpicker.com\\/product\\/Jk7scf\\/lian-li-o11-vision-atx-mid-tower-case-pc-o11vx\",\"form_factor_verified_at\":\"2026-09-29\",\"supported_form_factors\":[\"ATX\",\"Micro-ATX\",\"Mini-ITX\"]}"
+        },
+        {
+            "id": 41334,
+            "slug": "nzxt-h6-flow-rgb-2e2909",
+            "name": "NZXT H6 Flow RGB",
+            "category_id": 7,
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\/\\/uk.pcpartpicker.com\\/product\\/kfRwrH\\/nzxt-h6-flow-rgb-atx-mid-tower-case-cc-h61fw-r1\",\"form_factor_verified_at\":\"2026-09-29\",\"supported_form_factors\":[\"ATX\",\"Micro-ATX\",\"Mini-ITX\"]}"
+        },
+        {
+            "id": 39168,
+            "slug": "arctic-liquid-freezer-iii-pro-a-rgb-360-b3b6b0",
+            "name": "ARCTIC Liquid Freezer III Pro A-RGB 360",
+            "category_id": 8,
+            "specs": null
+        },
+        {
+            "id": 39178,
+            "slug": "noctua-nh-d15-6ae3a0",
+            "name": "Noctua NH-D15",
+            "category_id": 8,
+            "specs": null
+        },
+        {
+            "id": 39370,
+            "slug": "deepcool-ak620-digital-baf84c",
+            "name": "Deepcool AK620 DIGITAL",
+            "category_id": 8,
+            "specs": null
+        },
+        {
+            "id": 40106,
+            "slug": "pny-vcg508016tfxpb1-94cdb0",
+            "name": "PNY VCG508016TFXPB1",
+            "category_id": 3,
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}"
+        },
+        {
+            "id": 40128,
+            "slug": "gigabyte-gv-r9070xtgaming-16gd-5c167f",
+            "name": "Gigabyte GV-R9070XTGAMING-16GD",
+            "category_id": 3,
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}"
+        },
+        {
+            "id": 40185,
+            "slug": "pny-vcg507012tfxpb1-084f32",
+            "name": "PNY VCG507012TFXPB1",
+            "category_id": 3,
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}"
+        }
+    ]
+}

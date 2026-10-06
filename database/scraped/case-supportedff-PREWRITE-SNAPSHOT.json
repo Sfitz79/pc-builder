@@ -1,0 +1,2000 @@
+{
+    "taken": "2026-09-29T07:52:43+00:00",
+    "rows": [
+        {
+            "id": 41239,
+            "name": "Montech XR",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/fc88TW\\\/montech-xr-atx-mid-tower-case-xr-b\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41240,
+            "name": "Phanteks XT PRO",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/zJWJ7P\\\/phanteks-xt-pro-atx-mid-tower-case-ph-xt523p1-bk01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41241,
+            "name": "Lian Li Vector V100R",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/gBzp99\\\/lian-li-v100r-atx-mid-tower-case-v100rx\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41242,
+            "name": "Lian Li O11 VISION COMPACT",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/7qKscf\\\/lian-li-o11-vision-compact-atx-mid-tower-case-o11vpw\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41243,
+            "name": "NZXT H5 Flow (2024)",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/bvTZxr\\\/nzxt-h5-flow-2024-atx-mid-tower-case-cc-h52fb-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41244,
+            "name": "Cooler Master MasterBox Q300L",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/rnGxFT\\\/cooler-master-masterbox-q300l-microatx-mini-tower-case-mcb-q300l-kann-s00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41245,
+            "name": "Lian Li O11 VISION COMPACT",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/9Q88TW\\\/lian-li-o11-vision-compact-atx-mid-tower-case-o11vpx\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41246,
+            "name": "Corsair FRAME 4000D RS ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Mjy8TW\\\/corsair-frame-4000d-rs-argb-atx-mid-tower-case-cc-9011296-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41247,
+            "name": "Fractal Design North",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/ybNxFT\\\/fractal-design-north-atx-mid-tower-case-fd-c-nor1c-02\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41248,
+            "name": "HYTE Y70 Touch Infinite",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Tvrqqs\\\/hyte-y70-touch-infinite-atx-mid-tower-case-cs-hyte-y70ti-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41249,
+            "name": "Lian Li O11 Dynamic Mini V2",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Gtrp99\\\/lian-li-o11-dynamic-mini-v2-atx-mini-tower-case-o11dmiv2x\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41250,
+            "name": "Lian Li A3-mATX",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/CjFmP6\\\/lian-li-a3-matx-microatx-mini-tower-case-a3-matx-x\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41251,
+            "name": "Phanteks Eclipse G370A",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/nBFCmG\\\/phanteks-eclipse-g370a-atx-mid-tower-case-ph-ec370a_dbk01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41252,
+            "name": "Lian Li O11 Dynamic Mini V2",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/M2BFf7\\\/lian-li-o11-dynamic-mini-v2-atx-mini-tower-case-o11dmiv2w\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41253,
+            "name": "Lian Li A3-mATX",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/FG7scf\\\/lian-li-a3-matx-microatx-mini-tower-case-a3-matx-wd-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41254,
+            "name": "Fractal Design North XL",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Gd26Mp\\\/fractal-design-north-xl-atx-full-tower-case-fd-c-nor1x-02\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41255,
+            "name": "HYTE Y70 Touch Infinite",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Yp6NnQ\\\/hyte-y70-touch-infinite-atx-mid-tower-case-cs-hyte-y70ti-bb\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41256,
+            "name": "Lian Li VECTOR V100R MINI",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/VFnXsY\\\/lian-li-vector-v100r-mini-microatx-mid-tower-case-v100rmix\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41257,
+            "name": "Fractal Design Terra",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/GrMMnQ\\\/fractal-design-terra-mini-itx-desktop-case-fd-c-ter1n-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41258,
+            "name": "Montech AIR 903 MAX",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/2MwmP6\\\/montech-air-903-max-atx-mid-tower-case-air-903-max-b\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41259,
+            "name": "Phanteks XT PRO ULTRA",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/BXtLrH\\\/phanteks-xt-pro-ultra-atx-mid-tower-case-ph-xt523p1-dbk01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41260,
+            "name": "Lian Li Vector V100R",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/WNxTwP\\\/lian-li-v100r-atx-mid-tower-case-v100rw\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41261,
+            "name": "Lian Li O11D EVO RGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/qrXV3C\\\/lian-li-o11d-evo-rgb-atx-mid-tower-case-o11dergbx\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41262,
+            "name": "Phanteks XT M3 M25",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/99zp99\\\/phanteks-xt-m3-m25-microatx-mid-tower-case-ph-xt325m_dbk01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41263,
+            "name": "Lian Li LANCOOL 217",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/rXnXsY\\\/lian-li-lancool-217-atx-mid-tower-case-lan217x\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41264,
+            "name": "Lian Li Vector V100",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/qRwD4D\\\/lian-li-v100-atx-mid-tower-case-v100w\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41265,
+            "name": "Fractal Design Ridge PCIe 4.0",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/PQdG3C\\\/fractal-design-ridge-pcie-40-mini-itx-tower-case-fd-c-rid1n-11\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41266,
+            "name": "NZXT H3 Flow",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/KyqNnQ\\\/nzxt-h3-flow-microatx-mid-tower-case-cc-h31fb-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41267,
+            "name": "NZXT H9 Flow (2025)",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/RNgZxr\\\/nzxt-h9-flow-2025-atx-mid-tower-case-cm-h92fb-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41268,
+            "name": "Lian Li Lancool 207",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/zysV3C\\\/lian-li-lancool-207-atx-mid-tower-case-lan207rx\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41269,
+            "name": "Lian Li O11 Dynamic EVO XL",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/jwDQzy\\\/lian-li-o11-dynamic-evo-xl-atx-full-tower-case-o11dexl-x\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41270,
+            "name": "Corsair 3500X RS-R ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/xGwD4D\\\/corsair-3500x-rs-r-argb-atx-mid-tower-case-cc-9011322-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41271,
+            "name": "Lian Li O11 Dynamic Mini V2 Flow",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/wHJBD3\\\/lian-li-o11-dynamic-mini-v2-flow-atx-mini-tower-case-o11dmiv2fx\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41272,
+            "name": "HYTE Y70",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/RgjRsY\\\/hyte-y70-atx-mid-tower-case-cs-hyte-y70-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41273,
+            "name": "Montech AIR 100 ARGB",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/M7Z9TW\\\/montech-air-100-argb-microatx-mid-tower-case-air-100-argb-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41274,
+            "name": "Jonsbo D32 PRO",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/VL2j4D\\\/jonsbo-d32-pro-microatx-desktop-case-d32-pro-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41275,
+            "name": "Fractal Design Terra",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/rpKscf\\\/fractal-design-terra-mini-itx-desktop-case-fd-c-ter1n-03\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41276,
+            "name": "NZXT H6 Flow",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/xgKscf\\\/nzxt-h6-flow-atx-mid-tower-case-cc-h61fb-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41277,
+            "name": "HYTE Y70",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/VGgrxr\\\/hyte-y70-atx-mid-tower-case-cs-hyte-y70-b\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41278,
+            "name": "Lian Li LANCOOL 216 RGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/KKytt6\\\/lian-li-lancool-216-rgb-atx-mid-tower-case-lancool-216rx\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41279,
+            "name": "Corsair 9000D RGB AIRFLOW",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/QkCZxr\\\/corsair-9000d-rgb-airflow-atx-full-tower-case-cc-9011273-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41280,
+            "name": "Corsair 3500X ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/T8V2FT\\\/corsair-3500x-argb-atx-mid-tower-case-cc-9011279-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41281,
+            "name": "Fractal Design Pop XL Air",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/8qFbt6\\\/fractal-design-pop-xl-air-atx-full-tower-case-fd-c-por1x-06\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41282,
+            "name": "MSI MAG FORGE 321R AIRFLOW",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/KtZXsY\\\/msi-mag-forge-321r-airflow-atx-mid-tower-case-mag-forge-321r-airflow\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41283,
+            "name": "NZXT H6 Flow",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/8QMMnQ\\\/nzxt-h6-flow-atx-mid-tower-case-cc-h61fw-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41284,
+            "name": "Corsair FRAME 4000D",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/nbXMnQ\\\/corsair-frame-4000d-atx-mid-tower-case-cc-9011290-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41285,
+            "name": "Lian Li A4-H2O PCIe 5.0",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Wz4Pxr\\\/lian-li-a4-h2o-pcie-50-mini-itx-desktop-case-a4h2ox5\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41286,
+            "name": "Lian Li O11 Dynamic EVO XL",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/zqNYcf\\\/lian-li-o11-dynamic-evo-xl-atx-full-tower-case-o11dexl-w\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41287,
+            "name": "Fractal Design Meshify C",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Y6Crxr\\\/fractal-design-meshify-c-atx-mid-tower-case-fd-ca-mesh-c-bko-tg\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41288,
+            "name": "Montech XR",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/nhbRsY\\\/montech-xr-atx-mid-tower-case-xr-w\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41289,
+            "name": "Asus Prime AP201",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/fPZ9TW\\\/asus-prime-ap201-microatx-mini-tower-case-ap201blkmesh\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41290,
+            "name": "Antec C5 ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/MFNYcf\\\/antec-c5-argb-atx-mid-tower-case-0-761345-10033-5\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41291,
+            "name": "NZXT H2 Flow",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/6Dvscf\\\/nzxt-h2-flow-mini-itx-tower-case-ci-h21fb-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41292,
+            "name": "Jonsbo Jonsplus Z20",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/MM7scf\\\/jonsbo-jonsplus-z20-microatx-desktop-case-z20-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41293,
+            "name": "Corsair 3500X RS-R ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/kdfV3C\\\/corsair-3500x-rs-r-argb-atx-mid-tower-case-cc-9011323-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41294,
+            "name": "Lian Li A3-mATX",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/zPVfrH\\\/lian-li-a3-matx-microatx-mini-tower-case-a3-matx-wd-white\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41295,
+            "name": "Montech KING 95 PRO",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/7qQKHx\\\/montech-king-95-pro-atx-mid-tower-case-king-95-pro-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41296,
+            "name": "Silverstone FLP02",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/W2fV3C\\\/silverstone-flp02-atx-mid-tower-case-sst-flp02w\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41297,
+            "name": "Lian Li B4-mATX Wood",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/QMsMnQ\\\/lian-li-b4-matx-wood-microatx-mini-tower-case-b4x-wd\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41298,
+            "name": "Okinos Aqua 3 ARGB",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/FfQKHx\\\/okinos-aqua-3-microatx-mini-tower-case-okicc-aqua3-matxb-h3ba\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41299,
+            "name": "Zalman T3 PLUS",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/nNLdnQ\\\/zalman-t3-plus-microatx-mid-tower-case-t3-plus\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41300,
+            "name": "Silverstone ALTA F2",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/wsvD4D\\\/silverstone-alta-f2-atx-full-tower-case-sst-alf2b-g\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41301,
+            "name": "Corsair 3500X",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/jthv6h\\\/corsair-3500x-atx-mid-tower-case-cc-9011276-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41302,
+            "name": "Montech X3 Mesh",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/HRH7YJ\\\/montech-x3-mesh-atx-mid-tower-case-x3-mesh-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41303,
+            "name": "Fractal Design Pop Air",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/QnD7YJ\\\/fractal-design-pop-air-atx-mid-tower-case-fd-c-poa1a-02\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41304,
+            "name": "Phanteks XT V3",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/WvYfrH\\\/phanteks-xt-v3-microatx-mini-tower-case-ph-xt325v_dbk01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41309,
+            "name": "Fractal Design North",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Pmytt6\\\/fractal-design-north-atx-mid-tower-case-fd-c-nor1c-04\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41310,
+            "name": "Fractal Design Terra",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/kqHqqs\\\/fractal-design-terra-mini-itx-desktop-case-fd-c-ter1n-02\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41311,
+            "name": "Asus ROG Strix Helios",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/FhRzK8\\\/asus-rog-strix-helios-atx-full-tower-case-gx601\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41312,
+            "name": "Lian Li LANCOOL 217 INF",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/mzRnTW\\\/lian-li-lancool-217-inf-atx-mid-tower-case-lan217infx\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41313,
+            "name": "Corsair FRAME 4000D WOOD RS",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/8tG2FT\\\/corsair-frame-4000d-wood-rs-atx-mid-tower-case-cc-9011340-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41314,
+            "name": "Lian Li LANCOOL 216",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/qP2WGX\\\/lian-li-lancool-216-atx-mid-tower-case-lancool-216x\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41315,
+            "name": "Lian Li O11D EVO RGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Ksgrxr\\\/lian-li-o11d-evo-rgb-atx-mid-tower-case-o11dergbw\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41316,
+            "name": "NZXT H9 Flow RGB+ (2025)",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/8FKnTW\\\/nzxt-h9-flow-rgb-2025-atx-mid-tower-case-cm-h92fw-p1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41317,
+            "name": "Lian Li O11 Dynamic Mini V2 Flow",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/DfDnTW\\\/lian-li-o11-dynamic-mini-v2-flow-atx-mini-tower-case-o11dmiv2fw\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41318,
+            "name": "Corsair FRAME 4000D RS",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/LMZWGX\\\/corsair-frame-4000d-rs-atx-mid-tower-case-cc-9011312-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41319,
+            "name": "Montech X5M",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/BpQwrH\\\/montech-x5m-microatx-mini-tower-case-x5m-b\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41320,
+            "name": "Deepcool CG530 4F",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/yTJBD3\\\/deepcool-cg530-4f-atx-mid-tower-case-r-cg530-bkada4-g-1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41321,
+            "name": "Lian Li O11 Vision",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Jk7scf\\\/lian-li-o11-vision-atx-mid-tower-case-pc-o11vx\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41322,
+            "name": "Fractal Design North Mesh",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/sHYmP6\\\/fractal-design-north-mesh-atx-mid-tower-case-fd-c-nor1c-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41323,
+            "name": "Fractal Design North XL Mesh",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/LbHqqs\\\/fractal-design-north-xl-mesh-atx-full-tower-case-fd-c-nor1x-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41324,
+            "name": "NZXT H3 Flow",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/qxbypg\\\/nzxt-h3-flow-microatx-mid-tower-case-cc-h31fw-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41325,
+            "name": "Antec C8",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/yxdG3C\\\/antec-c8-atx-mid-tower-case-c8\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41326,
+            "name": "Antec FLUX PRO",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/RhWJ7P\\\/antec-flux-pro-atx-full-tower-case-0-761345-10148-6\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41327,
+            "name": "NZXT H9 Flow RGB+ (2025)",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/mfFCmG\\\/nzxt-h9-flow-rgb-2025-atx-mid-tower-case-cm-h92fb-p1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41328,
+            "name": "Deepcool CH260",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/hhkqqs\\\/deepcool-ch260-microatx-desktop-case-r-ch260-bkngm0-g-1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41329,
+            "name": "Thermaltake View 270 Plus TG ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/3nTFf7\\\/thermaltake-view-270-plus-tg-argb-atx-mid-tower-case-ca-1y7-00m1wn-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41330,
+            "name": "Okinos Cypress 3 Wood",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/kKqNnQ\\\/okinos-cypress-3-wood-microatx-mini-tower-case-cao-cp3wood\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41331,
+            "name": "Fractal Design Node 304",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":[\"Mini-ITX\",\"Mini-DTX\"],\"form_factor_source\":\"manufacturer\",\"form_factor_evidence\":\"fractal-design.com Node 304 product sheet: \\\"Motherboard compatibility: Mini ITX; Mini DTX\\\"\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41332,
+            "name": "Montech AIR 903 BASE",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/kKcgXL\\\/montech-air-903-base-atx-mid-tower-case-air-903-base-b\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41333,
+            "name": "be quiet! Pure Base 501 Airflow",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/gGvD4D\\\/be-quiet-pure-base-501-airflow-atx-mid-tower-case-bg074\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41334,
+            "name": "NZXT H6 Flow RGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/kfRwrH\\\/nzxt-h6-flow-rgb-atx-mid-tower-case-cc-h61fw-r1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41335,
+            "name": "HYTE Y70 Touch Infinite",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/ZnzXsY\\\/hyte-y70-touch-infinite-atx-mid-tower-case-cs-hyte-y70ti-wb\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41336,
+            "name": "MSI MAG FORGE 120A AIRFLOW",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/3TKscf\\\/msi-mag-forge-120a-airflow-atx-mid-tower-case-mag-forge-120a-airflow\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41337,
+            "name": "Lian Li VECTOR V100 MINI",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/74QwrH\\\/lian-li-vector-v100-mini-microatx-mid-tower-case-v100mix\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41338,
+            "name": "NZXT H9 Flow (2025)",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/9jNscf\\\/nzxt-h9-flow-2025-atx-mid-tower-case-cm-h92fw-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41339,
+            "name": "HYTE Y70",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/sP4Zxr\\\/hyte-y70-atx-mid-tower-case-cs-hyte-y70-sm\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41340,
+            "name": "Cooler Master MasterBox NR200",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/r6bCmG\\\/cooler-master-masterbox-nr200-mini-itx-desktop-case-mcb-nr200-wnnn-s00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41341,
+            "name": "Fractal Design Meshify 3",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Phm2FT\\\/fractal-design-meshify-3-atx-mid-tower-case-fd-c-mes3a-02\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41342,
+            "name": "Fractal Design Define R5",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":[\"ATX\",\"Micro-ATX\",\"Mini-ITX\"],\"form_factor_source\":\"manufacturer\",\"form_factor_evidence\":\"fractal-design.com Define R5 product sheet: \\\"Motherboard compatibility ATX \\\/ Micro ATX \\\/ Mini ITX\\\" (a retailer listed E-ATX; manufacturer takes precedence)\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41343,
+            "name": "Jonsbo TK-0",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/ZbmNnQ\\\/jonsbo-tk-0-mini-itx-desktop-case-tk-0-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41344,
+            "name": "Lian Li O11 VISION-M",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/TP4Pxr\\\/lian-li-o11-vision-m-microatx-mini-tower-case-o11vmx\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41345,
+            "name": "HAVN BF 360 Flow",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/BwKnTW\\\/havn-bf-360-flow-atx-mid-tower-case-hvn-ca-bf360-04\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41346,
+            "name": "Corsair 3000D RGB AIRFLOW",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Lsn9TW\\\/corsair-3000d-rgb-airflow-atx-mid-tower-case-cc-9011255-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41347,
+            "name": "NZXT H5 Flow (2024)",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/WZtLrH\\\/nzxt-h5-flow-2024-atx-mid-tower-case-cc-h52fw-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41350,
+            "name": "Montech X5",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/q88Pxr\\\/montech-x5-atx-mid-tower-case-x5-b\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41351,
+            "name": "Corsair FRAME 5000D RS ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/fYfV3C\\\/corsair-frame-5000d-rs-argb-atx-mid-tower-case-cc-9011309-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41352,
+            "name": "Jonsbo C6",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/WMCZxr\\\/jonsbo-c6-microatx-mini-tower-case-c6-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41353,
+            "name": "Thermaltake TR100",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/nk62FT\\\/thermaltake-tr100-mini-itx-desktop-case-ca-11a-00s1nn-00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41354,
+            "name": "Phanteks EVOLV X2",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/7wzp99\\\/phanteks-evolv-x2-atx-mid-tower-case-ph-es524xtg_dbk01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41355,
+            "name": "Aerocool CS-103",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Mmjv6h\\\/aerocool-cs-103-microatx-mini-tower-case-cs-103-s-bk-v1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41356,
+            "name": "Asus A31",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/QNpD4D\\\/asus-a31-atx-mid-tower-case-a31-tg-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41357,
+            "name": "Fractal Design Pop Mini Air",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/gx3gXL\\\/fractal-design-pop-mini-air-microatx-mid-tower-case-fd-c-por1m-06\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41358,
+            "name": "Thermaltake View 170 ARGB",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/VT88TW\\\/thermaltake-view-170-argb-microatx-mini-tower-case-ca-1z4-00m1wn-00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41359,
+            "name": "Lian Li A4-H2O PCIe 5.0",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/6p62FT\\\/lian-li-a4-h2o-pcie-50-mini-itx-desktop-case-a4h2oa5\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41360,
+            "name": "Fractal Design Torrent",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/BjqPxr\\\/fractal-design-torrent-atx-mid-tower-case-fd-c-tor1a-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41361,
+            "name": "Jonsbo NV10",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/7DJBD3\\\/jonsbo-nv10-mini-itx-desktop-case-nv10-silver\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41362,
+            "name": "Corsair FRAME 4000D RS ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/wxG2FT\\\/corsair-frame-4000d-rs-argb-atx-mid-tower-case-cc-9011297-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41363,
+            "name": "Lian Li Lancool 207",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/BmyH99\\\/lian-li-lancool-207-atx-mid-tower-case-lan207rw\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41364,
+            "name": "Fractal Design Node 804",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":[\"mATX\",\"Mini-DTX\",\"Mini-ITX\"],\"form_factor_source\":\"manufacturer\",\"form_factor_evidence\":\"fractal-design.com Node 804 manual: \\\"Motherboard compatibility mATX, Mini-DTX, Mini-ITX\\\"\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41365,
+            "name": "Lian Li O11 VISION-M",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/ZFVfrH\\\/lian-li-o11-vision-m-microatx-mini-tower-case-o11vmw\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41366,
+            "name": "Fractal Design Meshify 2",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/6KWBD3\\\/fractal-design-meshify-2-atx-mid-tower-case-fd-c-mes2a-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41367,
+            "name": "Jonsbo N4",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/mMkH99\\\/jonsbo-n4-microatx-desktop-case-n4-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41368,
+            "name": "Fractal Design North XL",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/wCWJ7P\\\/fractal-design-north-xl-atx-full-tower-case-fd-c-nor1x-04\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41369,
+            "name": "DIYPC ARGB-N5",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/xtsMnQ\\\/diypc-argb-n5-bk-atx-mid-tower-case-argb-n5-bk\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41370,
+            "name": "Fractal Design Define 7",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/L8xbt6\\\/fractal-design-define-7-atx-mid-tower-case-fd-c-def7a-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41379,
+            "name": "Corsair FRAME 4500X RS-R ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/3q9nTW\\\/corsair-frame-4500x-rs-r-argb-atx-mid-tower-case-cc-9011314-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41380,
+            "name": "be quiet! Light Base 600 DX",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/YxyH99\\\/be-quiet-light-base-600-dx-atx-mid-tower-case-bgw65\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41385,
+            "name": "Jonsbo D32 PRO MESH",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/jTpD4D\\\/jonsbo-d32-pro-mesh-microatx-desktop-case-d32-pro-mesh-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41386,
+            "name": "Jonsbo N5",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/vGWJ7P\\\/jonsbo-n5-atx-full-tower-case-n5-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41387,
+            "name": "Phanteks ECLIPSE G500A DRGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/jTXJ7P\\\/phanteks-eclipse-g500a-drgb-atx-mid-tower-case-ph-ec500ga_dmw01a\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41388,
+            "name": "Corsair FRAME 4500X RS-R ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/RZHp99\\\/corsair-frame-4500x-rs-r-argb-atx-mid-tower-case-cc-9011315-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41389,
+            "name": "Asus ROG Strix Helios II",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/9NWmP6\\\/asus-rog-strix-helios-ii-atx-mid-tower-case-rog-strix-helios-ii\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41390,
+            "name": "Thermaltake Versa H21",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/c67wrH\\\/thermaltake-versa-h21-atx-mid-tower-case-ca-1b2-00m1nn-00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41391,
+            "name": "Lian Li LANCOOL III RGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/WggFf7\\\/lian-li-lancool-iii-rgb-atx-mid-tower-case-lancool-3r-x\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41392,
+            "name": "Fractal Design Meshify 2 Lite RGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/J8t9TW\\\/fractal-design-meshify-2-lite-rgb-atx-mid-tower-case-fd-c-mel2a-05\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41393,
+            "name": "Fractal Design Define 7 XL",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/dyLwrH\\\/fractal-design-define-7-xl-atx-full-tower-case-fd-c-def7x-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41394,
+            "name": "Antec C8 Wood",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/p7tLrH\\\/antec-c8-wood-atx-mid-tower-case-0-761345-10079-3\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41395,
+            "name": "Fractal Design Meshify 3 XL",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/pWBFf7\\\/fractal-design-meshify-3-xl-atx-full-tower-case-fd-c-mes3x-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41396,
+            "name": "NZXT H5 Flow RGB (2024)",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/rHwmP6\\\/nzxt-h5-flow-rgb-2024-atx-mid-tower-case-cc-h52fb-r1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41397,
+            "name": "KOLINK Observatory HF Mesh ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/DTqrxr\\\/kolink-observatory-hf-mesh-argb-atx-mid-tower-case-observatory-hf-mw\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41398,
+            "name": "Silverstone SG13",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":[\"Mini-DTX\",\"Mini-ITX\"],\"form_factor_source\":\"manufacturer\",\"form_factor_evidence\":\"silverstonetek.com SG13: \\\"Mini-DTX \\\/ Mini-ITX motherboard & ATX PSU compatible\\\"\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41399,
+            "name": "KOLINK STRONGHOLD",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/qN4Zxr\\\/kolink-stronghold-atx-mid-tower-case-stronghold-white\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41400,
+            "name": "DIYPC ARGB-M1",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/2qXMnQ\\\/diypc-argb-m1-microatx-mini-tower-case-argb-m1-bk\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41401,
+            "name": "Deepcool MATREXX 30",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Pdprxr\\\/deepcool-matrexx-30-microatx-mini-tower-case-matrexx-30\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41402,
+            "name": "MSI MAG PANO M100R PZ",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/gXGhP6\\\/msi-mag-pano-m100r-pz-microatx-mid-tower-case-mag-pano-m100r-pz-white\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41403,
+            "name": "Cooler Master N200",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":[\"Micro-ATX\",\"Mini-ITX\"],\"form_factor_source\":\"manufacturer\",\"form_factor_evidence\":\"coolermaster.com N200: \\\"Motherboard Support Micro ATX \\\/ Motherboard Support Mini ITX\\\"\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41404,
+            "name": "Montech XR Wood",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/yYdMnQ\\\/montech-xr-wood-atx-mid-tower-case-xr-wood-b\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41405,
+            "name": "Montech TEN",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/3x3WGX\\\/montech-ten-microatx-mini-tower-case-ten-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41406,
+            "name": "Corsair 2500X",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/RbQKHx\\\/corsair-2500x-microatx-mini-tower-case-cc-9011265-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41407,
+            "name": "Thermaltake The Tower 300",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/8TxxFT\\\/thermaltake-the-tower-300-microatx-mini-tower-case-ca-1y4-00s1wn-00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41408,
+            "name": "Thermaltake View 170 ARGB",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/mHwmP6\\\/thermaltake-view-170-argb-microatx-mini-tower-case-ca-1z4-00m6wn-00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41409,
+            "name": "BGears b-Vortex-RGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/4Y4Ycf\\\/bgears-b-vortex-rgb-atx-mid-tower-case-b-vortex-rgb\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41410,
+            "name": "Fractal Design North XL Momentum Edition",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/sRxTwP\\\/fractal-design-north-xl-momentum-edition-atx-full-tower-case-fd-c-nor1x-07\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41411,
+            "name": "BGears b-Pellucid",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/m7bRsY\\\/bgears-b-pellucid-microatx-mini-tower-case-bg01756\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41412,
+            "name": "Antec C8 Curve Wood",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/xX9wrH\\\/antec-c8-curve-wood-atx-mid-tower-case-0-761345-10158-5\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41413,
+            "name": "NZXT H6",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/M7Lp99\\\/nzxt-h6-atx-mid-tower-case-cc-h62fb-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41414,
+            "name": "Antec C5 ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/w3pQzy\\\/antec-c5-argb-atx-mid-tower-case-0-761345-10034-2\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41415,
+            "name": "Lian Li LANCOOL 217",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/2ndMnQ\\\/lian-li-lancool-217-atx-mid-tower-case-lan217w\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41416,
+            "name": "MSI MAG FORGE M100R",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Xm92FT\\\/msi-mag-forge-m100r-microatx-mini-tower-case-mag-forge-m100r\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41417,
+            "name": "Fractal Design Pop Mini Silent",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/bzD7YJ\\\/fractal-design-pop-mini-silent-microatx-mid-tower-case-fd-c-pos1m-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41418,
+            "name": "Montech AIR 903 MAX",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/bQGhP6\\\/montech-air-903-max-atx-mid-tower-case-air-903-max-w\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41419,
+            "name": "Montech AIR 100 LITE",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Dsstt6\\\/montech-air-100-lite-microatx-mid-tower-case-air-100-lite-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41420,
+            "name": "Deepcool CH160 PLUS",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/8VCCmG\\\/deepcool-ch160-plus-microatx-mini-tower-case-r-ch160-whngm0-g\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41421,
+            "name": "Fractal Design Pop XL Silent",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/BtGbt6\\\/fractal-design-pop-xl-silent-atx-full-tower-case-fd-c-pos1x-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41422,
+            "name": "Fractal Design Pop Air RGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/mpcG3C\\\/fractal-design-pop-air-rgb-atx-mid-tower-case-fd-c-por1a-06\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41423,
+            "name": "Phanteks NV5 MKII",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/rvBzK8\\\/phanteks-nv5-mkii-atx-mid-tower-case-ph-nv523tg_dbk02\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41427,
+            "name": "Asus Prime AP201",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Zq3NnQ\\\/asus-prime-ap201-microatx-mini-tower-case-prime-ap201-tg-bk\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41428,
+            "name": "Corsair 3000D AIRFLOW",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/NcRwrH\\\/corsair-3000d-airflow-atx-mid-tower-case-cc-9011251-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41429,
+            "name": "Asus ProArt PA602 Wood Edition",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Ly4Pxr\\\/asus-proart-pa602-wood-edition-atx-mid-tower-case-90dc00j0-b08010\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41430,
+            "name": "MSI MAG PANO 110R PZ",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/JqJBD3\\\/msi-mag-pano-110r-pz-atx-mid-tower-case-mag-pano-110r-pz\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41431,
+            "name": "Fractal Design Mood",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/bb3NnQ\\\/fractal-design-mood-mini-itx-tower-case-fd-c-mod1n-02\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41432,
+            "name": "Jonsbo C6 Handle",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/j8QKHx\\\/jonsbo-c6-handle-microatx-mini-tower-case-c6-handle-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41433,
+            "name": "Deepcool CC360 ARGB",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/6C6NnQ\\\/deepcool-cc360-argb-microatx-mini-tower-case-r-cc360-bkapm3-g-1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41434,
+            "name": "Cougar MX110 RGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/bzCCmG\\\/cougar-mx110-rgb-atx-mid-tower-case-cgr-2bd2b-rgb\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41435,
+            "name": "MSI MAG FORGE 320R AIRFLOW",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/brP8TW\\\/msi-mag-forge-320r-airflow-atx-mid-tower-case-mag-forge-320r-airflow\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41436,
+            "name": "Montech KING 95 PRO",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/VTqrxr\\\/montech-king-95-pro-atx-mid-tower-case-king-95-pro-white\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41437,
+            "name": "HAVN HS420 VGPU",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/zzbRsY\\\/havn-hs420-vgpu-atx-mid-tower-case-hvn-ca-hs420-08\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41438,
+            "name": "Corsair 3500X LX-R RGB iCUE LINK",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/mq9nTW\\\/corsair-3500x-lx-r-rgb-icue-link-atx-mid-tower-case-cc-9011324-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41439,
+            "name": "Thermaltake View 380 ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/8hfxFT\\\/thermaltake-view-380-argb-atx-mid-tower-case-ca-1z2-00m1wn-00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41440,
+            "name": "Corsair FRAME 5000D RS",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Yy8Pxr\\\/corsair-frame-5000d-rs-atx-mid-tower-case-cc-9011307-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41441,
+            "name": "HAVN HS420",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/67cgXL\\\/havn-hs420-atx-mid-tower-case-hvn-ca-hs420-06\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41442,
+            "name": "Corsair AIR 5400 RS-R ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/tyRnTW\\\/corsair-air-5400-rs-r-argb-atx-mid-tower-case-cc-9011318-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41443,
+            "name": "Fractal Design North Mesh",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/d8WzK8\\\/fractal-design-north-mesh-atx-mid-tower-case-fd-c-nor1c-03\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41444,
+            "name": "Fractal Design Meshify 2 XL",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/f2hmP6\\\/fractal-design-meshify-2-xl-atx-full-tower-case-fd-c-mes2x-02\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41445,
+            "name": "Asus Prime AP303",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/yQQwrH\\\/asus-prime-ap303-atx-mid-tower-case-prime-ap303-mesh-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41446,
+            "name": "Thermaltake The Tower 600",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/JN3NnQ\\\/thermaltake-the-tower-600-atx-mid-tower-case-ca-1z1-00m1wn-00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41447,
+            "name": "Lian Li LANCOOL 216 RGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/QcddnQ\\\/lian-li-lancool-216-rgb-atx-mid-tower-case-lancool-216rw\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41448,
+            "name": "be quiet! Light Base 900 FX",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Wpqrxr\\\/be-quiet-light-base-900-fx-atx-full-tower-case-bgw71\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41449,
+            "name": "Cooler Master QUBE 540",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/g6VfrH\\\/cooler-master-qube-540-atx-mid-tower-case-q540-mgnn-s00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41450,
+            "name": "HYTE Y70",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/9tFmP6\\\/hyte-y70-atx-mid-tower-case-cs-hyte-y70-bw\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41451,
+            "name": "Asus TUF Gaming GT502",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/gQC48d\\\/asus-tuf-gaming-gt502-atx-mid-tower-case-gt502blktg\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41452,
+            "name": "Lian Li LANCOOL 205M MESH",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/yxytt6\\\/lian-li-lancool-205m-mesh-microatx-mini-tower-case-g99oe744mx10am\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41453,
+            "name": "Thermaltake V100 Perforated",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/HwJgXL\\\/thermaltake-v100-perforated-atx-mid-tower-case-ca-1k7-00m1nn-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41454,
+            "name": "Phanteks XT M3",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/zqNscf\\\/phanteks-xt-m3-microatx-mid-tower-case-ph-xt325m_bk01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41455,
+            "name": "Thermaltake View 270 Plus TG ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/R9TFf7\\\/thermaltake-view-270-plus-tg-argb-atx-mid-tower-case-ca-1y7-00m6wn-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41456,
+            "name": "Okinos Air Cross",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/39vscf\\\/okinos-air-cross-atx-mid-tower-case-okicc-aircross-atxb\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41457,
+            "name": "Thermaltake View 380 ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/2qtLrH\\\/thermaltake-view-380-argb-atx-mid-tower-case-ca-1z2-00m6wn-00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41458,
+            "name": "Montech X5",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/KQKnTW\\\/montech-x5-atx-mid-tower-case-x5-w\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41459,
+            "name": "APNX V1",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/pRNYcf\\\/apnx-v1-atx-mid-tower-case-v1-bk-v1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41460,
+            "name": "NZXT H7 Flow RGB (2024)",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/ncXV3C\\\/nzxt-h7-flow-rgb-2024-atx-mid-tower-case-cm-h72fb-r1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41461,
+            "name": "Fractal Design Meshify 3 Ambience Pro RGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/hdrp99\\\/fractal-design-meshify-3-ambience-pro-rgb-atx-mid-tower-case-fd-c-mes3a-03\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41462,
+            "name": "Phanteks Enthoo Pro Tempered Glass",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/BfPKHx\\\/phanteks-enthoo-pro-tempered-glass-atx-full-tower-case-ph-es614ptg_bk\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41463,
+            "name": "Fractal Design Meshify 3 XL Ambience Pro RGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Kxbypg\\\/fractal-design-meshify-3-xl-ambience-pro-rgb-atx-full-tower-case-fd-c-mes3x-03\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41464,
+            "name": "HYTE Y70",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/yZMMnQ\\\/hyte-y70-atx-mid-tower-case-cs-hyte-y70-tm\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41465,
+            "name": "Deepcool CG530 4F",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/dYgZxr\\\/deepcool-cg530-4f-atx-mid-tower-case-r-cg530-whada4-g-1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41466,
+            "name": "Lian Li Vector V150 INF",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/7tDnTW\\\/lian-li-vector-v150-inf-microatx-mini-tower-case-v150infx\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41467,
+            "name": "HYTE Y40",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/WpxRsY\\\/hyte-y40-atx-mid-tower-case-cs-hyte-y40-bw\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41468,
+            "name": "Corsair 3500X ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/BwBzK8\\\/corsair-3500x-argb-atx-mid-tower-case-cc-9011278-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41469,
+            "name": "MSI MAG FORGE 112R",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/cJJgXL\\\/msi-mag-forge-112r-atx-mid-tower-case-mag-forge-112r\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41470,
+            "name": "Thermaltake The Tower 250",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/ZgTZxr\\\/thermaltake-the-tower-250-mini-itx-tower-case-ca-1z9-00s1wn-00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41471,
+            "name": "DARKROCK Classico Storage Master",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/CkNYcf\\\/darkrock-classico-storage-master-atx-mid-tower-case-cp-case-dr-classico\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41472,
+            "name": "Fractal Design Focus 2",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/WvXJ7P\\\/fractal-design-focus-2-atx-mid-tower-case-fd-c-foc2a-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41473,
+            "name": "Lian Li LANCOOL 217 INF",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/8c7MnQ\\\/lian-li-lancool-217-inf-atx-mid-tower-case-lan217infw\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41474,
+            "name": "Thermaltake Versa H17",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/JtWfrH\\\/thermaltake-versa-h17-microatx-mini-tower-case-ca-1j1-00s1nn-00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41475,
+            "name": "Montech X5M",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/TTZWGX\\\/montech-x5m-microatx-mini-tower-case-x5m-w\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41476,
+            "name": "Jonsbo V12",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/TDMXsY\\\/jonsbo-v12-microatx-desktop-case-v12-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41477,
+            "name": "NZXT H9 Flow (2023)",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/VCpzK8\\\/nzxt-h9-flow-atx-mid-tower-case-cm-h91fb-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41478,
+            "name": "Cooler Master NR200P V3",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/DhYfrH\\\/cooler-master-nr200p-v3-mini-itx-desktop-case-nr200pv3-kwnn-s00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41479,
+            "name": "Corsair iCUE 7000X RGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/CRzhP6\\\/corsair-icue-7000x-rgb-atx-mid-tower-case-cc-9011226-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41480,
+            "name": "Thermaltake Versa H18",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/dgndnQ\\\/thermaltake-versa-h18-microatx-mini-tower-case-ca-1j4-00s1wn-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41481,
+            "name": "Jonsbo D32 PRO",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/m7TFf7\\\/jonsbo-d32-pro-microatx-desktop-case-d32-pro-white\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41482,
+            "name": "Silverstone SG13 V2",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/WG2bt6\\\/silverstone-sg13-v2-mini-itx-tower-case-sg13b-usa\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41483,
+            "name": "Phanteks XT PRO ULTRA",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/TGzXsY\\\/phanteks-xt-pro-ultra-atx-mid-tower-case-ph-xt523p1-dwt01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41484,
+            "name": "Corsair 3200D RS ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/ZWqNnQ\\\/corsair-3200d-rs-argb-atx-mid-tower-case-cc-9011344-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41485,
+            "name": "HYTE X50",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/WyZWGX\\\/hyte-x50-atx-mid-tower-case-cs-hyte-x50g-tm\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41486,
+            "name": "Cooler Master Elite 681",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/R9y8TW\\\/cooler-master-elite-681-atx-mid-tower-case-e681-khnn-s00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41487,
+            "name": "Fractal Design Focus 2",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/gWFbt6\\\/fractal-design-focus-2-atx-mid-tower-case-fd-c-foc2a-07\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41488,
+            "name": "Asus ProArt PA602",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/N9pQzy\\\/asus-proart-pa602-atx-mid-tower-case-proart-pa602\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41489,
+            "name": "HYTE Y60",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/H6VmP6\\\/hyte-y60-atx-mid-tower-case-cs-hyte-y60-b\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41490,
+            "name": "Fractal Design Era 2",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/jjfxFT\\\/fractal-design-era-2-mini-itx-tower-case-fd-c-era2n-02\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41491,
+            "name": "Corsair 3200D RS",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/BFNscf\\\/corsair-3200d-rs-atx-mid-tower-case-cc-9011336-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41492,
+            "name": "Phanteks NV9 MKII",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/XBVfrH\\\/phanteks-nv9-mkii-atx-mid-tower-case-ph-nv923tg_dbk02\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41493,
+            "name": "Corsair iCUE 4000X RGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/6qFKHx\\\/corsair-icue-4000x-rgb-atx-mid-tower-case-cc-9011204-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41494,
+            "name": "darkFlash DB330M",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/3jHp99\\\/darkflash-db330m-microatx-mini-tower-case-db330m-bk\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41495,
+            "name": "Fractal Design Pop XL Air",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/xdRYcf\\\/fractal-design-pop-xl-air-atx-full-tower-case-fd-c-por1x-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41496,
+            "name": "NZXT H6 RGB+",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/wvJBD3\\\/nzxt-h6-rgb-atx-mid-tower-case-cc-h62fw-p1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41497,
+            "name": "Cooler Master Elite 502",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/P92j4D\\\/cooler-master-elite-502-atx-mid-tower-case-e502-kgnn-s00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41498,
+            "name": "Fractal Design Core 1100",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/TkkD4D\\\/fractal-design-core-1100-microatx-mini-tower-case-fd-ca-core-1100-bl\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41499,
+            "name": "Corsair FRAME 4000D WOOD RS",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/xBVfrH\\\/corsair-frame-4000d-wood-rs-atx-mid-tower-case-cc-9011341-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41500,
+            "name": "Asus A31 PLUS",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/XtqNnQ\\\/asus-a31-plus-atx-mid-tower-case-90dc00r0-b19000\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41501,
+            "name": "Fractal Design North Momentum Edition",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/c3G2FT\\\/fractal-design-north-momentum-edition-atx-mid-tower-case-fd-c-nor1c-05\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41502,
+            "name": "Lian Li O11 Dynamic Mini Snow Edition",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/PgbTwP\\\/lian-li-o11-dynamic-mini-snow-edition-atx-mid-tower-case-o11d-mini-s\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41503,
+            "name": "KOLINK KLA-003",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/QKQKHx\\\/kolink-kla-003-atx-full-tower-case-kla-003\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41504,
+            "name": "Fractal Design Core 1000 USB 3.0",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":[\"mATX\",\"Mini-ITX\",\"DTX\"],\"form_factor_source\":\"manufacturer\",\"form_factor_evidence\":\"fractal-design.com Core 1000 product sheet: \\\"Motherboard compatibility: mATX, Mini ITX, DTX\\\"\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41505,
+            "name": "MSI MAG PANO 110R PZ",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/vvFCmG\\\/msi-mag-pano-110r-pz-atx-mid-tower-case-mag-pano-110r-pz-white\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41506,
+            "name": "Corsair FRAME 4500X LX-R RGB iCUE LINK",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/QtsMnQ\\\/corsair-frame-4500x-lx-r-rgb-icue-link-atx-mid-tower-case-cc-9011316-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41507,
+            "name": "Lian Li Lancool 207 Digital",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/s8jv6h\\\/lian-li-lancool-207-digital-atx-mid-tower-case-lancool-207-digital\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41508,
+            "name": "Phanteks Enthoo Pro Closed Panel",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/TXCwrH\\\/phanteks-enthoo-pro-closed-panel-atx-full-tower-case-ph-es614pc_bk\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41509,
+            "name": "MUSETEX NN8",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/n6C48d\\\/musetex-nn8-atx-mid-tower-case-nn8\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41510,
+            "name": "Cougar CFV235",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/jsG2FT\\\/cougar-cfv235-atx-mid-tower-case-382da400001\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41511,
+            "name": "Lian Li B4-mATX Wood",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/F3Pv6h\\\/lian-li-b4-matx-wood-microatx-mini-tower-case-b4w-wd\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41512,
+            "name": "Corsair iCUE 4000D RGB AIRFLOW",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/8dCZxr\\\/corsair-icue-4000d-rgb-airflow-atx-mid-tower-case-cc-9011241-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41513,
+            "name": "NZXT H6 RGB+",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/DsG2FT\\\/nzxt-h6-rgb-atx-mid-tower-case-cc-h62fb-p1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41514,
+            "name": "Silverstone RM52",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/2gPv6h\\\/silverstone-rm52-atx-full-tower-case-sst-rm52\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41515,
+            "name": "Antec C2M ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/X2dMnQ\\\/antec-c2m-argb-atx-mid-tower-case-0-761345-10281-0\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41516,
+            "name": "Silverstone FLP01",
+            "specs": "{\"form_factor\":\"E-ATX\",\"form_factor_supported\":[\"SSI-CEB\",\"E-ATX\",\"ATX\",\"Micro-ATX\"],\"form_factor_source\":\"manufacturer\",\"form_factor_evidence\":\"silverstonetek.com FLP01 press release: \\\"supports motherboards up to the SSI-CEB form factor\\\" (SSI-CEB exceeds E-ATX, so E-ATX is the safe ceiling)\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41517,
+            "name": "Corsair FRAME 4000D",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Nr62FT\\\/corsair-frame-4000d-atx-mid-tower-case-cc-9011291-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41518,
+            "name": "HYTE Y60 Snow White",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/3JfxFT\\\/hyte-y60-snow-white-atx-mid-tower-case-cs-hyte-y60-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41519,
+            "name": "be quiet! Silent Base 802",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/TVJmP6\\\/be-quiet-silent-base-802-atx-mid-tower-case-bgw39\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41520,
+            "name": "Antec P30 AIR",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/gVPv6h\\\/antec-p30-air-atx-mid-tower-case-p30-air\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41521,
+            "name": "DIYPC Vanguard-F2",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/WXFCmG\\\/diypc-vanguard-f2-atx-full-tower-case-vanguard-f2-bk\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41522,
+            "name": "Cooler Master MasterBox NR200P V2",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/MDdG3C\\\/cooler-master-masterbox-nr200p-v2-mini-itx-desktop-case-nr200p-v2-white\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41523,
+            "name": "Deepcool CH270 DIGITAL",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/tv3WGX\\\/deepcool-ch270-digital-microatx-mini-tower-case-r-ch270-bkndm0-g-1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41524,
+            "name": "be quiet! Pure Base 600",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/PNTrxr\\\/be-quiet-pure-base-600-atx-mid-tower-case-bg021\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41525,
+            "name": "Fractal Design Meshify 3",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/dtKnTW\\\/fractal-design-meshify-3-atx-mid-tower-case-fd-c-mes3a-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41526,
+            "name": "Aerocool CS-107 RGB",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/rNnXsY\\\/aerocool-cs-107-rgb-microatx-mini-tower-case-cs-107-a-bk-v2\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41527,
+            "name": "be quiet! Light Base 600 LX",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/TL6NnQ\\\/be-quiet-light-base-600-lx-atx-mid-tower-case-bgw67\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41528,
+            "name": "HAVN HS420 VGPU",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/BNXV3C\\\/havn-hs420-vgpu-atx-mid-tower-case-hvn-ca-hs420-07\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41529,
+            "name": "Phanteks EVOLV X2",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/V4dMnQ\\\/phanteks-evolv-x2-atx-mid-tower-case-ph-es524xtg_dmw01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41530,
+            "name": "NZXT H5 Flow RGB (2024)",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/236NnQ\\\/nzxt-h5-flow-rgb-2024-atx-mid-tower-case-cc-h52fw-r1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41531,
+            "name": "Jonsbo N3",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Rf26Mp\\\/jonsbo-n3-mini-itx-desktop-case-n3\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41532,
+            "name": "Silverstone Sugo 16",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/pxwypg\\\/silverstone-sugo-16-mini-itx-tower-case-sst-sg16b\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41533,
+            "name": "HYTE X50 Air",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/jbG2FT\\\/hyte-x50-air-atx-mid-tower-case-cs-hyte-x50a-bb\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41534,
+            "name": "KOLINK VOID RGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/FRXYcf\\\/kolink-void-rgb-atx-mid-tower-case-void-rgb\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41535,
+            "name": "Thermaltake AX700",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/m92j4D\\\/thermaltake-ax700-atx-full-tower-case-ca-11b-00f1nn-00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41536,
+            "name": "Fractal Design Torrent RGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Y9RYcf\\\/fractal-design-torrent-rgb-atx-mid-tower-case-fd-c-tor1a-04\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41537,
+            "name": "MSI MAG PANO M100R PZ",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/ttBzK8\\\/msi-mag-pano-m100r-pz-microatx-mid-tower-case-mag-pano-m100r-pz\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41538,
+            "name": "NOX Infinity Beta",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/MhHp99\\\/nox-infinity-beta-atx-mid-tower-case-nxinftybeta\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41539,
+            "name": "be quiet! Light Base 500",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/F79nTW\\\/be-quiet-light-base-500-atx-mid-tower-case-bgw83\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41540,
+            "name": "Asus ROG Strix Helios II",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/7XFCmG\\\/asus-rog-strix-helios-ii-atx-mid-tower-case-rog-strix-helios-ii-white-edition\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41541,
+            "name": "Fractal Design Define 7 XL Dark",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/JJNgXL\\\/fractal-design-define-7-xl-dark-atx-full-tower-case-fd-c-def7x-03\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41542,
+            "name": "Montech SKY TWO GX",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/cMWJ7P\\\/montech-sky-two-gx-atx-mid-tower-case-skytwogxw\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41543,
+            "name": "Fractal Design Torrent",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/4svdnQ\\\/fractal-design-torrent-atx-mid-tower-case-fd-c-tor1a-05\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41544,
+            "name": "Deepcool CH170 DIGITAL",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/bwRwrH\\\/deepcool-ch170-digital-mini-itx-tower-case-r-ch170-bknpi0d-g-1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41545,
+            "name": "Thermaltake Retro 360 TG",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/vxwD4D\\\/thermaltake-retro-360-tg-atx-mid-tower-case-ca-11q-00mqwn-00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41546,
+            "name": "Fractal Design North XL Mesh",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/MydG3C\\\/fractal-design-north-xl-mesh-atx-full-tower-case-fd-c-nor1x-03\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41547,
+            "name": "HYTE Y40",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/2djBD3\\\/hyte-y40-atx-mid-tower-case-cs-hyte-y40-b\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41548,
+            "name": "Cooler Master MasterBox TD500 Mesh V2",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/y2mNnQ\\\/cooler-master-masterbox-td500-mesh-v2-atx-mid-tower-case-td500v2-kgnn-s00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41549,
+            "name": "Asus TUF Gaming GT302 ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/P77scf\\\/asus-tuf-gaming-gt302-argb-atx-mid-tower-case-90dc00i0-b19000\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41550,
+            "name": "Antec Performance 1 M",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/3v4Pxr\\\/antec-performance-1-m-mini-itx-desktop-case-0-761345-10168-4\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41551,
+            "name": "Corsair 2800X RS-R ARGB",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/M7VfrH\\\/corsair-2800x-rs-r-argb-microatx-mini-tower-case-cc-9011347-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41552,
+            "name": "Fractal Design Pop Mini Air",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/qJrRsY\\\/fractal-design-pop-mini-air-microatx-mid-tower-case-fd-c-por1m-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41553,
+            "name": "Deepcool CH370",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/mhC48d\\\/deepcool-ch370-microatx-mid-tower-case-r-ch370-bknam1-g-1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41554,
+            "name": "NZXT H7 Flow RGB (2024)",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/N3xxFT\\\/nzxt-h7-flow-rgb-2024-atx-mid-tower-case-cm-h72fw-r1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41555,
+            "name": "Corsair FRAME 4500X LX-R RGB iCUE LINK",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/FcFCmG\\\/corsair-frame-4500x-lx-r-rgb-icue-link-atx-mid-tower-case-cc-9011317-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41556,
+            "name": "HYTE X50",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/bcVfrH\\\/hyte-x50-atx-mid-tower-case-cs-hyte-x50g-sm\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41557,
+            "name": "Corsair AIR 5400 LX-R RGB iCUE LINK",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/pLKnTW\\\/corsair-air-5400-lx-r-rgb-icue-link-atx-mid-tower-case-cc-9011321-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41558,
+            "name": "Deepcool CH260",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/HPXMnQ\\\/deepcool-ch260-microatx-desktop-case-r-ch260-whngm0-g-1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41559,
+            "name": "HYTE X50",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/kzG2FT\\\/hyte-x50-atx-mid-tower-case-cs-hyte-x50g-bb\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41560,
+            "name": "Jonsbo D31 MESH",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/8qRwrH\\\/jonsbo-d31-mesh-microatx-mini-tower-case-d31-mesh-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41561,
+            "name": "Corsair 2500D Airflow",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/FrBzK8\\\/corsair-2500d-airflow-microatx-mini-tower-case-cc-9011263-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41562,
+            "name": "SAMA SV01",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/k4RwrH\\\/sama-sv01-atx-mid-tower-case-sv-01-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41563,
+            "name": "Thermaltake TR100",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/GvWmP6\\\/thermaltake-tr100-mini-itx-desktop-case-ca-11a-00s6nn-00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41564,
+            "name": "be quiet! Light Base 900 DX",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/BKyH99\\\/be-quiet-light-base-900-dx-atx-full-tower-case-bgw70\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41565,
+            "name": "be quiet! Pure Base 501 Airflow",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/pCBzK8\\\/be-quiet-pure-base-501-airflow-atx-mid-tower-case-bgw74\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41566,
+            "name": "Asus Prime AP201",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Y27scf\\\/asus-prime-ap201-microatx-mini-tower-case-prime-ap201-tg-wh\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41567,
+            "name": "Asus Prime AP202",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/gf2j4D\\\/asus-prime-ap202-microatx-mid-tower-case-90dc00p0-b19000\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41568,
+            "name": "Corsair 3200D RS",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/zpwD4D\\\/corsair-3200d-rs-atx-mid-tower-case-cc-9011334-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41569,
+            "name": "Lian Li O11 Dynamic Mini",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/ByJmP6\\\/lian-li-o11-dynamic-mini-atx-mid-tower-case-o11d-mini-x\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41570,
+            "name": "Antec FLUX SE",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/j2kqqs\\\/antec-flux-se-atx-mid-tower-case-0-761345-10177-6\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41571,
+            "name": "Silverstone SUGO 14",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/HQJmP6\\\/silverstone-sugo-14-mini-itx-desktop-case-sst-sg14b\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41572,
+            "name": "Cooler Master Elite 301 Lite",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/VGLp99\\\/cooler-master-elite-301-lite-microatx-mini-tower-case-e301l-kgnn-s00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41573,
+            "name": "Antec AX61 ELITE",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/k9GhP6\\\/antec-ax61-elite-atx-mid-tower-case-ax61-elite\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41574,
+            "name": "Corsair 3500X LX-R RGB iCUE LINK",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/8Yh2FT\\\/corsair-3500x-lx-r-rgb-icue-link-atx-mid-tower-case-cc-9011325-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41575,
+            "name": "NZXT H9 Elite",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/8XmmP6\\\/nzxt-h9-elite-atx-mid-tower-case-cm-h91eb-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41576,
+            "name": "Asus Prime AP201",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/nL3gXL\\\/asus-prime-ap201-microatx-mini-tower-case-ap201whtmesh\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41577,
+            "name": "Fractal Design Pop 2 Air",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/cQ2j4D\\\/fractal-design-pop-2-air-atx-mid-tower-case-fd-c-poa2a-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41578,
+            "name": "NZXT H6",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/GggZxr\\\/nzxt-h6-atx-mid-tower-case-cc-h62fw-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41579,
+            "name": "Silverstone ALTA D1",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/rFwmP6\\\/silverstone-alta-d1-atx-full-tower-case-sst-ald1b\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41580,
+            "name": "Lian Li O11 Air Mini",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/RvNxFT\\\/lian-li-o11-air-mini-atx-mid-tower-case-o11amx\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41587,
+            "name": "MSI MAG PANO 100R PZ",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/mJMXsY\\\/msi-mag-pano-100r-pz-atx-mid-tower-case-mag-pano-100r-pz-white\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41588,
+            "name": "Deepcool MATREXX 40 3FS",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/36gFf7\\\/deepcool-matrexx-40-3fs-microatx-mini-tower-case-dp-matx-matrexx40-3fs\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41589,
+            "name": "CiT F3 ARGB",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/n762FT\\\/cit-f3-argb-microatx-mid-tower-case-cit-f3-blk-argb\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41590,
+            "name": "Cooler Master QUBE 540",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/qvFCmG\\\/cooler-master-qube-540-atx-mid-tower-case-q540-lgnn-s00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41591,
+            "name": "Fractal Design Pop Silent",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/6ggFf7\\\/fractal-design-pop-silent-atx-mid-tower-case-fd-c-pos1a-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41592,
+            "name": "Fractal Design Define 7 Compact",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/xmH8TW\\\/fractal-design-define-7-compact-atx-mid-tower-case-fd-c-def7c-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41593,
+            "name": "Corsair 3500X",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/z2dG3C\\\/corsair-3500x-atx-mid-tower-case-cc-9011277-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41594,
+            "name": "Thermaltake Core W200",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Qfs8TW\\\/thermaltake-core-w200-atx-full-tower-case-ca-1f5-00f1wn-00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41595,
+            "name": "NZXT H5 Flow (2022)",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/92pzK8\\\/nzxt-h5-flow-atx-mid-tower-case-cc-h51fw-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41596,
+            "name": "Lian Li B4-mATX Mesh",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/KxwD4D\\\/lian-li-b4-matx-mesh-microatx-mini-tower-case-b4w\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41597,
+            "name": "KOLINK Stronghold Barricade",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/XMQKHx\\\/kolink-stronghold-barricade-atx-mid-tower-case-stronghold-barricade\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41598,
+            "name": "Lian Li LANCOOL 205 Mesh C",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/CrzhP6\\\/lian-li-lancool-205-mesh-c-atx-mid-tower-case-g99oe764cx00am\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41599,
+            "name": "be quiet! Dark Base Pro 901",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/JbkH99\\\/be-quiet-dark-base-pro-901-atx-full-tower-case-bgw50\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41600,
+            "name": "Deepcool CG530",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/cvfV3C\\\/deepcool-cg530-atx-mid-tower-case-r-cg530-bknda0-g-1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41601,
+            "name": "Silverstone GD09 Type-C",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":[\"SSI-CEB\",\"ATX\",\"Micro-ATX\"],\"form_factor_source\":\"manufacturer\",\"form_factor_evidence\":\"silverstonetek.com GD09: \\\"Supports SSI-CEB, ATX, Micro-ATX motherboards\\\"\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41602,
+            "name": "Cooler Master Q300L V2",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/wMyH99\\\/cooler-master-q300l-v2-atx-mid-tower-case-q300lv2-kgnn-s00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41603,
+            "name": "NZXT H9 Flow RGB (2025)",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Vdrp99\\\/nzxt-h9-flow-rgb-2025-atx-mid-tower-case-cm-h92fw-r1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41604,
+            "name": "Fractal Design Mood",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/WFjRsY\\\/fractal-design-mood-mini-itx-tower-case-fd-c-mod1n-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41605,
+            "name": "be quiet! Light Base 900 DX",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/z3Kscf\\\/be-quiet-light-base-900-dx-atx-full-tower-case-bgw69\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41606,
+            "name": "Silverstone SUGO 15",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/X8hmP6\\\/silverstone-sugo-15-mini-itx-desktop-case-sst-sg15b\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41607,
+            "name": "Jonsbo TK-0",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/YDP8TW\\\/jonsbo-tk-0-mini-itx-desktop-case-tk-0-white\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41608,
+            "name": "HYTE X50",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/2B7MnQ\\\/hyte-x50-atx-mid-tower-case-cs-hyte-x50g-mm\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41609,
+            "name": "be quiet! Light Base 500 LX",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/3rnXsY\\\/be-quiet-light-base-500-lx-atx-mid-tower-case-bgw85\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41610,
+            "name": "Phanteks Eclipse G400A",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/p4DnTW\\\/phanteks-eclipse-g400a-atx-mid-tower-case-ph-ec400ga_dbk01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41611,
+            "name": "Corsair 2500X",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/9Q26Mp\\\/corsair-2500x-microatx-mini-tower-case-cc-9011266-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41612,
+            "name": "Lian Li O11 Air Mini",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/9rt9TW\\\/lian-li-o11-air-mini-atx-mid-tower-case-o11amw\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41613,
+            "name": "Okinos Aqua 9 ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/dpRnTW\\\/okinos-aqua-9-rgb-atx-mid-tower-case-okicc-aq9-atxba\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41614,
+            "name": "Thermaltake Versa H16 ARGB",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/WQ62FT\\\/thermaltake-versa-h16-argb-microatx-mini-tower-case-ca-1y8-00s1wn-02\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41615,
+            "name": "Phanteks XT PRO",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/WWfV3C\\\/phanteks-xt-pro-atx-mid-tower-case-ph-xt523psc_bk01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41616,
+            "name": "Deepcool MACUBE 110",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/TYMTwP\\\/deepcool-macube-110-microatx-mini-tower-case-r-macube110-bkngm1n-g-1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41617,
+            "name": "Corsair iCUE LINK 3500X RGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Zthv6h\\\/corsair-icue-link-3500x-rgb-atx-mid-tower-case-cc-9011280-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41618,
+            "name": "HYTE Y40",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/w2jRsY\\\/hyte-y40-atx-mid-tower-case-cs-hyte-y40-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41619,
+            "name": "Thermaltake The Tower 600",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/hYn9TW\\\/thermaltake-the-tower-600-atx-mid-tower-case-ca-1z1-00m6wn-00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41620,
+            "name": "Lian Li LANCOOL III",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/2vJgXL\\\/lian-li-lancool-iii-atx-mid-tower-case-lancool-3-x\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41625,
+            "name": "Corsair FRAME 4000D Vault Series",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/q7bypg\\\/corsair-frame-4000d-vault-series-atx-mid-tower-case-cc-9011342-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41626,
+            "name": "Asus A31",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/FMFCmG\\\/asus-a31-atx-mid-tower-case-a31-tg-white\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41627,
+            "name": "Asus ProArt PA401 Wood Edition",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/tgJBD3\\\/asus-proart-pa401-wood-edition-atx-mid-tower-case-90dc00m0-b38000\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41628,
+            "name": "Antec CX600M ARGB",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Mr3NnQ\\\/antec-cx600m-argb-microatx-mini-tower-case-0-761345-10147-9\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41629,
+            "name": "Corsair FRAME 4000D LCD RS ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/kQJBD3\\\/corsair-frame-4000d-lcd-rs-argb-atx-mid-tower-case-cc-9011326-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41630,
+            "name": "Fractal Design Meshify 2 Compact TG Light Tint",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/mgwypg\\\/fractal-design-meshify-2-compact-tg-light-tint-atx-mid-tower-case-fd-c-mes2c-03\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41631,
+            "name": "Thermaltake View 380 XL TG ARGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/rNzp99\\\/thermaltake-view-380-xl-tg-argb-atx-mid-tower-case-ca-11e-00m1wn-00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41632,
+            "name": "Fractal Design Meshify 3 XL",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/tH8Pxr\\\/fractal-design-meshify-3-xl-atx-full-tower-case-fd-c-mes3x-02\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41633,
+            "name": "Rosewill Helium NAS",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/QJxTwP\\\/rosewill-helium-nas-atx-mid-tower-case-helium-nas\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41634,
+            "name": "Fractal Design Pop 2 Vision RGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/kwsMnQ\\\/fractal-design-pop-2-vision-rgb-atx-mid-tower-case-fd-c-pov2a-02\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41635,
+            "name": "Phanteks NV7",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/sWbRsY\\\/phanteks-nv7-atx-full-tower-case-ph-nv723tg_dmw01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41636,
+            "name": "Montech TEN",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/RdRnTW\\\/montech-ten-microatx-mini-tower-case-ten-white\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41637,
+            "name": "Zalman S2",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/P9snTW\\\/zalman-s2-atx-mid-tower-case-s2-tg\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41305,
+            "name": "Fractal Design Ridge PCIe 4.0",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Jgn9TW\\\/fractal-design-ridge-pcie-40-mini-itx-tower-case-fd-c-rid1n-12\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41306,
+            "name": "Noctua Antec Flux Pro Noctua Edition",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/XzcBD3\\\/noctua-antec-flux-pro-noctua-edition-atx-full-tower-case-antec-flux-pro-noctua-edition\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41307,
+            "name": "NZXT H7 Flow (2024)",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/4yMMnQ\\\/nzxt-h7-flow-2024-atx-mid-tower-case-cm-h72fb-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41308,
+            "name": "Lian Li A3-mATX",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/c2yH99\\\/lian-li-a3-matx-microatx-mini-tower-case-a3-matx-w\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41348,
+            "name": "Phanteks NV5S",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/3p62FT\\\/phanteks-nv5s-atx-mid-tower-case-ph-nv523s_dbk01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41349,
+            "name": "NZXT H6 Flow RGB",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/rM26Mp\\\/nzxt-h6-flow-rgb-atx-mid-tower-case-cc-h61fb-r1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41371,
+            "name": "Antec FLUX M",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/cMxTwP\\\/antec-flux-m-microatx-mini-tower-case-0-761345-10253-7\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41372,
+            "name": "MSI MAG PANO 100R PZ",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Vgbypg\\\/msi-mag-pano-100r-pz-atx-mid-tower-case-mag-pano-100r-pz\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41373,
+            "name": "Montech AIR 100 ARGB",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/wvmmP6\\\/montech-air-100-argb-microatx-mid-tower-case-air-100-argb-white\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41374,
+            "name": "DIYPC DIY-mATX06-Wood",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/rk8Pxr\\\/diypc-diy-matx06-wood-microatx-mini-tower-case-diy-matx06-wood\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41375,
+            "name": "HYTE Y70 Touch Infinite",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/4X88TW\\\/hyte-y70-touch-infinite-atx-mid-tower-case-cs-hyte-y70ti-rb\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41376,
+            "name": "Antec FLUX",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/pMRwrH\\\/antec-flux-atx-mid-tower-case-0-761345-10133-2\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41377,
+            "name": "Fractal Design Focus G",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/ZHmxFT\\\/fractal-design-focus-g-black-atx-mid-tower-case-fd-ca-focus-bk-w\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41378,
+            "name": "Corsair 9000D RGB AIRFLOW",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/FvzXsY\\\/corsair-9000d-rgb-airflow-atx-full-tower-case-cc-9011274-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41381,
+            "name": "Phanteks Enthoo Elite",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/hbYWGX\\\/phanteks-enthoo-elite-black-atx-full-tower-case-ph-es916e_bk\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41382,
+            "name": "Fractal Design Pop Air",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/KLQcCJ\\\/fractal-design-pop-air-atx-mid-tower-case-fd-c-poa1a-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41383,
+            "name": "NZXT H7 Flow (2024)",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/f3xxFT\\\/nzxt-h7-flow-2024-atx-mid-tower-case-cm-h72fw-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41384,
+            "name": "Corsair AIR 5400 LX-R RGB iCUE LINK",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/HZPv6h\\\/corsair-air-5400-lx-r-rgb-icue-link-atx-mid-tower-case-cc-9011320-ww\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41424,
+            "name": "Jonsbo N2",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/FtVmP6\\\/jonsbo-n2-mini-itx-desktop-case-n2-black\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41425,
+            "name": "Thermaltake TR100",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"mini-itx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/LWbypg\\\/thermaltake-tr100-mini-itx-desktop-case-ca-11a-00senn-00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41426,
+            "name": "Montech AIR 903 BASE",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/rBTZxr\\\/montech-air-903-base-atx-mid-tower-case-air-903-base-w\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41581,
+            "name": "Antec C8",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/dF9wrH\\\/antec-c8-atx-mid-tower-case-c8-wh\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41582,
+            "name": "Antec AX20",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/HZ9wrH\\\/antec-ax20-atx-mid-tower-case-0-761345-10060-1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41583,
+            "name": "Aerocool P500C",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/PNy8TW\\\/aerocool-p500c-atx-mid-tower-case-p500c-g-bk-v1\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41584,
+            "name": "Thermaltake TR200",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/cfTFf7\\\/thermaltake-tr200-microatx-mid-tower-case-ca-11l-00s1nn-ws\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41585,
+            "name": "HYTE Y70",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/7pkH99\\\/hyte-y70-atx-mid-tower-case-cs-hyte-y70-br\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41586,
+            "name": "Cooler Master Cosmos Alpha",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/xJrp99\\\/cooler-master-cosmos-alpha-atx-mid-tower-case-c700-kgnn-s00\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41621,
+            "name": "Phanteks XT M3 M25",
+            "specs": "{\"form_factor\":\"Micro-ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"microatx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/B2jv6h\\\/phanteks-xt-m3-m25-microatx-mid-tower-case-ph-xt325m_dwt01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41622,
+            "name": "ENDORFY Ventum 200 Air",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/Wvqrxr\\\/endorfy-ventum-200-air-atx-mid-tower-case-ey2a002\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41623,
+            "name": "Fractal Design Pop 2 Vision",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/x962FT\\\/fractal-design-pop-2-vision-atx-mid-tower-case-fd-c-pov2a-01\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        },
+        {
+            "id": 41624,
+            "name": "HYTE Y60",
+            "specs": "{\"form_factor\":\"ATX\",\"form_factor_supported\":null,\"form_factor_source\":\"pcpp-slug\",\"form_factor_evidence\":\"PCPP product slug token \\\"atx\\\" in https:\\\/\\\/uk.pcpartpicker.com\\\/product\\\/pyBG3C\\\/hyte-y60-atx-mid-tower-case-cs-hyte-y60-bw\",\"form_factor_verified_at\":\"2026-09-29\"}"
+        }
+    ]
+}

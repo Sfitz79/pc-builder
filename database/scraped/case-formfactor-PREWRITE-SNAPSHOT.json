@@ -1,0 +1,2001 @@
+{
+    "taken": "2026-09-29T07:48:33+00:00",
+    "driver": "pgsql",
+    "rows": [
+        {
+            "id": 41239,
+            "name": "Montech XR",
+            "specs": null
+        },
+        {
+            "id": 41240,
+            "name": "Phanteks XT PRO",
+            "specs": null
+        },
+        {
+            "id": 41241,
+            "name": "Lian Li Vector V100R",
+            "specs": null
+        },
+        {
+            "id": 41242,
+            "name": "Lian Li O11 VISION COMPACT",
+            "specs": null
+        },
+        {
+            "id": 41243,
+            "name": "NZXT H5 Flow (2024)",
+            "specs": null
+        },
+        {
+            "id": 41244,
+            "name": "Cooler Master MasterBox Q300L",
+            "specs": null
+        },
+        {
+            "id": 41245,
+            "name": "Lian Li O11 VISION COMPACT",
+            "specs": null
+        },
+        {
+            "id": 41246,
+            "name": "Corsair FRAME 4000D RS ARGB",
+            "specs": null
+        },
+        {
+            "id": 41247,
+            "name": "Fractal Design North",
+            "specs": null
+        },
+        {
+            "id": 41248,
+            "name": "HYTE Y70 Touch Infinite",
+            "specs": null
+        },
+        {
+            "id": 41249,
+            "name": "Lian Li O11 Dynamic Mini V2",
+            "specs": null
+        },
+        {
+            "id": 41250,
+            "name": "Lian Li A3-mATX",
+            "specs": null
+        },
+        {
+            "id": 41251,
+            "name": "Phanteks Eclipse G370A",
+            "specs": null
+        },
+        {
+            "id": 41252,
+            "name": "Lian Li O11 Dynamic Mini V2",
+            "specs": null
+        },
+        {
+            "id": 41253,
+            "name": "Lian Li A3-mATX",
+            "specs": null
+        },
+        {
+            "id": 41254,
+            "name": "Fractal Design North XL",
+            "specs": null
+        },
+        {
+            "id": 41255,
+            "name": "HYTE Y70 Touch Infinite",
+            "specs": null
+        },
+        {
+            "id": 41256,
+            "name": "Lian Li VECTOR V100R MINI",
+            "specs": null
+        },
+        {
+            "id": 41257,
+            "name": "Fractal Design Terra",
+            "specs": null
+        },
+        {
+            "id": 41258,
+            "name": "Montech AIR 903 MAX",
+            "specs": null
+        },
+        {
+            "id": 41259,
+            "name": "Phanteks XT PRO ULTRA",
+            "specs": null
+        },
+        {
+            "id": 41260,
+            "name": "Lian Li Vector V100R",
+            "specs": null
+        },
+        {
+            "id": 41261,
+            "name": "Lian Li O11D EVO RGB",
+            "specs": null
+        },
+        {
+            "id": 41262,
+            "name": "Phanteks XT M3 M25",
+            "specs": null
+        },
+        {
+            "id": 41263,
+            "name": "Lian Li LANCOOL 217",
+            "specs": null
+        },
+        {
+            "id": 41264,
+            "name": "Lian Li Vector V100",
+            "specs": null
+        },
+        {
+            "id": 41265,
+            "name": "Fractal Design Ridge PCIe 4.0",
+            "specs": null
+        },
+        {
+            "id": 41266,
+            "name": "NZXT H3 Flow",
+            "specs": null
+        },
+        {
+            "id": 41267,
+            "name": "NZXT H9 Flow (2025)",
+            "specs": null
+        },
+        {
+            "id": 41268,
+            "name": "Lian Li Lancool 207",
+            "specs": null
+        },
+        {
+            "id": 41269,
+            "name": "Lian Li O11 Dynamic EVO XL",
+            "specs": null
+        },
+        {
+            "id": 41270,
+            "name": "Corsair 3500X RS-R ARGB",
+            "specs": null
+        },
+        {
+            "id": 41271,
+            "name": "Lian Li O11 Dynamic Mini V2 Flow",
+            "specs": null
+        },
+        {
+            "id": 41272,
+            "name": "HYTE Y70",
+            "specs": null
+        },
+        {
+            "id": 41273,
+            "name": "Montech AIR 100 ARGB",
+            "specs": null
+        },
+        {
+            "id": 41274,
+            "name": "Jonsbo D32 PRO",
+            "specs": null
+        },
+        {
+            "id": 41275,
+            "name": "Fractal Design Terra",
+            "specs": null
+        },
+        {
+            "id": 41276,
+            "name": "NZXT H6 Flow",
+            "specs": null
+        },
+        {
+            "id": 41277,
+            "name": "HYTE Y70",
+            "specs": null
+        },
+        {
+            "id": 41278,
+            "name": "Lian Li LANCOOL 216 RGB",
+            "specs": null
+        },
+        {
+            "id": 41279,
+            "name": "Corsair 9000D RGB AIRFLOW",
+            "specs": null
+        },
+        {
+            "id": 41280,
+            "name": "Corsair 3500X ARGB",
+            "specs": null
+        },
+        {
+            "id": 41281,
+            "name": "Fractal Design Pop XL Air",
+            "specs": null
+        },
+        {
+            "id": 41282,
+            "name": "MSI MAG FORGE 321R AIRFLOW",
+            "specs": null
+        },
+        {
+            "id": 41283,
+            "name": "NZXT H6 Flow",
+            "specs": null
+        },
+        {
+            "id": 41284,
+            "name": "Corsair FRAME 4000D",
+            "specs": null
+        },
+        {
+            "id": 41285,
+            "name": "Lian Li A4-H2O PCIe 5.0",
+            "specs": null
+        },
+        {
+            "id": 41286,
+            "name": "Lian Li O11 Dynamic EVO XL",
+            "specs": null
+        },
+        {
+            "id": 41287,
+            "name": "Fractal Design Meshify C",
+            "specs": null
+        },
+        {
+            "id": 41288,
+            "name": "Montech XR",
+            "specs": null
+        },
+        {
+            "id": 41289,
+            "name": "Asus Prime AP201",
+            "specs": null
+        },
+        {
+            "id": 41290,
+            "name": "Antec C5 ARGB",
+            "specs": null
+        },
+        {
+            "id": 41291,
+            "name": "NZXT H2 Flow",
+            "specs": null
+        },
+        {
+            "id": 41292,
+            "name": "Jonsbo Jonsplus Z20",
+            "specs": null
+        },
+        {
+            "id": 41293,
+            "name": "Corsair 3500X RS-R ARGB",
+            "specs": null
+        },
+        {
+            "id": 41294,
+            "name": "Lian Li A3-mATX",
+            "specs": null
+        },
+        {
+            "id": 41295,
+            "name": "Montech KING 95 PRO",
+            "specs": null
+        },
+        {
+            "id": 41296,
+            "name": "Silverstone FLP02",
+            "specs": null
+        },
+        {
+            "id": 41297,
+            "name": "Lian Li B4-mATX Wood",
+            "specs": null
+        },
+        {
+            "id": 41298,
+            "name": "Okinos Aqua 3 ARGB",
+            "specs": null
+        },
+        {
+            "id": 41299,
+            "name": "Zalman T3 PLUS",
+            "specs": null
+        },
+        {
+            "id": 41300,
+            "name": "Silverstone ALTA F2",
+            "specs": null
+        },
+        {
+            "id": 41301,
+            "name": "Corsair 3500X",
+            "specs": null
+        },
+        {
+            "id": 41302,
+            "name": "Montech X3 Mesh",
+            "specs": null
+        },
+        {
+            "id": 41303,
+            "name": "Fractal Design Pop Air",
+            "specs": null
+        },
+        {
+            "id": 41304,
+            "name": "Phanteks XT V3",
+            "specs": null
+        },
+        {
+            "id": 41305,
+            "name": "Fractal Design Ridge PCIe 4.0",
+            "specs": null
+        },
+        {
+            "id": 41306,
+            "name": "Noctua Antec Flux Pro Noctua Edition",
+            "specs": null
+        },
+        {
+            "id": 41307,
+            "name": "NZXT H7 Flow (2024)",
+            "specs": null
+        },
+        {
+            "id": 41308,
+            "name": "Lian Li A3-mATX",
+            "specs": null
+        },
+        {
+            "id": 41309,
+            "name": "Fractal Design North",
+            "specs": null
+        },
+        {
+            "id": 41310,
+            "name": "Fractal Design Terra",
+            "specs": null
+        },
+        {
+            "id": 41311,
+            "name": "Asus ROG Strix Helios",
+            "specs": null
+        },
+        {
+            "id": 41312,
+            "name": "Lian Li LANCOOL 217 INF",
+            "specs": null
+        },
+        {
+            "id": 41313,
+            "name": "Corsair FRAME 4000D WOOD RS",
+            "specs": null
+        },
+        {
+            "id": 41314,
+            "name": "Lian Li LANCOOL 216",
+            "specs": null
+        },
+        {
+            "id": 41315,
+            "name": "Lian Li O11D EVO RGB",
+            "specs": null
+        },
+        {
+            "id": 41316,
+            "name": "NZXT H9 Flow RGB+ (2025)",
+            "specs": null
+        },
+        {
+            "id": 41317,
+            "name": "Lian Li O11 Dynamic Mini V2 Flow",
+            "specs": null
+        },
+        {
+            "id": 41318,
+            "name": "Corsair FRAME 4000D RS",
+            "specs": null
+        },
+        {
+            "id": 41319,
+            "name": "Montech X5M",
+            "specs": null
+        },
+        {
+            "id": 41320,
+            "name": "Deepcool CG530 4F",
+            "specs": null
+        },
+        {
+            "id": 41321,
+            "name": "Lian Li O11 Vision",
+            "specs": null
+        },
+        {
+            "id": 41322,
+            "name": "Fractal Design North Mesh",
+            "specs": null
+        },
+        {
+            "id": 41323,
+            "name": "Fractal Design North XL Mesh",
+            "specs": null
+        },
+        {
+            "id": 41324,
+            "name": "NZXT H3 Flow",
+            "specs": null
+        },
+        {
+            "id": 41325,
+            "name": "Antec C8",
+            "specs": null
+        },
+        {
+            "id": 41326,
+            "name": "Antec FLUX PRO",
+            "specs": null
+        },
+        {
+            "id": 41327,
+            "name": "NZXT H9 Flow RGB+ (2025)",
+            "specs": null
+        },
+        {
+            "id": 41328,
+            "name": "Deepcool CH260",
+            "specs": null
+        },
+        {
+            "id": 41329,
+            "name": "Thermaltake View 270 Plus TG ARGB",
+            "specs": null
+        },
+        {
+            "id": 41330,
+            "name": "Okinos Cypress 3 Wood",
+            "specs": null
+        },
+        {
+            "id": 41331,
+            "name": "Fractal Design Node 304",
+            "specs": null
+        },
+        {
+            "id": 41332,
+            "name": "Montech AIR 903 BASE",
+            "specs": null
+        },
+        {
+            "id": 41333,
+            "name": "be quiet! Pure Base 501 Airflow",
+            "specs": null
+        },
+        {
+            "id": 41334,
+            "name": "NZXT H6 Flow RGB",
+            "specs": null
+        },
+        {
+            "id": 41335,
+            "name": "HYTE Y70 Touch Infinite",
+            "specs": null
+        },
+        {
+            "id": 41336,
+            "name": "MSI MAG FORGE 120A AIRFLOW",
+            "specs": null
+        },
+        {
+            "id": 41337,
+            "name": "Lian Li VECTOR V100 MINI",
+            "specs": null
+        },
+        {
+            "id": 41338,
+            "name": "NZXT H9 Flow (2025)",
+            "specs": null
+        },
+        {
+            "id": 41339,
+            "name": "HYTE Y70",
+            "specs": null
+        },
+        {
+            "id": 41340,
+            "name": "Cooler Master MasterBox NR200",
+            "specs": null
+        },
+        {
+            "id": 41341,
+            "name": "Fractal Design Meshify 3",
+            "specs": null
+        },
+        {
+            "id": 41342,
+            "name": "Fractal Design Define R5",
+            "specs": null
+        },
+        {
+            "id": 41343,
+            "name": "Jonsbo TK-0",
+            "specs": null
+        },
+        {
+            "id": 41344,
+            "name": "Lian Li O11 VISION-M",
+            "specs": null
+        },
+        {
+            "id": 41345,
+            "name": "HAVN BF 360 Flow",
+            "specs": null
+        },
+        {
+            "id": 41346,
+            "name": "Corsair 3000D RGB AIRFLOW",
+            "specs": null
+        },
+        {
+            "id": 41347,
+            "name": "NZXT H5 Flow (2024)",
+            "specs": null
+        },
+        {
+            "id": 41348,
+            "name": "Phanteks NV5S",
+            "specs": null
+        },
+        {
+            "id": 41349,
+            "name": "NZXT H6 Flow RGB",
+            "specs": null
+        },
+        {
+            "id": 41350,
+            "name": "Montech X5",
+            "specs": null
+        },
+        {
+            "id": 41351,
+            "name": "Corsair FRAME 5000D RS ARGB",
+            "specs": null
+        },
+        {
+            "id": 41352,
+            "name": "Jonsbo C6",
+            "specs": null
+        },
+        {
+            "id": 41353,
+            "name": "Thermaltake TR100",
+            "specs": null
+        },
+        {
+            "id": 41354,
+            "name": "Phanteks EVOLV X2",
+            "specs": null
+        },
+        {
+            "id": 41355,
+            "name": "Aerocool CS-103",
+            "specs": null
+        },
+        {
+            "id": 41356,
+            "name": "Asus A31",
+            "specs": null
+        },
+        {
+            "id": 41357,
+            "name": "Fractal Design Pop Mini Air",
+            "specs": null
+        },
+        {
+            "id": 41358,
+            "name": "Thermaltake View 170 ARGB",
+            "specs": null
+        },
+        {
+            "id": 41359,
+            "name": "Lian Li A4-H2O PCIe 5.0",
+            "specs": null
+        },
+        {
+            "id": 41360,
+            "name": "Fractal Design Torrent",
+            "specs": null
+        },
+        {
+            "id": 41361,
+            "name": "Jonsbo NV10",
+            "specs": null
+        },
+        {
+            "id": 41362,
+            "name": "Corsair FRAME 4000D RS ARGB",
+            "specs": null
+        },
+        {
+            "id": 41363,
+            "name": "Lian Li Lancool 207",
+            "specs": null
+        },
+        {
+            "id": 41364,
+            "name": "Fractal Design Node 804",
+            "specs": null
+        },
+        {
+            "id": 41365,
+            "name": "Lian Li O11 VISION-M",
+            "specs": null
+        },
+        {
+            "id": 41366,
+            "name": "Fractal Design Meshify 2",
+            "specs": null
+        },
+        {
+            "id": 41367,
+            "name": "Jonsbo N4",
+            "specs": null
+        },
+        {
+            "id": 41368,
+            "name": "Fractal Design North XL",
+            "specs": null
+        },
+        {
+            "id": 41369,
+            "name": "DIYPC ARGB-N5",
+            "specs": null
+        },
+        {
+            "id": 41370,
+            "name": "Fractal Design Define 7",
+            "specs": null
+        },
+        {
+            "id": 41371,
+            "name": "Antec FLUX M",
+            "specs": null
+        },
+        {
+            "id": 41372,
+            "name": "MSI MAG PANO 100R PZ",
+            "specs": null
+        },
+        {
+            "id": 41373,
+            "name": "Montech AIR 100 ARGB",
+            "specs": null
+        },
+        {
+            "id": 41374,
+            "name": "DIYPC DIY-mATX06-Wood",
+            "specs": null
+        },
+        {
+            "id": 41375,
+            "name": "HYTE Y70 Touch Infinite",
+            "specs": null
+        },
+        {
+            "id": 41376,
+            "name": "Antec FLUX",
+            "specs": null
+        },
+        {
+            "id": 41377,
+            "name": "Fractal Design Focus G",
+            "specs": null
+        },
+        {
+            "id": 41378,
+            "name": "Corsair 9000D RGB AIRFLOW",
+            "specs": null
+        },
+        {
+            "id": 41379,
+            "name": "Corsair FRAME 4500X RS-R ARGB",
+            "specs": null
+        },
+        {
+            "id": 41380,
+            "name": "be quiet! Light Base 600 DX",
+            "specs": null
+        },
+        {
+            "id": 41381,
+            "name": "Phanteks Enthoo Elite",
+            "specs": null
+        },
+        {
+            "id": 41382,
+            "name": "Fractal Design Pop Air",
+            "specs": null
+        },
+        {
+            "id": 41383,
+            "name": "NZXT H7 Flow (2024)",
+            "specs": null
+        },
+        {
+            "id": 41384,
+            "name": "Corsair AIR 5400 LX-R RGB iCUE LINK",
+            "specs": null
+        },
+        {
+            "id": 41385,
+            "name": "Jonsbo D32 PRO MESH",
+            "specs": null
+        },
+        {
+            "id": 41386,
+            "name": "Jonsbo N5",
+            "specs": null
+        },
+        {
+            "id": 41387,
+            "name": "Phanteks ECLIPSE G500A DRGB",
+            "specs": null
+        },
+        {
+            "id": 41388,
+            "name": "Corsair FRAME 4500X RS-R ARGB",
+            "specs": null
+        },
+        {
+            "id": 41389,
+            "name": "Asus ROG Strix Helios II",
+            "specs": null
+        },
+        {
+            "id": 41390,
+            "name": "Thermaltake Versa H21",
+            "specs": null
+        },
+        {
+            "id": 41391,
+            "name": "Lian Li LANCOOL III RGB",
+            "specs": null
+        },
+        {
+            "id": 41392,
+            "name": "Fractal Design Meshify 2 Lite RGB",
+            "specs": null
+        },
+        {
+            "id": 41393,
+            "name": "Fractal Design Define 7 XL",
+            "specs": null
+        },
+        {
+            "id": 41394,
+            "name": "Antec C8 Wood",
+            "specs": null
+        },
+        {
+            "id": 41395,
+            "name": "Fractal Design Meshify 3 XL",
+            "specs": null
+        },
+        {
+            "id": 41396,
+            "name": "NZXT H5 Flow RGB (2024)",
+            "specs": null
+        },
+        {
+            "id": 41397,
+            "name": "KOLINK Observatory HF Mesh ARGB",
+            "specs": null
+        },
+        {
+            "id": 41398,
+            "name": "Silverstone SG13",
+            "specs": null
+        },
+        {
+            "id": 41399,
+            "name": "KOLINK STRONGHOLD",
+            "specs": null
+        },
+        {
+            "id": 41400,
+            "name": "DIYPC ARGB-M1",
+            "specs": null
+        },
+        {
+            "id": 41401,
+            "name": "Deepcool MATREXX 30",
+            "specs": null
+        },
+        {
+            "id": 41402,
+            "name": "MSI MAG PANO M100R PZ",
+            "specs": null
+        },
+        {
+            "id": 41403,
+            "name": "Cooler Master N200",
+            "specs": null
+        },
+        {
+            "id": 41404,
+            "name": "Montech XR Wood",
+            "specs": null
+        },
+        {
+            "id": 41405,
+            "name": "Montech TEN",
+            "specs": null
+        },
+        {
+            "id": 41406,
+            "name": "Corsair 2500X",
+            "specs": null
+        },
+        {
+            "id": 41407,
+            "name": "Thermaltake The Tower 300",
+            "specs": null
+        },
+        {
+            "id": 41408,
+            "name": "Thermaltake View 170 ARGB",
+            "specs": null
+        },
+        {
+            "id": 41409,
+            "name": "BGears b-Vortex-RGB",
+            "specs": null
+        },
+        {
+            "id": 41410,
+            "name": "Fractal Design North XL Momentum Edition",
+            "specs": null
+        },
+        {
+            "id": 41411,
+            "name": "BGears b-Pellucid",
+            "specs": null
+        },
+        {
+            "id": 41412,
+            "name": "Antec C8 Curve Wood",
+            "specs": null
+        },
+        {
+            "id": 41413,
+            "name": "NZXT H6",
+            "specs": null
+        },
+        {
+            "id": 41414,
+            "name": "Antec C5 ARGB",
+            "specs": null
+        },
+        {
+            "id": 41415,
+            "name": "Lian Li LANCOOL 217",
+            "specs": null
+        },
+        {
+            "id": 41416,
+            "name": "MSI MAG FORGE M100R",
+            "specs": null
+        },
+        {
+            "id": 41417,
+            "name": "Fractal Design Pop Mini Silent",
+            "specs": null
+        },
+        {
+            "id": 41418,
+            "name": "Montech AIR 903 MAX",
+            "specs": null
+        },
+        {
+            "id": 41419,
+            "name": "Montech AIR 100 LITE",
+            "specs": null
+        },
+        {
+            "id": 41420,
+            "name": "Deepcool CH160 PLUS",
+            "specs": null
+        },
+        {
+            "id": 41421,
+            "name": "Fractal Design Pop XL Silent",
+            "specs": null
+        },
+        {
+            "id": 41422,
+            "name": "Fractal Design Pop Air RGB",
+            "specs": null
+        },
+        {
+            "id": 41423,
+            "name": "Phanteks NV5 MKII",
+            "specs": null
+        },
+        {
+            "id": 41424,
+            "name": "Jonsbo N2",
+            "specs": null
+        },
+        {
+            "id": 41425,
+            "name": "Thermaltake TR100",
+            "specs": null
+        },
+        {
+            "id": 41426,
+            "name": "Montech AIR 903 BASE",
+            "specs": null
+        },
+        {
+            "id": 41427,
+            "name": "Asus Prime AP201",
+            "specs": null
+        },
+        {
+            "id": 41428,
+            "name": "Corsair 3000D AIRFLOW",
+            "specs": null
+        },
+        {
+            "id": 41429,
+            "name": "Asus ProArt PA602 Wood Edition",
+            "specs": null
+        },
+        {
+            "id": 41430,
+            "name": "MSI MAG PANO 110R PZ",
+            "specs": null
+        },
+        {
+            "id": 41431,
+            "name": "Fractal Design Mood",
+            "specs": null
+        },
+        {
+            "id": 41432,
+            "name": "Jonsbo C6 Handle",
+            "specs": null
+        },
+        {
+            "id": 41433,
+            "name": "Deepcool CC360 ARGB",
+            "specs": null
+        },
+        {
+            "id": 41434,
+            "name": "Cougar MX110 RGB",
+            "specs": null
+        },
+        {
+            "id": 41435,
+            "name": "MSI MAG FORGE 320R AIRFLOW",
+            "specs": null
+        },
+        {
+            "id": 41436,
+            "name": "Montech KING 95 PRO",
+            "specs": null
+        },
+        {
+            "id": 41437,
+            "name": "HAVN HS420 VGPU",
+            "specs": null
+        },
+        {
+            "id": 41438,
+            "name": "Corsair 3500X LX-R RGB iCUE LINK",
+            "specs": null
+        },
+        {
+            "id": 41439,
+            "name": "Thermaltake View 380 ARGB",
+            "specs": null
+        },
+        {
+            "id": 41440,
+            "name": "Corsair FRAME 5000D RS",
+            "specs": null
+        },
+        {
+            "id": 41441,
+            "name": "HAVN HS420",
+            "specs": null
+        },
+        {
+            "id": 41442,
+            "name": "Corsair AIR 5400 RS-R ARGB",
+            "specs": null
+        },
+        {
+            "id": 41443,
+            "name": "Fractal Design North Mesh",
+            "specs": null
+        },
+        {
+            "id": 41444,
+            "name": "Fractal Design Meshify 2 XL",
+            "specs": null
+        },
+        {
+            "id": 41445,
+            "name": "Asus Prime AP303",
+            "specs": null
+        },
+        {
+            "id": 41446,
+            "name": "Thermaltake The Tower 600",
+            "specs": null
+        },
+        {
+            "id": 41447,
+            "name": "Lian Li LANCOOL 216 RGB",
+            "specs": null
+        },
+        {
+            "id": 41448,
+            "name": "be quiet! Light Base 900 FX",
+            "specs": null
+        },
+        {
+            "id": 41449,
+            "name": "Cooler Master QUBE 540",
+            "specs": null
+        },
+        {
+            "id": 41450,
+            "name": "HYTE Y70",
+            "specs": null
+        },
+        {
+            "id": 41451,
+            "name": "Asus TUF Gaming GT502",
+            "specs": null
+        },
+        {
+            "id": 41452,
+            "name": "Lian Li LANCOOL 205M MESH",
+            "specs": null
+        },
+        {
+            "id": 41453,
+            "name": "Thermaltake V100 Perforated",
+            "specs": null
+        },
+        {
+            "id": 41454,
+            "name": "Phanteks XT M3",
+            "specs": null
+        },
+        {
+            "id": 41455,
+            "name": "Thermaltake View 270 Plus TG ARGB",
+            "specs": null
+        },
+        {
+            "id": 41456,
+            "name": "Okinos Air Cross",
+            "specs": null
+        },
+        {
+            "id": 41457,
+            "name": "Thermaltake View 380 ARGB",
+            "specs": null
+        },
+        {
+            "id": 41458,
+            "name": "Montech X5",
+            "specs": null
+        },
+        {
+            "id": 41459,
+            "name": "APNX V1",
+            "specs": null
+        },
+        {
+            "id": 41460,
+            "name": "NZXT H7 Flow RGB (2024)",
+            "specs": null
+        },
+        {
+            "id": 41461,
+            "name": "Fractal Design Meshify 3 Ambience Pro RGB",
+            "specs": null
+        },
+        {
+            "id": 41462,
+            "name": "Phanteks Enthoo Pro Tempered Glass",
+            "specs": null
+        },
+        {
+            "id": 41463,
+            "name": "Fractal Design Meshify 3 XL Ambience Pro RGB",
+            "specs": null
+        },
+        {
+            "id": 41464,
+            "name": "HYTE Y70",
+            "specs": null
+        },
+        {
+            "id": 41465,
+            "name": "Deepcool CG530 4F",
+            "specs": null
+        },
+        {
+            "id": 41466,
+            "name": "Lian Li Vector V150 INF",
+            "specs": null
+        },
+        {
+            "id": 41467,
+            "name": "HYTE Y40",
+            "specs": null
+        },
+        {
+            "id": 41468,
+            "name": "Corsair 3500X ARGB",
+            "specs": null
+        },
+        {
+            "id": 41469,
+            "name": "MSI MAG FORGE 112R",
+            "specs": null
+        },
+        {
+            "id": 41470,
+            "name": "Thermaltake The Tower 250",
+            "specs": null
+        },
+        {
+            "id": 41471,
+            "name": "DARKROCK Classico Storage Master",
+            "specs": null
+        },
+        {
+            "id": 41472,
+            "name": "Fractal Design Focus 2",
+            "specs": null
+        },
+        {
+            "id": 41473,
+            "name": "Lian Li LANCOOL 217 INF",
+            "specs": null
+        },
+        {
+            "id": 41474,
+            "name": "Thermaltake Versa H17",
+            "specs": null
+        },
+        {
+            "id": 41475,
+            "name": "Montech X5M",
+            "specs": null
+        },
+        {
+            "id": 41476,
+            "name": "Jonsbo V12",
+            "specs": null
+        },
+        {
+            "id": 41477,
+            "name": "NZXT H9 Flow (2023)",
+            "specs": null
+        },
+        {
+            "id": 41478,
+            "name": "Cooler Master NR200P V3",
+            "specs": null
+        },
+        {
+            "id": 41479,
+            "name": "Corsair iCUE 7000X RGB",
+            "specs": null
+        },
+        {
+            "id": 41480,
+            "name": "Thermaltake Versa H18",
+            "specs": null
+        },
+        {
+            "id": 41481,
+            "name": "Jonsbo D32 PRO",
+            "specs": null
+        },
+        {
+            "id": 41482,
+            "name": "Silverstone SG13 V2",
+            "specs": null
+        },
+        {
+            "id": 41483,
+            "name": "Phanteks XT PRO ULTRA",
+            "specs": null
+        },
+        {
+            "id": 41484,
+            "name": "Corsair 3200D RS ARGB",
+            "specs": null
+        },
+        {
+            "id": 41485,
+            "name": "HYTE X50",
+            "specs": null
+        },
+        {
+            "id": 41486,
+            "name": "Cooler Master Elite 681",
+            "specs": null
+        },
+        {
+            "id": 41487,
+            "name": "Fractal Design Focus 2",
+            "specs": null
+        },
+        {
+            "id": 41488,
+            "name": "Asus ProArt PA602",
+            "specs": null
+        },
+        {
+            "id": 41489,
+            "name": "HYTE Y60",
+            "specs": null
+        },
+        {
+            "id": 41490,
+            "name": "Fractal Design Era 2",
+            "specs": null
+        },
+        {
+            "id": 41491,
+            "name": "Corsair 3200D RS",
+            "specs": null
+        },
+        {
+            "id": 41492,
+            "name": "Phanteks NV9 MKII",
+            "specs": null
+        },
+        {
+            "id": 41493,
+            "name": "Corsair iCUE 4000X RGB",
+            "specs": null
+        },
+        {
+            "id": 41494,
+            "name": "darkFlash DB330M",
+            "specs": null
+        },
+        {
+            "id": 41495,
+            "name": "Fractal Design Pop XL Air",
+            "specs": null
+        },
+        {
+            "id": 41496,
+            "name": "NZXT H6 RGB+",
+            "specs": null
+        },
+        {
+            "id": 41497,
+            "name": "Cooler Master Elite 502",
+            "specs": null
+        },
+        {
+            "id": 41498,
+            "name": "Fractal Design Core 1100",
+            "specs": null
+        },
+        {
+            "id": 41499,
+            "name": "Corsair FRAME 4000D WOOD RS",
+            "specs": null
+        },
+        {
+            "id": 41500,
+            "name": "Asus A31 PLUS",
+            "specs": null
+        },
+        {
+            "id": 41501,
+            "name": "Fractal Design North Momentum Edition",
+            "specs": null
+        },
+        {
+            "id": 41502,
+            "name": "Lian Li O11 Dynamic Mini Snow Edition",
+            "specs": null
+        },
+        {
+            "id": 41503,
+            "name": "KOLINK KLA-003",
+            "specs": null
+        },
+        {
+            "id": 41504,
+            "name": "Fractal Design Core 1000 USB 3.0",
+            "specs": null
+        },
+        {
+            "id": 41505,
+            "name": "MSI MAG PANO 110R PZ",
+            "specs": null
+        },
+        {
+            "id": 41506,
+            "name": "Corsair FRAME 4500X LX-R RGB iCUE LINK",
+            "specs": null
+        },
+        {
+            "id": 41507,
+            "name": "Lian Li Lancool 207 Digital",
+            "specs": null
+        },
+        {
+            "id": 41508,
+            "name": "Phanteks Enthoo Pro Closed Panel",
+            "specs": null
+        },
+        {
+            "id": 41509,
+            "name": "MUSETEX NN8",
+            "specs": null
+        },
+        {
+            "id": 41510,
+            "name": "Cougar CFV235",
+            "specs": null
+        },
+        {
+            "id": 41511,
+            "name": "Lian Li B4-mATX Wood",
+            "specs": null
+        },
+        {
+            "id": 41512,
+            "name": "Corsair iCUE 4000D RGB AIRFLOW",
+            "specs": null
+        },
+        {
+            "id": 41513,
+            "name": "NZXT H6 RGB+",
+            "specs": null
+        },
+        {
+            "id": 41514,
+            "name": "Silverstone RM52",
+            "specs": null
+        },
+        {
+            "id": 41515,
+            "name": "Antec C2M ARGB",
+            "specs": null
+        },
+        {
+            "id": 41516,
+            "name": "Silverstone FLP01",
+            "specs": null
+        },
+        {
+            "id": 41517,
+            "name": "Corsair FRAME 4000D",
+            "specs": null
+        },
+        {
+            "id": 41518,
+            "name": "HYTE Y60 Snow White",
+            "specs": null
+        },
+        {
+            "id": 41519,
+            "name": "be quiet! Silent Base 802",
+            "specs": null
+        },
+        {
+            "id": 41520,
+            "name": "Antec P30 AIR",
+            "specs": null
+        },
+        {
+            "id": 41521,
+            "name": "DIYPC Vanguard-F2",
+            "specs": null
+        },
+        {
+            "id": 41522,
+            "name": "Cooler Master MasterBox NR200P V2",
+            "specs": null
+        },
+        {
+            "id": 41523,
+            "name": "Deepcool CH270 DIGITAL",
+            "specs": null
+        },
+        {
+            "id": 41524,
+            "name": "be quiet! Pure Base 600",
+            "specs": null
+        },
+        {
+            "id": 41525,
+            "name": "Fractal Design Meshify 3",
+            "specs": null
+        },
+        {
+            "id": 41526,
+            "name": "Aerocool CS-107 RGB",
+            "specs": null
+        },
+        {
+            "id": 41527,
+            "name": "be quiet! Light Base 600 LX",
+            "specs": null
+        },
+        {
+            "id": 41528,
+            "name": "HAVN HS420 VGPU",
+            "specs": null
+        },
+        {
+            "id": 41529,
+            "name": "Phanteks EVOLV X2",
+            "specs": null
+        },
+        {
+            "id": 41530,
+            "name": "NZXT H5 Flow RGB (2024)",
+            "specs": null
+        },
+        {
+            "id": 41531,
+            "name": "Jonsbo N3",
+            "specs": null
+        },
+        {
+            "id": 41532,
+            "name": "Silverstone Sugo 16",
+            "specs": null
+        },
+        {
+            "id": 41533,
+            "name": "HYTE X50 Air",
+            "specs": null
+        },
+        {
+            "id": 41534,
+            "name": "KOLINK VOID RGB",
+            "specs": null
+        },
+        {
+            "id": 41535,
+            "name": "Thermaltake AX700",
+            "specs": null
+        },
+        {
+            "id": 41536,
+            "name": "Fractal Design Torrent RGB",
+            "specs": null
+        },
+        {
+            "id": 41537,
+            "name": "MSI MAG PANO M100R PZ",
+            "specs": null
+        },
+        {
+            "id": 41538,
+            "name": "NOX Infinity Beta",
+            "specs": null
+        },
+        {
+            "id": 41539,
+            "name": "be quiet! Light Base 500",
+            "specs": null
+        },
+        {
+            "id": 41540,
+            "name": "Asus ROG Strix Helios II",
+            "specs": null
+        },
+        {
+            "id": 41541,
+            "name": "Fractal Design Define 7 XL Dark",
+            "specs": null
+        },
+        {
+            "id": 41542,
+            "name": "Montech SKY TWO GX",
+            "specs": null
+        },
+        {
+            "id": 41543,
+            "name": "Fractal Design Torrent",
+            "specs": null
+        },
+        {
+            "id": 41544,
+            "name": "Deepcool CH170 DIGITAL",
+            "specs": null
+        },
+        {
+            "id": 41545,
+            "name": "Thermaltake Retro 360 TG",
+            "specs": null
+        },
+        {
+            "id": 41546,
+            "name": "Fractal Design North XL Mesh",
+            "specs": null
+        },
+        {
+            "id": 41547,
+            "name": "HYTE Y40",
+            "specs": null
+        },
+        {
+            "id": 41548,
+            "name": "Cooler Master MasterBox TD500 Mesh V2",
+            "specs": null
+        },
+        {
+            "id": 41549,
+            "name": "Asus TUF Gaming GT302 ARGB",
+            "specs": null
+        },
+        {
+            "id": 41550,
+            "name": "Antec Performance 1 M",
+            "specs": null
+        },
+        {
+            "id": 41551,
+            "name": "Corsair 2800X RS-R ARGB",
+            "specs": null
+        },
+        {
+            "id": 41552,
+            "name": "Fractal Design Pop Mini Air",
+            "specs": null
+        },
+        {
+            "id": 41553,
+            "name": "Deepcool CH370",
+            "specs": null
+        },
+        {
+            "id": 41554,
+            "name": "NZXT H7 Flow RGB (2024)",
+            "specs": null
+        },
+        {
+            "id": 41555,
+            "name": "Corsair FRAME 4500X LX-R RGB iCUE LINK",
+            "specs": null
+        },
+        {
+            "id": 41556,
+            "name": "HYTE X50",
+            "specs": null
+        },
+        {
+            "id": 41557,
+            "name": "Corsair AIR 5400 LX-R RGB iCUE LINK",
+            "specs": null
+        },
+        {
+            "id": 41558,
+            "name": "Deepcool CH260",
+            "specs": null
+        },
+        {
+            "id": 41559,
+            "name": "HYTE X50",
+            "specs": null
+        },
+        {
+            "id": 41560,
+            "name": "Jonsbo D31 MESH",
+            "specs": null
+        },
+        {
+            "id": 41561,
+            "name": "Corsair 2500D Airflow",
+            "specs": null
+        },
+        {
+            "id": 41562,
+            "name": "SAMA SV01",
+            "specs": null
+        },
+        {
+            "id": 41563,
+            "name": "Thermaltake TR100",
+            "specs": null
+        },
+        {
+            "id": 41564,
+            "name": "be quiet! Light Base 900 DX",
+            "specs": null
+        },
+        {
+            "id": 41565,
+            "name": "be quiet! Pure Base 501 Airflow",
+            "specs": null
+        },
+        {
+            "id": 41566,
+            "name": "Asus Prime AP201",
+            "specs": null
+        },
+        {
+            "id": 41567,
+            "name": "Asus Prime AP202",
+            "specs": null
+        },
+        {
+            "id": 41568,
+            "name": "Corsair 3200D RS",
+            "specs": null
+        },
+        {
+            "id": 41569,
+            "name": "Lian Li O11 Dynamic Mini",
+            "specs": null
+        },
+        {
+            "id": 41570,
+            "name": "Antec FLUX SE",
+            "specs": null
+        },
+        {
+            "id": 41571,
+            "name": "Silverstone SUGO 14",
+            "specs": null
+        },
+        {
+            "id": 41572,
+            "name": "Cooler Master Elite 301 Lite",
+            "specs": null
+        },
+        {
+            "id": 41573,
+            "name": "Antec AX61 ELITE",
+            "specs": null
+        },
+        {
+            "id": 41574,
+            "name": "Corsair 3500X LX-R RGB iCUE LINK",
+            "specs": null
+        },
+        {
+            "id": 41575,
+            "name": "NZXT H9 Elite",
+            "specs": null
+        },
+        {
+            "id": 41576,
+            "name": "Asus Prime AP201",
+            "specs": null
+        },
+        {
+            "id": 41577,
+            "name": "Fractal Design Pop 2 Air",
+            "specs": null
+        },
+        {
+            "id": 41578,
+            "name": "NZXT H6",
+            "specs": null
+        },
+        {
+            "id": 41579,
+            "name": "Silverstone ALTA D1",
+            "specs": null
+        },
+        {
+            "id": 41580,
+            "name": "Lian Li O11 Air Mini",
+            "specs": null
+        },
+        {
+            "id": 41581,
+            "name": "Antec C8",
+            "specs": null
+        },
+        {
+            "id": 41582,
+            "name": "Antec AX20",
+            "specs": null
+        },
+        {
+            "id": 41583,
+            "name": "Aerocool P500C",
+            "specs": null
+        },
+        {
+            "id": 41584,
+            "name": "Thermaltake TR200",
+            "specs": null
+        },
+        {
+            "id": 41585,
+            "name": "HYTE Y70",
+            "specs": null
+        },
+        {
+            "id": 41586,
+            "name": "Cooler Master Cosmos Alpha",
+            "specs": null
+        },
+        {
+            "id": 41587,
+            "name": "MSI MAG PANO 100R PZ",
+            "specs": null
+        },
+        {
+            "id": 41588,
+            "name": "Deepcool MATREXX 40 3FS",
+            "specs": null
+        },
+        {
+            "id": 41589,
+            "name": "CiT F3 ARGB",
+            "specs": null
+        },
+        {
+            "id": 41590,
+            "name": "Cooler Master QUBE 540",
+            "specs": null
+        },
+        {
+            "id": 41591,
+            "name": "Fractal Design Pop Silent",
+            "specs": null
+        },
+        {
+            "id": 41592,
+            "name": "Fractal Design Define 7 Compact",
+            "specs": null
+        },
+        {
+            "id": 41593,
+            "name": "Corsair 3500X",
+            "specs": null
+        },
+        {
+            "id": 41594,
+            "name": "Thermaltake Core W200",
+            "specs": null
+        },
+        {
+            "id": 41595,
+            "name": "NZXT H5 Flow (2022)",
+            "specs": null
+        },
+        {
+            "id": 41596,
+            "name": "Lian Li B4-mATX Mesh",
+            "specs": null
+        },
+        {
+            "id": 41597,
+            "name": "KOLINK Stronghold Barricade",
+            "specs": null
+        },
+        {
+            "id": 41598,
+            "name": "Lian Li LANCOOL 205 Mesh C",
+            "specs": null
+        },
+        {
+            "id": 41599,
+            "name": "be quiet! Dark Base Pro 901",
+            "specs": null
+        },
+        {
+            "id": 41600,
+            "name": "Deepcool CG530",
+            "specs": null
+        },
+        {
+            "id": 41601,
+            "name": "Silverstone GD09 Type-C",
+            "specs": null
+        },
+        {
+            "id": 41602,
+            "name": "Cooler Master Q300L V2",
+            "specs": null
+        },
+        {
+            "id": 41603,
+            "name": "NZXT H9 Flow RGB (2025)",
+            "specs": null
+        },
+        {
+            "id": 41604,
+            "name": "Fractal Design Mood",
+            "specs": null
+        },
+        {
+            "id": 41605,
+            "name": "be quiet! Light Base 900 DX",
+            "specs": null
+        },
+        {
+            "id": 41606,
+            "name": "Silverstone SUGO 15",
+            "specs": null
+        },
+        {
+            "id": 41607,
+            "name": "Jonsbo TK-0",
+            "specs": null
+        },
+        {
+            "id": 41608,
+            "name": "HYTE X50",
+            "specs": null
+        },
+        {
+            "id": 41609,
+            "name": "be quiet! Light Base 500 LX",
+            "specs": null
+        },
+        {
+            "id": 41610,
+            "name": "Phanteks Eclipse G400A",
+            "specs": null
+        },
+        {
+            "id": 41611,
+            "name": "Corsair 2500X",
+            "specs": null
+        },
+        {
+            "id": 41612,
+            "name": "Lian Li O11 Air Mini",
+            "specs": null
+        },
+        {
+            "id": 41613,
+            "name": "Okinos Aqua 9 ARGB",
+            "specs": null
+        },
+        {
+            "id": 41614,
+            "name": "Thermaltake Versa H16 ARGB",
+            "specs": null
+        },
+        {
+            "id": 41615,
+            "name": "Phanteks XT PRO",
+            "specs": null
+        },
+        {
+            "id": 41616,
+            "name": "Deepcool MACUBE 110",
+            "specs": null
+        },
+        {
+            "id": 41617,
+            "name": "Corsair iCUE LINK 3500X RGB",
+            "specs": null
+        },
+        {
+            "id": 41618,
+            "name": "HYTE Y40",
+            "specs": null
+        },
+        {
+            "id": 41619,
+            "name": "Thermaltake The Tower 600",
+            "specs": null
+        },
+        {
+            "id": 41620,
+            "name": "Lian Li LANCOOL III",
+            "specs": null
+        },
+        {
+            "id": 41621,
+            "name": "Phanteks XT M3 M25",
+            "specs": null
+        },
+        {
+            "id": 41622,
+            "name": "ENDORFY Ventum 200 Air",
+            "specs": null
+        },
+        {
+            "id": 41623,
+            "name": "Fractal Design Pop 2 Vision",
+            "specs": null
+        },
+        {
+            "id": 41624,
+            "name": "HYTE Y60",
+            "specs": null
+        },
+        {
+            "id": 41625,
+            "name": "Corsair FRAME 4000D Vault Series",
+            "specs": null
+        },
+        {
+            "id": 41626,
+            "name": "Asus A31",
+            "specs": null
+        },
+        {
+            "id": 41627,
+            "name": "Asus ProArt PA401 Wood Edition",
+            "specs": null
+        },
+        {
+            "id": 41628,
+            "name": "Antec CX600M ARGB",
+            "specs": null
+        },
+        {
+            "id": 41629,
+            "name": "Corsair FRAME 4000D LCD RS ARGB",
+            "specs": null
+        },
+        {
+            "id": 41630,
+            "name": "Fractal Design Meshify 2 Compact TG Light Tint",
+            "specs": null
+        },
+        {
+            "id": 41631,
+            "name": "Thermaltake View 380 XL TG ARGB",
+            "specs": null
+        },
+        {
+            "id": 41632,
+            "name": "Fractal Design Meshify 3 XL",
+            "specs": null
+        },
+        {
+            "id": 41633,
+            "name": "Rosewill Helium NAS",
+            "specs": null
+        },
+        {
+            "id": 41634,
+            "name": "Fractal Design Pop 2 Vision RGB",
+            "specs": null
+        },
+        {
+            "id": 41635,
+            "name": "Phanteks NV7",
+            "specs": null
+        },
+        {
+            "id": 41636,
+            "name": "Montech TEN",
+            "specs": null
+        },
+        {
+            "id": 41637,
+            "name": "Zalman S2",
+            "specs": null
+        }
+    ]
+}

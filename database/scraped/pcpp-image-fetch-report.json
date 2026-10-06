@@ -1,0 +1,3566 @@
+{
+    "ok": {
+        "38932": {
+            "name": "AMD Ryzen 5 9600X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/8a0df381931efb7323f458cfc42260f8.1600.jpg",
+            "kb": 45.3
+        },
+        "38933": {
+            "name": "AMD Ryzen 5 5500",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/49fca908d8863ded4df790bd3af6bc12.1600.jpg",
+            "kb": 61.5
+        },
+        "38934": {
+            "name": "AMD Ryzen 5 7600X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/fd6305088c9d16d59017b380fb9c408a.1600.jpg",
+            "kb": 9.5
+        },
+        "38935": {
+            "name": "AMD Ryzen 9 9950X3D",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c091adac8120c424d3fcf03bec914302.1600.jpg",
+            "kb": 20.9
+        },
+        "38936": {
+            "name": "AMD Ryzen 5 5600",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/49fca908d8863ded4df790bd3af6bc12.1600.jpg",
+            "kb": 61.5
+        },
+        "38937": {
+            "name": "AMD Ryzen 7 7700X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6d3fb7600f26fb1e94e8b0c1a99e0bfa.1600.jpg",
+            "kb": 29.2
+        },
+        "38938": {
+            "name": "AMD Ryzen 5 5600X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3ef757133d38ac40afe75da691ba7d60.1600.jpg",
+            "kb": 50.5
+        },
+        "38939": {
+            "name": "AMD Ryzen 7 9700X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a0f5a161d8c7ff3c6b0827423537a029.1600.jpg",
+            "kb": 19.8
+        },
+        "38940": {
+            "name": "AMD Ryzen 7 9850X3D",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/26dbc0263d53e907355129f9e3131021.1600.jpg",
+            "kb": 71.9
+        },
+        "38941": {
+            "name": "AMD Ryzen 7 5800X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/9b4cefb2e43f2c358f3a97a31e1be90b.1600.jpg",
+            "kb": 46.9
+        },
+        "38942": {
+            "name": "AMD Ryzen 9 9950X3D2",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c2478db9b5080594a0df3021f1064a52.1600.jpg",
+            "kb": 53.3
+        },
+        "38943": {
+            "name": "AMD Ryzen 5 7600X3D",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b684575be6a62b1fe86628cbbbca2ac4.1600.jpg",
+            "kb": 5
+        },
+        "38944": {
+            "name": "Intel Core Ultra 7 270K Plus",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c4b5624c89e3de4ef9eef2f2a3ae262d.1600.jpg",
+            "kb": 19.3
+        },
+        "38945": {
+            "name": "AMD Ryzen 7 5700X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a0931f2db7bb9c37a199429c85a0d2e1.1600.jpg",
+            "kb": 27.9
+        },
+        "38946": {
+            "name": "AMD Ryzen 5 7500F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/521c4c2de515ace1e8bb11575e797393.1600.jpg",
+            "kb": 65.2
+        },
+        "38947": {
+            "name": "AMD Ryzen 9 9900X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/8148c56c91723188e32a508682fa9854.1600.jpg",
+            "kb": 20.1
+        },
+        "38948": {
+            "name": "Intel Core i5-12400F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/5fe3c9cc8cbaaa4aa52aed7389d2cc10.1600.jpg",
+            "kb": 52.3
+        },
+        "38949": {
+            "name": "AMD Ryzen 7 5800X3D 10th Anniversary Edition",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6ba951057902cf10665e672f6537b501.1600.jpg",
+            "kb": 78.2
+        },
+        "38950": {
+            "name": "AMD Ryzen 5 3600",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c7baf2c9c9cc15ae23adb24c2f4316fc.1600.jpg",
+            "kb": 67.9
+        },
+        "38951": {
+            "name": "AMD Ryzen 5 7500X3D",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c9f56052bf41c1d121d4c980e91ca6ec.1600.jpg",
+            "kb": 62.9
+        },
+        "38952": {
+            "name": "Intel Core i5-14400F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1a89e55daad13315da1822c1630dc26c.1600.jpg",
+            "kb": 34.4
+        },
+        "38953": {
+            "name": "Intel Core i7-14700K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c3e5d01cec2fa20b6f47fe8a400c08d6.1600.jpg",
+            "kb": 37
+        },
+        "38954": {
+            "name": "AMD Ryzen 7 5800X3D",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f83c6c4ee8cb5a6801f35aae5fc5d018.1600.jpg",
+            "kb": 84.2
+        },
+        "38955": {
+            "name": "AMD Ryzen 5 7600",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f0d757d712dd7145ecf00152653e5ec1.1600.jpg",
+            "kb": 60.5
+        },
+        "38956": {
+            "name": "AMD Ryzen 7 5700",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/5c2e33214954959b8fe3759699e29ad2.1600.jpg",
+            "kb": 125.3
+        },
+        "38957": {
+            "name": "Intel Core i9-14900K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c9117c605854e9387e57cd69ebca2415.1600.jpg",
+            "kb": 37.4
+        },
+        "38958": {
+            "name": "Intel Core Ultra 9 285K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/d658fbb8695607dc4964431e6b6b9373.1600.jpg",
+            "kb": 52.1
+        },
+        "38959": {
+            "name": "AMD Ryzen 7 5800XT",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ce5ffddc2c5a21f074f6abcc6e972249.1600.jpg",
+            "kb": 62.4
+        },
+        "38960": {
+            "name": "AMD Ryzen 9 9950X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/53669af807496f1034349a25fc685672.1600.jpg",
+            "kb": 20.1
+        },
+        "38961": {
+            "name": "Intel Core Ultra 5 250K Plus",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/47414c72d8bdf9fe8b6e94a257f722cb.1600.jpg",
+            "kb": 19.5
+        },
+        "38962": {
+            "name": "AMD Ryzen 5 5600G",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1dd09dfdc581be6224a323d49d714c7f.1600.jpg",
+            "kb": 28.4
+        },
+        "38963": {
+            "name": "Intel Core i5-12600KF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/01163d618db9518d03041c9997e23bb1.1600.jpg",
+            "kb": 55.6
+        },
+        "38964": {
+            "name": "AMD Ryzen 9 7900X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/8de723005cfc1b85071c4abf4d76bd4e.1600.jpg",
+            "kb": 36.7
+        },
+        "38965": {
+            "name": "AMD Ryzen 7 5700X3D",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7945bbda871bfbf95a9138fd184f4a6e.1600.jpg",
+            "kb": 38.8
+        },
+        "38966": {
+            "name": "Intel Core i5-14600K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c8f65245aff45313f03aaad255078883.1600.jpg",
+            "kb": 35.8
+        },
+        "38967": {
+            "name": "AMD Ryzen 5 8500G",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/2a87a9a2a5a34b013ae637285470d93a.1600.jpg",
+            "kb": 40.4
+        },
+        "38968": {
+            "name": "Intel Core i7-12700KF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b69e4a2d3dd9f8fac9ed6bf1b631b0ce.1600.jpg",
+            "kb": 70.5
+        },
+        "38969": {
+            "name": "AMD Ryzen 7 3700X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/23cd3adfd50037c1b44d6d53edb15248.1600.jpg",
+            "kb": 167.4
+        },
+        "38970": {
+            "name": "AMD Ryzen 5 8400F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/2c2a93ae222699dace151a0f718e21c0.1600.jpg",
+            "kb": 37.7
+        },
+        "38971": {
+            "name": "AMD Ryzen 9 5900XT",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/36739b3a1511a7c493b2f987b43cd144.1600.jpg",
+            "kb": 63.2
+        },
+        "38972": {
+            "name": "AMD Ryzen 9 9900X3D",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/990c9be284c611b84c6a33e9706b1efa.1600.jpg",
+            "kb": 42.8
+        },
+        "38973": {
+            "name": "Intel Core Ultra 7 265KF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/fcf1376b4011b81307f2eb83fb68d582.1600.jpg",
+            "kb": 39.6
+        },
+        "38974": {
+            "name": "AMD Ryzen 7 5700G",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f599944d7bed683e57062447764ce9d9.1600.jpg",
+            "kb": 28.2
+        },
+        "38975": {
+            "name": "Intel Core Ultra 5 250KF Plus",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/8d6eb5478d5a47b1918d757097a5b0ed.1600.jpg",
+            "kb": 20.3
+        },
+        "38976": {
+            "name": "AMD Ryzen 7 7800X3D",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e8e7d9593f6e2f60baf789cbfb94eb55.1600.jpg",
+            "kb": 251.2
+        },
+        "38977": {
+            "name": "AMD Ryzen 9 5950X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1d7073a2deda3bd22963a7e248bbe3e4.1600.jpg",
+            "kb": 77.9
+        },
+        "38978": {
+            "name": "AMD Ryzen 9 5900X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1d7073a2deda3bd22963a7e248bbe3e4.1600.jpg",
+            "kb": 77.9
+        },
+        "38979": {
+            "name": "Intel Core i5-14600KF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c8f65245aff45313f03aaad255078883.1600.jpg",
+            "kb": 35.8
+        },
+        "38980": {
+            "name": "AMD Ryzen 7 7700",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6e6bcad6744a6a7302394f2edf5a6e34.1600.jpg",
+            "kb": 38.8
+        },
+        "38981": {
+            "name": "Intel Core Ultra 5 245K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1e9e70d03e7edd0274691d5f49a34a50.1600.jpg",
+            "kb": 38.1
+        },
+        "38982": {
+            "name": "Intel Core i7-14700KF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/92061d6108d4c4bf0deb77943506df11.1600.jpg",
+            "kb": 65.1
+        },
+        "38983": {
+            "name": "AMD Ryzen 7 7700X3D",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ba34687520a6818bf9379c2caf2ff2be.1600.jpg",
+            "kb": 19.6
+        },
+        "38984": {
+            "name": "AMD Ryzen 7 8700F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b6ab2ee57b91c56a92a3da6346e47627.1600.jpg",
+            "kb": 37.3
+        },
+        "38985": {
+            "name": "AMD Ryzen 5 5600XT",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a010fc03fea2809af2c8fd966fbd483c.1600.jpg",
+            "kb": 23
+        },
+        "38986": {
+            "name": "Intel Core Ultra 7 265K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/19fb12d5828d3ae540e91eefa4160b79.1600.jpg",
+            "kb": 37.7
+        },
+        "38987": {
+            "name": "Intel Core Ultra 5 225F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/4ac0c32ed331c672ee51af4d468f3d72.1600.jpg",
+            "kb": 45.6
+        },
+        "38988": {
+            "name": "Intel Core i3-12100F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c67d8f42c0e57b268f068172e9a3f571.1600.jpg",
+            "kb": 37.1
+        },
+        "38989": {
+            "name": "AMD Ryzen 7 8700G",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e5ca60dc2137886fac6e13e30aad8ed9.1600.jpg",
+            "kb": 20.7
+        },
+        "38990": {
+            "name": "Intel Core i7-12700K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3f7037db801def4db8418df8e7498e6a.1600.jpg",
+            "kb": 62.2
+        },
+        "38991": {
+            "name": "AMD Ryzen 5 5600GT",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7a6babfed0885332f51c70772687fcd1.1600.jpg",
+            "kb": 53.5
+        },
+        "38992": {
+            "name": "Intel Core i9-14900KF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c9117c605854e9387e57cd69ebca2415.1600.jpg",
+            "kb": 37.4
+        },
+        "38993": {
+            "name": "Intel Core i3-14100F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/874cc0e600bde06d75755309677a87e2.1600.jpg",
+            "kb": 35.5
+        },
+        "38994": {
+            "name": "Intel Core i7-14700F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/367d869b80f32e8faa3075378677e28e.1600.jpg",
+            "kb": 23.7
+        },
+        "38995": {
+            "name": "AMD Ryzen 5 8600G",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/d5ae2e9f000a9c994f70e092b05c80ef.1600.jpg",
+            "kb": 48.2
+        },
+        "38996": {
+            "name": "AMD Ryzen 5 2600",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/55aea2dd64e2e3a3e3b1d678048d8d76.1600.jpg",
+            "kb": 48.1
+        },
+        "38997": {
+            "name": "AMD Ryzen 9 7950X3D",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/4f8b13807b9b9e2ab921ddb6e6e81afb.1600.jpg",
+            "kb": 42.4
+        },
+        "38998": {
+            "name": "Intel Core i9-12900K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b9d3c68bbf713cdd1211f3792040ce95.1600.jpg",
+            "kb": 112.9
+        },
+        "38999": {
+            "name": "AMD Ryzen 5 4500",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e1f3bf613a5651db6f394c8dd41f0f15.1600.jpg",
+            "kb": 22.8
+        },
+        "39000": {
+            "name": "Intel Core i5-12600K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3f727799b9fc5e83f0e8953759946bd2.1600.jpg",
+            "kb": 67.5
+        },
+        "39001": {
+            "name": "Intel Core i5-10400F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e5d8c71ba7c15404b87a7fcdf7251281.1600.jpg",
+            "kb": 48.5
+        },
+        "39002": {
+            "name": "Intel Core i5-13400F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/17d82d241bff0efdd1c32fbcf9822c14.1600.jpg",
+            "kb": 55.5
+        },
+        "39003": {
+            "name": "Intel Core i7-13700K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/2f3405387f23ab827695d966ea9f9682.1600.jpg",
+            "kb": 19
+        },
+        "39004": {
+            "name": "AMD Ryzen 7 7700",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1f2aab4ab8e27a0ec320481944020943.1600.jpg",
+            "kb": 79
+        },
+        "39005": {
+            "name": "Intel Core i5-14400",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/be9f67b5c1dc033e0373e28beba6a220.1600.jpg",
+            "kb": 36.4
+        },
+        "39006": {
+            "name": "AMD Ryzen 3 3200G",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3567a863156c083a7d4c8fcb7e0dbdac.1600.jpg",
+            "kb": 63
+        },
+        "39007": {
+            "name": "AMD Ryzen 5 3600X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c7baf2c9c9cc15ae23adb24c2f4316fc.1600.jpg",
+            "kb": 67.9
+        },
+        "39008": {
+            "name": "AMD Ryzen 3 4100",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/43c4d752d1441ed420dd80502e718918.1600.jpg",
+            "kb": 92.8
+        },
+        "39009": {
+            "name": "Intel Core i5-13600K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/535b5631a223b77657804c8144c1277e.1600.jpg",
+            "kb": 19.2
+        },
+        "39010": {
+            "name": "Intel Core Ultra 5 245KF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/86f90b80222ce0831fa4c548b8af3df2.1600.jpg",
+            "kb": 40
+        },
+        "39011": {
+            "name": "AMD Ryzen 7 2700X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/4e84967ef18c9b42e543b58c836d73ef.1600.jpg",
+            "kb": 67.5
+        },
+        "39012": {
+            "name": "AMD Ryzen 9 3900X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/14adcd1fc88ebf386b746037c966b6af.1600.jpg",
+            "kb": 138.7
+        },
+        "39013": {
+            "name": "Intel Core i7-4790K",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51XGXeC3A-L.jpg",
+            "kb": 54
+        },
+        "39014": {
+            "name": "Intel Core i7-10700K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6a40f9732bef504af112c33a980482b2.1600.jpg",
+            "kb": 49.4
+        },
+        "39015": {
+            "name": "Intel Core Ultra 5 225",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/58a1d2f8d0a6d13c9a6bd33593b65980.1600.jpg",
+            "kb": 25
+        },
+        "39016": {
+            "name": "AMD Ryzen 9 7950X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/8de723005cfc1b85071c4abf4d76bd4e.1600.jpg",
+            "kb": 36.7
+        },
+        "39017": {
+            "name": "Intel Core i9-13900K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/9ec7bf0f10e60c175e9b64c51bab7240.1600.jpg",
+            "kb": 21.4
+        },
+        "39018": {
+            "name": "Intel Core i9-14900KS",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7f03744e2c593edbbf711b21d85c59b3.1600.jpg",
+            "kb": 27.2
+        },
+        "39019": {
+            "name": "Intel Core i5-12400",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/331bcd7f5044608c8b4e0a2437219229.1600.jpg",
+            "kb": 50.1
+        },
+        "39020": {
+            "name": "AMD Ryzen 7 3800X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/23cd3adfd50037c1b44d6d53edb15248.1600.jpg",
+            "kb": 167.4
+        },
+        "39021": {
+            "name": "AMD Ryzen 5 3400G",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/43e2914b40ccb9ab7ce39eb656db3b44.1600.jpg",
+            "kb": 37.6
+        },
+        "39022": {
+            "name": "Intel Core i5-10400",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c18ee131d4d211b2ad40882e5b997371.1600.jpg",
+            "kb": 47.1
+        },
+        "39023": {
+            "name": "Intel Core i5-11400F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1cd42b90d913aa4fe2338eb376fd3e2d.1600.jpg",
+            "kb": 63.1
+        },
+        "39024": {
+            "name": "Intel Core i3-10100F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1b6a8775e713620ebc864fb7bcc38ce5.1600.jpg",
+            "kb": 50.1
+        },
+        "39025": {
+            "name": "AMD Ryzen 5 5500GT",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/65f2a2e1999cd06b510b8ee145a2c14f.1600.jpg",
+            "kb": 35.9
+        },
+        "39026": {
+            "name": "AMD Ryzen 9 7900",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/119ef93ef95a60950418031082149c5b.1600.jpg",
+            "kb": 39.3
+        },
+        "39027": {
+            "name": "Intel Core i9-12900KF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c3d3a6843e0c0a5d98155e9fa68c092c.1600.jpg",
+            "kb": 71.3
+        },
+        "39028": {
+            "name": "Intel Core i7-11700K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/41358d31a00cc8fb673bfa7716ea9498.1600.jpg",
+            "kb": 58.6
+        },
+        "39029": {
+            "name": "Intel Core Ultra 7 265F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c00ff53f4acdc4d3992f146486edf1ff.1600.jpg",
+            "kb": 43.6
+        },
+        "39030": {
+            "name": "AMD Ryzen 5 2600X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/55aea2dd64e2e3a3e3b1d678048d8d76.1600.jpg",
+            "kb": 48.1
+        },
+        "39031": {
+            "name": "Intel Core i7-12700F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1d6c5691988047da895d68961c33fe95.1600.jpg",
+            "kb": 53.7
+        },
+        "39032": {
+            "name": "Intel Core i5-13600KF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/d151778af9f52d6ab1f9475a0ae84dc0.1600.jpg",
+            "kb": 19.7
+        },
+        "39033": {
+            "name": "Intel Core i3-12100",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7fc9bd473f09de3bff4a5a44e832f399.1600.jpg",
+            "kb": 48.5
+        },
+        "39034": {
+            "name": "AMD Ryzen 9 7900X3D",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/98c4874ed550e2bbcc2d29d67177ddc8.1600.jpg",
+            "kb": 43.8
+        },
+        "39035": {
+            "name": "Intel Core i3-4150",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51aP8famPoL.jpg",
+            "kb": 46.3
+        },
+        "39036": {
+            "name": "AMD Ryzen 5 9600",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/27f7a8fb1bb5a1949879ec482c922757.1600.jpg",
+            "kb": 79.7
+        },
+        "39037": {
+            "name": "Intel Core i7-10700F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/10ec5737be6d836dd041f66eaa76bcf4.1600.jpg",
+            "kb": 35.4
+        },
+        "39038": {
+            "name": "Intel Core i7-13700KF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b2de198020c1bb1bda375064b94e60dc.1600.jpg",
+            "kb": 19.7
+        },
+        "39039": {
+            "name": "Intel Core Ultra 9 285",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a051aaa938a14c4da1beb701532ad526.1600.jpg",
+            "kb": 26.2
+        },
+        "39040": {
+            "name": "Intel Core i5-4690",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51vb+UYTxSL.jpg",
+            "kb": 54.2
+        },
+        "39041": {
+            "name": "AMD Ryzen 5 7500X3D",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e6fba40ca11c108409ebc9302b371457.1600.jpg",
+            "kb": 17
+        },
+        "39042": {
+            "name": "Intel Core i7-12700",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c8944273cfc755a0b216001a90b9fba2.1600.jpg",
+            "kb": 50.4
+        },
+        "39043": {
+            "name": "Intel Core i7-11700F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/fd3cc64653e9040372bb3570a019e71e.1600.jpg",
+            "kb": 61.4
+        },
+        "39044": {
+            "name": "Intel Core i7-14700",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b9452ff8fe5558fb1c91cd979ec6ed2c.1600.jpg",
+            "kb": 34.4
+        },
+        "39045": {
+            "name": "Intel Core i9-11900K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/eb8ef73f5460ac6ad82f634b2dcf793a.1600.jpg",
+            "kb": 85
+        },
+        "39046": {
+            "name": "Intel Core i7-13700F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e02f59843736d101374f75d18c244a30.1600.jpg",
+            "kb": 43.8
+        },
+        "39047": {
+            "name": "Intel Core Ultra 7 265",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c67f264d8f856369d608653e1172a492.1600.jpg",
+            "kb": 45.9
+        },
+        "39048": {
+            "name": "Intel Core i7-10700",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6e4a9298687049841d3cb15170acc4cc.1600.jpg",
+            "kb": 14
+        },
+        "39049": {
+            "name": "AMD Athlon 3000G (14nm)",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/4cca7584d65df7a4e4b5298805e9552f.1600.jpg",
+            "kb": 69
+        },
+        "39050": {
+            "name": "AMD Athlon X2 340",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41oiwktR53L.jpg",
+            "kb": 23.9
+        },
+        "39051": {
+            "name": "Intel Core i5-11400",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c770299ed161e4589288e53b3c315088.1600.jpg",
+            "kb": 59.5
+        },
+        "39052": {
+            "name": "Intel Core i5-10600K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/cec5ee818776737baefc9603bdbf9391.1600.jpg",
+            "kb": 48.8
+        },
+        "39053": {
+            "name": "Intel Core i3-14100",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/874cc0e600bde06d75755309677a87e2.1600.jpg",
+            "kb": 35.5
+        },
+        "39054": {
+            "name": "Intel Core i5-13500",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6afcbca8a6703a4c42dba3d6c4720724.1600.jpg",
+            "kb": 40.7
+        },
+        "39055": {
+            "name": "Intel Core i7-4770",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/2ee894e25a22610fb14cef95c9ce94b5.1600.jpg",
+            "kb": 18.8
+        },
+        "39056": {
+            "name": "Intel Core i5-14500",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c70c79371c7131082c89348493ae7998.1600.jpg",
+            "kb": 18.3
+        },
+        "39057": {
+            "name": "Intel Core i9-10850K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/16f496383b11d89632a9edf7ef503aea.1600.jpg",
+            "kb": 57.8
+        },
+        "39058": {
+            "name": "Intel Core i9-13900KF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ef583b00501fbe1d9df909c3ffe2b413.1600.jpg",
+            "kb": 20.2
+        },
+        "39059": {
+            "name": "Intel Core i5-11600K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6881ec4618066263cbe6904e95ae9278.1600.jpg",
+            "kb": 61.4
+        },
+        "39060": {
+            "name": "Intel Core i7-4790",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/87e7981e09217ef72534460e0cf767b8.1600.jpg",
+            "kb": 40.9
+        },
+        "39061": {
+            "name": "AMD Ryzen 9 3950X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/bb4c0b72e3f78893b1e5b19ab570b2c1.1600.jpg",
+            "kb": 217
+        },
+        "39062": {
+            "name": "Intel Core i5-12500",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a2eebdda7c48c480719d4cb491f660dc.1600.jpg",
+            "kb": 45.4
+        },
+        "39063": {
+            "name": "AMD Ryzen 7 3700X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e729f016407018e8894b7db7eac671e8.1600.jpg",
+            "kb": 3.6
+        },
+        "39064": {
+            "name": "Intel Core i9-13900KS",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/4129af6f0163dfd9dad75e57aae5a99d.1600.jpg",
+            "kb": 37
+        },
+        "39065": {
+            "name": "Intel Core i5-4590",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51vb+UYTxSL.jpg",
+            "kb": 54.2
+        },
+        "39066": {
+            "name": "AMD Ryzen 5 1600X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/62069eabe77fa79c55158028545484f2.1600.jpg",
+            "kb": 4.1
+        },
+        "39067": {
+            "name": "Intel Core i5-10500",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/bc6d01e56cc2c1813982ca841d3e7ae1.1600.jpg",
+            "kb": 82.1
+        },
+        "39068": {
+            "name": "Intel Core i7-10700KF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/30a49f42fca8cbf7e1627bf13d37a6e7.1600.jpg",
+            "kb": 50
+        },
+        "39069": {
+            "name": "Intel Core i7-3770K",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51YOxrhsT8L.jpg",
+            "kb": 60
+        },
+        "39070": {
+            "name": "AMD Ryzen 5 9500F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1f1301dedbebe86fd8f58493d87f51e2.1600.jpg",
+            "kb": 16.2
+        },
+        "39071": {
+            "name": "AMD Ryzen 5 3600XT",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/16ddfc2028922cd20cffaa6976165f84.1600.jpg",
+            "kb": 159
+        },
+        "39072": {
+            "name": "Intel Core i5-13400",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1fa41c2b4b5cf8ab078c42259685c8ed.1600.jpg",
+            "kb": 41.9
+        },
+        "39073": {
+            "name": "Intel Core i7-11700",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/8d5a39d0af57bddb57731195a8c1d58c.1600.jpg",
+            "kb": 58.3
+        },
+        "39074": {
+            "name": "AMD Ryzen 5 7400F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7160b7c08f720d19f9ae682c2f6f7563.1600.jpg",
+            "kb": 81.1
+        },
+        "39075": {
+            "name": "Intel Core i3-10100",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b9e5be26e6c5e8bbfccccf521c16fde2.1600.jpg",
+            "kb": 70.5
+        },
+        "39076": {
+            "name": "Intel Core i9-12900KS",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b3fd483f4dc6bc63faff298cdffb41d5.1600.jpg",
+            "kb": 105.3
+        },
+        "39077": {
+            "name": "Intel Core i7-11700KF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/965ab64fbbbf1a096201650af8b88699.1600.jpg",
+            "kb": 61.1
+        },
+        "39078": {
+            "name": "Intel Core i9-11900KF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/bf7178722382122f3fbf2e53d32e99f6.1600.jpg",
+            "kb": 63.9
+        },
+        "39079": {
+            "name": "Intel Core i9-10980XE",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/31fa050d67e7b58c6e3b5a1fbdfacf34.1600.jpg",
+            "kb": 69.9
+        },
+        "39080": {
+            "name": "Intel Core i9-10900KF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/02b522d67f1855b6e2916d800eb38bcf.1600.jpg",
+            "kb": 50.4
+        },
+        "39081": {
+            "name": "Intel Core i3-13100F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/735d84f17256242adcfad88d56d590bf.1600.jpg",
+            "kb": 56.1
+        },
+        "39082": {
+            "name": "Intel Core i5-2400",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51UxOzy0XpL.jpg",
+            "kb": 32.7
+        },
+        "39083": {
+            "name": "Intel Core i7-4770K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/0817a8a69b3fa53b911056cd5c01262e.1600.jpg",
+            "kb": 76.9
+        },
+        "39084": {
+            "name": "Intel Core i3-10105F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/104690dc90e6297964380eeb9204f524.1600.jpg",
+            "kb": 45.3
+        },
+        "39085": {
+            "name": "Intel Core Ultra 5 235",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e252c9d0aba0219dcae0b0bcd3894808.1600.jpg",
+            "kb": 14.3
+        },
+        "39086": {
+            "name": "AMD Ryzen 7 3800XT",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7d225094c05f3106b9e7aab3873a6631.1600.jpg",
+            "kb": 233.6
+        },
+        "39087": {
+            "name": "Intel Core i9-14900F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/9ad5851cc322799cc6c3352f6a899247.1600.jpg",
+            "kb": 41.2
+        },
+        "39088": {
+            "name": "Intel Core i7-2600",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/511EMznII9L.jpg",
+            "kb": 46.2
+        },
+        "39089": {
+            "name": "AMD Ryzen 9 3900XT",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/bb4c0b72e3f78893b1e5b19ab570b2c1.1600.jpg",
+            "kb": 217
+        },
+        "39090": {
+            "name": "Intel Core i5-4690K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/93181dc9a768fc9b512a294c4f33cc91.1600.jpg",
+            "kb": 113.1
+        },
+        "39091": {
+            "name": "AMD Ryzen 3 1200 (14nm)",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7714a4b585034b6e4a3f2e230c2806f8.1600.jpg",
+            "kb": 11.9
+        },
+        "39092": {
+            "name": "Intel Core i7-13700",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e02f59843736d101374f75d18c244a30.1600.jpg",
+            "kb": 43.8
+        },
+        "39093": {
+            "name": "Intel Core i5-12600",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7a8133e4d1ab12830ce867e2958bbc2b.1600.jpg",
+            "kb": 37.1
+        },
+        "39094": {
+            "name": "AMD Ryzen 5 1600 (12nm)",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/2447958ccca245b5827bf05929f870e6.1600.jpg",
+            "kb": 56.2
+        },
+        "39095": {
+            "name": "Intel Core i5-11600KF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f9223631f303e54d9bd4aa9967c1f287.1600.jpg",
+            "kb": 63.2
+        },
+        "39096": {
+            "name": "Intel Core i5-4670K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/73e19374dc737ba0b428203d85c24a78.1600.jpg",
+            "kb": 92.8
+        },
+        "39097": {
+            "name": "AMD Ryzen 3 3300X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/614673693f9281d17b521cbf52799c68.1600.jpg",
+            "kb": 155.3
+        },
+        "39098": {
+            "name": "Intel Core i5-10600KF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/d28d05f1c9972e51ef212760baca9612.1600.jpg",
+            "kb": 50.3
+        },
+        "39099": {
+            "name": "AMD Ryzen 3 3200G",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1367e7b7cd727836ed3685b95c2be94e.1600.jpg",
+            "kb": 43.6
+        },
+        "39100": {
+            "name": "Intel Core i9-14900",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6bef271d59cd2a9b4f13fe95c18e2892.1600.jpg",
+            "kb": 39.2
+        },
+        "39101": {
+            "name": "Intel Core i9-13900",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6677778b05f29fbfd12dd49c16f2069f.1600.jpg",
+            "kb": 52.4
+        },
+        "39102": {
+            "name": "Intel Core i3-13100",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a11139b5e266b9760da436a86b407035.1600.jpg",
+            "kb": 64.3
+        },
+        "39103": {
+            "name": "Intel Core i3-10105",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f4e07d2c312edb86a1afe494ed5cd645.1600.jpg",
+            "kb": 44.1
+        },
+        "39104": {
+            "name": "Intel Pentium Gold G7400",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/eb5f4691a0ee2ac68328fbedd3956538.1600.jpg",
+            "kb": 34.7
+        },
+        "39105": {
+            "name": "Intel Core i7-4790",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c5de191eb0e991b8a2a6d20d66cf9a5f.1600.jpg",
+            "kb": 112.3
+        },
+        "39106": {
+            "name": "Intel Core i9-10900X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/d6ea76d2a63ade5759235829a6d63697.1600.jpg",
+            "kb": 66.7
+        },
+        "39107": {
+            "name": "Intel Core i7-4930K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a1466e1823404679892cb38473e6c5fd.1600.jpg",
+            "kb": 81.6
+        },
+        "39108": {
+            "name": "Intel Core i5-4670",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3d305a3bb3b9891d1016ccd88b084f6b.1600.jpg",
+            "kb": 15.8
+        },
+        "39109": {
+            "name": "AMD Ryzen 5 3600",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1c98c8fccc44a3696129e74df5243312.1600.jpg",
+            "kb": 43.6
+        },
+        "39110": {
+            "name": "Intel Core i5-2500K",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51iunH+DgEL.jpg",
+            "kb": 45
+        },
+        "39112": {
+            "name": "Intel Core i9-10920X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f289869a9c93444d38bf7d98fcbe2407.1600.jpg",
+            "kb": 66.3
+        },
+        "39113": {
+            "name": "Intel Core i5-10600",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/22517c4002202647d4d1906d37e43b48.1600.jpg",
+            "kb": 63.7
+        },
+        "39114": {
+            "name": "Intel Core i9-12900",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b61a0cfda1c9f56fda7c2f91dacd9046.1600.jpg",
+            "kb": 14
+        },
+        "39115": {
+            "name": "Intel Core i9-10900",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/2c0e54afceb3b128eef552ffa7b488ee.1600.jpg",
+            "kb": 14.3
+        },
+        "39116": {
+            "name": "Intel Core i3-3220",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51KcX5RvY4L.jpg",
+            "kb": 41.1
+        },
+        "39117": {
+            "name": "Intel Core i9-10900F",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41ckT1AzbYL.jpg",
+            "kb": 20.2
+        },
+        "39118": {
+            "name": "Intel Core i9-12900F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c709a7db2862582c1870c1b399fd7499.1600.jpg",
+            "kb": 44.3
+        },
+        "39119": {
+            "name": "Intel Pentium Gold G6400",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ab31eff2865edb93498c3ab8707d4c71.1600.jpg",
+            "kb": 61.2
+        },
+        "39120": {
+            "name": "Intel Core i9-11900F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/4661b942055a470174e1a056c3e6c042.1600.jpg",
+            "kb": 57.3
+        },
+        "39121": {
+            "name": "Intel Core i7-4770K",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51xECV-vJkL.jpg",
+            "kb": 39.6
+        },
+        "39122": {
+            "name": "AMD Ryzen 5 3600X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/fd7b679a51670fc1161384cf95ba464f.1600.jpg",
+            "kb": 21.4
+        },
+        "39123": {
+            "name": "Intel Core i7-3930K",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/517LUhhYF3L.jpg",
+            "kb": 42.1
+        },
+        "39124": {
+            "name": "Intel Core i9-13900F",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b8fab5fbdca5b7f19d806800e9d07b16.1600.jpg",
+            "kb": 44.6
+        },
+        "39131": {
+            "name": "AMD Athlon 200GE",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f55fe8a2443698085e9d8d2997cc3173.1600.jpg",
+            "kb": 43.2
+        },
+        "39132": {
+            "name": "Intel Core i9-10940X",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/665a1e6d9fce6e709588d6546b503b73.1600.jpg",
+            "kb": 64.7
+        },
+        "39133": {
+            "name": "Intel Core i7-4770K",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/517dL9+87vL.jpg",
+            "kb": 47.6
+        },
+        "39134": {
+            "name": "Intel Core i5-3570",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51uV0nUCjkL.jpg",
+            "kb": 48.7
+        },
+        "39135": {
+            "name": "Intel Pentium E6500",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/515WTCS+DfL.jpg",
+            "kb": 34.3
+        },
+        "39136": {
+            "name": "Intel Core i7-4820K",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51mC1-uROXL.jpg",
+            "kb": 32.7
+        },
+        "39137": {
+            "name": "Intel Core i5-4570T",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51vb+UYTxSL.jpg",
+            "kb": 54.2
+        },
+        "39138": {
+            "name": "Intel Core i3-3240",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/517OFYjzFkL.jpg",
+            "kb": 48.3
+        },
+        "39139": {
+            "name": "Intel Core i7-3960X Extreme Edition",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51KJ1DWYFuL.jpg",
+            "kb": 42.1
+        },
+        "39140": {
+            "name": "Intel Pentium E5700",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51HGNzcpAeL.jpg",
+            "kb": 34.8
+        },
+        "39141": {
+            "name": "Intel Pentium Gold G5420",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/680eb809ab070a6d9d121a37ffac13bb.1600.jpg",
+            "kb": 115.6
+        },
+        "39142": {
+            "name": "Intel Pentium E2160",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/517qgFh9OkL.jpg",
+            "kb": 34.6
+        },
+        "39143": {
+            "name": "Intel Pentium Gold G6405",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/237702d691e3004dfd1b5c6c752db1af.1600.jpg",
+            "kb": 93.2
+        },
+        "39144": {
+            "name": "Intel Pentium G6950",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ec3e95c4fd47e7d4b05fc51d59f845c4.1600.jpg",
+            "kb": 4.6
+        },
+        "39146": {
+            "name": "Intel Pentium E2220",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51jpGWUTAKL.jpg",
+            "kb": 39.3
+        },
+        "39147": {
+            "name": "Intel Core i5-2310",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51iunH+DgEL.jpg",
+            "kb": 45
+        },
+        "39148": {
+            "name": "AMD Athlon 200GE",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/34a0c81b9caf1c467170ccffe1418812.1600.jpg",
+            "kb": 16.5
+        },
+        "39149": {
+            "name": "Intel Pentium G4620",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51ycqO0kOvL.jpg",
+            "kb": 45
+        },
+        "39150": {
+            "name": "Intel Pentium G640T",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/214i0ydjrhL.jpg",
+            "kb": 6.7
+        },
+        "39151": {
+            "name": "Intel Pentium G4560",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51ycqO0kOvL.jpg",
+            "kb": 45
+        },
+        "39152": {
+            "name": "Intel Pentium G3440",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51B8bGcA8TL.jpg",
+            "kb": 35
+        },
+        "39154": {
+            "name": "Intel Pentium G645",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51jo+Dy-8WL.jpg",
+            "kb": 39
+        },
+        "39156": {
+            "name": "Intel Pentium G4400T",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51IhEx1JMEL.jpg",
+            "kb": 36.1
+        },
+        "39157": {
+            "name": "Intel Pentium E5300",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41d22aT5UgL.jpg",
+            "kb": 23.6
+        },
+        "39158": {
+            "name": "Intel Core i5-4690K",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/513OQTWO3rL.jpg",
+            "kb": 49.8
+        },
+        "39159": {
+            "name": "Intel Pentium Gold G5500",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/5c00d1b71d5bdf6ca365a8118ac603d5.1600.jpg",
+            "kb": 19.2
+        },
+        "39160": {
+            "name": "Intel Pentium E5300",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41lGxCB5GHL.jpg",
+            "kb": 29.3
+        },
+        "39161": {
+            "name": "Intel Core i3-4160T",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41jUR0FQhgL.jpg",
+            "kb": 26.2
+        },
+        "39162": {
+            "name": "Intel Pentium Gold G6605",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/237702d691e3004dfd1b5c6c752db1af.1600.jpg",
+            "kb": 93.2
+        },
+        "39163": {
+            "name": "AMD Athlon II X2 240e",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41L0Dc+V6wL.jpg",
+            "kb": 31.2
+        },
+        "39164": {
+            "name": "ARCTIC Liquid Freezer III Pro 360",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a0b2a92bb4ec2c95b5e492c9513b2c0b.1600.jpg",
+            "kb": 34.7
+        },
+        "39165": {
+            "name": "Thermalright Aqua Elite V3",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/318f4Q17BeL.jpg",
+            "kb": 15.1
+        },
+        "39166": {
+            "name": "Corsair NAUTILUS 360 RS ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3dfb3eca3bd8bf176490b7955ae6345c.1600.jpg",
+            "kb": 5.7
+        },
+        "39167": {
+            "name": "Thermalright Phantom Spirit 120 SE ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51KizlEeQZL.jpg",
+            "kb": 32.4
+        },
+        "39168": {
+            "name": "ARCTIC Liquid Freezer III Pro A-RGB 360",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/4b3cb378557216401dabfeb2bb0719e1.1600.jpg",
+            "kb": 35.1
+        },
+        "39169": {
+            "name": "ARCTIC Liquid Freezer III Pro A-RGB 360",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1288d1aa8f62f15d8ff05f28a8575a93.1600.jpg",
+            "kb": 26.1
+        },
+        "39170": {
+            "name": "Noctua NH-D15 chromax.black",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51kgqhkUNuL.jpg",
+            "kb": 34.1
+        },
+        "39171": {
+            "name": "Thermalright Aqua Elite V3",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41pZVxhhiWL.jpg",
+            "kb": 17.9
+        },
+        "39172": {
+            "name": "be quiet! Dark Rock Pro 5",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a0191a4cb06d0077eab9a260cc759c8b.1600.jpg",
+            "kb": 136.6
+        },
+        "39173": {
+            "name": "Thermalright Peerless Assassin 120 SE WHITE ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c09b33bf4c2452bbc71fac7691860f4a.1600.jpg",
+            "kb": 100.2
+        },
+        "39174": {
+            "name": "NZXT Kraken Elite 360 RGB (2024)",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/87647223e3478a0264b523d38ec982e1.1600.jpg",
+            "kb": 2.9
+        },
+        "39175": {
+            "name": "Noctua NH-L9A-AM5",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e34aa9b26728023fbd3919e021729b44.1600.jpg",
+            "kb": 27.5
+        },
+        "39176": {
+            "name": "ARCTIC Freezer 36",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41LLTGkmTRL.jpg",
+            "kb": 21.5
+        },
+        "39177": {
+            "name": "Corsair NAUTILUS 360 RS ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ca7982eafd093cfb1d47f3b2887db528.1600.jpg",
+            "kb": 4.2
+        },
+        "39178": {
+            "name": "Noctua NH-D15",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ca16d42d3e187f96c728c09183df14a7.med.1600.jpg",
+            "kb": 40.2
+        },
+        "39179": {
+            "name": "AMD Wraith Prism",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/00979205bfe0f63cf50f396392775b9f.1600.jpg",
+            "kb": 22.2
+        },
+        "39180": {
+            "name": "Corsair iCUE LINK TITAN 360 RX LCD",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/34813b9b3153ddbea54e46dfe496930e.1600.jpg",
+            "kb": 5.8
+        },
+        "39181": {
+            "name": "Asus ROG Ryujin III 360 ARGB Extreme",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/39b44057eccd6eb120ce03241efb9758.1600.jpg",
+            "kb": 30.8
+        },
+        "39182": {
+            "name": "Corsair NAUTILUS 360 RS LCD",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6f29e592f8d32dc9571c6b5f8965a5cb.1600.jpg",
+            "kb": 65.9
+        },
+        "39183": {
+            "name": "Thermalright Phantom Spirit EVO",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/df16c34a7f230bb2f6848cd90c87e0fb.1600.jpg",
+            "kb": 86.6
+        },
+        "39184": {
+            "name": "Noctua NH-L9A-AM5 CHROMAX.BLACK",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7da2ce71b33904d0f379f9398d4515d7.1600.jpg",
+            "kb": 23
+        },
+        "39185": {
+            "name": "Asus ROG Ryuo IV SLC 360 ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ea53c568adee3b4cfd95df87cd04c30b.1600.jpg",
+            "kb": 47.1
+        },
+        "39186": {
+            "name": "ARCTIC Liquid Freezer III Pro",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/8c1a0efcef96c3455d3ecd2bdc4a4fa7.1600.jpg",
+            "kb": 21.3
+        },
+        "39187": {
+            "name": "Lian Li Hydroshift II LCD-S 360 TL",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6323ee881774ef2c3efc257d098a7567.1600.jpg",
+            "kb": 16.9
+        },
+        "39188": {
+            "name": "Cooler Master Hyper 212 Spectrum V3",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/99c2387300d7c25362407dbfeef14536.1600.jpg",
+            "kb": 27.6
+        },
+        "39189": {
+            "name": "Thermalright Frozen Infinity 360 ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41m0Oop3ddL.jpg",
+            "kb": 16.6
+        },
+        "39190": {
+            "name": "NZXT Kraken Elite 360 (2024)",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/fd99aab7f118f143c3e5fb3ffbe7634c.1600.jpg",
+            "kb": 38.5
+        },
+        "39191": {
+            "name": "Noctua NH-D15 G2 chromax.black",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3cbf3ee92fcdc68aa1049b28ccbdb850.1600.jpg",
+            "kb": 28
+        },
+        "39192": {
+            "name": "Thermalright Assassin X 120 R Digital ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41-Cw6pz6eL.jpg",
+            "kb": 25.6
+        },
+        "39193": {
+            "name": "TRYX PANORAMA SE ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/4396205566edcb98b328393b5a6e8c12.1600.jpg",
+            "kb": 20
+        },
+        "39194": {
+            "name": "NZXT Kraken 240",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/157afeba59d05304fe181106745e6177.1600.jpg",
+            "kb": 51.4
+        },
+        "39195": {
+            "name": "Noctua NL-LC1-36",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/5bda35a9c917fbab40fc845e8e9ec476.1600.jpg",
+            "kb": 75.1
+        },
+        "39196": {
+            "name": "Corsair NAUTILUS 240 RS ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/99d2124a37493f5a3bfe1b442e32e4de.1600.jpg",
+            "kb": 6.9
+        },
+        "39197": {
+            "name": "Noctua NH-L9x65 chromax.black",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6082032e0eb29f8eed91a12a4f976321.1600.jpg",
+            "kb": 28.1
+        },
+        "39198": {
+            "name": "Cooler Master MasterLiquid 360L Core ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/17af431eeae6b8cc280717a7f3bf3da3.1600.jpg",
+            "kb": 75
+        },
+        "39199": {
+            "name": "Corsair iCUE LINK TITAN 360 RX LCD",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f06b7a0e60de10e6d1be7bbc0e98d299.1600.jpg",
+            "kb": 19.9
+        },
+        "39200": {
+            "name": "Lian Li Hydroshift LCD 360S",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/47f6e66e2ffc069e7958649020d76c4c.1600.jpg",
+            "kb": 19.7
+        },
+        "39201": {
+            "name": "be quiet! Pure Rock 3",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/0c15d5db66e04ad50dd39228ced3a511.1600.jpg",
+            "kb": 28.4
+        },
+        "39202": {
+            "name": "TRYX PANORAMA SE ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/15c1e29ddca56341b5ae08d55bd43b89.1600.jpg",
+            "kb": 18.3
+        },
+        "39203": {
+            "name": "ID-COOLING FROZN A620 PRO SE",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c4c978ad9ecf59156eab170fbfbabe21.1600.jpg",
+            "kb": 19.9
+        },
+        "39204": {
+            "name": "ARCTIC Liquid Freezer III Pro",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31PUCe1FXnL.jpg",
+            "kb": 13.6
+        },
+        "39205": {
+            "name": "Corsair NAUTILUS 240 RS LCD",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c7b6c5dad557b0baceca0396439d214c.1600.jpg",
+            "kb": 23.3
+        },
+        "39206": {
+            "name": "Thermalright Frozen Infinity 360 ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41vk2A72I3L.jpg",
+            "kb": 18.1
+        },
+        "39207": {
+            "name": "Thermalright Phantom Spirit 120 SE",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/794ec9c0aa5dda6f170f3e442d992606.1600.jpg",
+            "kb": 79.6
+        },
+        "39208": {
+            "name": "be quiet! Silent Loop 3",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/8a277ab7166d97b45d51dcd463ebdf05.1600.jpg",
+            "kb": 105.5
+        },
+        "39209": {
+            "name": "be quiet! Pure Rock Pro 3",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/adc1a4087a4dd593fe49b79e6373bfd4.1600.jpg",
+            "kb": 148.1
+        },
+        "39210": {
+            "name": "Asus ProArt LC 420",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/5d83c953ff500cfdee84a1d64c342fc0.1600.jpg",
+            "kb": 15
+        },
+        "39211": {
+            "name": "Corsair NAUTILUS 360 RS",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/064aaf809c733638ac91fac1bc46dc00.1600.jpg",
+            "kb": 4.7
+        },
+        "39212": {
+            "name": "Thermalright Frozen Notte ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/315dec7805c5f01538f5748620fddffa.1600.jpg",
+            "kb": 31.7
+        },
+        "39213": {
+            "name": "Noctua NL-LC1-42",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/073c0e83a07cb0efc8ffa8a812edcc79.1600.jpg",
+            "kb": 81.8
+        },
+        "39214": {
+            "name": "MSI MAG CORELIQUID A13",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/94534ff5409f98708d38cc1b06d0adf7.1600.jpg",
+            "kb": 5.1
+        },
+        "39215": {
+            "name": "Cooler Master Elite",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e554e972c9c82d560e61aadf17f4c21c.1600.jpg",
+            "kb": 17.3
+        },
+        "39216": {
+            "name": "NZXT Kraken Elite 360 RGB (2024)",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3a6430ace600ed4d31970cfdc2bb856e.1600.jpg",
+            "kb": 3.1
+        },
+        "39217": {
+            "name": "Noctua NH-U12A chromax.black",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3a24ca834f2b252f719640f8b8448b6c.1600.jpg",
+            "kb": 34
+        },
+        "39218": {
+            "name": "NZXT Kraken Plus 240",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e6e1ca9d8cdca108841cacb87a14affb.1600.jpg",
+            "kb": 57.9
+        },
+        "39219": {
+            "name": "Lian Li HydroShift II OLED Curved 360TL",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31s5jfPzOHL.jpg",
+            "kb": 15.1
+        },
+        "39220": {
+            "name": "Corsair iCUE LINK TITAN 360 RX RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6254fe41ae3b29682baddb5bc3088cab.1600.jpg",
+            "kb": 125.1
+        },
+        "39221": {
+            "name": "Thermalright Assassin X 120 R Digital ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41Sucqk+44L.jpg",
+            "kb": 21.3
+        },
+        "39222": {
+            "name": "Noctua NH-L12S",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3ef69f2637de8bfe3600a2298437ff83.1600.jpg",
+            "kb": 74.5
+        },
+        "39223": {
+            "name": "Noctua NL-LC1-24",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/fa0f965b2cd12ca22280deaf31896a1f.1600.jpg",
+            "kb": 80.8
+        },
+        "39224": {
+            "name": "Thermalright Peerless Assassin 120 SE V3",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41FtwyZWlSL.jpg",
+            "kb": 29.6
+        },
+        "39225": {
+            "name": "Asus ROG Ryujin III ARGB Extreme",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/aee12c51f52cb48a4bfda05ed02d8be2.1600.jpg",
+            "kb": 55.7
+        },
+        "39226": {
+            "name": "Noctua NH-D15 G2",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/842c59679e64a6502bd922204c4d8a24.1600.jpg",
+            "kb": 40.6
+        },
+        "39227": {
+            "name": "Lian Li Hydroshift II LCD-S 360 TL",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/befa6c8af9f7d13eda96e85b1cafb4ff.1600.jpg",
+            "kb": 20
+        },
+        "39228": {
+            "name": "Thermalright Aqua Elite ARGB V6",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/313zsCasiuL.jpg",
+            "kb": 13.5
+        },
+        "39229": {
+            "name": "Thermalright AXP90-X53 FULL",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41RS5iHAKsL.jpg",
+            "kb": 29.1
+        },
+        "39230": {
+            "name": "ARCTIC Alpine 23",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3f4e2db365667ee5ddbdb82520762e25.1600.jpg",
+            "kb": 86.1
+        },
+        "39231": {
+            "name": "MSI MAG CORELIQUID A13",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/09d0a7acefcd3455ed55679297421d01.1600.jpg",
+            "kb": 5.2
+        },
+        "39232": {
+            "name": "Asus ROG Ryuo IV SLC 360 ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/344d6b35f9a4f96a702a1de0bca9a8d5.1600.jpg",
+            "kb": 98.1
+        },
+        "39233": {
+            "name": "Thermalright AXP120-X67",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/418N21PsvzL.jpg",
+            "kb": 18.5
+        },
+        "39234": {
+            "name": "Lian Li HydroShift II OLED Curved 360TL",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41booiLcwPL.jpg",
+            "kb": 17
+        },
+        "39235": {
+            "name": "Noctua NH-L9i",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/9b24fe106eb3486a02a70f67030cb012.1600.jpg",
+            "kb": 48.6
+        },
+        "39236": {
+            "name": "NZXT Kraken Plus 360",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/9164251fa8f9916115a9d995362124a2.1600.jpg",
+            "kb": 59.5
+        },
+        "39237": {
+            "name": "Lian Li Galahad II Lite RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/74eb06f2fb382fa0fc5f3476f8d8d039.1600.jpg",
+            "kb": 48.8
+        },
+        "39238": {
+            "name": "Thermalright AQUA ELITE ARGB V4",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31q+8WFRGXL.jpg",
+            "kb": 11.7
+        },
+        "39239": {
+            "name": "Noctua NH-U12A",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51Wo8vtn8kL.jpg",
+            "kb": 34
+        },
+        "39240": {
+            "name": "Thermalright Assassin Spirit 120 EVO",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41595fJKAOL.jpg",
+            "kb": 29.4
+        },
+        "39241": {
+            "name": "Cooler Master Hyper 212 Pro",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41OSDfNYM6L.jpg",
+            "kb": 25
+        },
+        "39242": {
+            "name": "NZXT Kraken Plus 360 RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/93798f5f54c936dd6724c1f32098c564.1600.jpg",
+            "kb": 56.5
+        },
+        "39243": {
+            "name": "Noctua NH-L9i chromax.black",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/416XnVk8INL.jpg",
+            "kb": 21.6
+        },
+        "39244": {
+            "name": "ARCTIC Freezer 36 A-RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a235e743b917c12fce63af9acc490b88.1600.jpg",
+            "kb": 88.4
+        },
+        "39245": {
+            "name": "Thermalright Peerless Assassin 140",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41lWi3Sxr3L.jpg",
+            "kb": 20.2
+        },
+        "39246": {
+            "name": "EK EK-Nucleus AIO CR360 Lux D-RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/0fc4606704e57118f24a818149ef0e37.1600.jpg",
+            "kb": 30.7
+        },
+        "39247": {
+            "name": "ARCTIC Liquid Freezer III 240",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/2fc6853c4556dfb16bb10580c1a9cbb1.1600.jpg",
+            "kb": 71.1
+        },
+        "39248": {
+            "name": "Thermalright Assassin Spirit 120 EVO DARK",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41e3ob6-J3L.jpg",
+            "kb": 22.1
+        },
+        "39249": {
+            "name": "MSI MEG CORELIQUID S360",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/cbbdc86a542408a48ee588f20638430c.1600.jpg",
+            "kb": 58.5
+        },
+        "39250": {
+            "name": "Noctua NH-D9L",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/64d63da64b2f8be28775078a8f8d550a.1600.jpg",
+            "kb": 35.7
+        },
+        "39251": {
+            "name": "Noctua NH-U12S chromax.black",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/03d2c7690b9a62e9131a8514ea3c0dfa.1600.jpg",
+            "kb": 82.3
+        },
+        "39252": {
+            "name": "Lian Li Galahad II Trinity SL-INF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/9a5bcf4f476d82ad6aff9287d2cb0b3a.1600.jpg",
+            "kb": 70
+        },
+        "39253": {
+            "name": "Deepcool AK620 ZERO DARK",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/048ee8d7e1ab67674cc0aac0e4e0e281.1600.jpg",
+            "kb": 14.9
+        },
+        "39254": {
+            "name": "Thermalright Peerless Assassin 140",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/4153NLVrhgL.jpg",
+            "kb": 21.4
+        },
+        "39255": {
+            "name": "Corsair iCUE LINK TITAN 240 RX RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/0b209838f82705f4fd013688affda29d.1600.jpg",
+            "kb": 152.5
+        },
+        "39256": {
+            "name": "ID-COOLING SE-214-XT ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/5130uHBNUnL.jpg",
+            "kb": 33.9
+        },
+        "39257": {
+            "name": "NZXT Kraken Elite 420 RGB (2025)",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/352d14da4f6e847989132472aa4dc95f.1600.jpg",
+            "kb": 42.1
+        },
+        "39258": {
+            "name": "Thermalright Aqua Elite V3",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41yi73SmCvL.jpg",
+            "kb": 22.5
+        },
+        "39259": {
+            "name": "Thermalright Peerless Assassin 120 SE",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3afac8c21d56648a54bd054502c7eae2.1600.jpg",
+            "kb": 91.2
+        },
+        "39260": {
+            "name": "Corsair NAUTILUS 360 RS LCD",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/36ca16fdeffaaf20d5c5f7646c2fbace.1600.jpg",
+            "kb": 56.5
+        },
+        "39261": {
+            "name": "NZXT Kraken Plus 240 RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/bfab77ca83ef76771001024cf039d47f.1600.jpg",
+            "kb": 57.3
+        },
+        "39262": {
+            "name": "Noctua NH-D15S chromax.black",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51wsVDm2ONL.jpg",
+            "kb": 34.6
+        },
+        "39263": {
+            "name": "Montech HyperFlow ARGB 360",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/316Ls7d-JxL.jpg",
+            "kb": 13.5
+        },
+        "39264": {
+            "name": "be quiet! Silent Loop 3",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/db396e34666ddd8c969793de517feb28.1600.jpg",
+            "kb": 109
+        },
+        "39265": {
+            "name": "ARCTIC Liquid Freezer III Pro",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e04055d053782012caa3bc582c97080c.1600.jpg",
+            "kb": 19.5
+        },
+        "39266": {
+            "name": "ID-COOLING FX360 PRO",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/658230948d7b6a8b7b71488e6828df45.1600.jpg",
+            "kb": 7.9
+        },
+        "39267": {
+            "name": "Cooler Master MasterLiquid 360L Core ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/dec86c79e7955fc437dcc08ef38a8445.1600.jpg",
+            "kb": 76.9
+        },
+        "39268": {
+            "name": "be quiet! Pure Rock LP",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7023a0631b1f27739ac6d15b4d41d6db.1600.jpg",
+            "kb": 15
+        },
+        "39269": {
+            "name": "ID-COOLING IS-55 Black",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/414PpcxZBfL.jpg",
+            "kb": 26
+        },
+        "39270": {
+            "name": "Thermalright Peerless Assassin 120 Digital ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41ll68q+7oL.jpg",
+            "kb": 29.6
+        },
+        "39271": {
+            "name": "Noctua NH-L9x65",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/9cd3f5ef165f51314d4205a0ae030ddd.1600.jpg",
+            "kb": 24.3
+        },
+        "39272": {
+            "name": "Thermalright Burst Assassin 120 SE ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41ASUfTb-ZL.jpg",
+            "kb": 22.4
+        },
+        "39273": {
+            "name": "Thermalright Assassin X Refined SE PLUS",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51pEzEm+dmL.jpg",
+            "kb": 38.3
+        },
+        "39274": {
+            "name": "Thermalright Wonder Vision 360 UB ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/28dd00fa9ac29075359b0011a7155ed3.1600.jpg",
+            "kb": 44.2
+        },
+        "39275": {
+            "name": "be quiet! Pure Loop 3",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/9d79831f987a13299e2a2dc0ebf1fb59.1600.jpg",
+            "kb": 140.4
+        },
+        "39276": {
+            "name": "Deepcool LE360 V2",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/cdf9116808842d19dc032e3a3a4f71fa.1600.jpg",
+            "kb": 60.3
+        },
+        "39277": {
+            "name": "Cooler Master MASTERLIQUID ML240L RGB V2",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/5b6a5e7f4cf456ccf6415235cf7adc99.1600.jpg",
+            "kb": 87.1
+        },
+        "39278": {
+            "name": "Lian Li Hydroshift II LCD-S 360 CL",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1d9150cb0e55a16070fa4eb0451ead70.1600.jpg",
+            "kb": 20.9
+        },
+        "39279": {
+            "name": "Lian Li Hydroshift II LCD-C TL",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f4baa809d4e22a84a737996b649c6083.1600.jpg",
+            "kb": 5
+        },
+        "39280": {
+            "name": "Thermalright Frozen Prism ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31S44PJIaPL.jpg",
+            "kb": 14.2
+        },
+        "39281": {
+            "name": "MSI MAG CORELIQUID A13",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/12e1ee4e48c9e1e452ce3c699a45e0df.1600.jpg",
+            "kb": 74.7
+        },
+        "39282": {
+            "name": "Noctua NH-U9S chromax.black",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41-qe4lyyXL.jpg",
+            "kb": 27.7
+        },
+        "39283": {
+            "name": "Deepcool AG400",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/8542f130e5be0c87e58e7e26be7a2ccd.1600.jpg",
+            "kb": 15.8
+        },
+        "39284": {
+            "name": "Phanteks Glacier One 360M25 G2",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/58e79aa0d42de3fd917314764b33db33.1600.jpg",
+            "kb": 79.8
+        },
+        "39285": {
+            "name": "TRYX PANORAMA ARGB (2025)",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/de672a3cd34e1068797bc0899a99697c.1600.jpg",
+            "kb": 19.1
+        },
+        "39286": {
+            "name": "Corsair NAUTILUS 240 RS",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/07f1acadd4e0bf87d1cb0a12b02cbd3c.1600.jpg",
+            "kb": 5.6
+        },
+        "39287": {
+            "name": "be quiet! Pure Loop 2",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6e0b2968e65605ca10fcb219738dd66d.1600.jpg",
+            "kb": 4.5
+        },
+        "39288": {
+            "name": "be quiet! Dark Rock 5",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7b7e8cf40e763260dde7362ecc53ce5c.1600.jpg",
+            "kb": 125.5
+        },
+        "39289": {
+            "name": "Lian Li Galahad II Trinity SL-INF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/9c7907d33c5225ac4fa747fcc1157ec4.1600.jpg",
+            "kb": 58
+        },
+        "39290": {
+            "name": "Thermalright Frozen Warframe ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/94d02a029c5cc15e833556f333836b67.1600.jpg",
+            "kb": 67.8
+        },
+        "39291": {
+            "name": "be quiet! Pure Loop 2 FX",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/4684db93dca8ab922b9b09d0fa90ddf1.1600.jpg",
+            "kb": 93.8
+        },
+        "39292": {
+            "name": "ARCTIC Liquid Freezer III 240 A-RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/790e8c1c5d6ac9554dbae1b88ab9d30e.1600.jpg",
+            "kb": 56.5
+        },
+        "39293": {
+            "name": "Thermalright Phantom Spirit 120 Digital EVO",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/609dd9aca53bc830731d088d9c7ed292.1600.jpg",
+            "kb": 93.1
+        },
+        "39294": {
+            "name": "NZXT Kraken Plus 280",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e6e1ca9d8cdca108841cacb87a14affb.1600.jpg",
+            "kb": 57.9
+        },
+        "39295": {
+            "name": "TRYX PANORAMA ARGB (2025)",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ef79a48a8d4a7cf930a8040c72da25e3.1600.jpg",
+            "kb": 15.9
+        },
+        "39296": {
+            "name": "NZXT Kraken Plus 360 RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/69cef3a37d5e45c5618c1a761e84c778.1600.jpg",
+            "kb": 59
+        },
+        "39297": {
+            "name": "Scythe SHURIKEN 3",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41W9lJyTgzL.jpg",
+            "kb": 23.9
+        },
+        "39298": {
+            "name": "Noctua NH-L9a-AM4",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c83b5fd9fdf5b659ec8feba8e1c60568.1600.jpg",
+            "kb": 44.3
+        },
+        "39299": {
+            "name": "Corsair iCUE LINK TITAN 360 RX RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/bf57ec1c78268eeca06e65fc5d0c8f94.1600.jpg",
+            "kb": 81.1
+        },
+        "39300": {
+            "name": "Thermalright Frozen Notte ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/9fb45288b3734e8e9a2e0fec9147e5ee.1600.jpg",
+            "kb": 36.1
+        },
+        "39301": {
+            "name": "be quiet! Silent Loop 3",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f3cf61bb2203dc2dd900218a721f7f2f.1600.jpg",
+            "kb": 107
+        },
+        "39302": {
+            "name": "be quiet! Pure Rock Slim 2",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/98bb44b33e99e3c03b12d76609433d62.1600.jpg",
+            "kb": 102.6
+        },
+        "39303": {
+            "name": "Noctua NH-D15 G2 LBC",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/4fb7951d92c873fa55c5198c65ad03b6.1600.jpg",
+            "kb": 40.6
+        },
+        "39304": {
+            "name": "ARCTIC Liquid Freezer III Pro A-RGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31F21N1WhwL.jpg",
+            "kb": 15.4
+        },
+        "39305": {
+            "name": "Montech NX600",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/770c81e754083d72eb22455b44aa5054.1600.jpg",
+            "kb": 30.6
+        },
+        "39306": {
+            "name": "MSI MAG COREFROZR AA13",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/0ed21ee80972fe926c40effa79147f50.1600.jpg",
+            "kb": 88.3
+        },
+        "39307": {
+            "name": "Lian Li Hydroshift II LCD-C CL",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a292a903628796db100dacea50bbd75e.1600.jpg",
+            "kb": 6
+        },
+        "39308": {
+            "name": "Noctua NH-L12Sx77",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41P-P0nK4yL.jpg",
+            "kb": 18.3
+        },
+        "39309": {
+            "name": "Corsair iCUE H150i ELITE LCD XT",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3ec80850afc7392a6dad4b82ef95c424.1600.jpg",
+            "kb": 117.2
+        },
+        "39310": {
+            "name": "Asus ROG STRIX LC III ARGB LCD",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/dc929fc76b049622206c670c699db5d6.1600.jpg",
+            "kb": 15.7
+        },
+        "39311": {
+            "name": "Cooler Master MasterLiquid 240 ATMOS Stealth",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/63c69817c80eecf861cfc2b24d76c75e.1600.jpg",
+            "kb": 17.6
+        },
+        "39312": {
+            "name": "Thermalright RK120 SE",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41meY1M+qUL.jpg",
+            "kb": 23.1
+        },
+        "39313": {
+            "name": "Noctua NH-L9a-AM4 chromax.black",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/419VnDiR9tL.jpg",
+            "kb": 19.1
+        },
+        "39314": {
+            "name": "ARCTIC Liquid Freezer III Pro A-RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/2ad83fad5f6a719a1497baf2a9c9cbc8.1600.jpg",
+            "kb": 58.2
+        },
+        "39315": {
+            "name": "Cooler Master Hyper 212 (2023)",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3019d492bb40655131e966a12433e19c.1600.jpg",
+            "kb": 7.4
+        },
+        "39316": {
+            "name": "Asus TUF Gaming LC III ARGB LCD",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ce4d3e24f2aa2d6fd8bb303edbc9ea2f.1600.jpg",
+            "kb": 65.4
+        },
+        "39317": {
+            "name": "Lian Li Hydroshift II LCD-C TL",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/16683cbcca9f17747a47760100f78d94.1600.jpg",
+            "kb": 4.2
+        },
+        "39318": {
+            "name": "Corsair NAUTILUS 240 RS ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6162fe10ca888690ae0d2353316556d5.1600.jpg",
+            "kb": 4.6
+        },
+        "39319": {
+            "name": "NZXT Kraken Elite 240 (2024)",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/dbf906f66e7770c4049fd4ef7b9014b5.1600.jpg",
+            "kb": 40.9
+        },
+        "39320": {
+            "name": "be quiet! Dark Rock Pro 6",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/33c1d4b68e3a4694949482cabd3b5b94.1600.jpg",
+            "kb": 100.9
+        },
+        "39321": {
+            "name": "be quiet! Pure Loop 3",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/17bc179555a120aa2041f254ffcfe6df.1600.jpg",
+            "kb": 124.2
+        },
+        "39322": {
+            "name": "Noctua NH-U9S",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/bc78f36e2f174fd73acf57aeb849cf11.1600.jpg",
+            "kb": 23.2
+        },
+        "39323": {
+            "name": "ARCTIC Liquid Freezer III Pro A-RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ea2286afc6edb8039438a3894ea0f8ef.1600.jpg",
+            "kb": 22.3
+        },
+        "39324": {
+            "name": "Thermalright Peerless Assassin 120 Black",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41TOck4ZY5L.jpg",
+            "kb": 30.9
+        },
+        "39325": {
+            "name": "NZXT Kraken Elite 420 RGB (2025)",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7d2db1372e1e37dd8321a562be7439d7.1600.jpg",
+            "kb": 38.6
+        },
+        "39326": {
+            "name": "Corsair NAUTILUS 240 RS LCD",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c82a0d938b09eab83415bb11a321ecdf.1600.jpg",
+            "kb": 18.8
+        },
+        "39327": {
+            "name": "MSI MAG CORELIQUID A15",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/d3425a4b595bab2520fe7b1f3aeac78e.1600.jpg",
+            "kb": 17.7
+        },
+        "39328": {
+            "name": "Noctua NH-L9i-17xx chromax.black",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41C6DIgbv3L.jpg",
+            "kb": 16.9
+        },
+        "39329": {
+            "name": "Thermalright Trofeo Vision ARGB 360",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a8134d885ad4fff0b5adb82c6cb48deb.1600.jpg",
+            "kb": 84.7
+        },
+        "39330": {
+            "name": "ID-COOLING FROZN A410 BLACK",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41U7+6OZpVL.jpg",
+            "kb": 23.5
+        },
+        "39331": {
+            "name": "Noctua NH-U12S redux",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b8721c74d96c94c4b3dfb8c97a7aaae1.1600.jpg",
+            "kb": 121
+        },
+        "39332": {
+            "name": "ID-COOLING FROZN A410 SE",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41vFDvhSK9L.jpg",
+            "kb": 24.6
+        },
+        "39333": {
+            "name": "Thermalright Assassin Spirit 120 EVO WHITE ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/418jnVU5HoL.jpg",
+            "kb": 27.1
+        },
+        "39334": {
+            "name": "be quiet! Pure Loop 3",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e3a2b8cdc55571e5e866b5f882f72597.1600.jpg",
+            "kb": 129
+        },
+        "39335": {
+            "name": "Thermalright Frozen Warframe PRO",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/311Na1NZ4GL.jpg",
+            "kb": 12.7
+        },
+        "39336": {
+            "name": "Thermalright Assassin X Refined SE RGB V2",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51oLYtdRMsL.jpg",
+            "kb": 32.2
+        },
+        "39337": {
+            "name": "NZXT Kraken Z73 RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3e22ca8828d712a21fae2eff9df00632.1600.jpg",
+            "kb": 124.4
+        },
+        "39338": {
+            "name": "Thermalright Phantom Spirit 120 Digital SNOW",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7c63f0241e0a475d4ccbeb359bf6f843.1600.jpg",
+            "kb": 68.8
+        },
+        "39339": {
+            "name": "Montech HyperFlow Silent 360",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31Ew1PPR8DL.jpg",
+            "kb": 13.8
+        },
+        "39340": {
+            "name": "Cooler Master Hyper 212 3DHP ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/242eb36db00b711ac41471b5418ad1cd.1600.jpg",
+            "kb": 22.5
+        },
+        "39341": {
+            "name": "ARCTIC Alpine 23 CO",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/673d40c4176d76373fb262aaf428b235.1600.jpg",
+            "kb": 95
+        },
+        "39342": {
+            "name": "Noctua NH-D12L CHROMAX.BLACK",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/eb80afdef342a39e4cebd7e8d614e815.1600.jpg",
+            "kb": 49.2
+        },
+        "39343": {
+            "name": "NZXT Kraken Elite 280 RGB (2024)",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/15c4378d64d1c782fe589124cd602ff8.1600.jpg",
+            "kb": 41.6
+        },
+        "39344": {
+            "name": "Cooler Master Hyper 212 3DHP",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/9555cd585ef8fe714c31ffcff18ead2e.1600.jpg",
+            "kb": 93
+        },
+        "39345": {
+            "name": "Gigabyte AORUS WATERFORCE X II 360",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/2809f936c37f569bc66dc16bf827edb3.1600.jpg",
+            "kb": 25.4
+        },
+        "39346": {
+            "name": "Thermalright Burst Assassin 120 SE",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/4149WQZHBhL.jpg",
+            "kb": 22.9
+        },
+        "39347": {
+            "name": "NZXT Kraken Core 360 RGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31pFSOWLYfL.jpg",
+            "kb": 13.1
+        },
+        "39348": {
+            "name": "Noctua NH-U12S",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/351c9a441cd970d83faee6f581d07f73.med.1600.jpg",
+            "kb": 35.4
+        },
+        "39349": {
+            "name": "Thermalright Aqua Elite ARGB V6",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31gBqvr9KCL.jpg",
+            "kb": 14
+        },
+        "39350": {
+            "name": "EK Nucleus AIO CR360 Dark",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e23f385aa99b252916c494e99ea76d00.1600.jpg",
+            "kb": 4.4
+        },
+        "39351": {
+            "name": "Lian Li Hydroshift LCD 360S",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/8b28f665714d824f67a7201bc8a22500.1600.jpg",
+            "kb": 14.6
+        },
+        "39352": {
+            "name": "Thermalright AQUA ELITE ARGB V4",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/314UdcvKUiL.jpg",
+            "kb": 12.9
+        },
+        "39353": {
+            "name": "Asus Prime LC 360 ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ea7cd3966ed1f0fae31934663e25b0ff.1600.jpg",
+            "kb": 62
+        },
+        "39354": {
+            "name": "ARCTIC Freezer 36 A-RGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41GJYk1X24L.jpg",
+            "kb": 19.1
+        },
+        "39355": {
+            "name": "Noctua NH-L9i-17xx",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/13c98a675631dfe73b421ff97ef2d561.1600.jpg",
+            "kb": 51.3
+        },
+        "39356": {
+            "name": "Corsair iCUE LINK TITAN 420 RX RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1a4b746e7487de0e26dca5b541e5f192.1600.jpg",
+            "kb": 96.9
+        },
+        "39357": {
+            "name": "Thermalright Peerless Assassin 120 Vision MAX ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41pkBhAcxbL.jpg",
+            "kb": 23.8
+        },
+        "39358": {
+            "name": "ARCTIC Freezer 8A",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/0fbf110862d4b082bd2226d6dcf78801.1600.jpg",
+            "kb": 54.7
+        },
+        "39359": {
+            "name": "Thermalright Peerless Assassin 120 White",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41Zo8GoB2GS.jpg",
+            "kb": 21.2
+        },
+        "39360": {
+            "name": "Thermalright Peerless Vision 360 ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41IaOkpZ6DL.jpg",
+            "kb": 16.1
+        },
+        "39361": {
+            "name": "Thermalright Peerless Assassin 120 SE V2",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/411sKlRlkpL.jpg",
+            "kb": 31.9
+        },
+        "39362": {
+            "name": "Lian Li Galahad II Lite Performance",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c148cd506d04c47865c6cb03cff65a9e.1600.jpg",
+            "kb": 15.5
+        },
+        "39363": {
+            "name": "MSI MAG CORELIQUID A13",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b7a13eac1cb757ab989d35c6217b7c02.1600.jpg",
+            "kb": 5.4
+        },
+        "39364": {
+            "name": "Deepcool MYSTIQUE 360",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/2ebe54999faaba93c3e8fbb919aba240.1600.jpg",
+            "kb": 60.5
+        },
+        "39365": {
+            "name": "NZXT Kraken 120",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/fce03253070b8542ded02ac3bdc3b8f7.1600.jpg",
+            "kb": 72.3
+        },
+        "39366": {
+            "name": "Thermalright Frozen Warframe ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e85325f118022d8454235c180ed861b6.1600.jpg",
+            "kb": 70.3
+        },
+        "39367": {
+            "name": "Montech NX400 ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/cc194d26f2f6a6b84c6f53b42c212319.1600.jpg",
+            "kb": 36.4
+        },
+        "39368": {
+            "name": "Thermalright Frozen Infinity 240 ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41zC9LnL+QL.jpg",
+            "kb": 22.7
+        },
+        "39369": {
+            "name": "be quiet! Pure Rock Pro 3 LX",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f8e58ac8b629760758480d7cc22ad020.1600.jpg",
+            "kb": 132.9
+        },
+        "39370": {
+            "name": "Deepcool AK620 DIGITAL",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e0f646f05ca57372374cf39b3b34a1c3.1600.jpg",
+            "kb": 88.7
+        },
+        "39371": {
+            "name": "Thermalright Aqua Elite 360 ARGB V5",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31KyZEwMVqL.jpg",
+            "kb": 14.4
+        },
+        "39372": {
+            "name": "ID-COOLING FROSTFLOW X",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31MEpJBHH+L.jpg",
+            "kb": 15.3
+        },
+        "39373": {
+            "name": "ARCTIC Liquid Freezer III 280 A-RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/8ed355fe9c6060ea33f9d50757e15be1.1600.jpg",
+            "kb": 53.1
+        },
+        "39374": {
+            "name": "be quiet! Light Loop",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1099d7ff04fd6bcc7cfcfccaa12a67bb.1600.jpg",
+            "kb": 90.3
+        },
+        "39375": {
+            "name": "Noctua NH-P1",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/9bf88a0725d8d9b4e3a5b10e4bebeeab.1600.jpg",
+            "kb": 152.9
+        },
+        "39376": {
+            "name": "be quiet! Dark Rock Elite",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/dc3b736cb12f53d2b02b8fd652f3172f.1600.jpg",
+            "kb": 130
+        },
+        "39377": {
+            "name": "Thermalright AXP90-X53",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41CdEaGI9EL.jpg",
+            "kb": 26.6
+        },
+        "39378": {
+            "name": "Thermalright Trofeo Vision ARGB 360",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c5d5578c3114dd90431422c6452ee0de.1600.jpg",
+            "kb": 85
+        },
+        "39379": {
+            "name": "ARCTIC Freezer 36",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7bdb6c4e1804ef5a5d9464722cdceb9f.1600.jpg",
+            "kb": 103
+        },
+        "39380": {
+            "name": "Noctua NH-D12L",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51d7un7JmNL.jpg",
+            "kb": 41.7
+        },
+        "39381": {
+            "name": "Thermalright Wonder Vision 360 Turbo ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e98abf5909127c08d340d2933087e42e.1600.jpg",
+            "kb": 62.4
+        },
+        "39382": {
+            "name": "Lian Li Hydroshift II LCD-C CL",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/db3844cac7396b524234a4f5a13d7b8e.1600.jpg",
+            "kb": 5.3
+        },
+        "39383": {
+            "name": "NZXT Kraken Elite 280",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/d67364f66ec158944a9f8da7c011e81a.1600.jpg",
+            "kb": 58.5
+        },
+        "39384": {
+            "name": "Cooler Master Hyper 212 Halo",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/240fb0c07a7eecd84ed0582d147ea50a.1600.jpg",
+            "kb": 28.2
+        },
+        "39385": {
+            "name": "Gigabyte AORUS WATERFORCE II 360 ICE",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/62ac13b1b303cbb323d815f4fee6fc3f.1600.jpg",
+            "kb": 19
+        },
+        "39386": {
+            "name": "Deepcool LE240 V2",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/4651f53d0608592d86058bdfa67a050f.1600.jpg",
+            "kb": 55.4
+        },
+        "39387": {
+            "name": "TRYX TURRIS 620",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/46a5e9b5246971c295069f4416bb5e57.1600.jpg",
+            "kb": 99
+        },
+        "39388": {
+            "name": "Scythe Fuma 3",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a099eed81cc4729754f632a86be57d8d.1600.jpg",
+            "kb": 40.4
+        },
+        "39389": {
+            "name": "Cooler Master Hyper 612 APEX",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/0e93f850d001bc32bcee54a9ea16ca9b.1600.jpg",
+            "kb": 22.7
+        },
+        "39390": {
+            "name": "Thermaltake Gravity A2",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/d852a8bc814b7647bc959bb95b587688.1600.jpg",
+            "kb": 30.3
+        },
+        "39391": {
+            "name": "Thermalright Mjolnir Vision 360 ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/0746bec62f4bfaf985babd7b58fdec0d.1600.jpg",
+            "kb": 80
+        },
+        "39392": {
+            "name": "Thermalright AQUA ELITE ARGB V4",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31v3o0tAlhL.jpg",
+            "kb": 13.5
+        },
+        "39393": {
+            "name": "be quiet! Light Loop",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/59d57a4a64843e3d19b28e7903da4f0c.1600.jpg",
+            "kb": 72.5
+        },
+        "39394": {
+            "name": "Thermalright Mjolnir Vision 360 ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6b45c253c865d48306f25297e5ed2e0c.1600.jpg",
+            "kb": 72
+        },
+        "39395": {
+            "name": "Scythe Mugen 6 Dual Fan",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/fe493b7acbc32629a01695a1b5fda3d3.1600.jpg",
+            "kb": 41
+        },
+        "39396": {
+            "name": "Thermalright AQUA ELITE ARGB V4",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31t-gmLrMEL.jpg",
+            "kb": 14.4
+        },
+        "39397": {
+            "name": "Thermaltake Contact 9 SE",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/d8d5587e5e3ae0eb755206c063c16f1f.1600.jpg",
+            "kb": 35.4
+        },
+        "39398": {
+            "name": "NZXT Kraken Core 240 RGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31tNAxRPPVL.jpg",
+            "kb": 14.3
+        },
+        "39399": {
+            "name": "ARCTIC Alpine 17",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6f6e72d3f900e592f78ea9a58fc0fc7b.1600.jpg",
+            "kb": 71.7
+        },
+        "39400": {
+            "name": "Thermalright Peerless Assassin 120 Digital",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ee7f6a1d8fe78328bbe05c57f2b2dc63.1600.jpg",
+            "kb": 7.4
+        },
+        "39401": {
+            "name": "Asus ProArt LC 360",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b209d7e7553704fc45440971a103623b.1600.jpg",
+            "kb": 8.1
+        },
+        "39402": {
+            "name": "Phanteks Glacier One 360M25 LCD",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/5e5553c080020030d22e8008b5907fc5.1600.jpg",
+            "kb": 88.9
+        },
+        "39403": {
+            "name": "Thermalright Assassin King SE",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41g9E3Ql8JL.jpg",
+            "kb": 31.8
+        },
+        "39404": {
+            "name": "Asus Prime LC 360 ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3eb22b5faebddcd9dfe5f8e5913ffa68.1600.jpg",
+            "kb": 62.9
+        },
+        "39405": {
+            "name": "ENDORFY Spartan 5",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/71497cf92663ac447ebd1dd12525c26e.1600.jpg",
+            "kb": 68.8
+        },
+        "39406": {
+            "name": "Cooler Master MasterLiquid 360 Atmos",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1f83b39742ea2f6a259c167218439a95.1600.jpg",
+            "kb": 24.4
+        },
+        "39407": {
+            "name": "Cooler Master MasterLiquid 240L Core ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/eded209618d7c6c5bf697c1c74dd7fe9.1600.jpg",
+            "kb": 86.6
+        },
+        "39408": {
+            "name": "Montech LightFlow ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/9d09ce9cd7175fe6961f52d82310dd7c.1600.jpg",
+            "kb": 20.7
+        },
+        "39409": {
+            "name": "Thermalright Burst Assassin 120 EVO DARK",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41L-F3TX-fL.jpg",
+            "kb": 21.2
+        },
+        "39410": {
+            "name": "NZXT Kraken Plus 240 RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/45eee912883e8aa91395c3b4f92017f1.1600.jpg",
+            "kb": 58.3
+        },
+        "39411": {
+            "name": "ARCTIC Freezer 36 CO",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/02bcf23ff467b4e20229995637470e9c.1600.jpg",
+            "kb": 116
+        },
+        "39412": {
+            "name": "Thermalright Frozen Warframe 240 SE ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/5f9ed2a002be8bfd55348ce9f56401fe.1600.jpg",
+            "kb": 84.7
+        },
+        "39413": {
+            "name": "Thermalright Assassin X 90 SE ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41KALR4jf0L.jpg",
+            "kb": 29.5
+        },
+        "39414": {
+            "name": "Thermalright Phantom Spirit 120 Vision SNOW",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51NvCbpTWEL.jpg",
+            "kb": 32.7
+        },
+        "39416": {
+            "name": "Cooler Master Hyper 212 Halo",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1ffb7433a49469d3f23aec21d63041d9.1600.jpg",
+            "kb": 25.6
+        },
+        "39417": {
+            "name": "Lian Li Galahad II LCD SL-INF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e5e96aa397fa331b3b7853db14d451d3.1600.jpg",
+            "kb": 45.7
+        },
+        "39418": {
+            "name": "Thermalright Peerless Assassin 90 SE",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51lvME4HoeL.jpg",
+            "kb": 42.4
+        },
+        "39419": {
+            "name": "Corsair iCUE LINK TITAN 240 RX RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f1a3e6107fc32d4b70e9dd6dbc738c69.1600.jpg",
+            "kb": 94.4
+        },
+        "39420": {
+            "name": "Thermaltake TH360 V2 ARGB Sync",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c386f554532842b707ad332c05a8e4e1.1600.jpg",
+            "kb": 21.1
+        },
+        "39421": {
+            "name": "ENDORFY Fera 5",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/638f83e2b668cb90893441d2af3bebab.1600.jpg",
+            "kb": 42.9
+        },
+        "39422": {
+            "name": "Thermalright Phantom Spirit 120 Vision EVO",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51OWRTApnaL.jpg",
+            "kb": 35.3
+        },
+        "39423": {
+            "name": "be quiet! Pure Rock 3 LX",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/54d0d39f1e8b2f3b115e8f999bddeff9.1600.jpg",
+            "kb": 120.8
+        },
+        "39424": {
+            "name": "Asus ROG STRIX LC 240 RGB White Edition",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/419Gnd98HgL.jpg",
+            "kb": 20.6
+        },
+        "39425": {
+            "name": "Cooler Master MasterLiquid 360 Core II",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c8da8a5c493096df1d87b18deb07b715.1600.jpg",
+            "kb": 77.5
+        },
+        "39426": {
+            "name": "be quiet! Pure Loop 2 FX",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3bfc6ff48aa07a12ee2d30f80b687a61.1600.jpg",
+            "kb": 89.8
+        },
+        "39427": {
+            "name": "Asus ROG Ryujin 240 RGB AIO",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e853a45e569b94d909348ddf3e4ba6a4.1600.jpg",
+            "kb": 131.2
+        },
+        "39428": {
+            "name": "Lian Li HydroShift II OLED Curved 360P28",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f25be405930942f70c777d57e059cbd6.1600.jpg",
+            "kb": 5.7
+        },
+        "39429": {
+            "name": "Thermalright Royal Pretor 130 Ultra",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/5153ieHUUvL.jpg",
+            "kb": 33
+        },
+        "39430": {
+            "name": "Thermalright Peerless Assassin 120 Digital ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/0d308d7f9b074a5d64fadcba0290fb6c.1600.jpg",
+            "kb": 36.7
+        },
+        "39431": {
+            "name": "Noctua NH-D9L chromax.black",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6df0aa42863d202387df1a545db8dd68.1600.jpg",
+            "kb": 55.8
+        },
+        "39432": {
+            "name": "NZXT Kraken Elite 240 RGB (2024)",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b022f8dac94716cbdada89d59bedd421.1600.jpg",
+            "kb": 38.8
+        },
+        "39433": {
+            "name": "Corsair iCUE LINK H150i RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/72c1f2a5697eedfdede263123f14c050.1600.jpg",
+            "kb": 94.6
+        },
+        "39434": {
+            "name": "EK EK-Nucleus AIO CR360 Lux D-RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/44bca0960afba76558218bc61013bc57.1600.jpg",
+            "kb": 22.9
+        },
+        "39435": {
+            "name": "NZXT Kraken Elite 360 RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/00f3005287758516d8b319cefd625a13.1600.jpg",
+            "kb": 57.1
+        },
+        "39436": {
+            "name": "Cooler Master MasterLiquid ML240 Illusion",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/628b6b76bd5c0ee6aadc29d45638bd9d.1600.jpg",
+            "kb": 34.4
+        },
+        "39437": {
+            "name": "ID-COOLING FX360 INF",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/32b5c2c8f8d6f44b47c7bad7a7e4fff9.1600.jpg",
+            "kb": 8.1
+        },
+        "39438": {
+            "name": "Thermaltake Gravity i2",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51r8krEyBZL.jpg",
+            "kb": 49.7
+        },
+        "39439": {
+            "name": "Thermalright Royal Pretor 130",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51YJckxl97L.jpg",
+            "kb": 32.7
+        },
+        "39440": {
+            "name": "Deepcool ASSASSIN IV",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/48b85a3acc39adeb07b6acb12d1e10b6.1600.jpg",
+            "kb": 59.9
+        },
+        "39441": {
+            "name": "MSI MAG CORELIQUID I360",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/54b4ba5d99e1eaa6217f58b5ab9438f2.1600.jpg",
+            "kb": 4.8
+        },
+        "39442": {
+            "name": "Thermalright Peerless Vision 360 ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/316LTEIDbCL.jpg",
+            "kb": 11.7
+        },
+        "39443": {
+            "name": "Corsair iCUE H150i ELITE LCD XT",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/d2a5cdb7e929d90e63cba524e6f668ad.1600.jpg",
+            "kb": 65.4
+        },
+        "39444": {
+            "name": "MSI MPG CORELIQUID P13",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6ae35524f7275ccd23d7d031183cf0be.1600.jpg",
+            "kb": 20.8
+        },
+        "39445": {
+            "name": "Scythe Kotetsu Mark 3",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/21ee991b3528cb8827822250c4e13ff3.1600.jpg",
+            "kb": 35.5
+        },
+        "39446": {
+            "name": "Noctua NH-U9DXi4",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b47e85473999f3d5bbc04086f8d2e398.1600.jpg",
+            "kb": 142.7
+        },
+        "39447": {
+            "name": "DARKROCK AC400",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41rB58W61UL.jpg",
+            "kb": 28.4
+        },
+        "39448": {
+            "name": "NZXT Kraken Elite 280 RGB (2024)",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7f66d7e0adf075d5c5c172d1538b032c.1600.jpg",
+            "kb": 46.2
+        },
+        "39449": {
+            "name": "Cooler Master Hyper 620S",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/513FSNEYsTL.jpg",
+            "kb": 34.5
+        },
+        "39450": {
+            "name": "Montech HyperFlow Silent 360",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31p7OLcMnTL.jpg",
+            "kb": 12.7
+        },
+        "39451": {
+            "name": "be quiet! Dark Rock Slim",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e54422fa9f63e8876b7bf51ef19ddb13.1600.jpg",
+            "kb": 96.9
+        },
+        "39452": {
+            "name": "Montech NX600 ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/43cd3c162fbd2c54f4fd8fe4580681f9.1600.jpg",
+            "kb": 27.5
+        },
+        "39453": {
+            "name": "Thermaltake TH240 V2 ARGB Sync",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/556c18ef844e0e7296f7dd7f8010d690.1600.jpg",
+            "kb": 20.6
+        },
+        "39454": {
+            "name": "Corsair iCUE LINK H115i RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a2bc08997c1a7b6d7ac43fadb8e6e929.1600.jpg",
+            "kb": 52.4
+        },
+        "39455": {
+            "name": "Thermalright Core Vision",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31Ja7ulVGjL.jpg",
+            "kb": 12.8
+        },
+        "39456": {
+            "name": "Thermalright Frozen Warframe PRO ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/311fN3fDlTL.jpg",
+            "kb": 13.5
+        },
+        "39457": {
+            "name": "Thermalright Core Vision ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b75d0f0f07d006b4c5f6e3a7f0925531.1600.jpg",
+            "kb": 21.9
+        },
+        "39458": {
+            "name": "ARCTIC Alpine 17 CO",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e95e4cfd3c074666b03d6092f739221e.1600.jpg",
+            "kb": 74.3
+        },
+        "39459": {
+            "name": "Corsair iCUE LINK TITAN 240 RX LCD",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/0caad0327be3987d7779d787765bfbfb.1600.jpg",
+            "kb": 7
+        },
+        "39460": {
+            "name": "be quiet! Pure Rock Pro 3",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/bb4d80162491a86532610966f2fde437.1600.jpg",
+            "kb": 166.3
+        },
+        "39461": {
+            "name": "TRYX PANORAMA (2025)",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/45b28f0871bb23588c552c95bc4c3391.1600.jpg",
+            "kb": 70
+        },
+        "39462": {
+            "name": "MSI MPG CORELIQUID P13",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a05cf5088f9220a8b06d60b23a6789a2.1600.jpg",
+            "kb": 24.4
+        },
+        "39463": {
+            "name": "Asus ROG RYUO III 360 ARGB WHITE EDITION",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/12e1a20cbb65d7a65bd095b260db3252.1600.jpg",
+            "kb": 25
+        },
+        "39464": {
+            "name": "be quiet! Pure Loop 3 LX",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/252b12f2eccbe3d3b0f355020081b11e.1600.jpg",
+            "kb": 99.2
+        },
+        "39465": {
+            "name": "Asus TUF Gaming LC II ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/4bad804e8e2be5c04ab0ca7b67a54d6b.1600.jpg",
+            "kb": 39.1
+        },
+        "39466": {
+            "name": "Thermalright Frozen Warframe ULTRA ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31eCrUMgCbL.jpg",
+            "kb": 13.1
+        },
+        "39467": {
+            "name": "Antec Skeleton 360 ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f9e585620e2416991282a06679bfbef1.1600.jpg",
+            "kb": 49.8
+        },
+        "39468": {
+            "name": "Phanteks Glacier One 360M25 G2",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b88fd427aac7aba469370ce5a16a791b.1600.jpg",
+            "kb": 71.2
+        },
+        "39469": {
+            "name": "Lian Li HydroShift II OLED Curved 360P28",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b298a71084e5d48f5ed1b9a1f1732fcc.1600.jpg",
+            "kb": 5
+        },
+        "39470": {
+            "name": "Lian Li Galahad II Lite Performance",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ea5f06689ceb7e4c9f1bb4fc0464e068.1600.jpg",
+            "kb": 39.9
+        },
+        "39471": {
+            "name": "Lian Li Galahad II Trinity",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a71129f791c9f3327ba095a6a88f0a48.1600.jpg",
+            "kb": 51.8
+        },
+        "39472": {
+            "name": "ARCTIC Liquid Freezer III Pro A-RGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41gBUaemkqL.jpg",
+            "kb": 16.7
+        },
+        "39473": {
+            "name": "MSI MAG CORELIQUID A15",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/50686e3bdd9e6168e3c031b2c83d95c2.1600.jpg",
+            "kb": 21
+        },
+        "39474": {
+            "name": "Deepcool R-LM360-BKDMMC-1",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/8b53788cc9bbd85b0567c571b4089c75.1600.jpg",
+            "kb": 13
+        },
+        "39475": {
+            "name": "ID-COOLING FX360 INF",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41eOV22nmDL.jpg",
+            "kb": 19.3
+        },
+        "39476": {
+            "name": "ARCTIC Freezer 8A CO",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ccc2341ab191b54cfd6a0bf6be4c4619.1600.jpg",
+            "kb": 71.2
+        },
+        "39477": {
+            "name": "Thermaltake UX200 SE ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41vxvxQ7oYL.jpg",
+            "kb": 28.8
+        },
+        "39478": {
+            "name": "NZXT Kraken Elite 240 RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6f683f6bee595e3b641933df52ecff8f.1600.jpg",
+            "kb": 59.4
+        },
+        "39479": {
+            "name": "Deepcool AK400 ZERO DARK",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/0969db68c5d36df3d025d4b88993d681.1600.jpg",
+            "kb": 13.4
+        },
+        "39480": {
+            "name": "Asus ROG Ryujin III",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3f336e06cc4f537631bcd5f0ef566a8e.1600.jpg",
+            "kb": 41.9
+        },
+        "39481": {
+            "name": "Cooler Master Hyper 411 Nano",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/53a820363c6cf189003adb10371c2a0c.1600.jpg",
+            "kb": 117
+        },
+        "39482": {
+            "name": "ID-COOLING SE-224-XTS BLACK",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/415WpBLZqRL.jpg",
+            "kb": 30.5
+        },
+        "39483": {
+            "name": "Fractal Design Lumen S28 RGB V2",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c1fa94b7baddf7fa1f6c0c03c90524f4.1600.jpg",
+            "kb": 55.2
+        },
+        "39484": {
+            "name": "Thermalright Peerless Assassin 120 Vision MAX ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41qKI6e9q-L.jpg",
+            "kb": 21.7
+        },
+        "39485": {
+            "name": "Montech NX600",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/2690f3c09941df265ee21382f799f674.1600.jpg",
+            "kb": 23
+        },
+        "39486": {
+            "name": "Cooler Master MasterLiquid 360 ATMOS Stealth",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/3141Zp4aEmL.jpg",
+            "kb": 14.9
+        },
+        "39487": {
+            "name": "Thermalright Grand Vision ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41oUbNCvR-L.jpg",
+            "kb": 18.9
+        },
+        "39488": {
+            "name": "DARKROCK DR-CPU-DT6-BK",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41d7+p8mmcL.jpg",
+            "kb": 25.7
+        },
+        "39489": {
+            "name": "TRYX TURRIS 620",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7a3817a50b2bc566353c927a36662d78.1600.jpg",
+            "kb": 69.6
+        },
+        "39490": {
+            "name": "Thermalright AXP120-X67",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41tu8NVxJPL.jpg",
+            "kb": 22.3
+        },
+        "39491": {
+            "name": "Asus ROG STRIX LC 360 RGB White Edition",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41eL2uyqecL.jpg",
+            "kb": 20.6
+        },
+        "39492": {
+            "name": "KOLINK Umbra Void",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a124887b212f53f3e3e683069f1e66fc.1600.jpg",
+            "kb": 99.2
+        },
+        "39493": {
+            "name": "Phanteks Glacier One 360M25 LCD",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/77168dec3797b8090d86f9a8d6f5d50e.1600.jpg",
+            "kb": 51.9
+        },
+        "39494": {
+            "name": "Thermalright Peerless Assassin 140 Digital",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/53bfaf186f16ea57f5f5bb855eac2206.1600.jpg",
+            "kb": 85.6
+        },
+        "39495": {
+            "name": "ASRock Challenger Digital",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41WpwzGlslL.jpg",
+            "kb": 22.3
+        },
+        "39496": {
+            "name": "Asus Prime LC 360 ARGB LCD",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7eda3b1562c5bf646a10abd2e1012ae3.1600.jpg",
+            "kb": 125.5
+        },
+        "39497": {
+            "name": "NZXT T120 RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/16b3307f0115d1d9311f085a6badbf2c.1600.jpg",
+            "kb": 104.3
+        },
+        "39498": {
+            "name": "Thermalright Wonder Vision 360 Turbo ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e823ba433aaa63e69be60a977db7ac2d.1600.jpg",
+            "kb": 60.2
+        },
+        "39499": {
+            "name": "Thermalright Frozen Warframe ULTRA ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31In9BieMTL.jpg",
+            "kb": 13.4
+        },
+        "39500": {
+            "name": "Cooler Master V4 Alpha 3DHP",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c63f45ba840a6764cb62c30df6a15573.1600.jpg",
+            "kb": 18.3
+        },
+        "39501": {
+            "name": "Thermaltake UX200 SE ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/924a7496484ea7760c64e4c6adfa9a72.1600.jpg",
+            "kb": 38.8
+        },
+        "39502": {
+            "name": "Thermaltake TH120 V2 ARGB Sync",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7ed552c92bcd8ade385387f08209575f.1600.jpg",
+            "kb": 30.2
+        },
+        "39503": {
+            "name": "Deepcool AG300",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f081af159c0c28a944da061775f784a5.1600.jpg",
+            "kb": 17
+        },
+        "39504": {
+            "name": "Thermalright Assassin King SE ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41neYnEZjmL.jpg",
+            "kb": 25.4
+        },
+        "39505": {
+            "name": "Corsair iCUE LINK TITAN 280 RX RGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f78d943de0e88a9fc311cce4522413e9.1600.jpg",
+            "kb": 146.4
+        },
+        "39506": {
+            "name": "Gigabyte EAGLE",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b81eb434a9e7934e019b45da342d1325.1600.jpg",
+            "kb": 82.7
+        },
+        "39507": {
+            "name": "APNX AP1-V",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41Y0TzKI3iL.jpg",
+            "kb": 17.9
+        },
+        "39508": {
+            "name": "Cooler Master Elite",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c9bcad126084348bded577da6fc71922.1600.jpg",
+            "kb": 14.4
+        },
+        "39509": {
+            "name": "Scythe Mugen 6",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/903007f7faf8d269ca7703ec64a4fafe.1600.jpg",
+            "kb": 37.8
+        },
+        "39510": {
+            "name": "Razer Hanbo Chroma",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/551197ef146855b3fdc9403642420917.1600.jpg",
+            "kb": 60.4
+        },
+        "39511": {
+            "name": "Noctua NH-U14S",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/356776b12b7cb2e8c1368bbba0858a81.med.1600.jpg",
+            "kb": 38.5
+        },
+        "39512": {
+            "name": "Thermalright Grand Vision ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31gWKzlYgJL.jpg",
+            "kb": 12.4
+        },
+        "39513": {
+            "name": "be quiet! Dark Rock 6",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/8a75e94cf3a734ed380adefcd8bcf98e.1600.jpg",
+            "kb": 91.1
+        },
+        "39514": {
+            "name": "Deepcool LE360 V2",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/fad7f18aa9fe01c05df045eeb6dba348.1600.jpg",
+            "kb": 21.6
+        },
+        "39515": {
+            "name": "Thermalright Frozen Prism ARGB",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31jIU69MrZL.jpg",
+            "kb": 15.5
+        },
+        "39516": {
+            "name": "KOLINK Umbra EX180 Black Edition",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7146b23dae711539b5e91f0f2961589b.1600.jpg",
+            "kb": 115.4
+        },
+        "39517": {
+            "name": "TRYX STAGE",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1337afbcd40f13d1f3b2e7f9031eeccb.1600.jpg",
+            "kb": 90.5
+        },
+        "39518": {
+            "name": "be quiet! Pure Rock 2",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/2cb0b9b4b4bfc72434fc1d2a31477c51.1600.jpg",
+            "kb": 124.9
+        },
+        "39519": {
+            "name": "Lian Li Galahad II LCD",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e03b1960a13646e4500e06981143cfb5.1600.jpg",
+            "kb": 13.4
+        },
+        "39520": {
+            "name": "Thermalright Hyper Vision UB ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7dcd6844e90fc9a633f7cb0a0eba46d0.1600.jpg",
+            "kb": 4.5
+        },
+        "39521": {
+            "name": "Thermaltake TH360 V2 ARGB Sync",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e8d6aa303c33f4d3403326bbfb097111.1600.jpg",
+            "kb": 26.3
+        },
+        "39522": {
+            "name": "Thermalright Ultra 120 Extreme EVO REV.5",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51AzwBCJnPL.jpg",
+            "kb": 36.6
+        },
+        "39523": {
+            "name": "NZXT Kraken Elite 240 RGB (2024)",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a232b6b03466ecea7a08f33f18ca37d5.1600.jpg",
+            "kb": 42.9
+        },
+        "39524": {
+            "name": "Montech NX400 ARGB",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/0275f201f5156481e79a2d25e8657901.1600.jpg",
+            "kb": 23.6
+        },
+        "39525": {
+            "name": "Gigabyte AORUS WATERFORCE II 240",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a1f242f4c38493011a406901966e1b2b.1600.jpg",
+            "kb": 19.3
+        },
+        "39526": {
+            "name": "Lian Li Galahad II Trinity Performance",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b602dfaf4352ab5599ba6add5bba511a.1600.jpg",
+            "kb": 42.5
+        },
+        "39527": {
+            "name": "MSI MAG CORELIQUID I360",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/db835cf210997021528855fd3070901f.1600.jpg",
+            "kb": 4.7
+        },
+        "39528": {
+            "name": "Montech HyperFlow Silent 240",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/31IhOo9Mk1L.jpg",
+            "kb": 14.9
+        },
+        "39529": {
+            "name": "MSI MAG CORELIQUID E360",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41B7ItL+zKL.jpg",
+            "kb": 20.4
+        },
+        "39530": {
+            "name": "MSI MAG COREFROZR AA13",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/80f2a79fd82b9f13efc3006918753742.1600.jpg",
+            "kb": 89.3
+        },
+        "39531": {
+            "name": "Thermalright Aqua Elite ARGB V6",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41jEBtNx30L.jpg",
+            "kb": 21
+        },
+        "39532": {
+            "name": "Noctua NH-U14S TR4-SP3",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c1fedefbac0407a69d22cb532318dea5.1600.jpg",
+            "kb": 18.8
+        },
+        "39533": {
+            "name": "GAMDIAS CHIONE P5",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41FwZWZTWzL.jpg",
+            "kb": 17
+        },
+        "39534": {
+            "name": "Corsair iCUE H100i ELITE CAPELLIX XT",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/89bda0047f8b2ccffe4de3b909175e0b.1600.jpg",
+            "kb": 67.3
+        },
+        "39535": {
+            "name": "Thermalright Stream Vision",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f08d8fe646aed0b88d6e6e23c491f9c4.1600.jpg",
+            "kb": 54.5
+        },
+        "39536": {
+            "name": "MSI MAG B850 TOMAHAWK MAX WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/fe0743e587416e7fa161bfd0dca8237f.1600.jpg",
+            "kb": 38.1
+        },
+        "39537": {
+            "name": "Gigabyte B850 AORUS ELITE WIFI7",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/d3a0054902d36d38a60d09d83698d7c8.1600.jpg",
+            "kb": 161.7
+        },
+        "39538": {
+            "name": "Asus PRIME B550M-A WIFI II",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ff4b4e2c7f72b014f39f1864b19e7250.1600.jpg",
+            "kb": 308.9
+        },
+        "39539": {
+            "name": "Asus B650E MAX GAMING WIFI W",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/233f7973b2f73df3b3273091792a871d.1600.jpg",
+            "kb": 39
+        },
+        "39540": {
+            "name": "Gigabyte B650 EAGLE AX",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51BdjazabVL.jpg",
+            "kb": 38.1
+        },
+        "39541": {
+            "name": "Asus TUF GAMING B650-PLUS WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/d9e08ab3fe18574bdc4f01dcfecce0ea.1600.jpg",
+            "kb": 113.3
+        },
+        "39542": {
+            "name": "Gigabyte A520M K V2",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ad69b238cf570ec07fb8a00adda58eda.1600.jpg",
+            "kb": 72.8
+        },
+        "39543": {
+            "name": "MSI B550M PRO-VDH WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/57b4a5399dc626e9c5786f786aeb94ac.1600.jpg",
+            "kb": 67.2
+        },
+        "39544": {
+            "name": "Gigabyte B550 EAGLE WIFI6",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/9435af2197a80fcb37bc356ec9b83413.1600.jpg",
+            "kb": 43.2
+        },
+        "39545": {
+            "name": "Gigabyte B650M GAMING PLUS WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/dbb71bb11592fff92343d7d68db13544.1600.jpg",
+            "kb": 37.3
+        },
+        "39546": {
+            "name": "ASRock B850M Pro-A WiFi",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e114446516cb565272b30e82624774be.1600.jpg",
+            "kb": 35.7
+        },
+        "39547": {
+            "name": "Asus TUF GAMING B850-E WIFI",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51-fMrMoQDL.jpg",
+            "kb": 34.6
+        },
+        "39548": {
+            "name": "Gigabyte B550M K",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f52a9a0b2a28f096b5b1e5bf02707224.1600.jpg",
+            "kb": 55.4
+        },
+        "39549": {
+            "name": "Gigabyte X870E AORUS ELITE WIFI7",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1e1c3a84fdb8ea01eec98abd4c40d5d8.1600.jpg",
+            "kb": 18.3
+        },
+        "39550": {
+            "name": "Gigabyte B850 EAGLE WIFI6E",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/2a9181a93dc5c38ea219e25f07ff1322.1600.jpg",
+            "kb": 31.8
+        },
+        "39551": {
+            "name": "ASRock B850I Lightning WiFi",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/4b0fd888721ce88fc798ba4cdc53377e.1600.jpg",
+            "kb": 261.9
+        },
+        "39552": {
+            "name": "MSI MAG B650 TOMAHAWK WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/dc9235e0d8052745493eb900bb9df6f6.1600.jpg",
+            "kb": 43.4
+        },
+        "39553": {
+            "name": "ASRock B650M Pro RS WiFi",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/d7893755609db1feb833c99ad9d243bf.1600.jpg",
+            "kb": 49.1
+        },
+        "39554": {
+            "name": "Gigabyte B760M GAMING PLUS WIFI DDR4",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6dcbd73f46d20ca37c1e80a00f3ef206.1600.jpg",
+            "kb": 41
+        },
+        "39555": {
+            "name": "Asus ROG STRIX B850-A GAMING WIFI",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/515foeFWRnL.jpg",
+            "kb": 35
+        },
+        "39556": {
+            "name": "Asus TUF GAMING B850-PLUS WIFI",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51FhIr30MjL.jpg",
+            "kb": 36.6
+        },
+        "39557": {
+            "name": "Asus ROG STRIX B650E-I GAMING WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/bf950d502a28575d015348684bf78a37.1600.jpg",
+            "kb": 37.2
+        },
+        "39558": {
+            "name": "MSI PRO B550M-VC WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3ba98d49243674bac25ebc39e6cc1fbc.1600.jpg",
+            "kb": 63
+        },
+        "39559": {
+            "name": "MSI MAG X870 TOMAHAWK WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ec3fc6477ed914f51a028bc29f0e20aa.1600.jpg",
+            "kb": 45.9
+        },
+        "39560": {
+            "name": "Asus ROG CROSSHAIR X870E DARK HERO",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a14b5a84c03bd229c4a6b4882da29013.1600.jpg",
+            "kb": 31.6
+        },
+        "39561": {
+            "name": "Gigabyte A620I AX",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/69a825f37db70263d7e51fb24fb8e887.1600.jpg",
+            "kb": 170
+        },
+        "39562": {
+            "name": "Asus TUF GAMING B550-PLUS WIFI II",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/6b136eab8dcdd8f78e02da5a09b96795.1600.jpg",
+            "kb": 236.2
+        },
+        "39563": {
+            "name": "MSI B650 GAMING PLUS WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ff33ebb87ed9f5fa5f9c54d6d316ae82.1600.jpg",
+            "kb": 182.8
+        },
+        "39564": {
+            "name": "MSI PRO B760-P WIFI DDR4",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/28e8ce6b41464b892862574420f45b63.1600.jpg",
+            "kb": 49.2
+        },
+        "39565": {
+            "name": "Gigabyte X870 AORUS ELITE WIFI7 ICE",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/d1f30b497f0fd6289278b33ec776f86b.1600.jpg",
+            "kb": 205.3
+        },
+        "39566": {
+            "name": "Asus ROG CROSSHAIR X870E GLACIAL",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/eb96890a852502233ce1cd81673d0ad6.1600.jpg",
+            "kb": 28.7
+        },
+        "39567": {
+            "name": "MSI B850 GAMING PLUS WIFI6E",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/34e776866180181de790f98268092efd.1600.jpg",
+            "kb": 3.9
+        },
+        "39568": {
+            "name": "Asus ROG STRIX B550-F GAMING WIFI II",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/923cae0c8159c98aaf91541a20f95dc9.1600.jpg",
+            "kb": 128.5
+        },
+        "39569": {
+            "name": "MSI PRO B850-S WIFI6E",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/bf040b7e95e6a515f5c1fabd2a011a08.1600.jpg",
+            "kb": 61
+        },
+        "39570": {
+            "name": "ASRock B850M-X R2.0",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7d10673e332d20614128a532027ca071.1600.jpg",
+            "kb": 51.6
+        },
+        "39571": {
+            "name": "ASRock B550M-ITX\/ac",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/66aa5dd590cf1bb5fe8de0417f9ed7e6.1600.jpg",
+            "kb": 40.5
+        },
+        "39572": {
+            "name": "Gigabyte A520I AC",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/87329029966463ec6eac31fad52fae85.1600.jpg",
+            "kb": 137.3
+        },
+        "39573": {
+            "name": "Asus ROG STRIX B850-I GAMING WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/573b392b2d5a728c3a15f84dce93449b.1600.jpg",
+            "kb": 193.6
+        },
+        "39574": {
+            "name": "Gigabyte B650 GAMING X AX V2",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51FV8n5IuGL.jpg",
+            "kb": 32
+        },
+        "39575": {
+            "name": "Gigabyte B550M GAMING X WIFI6",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/cd5f3bb9add2e4123ade1d5161553326.1600.jpg",
+            "kb": 79.4
+        },
+        "39576": {
+            "name": "Gigabyte Z790 EAGLE AX",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/3d487ee6ea150ca534c123f409cbae68.1600.jpg",
+            "kb": 37.5
+        },
+        "39577": {
+            "name": "Gigabyte B850M GAMING X WIFI6E",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/51Nm-+9BkbL.jpg",
+            "kb": 41.1
+        },
+        "39578": {
+            "name": "Asus ROG STRIX X870E-E GAMING WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e6ec6fd92a901825fcbcc79fea85c79f.1600.jpg",
+            "kb": 35.6
+        },
+        "39579": {
+            "name": "Gigabyte B850M EAGLE WIFI6E ICE",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/bd78975c5fc0c5510c5293181fe77831.1600.jpg",
+            "kb": 279.2
+        },
+        "39580": {
+            "name": "Gigabyte B550M AORUS ELITE AX",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/bf6939e818d9dd155a2acf5199ef6720.1600.jpg",
+            "kb": 26.4
+        },
+        "39581": {
+            "name": "ASRock B650I Lightning Wifi",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/40e47e0c22c38ba2269880dd81c305f3.1600.jpg",
+            "kb": 40.7
+        },
+        "39582": {
+            "name": "ASRock B650M Pro RS",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e0e6da0121eb96af61b051b6316246bf.1600.jpg",
+            "kb": 223.9
+        },
+        "39583": {
+            "name": "Gigabyte X870 GAMING WIFI6",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/2a78caa1159b44ac04ac0b6245d7a20b.1600.jpg",
+            "kb": 33.6
+        },
+        "39584": {
+            "name": "Gigabyte B650 AORUS ELITE AX",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/322a6059c413dd736536e5ad5c3a2285.1600.jpg",
+            "kb": 37.2
+        },
+        "39585": {
+            "name": "MSI MPG B550 GAMING PLUS",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/607f7ca77131a0bf7dc6b75617795203.1600.jpg",
+            "kb": 47.7
+        },
+        "39586": {
+            "name": "MSI Z790 GAMING PLUS WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/8ebf82190e0ae9871ce4a1a4c824e204.1600.jpg",
+            "kb": 39
+        },
+        "39587": {
+            "name": "MSI MAG X870E TOMAHAWK WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/d45365fc05268cf82bf9720808262049.1600.jpg",
+            "kb": 35.7
+        },
+        "39588": {
+            "name": "Gigabyte B550I AORUS PRO AX",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/46324a9aac9a2c2e7b705b32a4632fba.1600.jpg",
+            "kb": 59
+        },
+        "39589": {
+            "name": "Asus TUF GAMING B650-E WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/287ac861ab77945d4c6d046865f62b5e.1600.jpg",
+            "kb": 51.6
+        },
+        "39590": {
+            "name": "Asus ROG STRIX B860-I GAMING WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/680d520ef892efb6864b638be584cc9a.1600.jpg",
+            "kb": 65.9
+        },
+        "39591": {
+            "name": "Gigabyte B550 GAMING X V2",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/09d3314474cf5fefa2bd5c5941bb33b5.1600.jpg",
+            "kb": 135.1
+        },
+        "39592": {
+            "name": "Asus ROG STRIX B850-F GAMING WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/da67975baa3e2a69497334af8eee81ce.1600.jpg",
+            "kb": 138.1
+        },
+        "39593": {
+            "name": "ASRock B550M Pro4",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/472d12f3f649d3c11155e02f9fd70e22.1600.jpg",
+            "kb": 45.4
+        },
+        "39594": {
+            "name": "Gigabyte X870 EAGLE WIFI7",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a06aef05389e93f5e4de5dc26d807abe.1600.jpg",
+            "kb": 21.8
+        },
+        "39595": {
+            "name": "Gigabyte B850 EAGLE WIFI7 ICE",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/388f3e3de66324acbe4ade80d674298b.1600.jpg",
+            "kb": 62.8
+        },
+        "39596": {
+            "name": "Asus ROG CROSSHAIR X870E EXTREME",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/32edc55907aae5cb63ec877846bb73ac.1600.jpg",
+            "kb": 34.4
+        },
+        "39597": {
+            "name": "MSI MAG B850M MORTAR WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/5299771c95c4e8b3d5f41cd252b1cd0b.1600.jpg",
+            "kb": 54.2
+        },
+        "39598": {
+            "name": "MSI PRO H610M-G DDR4",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/8a6d9e0f04302ca47ff65d23bda24e49.1600.jpg",
+            "kb": 67.5
+        },
+        "39599": {
+            "name": "Asus ROG STRIX X870E-E GAMING WIFI7 NEO",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/8f5d017038559af64401d6d81acf88a8.1600.jpg",
+            "kb": 198.6
+        },
+        "39600": {
+            "name": "ASRock A620AI WiFi",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c3add07e7b316b6ba9612df7157dbc1e.1600.jpg",
+            "kb": 36
+        },
+        "39601": {
+            "name": "ASRock B860 Rock WiFi 7",
+            "src": "https:\/\/m.media-amazon.com\/images\/I\/41sQVMXZVCL.jpg",
+            "kb": 25
+        },
+        "39602": {
+            "name": "MSI A520M-A PRO",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f210cab1260cc8cd402ee007cc382029.1600.jpg",
+            "kb": 45.5
+        },
+        "39603": {
+            "name": "Asus ROG STRIX X870-I GAMING WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/4e5ec27085e7971c37ce5794396f9639.1600.jpg",
+            "kb": 230.5
+        },
+        "39604": {
+            "name": "ASRock B650M-H\/M.2+",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/07c31fe938c6e8531c051bc527759992.1600.jpg",
+            "kb": 65.9
+        },
+        "39605": {
+            "name": "ASRock B850M-X WiFi R2.0",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/cf3d0f0524d2e319b2e8eb117d9b63ca.1600.jpg",
+            "kb": 53
+        },
+        "39606": {
+            "name": "Gigabyte B850 AORUS ELITE WIFI7 ICE",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/b0c60fa6ec041477ad48e09d4203a0da.1600.jpg",
+            "kb": 27.7
+        },
+        "39607": {
+            "name": "MSI PRO B850M-P WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/e5ef70a31eda568d633f331a887b2aae.1600.jpg",
+            "kb": 49.6
+        },
+        "39608": {
+            "name": "Asus ProArt X870E-CREATOR WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/90a7314681e18b425d4240b917dd7d3e.1600.jpg",
+            "kb": 33.6
+        },
+        "39609": {
+            "name": "Asus ROG STRIX B650-A GAMING WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/127cc163cf3e552499471f1908f99cfe.1600.jpg",
+            "kb": 81
+        },
+        "39610": {
+            "name": "MSI PRO B650M-A WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a7ffc5ab34c099836bb0ff9f9dfcab6d.1600.jpg",
+            "kb": 58.5
+        },
+        "39611": {
+            "name": "Gigabyte B850 GAMING X WIFI6E",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/62258989025bb9dd8fb1abaa606d1444.1600.jpg",
+            "kb": 33.1
+        },
+        "39612": {
+            "name": "ASRock B650 Steel Legend WiFi",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f154f20635f7e56b180c01266156053f.1600.jpg",
+            "kb": 47.1
+        },
+        "39613": {
+            "name": "MSI PRO B850M-A WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/9f36e7016dcb0e90f99d71e992ed2ca6.1600.jpg",
+            "kb": 48.1
+        },
+        "39614": {
+            "name": "Asus ROG STRIX X870E-A GAMING WIFI7 NEO",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/c8f9c6e956b89c5d25b7d91eba679419.1600.jpg",
+            "kb": 153.7
+        },
+        "39615": {
+            "name": "ASRock B550 Phantom Gaming 4\/ac",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/987495c240f254ae7314bdd8ae3c426c.1600.jpg",
+            "kb": 55.2
+        },
+        "39616": {
+            "name": "Gigabyte X870I AORUS PRO ICE",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/08f4be6287189613c69c5b5dfd6cd88b.1600.jpg",
+            "kb": 36.6
+        },
+        "39617": {
+            "name": "MSI PRO B760M-P DDR4",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/bc24eb1e51b0165c40c5fa45e30055ce.1600.jpg",
+            "kb": 62.7
+        },
+        "39618": {
+            "name": "Asus ROG STRIX X870-A GAMING WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/8759f89d039f01404d65dcb994629292.1600.jpg",
+            "kb": 40.3
+        },
+        "39619": {
+            "name": "MSI PRO B650M-P",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/f03f1d667284f39b3eaf208a50cdbb68.1600.jpg",
+            "kb": 44
+        },
+        "39620": {
+            "name": "Asus TUF GAMING B850M-PLUS WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/1d8ae56612d85a6804f4da9a9bc4c5e4.1600.jpg",
+            "kb": 32
+        },
+        "39621": {
+            "name": "Gigabyte B550M DS3H AC R2",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/61e134589d40c606cd6ac71cd3603434.1600.jpg",
+            "kb": 272
+        },
+        "39622": {
+            "name": "MSI PRO B650-S WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/a3020fc8322a2821927ed01af1155620.1600.jpg",
+            "kb": 147.9
+        },
+        "39623": {
+            "name": "Gigabyte B650M GAMING WIFI6E",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/7486bd0a06a2794a9f33b9104c25ca57.1600.jpg",
+            "kb": 83.8
+        },
+        "39624": {
+            "name": "MSI MPG X870E CARBON WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/fac31c8cea999908580b1081eed58c0e.1600.jpg",
+            "kb": 38.6
+        },
+        "39625": {
+            "name": "Asus TUF GAMING B860M-PLUS WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/2656853c7563ea7353bcb7ebbb3ef261.1600.jpg",
+            "kb": 292.3
+        },
+        "39626": {
+            "name": "MSI PRO X870E-P WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/818755e4ae3a17cd1e3dc208ed4017fe.1600.jpg",
+            "kb": 7.1
+        },
+        "39627": {
+            "name": "Asus ROG STRIX B850-G GAMING WIFI",
+            "src": "http:\/\/cdna.pcpartpicker.com\/static\/forever\/images\/product\/ad06e905477b8cff21bf5a105c68768a.1600.jpg",
+            "kb": 4.9
+        }
+    },
+    "failed": {
+        "39111": "no image url in page",
+        "39125": "no image url in page",
+        "39126": "no image url in page",
+        "39127": "no image url in page",
+        "39128": "no image url in page",
+        "39129": "no image url in page",
+        "39130": "no image url in page",
+        "39145": "no image url in page",
+        "39153": "no image url in page",
+        "39155": "no image url in page",
+        "39415": "image url found but download failed",
+        "39628": "no image url in page",
+        "39629": "no image url in page",
+        "39630": "no image url in page",
+        "39631": "no image url in page",
+        "39632": "no image url in page",
+        "39633": "no image url in page",
+        "39634": "no image url in page",
+        "39635": "no image url in page",
+        "39636": "no image url in page",
+        "39637": "no image url in page",
+        "39638": "no image url in page",
+        "39639": "no image url in page",
+        "39640": "no image url in page",
+        "39641": "no image url in page",
+        "39642": "no image url in page",
+        "39643": "no image url in page",
+        "39644": "no image url in page",
+        "39645": "no image url in page",
+        "39646": "no image url in page",
+        "39647": "no image url in page",
+        "39648": "no image url in page",
+        "39649": "no image url in page",
+        "39650": "no image url in page",
+        "39651": "no image url in page",
+        "39652": "no image url in page",
+        "39653": "no image url in page",
+        "39654": "no image url in page",
+        "39655": "no image url in page",
+        "39656": "no image url in page",
+        "39657": "no image url in page",
+        "39658": "no image url in page",
+        "39659": "no image url in page",
+        "39660": "no image url in page",
+        "39661": "no image url in page",
+        "39662": "no image url in page",
+        "39663": "no image url in page",
+        "39664": "no image url in page",
+        "39665": "no image url in page",
+        "39666": "no image url in page",
+        "39667": "no image url in page",
+        "39668": "no image url in page",
+        "39669": "no image url in page",
+        "39670": "no image url in page",
+        "39671": "no image url in page",
+        "39672": "no image url in page",
+        "39673": "no image url in page",
+        "39674": "no image url in page",
+        "39675": "no image url in page",
+        "39676": "no image url in page",
+        "39677": "no image url in page",
+        "39678": "no image url in page",
+        "39679": "no image url in page",
+        "39680": "no image url in page",
+        "39681": "no image url in page",
+        "39682": "no image url in page",
+        "39683": "no image url in page",
+        "39684": "no image url in page",
+        "39685": "no image url in page",
+        "39686": "no image url in page",
+        "39687": "no image url in page",
+        "39688": "no image url in page",
+        "39689": "no image url in page",
+        "39690": "no image url in page",
+        "39691": "no image url in page",
+        "39692": "no image url in page",
+        "39693": "no image url in page",
+        "39694": "no image url in page",
+        "39695": "no image url in page",
+        "39696": "no image url in page",
+        "39697": "no image url in page",
+        "39698": "no image url in page",
+        "39699": "no image url in page",
+        "39700": "no image url in page",
+        "39701": "no image url in page",
+        "39702": "no image url in page",
+        "39703": "no image url in page",
+        "39704": "no image url in page",
+        "39705": "no image url in page",
+        "39706": "no image url in page",
+        "39707": "no image url in page",
+        "39708": "no image url in page",
+        "39709": "no image url in page",
+        "39710": "no image url in page",
+        "39711": "no image url in page",
+        "39712": "no image url in page",
+        "39713": "no image url in page",
+        "39714": "no image url in page",
+        "39715": "no image url in page",
+        "39716": "no image url in page",
+        "39717": "no image url in page",
+        "39718": "no image url in page",
+        "39719": "no image url in page",
+        "39720": "no image url in page",
+        "39721": "no image url in page",
+        "39722": "no image url in page",
+        "39723": "no image url in page",
+        "39724": "no image url in page",
+        "39725": "no image url in page",
+        "39726": "no image url in page",
+        "39727": "no image url in page",
+        "39728": "no image url in page",
+        "39729": "no image url in page",
+        "39730": "no image url in page",
+        "39731": "no image url in page",
+        "39732": "no image url in page",
+        "39733": "no image url in page",
+        "39734": "no image url in page",
+        "39735": "no image url in page",
+        "39736": "no image url in page",
+        "39737": "no image url in page",
+        "39738": "no image url in page",
+        "39739": "no image url in page",
+        "39740": "no image url in page",
+        "39741": "no image url in page",
+        "39742": "no image url in page",
+        "39743": "no image url in page",
+        "39744": "no image url in page",
+        "39745": "no image url in page",
+        "39746": "no image url in page",
+        "39747": "no image url in page",
+        "39748": "no image url in page",
+        "39749": "no image url in page",
+        "39750": "no image url in page",
+        "39751": "no image url in page"
+    }
+}
