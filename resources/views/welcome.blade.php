@@ -1,4 +1,10 @@
-<x-app-layout title="Welcome">
+{{-- Was title="Welcome", so the live <title> was literally
+     "Welcome | PCTG Builder" and every shared link read "Welcome".
+     This is what search results and social previews show. --}}
+<x-app-layout
+    title="Custom Gaming PCs, Built to Order in the UK"
+    description="Configure your own custom gaming PC to your spec. Real UK prices, compatibility checked, built and tested in Bristol, two-year warranty and free UK delivery."
+>
 
     @include('partials.intro')
 
@@ -38,32 +44,33 @@
         </x-pctg.hero>
     </section>
 
-    {{-- Animated statistics --}}
+    {{-- These four counters used to read "500+ Systems Built", "4.9★ Customer
+         Rating", "28+ Years Experience" and "99.9% Compatibility Success".
+
+         None of those four numbers could be substantiated from any source in the
+         business, and an aggregate customer rating is exactly the kind of claim
+         the DMCC Act 2024 makes publishers responsible for. They have been
+         replaced with statements that are true and checkable by the customer.
+
+         Do not put a number back here unless it can be produced from a record.
+         A blank is honest; an invented count is not. --}}
     <section class="mb-12">
         <div class="grid grid-cols-2 gap-4 pctg-reveal xl:grid-cols-4">
             <div class="pctg-metric text-center">
-                <div class="text-5xl font-black text-red-500">
-                    <span data-pctg-count="500" data-pctg-suffix="+">0+</span>
-                </div>
-                <div class="mt-3 text-slate-400">Systems Built</div>
+                <div class="text-5xl font-black text-red-500">2yr</div>
+                <div class="mt-3 text-slate-400">Warranty On Every Build</div>
             </div>
             <div class="pctg-metric text-center">
-                <div class="text-5xl font-black text-red-500">
-                    <span data-pctg-count="4.9" data-pctg-decimals="1" data-pctg-suffix="★">0.0★</span>
-                </div>
-                <div class="mt-3 text-slate-400">Customer Rating</div>
+                <div class="text-5xl font-black text-red-500">100%</div>
+                <div class="mt-3 text-slate-400">Compatibility Checked</div>
             </div>
             <div class="pctg-metric text-center">
-                <div class="text-5xl font-black text-red-500">
-                    <span data-pctg-count="28" data-pctg-suffix="+">0+</span>
-                </div>
-                <div class="mt-3 text-slate-400">Years Experience</div>
+                <div class="text-5xl font-black text-red-500">1080p&ndash;4K</div>
+                <div class="mt-3 text-slate-400">Every Budget Covered</div>
             </div>
             <div class="pctg-metric text-center">
-                <div class="text-5xl font-black text-red-500">
-                    <span data-pctg-count="99.9" data-pctg-decimals="1" data-pctg-suffix="%">0.0%</span>
-                </div>
-                <div class="mt-3 text-slate-400">Compatibility Success</div>
+                <div class="text-5xl font-black text-red-500">UK</div>
+                <div class="mt-3 text-slate-400">Built And Warrantied Here</div>
             </div>
         </div>
     </section>
@@ -310,78 +317,64 @@
     </section>
 
     {{-- Testimonials --}}
-    <section id="testimonials" class="mb-12">
+    {{-- What you get on every build.
+         This section REPLACED a "Players Trust PCTG" testimonial block that
+         carried three five-star reviews attributed to invented people
+         ("Sam K.", "Morgan T.", "Ash R."), each of which praised one of three
+         build names that existed nowhere but in this file.
+
+         Publishing invented customer reviews is a breach of the Digital
+         Markets, Competition and Consumers Act 2024, and it put the one thing
+         that actually earns money - the reputation - at risk. The claims are
+         gone rather than softened.
+
+         Every statement below is something we can actually honour, and each
+         links to the page that explains it. If a claim cannot be substantiated
+         it does not belong here. Do not add testimonials back here until there
+         are real, attributable ones. --}}
+    <section id="included" class="mb-12">
         <div class="mb-10 text-center pctg-reveal">
-            <h2 class="text-4xl font-black">Players Trust PCTG</h2>
+            <h2 class="text-4xl font-black">What Every Build Comes With</h2>
             <p class="mx-auto mt-4 max-w-3xl text-slate-400">
-                Real builds, real reviews — from competitive grinders to full-time streamers.
+                No mystery extras and no vague promises — here is exactly what is included
+                on every machine, and what happens if something goes wrong.
             </p>
         </div>
 
         <div class="grid gap-4 pctg-reveal md:grid-cols-3" style="--reveal-delay: 120ms">
             <x-pctg.hover-card>
-                <div class="flex gap-1 text-yellow-400" aria-label="5 out of 5 stars">
-                    <x-pctg.icon name="star" class="h-4 w-4" />
-                    <x-pctg.icon name="star" class="h-4 w-4" />
-                    <x-pctg.icon name="star" class="h-4 w-4" />
-                    <x-pctg.icon name="star" class="h-4 w-4" />
-                    <x-pctg.icon name="star" class="h-4 w-4" />
+                <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-pctg-success/10 text-pctg-success ring-1 ring-pctg-success/30">
+                    <x-pctg.icon name="shield-check" class="h-6 w-6" />
                 </div>
-                <p class="mt-4 text-sm leading-relaxed text-slate-400">
-                    The AI builder put together a 1440P rig that out-performed a system
-                    twice the price from a big box store. Burn test report included,
-                    zero issues in six months.
+                <h3 class="text-lg font-bold">Two-year warranty</h3>
+                <p class="mt-3 text-sm leading-relaxed text-slate-400">
+                    The whole machine is covered for two years, not just the parts that
+                    arrive faulty. If it goes wrong, we sort it.
                 </p>
-                <div class="mt-5 flex items-center gap-3">
-                    <span class="flex h-10 w-10 items-center justify-center rounded-full bg-red-500/10 font-black text-red-300 ring-1 ring-red-500/30">SK</span>
-                    <div>
-                        <div class="font-semibold">Sam K.</div>
-                        <div class="text-xs text-slate-500">Arctic Ghost · 9800X3D</div>
-                    </div>
-                </div>
             </x-pctg.hover-card>
 
             <x-pctg.hover-card>
-                <div class="flex gap-1 text-yellow-400" aria-label="5 out of 5 stars">
-                    <x-pctg.icon name="star" class="h-4 w-4" />
-                    <x-pctg.icon name="star" class="h-4 w-4" />
-                    <x-pctg.icon name="star" class="h-4 w-4" />
-                    <x-pctg.icon name="star" class="h-4 w-4" />
-                    <x-pctg.icon name="star" class="h-4 w-4" />
+                <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-pctg-primary/10 text-pctg-primary-hover ring-1 ring-pctg-primary/30">
+                    <x-pctg.icon name="cpu" class="h-6 w-6" />
                 </div>
-                <p class="mt-4 text-sm leading-relaxed text-slate-400">
-                    Streaming at 1440P with a 1080P broadcast — the FPS estimator was
-                    within a couple of frames of what I actually get. Genuinely useful.
+                <h3 class="text-lg font-bold">Checked before it ships</h3>
+                <p class="mt-3 text-sm leading-relaxed text-slate-400">
+                    Socket, wattage, clearance and BIOS are checked on the build you
+                    actually order. If a part will not work with the rest, we change it
+                    rather than ship it and let you find out.
                 </p>
-                <div class="mt-5 flex items-center gap-3">
-                    <span class="flex h-10 w-10 items-center justify-center rounded-full bg-purple-500/10 font-black text-purple-300 ring-1 ring-purple-500/30">MT</span>
-                    <div>
-                        <div class="font-semibold">Morgan T.</div>
-                        <div class="text-xs text-slate-500">Stormbyte · Streamer</div>
-                    </div>
-                </div>
             </x-pctg.hover-card>
 
             <x-pctg.hover-card>
-                <div class="flex gap-1 text-yellow-400" aria-label="5 out of 5 stars">
-                    <x-pctg.icon name="star" class="h-4 w-4" />
-                    <x-pctg.icon name="star" class="h-4 w-4" />
-                    <x-pctg.icon name="star" class="h-4 w-4" />
-                    <x-pctg.icon name="star" class="h-4 w-4" />
-                    <x-pctg.icon name="star" class="h-4 w-4" />
+                <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-pctg-warning/10 text-pctg-warning ring-1 ring-pctg-warning/30">
+                    <x-pctg.icon name="gauge" class="h-6 w-6" />
                 </div>
-                <p class="mt-4 text-sm leading-relaxed text-slate-400">
-                    Burn tested, cable managed, and it shipped faster than estimated.
-                    The compatibility check flagged a BIOS note before I ordered —
-                    that's the kind of detail that earns a repeat customer.
+                <h3 class="text-lg font-bold">Honest FPS estimates</h3>
+                <p class="mt-3 text-sm leading-relaxed text-slate-400">
+                    Frame rates are estimates from benchmark data, labelled as
+                    estimates. We would rather quote a number we can stand behind
+                    than a flattering one.
                 </p>
-                <div class="mt-5 flex items-center gap-3">
-                    <span class="flex h-10 w-10 items-center justify-center rounded-full bg-yellow-500/10 font-black text-yellow-300 ring-1 ring-yellow-500/30">AR</span>
-                    <div>
-                        <div class="font-semibold">Ash R.</div>
-                        <div class="text-xs text-slate-500">Frostbyte XT · 1440P</div>
-                    </div>
-                </div>
             </x-pctg.hover-card>
         </div>
     </section>

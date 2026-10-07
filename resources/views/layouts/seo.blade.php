@@ -17,10 +17,23 @@
     <meta property="og:title" content="@yield('title', config('app.name', 'PCTG Builder'))">
     <meta property="og:description" content="@yield('description', 'PCTG Builder — configure a custom gaming PC to your own spec, assembled and tested in the UK. Free UK delivery, warranty and lifetime remote support.')">
     <meta property="og:locale" content="en_GB">
+    {{-- og:image was MISSING entirely while twitter:card declared
+         summary_large_image, so every link shared on WhatsApp, Facebook or X
+         rendered as a bare text card with no picture. Both tags now point at a
+         real 1200x630 asset. --}}
+    <meta property="og:image" content="{{ asset('img/brand/pctg-og.png') }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="PCTechGuy Online — custom gaming PCs built and tested in the UK">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('title', config('app.name', 'PCTG Builder'))">
     <meta name="twitter:description" content="@yield('description', 'PCTG Builder — configure a custom gaming PC to your own spec, assembled and tested in the UK. Free UK delivery, warranty and lifetime remote support.')">
+    <meta name="twitter:image" content="{{ asset('img/brand/pctg-og.png') }}">
+
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('img/brand/pctg-mark.svg') }}">
+    <link rel="apple-touch-icon" href="{{ asset('img/brand/pctg-mark-180.png') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

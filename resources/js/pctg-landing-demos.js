@@ -26,86 +26,167 @@ const waitForDom = (callback) => {
 /* ---------------------------------------------------------------- */
 /* AI Builder showcase                                               */
 /* ---------------------------------------------------------------- */
+/*
+ * WHY THESE NUMBERS ARE WHAT THEY ARE
+ * ----------------------------------
+ * The previous version of this file shipped a "1440P Ultra Ready" build
+ * advertised at GBP 1,096 as the "Estimated total". Measured against our own
+ * catalogue and pricing engine, that figure was wrong three separate ways:
+ *
+ *  1. It was not a parts total at all. It added up cpu + gpu + ram + ssd and
+ *     silently omitted the motherboard, case, PSU and cooler, every one of
+ *     which a machine cannot be built without.
+ *  2. It was not a sellable price. Even taken at face value, pushing a GBP 1,096
+ *     parts sum through BuildPricingService::completePrice() yields GBP 1,696.91
+ *     all-in - delivery, build time, testing and margin.
+ *  3. The individual parts were not real prices. RAM was shown at GBP 99 when
+ *     the cheapest sellable 32GB DDR5-6000 kit in our catalogue is GBP 319.99,
+ *     and 2TB NVMe at GBP 119 when the cheapest in-stock unit is GBP 209.00.
+ *     Both were fabricated below cost purely to make the headline land.
+ *
+ * It also undercut our own published floors: workableBands() measures the live
+ * 1440p floor at GBP 1,440, so the page was promising a 1440P machine for
+ * GBP 344 less than we claim the cheapest one costs.
+ *
+ * THE RULE APPLIED BELOW
+ * ----------------------
+ * Every total shown here is the number the app's OWN pricing engine produces for
+ * that build - parts plus service plus delivery plus margin, VAT-inclusive, which
+ * is what config/pricing.php and the "prices include VAT" statement in llms.txt
+ * describe. No total is hand-written. If a build cannot be assembled from real
+ * priced parts, it is not listed.
+ *
+ * These are examples, and they are labelled as examples. The live quote the
+ * customer gets always comes from /builder/ai, never from this file.
+ */
 
 const DEMO_BUILDS = {
     gaming: {
         entry: {
-            tag: '1080P Competitive Ready',
+            tag: '1080P Ultra Ready',
+            note: 'Example build. Your quote is priced live when you generate one.',
             parts: [
-                { cat: 'CPU', name: 'AMD Ryzen 5 7600', price: 199 },
-                { cat: 'GPU', name: 'NVIDIA RTX 4060', price: 289 },
-                { cat: 'RAM', name: '32GB DDR5 5600', price: 89 },
-                { cat: 'SSD', name: '1TB NVMe Gen4', price: 79 },
+                { cat: 'CPU', name: 'AMD Ryzen 5 7600', price: 164.99 },
+                { cat: 'GPU', name: 'Acer Nitro OC Arc B570 10GB', price: 219.00 },
+                { cat: 'RAM', name: 'ADATA XPG SPECTRIX D35G RGB 32 GB DDR5-6000', price: 205.99 },
+                { cat: 'SSD', name: 'Patriot P210 512GB', price: 61.99 },
+                { cat: 'Board', name: 'Gigabyte A520M K V2', price: 42.99 },
+                { cat: 'PSU', name: 'Gigabyte P850GM', price: 58.99 },
+                { cat: 'Case', name: 'Montech AIR 100 ARGB', price: 50.04 },
+                { cat: 'Cooler', name: 'ID-COOLING FROSTFLOW X', price: 40.00 },
             ],
+            allIn: 1297.92,
         },
         premium: {
             tag: '1440P Ultra Ready',
+            note: 'Example build. Your quote is priced live when you generate one.',
             parts: [
-                { cat: 'CPU', name: 'AMD Ryzen 7 9700X', price: 329 },
-                { cat: 'GPU', name: 'NVIDIA RTX 5070', price: 549 },
-                { cat: 'RAM', name: '32GB DDR5 6000', price: 99 },
-                { cat: 'SSD', name: '2TB NVMe Gen4', price: 119 },
+                { cat: 'CPU', name: 'AMD Ryzen 5 7600X', price: 137.99 },
+                { cat: 'GPU', name: 'Asus PRIME OC GeForce RTX 5070 12GB', price: 555.00 },
+                { cat: 'RAM', name: 'V-Color Manta XSky RGB 32 GB DDR5-6000', price: 319.99 },
+                { cat: 'SSD', name: 'Crucial P310 w/ Heatsink 2048GB', price: 219.95 },
+                { cat: 'Board', name: 'ASRock A620AM-HVS', price: 67.50 },
+                { cat: 'PSU', name: 'Gigabyte P850GM', price: 58.99 },
+                { cat: 'Case', name: 'NZXT H6 Flow RGB', price: 95.47 },
+                { cat: 'Cooler', name: 'ID-COOLING FROSTFLOW X', price: 40.00 },
             ],
+            allIn: 2108.13,
         },
     },
     streaming: {
         entry: {
-            tag: '1080P Gaming + 1080P Stream',
+            tag: '1440P Gaming + 1080P Stream',
+            note: 'Example build. Your quote is priced live when you generate one.',
             parts: [
-                { cat: 'CPU', name: 'AMD Ryzen 7 9700X', price: 329 },
-                { cat: 'GPU', name: 'NVIDIA RTX 4060', price: 289 },
-                { cat: 'RAM', name: '32GB DDR5 6000', price: 99 },
-                { cat: 'SSD', name: '2TB NVMe Gen4', price: 119 },
+                { cat: 'CPU', name: 'AMD Ryzen 5 7600X', price: 137.99 },
+                { cat: 'GPU', name: 'Asus DUAL OC GeForce RTX 5060 Ti 8GB', price: 317.99 },
+                { cat: 'RAM', name: 'V-Color Manta XSky RGB 32 GB DDR5-6000', price: 319.99 },
+                { cat: 'SSD', name: 'Kingston NV3 1024GB', price: 128.94 },
+                { cat: 'Board', name: 'ASRock A620AM-HVS', price: 67.50 },
+                { cat: 'PSU', name: 'Gigabyte P850GM', price: 58.99 },
+                { cat: 'Case', name: 'NZXT H6 Flow RGB', price: 95.47 },
+                { cat: 'Cooler', name: 'ID-COOLING FROSTFLOW X', price: 40.00 },
             ],
+            allIn: 2014.31,
         },
         premium: {
-            tag: '1440P Gaming + 1080P Stream',
+            tag: '1440P Streamer',
+            note: 'Example build. Your quote is priced live when you generate one.',
             parts: [
-                { cat: 'CPU', name: 'AMD Ryzen 7 9700X', price: 329 },
-                { cat: 'GPU', name: 'NVIDIA RTX 5070', price: 549 },
-                { cat: 'RAM', name: '64GB DDR5 6000', price: 189 },
-                { cat: 'SSD', name: '2TB NVMe Gen4', price: 119 },
+                { cat: 'CPU', name: 'AMD Ryzen 7 9700X', price: 241.47 },
+                { cat: 'GPU', name: 'Asus PRIME OC GeForce RTX 5070 12GB', price: 555.00 },
+                { cat: 'RAM', name: 'V-Color Manta XSky RGB 32 GB DDR5-6000', price: 319.99 },
+                { cat: 'SSD', name: 'Crucial P310 w/ Heatsink 2048GB', price: 219.95 },
+                { cat: 'Board', name: 'Gigabyte B650 EAGLE AX', price: 112.99 },
+                { cat: 'PSU', name: 'MSI MAG A850GL PCIE5', price: 88.00 },
+                { cat: 'Case', name: 'NZXT H9 Flow (2025) ATX Mid Tower', price: 99.98 },
+                { cat: 'Cooler', name: 'ID-COOLING FROSTFLOW X', price: 40.00 },
             ],
+            allIn: 2234.06,
         },
     },
     creation: {
         entry: {
             tag: '1440P Editing + Gaming',
+            note: 'Example build. Your quote is priced live when you generate one.',
             parts: [
-                { cat: 'CPU', name: 'AMD Ryzen 7 9700X', price: 329 },
-                { cat: 'GPU', name: 'NVIDIA RTX 5070', price: 549 },
-                { cat: 'RAM', name: '64GB DDR5 6000', price: 189 },
-                { cat: 'SSD', name: '2TB NVMe Gen4', price: 119 },
+                { cat: 'CPU', name: 'AMD Ryzen 9 9900X', price: 296.86 },
+                { cat: 'GPU', name: 'Asus PRIME OC GeForce RTX 5070 12GB', price: 555.00 },
+                { cat: 'RAM', name: 'V-Color Manta XSky RGB 32 GB DDR5-6000', price: 319.99 },
+                { cat: 'SSD', name: 'Crucial P310 w/ Heatsink 2048GB', price: 219.95 },
+                { cat: 'Board', name: 'Gigabyte B650 EAGLE AX', price: 112.99 },
+                { cat: 'PSU', name: 'MSI MAG A850GL PCIE5', price: 88.00 },
+                { cat: 'Case', name: 'NZXT H9 Flow (2025) ATX Mid Tower', price: 99.98 },
+                { cat: 'Cooler', name: 'ID-COOLING FROSTFLOW X', price: 40.00 },
             ],
+            allIn: 2229.61,
         },
         premium: {
             tag: '4K Creative Workstation',
+            note: 'Example build. Your quote is priced live when you generate one.',
             parts: [
-                { cat: 'CPU', name: 'AMD Ryzen 9 9900X', price: 449 },
-                { cat: 'GPU', name: 'NVIDIA RTX 5070 Ti', price: 649 },
-                { cat: 'RAM', name: '64GB DDR5 6000', price: 189 },
-                { cat: 'SSD', name: '4TB NVMe Gen4', price: 219 },
+                { cat: 'CPU', name: 'AMD Ryzen 9 9950X', price: 439.78 },
+                { cat: 'GPU', name: 'Gigabyte WINDFORCE OC SFF RTX 5070 Ti 16GB', price: 787.74 },
+                { cat: 'RAM', name: 'Crucial Pro 64 GB DDR5-6000', price: 662.58 },
+                { cat: 'SSD', name: 'TEAMGROUP QX 4TB', price: 329.99 },
+                { cat: 'Board', name: 'ASRock X870 Steel Legend WiFi', price: 164.39 },
+                { cat: 'PSU', name: 'MSI MAG A850GL PCIE5', price: 88.00 },
+                { cat: 'Case', name: 'NZXT H9 Flow (2025) ATX Mid Tower', price: 99.98 },
+                { cat: 'Cooler', name: 'ID-COOLING FROSTFLOW X', price: 40.00 },
             ],
+            allIn: 3161.55,
         },
     },
     ai: {
         entry: {
-            tag: 'Local LLM + AI Dev Ready',
+            tag: 'Local LLM + AI Dev',
+            note: 'Example build. Your quote is priced live when you generate one.',
             parts: [
-                { cat: 'CPU', name: 'AMD Ryzen 7 9700X', price: 329 },
-                { cat: 'GPU', name: 'NVIDIA RTX 5070', price: 549 },
-                { cat: 'RAM', name: '64GB DDR5 6000', price: 189 },
-                { cat: 'SSD', name: '2TB NVMe Gen4', price: 119 },
+                { cat: 'CPU', name: 'AMD Ryzen 9 9900X', price: 296.86 },
+                { cat: 'GPU', name: 'Gigabyte WINDFORCE OC SFF RTX 5070 Ti 16GB', price: 787.74 },
+                { cat: 'RAM', name: 'Crucial Pro 64 GB DDR5-6000', price: 662.58 },
+                { cat: 'SSD', name: 'Crucial P310 w/ Heatsink 2048GB', price: 219.95 },
+                { cat: 'Board', name: 'ASRock X870 Steel Legend WiFi', price: 164.39 },
+                { cat: 'PSU', name: 'MSI MAG A850GL PCIE5', price: 88.00 },
+                { cat: 'Case', name: 'NZXT H9 Flow (2025) ATX Mid Tower', price: 99.98 },
+                { cat: 'Cooler', name: 'ID-COOLING FROSTFLOW X', price: 40.00 },
             ],
+            allIn: 2847.87,
         },
         premium: {
             tag: 'Serious AI Workstation',
+            note: 'Example build. Your quote is priced live when you generate one.',
             parts: [
-                { cat: 'CPU', name: 'AMD Ryzen 9 9950X', price: 549 },
-                { cat: 'GPU', name: 'NVIDIA RTX 5080', price: 899 },
-                { cat: 'RAM', name: '96GB DDR5 6000', price: 259 },
-                { cat: 'SSD', name: '4TB NVMe Gen4', price: 219 },
+                { cat: 'CPU', name: 'AMD Ryzen 9 9950X', price: 439.78 },
+                { cat: 'GPU', name: 'PNY OC GeForce RTX 5080 16GB', price: 1159.99 },
+                { cat: 'RAM', name: 'Crucial Pro 64 GB DDR5-6000', price: 662.58 },
+                { cat: 'SSD', name: 'TEAMGROUP QX 4TB', price: 329.99 },
+                { cat: 'Board', name: 'ASRock X870 Steel Legend WiFi', price: 164.39 },
+                { cat: 'PSU', name: 'MSI MAG A850GL PCIE5', price: 88.00 },
+                { cat: 'Case', name: 'NZXT H9 Flow (2025) ATX Mid Tower', price: 99.98 },
+                { cat: 'Cooler', name: 'ID-COOLING FROSTFLOW X', price: 40.00 },
             ],
+            allIn: 3533.91,
         },
     },
 };
@@ -132,8 +213,39 @@ const builderPartRow = (part) => `
     </div>
 `;
 
-const builderResultMarkup = (useCase, tag, parts, rationale) => {
-    const total = parts.reduce((sum, part) => sum + part.price, 0);
+const builderResultMarkup = (useCase, tag, parts, rationale, allIn, note) => {
+    /*
+     * allIn is the price the app's own engine produces: parts + service +
+     * delivery + margin, VAT-inclusive. It is passed in, NOT recomputed here.
+     *
+     * Summing the part prices instead is what produced the old, wrong headline.
+     * The part list deliberately omits nothing a machine needs, so the sum is
+     * now a genuine parts cost - but a parts cost is still not a sell price,
+     * and showing one as "Estimated total" would repeat the original defect.
+     *
+     * When the live /builder/ai response supplies its own total we use that,
+     * because it is authoritative. Only when there is no live total do we fall
+     * back to the measured all-in figure on the demo build.
+     */
+    const partsSum = parts.reduce((sum, part) => sum + (Number(part.price) || 0), 0);
+    const hasAllIn = Number.isFinite(Number(allIn)) && Number(allIn) > 0;
+
+    const totalBlock = hasAllIn
+        ? `
+            <div class="mt-4 flex items-baseline justify-between border-t border-slate-800 pt-4">
+                <div>
+                    <span class="font-bold">Estimated total</span>
+                    <p class="mt-1 text-xs text-slate-500">
+                        Parts, build, testing, delivery and warranty. VAT included.
+                    </p>
+                </div>
+                <span class="text-2xl font-black text-red-500">${formatGBP(allIn)}</span>
+            </div>
+            <p class="mt-2 text-xs text-slate-600">
+                Parts cost ${formatGBP(partsSum)} &middot; the rest is what it takes to
+                build it, test it, deliver it and stand behind it for two years.
+            </p>`
+        : '';
 
     const insight = rationale
         ? `
@@ -141,6 +253,10 @@ const builderResultMarkup = (useCase, tag, parts, rationale) => {
                 <p class="font-semibold">Gemini insight</p>
                 <p class="mt-1 text-purple-200/80">${rationale}</p>
             </div>`
+        : '';
+
+    const disclaimer = note
+        ? `<p class="mt-3 text-xs text-slate-500">${note}</p>`
         : '';
 
     return `
@@ -151,11 +267,9 @@ const builderResultMarkup = (useCase, tag, parts, rationale) => {
         <div class="mt-4 divide-y divide-slate-800/60">
             ${parts.map(builderPartRow).join('')}
         </div>
-        <div class="mt-4 flex items-center justify-between border-t border-slate-800 pt-4">
-            <span class="font-bold">Estimated total</span>
-            <span class="text-2xl font-black text-red-500">${formatGBP(total)}</span>
-        </div>
+        ${totalBlock}
         ${insight}
+        ${disclaimer}
         <p class="mt-4 text-xs text-slate-500">Live recommendations, compatibility and FPS estimates inside the
         <a href="/builder" class="text-red-400 hover:underline">AI Builder</a>.</p>
     `;
@@ -187,9 +301,11 @@ waitForDom(() => {
     let useCase = 'gaming';
     let budget = Number(budgetInput.value) || 1500;
 
-    // Fallback until /builder/bands answers, so the slider is never briefly
-    // showing a budget we cannot build.
-    let floor = 1350;
+    // These are FALLBACKS only, until /builder/bands answers with the live
+    // measured figures. workableBands() measures the 1080p entry at 1,297.92,
+    // which it publishes rounded to 1,300, so the fallback floor matches that
+    // rather than the old 1,350 - which understated our own cheapest machine.
+    let floor = 1300;
     let ceiling = 3500;
 
     const WHATSAPP = '+447933101083';
@@ -216,7 +332,10 @@ waitForDom(() => {
         if (quiet || !budgetNotice) return floor;
 
         budgetNotice.hidden = false;
-        budgetNotice.innerHTML = ''
+        // Two-year warranty is stated because it is a real, documented commitment
+    // (see the "What Every Build Comes With" section on the landing page).
+    // It must stay true: if the warranty changes, change both places.
+    budgetNotice.innerHTML = ''
             + '<p class="font-semibold text-amber-200">We have moved your budget to '
             + money(floor) + ', which is the least a brand-new 1080p machine costs when it comes to us '
             + 'fully built, tested and covered by our two-year warranty.</p>'
@@ -269,7 +388,7 @@ waitForDom(() => {
 
     const renderStatic = () => {
         const build = DEMO_BUILDS[useCase][tierFor(useCase, budget)];
-        resultPanel.innerHTML = builderResultMarkup(useCase, build.tag, build.parts);
+        resultPanel.innerHTML = builderResultMarkup(useCase, build.tag, build.parts, null, build.allIn, build.note);
     };
 
     const partsFromApi = (payload) => {
@@ -325,10 +444,18 @@ waitForDom(() => {
         resultPanel.innerHTML = builderLoadingMarkup();
         generateButton.disabled = true;
 
-        const fallback = { ...DEMO_BUILDS[useCase][tierFor(useCase, budget)], rationale: null };
+        const demo = DEMO_BUILDS[useCase][tierFor(useCase, budget)];
+        const fallback = { ...demo, rationale: null };
         const result = (await generateFromApi()) || fallback;
 
-        resultPanel.innerHTML = builderResultMarkup(useCase, result.tag, result.parts, result.rationale);
+        resultPanel.innerHTML = builderResultMarkup(
+            useCase,
+            result.tag,
+            result.parts,
+            result.rationale,
+            result.allIn,
+            result.note
+        );
         generateButton.disabled = false;
     };
 

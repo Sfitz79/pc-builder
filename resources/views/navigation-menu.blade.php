@@ -1,11 +1,27 @@
 ﻿<header class="border-b border-white/5 bg-pctg-background/85 backdrop-blur-xl">
     <div class="mx-auto flex h-16 max-w-[1600px] items-center gap-4 px-4 sm:px-6 lg:px-8">
         <a href="/" class="flex items-center gap-3">
-            <span class="power-pulse flex h-9 w-9 items-center justify-center rounded-xl bg-pctg-primary text-white">
-                <x-pctg.icon name="zap" class="h-5 w-5" />
-            </span>
+            {{-- The header mark was a CSS red square with a generic lightning-bolt
+                 glyph and the text "PCTG Builder" — a placeholder standing in for a
+                 brand that does not exist as an asset anywhere in the repo. Replaced
+                 with the real PCTechGuy Online mark (public/img/brand/pctg-mark.svg,
+                 rasterised from the same source as the favicon and OG image).
+
+                 width/height are set explicitly to reserve the box, and
+                 loading="eager" + fetchpriority="high" because this is the LCP
+                 element on every page. --}}
+            <img
+                src="{{ asset('img/brand/pctg-mark.svg') }}"
+                alt="PCTechGuy Online"
+                width="36"
+                height="36"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+                class="h-9 w-9 rounded-xl"
+            >
             <span class="hidden leading-tight sm:block">
-                <span class="block font-display text-sm font-bold text-white">PCTG Builder</span>
+                <span class="block font-display text-sm font-bold text-white">PCTechGuy Online</span>
                 <span class="block text-[11px] uppercase tracking-[0.18em] text-pctg-text-secondary">Get Your Gamers Edge&trade;</span>
             </span>
         </a>
