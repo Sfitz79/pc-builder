@@ -320,6 +320,32 @@ $clientId !== ''
     ? $ok('PAYPAL_CLIENT_ID is set (len ' . strlen($clientId) . ')')
     : $warn('PAYPAL_CLIENT_ID', 'not set - Pay in 3 messaging will not render');
 
+// PAYPAL_MODE is what decides whether a configured PayPal actually WORKS, and
+// it defaults to 'sandbox'. A credential set without an explicit mode is the
+// dangerous combination: PayPalService::configured() only checks that the two
+// values are non-empty, so it reports true, checkout renders the Pay in 3
+// option to the customer, and then the first real call 401s because a LIVE
+// credential was sent to the SANDBOX endpoint.
+//
+// Measured 2026-10-07: the credentials supplied for this project authenticate
+// against api-m.paypal.com and are rejected by api-m.sandbox.paypal.com, so
+// they are live. Left unset here deliberately - switching a payment processor
+// to live takes real money and is the Boss's decision - but the mismatch must
+// never again be invisible.
+$mode = getenv('PAYPAL_MODE') ?: (is_readable($root . '/.env')
+    ? (preg_match('/^PAYPAL_MODE=(.+)$/m', (string) file_get_contents($root . '/.env'), $mm) ? trim($mm[1]) : '')
+    : '');
+
+if ($clientId !== '' && $mode === '') {
+    $warn('PAYPAL_MODE', 'credentials are set but PAYPAL_MODE is unset, so it defaults to sandbox - '
+        . 'configured() returns true and the customer is offered Pay in 3, but the call will 401 '
+        . 'unless these are sandbox credentials. Set PAYPAL_MODE=live (real money) or sandbox explicitly.');
+} elseif ($mode !== '' && ! in_array($mode, ['sandbox', 'live'], true)) {
+    $fail('PAYPAL_MODE', 'must be exactly "sandbox" or "live", found "' . $mode . '"');
+} elseif ($mode !== '') {
+    $ok('PAYPAL_MODE is ' . $mode . ($mode === 'live' ? ' (REAL MONEY)' : ''));
+}
+
 // ------------------------------------------------------------- summary ------
 printf("\n%s\n", str_repeat('-', 68));
 printf("passed %d   warnings %d   failures %d\n", $passes, count($warnings), count($failures));
