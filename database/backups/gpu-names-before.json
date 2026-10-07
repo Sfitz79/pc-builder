@@ -1,0 +1,2147 @@
+{
+    "takenAt": "2026-10-07T09:52:08+00:00",
+    "rows": [
+        {
+            "id": 39933,
+            "name": "Gigabyte GAMING OC",
+            "price": "429.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/39933.jpg"
+        },
+        {
+            "id": 39934,
+            "name": "Gigabyte GAMING OC",
+            "price": "645.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/39934.jpg"
+        },
+        {
+            "id": 39935,
+            "name": "Gigabyte WINDFORCE OC",
+            "price": "315.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/39935.jpg"
+        },
+        {
+            "id": 39936,
+            "name": "Gigabyte WINDFORCE OC SFF",
+            "price": "586.00",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/39936.jpg"
+        },
+        {
+            "id": 39937,
+            "name": "Asus ROG Astral OC",
+            "price": "3559.00",
+            "specs": "{\"memory\":\"32GB\",\"chipset\":\"GeForce RTX 5090\"}",
+            "image_url": "\/img\/components\/39937.jpg"
+        },
+        {
+            "id": 39938,
+            "name": "Asus DUAL OC",
+            "price": "518.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/39938.jpg"
+        },
+        {
+            "id": 39939,
+            "name": "Sapphire PULSE",
+            "price": "409.98",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/39939.jpg"
+        },
+        {
+            "id": 39940,
+            "name": "PNY OC",
+            "price": "1159.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/39940.jpg"
+        },
+        {
+            "id": 39941,
+            "name": "PowerColor Reaper",
+            "price": "639.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/39941.jpg"
+        },
+        {
+            "id": 39942,
+            "name": "MSI SHADOW 3X OC",
+            "price": "876.91",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/39942.jpg"
+        },
+        {
+            "id": 39943,
+            "name": "Asus PRIME OC",
+            "price": "643.51",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/39943.jpg"
+        },
+        {
+            "id": 39944,
+            "name": "XFX Swift OC",
+            "price": "399.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/39944.jpg"
+        },
+        {
+            "id": 39945,
+            "name": "ASRock Challenger OC",
+            "price": "331.80",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"Radeon RX 7600\"}",
+            "image_url": "\/img\/components\/39945.jpg"
+        },
+        {
+            "id": 39946,
+            "name": "MSI VENTUS 2X OC",
+            "price": "294.00",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/39946.jpg"
+        },
+        {
+            "id": 39947,
+            "name": "ASRock Challenger OC",
+            "price": "511.42",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/39947.jpg"
+        },
+        {
+            "id": 39948,
+            "name": "ASRock Challenger",
+            "price": "648.54",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/39948.jpg"
+        },
+        {
+            "id": 39949,
+            "name": "Sapphire PULSE",
+            "price": "659.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/39949.jpg"
+        },
+        {
+            "id": 39950,
+            "name": "Gigabyte WINDFORCE OC SFF",
+            "price": "1215.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/39950.jpg"
+        },
+        {
+            "id": 39951,
+            "name": "PNY Dual Fan OC",
+            "price": "385.94",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/39951.jpg"
+        },
+        {
+            "id": 39952,
+            "name": "PNY OC",
+            "price": "864.98",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/39952.jpg"
+        },
+        {
+            "id": 39953,
+            "name": "Gigabyte WINDFORCE OC",
+            "price": "259.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5050\"}",
+            "image_url": "\/img\/components\/39953.jpg"
+        },
+        {
+            "id": 39954,
+            "name": "Asus ROG Astral OC",
+            "price": "1516.98",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/39954.jpg"
+        },
+        {
+            "id": 39955,
+            "name": "Gigabyte EAGLE OC SFF",
+            "price": "628.99",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/39955.jpg"
+        },
+        {
+            "id": 39956,
+            "name": "Gigabyte GAMING OC ICE",
+            "price": "659.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/39956.jpg"
+        },
+        {
+            "id": 39957,
+            "name": "XFX Swift",
+            "price": "649.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/39957.jpg"
+        },
+        {
+            "id": 39958,
+            "name": "XFX Speedster QICK 309",
+            "price": "348.71",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 7600 XT\"}",
+            "image_url": "\/img\/components\/39958.jpg"
+        },
+        {
+            "id": 39959,
+            "name": "Asus ROG Astral OC",
+            "price": "3799.99",
+            "specs": "{\"memory\":\"32GB\",\"chipset\":\"GeForce RTX 5090\"}",
+            "image_url": "\/img\/components\/39959.jpg"
+        },
+        {
+            "id": 39960,
+            "name": "MSI VENTUS 2X OC",
+            "price": "218.99",
+            "specs": "{\"memory\":\"6GB\",\"chipset\":\"GeForce RTX 3050 6GB\"}",
+            "image_url": "\/img\/components\/39960.jpg"
+        },
+        {
+            "id": 39961,
+            "name": "PowerColor Reaper",
+            "price": "419.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/39961.jpg"
+        },
+        {
+            "id": 39962,
+            "name": "Asus PRIME OC",
+            "price": "555.00",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/39962.jpg"
+        },
+        {
+            "id": 39963,
+            "name": "Asus DUAL",
+            "price": "429.98",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/39963.jpg"
+        },
+        {
+            "id": 39964,
+            "name": "XFX Swift OC",
+            "price": "409.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/39964.jpg"
+        },
+        {
+            "id": 39965,
+            "name": "NVIDIA Founders Edition",
+            "price": "4439.99",
+            "specs": "{\"memory\":\"32GB\",\"chipset\":\"GeForce RTX 5090\"}",
+            "image_url": "\/img\/components\/39965.jpg"
+        },
+        {
+            "id": 39966,
+            "name": "MSI VENTUS 2X PLUS OC",
+            "price": "358.19",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/39966.jpg"
+        },
+        {
+            "id": 39967,
+            "name": "Gigabyte WINDFORCE OC SFF",
+            "price": "787.74",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/39967.jpg"
+        },
+        {
+            "id": 39968,
+            "name": "ASRock Challenger OC",
+            "price": "559.92",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"Radeon RX 7700 XT\"}",
+            "image_url": "\/img\/components\/39968.jpg"
+        },
+        {
+            "id": 39969,
+            "name": "Sapphire NITRO+",
+            "price": "719.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/39969.jpg"
+        },
+        {
+            "id": 39970,
+            "name": "Gigabyte GAMING OC",
+            "price": "1224.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/39970.jpg"
+        },
+        {
+            "id": 39971,
+            "name": "XFX Swift OC",
+            "price": "419.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/39971.jpg"
+        },
+        {
+            "id": 39972,
+            "name": "Asus Dual GeForce RTX 3060 V2 OC Edition",
+            "price": "319.99",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 3060 12GB\"}",
+            "image_url": "\/img\/components\/39972.jpg"
+        },
+        {
+            "id": 39973,
+            "name": "MSI GAMING TRIO OC",
+            "price": "899.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/39973.jpg"
+        },
+        {
+            "id": 39974,
+            "name": "Asus TUF GAMING OC",
+            "price": "1249.98",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/39974.jpg"
+        },
+        {
+            "id": 39975,
+            "name": "Gigabyte GAMING OC",
+            "price": "349.95",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/39975.jpg"
+        },
+        {
+            "id": 39976,
+            "name": "Asus DUAL OC",
+            "price": "313.51",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/39976.jpg"
+        },
+        {
+            "id": 39977,
+            "name": "Asus PRIME OC",
+            "price": "939.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/39977.jpg"
+        },
+        {
+            "id": 39978,
+            "name": "NVIDIA Founders Edition",
+            "price": "3002.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/39978.jpg"
+        },
+        {
+            "id": 39979,
+            "name": "Intel Limited Edition",
+            "price": "449.99",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"Arc B580\"}",
+            "image_url": "\/img\/components\/39979.jpg"
+        },
+        {
+            "id": 39980,
+            "name": "ASRock Challenger",
+            "price": "578.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070\"}",
+            "image_url": "\/img\/components\/39980.jpg"
+        },
+        {
+            "id": 39981,
+            "name": "MSI GAMING TRIO OC",
+            "price": "638.99",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/39981.jpg"
+        },
+        {
+            "id": 39982,
+            "name": "ASRock Challenger OC",
+            "price": "253.29",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"Arc A580\"}",
+            "image_url": "\/img\/components\/39982.jpg"
+        },
+        {
+            "id": 39983,
+            "name": "MSI VENTUS 3X OC",
+            "price": "860.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/39983.jpg"
+        },
+        {
+            "id": 39984,
+            "name": "Asus ROG Astral OC",
+            "price": "1625.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/39984.jpg"
+        },
+        {
+            "id": 39985,
+            "name": "PowerColor Reaper",
+            "price": "569.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070\"}",
+            "image_url": "\/img\/components\/39985.jpg"
+        },
+        {
+            "id": 39986,
+            "name": "XFX Speedster SWFT 210 Core",
+            "price": "278.00",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"Radeon RX 7600\"}",
+            "image_url": "\/img\/components\/39986.jpg"
+        },
+        {
+            "id": 39987,
+            "name": "MSI GAMING TRIO OC",
+            "price": "3599.99",
+            "specs": "{\"memory\":\"32GB\",\"chipset\":\"GeForce RTX 5090\"}",
+            "image_url": "\/img\/components\/39987.jpg"
+        },
+        {
+            "id": 39988,
+            "name": "MSI VENTUS 2X PLUS OC",
+            "price": "539.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/39988.jpg"
+        },
+        {
+            "id": 39989,
+            "name": "Asus PRIME OC",
+            "price": "1253.19",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/39989.jpg"
+        },
+        {
+            "id": 39990,
+            "name": "Asus DUAL OC",
+            "price": "549.99",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/39990.jpg"
+        },
+        {
+            "id": 39991,
+            "name": "Gigabyte EAGLE OC ICE",
+            "price": "310.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/39991.jpg"
+        },
+        {
+            "id": 39992,
+            "name": "PNY OC",
+            "price": "319.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/39992.jpg"
+        },
+        {
+            "id": 39993,
+            "name": "MSI VENTUS 2X XS OC",
+            "price": "263.96",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 3050 8GB\"}",
+            "image_url": "\/img\/components\/39993.jpg"
+        },
+        {
+            "id": 39994,
+            "name": "Gigabyte AERO OC",
+            "price": "957.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/39994.jpg"
+        },
+        {
+            "id": 39995,
+            "name": "ASRock Intel Arc A380 Challenger ITX",
+            "price": "195.21",
+            "specs": "{\"memory\":\"6GB\",\"chipset\":\"Arc A380\"}",
+            "image_url": "\/img\/components\/39995.jpg"
+        },
+        {
+            "id": 39996,
+            "name": "Asus DUAL OC",
+            "price": "317.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/39996.jpg"
+        },
+        {
+            "id": 39997,
+            "name": "MSI SHADOW 3X OC",
+            "price": "1383.36",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/39997.jpg"
+        },
+        {
+            "id": 39998,
+            "name": "ASRock Challenger OC",
+            "price": "251.99",
+            "specs": "{\"memory\":\"10GB\",\"chipset\":\"Arc B570\"}",
+            "image_url": "\/img\/components\/39998.jpg"
+        },
+        {
+            "id": 39999,
+            "name": "XFX Mercury OC RGB",
+            "price": "699.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/39999.jpg"
+        },
+        {
+            "id": 40000,
+            "name": "MSI LIGHTNING Z",
+            "price": "4999.99",
+            "specs": "{\"memory\":\"32GB\",\"chipset\":\"GeForce RTX 5090\"}",
+            "image_url": "\/img\/components\/40000.jpg"
+        },
+        {
+            "id": 40001,
+            "name": "Gigabyte OC Low Profile",
+            "price": "299.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/40001.jpg"
+        },
+        {
+            "id": 40002,
+            "name": "XFX Swift",
+            "price": "639.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40002.jpg"
+        },
+        {
+            "id": 40003,
+            "name": "Asus TUF GAMING OC",
+            "price": "965.47",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/40003.jpg"
+        },
+        {
+            "id": 40004,
+            "name": "Asus PRIME",
+            "price": "1672.79",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40004.jpg"
+        },
+        {
+            "id": 40005,
+            "name": "Gigabyte AORUS MASTER",
+            "price": "3999.95",
+            "specs": "{\"memory\":\"32GB\",\"chipset\":\"GeForce RTX 5090\"}",
+            "image_url": "\/img\/components\/40005.jpg"
+        },
+        {
+            "id": 40006,
+            "name": "ASRock Steel Legend",
+            "price": "649.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40006.jpg"
+        },
+        {
+            "id": 40007,
+            "name": "Asus PRIME OC",
+            "price": "448.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/40007.jpg"
+        },
+        {
+            "id": 40008,
+            "name": "MSI GAMING TRIO OC",
+            "price": "1369.49",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40008.jpg"
+        },
+        {
+            "id": 40009,
+            "name": "XFX Swift OC",
+            "price": "581.47",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070\"}",
+            "image_url": "\/img\/components\/40009.jpg"
+        },
+        {
+            "id": 40010,
+            "name": "MSI GAMING TRIO OC",
+            "price": "1005.46",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/40010.jpg"
+        },
+        {
+            "id": 40011,
+            "name": "XFX Swift OC",
+            "price": "572.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070\"}",
+            "image_url": "\/img\/components\/40011.jpg"
+        },
+        {
+            "id": 40012,
+            "name": "MSI GAMING OC",
+            "price": "219.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5050\"}",
+            "image_url": "\/img\/components\/40012.jpg"
+        },
+        {
+            "id": 40013,
+            "name": "Gigabyte GAMING OC",
+            "price": "934.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/40013.jpg"
+        },
+        {
+            "id": 40014,
+            "name": "Asus PRIME OC",
+            "price": "559.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070\"}",
+            "image_url": "\/img\/components\/40014.jpg"
+        },
+        {
+            "id": 40015,
+            "name": "PNY ARGB EPIC-X RGB OC",
+            "price": "1305.46",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40015.jpg"
+        },
+        {
+            "id": 40016,
+            "name": "Gigabyte GAMING OC",
+            "price": "424.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/40016.jpg"
+        },
+        {
+            "id": 40017,
+            "name": "MSI SHADOW 2X OC PLUS",
+            "price": "780.06",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40017.jpg"
+        },
+        {
+            "id": 40018,
+            "name": "MSI LP OC",
+            "price": "199.99",
+            "specs": "{\"memory\":\"6GB\",\"chipset\":\"GeForce RTX 3050 6GB\"}",
+            "image_url": "\/img\/components\/40018.jpg"
+        },
+        {
+            "id": 40019,
+            "name": "Gigabyte WINDFORCE OC",
+            "price": "351.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40019.jpg"
+        },
+        {
+            "id": 40020,
+            "name": "Asus ROG Astral LC OC",
+            "price": "2976.29",
+            "specs": "{\"memory\":\"32GB\",\"chipset\":\"GeForce RTX 5090\"}",
+            "image_url": "\/img\/components\/40020.jpg"
+        },
+        {
+            "id": 40021,
+            "name": "ASRock Radeon RX 7900 XTX 24GB",
+            "price": "902.39",
+            "specs": "{\"memory\":\"24GB\",\"chipset\":\"Radeon RX 7900 XTX\"}",
+            "image_url": "\/img\/components\/40021.jpg"
+        },
+        {
+            "id": 40022,
+            "name": "PNY ARGB EPIC-X RGB OC",
+            "price": "605.47",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/40022.jpg"
+        },
+        {
+            "id": 40023,
+            "name": "Sapphire PURE",
+            "price": "699.98",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40023.jpg"
+        },
+        {
+            "id": 40024,
+            "name": "Gigabyte GAMING OC",
+            "price": "563.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070\"}",
+            "image_url": "\/img\/components\/40024.jpg"
+        },
+        {
+            "id": 40025,
+            "name": "Asus DUAL OC",
+            "price": "539.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40025.jpg"
+        },
+        {
+            "id": 40026,
+            "name": "Gigabyte AERO OC SFF",
+            "price": "1299.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40026.jpg"
+        },
+        {
+            "id": 40027,
+            "name": "MSI SHADOW 3X OC",
+            "price": "663.28",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/40027.jpg"
+        },
+        {
+            "id": 40028,
+            "name": "XFX Quicksilver 2",
+            "price": "721.19",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40028.jpg"
+        },
+        {
+            "id": 40029,
+            "name": "Asus ProArt OC",
+            "price": "3999.95",
+            "specs": "{\"memory\":\"32GB\",\"chipset\":\"GeForce RTX 5090\"}",
+            "image_url": "\/img\/components\/40029.jpg"
+        },
+        {
+            "id": 40030,
+            "name": "ASRock Taichi OC",
+            "price": "799.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40030.jpg"
+        },
+        {
+            "id": 40031,
+            "name": "Asus PRIME OC",
+            "price": "817.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40031.jpg"
+        },
+        {
+            "id": 40032,
+            "name": "Gigabyte EAGLE OC ICE SFF",
+            "price": "919.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/40032.jpg"
+        },
+        {
+            "id": 40033,
+            "name": "Asus DUAL",
+            "price": "441.98",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/40033.jpg"
+        },
+        {
+            "id": 40034,
+            "name": "Asus TUF GAMING OC",
+            "price": "649.99",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/40034.jpg"
+        },
+        {
+            "id": 40035,
+            "name": "Gigabyte GAMING OC",
+            "price": "583.99",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/40035.jpg"
+        },
+        {
+            "id": 40036,
+            "name": "Asus ROG STRIX GAMING OC",
+            "price": "1099.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/40036.jpg"
+        },
+        {
+            "id": 40037,
+            "name": "Gigabyte AORUS MASTER",
+            "price": "3999.95",
+            "specs": "{\"memory\":\"32GB\",\"chipset\":\"GeForce RTX 5090\"}",
+            "image_url": "\/img\/components\/40037.jpg"
+        },
+        {
+            "id": 40038,
+            "name": "Sapphire PULSE OC",
+            "price": "491.49",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"Radeon RX 9070 GRE\"}",
+            "image_url": "\/img\/components\/40038.jpg"
+        },
+        {
+            "id": 40039,
+            "name": "Sapphire PULSE",
+            "price": "325.47",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/40039.jpg"
+        },
+        {
+            "id": 40040,
+            "name": "Asus DUAL OC",
+            "price": "177.90",
+            "specs": "{\"memory\":\"6GB\",\"chipset\":\"GeForce RTX 3050 6GB\"}",
+            "image_url": "\/img\/components\/40040.jpg"
+        },
+        {
+            "id": 40041,
+            "name": "Asus TUF GAMING OC",
+            "price": "730.94",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40041.jpg"
+        },
+        {
+            "id": 40042,
+            "name": "PNY ARGB EPIC-X RGB OC",
+            "price": "999.95",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/40042.jpg"
+        },
+        {
+            "id": 40043,
+            "name": "PowerColor Hellhound OC",
+            "price": "655.47",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40043.jpg"
+        },
+        {
+            "id": 40044,
+            "name": "Asus TUF GAMING OC",
+            "price": "1199.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 4070 Ti SUPER\"}",
+            "image_url": "\/img\/components\/40044.jpg"
+        },
+        {
+            "id": 40045,
+            "name": "Asus TUF GAMING OC",
+            "price": "1049.98",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/40045.jpg"
+        },
+        {
+            "id": 40046,
+            "name": "Gigabyte AORUS MASTER ICE",
+            "price": "1459.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40046.jpg"
+        },
+        {
+            "id": 40047,
+            "name": "Gigabyte GAMING OC",
+            "price": "319.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/40047.jpg"
+        },
+        {
+            "id": 40048,
+            "name": "Palit Infinity 3",
+            "price": "564.46",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/40048.jpg"
+        },
+        {
+            "id": 40049,
+            "name": "Asus Noctua OC",
+            "price": "1629.97",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40049.jpg"
+        },
+        {
+            "id": 40050,
+            "name": "NVIDIA Founders Edition",
+            "price": "1317.03",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 4070\"}",
+            "image_url": "\/img\/components\/40050.jpg"
+        },
+        {
+            "id": 40051,
+            "name": "Gigabyte AERO OC",
+            "price": "659.99",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/40051.jpg"
+        },
+        {
+            "id": 40052,
+            "name": "XFX Swift OC",
+            "price": "416.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/40052.jpg"
+        },
+        {
+            "id": 40053,
+            "name": "Asus TUF GAMING OC",
+            "price": "3469.99",
+            "specs": "{\"memory\":\"32GB\",\"chipset\":\"GeForce RTX 5090\"}",
+            "image_url": "\/img\/components\/40053.jpg"
+        },
+        {
+            "id": 40054,
+            "name": "Gigabyte WINDFORCE OC",
+            "price": "3799.99",
+            "specs": "{\"memory\":\"32GB\",\"chipset\":\"GeForce RTX 5090\"}",
+            "image_url": "\/img\/components\/40054.jpg"
+        },
+        {
+            "id": 40055,
+            "name": "Gigabyte OC Low Profile",
+            "price": "259.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5050\"}",
+            "image_url": "\/img\/components\/40055.jpg"
+        },
+        {
+            "id": 40056,
+            "name": "Gigabyte AORUS ELITE",
+            "price": "766.98",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40056.jpg"
+        },
+        {
+            "id": 40057,
+            "name": "Gigabyte WINDFORCE OC Rev 2.0",
+            "price": "362.41",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 3060 12GB\"}",
+            "image_url": "\/img\/components\/40057.jpg"
+        },
+        {
+            "id": 40058,
+            "name": "PowerColor RX7800XT 16G-P",
+            "price": "599.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 7800 XT\"}",
+            "image_url": "\/img\/components\/40058.jpg"
+        },
+        {
+            "id": 40059,
+            "name": "Sapphire PURE",
+            "price": "419.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/40059.jpg"
+        },
+        {
+            "id": 40060,
+            "name": "Asus DUAL EVO OC",
+            "price": "300.03",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"Radeon RX 7600\"}",
+            "image_url": "\/img\/components\/40060.jpg"
+        },
+        {
+            "id": 40061,
+            "name": "Asus PRIME",
+            "price": "468.00",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/40061.jpg"
+        },
+        {
+            "id": 40062,
+            "name": "MSI SHADOW 2X OC",
+            "price": "370.36",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/40062.jpg"
+        },
+        {
+            "id": 40063,
+            "name": "Gigabyte AORUS STEALTH ICE",
+            "price": "3680.48",
+            "specs": "{\"memory\":\"32GB\",\"chipset\":\"GeForce RTX 5090\"}",
+            "image_url": "\/img\/components\/40063.jpg"
+        },
+        {
+            "id": 40064,
+            "name": "Zotac SOLID SFF OC",
+            "price": "929.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/40064.jpg"
+        },
+        {
+            "id": 40065,
+            "name": "MSI GAMING TRIO OC",
+            "price": "1369.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40065.jpg"
+        },
+        {
+            "id": 40066,
+            "name": "Gigabyte GAMING OC",
+            "price": "3599.00",
+            "specs": "{\"memory\":\"32GB\",\"chipset\":\"GeForce RTX 5090\"}",
+            "image_url": "\/img\/components\/40066.jpg"
+        },
+        {
+            "id": 40067,
+            "name": "PowerColor Red Devil OC",
+            "price": "745.47",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40067.jpg"
+        },
+        {
+            "id": 40068,
+            "name": "Zotac Twin Edge OC",
+            "price": "545.47",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40068.jpg"
+        },
+        {
+            "id": 40069,
+            "name": "PowerColor Red Devil E\/OC",
+            "price": "559.99",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"Radeon RX 9070 GRE\"}",
+            "image_url": "\/img\/components\/40069.jpg"
+        },
+        {
+            "id": 40070,
+            "name": "PNY Slim OC",
+            "price": "1178.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40070.jpg"
+        },
+        {
+            "id": 40071,
+            "name": "MSI VENTUS 3X PZ OC",
+            "price": "982.79",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/40071.jpg"
+        },
+        {
+            "id": 40072,
+            "name": "XFX Quicksilver",
+            "price": "649.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40072.jpg"
+        },
+        {
+            "id": 40073,
+            "name": "NVIDIA Founders Edition",
+            "price": "1881.71",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 4080\"}",
+            "image_url": "\/img\/components\/40073.jpg"
+        },
+        {
+            "id": 40074,
+            "name": "ONIX LUMI OC",
+            "price": "342.85",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"Arc B580\"}",
+            "image_url": "\/img\/components\/40074.jpg"
+        },
+        {
+            "id": 40075,
+            "name": "Gigabyte AORUS MASTER",
+            "price": "1399.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40075.jpg"
+        },
+        {
+            "id": 40076,
+            "name": "Asus DUAL OC V2",
+            "price": "707.14",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 4060\"}",
+            "image_url": "\/img\/components\/40076.jpg"
+        },
+        {
+            "id": 40077,
+            "name": "Asus ProArt OC",
+            "price": "1503.46",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40077.jpg"
+        },
+        {
+            "id": 40078,
+            "name": "Gigabyte GAMING OC",
+            "price": "318.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"Radeon RX 7600\"}",
+            "image_url": "\/img\/components\/40078.jpg"
+        },
+        {
+            "id": 40079,
+            "name": "XFX Swift OC",
+            "price": "328.47",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/40079.jpg"
+        },
+        {
+            "id": 40080,
+            "name": "Zotac GAMING SOLID OC",
+            "price": "599.99",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/40080.jpg"
+        },
+        {
+            "id": 40081,
+            "name": "XFX RX-79TMBABF9",
+            "price": "669.00",
+            "specs": "{\"memory\":\"20GB\",\"chipset\":\"Radeon RX 7900 XT\"}",
+            "image_url": "\/img\/components\/40081.jpg"
+        },
+        {
+            "id": 40082,
+            "name": "MSI VENTUS 2X OC",
+            "price": "599.02",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/40082.jpg"
+        },
+        {
+            "id": 40083,
+            "name": "Gigabyte WINDFORCE MAX OC",
+            "price": "274.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/40083.jpg"
+        },
+        {
+            "id": 40084,
+            "name": "Asus PRIME OC",
+            "price": "579.98",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/40084.jpg"
+        },
+        {
+            "id": 40085,
+            "name": "MSI RTX 4070 Ti SUPER 16G VENTUS 3X BLACK OC",
+            "price": "2187.06",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 4070 Ti SUPER\"}",
+            "image_url": "\/img\/components\/40085.jpg"
+        },
+        {
+            "id": 40086,
+            "name": "MSI GAMING TRIO OC",
+            "price": "414.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40086.jpg"
+        },
+        {
+            "id": 40087,
+            "name": "Asus DUAL OC",
+            "price": "307.94",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/40087.jpg"
+        },
+        {
+            "id": 40088,
+            "name": "Sapphire PULSE",
+            "price": "589.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070\"}",
+            "image_url": "\/img\/components\/40088.jpg"
+        },
+        {
+            "id": 40089,
+            "name": "MSI SUPRIM SOC",
+            "price": "3899.99",
+            "specs": "{\"memory\":\"32GB\",\"chipset\":\"GeForce RTX 5090\"}",
+            "image_url": "\/img\/components\/40089.jpg"
+        },
+        {
+            "id": 40090,
+            "name": "EVGA KO ULTRA GAMING",
+            "price": "362.95",
+            "specs": "{\"memory\":\"6GB\",\"chipset\":\"GeForce RTX 2060\"}",
+            "image_url": "\/img\/components\/40090.jpg"
+        },
+        {
+            "id": 40091,
+            "name": "Zotac GAMING SOLID CORE OC",
+            "price": "1259.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40091.jpg"
+        },
+        {
+            "id": 40092,
+            "name": "Gigabyte GAMING OC",
+            "price": "499.99",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"Radeon RX 9070 GRE\"}",
+            "image_url": "\/img\/components\/40092.jpg"
+        },
+        {
+            "id": 40093,
+            "name": "Gigabyte WINDFORCE OC V2",
+            "price": "199.99",
+            "specs": "{\"memory\":\"6GB\",\"chipset\":\"GeForce RTX 3050 6GB\"}",
+            "image_url": "\/img\/components\/40093.jpg"
+        },
+        {
+            "id": 40094,
+            "name": "Asus PRIME OC",
+            "price": "624.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40094.jpg"
+        },
+        {
+            "id": 40095,
+            "name": "MSI VENTUS 3X OC",
+            "price": "1229.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40095.jpg"
+        },
+        {
+            "id": 40096,
+            "name": "MSI RX 6600 XT MECH 2X 8G OC",
+            "price": "515.54",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"Radeon RX 6600 XT\"}",
+            "image_url": "\/img\/components\/40096.jpg"
+        },
+        {
+            "id": 40097,
+            "name": "MSI VENTUS 2X OC",
+            "price": "624.00",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/40097.jpg"
+        },
+        {
+            "id": 40098,
+            "name": "Asus PRIME OC",
+            "price": "349.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/40098.jpg"
+        },
+        {
+            "id": 40099,
+            "name": "MSI VENTUS 3X OC",
+            "price": "3449.00",
+            "specs": "{\"memory\":\"32GB\",\"chipset\":\"GeForce RTX 5090\"}",
+            "image_url": "\/img\/components\/40099.jpg"
+        },
+        {
+            "id": 40100,
+            "name": "PNY Dual Fan OC",
+            "price": "534.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40100.jpg"
+        },
+        {
+            "id": 40101,
+            "name": "Asus ROG STRIX OC",
+            "price": "739.90",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/40101.jpg"
+        },
+        {
+            "id": 40102,
+            "name": "XFX Mercury OC RGB",
+            "price": "679.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40102.jpg"
+        },
+        {
+            "id": 40103,
+            "name": "Palit GamingPro OC",
+            "price": "1199.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40103.jpg"
+        },
+        {
+            "id": 40104,
+            "name": "ASRock Steel Legend OC",
+            "price": "480.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/40104.jpg"
+        },
+        {
+            "id": 40105,
+            "name": "Asus TUF GAMING OC",
+            "price": "379.74",
+            "specs": "{\"memory\":\"6GB\",\"chipset\":\"GeForce GTX 1660 SUPER\"}",
+            "image_url": "\/img\/components\/40105.jpg"
+        },
+        {
+            "id": 40106,
+            "name": "PNY VCG508016TFXPB1",
+            "price": "1299.98",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40106.jpg"
+        },
+        {
+            "id": 40107,
+            "name": "Palit GamingPro",
+            "price": "1189.98",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40107.jpg"
+        },
+        {
+            "id": 40108,
+            "name": "XFX Mercury OC Magnetic Air RGB",
+            "price": "745.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40108.jpg"
+        },
+        {
+            "id": 40109,
+            "name": "ASRock Phantom Gaming OC",
+            "price": "1031.58",
+            "specs": "{\"memory\":\"24GB\",\"chipset\":\"Radeon RX 7900 XTX\"}",
+            "image_url": "\/img\/components\/40109.jpg"
+        },
+        {
+            "id": 40110,
+            "name": "MSI VENTUS 3X OC",
+            "price": "739.97",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40110.jpg"
+        },
+        {
+            "id": 40111,
+            "name": "Gigabyte AORUS MASTER",
+            "price": "1021.94",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/40111.jpg"
+        },
+        {
+            "id": 40112,
+            "name": "Sapphire NITRO+",
+            "price": "448.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/40112.jpg"
+        },
+        {
+            "id": 40113,
+            "name": "Gigabyte EAGLE OC SFF",
+            "price": "939.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/40113.jpg"
+        },
+        {
+            "id": 40114,
+            "name": "PNY EPIC-X RGB OC",
+            "price": "369.98",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40114.jpg"
+        },
+        {
+            "id": 40115,
+            "name": "PowerColor Reaper A",
+            "price": "489.98",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"Radeon RX 9070 GRE\"}",
+            "image_url": "\/img\/components\/40115.jpg"
+        },
+        {
+            "id": 40116,
+            "name": "Palit GamingPro-S",
+            "price": "880.16",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/40116.jpg"
+        },
+        {
+            "id": 40117,
+            "name": "XFX Swift OC",
+            "price": "589.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070\"}",
+            "image_url": "\/img\/components\/40117.jpg"
+        },
+        {
+            "id": 40118,
+            "name": "MSI GAMING TRIO OC WHITE",
+            "price": "660.67",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/40118.jpg"
+        },
+        {
+            "id": 40119,
+            "name": "Palit Infinity 3",
+            "price": "509.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40119.jpg"
+        },
+        {
+            "id": 40120,
+            "name": "Zotac Twin Edge OC",
+            "price": "364.46",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40120.jpg"
+        },
+        {
+            "id": 40121,
+            "name": "MSI FRIEREN EDITION OC",
+            "price": "1046.04",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/40121.jpg"
+        },
+        {
+            "id": 40122,
+            "name": "Asus DUAL OC",
+            "price": "278.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5050\"}",
+            "image_url": "\/img\/components\/40122.jpg"
+        },
+        {
+            "id": 40123,
+            "name": "MSI VENTUS 2X",
+            "price": "359.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/40123.jpg"
+        },
+        {
+            "id": 40124,
+            "name": "PowerColor Hellhound Spectral",
+            "price": "699.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40124.jpg"
+        },
+        {
+            "id": 40125,
+            "name": "Acer Nitro OC",
+            "price": "199.99",
+            "specs": "{\"memory\":\"10GB\",\"chipset\":\"Arc B570\"}",
+            "image_url": "\/img\/components\/40125.jpg"
+        },
+        {
+            "id": 40126,
+            "name": "NVIDIA Founders Edition",
+            "price": "611.94",
+            "specs": "{\"memory\":\"11GB\",\"chipset\":\"GeForce RTX 2080 Ti\"}",
+            "image_url": "\/img\/components\/40126.jpg"
+        },
+        {
+            "id": 40127,
+            "name": "MSI VENTUS 3X OC BLACK",
+            "price": "1057.19",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/40127.jpg"
+        },
+        {
+            "id": 40128,
+            "name": "Gigabyte GV-R9070XTGAMING-16GD",
+            "price": "639.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40128.jpg"
+        },
+        {
+            "id": 40129,
+            "name": "Zotac GAMING",
+            "price": "437.15",
+            "specs": "{\"memory\":\"6GB\",\"chipset\":\"GeForce GTX 1660 Ti\"}",
+            "image_url": "\/img\/components\/40129.jpg"
+        },
+        {
+            "id": 40130,
+            "name": "Sapphire PULSE",
+            "price": "899.00",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"Radeon RX 6700 XT\"}",
+            "image_url": "\/img\/components\/40130.jpg"
+        },
+        {
+            "id": 40131,
+            "name": "XFX Speedster MERC 319 CORE",
+            "price": "729.79",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 6800 XT\"}",
+            "image_url": "\/img\/components\/40131.jpg"
+        },
+        {
+            "id": 40132,
+            "name": "XFX Swift",
+            "price": "489.99",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"Radeon RX 9070 GRE\"}",
+            "image_url": "\/img\/components\/40132.jpg"
+        },
+        {
+            "id": 40133,
+            "name": "MSI GAMING OC",
+            "price": "304.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/40133.jpg"
+        },
+        {
+            "id": 40134,
+            "name": "Gigabyte AERO OC",
+            "price": "330.46",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/40134.jpg"
+        },
+        {
+            "id": 40135,
+            "name": "EVGA XC GAMING",
+            "price": "458.93",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 3060 12GB\"}",
+            "image_url": "\/img\/components\/40135.jpg"
+        },
+        {
+            "id": 40136,
+            "name": "Palit Dual",
+            "price": "359.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40136.jpg"
+        },
+        {
+            "id": 40137,
+            "name": "Sparkle ECO",
+            "price": "124.99",
+            "specs": "{\"memory\":\"4GB\",\"chipset\":\"Arc A310\"}",
+            "image_url": "\/img\/components\/40137.jpg"
+        },
+        {
+            "id": 40138,
+            "name": "Sparkle TITAN OC",
+            "price": "356.93",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"Arc B580\"}",
+            "image_url": "\/img\/components\/40138.jpg"
+        },
+        {
+            "id": 40139,
+            "name": "Zotac GAMING Twin Edge OC",
+            "price": "315.46",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/40139.jpg"
+        },
+        {
+            "id": 40140,
+            "name": "Sapphire PULSE",
+            "price": "366.82",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"Radeon RX 7600\"}",
+            "image_url": "\/img\/components\/40140.jpg"
+        },
+        {
+            "id": 40141,
+            "name": "Gigabyte AORUS XTREME WATERFORCE",
+            "price": "3999.95",
+            "specs": "{\"memory\":\"32GB\",\"chipset\":\"GeForce RTX 5090\"}",
+            "image_url": "\/img\/components\/40141.jpg"
+        },
+        {
+            "id": 40142,
+            "name": "MSI Radeon RX 6600 MECH 2X 8G",
+            "price": "568.03",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"Radeon RX 6600\"}",
+            "image_url": "\/img\/components\/40142.jpg"
+        },
+        {
+            "id": 40143,
+            "name": "Zotac GAMING Twin Edge OC",
+            "price": "586.26",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 3060 Ti LHR\"}",
+            "image_url": "\/img\/components\/40143.jpg"
+        },
+        {
+            "id": 40144,
+            "name": "XFX Speedster MERC 310 Black Edition",
+            "price": "878.03",
+            "specs": "{\"memory\":\"20GB\",\"chipset\":\"Radeon RX 7900 XT\"}",
+            "image_url": "\/img\/components\/40144.jpg"
+        },
+        {
+            "id": 40145,
+            "name": "Zotac GAMING Twin Edge OC",
+            "price": "539.99",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/40145.jpg"
+        },
+        {
+            "id": 40146,
+            "name": "MSI GAMING X TRIO",
+            "price": "734.06",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 3070 Ti\"}",
+            "image_url": "\/img\/components\/40146.jpg"
+        },
+        {
+            "id": 40147,
+            "name": "Asus ProArt OC",
+            "price": "995.65",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/40147.jpg"
+        },
+        {
+            "id": 40148,
+            "name": "Gigabyte GAMING OC",
+            "price": "289.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5050\"}",
+            "image_url": "\/img\/components\/40148.jpg"
+        },
+        {
+            "id": 40149,
+            "name": "Gigabyte AERO OC",
+            "price": "396.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40149.jpg"
+        },
+        {
+            "id": 40150,
+            "name": "Asus PRIME OC",
+            "price": "329.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/40150.jpg"
+        },
+        {
+            "id": 40151,
+            "name": "Gigabyte EAGLE OC SFF",
+            "price": "589.99",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/40151.jpg"
+        },
+        {
+            "id": 40152,
+            "name": "MSI VENTUS 2X OC",
+            "price": "289.87",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5050\"}",
+            "image_url": "\/img\/components\/40152.jpg"
+        },
+        {
+            "id": 40153,
+            "name": "MSI RTX 3060 Ventus 3X 12G OC",
+            "price": "714.07",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 3060 12GB\"}",
+            "image_url": "\/img\/components\/40153.jpg"
+        },
+        {
+            "id": 40154,
+            "name": "MSI GAMING TRIO OC",
+            "price": "595.47",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40154.jpg"
+        },
+        {
+            "id": 40155,
+            "name": "MSI GAMING X",
+            "price": "349.67",
+            "specs": "{\"memory\":\"6GB\",\"chipset\":\"GeForce GTX 1660 SUPER\"}",
+            "image_url": "\/img\/components\/40155.jpg"
+        },
+        {
+            "id": 40156,
+            "name": "Zotac Solid OC",
+            "price": "1259.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40156.jpg"
+        },
+        {
+            "id": 40157,
+            "name": "PowerColor Hellhound OC",
+            "price": "599.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070\"}",
+            "image_url": "\/img\/components\/40157.jpg"
+        },
+        {
+            "id": 40158,
+            "name": "PowerColor Reaper",
+            "price": "334.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/40158.jpg"
+        },
+        {
+            "id": 40159,
+            "name": "PNY VCG50508DFXPB1",
+            "price": "277.89",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5050\"}",
+            "image_url": "\/img\/components\/40159.jpg"
+        },
+        {
+            "id": 40160,
+            "name": "Zotac Solid Core OC",
+            "price": "875.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/40160.jpg"
+        },
+        {
+            "id": 40161,
+            "name": "AMD RADEON PRO WX 5100",
+            "price": "220.90",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"Radeon Pro WX 5100\"}",
+            "image_url": "\/img\/components\/40161.jpg"
+        },
+        {
+            "id": 40162,
+            "name": "PowerColor Hellhound OC",
+            "price": "465.46",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/40162.jpg"
+        },
+        {
+            "id": 40163,
+            "name": "Gigabyte AORUS MASTER",
+            "price": "669.98",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/40163.jpg"
+        },
+        {
+            "id": 40164,
+            "name": "XFX Quicksilver",
+            "price": "659.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40164.jpg"
+        },
+        {
+            "id": 40165,
+            "name": "MSI GAMING X",
+            "price": "204.05",
+            "specs": "{\"memory\":\"6GB\",\"chipset\":\"GeForce RTX 3050 6GB\"}",
+            "image_url": "\/img\/components\/40165.jpg"
+        },
+        {
+            "id": 40166,
+            "name": "XFX Mercury OC Magnetic Air RGB",
+            "price": "724.06",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40166.jpg"
+        },
+        {
+            "id": 40167,
+            "name": "Zotac GAMING SOLID OC",
+            "price": "3749.99",
+            "specs": "{\"memory\":\"32GB\",\"chipset\":\"GeForce RTX 5090\"}",
+            "image_url": "\/img\/components\/40167.jpg"
+        },
+        {
+            "id": 40168,
+            "name": "MSI VENTUS 3X OC",
+            "price": "654.98",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 3070 Ti\"}",
+            "image_url": "\/img\/components\/40168.jpg"
+        },
+        {
+            "id": 40169,
+            "name": "MSI SUPRIM SOC",
+            "price": "1405.55",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40169.jpg"
+        },
+        {
+            "id": 40170,
+            "name": "Asus LP BRK OC",
+            "price": "349.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/40170.jpg"
+        },
+        {
+            "id": 40171,
+            "name": "Asus PRIME OC",
+            "price": "419.00",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40171.jpg"
+        },
+        {
+            "id": 40172,
+            "name": "PowerColor ITX",
+            "price": "203.39",
+            "specs": "{\"memory\":\"4GB\",\"chipset\":\"Radeon RX 6500 XT\"}",
+            "image_url": "\/img\/components\/40172.jpg"
+        },
+        {
+            "id": 40173,
+            "name": "XFX Speedster QICK 319 BLACK",
+            "price": "641.23",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"Radeon RX 6700 XT\"}",
+            "image_url": "\/img\/components\/40173.jpg"
+        },
+        {
+            "id": 40174,
+            "name": "Asus TUF GAMING OC",
+            "price": "802.97",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 3070 Ti\"}",
+            "image_url": "\/img\/components\/40174.jpg"
+        },
+        {
+            "id": 40175,
+            "name": "Zotac GAMING SOLID CORE",
+            "price": "1199.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40175.jpg"
+        },
+        {
+            "id": 40176,
+            "name": "Palit Dual",
+            "price": "269.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5050\"}",
+            "image_url": "\/img\/components\/40176.jpg"
+        },
+        {
+            "id": 40177,
+            "name": "Palit Dual",
+            "price": "299.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/40177.jpg"
+        },
+        {
+            "id": 40178,
+            "name": "PNY OC",
+            "price": "3599.99",
+            "specs": "{\"memory\":\"32GB\",\"chipset\":\"GeForce RTX 5090\"}",
+            "image_url": "\/img\/components\/40178.jpg"
+        },
+        {
+            "id": 40179,
+            "name": "Zotac GAMING Twin Edge",
+            "price": "595.47",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/40179.jpg"
+        },
+        {
+            "id": 40180,
+            "name": "Asus DUAL",
+            "price": "296.41",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5050\"}",
+            "image_url": "\/img\/components\/40180.jpg"
+        },
+        {
+            "id": 40181,
+            "name": "Asus Phoenix OC",
+            "price": "367.81",
+            "specs": "{\"memory\":\"6GB\",\"chipset\":\"GeForce GTX 1660 SUPER\"}",
+            "image_url": "\/img\/components\/40181.jpg"
+        },
+        {
+            "id": 40182,
+            "name": "XFX Swift",
+            "price": "541.19",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"Radeon RX 9070 GRE\"}",
+            "image_url": "\/img\/components\/40182.jpg"
+        },
+        {
+            "id": 40183,
+            "name": "ASRock Taichi OC",
+            "price": "743.94",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40183.jpg"
+        },
+        {
+            "id": 40184,
+            "name": "NVIDIA Founders Edition",
+            "price": "714.72",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 2080\"}",
+            "image_url": "\/img\/components\/40184.jpg"
+        },
+        {
+            "id": 40185,
+            "name": "PNY VCG507012TFXPB1",
+            "price": "578.99",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/40185.jpg"
+        },
+        {
+            "id": 40186,
+            "name": "Sapphire PURE",
+            "price": "599.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070\"}",
+            "image_url": "\/img\/components\/40186.jpg"
+        },
+        {
+            "id": 40187,
+            "name": "XFX Speedster MERC 310",
+            "price": "658.00",
+            "specs": "{\"memory\":\"20GB\",\"chipset\":\"Radeon RX 7900 XT\"}",
+            "image_url": "\/img\/components\/40187.jpg"
+        },
+        {
+            "id": 40188,
+            "name": "Asus ROG Astral OC HATSUNE MIKU EDITION",
+            "price": "7000.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40188.jpg"
+        },
+        {
+            "id": 40189,
+            "name": "PNY Slim OC",
+            "price": "580.47",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/40189.jpg"
+        },
+        {
+            "id": 40190,
+            "name": "XFX Mercury OC",
+            "price": "465.46",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9060 XT\"}",
+            "image_url": "\/img\/components\/40190.jpg"
+        },
+        {
+            "id": 40191,
+            "name": "PNY Slim OC",
+            "price": "1019.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/40191.jpg"
+        },
+        {
+            "id": 40192,
+            "name": "XFX Speedster QICK 319 BLACK",
+            "price": "407.83",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"Radeon RX 7700 XT\"}",
+            "image_url": "\/img\/components\/40192.jpg"
+        },
+        {
+            "id": 40193,
+            "name": "PowerColor Red Devil E\/OC",
+            "price": "711.49",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40193.jpg"
+        },
+        {
+            "id": 40194,
+            "name": "Zotac GAMING AMP Extreme INFINITY",
+            "price": "3799.99",
+            "specs": "{\"memory\":\"32GB\",\"chipset\":\"GeForce RTX 5090\"}",
+            "image_url": "\/img\/components\/40194.jpg"
+        },
+        {
+            "id": 40195,
+            "name": "MSI VENTUS 3X OC",
+            "price": "452.04",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40195.jpg"
+        },
+        {
+            "id": 40196,
+            "name": "EVGA Founders Edition",
+            "price": "1153.00",
+            "specs": "{\"memory\":\"11GB\",\"chipset\":\"GeForce GTX 1080 Ti\"}",
+            "image_url": "\/img\/components\/40196.jpg"
+        },
+        {
+            "id": 40197,
+            "name": "Asus PRIME EVO OC",
+            "price": "1384.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40197.jpg"
+        },
+        {
+            "id": 40198,
+            "name": "ASRock Steel Legend Dark",
+            "price": "541.19",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"Radeon RX 9070 GRE\"}",
+            "image_url": "\/img\/components\/40198.jpg"
+        },
+        {
+            "id": 40199,
+            "name": "Inno3D X3",
+            "price": "949.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/40199.jpg"
+        },
+        {
+            "id": 40200,
+            "name": "MSI GAMING OC",
+            "price": "705.00",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40200.jpg"
+        },
+        {
+            "id": 40201,
+            "name": "ASRock Steel Legend Dark",
+            "price": "734.28",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40201.jpg"
+        },
+        {
+            "id": 40202,
+            "name": "Zotac Twin Edge OC",
+            "price": "699.08",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 4060\"}",
+            "image_url": "\/img\/components\/40202.jpg"
+        },
+        {
+            "id": 40203,
+            "name": "Sparkle GUARDIAN OC",
+            "price": "259.99",
+            "specs": "{\"memory\":\"10GB\",\"chipset\":\"Arc B570\"}",
+            "image_url": "\/img\/components\/40203.jpg"
+        },
+        {
+            "id": 40204,
+            "name": "ASRock Challenger SE OC",
+            "price": "240.72",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"Arc A750\"}",
+            "image_url": "\/img\/components\/40204.jpg"
+        },
+        {
+            "id": 40205,
+            "name": "Gigabyte AORUS XTREME WATERFORCE",
+            "price": "1690.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40205.jpg"
+        },
+        {
+            "id": 40206,
+            "name": "Zotac GAMING Twin Edge OC",
+            "price": "763.27",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 4060 Ti\"}",
+            "image_url": "\/img\/components\/40206.jpg"
+        },
+        {
+            "id": 40207,
+            "name": "XFX Swift",
+            "price": "524.28",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"Radeon RX 9070 GRE\"}",
+            "image_url": "\/img\/components\/40207.jpg"
+        },
+        {
+            "id": 40208,
+            "name": "Gigabyte WINDFORCE SFF",
+            "price": "2643.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40208.jpg"
+        },
+        {
+            "id": 40209,
+            "name": "Zotac GAMING Low Profile",
+            "price": "299.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/40209.jpg"
+        },
+        {
+            "id": 40210,
+            "name": "ASRock Challenger D OC",
+            "price": "727.47",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"Radeon RX 6600 XT\"}",
+            "image_url": "\/img\/components\/40210.jpg"
+        },
+        {
+            "id": 40211,
+            "name": "Sapphire PULSE",
+            "price": "449.99",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"Radeon RX 7700 XT\"}",
+            "image_url": "\/img\/components\/40211.jpg"
+        },
+        {
+            "id": 40212,
+            "name": "Asus TUF GAMING OC",
+            "price": "364.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/40212.jpg"
+        },
+        {
+            "id": 40213,
+            "name": "PNY VCG50508SFXPB1",
+            "price": "249.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5050\"}",
+            "image_url": "\/img\/components\/40213.jpg"
+        },
+        {
+            "id": 40214,
+            "name": "Gigabyte GAMING OC",
+            "price": "1945.90",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 4080 SUPER\"}",
+            "image_url": "\/img\/components\/40214.jpg"
+        },
+        {
+            "id": 40215,
+            "name": "MSI GAMING X TRIO",
+            "price": "1592.55",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 4070 Ti\"}",
+            "image_url": "\/img\/components\/40215.jpg"
+        },
+        {
+            "id": 40216,
+            "name": "ASRock Steel Legend OC",
+            "price": "745.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070\"}",
+            "image_url": "\/img\/components\/40216.jpg"
+        },
+        {
+            "id": 40217,
+            "name": "Asus STRIX GAMING OC",
+            "price": "1340.41",
+            "specs": "{\"memory\":\"11GB\",\"chipset\":\"GeForce RTX 2080 Ti\"}",
+            "image_url": "\/img\/components\/40217.jpg"
+        },
+        {
+            "id": 40218,
+            "name": "Zotac GAMING AMP Extreme AIRO",
+            "price": "2224.61",
+            "specs": "{\"memory\":\"24GB\",\"chipset\":\"GeForce RTX 4090\"}",
+            "image_url": "\/img\/components\/40218.jpg"
+        },
+        {
+            "id": 40219,
+            "name": "MSI VENTUS 2X OC",
+            "price": "999.79",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 4060\"}",
+            "image_url": "\/img\/components\/40219.jpg"
+        },
+        {
+            "id": 40220,
+            "name": "Acer Nitro OC",
+            "price": "629.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 9070 XT\"}",
+            "image_url": "\/img\/components\/40220.jpg"
+        },
+        {
+            "id": 40221,
+            "name": "MSI GAMING X TRIO",
+            "price": "1907.26",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 4080\"}",
+            "image_url": "\/img\/components\/40221.jpg"
+        },
+        {
+            "id": 40222,
+            "name": "MSI GAMING X",
+            "price": "762.33",
+            "specs": "{\"memory\":\"11GB\",\"chipset\":\"GeForce GTX 1080 Ti\"}",
+            "image_url": "\/img\/components\/40222.jpg"
+        },
+        {
+            "id": 40223,
+            "name": "Palit Infinity 3 OC",
+            "price": "518.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40223.jpg"
+        },
+        {
+            "id": 40224,
+            "name": "Gigabyte WINDFORCE OC",
+            "price": "714.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40224.jpg"
+        },
+        {
+            "id": 40225,
+            "name": "ASRock Phantom Gaming D OC",
+            "price": "238.36",
+            "specs": "{\"memory\":\"4GB\",\"chipset\":\"Radeon RX 6500 XT\"}",
+            "image_url": "\/img\/components\/40225.jpg"
+        },
+        {
+            "id": 40226,
+            "name": "Sparkle ELF",
+            "price": "149.99",
+            "specs": "{\"memory\":\"6GB\",\"chipset\":\"Arc A380\"}",
+            "image_url": "\/img\/components\/40226.jpg"
+        },
+        {
+            "id": 40227,
+            "name": "MSI VENTUS 2X E OC",
+            "price": "179.99",
+            "specs": "{\"memory\":\"6GB\",\"chipset\":\"GeForce RTX 3050 6GB\"}",
+            "image_url": "\/img\/components\/40227.jpg"
+        },
+        {
+            "id": 40228,
+            "name": "Gigabyte EAGLE OC",
+            "price": "309.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060\"}",
+            "image_url": "\/img\/components\/40228.jpg"
+        },
+        {
+            "id": 40229,
+            "name": "Sapphire NITRO+",
+            "price": "1399.00",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 6800 XT\"}",
+            "image_url": "\/img\/components\/40229.jpg"
+        },
+        {
+            "id": 40230,
+            "name": "Gigabyte GAMING OC",
+            "price": "379.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40230.jpg"
+        },
+        {
+            "id": 40231,
+            "name": "Gainward Phoenix-S",
+            "price": "929.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5070 Ti\"}",
+            "image_url": "\/img\/components\/40231.jpg"
+        },
+        {
+            "id": 40232,
+            "name": "Zotac GAMING Twin Edge OC",
+            "price": "529.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40232.jpg"
+        },
+        {
+            "id": 40233,
+            "name": "XFX Speedster MERC 319",
+            "price": "904.51",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"Radeon RX 6950 XT\"}",
+            "image_url": "\/img\/components\/40233.jpg"
+        },
+        {
+            "id": 40234,
+            "name": "EVGA XC3 ULTRA GAMING",
+            "price": "640.94",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 3070 Ti\"}",
+            "image_url": "\/img\/components\/40234.jpg"
+        },
+        {
+            "id": 40235,
+            "name": "Asus TUF GAMING OC",
+            "price": "639.99",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5060 Ti\"}",
+            "image_url": "\/img\/components\/40235.jpg"
+        },
+        {
+            "id": 40236,
+            "name": "Palit OC",
+            "price": "599.99",
+            "specs": "{\"memory\":\"12GB\",\"chipset\":\"GeForce RTX 5070\"}",
+            "image_url": "\/img\/components\/40236.jpg"
+        },
+        {
+            "id": 40237,
+            "name": "Asus PRIME OC",
+            "price": "289.99",
+            "specs": "{\"memory\":\"8GB\",\"chipset\":\"GeForce RTX 5050\"}",
+            "image_url": "\/img\/components\/40237.jpg"
+        },
+        {
+            "id": 40238,
+            "name": "Zotac GAMING AMP Extreme INFINITY",
+            "price": "1245.46",
+            "specs": "{\"memory\":\"16GB\",\"chipset\":\"GeForce RTX 5080\"}",
+            "image_url": "\/img\/components\/40238.jpg"
+        }
+    ]
+}
