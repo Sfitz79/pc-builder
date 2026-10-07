@@ -1401,7 +1401,7 @@ class AIRecommendationService
             'ram' => trim((string) $component->memory_type) !== ''
                 && $this->memorySpeedToken($component) !== null,
             'storage' => trim((string) $component->interface) !== ''
-                && $this->specCapacityGb($component) > 0,
+                && in_array($this->specCapacityGb($component), config('builder.storage_capacity_gb', []), true),
             'psu' => $this->psuWattage($component) > 0,
             'motherboard' => trim((string) $component->socket) !== '',
             default => true,

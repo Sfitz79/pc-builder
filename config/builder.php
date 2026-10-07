@@ -76,6 +76,36 @@ return [
      *
      * @see \App\Services\ThreeD\AssetLicenceGate
      */
+    /**
+     * Drive capacities that are real products, in GB.
+     *
+     * `components.specs.capacity` is populated for every storage row, but it is
+     * NOT trustworthy on its own: measured 2026-10-07 it contains "69632GB" on
+     * two enterprise rows (Intel D3-S4520, Samsung PM893), which is not a drive
+     * anyone can buy. Writing that into a customer-facing name would publish a
+     * sixty-nine-terabyte SSD, so a capacity outside this list is treated as
+     * unverifiable: the part cannot be named from it and cannot be quoted on
+     * the strength of it.
+     *
+     * Both the binary and decimal spellings are listed because the catalogue
+     * stores 1024/2048/4096 for what are sold as 1/2/4TB.
+     *
+     * The high end is not padding. The first version of this list stopped at
+     * 32TB and would have rejected eight real Kingston KC3000 drives at 24, 48
+     * and 96TB - enterprise SSDs that are genuinely in stock and sellable.
+     * Anything that divides a power-of-two TB by 1000 is a real product size;
+     * 69632 is not, because 69632/1024 is 68TB, which is not a size anyone
+     * manufactures.
+     *
+     * Single source of truth for scripts/fix-storage-names.php and
+     * \App\Services\AIRecommendationService::isQuotable().
+     */
+    'storage_capacity_gb' => [
+        120, 128, 240, 250, 256, 480, 500, 512, 960, 1000, 1024,
+        2000, 2048, 4000, 4096, 8000, 8192, 16000, 16384,
+        24000, 24576, 30000, 30720, 32000, 32768, 48000, 49152, 64000, 65536, 96000, 98304,
+    ],
+
     'asset_credits' => [
         // Example of the required shape. Nothing is registered yet because no
         // third-party asset is currently used in any customer-facing render.
