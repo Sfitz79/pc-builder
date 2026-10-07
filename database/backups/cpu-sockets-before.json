@@ -1,0 +1,467 @@
+{
+    "captured_at": "2026-10-07T11:06:17+00:00",
+    "changes": [
+        {
+            "id": 38933,
+            "name": "AMD Ryzen 5 5500",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39006,
+            "name": "AMD Ryzen 3 3200G",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39007,
+            "name": "AMD Ryzen 5 3600X",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39008,
+            "name": "AMD Ryzen 3 4100",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39012,
+            "name": "AMD Ryzen 9 3900X",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39014,
+            "name": "Intel Core i7-10700K",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39020,
+            "name": "AMD Ryzen 7 3800X",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39021,
+            "name": "AMD Ryzen 5 3400G",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39022,
+            "name": "Intel Core i5-10400",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39023,
+            "name": "Intel Core i5-11400F",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39024,
+            "name": "Intel Core i3-10100F",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39025,
+            "name": "AMD Ryzen 5 5500GT",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39028,
+            "name": "Intel Core i7-11700K",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39030,
+            "name": "AMD Ryzen 5 2600X",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 38936,
+            "name": "AMD Ryzen 5 5600",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39037,
+            "name": "Intel Core i7-10700F",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39043,
+            "name": "Intel Core i7-11700F",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39045,
+            "name": "Intel Core i9-11900K",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39048,
+            "name": "Intel Core i7-10700",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39051,
+            "name": "Intel Core i5-11400",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39052,
+            "name": "Intel Core i5-10600K",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39053,
+            "name": "Intel Core i3-14100",
+            "from": "",
+            "to": "LGA1700"
+        },
+        {
+            "id": 38938,
+            "name": "AMD Ryzen 5 5600X",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 38941,
+            "name": "AMD Ryzen 7 5800X",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39059,
+            "name": "Intel Core i5-11600K",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39061,
+            "name": "AMD Ryzen 9 3950X",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39063,
+            "name": "AMD Ryzen 7 3700X",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39066,
+            "name": "AMD Ryzen 5 1600X",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39067,
+            "name": "Intel Core i5-10500",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39068,
+            "name": "Intel Core i7-10700KF",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39071,
+            "name": "AMD Ryzen 5 3600XT",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39073,
+            "name": "Intel Core i7-11700",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39075,
+            "name": "Intel Core i3-10100",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39078,
+            "name": "Intel Core i9-11900KF",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39081,
+            "name": "Intel Core i3-13100F",
+            "from": "",
+            "to": "LGA1700"
+        },
+        {
+            "id": 39084,
+            "name": "Intel Core i3-10105F",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 38945,
+            "name": "AMD Ryzen 7 5700X",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39086,
+            "name": "AMD Ryzen 7 3800XT",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39089,
+            "name": "AMD Ryzen 9 3900XT",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39091,
+            "name": "AMD Ryzen 3 1200 (14nm)",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39094,
+            "name": "AMD Ryzen 5 1600 (12nm)",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39095,
+            "name": "Intel Core i5-11600KF",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39097,
+            "name": "AMD Ryzen 3 3300X",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 38949,
+            "name": "AMD Ryzen 7 5800X3D 10th Anniversary Edition",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 38954,
+            "name": "AMD Ryzen 7 5800X3D",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39098,
+            "name": "Intel Core i5-10600KF",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39099,
+            "name": "AMD Ryzen 3 3200G",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39102,
+            "name": "Intel Core i3-13100",
+            "from": "",
+            "to": "LGA1700"
+        },
+        {
+            "id": 39103,
+            "name": "Intel Core i3-10105",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39109,
+            "name": "AMD Ryzen 5 3600",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 38956,
+            "name": "AMD Ryzen 7 5700",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 38959,
+            "name": "AMD Ryzen 7 5800XT",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 38962,
+            "name": "AMD Ryzen 5 5600G",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39113,
+            "name": "Intel Core i5-10600",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 38965,
+            "name": "AMD Ryzen 7 5700X3D",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 38971,
+            "name": "AMD Ryzen 9 5900XT",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 38974,
+            "name": "AMD Ryzen 7 5700G",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39077,
+            "name": "Intel Core i7-11700KF",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39115,
+            "name": "Intel Core i9-10900",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 38977,
+            "name": "AMD Ryzen 9 5950X",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 38978,
+            "name": "AMD Ryzen 9 5900X",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39117,
+            "name": "Intel Core i9-10900F",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39120,
+            "name": "Intel Core i9-11900F",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 38985,
+            "name": "AMD Ryzen 5 5600XT",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39122,
+            "name": "AMD Ryzen 5 3600X",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 38991,
+            "name": "AMD Ryzen 5 5600GT",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 38993,
+            "name": "Intel Core i3-14100F",
+            "from": "",
+            "to": "LGA1700"
+        },
+        {
+            "id": 38996,
+            "name": "AMD Ryzen 5 2600",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 38999,
+            "name": "AMD Ryzen 5 4500",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39001,
+            "name": "Intel Core i5-10400F",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 38950,
+            "name": "AMD Ryzen 5 3600",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 38969,
+            "name": "AMD Ryzen 7 3700X",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 38988,
+            "name": "Intel Core i3-12100F",
+            "from": "",
+            "to": "LGA1700"
+        },
+        {
+            "id": 39011,
+            "name": "AMD Ryzen 7 2700X",
+            "from": "AM5",
+            "to": "AM4"
+        },
+        {
+            "id": 39033,
+            "name": "Intel Core i3-12100",
+            "from": "",
+            "to": "LGA1700"
+        },
+        {
+            "id": 39080,
+            "name": "Intel Core i9-10900KF",
+            "from": "",
+            "to": "LGA1200"
+        },
+        {
+            "id": 39127,
+            "name": "Intel Core i9-11900",
+            "from": "",
+            "to": "LGA1200"
+        }
+    ]
+}

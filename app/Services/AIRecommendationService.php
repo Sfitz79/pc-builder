@@ -723,6 +723,253 @@ class AIRecommendationService
     protected array $trimmedSelection = [];
 
     /**
+     * The mirror image of trimToCap(): step parts UP while the money allows.
+     *
+     * trimToCap() exists because the per-category relax-to-cheapest fallbacks
+     * ignore the cap, so an over-budget build has to be walked back down.
+     * This exists for the opposite failure: a build that finished UNDER the cap
+     * because every stage maximises a score inside a per-category share and then
+     * stops, with nothing anywhere owning the leftover money.
+     *
+     * Measured 2026-10-07 on the published bands: GBP 2,500/1440p returned a
+     * GeForce RTX 5060 Ti - the same card as the GBP 1,700 build, for GBP 800
+     * more - and GBP 3,500/4K left GBP 147 unspent.
+     *
+     * SAFETY CONTRACT (this is a customer-promise path, so it fails closed):
+     *
+     *  - Only a STRICTLY better part is ever accepted. There is no branch that
+     *    can step a tier down, and "better" is capability, not price: a cheaper
+     *    card with the best pounds-per-frame loses to the current one. An
+     *    earlier attempt ranked candidates by scoreComponent(), which rewards
+     *    value, and it installed a GBP 253 Arc A580 into a GBP 1,763 1080p
+     *    build - raising the price while lowering the capability.
+     *  - Every candidate must fit under $hardCap, so the budget cannot break.
+     *  - The GPU tier may only INCREASE, so the resolution floor buildPools()
+     *    already enforced can never be broken here.
+     *  - RAM is re-filtered to the selected CPU's memory generation, because
+     *    the pools are socket-filtered only inside the selection loop and this
+     *    pass runs after it.
+     *  - A slot that is absent is never filled and a slot we cannot rank is
+     *    never touched, so an unknown part is left exactly as it was rather
+     *    than being "improved" on a guess.
+     *
+     * Steps run in capability-per-pound order - the graphics card first,
+     * because it is what the customer notices, then the processor, then
+     * memory and storage. It stops as soon as a step finds nothing, so a build
+     * is never reshuffled just to move money around.
+     */
+    protected function spendSlack(array $selection, array $pools, float $hardCap, bool $forceGpu, bool $debug = false): array
+    {
+        if ($selection === []) {
+            return $selection;
+        }
+
+        // The CPU drives two of the compatibility gates below, so resolve it
+        // once from the finished machine rather than trusting the pools.
+        $cpu = null;
+
+        if (isset($selection['cpu']['id'])) {
+            $cpu = Component::find((int) $selection['cpu']['id']);
+        }
+
+        $cpuBrand = $cpu === null ? null : $this->cpuBrandOf(['name' => $cpu->name]);
+        $cpuSocket = $cpu === null ? null : $this->canonicalSocket($cpu);
+
+        foreach (['gpu', 'cpu', 'ram', 'storage'] as $slug) {
+            if (! $forceGpu && $slug === 'gpu') {
+                continue;
+            }
+
+            if (! isset($selection[$slug]['id'])) {
+                continue;
+            }
+
+            $pool = $pools[$slug] ?? collect();
+
+            if ($pool->isEmpty()) {
+                continue;
+            }
+
+            $current = Component::find((int) $selection[$slug]['id']);
+
+            if ($current === null) {
+                continue;
+            }
+
+            $budget = $hardCap - (float) collect($selection)->sum('price');
+
+            if ($budget <= 1.0) {
+                return $selection;
+            }
+
+            $better = match ($slug) {
+                'gpu' => $this->betterGpu($pool, $current, $budget, $cpuBrand),
+                'cpu' => $this->betterCpu($pool, $current, $budget),
+                'ram' => $this->betterMemory($pool, $current, $budget, $cpuSocket),
+                'storage' => $this->betterStorage($pool, $current, $budget),
+                default => null,
+            };
+
+            if ($better === null) {
+                continue;
+            }
+
+            $delta = (float) $better->price - (float) $current->price;
+
+            if ($debug) {
+                fwrite(STDERR, sprintf(
+                    "    slack %-9s %-40s %8.2f -> %-40s %8.2f (+%.2f)\n",
+                    $slug,
+                    mb_substr((string) $current->name, 0, 40), (float) $current->price,
+                    mb_substr((string) $better->name, 0, 40), (float) $better->price, $delta
+                ));
+            }
+
+            $selection[$slug] = $this->selectionRow($slug, $better);
+        }
+
+        return $selection;
+    }
+
+    /**
+     * The best graphics card that is genuinely a step UP from the current one
+     * and still fits $budget.
+     *
+     * Ranked by tier first and price second, so the step lands on the cheapest
+     * card in the next tier rather than on the most expensive card that happens
+     * to fit. viablePool() is re-applied because the CPU brand pairing gate
+     * lives in the selection loop, not in the pool.
+     */
+    protected function betterGpu($pool, Component $current, float $budget, ?string $cpuBrand): ?Component
+    {
+        $tier = $this->gpuPerformanceTier($current);
+
+        // gpuPerformanceTier() returns 0 for a card it cannot classify. Rule 6:
+        // an unknown card must never be treated as permitted, and it must
+        // never be used to justify a spend either, so we refuse to step from it.
+        if ($tier <= 0) {
+            return null;
+        }
+
+        return $this->viablePool('gpu', $pool, $cpuBrand)
+            ->filter(fn (Component $c) => $this->gpuPerformanceTier($c) > $tier)
+            ->filter(fn (Component $c) => (float) $c->price > (float) $current->price)
+            ->filter(fn (Component $c) => (float) $c->price - (float) $current->price <= $budget + 0.001)
+            ->sortBy(fn (Component $c) => [$this->gpuPerformanceTier($c), (float) $c->price])
+            ->first();
+    }
+
+    /**
+     * A processor strictly above the current one on generation, still fitting.
+     */
+    protected function betterCpu($pool, Component $current, float $budget): ?Component
+    {
+        // generationScore() requires the Category. If it cannot be resolved we
+        // refuse the step rather than passing null into a typed parameter - an
+        // unrankable slot must be left alone, never guessed at.
+        $category = $this->categoryFor('cpu');
+
+        if ($category === null) {
+            return null;
+        }
+
+        $tier = $this->generationScore($current, $category);
+
+        if ($tier <= 0) {
+            return null;
+        }
+
+        return $pool
+            ->filter(fn (Component $c) => $this->generationScore($c, $category) > $tier)
+            ->filter(fn (Component $c) => (float) $c->price > (float) $current->price)
+            ->filter(fn (Component $c) => (float) $c->price - (float) $current->price <= $budget + 0.001)
+            ->sortBy(fn (Component $c) => [$this->generationScore($c, $category), (float) $c->price])
+            ->first();
+    }
+
+    /**
+     * More memory, or the same memory faster, still fitting and still legal for
+     * the CPU's memory generation.
+     */
+    protected function betterMemory($pool, Component $current, float $budget, ?string $cpuSocket): ?Component
+    {
+        $generation = $this->ramGenerationForSocket($cpuSocket);
+
+        if ($generation !== null) {
+            $pool = $pool->filter(fn (Component $c) => $this->ramGenerationMatches($c, $generation));
+
+            if ($pool->isEmpty()) {
+                return null;
+            }
+        }
+
+        $rank = fn (Component $c) => $this->ramCapacityGb($c) * 1000 + (int) preg_replace('/\D/', '', (string) $this->memorySpeedToken($c));
+        $currentRank = $rank($current);
+
+        return $pool
+            ->filter(fn (Component $c) => $rank($c) > $currentRank)
+            ->filter(fn (Component $c) => (float) $c->price > (float) $current->price)
+            ->filter(fn (Component $c) => (float) $c->price - (float) $current->price <= $budget + 0.001)
+            ->sortBy(fn (Component $c) => [$rank($c), (float) $c->price])
+            ->values()
+            ->first();
+    }
+
+    /**
+     * A larger or faster drive, still fitting.
+     */
+    protected function betterStorage($pool, Component $current, float $budget): ?Component
+    {
+        $rank = fn (Component $c) => $this->specCapacityGb($c);
+        $currentRank = $rank($current);
+
+        return $pool
+            ->filter(fn (Component $c) => $rank($c) > $currentRank)
+            ->filter(fn (Component $c) => (float) $c->price > (float) $current->price)
+            ->filter(fn (Component $c) => (float) $c->price - (float) $current->price <= $budget + 0.001)
+            ->sortBy(fn (Component $c) => [$rank($c), (float) $c->price])
+            ->first();
+    }
+
+    /** @var array<string, Category|null> */
+    protected array $categoryCache = [];
+
+    /**
+     * The Category row for a slug, cached for the request.
+     *
+     * spendSlack() is handed pools keyed by slug rather than the models, but
+     * ranking by generation needs the Category. Without a cache this is one
+     * query per step, and fitToCeiling() re-runs the picker up to seven times
+     * per ask.
+     */
+    protected function categoryFor(string $slug): ?Category
+    {
+        if (! array_key_exists($slug, $this->categoryCache)) {
+            $this->categoryCache[$slug] = Category::query()->where('slug', $slug)->first();
+        }
+
+        return $this->categoryCache[$slug];
+    }
+
+    /**
+     * Build a selection row in the shape pickBalancedBuild() writes, so a
+     * slack step produces a part indistinguishable from a picked one.
+     */
+    protected function selectionRow(string $slug, Component $component): array
+    {
+        return [
+            'id' => $component->id,
+            'name' => $component->name,
+            'price' => (float) $component->price,
+            'score' => 0,
+            'chipset' => $component->chipset ?? null,
+            'wattage' => in_array($slug, ['cpu', 'gpu', 'psu'], true)
+                ? $this->componentWattage($slug, $component)
+                : 0,
+        ];
+    }
+
+    /**
      * Step discretionary parts down until the parts total fits $hardCap.
      *
      * Order of sacrifice is deliberate: graphics card first (largest single
@@ -1056,7 +1303,6 @@ class AIRecommendationService
             $pool = $pool->reject(
                 fn (Component $component) => ! $this->passesSpecFloor($component, $category)
             );
-
             if ($pool->isEmpty()) {
                 // Record the relaxation. An *unrecorded* fallback previously
                 // made the gate a silent no-op on exactly the categories it was
@@ -1072,6 +1318,42 @@ class AIRecommendationService
                 $pool = $this->priceIntegrity->clean($pool);
             }
 
+            // The quoting gate. A part we cannot positively identify must never
+            // reach a customer, whatever its score.
+            //
+            // Measured 2026-10-07: 115 of 306 graphics cards were quotable as
+            // "Asus PRIME OC" or "Gigabyte GAMING OC" - a board partner's cooler
+            // with no GPU model at all, priced at GBP 555. Nothing in the
+            // scoring or resolution logic objected, because the tier was
+            // derived from the same uninformative name. That is a
+            // hallucinated spec in a live quote, and it is the kind of defect
+            // no amount of budget tuning will catch, so it is gated here.
+            //
+            // The data is fixed (scripts/fix-gpu-identity.php rebuilt all 116
+            // from specs.chipset and the vendor SKU), so this currently rejects
+            // nothing in the GPU category. It stays because the gate must not
+            // depend on the data being clean today.
+            //
+            // IT CAN NEVER EMPTY A CATEGORY. If the gate would remove every
+            // row, the pool is left untouched and the reason is logged, because
+            // a silently empty category produces no builds at all, which is a
+            // far worse and far less visible failure than the one being
+            // prevented.
+            $quotable = $pool->filter(
+                fn (Component $component) => $this->isQuotable($component, $category)
+            );
+
+            if ($quotable->isEmpty() && $pool->isNotEmpty()) {
+                // Rule 5: a fallback that changes the result must announce
+                // itself by name.
+                \Log::warning('quotable gate refused to empty a category; the gate is not filtering', [
+                    'category' => $category->slug,
+                    'rows_in_pool' => $pool->count(),
+                ]);
+            } else {
+                $pool = $quotable;
+            }
+
             if ($pool->isNotEmpty()) {
                 $maxPrice = $pool->max(fn (Component $component) => (float) $component->price);
             } else {
@@ -1083,6 +1365,47 @@ class AIRecommendationService
         }
 
         return $pools;
+    }
+
+    /**
+     * Can this part be quoted to a customer with a straight face?
+     *
+     * This is deliberately NOT "does the name look complete". Each test asks
+     * whether the field a customer or a compatibility rule actually READS can
+     * be read off this row. That distinction is the whole point: coolers have
+     * no `cooler_type` and no `specs` at all on any of their 372 rows, yet
+     * "Noctua NH-D15 chromax.black" is a perfectly quotable product, so
+     * coolers are judged on the name. Gate them on the empty column instead
+     * and the entire category leaves the shop overnight.
+     *
+     * Per category, the consumer is:
+     *
+     *   gpu         gpuPerformanceTier() + the resolution filter read the model
+     *   cpu         fitsSocket() reads `socket`
+     *   ram         ramGenerationMatches() reads the memory generation
+     *   storage     the spec floor reads capacity and `interface`
+     *   psu         ensurePowerAdequacy() reads `wattage`
+     *   motherboard fitsSocket() reads `socket`
+     *   case, cooler  the name
+     *
+     * Anything not listed returns true: an unrecognised category is left to
+     * its own spec floor rather than being silently emptied here.
+     */
+    protected function isQuotable(Component $component, Category $category): bool
+    {
+        return match ($category->slug) {
+            'gpu' => preg_match('/\b(RTX\s?\d{4}|RX\s?\d{4}|GTX\s?\d{4}|GT\s?\d{3}|Arc\s?[AB]\d{3}|Quadro\s?R?T?\d{3,4}|Radeon\s?Pro)/i', (string) $component->name) === 1
+                && $this->gpuPerformanceTier($component) > 0,
+            'cpu' => trim((string) $component->socket) !== ''
+                || preg_match('/\b(i[3579]|Ryzen|Athlon|Core|Threadripper|Xeon|Pentium)\b/i', (string) $component->name) === 1,
+            'ram' => trim((string) $component->memory_type) !== ''
+                && $this->memorySpeedToken($component) !== null,
+            'storage' => trim((string) $component->interface) !== ''
+                && $this->specCapacityGb($component) > 0,
+            'psu' => $this->psuWattage($component) > 0,
+            'motherboard' => trim((string) $component->socket) !== '',
+            default => true,
+        };
     }
 
     /**
@@ -1842,6 +2165,29 @@ class AIRecommendationService
         $selection = $this->ensurePowerAdequacy($selection, $pools, $resolution);
         $spent = (float) collect($selection)->sum('price');
 
+        // --- Post-trim slack: now buy everything the money can still buy ----
+        //
+        // trimToCap() only ever moves DOWNWARDS, so a build that finished
+        // comfortably under the cap is left there. Measured 2026-10-07 on the
+        // published bands: GBP 2,500/1440p came back at GBP 2,386 with a
+        // GeForce RTX 5060 Ti - the same card as the GBP 1,700 build, for
+        // GBP 800 more. The customer paid the upgrade money and received the
+        // cheaper machine twice.
+        //
+        // Cause: every stage maximises a score INSIDE a per-category cap and
+        // then stops. Nothing anywhere had an owner for "money still left".
+        //
+        // This runs LAST, on the finished machine, so it sees the real total
+        // and the real remaining headroom, and so nothing downstream can undo
+        // it. It is deliberately the mirror image of trimToCap(): each step
+        // only ever accepts a STRICTLY better part that still fits under the
+        // hard cap. It cannot lower a build's capability, cannot breach the
+        // budget, and cannot drop the resolution floor (a GPU tier may only
+        // ever go up).
+        $selection = $this->spendSlack($selection, $pools, $hardCap, $forceGpu, $debug);
+        $selection = $this->ensurePowerAdequacy($selection, $pools, $resolution);
+        $spent = (float) collect($selection)->sum('price');
+
         if ($debug) {
             $added = $spent - (float) collect($prePower)->sum('price');
             fwrite(STDERR, sprintf(
@@ -2488,28 +2834,65 @@ class AIRecommendationService
      */
     protected function memorySpeedToken($component): ?string
     {
+        // THE COLUMN IS THE AUTHORITY. The name is NOT searched.
+        //
+        // Names are now disambiguated (see scripts/fix-ambiguous-names.php), so
+        // a RAM kit reads:
+        //   "Kingston FURY Beast 32 GB DDR5-5600 36 2 x 16GB"
+        // and a part code embeds a second, DIFFERENT speed:
+        //   "... 32 GB DDR5-6000 36 2 x 16GB SP032GXLWU60FFDL"
+        // Searching the name first made the regex match whichever token came
+        // earliest in a concatenated haystack, which is why the published
+        // floor could be derived from a part number rather than the product.
+        //
+        // Rule 1: measure the data defect through the code path that USES it.
+        $speed = null;
+        $type = null;
+
         if ($component instanceof Component) {
+            $speed = $component->memory_speed;
+            $type = $component->memory_type;
             $specs = $component->specs ?? [];
-            $name = (string) $component->name;
         } else {
             $specs = $component['specs'] ?? [];
-            $name = (string) ($component['name'] ?? '');
-            if ($specs === [] && isset($component['id'])) {
+            $speed = $component['memory_speed'] ?? null;
+            $type = $component['memory_type'] ?? null;
+
+            if ($speed === null && isset($component['id'])) {
                 $row = Component::find((int) $component['id']);
-                $specs = $row?->specs ?? [];
+                $speed = $row?->memory_speed;
+                $type ??= $row?->memory_type;
+                $specs = $specs === [] ? ($row?->specs ?? []) : $specs;
             }
         }
 
-        $hay = strtoupper(trim(
-            (string) ($specs['type'] ?? '')
-            . ' ' . (string) ($specs['memory_type'] ?? '')
-            . ' ' . (string) ($specs['speed'] ?? '')
-            . ' ' . (string) ($specs['memory_speed'] ?? '')
-            . ' ' . (string) ($specs['technology'] ?? '')
-            . ' ' . $name
-        ));
+        // Dedicated column first, then the specs it replaced.
+        $candidates = [
+            $speed,
+            $specs['speed'] ?? null,
+            $specs['memory_speed'] ?? null,
+        ];
 
-        if (preg_match('/(DDR\d)[-\s]?(\d{4})/i', $hay, $m) === 1) {
+        foreach ($candidates as $candidate) {
+            if ($candidate === null || trim((string) $candidate) === '') {
+                continue;
+            }
+
+            if (preg_match('/(DDR\d)[-\s]?(\d{4})/i', (string) $candidate, $m) === 1) {
+                return strtoupper($m[1]) . '-' . $m[2];
+            }
+        }
+
+        // No speed anywhere: fall back to the generation alone if we know it,
+        // which is still enough to decide DDR4 vs DDR5 for socket matching.
+        $gen = trim((string) ($type ?? $specs['memory_type'] ?? $specs['type'] ?? ''));
+
+        if (preg_match('/DDR\s?([345])/i', $gen, $m) === 1) {
+            return 'DDR' . $m[1];
+        }
+
+        // Last resort, for rows predating the identity backfill.
+        if (preg_match('/(DDR\d)[-\s]?(\d{4})/i', strtoupper((string) json_encode($specs)), $m) === 1) {
             return strtoupper($m[1]) . '-' . $m[2];
         }
 
@@ -4205,15 +4588,32 @@ class AIRecommendationService
     }
 
     /**
-     * Wattage from a PSU: explicit spec, then "N W" in the name, then the
-     * model number convention (PF400, A750GL, RM850e). Unknown returns 0 so
-     * unverifiable parts pass the floor rather than being wrongly rejected.
+     * Wattage from a PSU: the dedicated column, then an explicit spec, then
+     * "N W" in the name, then the model number convention (PF400, A750GL,
+     * RM850e). Unknown returns 0 so unverifiable parts pass the floor rather
+     * than being wrongly rejected.
+     *
+     * THE COLUMN IS THE AUTHORITY (fixed 2026-10-07).
+     *
+     * This used to read specs and the name only, and ignored
+     * `components.wattage` - which the identity backfill populates on 282 of
+     * 287 PSUs. The consequence was not cosmetic: "SeaSonic Focus GX V4 ATX 3
+     * (2024)" has no wattage in its name and no specs, so it resolved to 0W and
+     * ensurePowerAdequacy() and the resolution PSU floor were both reasoning
+     * about a PSU whose real output they had already been given. The row that
+     * cannot read a wattage is the one that most needs the column, because it
+     * is exactly the row the name-based fallbacks cannot help with.
      */
     protected function psuWattage(Component $component): int
     {
         $specs = $component->specs ?? [];
 
-        $wattage = (int) ($specs['wattage'] ?? ($specs['power'] ?? 0));
+        $wattage = (int) ($component->wattage ?? 0);
+
+        if ($wattage <= 0) {
+            $wattage = (int) ($specs['wattage'] ?? ($specs['power'] ?? 0));
+        }
+
         if ($wattage > 0) {
             return $wattage;
         }
