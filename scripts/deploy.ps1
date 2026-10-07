@@ -345,6 +345,7 @@ if ($Production) {
         Write-Error "rolled back. Failures:`n$($failed -join "`n")"
     }
 
+
     # `vercel deploy --prod` assigns the APEX alias. It does NOT move
     # www.pctechguy.app - measured twice on 2026-09-30, both times leaving www
     # silently one deployment behind while the verification gate passed it
@@ -393,6 +394,84 @@ if ($Production) {
         Write-Error "these domains are not serving $newUrl after aliasing: $($postFail -join ', ')"
     }
 
+    # ---------------------------------------------------- asset sanity check ---
+    #
+    # The gate above returned 200 for every URL while pctechguy.app was in fact
+    # COMPLETELY BROKEN, because those URLs are fixed paths it chooses itself.
+    # It never looked at the HTML the site actually serves, so it could not see
+    # that @vite had rewritten every stylesheet and script to
+    # http://127.0.0.1:5173 - the browser cannot reach that, and the whole site
+    # rendered as unstyled text. A green gate on a site nobody can read.
+    #
+    # So: fetch the real home page and assert it references its OWN built
+    # assets and no dev-server host. This is the check that would have caught
+    # it, and it fails the gate rather than reporting a reassuring pass.
+    Write-Host ''
+    Write-Host 'Checking the served HTML actually references live assets...' -ForegroundColor Cyan
+
+    $assetFailures = @()
+
+    foreach ($domain in $liveDomains) {
+        $html = & curl.exe -s --max-time 60 "$domain/" 2>$null | Out-String
+
+        if ([string]::IsNullOrWhiteSpace($html)) {
+            $assetFailures += "$domain/ returned no HTML"
+            Write-Host ("  {0,-34} {1}" -f $domain, 'NO HTML') -ForegroundColor Red
+            continue
+        }
+
+        # Any loopback or dev-server host in a production page is a broken build.
+        $devHost = [regex]::Match($html, '(?i)(127\.0\.0\.1|localhost|\[::1\]|0\.0\.0\.0):\d+')
+
+        if ($devHost.Success) {
+            $assetFailures += "$domain/ references dev server $($devHost.Value)"
+            Write-Host ("  {0,-34} {1}" -f $domain, "DEV SERVER $($devHost.Value)") -ForegroundColor Red
+        }
+        elseif ($html -match '(?i)@vite/client') {
+            $assetFailures += "$domain/ references the Vite dev client"
+            Write-Host ("  {0,-34} {1}" -f $domain, 'VITE DEV CLIENT') -ForegroundColor Red
+        }
+        elseif ($html -notmatch '/build/assets/') {
+            $assetFailures += "$domain/ references no built asset at all"
+            Write-Host ("  {0,-34} {1}" -f $domain, 'NO BUILT ASSETS') -ForegroundColor Red
+        }
+        else {
+            # Confirm at least one referenced asset actually resolves, so a
+            # stale manifest cannot pass as "it has asset URLs".
+            $asset = [regex]::Match($html, '/build/assets/[A-Za-z0-9._-]+\.(css|js)').Value
+
+            if ($asset -eq '') {
+                $assetFailures += "$domain/ has no parseable built asset reference"
+                Write-Host ("  {0,-34} {1}" -f $domain, 'UNPARSEABLE ASSET') -ForegroundColor Red
+            }
+            else {
+                $acode = & curl.exe -s -o NUL -w "%{http_code}" --max-time 60 "$domain$asset" 2>$null
+
+                if ($acode -eq '200') {
+                    Write-Host ("  {0,-34} {1} 200" -f $domain, $asset) -ForegroundColor Green
+                }
+                else {
+                    $assetFailures += "$domain$asset -> $acode"
+                    Write-Host ("  {0,-34} {1} {2}" -f $domain, $asset, $acode) -ForegroundColor Red
+                }
+            }
+        }
+    }
+
+    if ($assetFailures.Count -gt 0) {
+        Write-Host ''
+        Write-Host "ASSET CHECK FAILED - rolling back to $rollbackUrl" -ForegroundColor Red
+        foreach ($domain in $liveDomains) {
+            $host2 = ([uri]$domain).Host
+            $rb = Invoke-Vercel @('alias', 'set', $rollbackUrl, $host2)
+            if ($rb.ExitCode -ne 0) {
+                Write-Error "ROLLBACK FAILED for $host2 - point it at $rollbackUrl by hand:`n$($rb.Output)"
+            } else {
+                Write-Host "  rolled back $host2 -> $rollbackUrl" -ForegroundColor Yellow
+            }
+        }
+        Write-Error "rolled back. Asset failures:`n$($assetFailures -join "`n")"
+    }
     # Say plainly what was NOT checked. A gate that silently drops a domain is
     # the exact failure this file documents twice already (www going stale while
     # the gate passed; a component-image 404 while every HTML route returned 200).

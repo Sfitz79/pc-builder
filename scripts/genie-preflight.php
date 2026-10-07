@@ -346,6 +346,58 @@ if ($clientId !== '' && $mode === '') {
     $ok('PAYPAL_MODE is ' . $mode . ($mode === 'live' ? ' (REAL MONEY)' : ''));
 }
 
+// --------------------------------------------------- 10. vite production build ---
+$section('10. Vite production build');
+
+// The single most damaging deploy defect of 2026-10-07, and the deploy gate
+// passed straight through it: a stale public/hot containing
+// http://127.0.0.1:5173 was uploaded, Laravel's @vite rewrote every asset URL
+// to the dev server, and pctechguy.app rendered as unstyled text because no
+// CSS or JS could load. It shipped because public/hot is UNTRACKED, and the
+// deploy uploads the working directory rather than only tracked files.
+$hotFile = $root . '/public/hot';
+
+if (is_readable($hotFile)) {
+    $fail('public/hot', 'exists (' . trim((string) file_get_contents($hotFile)) . ') - @vite will point every asset at the dev server and the site renders as bare text. Stop `npm run dev` and delete the file before deploying.');
+} else {
+    $ok('no public/hot dev marker');
+}
+
+$manifest = $root . '/public/build/manifest.json';
+
+if (! is_readable($manifest)) {
+    $fail('public/build/manifest.json', 'missing - run `npm run build` or no asset will resolve in production');
+} else {
+    $decoded = json_decode((string) file_get_contents($manifest), true);
+
+    if (! is_array($decoded) || $decoded === []) {
+        $fail('manifest.json', 'unreadable or empty');
+    } else {
+        $entries = array_keys($decoded);
+        $hasJs = (bool) array_filter($entries, static fn ($k) => str_ends_with($k, '.js'));
+        $hasCss = (bool) array_filter($entries, static fn ($k) => str_ends_with($k, '.css'));
+
+        $hasJs && $hasCss
+            ? $ok('manifest lists ' . count($entries) . ' built entries (js and css present)')
+            : $fail('manifest.json', 'has no ' . ($hasJs ? 'css' : 'js') . ' entries');
+
+        // Every manifest entry must resolve to a file that was actually built.
+        $missing = [];
+
+        foreach ($decoded as $key => $entry) {
+            $file = $entry['file'] ?? null;
+
+            if ($file === null || ! is_readable($root . '/public/build/' . $file)) {
+                $missing[] = $key;
+            }
+        }
+
+        $missing === []
+            ? $ok('every manifest entry resolves to a built file')
+            : $fail('manifest.json', count($missing) . ' entries point at files that do not exist: ' . implode(', ', array_slice($missing, 0, 5)));
+    }
+}
+
 // ------------------------------------------------------------- summary ------
 printf("\n%s\n", str_repeat('-', 68));
 printf("passed %d   warnings %d   failures %d\n", $passes, count($warnings), count($failures));

@@ -76,3 +76,12 @@ storage/app/
 
 # Batch sweep output: empty stub files and logs from a one-off run.
 database/scraped/prod-batches/
+
+# Vite hot-reload marker. Laravel's @vite directive reads this file and, if it
+# exists, replaces every asset URL with the dev server. A stale public/hot
+# containing http://127.0.0.1:5173 was uploaded by `vercel --prod` on
+# 2026-10-07 and the whole site rendered as unstyled text because no CSS or JS
+# could load. It is untracked, which is exactly why it shipped: the deploy
+# uploads the working directory, not just tracked files. Never commit, and
+# scripts/deploy.ps1 now fails the build if it is present.
+public/hot
