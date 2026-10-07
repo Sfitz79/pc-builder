@@ -161,7 +161,20 @@
                 Storefront Render
             </p>
 
+            {{-- x-show guards the empty-src case.
+
+                 render3dUrl is empty whenever /builder/render-capability reports
+                 available:false, which it does in production because the render
+                 studio is not configured for this site. An <img> with an empty
+                 bound src renders as a BROKEN FRAME - measured live as the only
+                 broken image on /builder - which looks like a fault in the
+                 product rather than a feature that is switched off.
+
+                 Hiding the element when there is no URL is the honest
+                 presentation: no render available, so no render claimed. --}}
             <img
+                x-show="render3dUrl"
+                x-cloak
                 :src="render3dUrl"
                 alt="Storefront render of the build"
                 class="w-full rounded-xl border border-slate-800"

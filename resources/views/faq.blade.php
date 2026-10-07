@@ -1,7 +1,7 @@
 @extends('layouts.seo')
 
 @section('title')
-    Gaming PC Builder FAQ | PCTechGuy Online
+    Gaming PC Builder FAQ | {{ config('brand.name') }}
 @endsection
 
 @section('description')
