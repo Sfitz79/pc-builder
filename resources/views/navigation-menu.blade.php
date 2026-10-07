@@ -56,6 +56,23 @@
                 Pre-Builts
             </x-nav-link>
 
+            {{-- PCTG Business sub-brand. Styled blue here rather than red to
+                 mark the split at the point of entry, so a visitor can see
+                 immediately that this is a different product line aimed at a
+                 different buyer rather than another gaming page. The blue is
+                 literal rather than a `biz-*` token because x-nav-link is a
+                 shared component compiled with the red pctg palette, exactly
+                 the constraint documented in business/index.blade.php. --}}
+            <a
+                href="{{ route('business') }}"
+                @if (request()->routeIs('business')) aria-current="page" @endif
+                class="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition hover:bg-blue-500/10
+                       {{ request()->routeIs('business') ? 'bg-blue-500/15 text-blue-300' : 'text-blue-400/90' }}"
+            >
+                <span class="inline-block h-1.5 w-1.5 rounded-full bg-blue-400" aria-hidden="true"></span>
+                Business
+            </a>
+
             <x-nav-link
                 :href="route('software')"
                 :active="request()->routeIs('software')"

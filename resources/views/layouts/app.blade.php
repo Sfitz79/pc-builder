@@ -16,22 +16,35 @@
      *
      * `livewire` loads Livewire - and therefore Livewire's OWN copy of Alpine.
      *
-     * The builder turns it OFF because resources/js/app.js already imports Alpine
-     * and calls Alpine.start(), and resources/views/builder/** uses no Livewire
-     * component at all (verified by grep). With both loaded the browser logged
-     * "Detected multiple instances of Alpine running" and every directive outside
-     * the first instance's scope failed to evaluate:
+     * The builder turns it OFF. Measured on the live page: with Livewire's
+     * script loading, resources/js/app.js's Alpine and Livewire's Alpine both
+     * run, and the browser warns "Detected multiple instances of Alpine
+     * running". No view under resources/views/builder/** uses a Livewire
+     * component at all (verified by grep), so the second copy bought nothing.
+     *
+     * IMPORTANT — THE SYMPTOMS THAT USED TO BE BLAMED ON THIS WERE MISATTRIBUTED.
+     * The errors below were long recorded here as proof of the dual-Alpine
+     * problem:
      *
      *   Alpine Expression Error: componentModal is not defined
      *   Alpine Expression Error: categoryLabel is not defined
      *   Alpine Expression Error: search is not defined
      *   Alpine Expression Error: filteredComponents is not defined   (x2)
      *
-     * Worth being precise about what that did and did not break: builderState() ran
-     * perfectly (83 keys, componentModal present) and x-show="componentModal" did
-     * apply `display:none` to the component selector. So this was NOT a styling
-     * failure and NOT a missing stylesheet - it was a second Alpine re-evaluating
-     * directives against a scope the first instance owned.
+     * That was wrong. Measured in the browser: with livewire=false already in
+     * force, only ONE script tag loads and window.Livewire is undefined, yet
+     * all four errors persist. Calling builderState() directly returns a
+     * healthy 83-key object containing all four members. The real cause was
+     * Alpine SCOPE, not duplication — the state was declared on a wrapper
+     * inside builder/dashboard.blade.php while the builder layout rendered
+     * its header, sidebar, mobile drawer and checkout footer as siblings of
+     * that wrapper, outside the only scope that owned the state. Fixed by
+     * hoisting x-data="builderState()" to components/pctg/layouts/builder.
+     * blade.php. Do not "re-fix" this by toggling Livewire.
+     *
+     * Worth being precise about what that did and did not break: nothing here
+     * was a styling failure and nothing was a missing stylesheet. The page
+     * rendered; four Alpine expressions simply could not evaluate.
      *
      * Both default to true, so every other page is byte-for-byte unchanged.
      */

@@ -13,6 +13,31 @@ const csrfToken = () => {
     return meta ? meta.content : '';
 };
 
+/* This file is processed by Vite, NOT Blade, so `@json()` will not interpolate
+ * here. Server-side config is therefore passed through a JSON island rendered
+ * by welcome.blade.php and read at runtime:
+ *
+ *   #pctg-workload-config  { "segments": {...}, "business": {...} }
+ *
+ * Both fall back to empty objects so the page still works if the island is
+ * missing, rather than throwing on a null dereference. */
+const readJsonIsland = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return {};
+    try {
+        return JSON.parse(el.textContent || '{}');
+    } catch (error) {
+        // Silent-fallback rule: never let a parse failure hide the config.
+        console.warn('pctg-landing-demos: could not parse #' + id, error);
+        return {};
+    }
+};
+
+const WORKLOAD_CONFIG = readJsonIsland('pctg-workload-config');
+const MODE_BLURBS = (WORKLOAD_CONFIG.segments && typeof WORKLOAD_CONFIG.segments === 'object')
+    ? Object.fromEntries(Object.entries(WORKLOAD_CONFIG.segments).map(([k, v]) => [k, (v && v.blurb) || '']))
+    : {};
+
 const formatGBP = (value) => '£' + Number(value).toLocaleString('en-GB');
 
 const waitForDom = (callback) => {
@@ -195,8 +220,21 @@ const USE_CASE_LABELS = {
     gaming: 'Gaming',
     streaming: 'Streaming',
     creation: 'Content Creation',
-    ai: 'AI Development',
+    'ai': 'AI Development',
+    studio: 'Creative Studio',
+    rendering: 'Pro Rendering',
+    enterprise: 'Enterprise Servers',
+    server: 'Servers',
+    nas: 'NAS & Storage',
+    'home-business': 'Home Business',
 };
+
+/* Business workload copy, read from the config island so the landing page and
+ * the recommendation engine cannot disagree about what a NAS build is
+ * actually constrained by. */
+const WORKLOAD_META = (WORKLOAD_CONFIG.business && typeof WORKLOAD_CONFIG.business === 'object')
+    ? WORKLOAD_CONFIG.business
+    : {};
 
 const INIT_BUILD_PARTS = ['cpu', 'gpu', 'ram', 'storage'];
 
@@ -386,8 +424,47 @@ waitForDom(() => {
 
     const tierFor = (useCase, value) => (value >= 1200 ? 'premium' : 'entry');
 
+    /* A workload the landing demo has NO measured example for.
+     *
+     * DEMO_BUILDS only covers the gaming workloads, because those are the only
+     * ones priced from the live catalogue when the demo was written. There is
+     * deliberately no fabricated server or NAS example here: inventing a parts
+     * list for a workload we have not measured is exactly the GBP 1,096 failure
+     * this file was rewritten to remove.
+     *
+     * So a business workload shows what we DO know - what the workload is for
+     * and what actually constrains the hardware - and hands off to the live
+     * builder, which prices from the real catalogue. Honest and useful beats a
+     * confident invented number. */
+    const renderNoMeasuredExample = (workload) => {
+        const w = workload || {};
+        resultPanel.innerHTML = `
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <span class="pctg-badge bg-blue-500/10 text-blue-300">Business &amp; Pro</span>
+                <span class="text-sm text-slate-400">${w.label || 'Professional system'}</span>
+            </div>
+            <p class="mt-4 text-sm leading-relaxed text-slate-400">${w.blurb || ''}</p>
+            ${w.guidance ? `<p class="mt-3 text-sm leading-relaxed text-slate-300">${w.guidance}</p>` : ''}
+            <p class="mt-4 text-sm leading-relaxed text-slate-400">
+                We do not publish an example price for this workload, because we have not
+                measured one. Ask the builder for a live quote from the current catalogue and
+                it will price the real thing.
+            </p>
+            <div class="mt-6">
+                <a href="/builder" class="inline-flex items-center gap-2 rounded-2xl bg-blue-600 px-5 py-2.5 font-bold text-white transition hover:bg-blue-500">
+                    Get a live quote &rarr;
+                </a>
+            </div>
+        `;
+    };
+
     const renderStatic = () => {
-        const build = DEMO_BUILDS[useCase][tierFor(useCase, budget)];
+        const group = DEMO_BUILDS[useCase];
+        if (!group) {
+            renderNoMeasuredExample(WORKLOAD_META[useCase]);
+            return;
+        }
+        const build = group[tierFor(useCase, budget)];
         resultPanel.innerHTML = builderResultMarkup(useCase, build.tag, build.parts, null, build.allIn, build.note);
     };
 
@@ -444,9 +521,17 @@ waitForDom(() => {
         resultPanel.innerHTML = builderLoadingMarkup();
         generateButton.disabled = true;
 
-        const demo = DEMO_BUILDS[useCase][tierFor(useCase, budget)];
-        const fallback = { ...demo, rationale: null };
-        const result = (await generateFromApi()) || fallback;
+        const demo = DEMO_BUILDS[useCase] ? DEMO_BUILDS[useCase][tierFor(useCase, budget)] : null;
+        const result = (await generateFromApi())
+            || (demo ? { ...demo, rationale: null } : null);
+
+        // No live quote AND no measured example for this workload: say so and
+        // hand off, rather than substituting a gaming build or a made-up price.
+        if (!result) {
+            renderNoMeasuredExample(WORKLOAD_META[useCase]);
+            generateButton.disabled = false;
+            return;
+        }
 
         resultPanel.innerHTML = builderResultMarkup(
             useCase,
@@ -464,6 +549,48 @@ waitForDom(() => {
             caseButtons.forEach((other) => other.classList.remove('is-active'));
             button.classList.add('is-active');
             useCase = button.dataset.demoCase;
+            renderStatic();
+        });
+    });
+
+    /* ---- MODE SWITCH (gaming <-> business) -------------------------------
+     * The workload buttons carry data-demo-segment, so the mode switch filters
+     * them without hardcoding any slug. On switching to a mode that has no
+     * measured demo example, the panel shows the hand-off panel instead of a
+     * gaming build - the UI must never claim to be a business configurator
+     * while displaying gaming parts. */
+    const modeButtons = Array.from(container.querySelectorAll('[data-demo-mode]'));
+    const modeNote = container.querySelector('[data-demo-mode-note]');
+
+    const applyMode = (mode) => {
+        caseButtons.forEach((btn) => {
+            const seg = btn.dataset.demoSegment || 'gaming';
+            btn.hidden = seg !== mode;
+            if (seg !== mode) btn.classList.remove('is-active');
+        });
+
+        const active = caseButtons.find((b) => b.classList.contains('is-active'));
+        if (!active || (active.dataset.demoSegment || 'gaming') !== mode) {
+            const first = caseButtons.find((b) => (b.dataset.demoSegment || 'gaming') === mode);
+            if (first) {
+                first.classList.add('is-active');
+                useCase = first.dataset.demoCase;
+            }
+        }
+
+        if (modeNote) modeNote.textContent = MODE_BLURBS[mode] || '';
+        renderStatic();
+    };
+
+    modeButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            modeButtons.forEach((other) => {
+                other.classList.remove('is-active');
+                other.setAttribute('aria-pressed', 'false');
+            });
+            button.classList.add('is-active');
+            button.setAttribute('aria-pressed', 'true');
+            applyMode(button.dataset.demoMode);
         });
     });
 

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\AiRecommendation;
 use App\Models\Category;
 use App\Models\Component;
+use App\Services\GeminiService;
 
 class AIRecommendationService
 {
@@ -3425,6 +3426,15 @@ class AIRecommendationService
     protected function scoreCpu(array $specs, ?string $purpose): int
     {
         $cores = (int) ($specs['cores'] ?? 8);
+        $purpose = GeminiService::sanitizePurpose($purpose);
+        $segment = config('workloads.workloads')[$purpose]['segment'] ?? 'gaming';
+
+        // Business workloads are throughput-bound, so core count is weighted
+        // harder than it is for gaming - a server with few fast cores is not
+        // the same product as a gaming rig with many slow ones.
+        if ($segment === 'business') {
+            return min(100, 50 + ($cores - 8) * 9);
+        }
 
         return match ($purpose) {
             'streaming', 'creation' => min(100, 50 + ($cores - 8) * 8),
@@ -3452,6 +3462,33 @@ class AIRecommendationService
 
         if ($purpose === 'ai') {
             $base += 12;
+        }
+
+        // BUSINESS WORKLOADS: graphics value is workload-specific, and for
+        // storage and server work it is close to zero.
+        //
+        // The default branch below is VRAM-shaped, which is right for gaming
+        // and for the professional graphics workloads, but wrong for a NAS or
+        // a rack server - where the old code would have spent a large slice of
+        // the budget on a graphics card the customer will never use. These
+        // adjustments are small in absolute terms but they are the difference
+        // between a storage server and a gaming PC with a NAS label on it.
+        $purpose = GeminiService::sanitizePurpose($purpose);
+        if ($purpose === 'nas') {
+            // No graphics requirement at all; iGPU-level VRAM is plenty.
+            return min(100, max(20, 40));
+        }
+        if ($purpose === 'server' || $purpose === 'enterprise') {
+            // Integrated/basic graphics is fine and is what these ship with.
+            $base -= 25;
+        }
+        if ($purpose === 'rendering' || $purpose === 'studio') {
+            // Professional VRAM capacity is the point, so reward it harder.
+            $base += $memory >= 24 ? 18 : ($memory >= 16 ? 8 : -18);
+        }
+        if ($purpose === 'home-business') {
+            // Quiet, efficient, no need for a large card.
+            $base -= 12;
         }
 
         return min(100, max(20, $base));

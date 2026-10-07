@@ -125,6 +125,22 @@ Route::view('/components', 'info-page', [
 Route::get('/prebuilts', [PrebuiltController::class, 'index'])->name('prebuilts');
 Route::get('/builder/preset/{slug}', [PrebuiltController::class, 'preset'])->name('prebuilts.preset');
 
+/*
+ * PCTG Business — the professional sub-brand.
+ *
+ * A separate blade rather than a themed variant of the gaming landing page,
+ * because it is a different product aimed at a different buyer: workstations,
+ * studio/render systems and enterprise servers instead of gaming scenarios,
+ * with its own royal-blue palette and its own sub-brand lockup.
+ *
+ * Stated as a view, not a controller, because it carries no dynamic data and
+ * quotes nothing. It deliberately publishes no prices and no benchmark figures
+ * - business buyers want a spec conversation, and inventing numbers here would
+ * repeat the GBP 1,096 headline failure in a more expensive context.
+ */
+Route::view('/business', 'business.index')->name('business');
+Route::redirect('/pctg-business', '/business');
+
 Route::view('/support', 'info-page', [
     'title' => 'Support',
     'subtitle' => 'From ordering to upgrades, the PCTG team is behind every build.',

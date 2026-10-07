@@ -260,6 +260,32 @@
         </x-pctg.glass>
     </section>
 
+    {{-- Config island for pctg-landing-demos.js.
+
+     That file is processed by Vite, not Blade, so it cannot call @json().
+     Mode blurbs and business workload copy are passed through here and read at
+     runtime, so the landing page and the recommendation engine describe the
+     SAME workloads from ONE source (config/workloads.php).
+
+     Business workloads carry their guidance because they are the ones most
+     likely to be misread: a NAS build is constrained by drive bays and
+     throughput, not graphics, and saying so is what stops this page implying
+     a GPU is what matters. --}}
+<script type="application/json" id="pctg-workload-config">{!! json_encode([
+    'segments' => array_map(
+        fn ($s) => ['label' => $s['label'] ?? '', 'blurb' => $s['blurb'] ?? ''],
+        config('workloads.segments', [])
+    ),
+    'business' => collect(config('workloads.workloads', []))
+        ->filter(fn ($w) => ($w['segment'] ?? '') === 'business')
+        ->map(fn ($w, $slug) => [
+            'label' => $w['label'] ?? $slug,
+            'blurb' => $w['blurb'] ?? '',
+            'guidance' => $w['guidance'] ?? '',
+        ])
+        ->all(),
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+
     {{-- AI Builder showcase (interactive) --}}
     <section id="ai-builder-demo" class="mb-12" data-builder-demo>
         <div class="mb-10 text-center pctg-reveal">
@@ -276,12 +302,56 @@
                 <div class="pctg-reveal">
                     <h3 class="text-lg font-bold">What are you building?</h3>
 
-                    <div class="mt-4 grid grid-cols-2 gap-3">
-                        <button type="button" data-demo-case="gaming" class="demo-case-btn is-active">🎮 Gaming</button>
-                        <button type="button" data-demo-case="streaming" class="demo-case-btn">🎥 Streaming</button>
-                        <button type="button" data-demo-case="creation" class="demo-case-btn">🎨 Content Creation</button>
-                        <button type="button" data-demo-case="ai" class="demo-case-btn">🤖 AI Development</button>
+                    {{-- MODE SWITCH: gaming vs business.
+
+                         Driven from config/workloads.php so the buttons cannot
+                         drift from what the AI actually understands. The
+                         business half of this site is a real product line
+                         (PCTG Business), not a variation on the gaming builder,
+                         and the mode is what tells the recommendation engine
+                         whether a display resolution is even relevant.
+
+                         Rendered from config so adding a workload is a one-line
+                         config change rather than a Blade edit that can silently
+                         disagree with the backend. --}}
+                    @php $segments = config('workloads.segments'); @endphp
+                    <div class="mt-4 grid grid-cols-2 gap-3" role="group" aria-label="Build mode">
+                        @foreach ($segments as $segmentKey => $segment)
+                            <button
+                                type="button"
+                                data-demo-mode="{{ $segmentKey }}"
+                                class="demo-case-btn {{ $loop->first ? 'is-active' : '' }}"
+                                aria-pressed="{{ $loop->first ? 'true' : 'false' }}"
+                            >
+                                {{ $segmentKey === 'business' ? '🏢' : '🎮' }}
+                                {{ $segment['label'] }}
+                            </button>
+                        @endforeach
                     </div>
+
+                    <div class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                        @foreach (config('workloads.workloads') as $slug => $wl)
+                            @php
+                                // Only render workloads belonging to a real
+                                // segment, and mark which group they are in so
+                                // the JS can filter without hardcoding slugs.
+                                $segmentKey = $wl['segment'] ?? 'gaming';
+                                $isBusiness = $segmentKey === 'business';
+                            @endphp
+                            <button
+                                type="button"
+                                data-demo-case="{{ $slug }}"
+                                data-demo-segment="{{ $segmentKey }}"
+                                class="demo-case-btn {{ $slug === 'gaming' ? 'is-active' : '' }}"
+                                @if ($isBusiness) hidden @endif
+                            >{{ $wl['label'] }}</button>
+                        @endforeach
+                    </div>
+
+                    <p class="mt-3 text-xs text-slate-500" data-demo-mode-note>
+                        {{ $segments['gaming']['blurb'] }}
+                    </p>
+                </div>
 
                     <h3 class="mt-8 text-lg font-bold">Budget</h3>
 

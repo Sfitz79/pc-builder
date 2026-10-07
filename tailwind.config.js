@@ -32,6 +32,42 @@ export default {
                     success: '#00C853',
                     warning: '#FFC107',
                 },
+                /*
+                 * PCTG Business sub-brand palette.
+                 *
+                 * WHY A SECOND PALETTE RATHER THAN OVERRIDING pctg-primary
+                 * ------------------------------------------------------------
+                 * Tailwind resolves these at BUILD time into literal colour
+                 * values. A class like `bg-pctg-primary` becomes the literal
+                 * #e53935 in the compiled CSS, so redefining `pctg.primary` on a
+                 * page would not repaint it - every existing class would still
+                 * emit red, and the page would end up half red and half blue
+                 * instead of cleanly re-themed.
+                 *
+                 * Giving the sub-brand its own token set means the Business
+                 * pages ask for `bg-biz-primary` and genuinely get blue, with
+                 * the gaming storefront untouched. Same approach, no override
+                 * chain, no specificity fight.
+                 *
+                 * The hue is taken from the supplied PCTG Business artwork, whose
+                 * accent blue and tagline glow sit in this range.
+                 */
+                biz: {
+                    background: '#080c14',
+                    surface: '#0f1622',
+                    elevated: '#18212f',
+                    primary: {
+                        DEFAULT: '#2563eb',
+                        hover: '#3b82f6',
+                    },
+                    accent: '#60a5fa',
+                    text: {
+                        primary: '#ffffff',
+                        secondary: '#9fb0c8',
+                    },
+                    success: '#22c55e',
+                    warning: '#f59e0b',
+                },
             },
             fontFamily: {
                 sans: ['Inter', 'ui-sans-serif', 'system-ui', ...defaultTheme.fontFamily.sans],
@@ -47,6 +83,8 @@ export default {
                 panel: '0 16px 48px rgba(0, 0, 0, 0.5)',
                 'glow-primary': '0 0 24px rgba(229, 57, 53, 0.35)',
                 'glow-primary-strong': '0 0 48px rgba(229, 57, 53, 0.5)',
+                'glow-biz': '0 0 24px rgba(37, 99, 235, 0.35)',
+                'glow-biz-strong': '0 0 48px rgba(37, 99, 235, 0.5)',
             },
             animation: {
                 'power-pulse': 'powerPulse 2.4s ease-in-out infinite',

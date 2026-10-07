@@ -1,8 +1,16 @@
 <x-pctg.layouts.builder>
 
+    {{-- x-data was REMOVED from this wrapper.
+
+     builderState() now lives on components/pctg/layouts/builder.blade.php, at
+     the layout root. Having it here as well initialised the 83-key state a
+     second time, nested inside the first, and the inner instance shadowed the
+     outer one for everything below - which is why the component selector and
+     the build summary could not see it.
+
+     This div is kept purely for its vertical rhythm. --}}
     <div
         class="space-y-6"
-        x-data="builderState()"
     >
 
         @include('builder.partials.ai-wizard')
