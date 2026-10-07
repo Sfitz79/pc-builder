@@ -29,6 +29,24 @@
                 budget — we'll build the perfect PC.
             </p>
 
+            {{-- The real "The Gamers Edge" wordmark, supplied by the Boss from
+                 OneDrive/PCTECHGUY/Marketing/PCTG Branding/The Gamers Edge.png.
+                 Its source background was already transparent, and
+                 scripts/prep-boss-assets.cs keeps it that way rather than
+                 keying it. This is the actual brand tagline, not text
+                 retyped into a font, so the storefront and the marketing
+                 material say the same thing. --}}
+            <img
+                src="{{ asset('img/brand/pctg-tagline.png') }}"
+                alt="The Gamers Edge"
+                width="360"
+                height="52"
+                loading="eager"
+                decoding="async"
+                class="pctg-landing-reveal mt-7 h-auto w-[15rem] sm:w-[19rem]"
+                style="animation-delay: 300ms"
+            >
+
             <div class="pctg-landing-reveal mt-10 flex flex-wrap gap-4" style="animation-delay: 360ms">
                 <x-pctg.button href="/builder" variant="primary" size="lg">
                     <x-pctg.icon name="sparkles" class="h-5 w-5" /> Start Building
@@ -120,54 +138,97 @@
         </div>
     </section>
 
-    {{-- Featured systems --}}
+    {{-- Featured systems.
+
+         THE PHOTOS ARE REAL. The Boss supplied these three machines from
+         OneDrive/PCTECHGUY/Systems and the marketing library, so the builds
+         genuinely exist.
+
+         THE SPEC LISTS THAT USED TO BE HERE ARE NOT. They read "Ryzen 7
+         9700X / RTX 5070 Ti / 220+ FPS Fortnite @ 1440P", "Ryzen 7 9800X3D /
+         RTX 5080", "Ryzen 7 9700X / RTX 5070 (NVENC)" and none of it could be
+         substantiated. Worse, the Arctic Ghost photograph visibly shows an
+         RTX 2060 in the chassis while its own folder is named "artic ghost
+         9060xt" - so the card would have contradicted its own image. Putting a
+         spec list beside a real photo of the machine turns the photo into
+         evidence for a claim, and an unverifiable claim next to evidence is
+         worse than no claim.
+
+         So the cards now carry the real photograph, the real name, and a CTA
+         into the builder. No spec is stated until it can be read from the
+         machine. If the Boss supplies the confirmed part list for each of the
+         three, put it back here - the layout has room for it.
+
+         NOTE ON BACKGROUNDS: Arctic Ghost is shot on white, the other two on
+         black. Each card gets a matching backdrop so none of them shows a
+         white rectangle on the dark page. --}}
     <section id="systems" class="mb-12">
         <div class="mb-10 text-center pctg-reveal">
             <h2 class="text-4xl font-black">Featured Systems</h2>
             <p class="mx-auto mt-4 max-w-3xl text-slate-400">
-                Hand-tuned pre-builts with the PCTG AI build under the hood.
+                Real machines, built and photographed in our own workshop. Tell us what you
+                play and we will spec you one the same way — or start from one of these.
             </p>
         </div>
 
         <div class="grid gap-4 pctg-reveal lg:grid-cols-3" style="--reveal-delay: 120ms">
-            <x-pctg.hover-card>
-                <span class="pctg-badge bg-red-500/10 text-red-300">Gaming</span>
-                <h3 class="mt-5 text-2xl font-black">Frostbyte XT</h3>
-                <ul class="mt-4 space-y-2 text-sm text-slate-400">
-                    <li><strong class="text-white">CPU:</strong> AMD Ryzen 7 9700X</li>
-                    <li><strong class="text-white">GPU:</strong> RTX 5070 Ti</li>
-                    <li><strong class="text-white">Performance:</strong> 220+ FPS Fortnite @ 1440P</li>
-                </ul>
-                <div class="mt-6">
-                    <x-pctg.button href="/builder" variant="secondary">Customise this build</x-pctg.button>
-                </div>
-            </x-pctg.hover-card>
+            @php
+                $featuredSystems = [
+                    [
+                        'name' => 'Frostbyte XT',
+                        'tag'  => 'Gaming',
+                        'badge'=> 'bg-red-500/10 text-red-300',
+                        'image'=> 'img/systems/frostbyte-xt.jpg',
+                        'alt'  => 'Frostbyte XT — a black mid-tower custom gaming PC with blue RGB fans and a tempered glass side panel.',
+                        'w'    => 1200, 'h' => 800, 'bg' => 'bg-black',
+                    ],
+                    [
+                        'name' => 'Arctic Ghost',
+                        'tag'  => 'White Build',
+                        'badge'=> 'bg-slate-500/10 text-slate-300',
+                        'image'=> 'img/systems/arctic-ghost.jpg',
+                        'alt'  => 'Arctic Ghost — a white custom gaming PC with a full-height glass panel and RGB fans and an AIO liquid cooler.',
+                        'w'    => 866, 'h' => 766, 'bg' => 'bg-white',
+                    ],
+                    [
+                        'name' => 'Stormbyte',
+                        'tag'  => 'Streamer',
+                        'badge'=> 'bg-teal-500/10 text-teal-300',
+                        'image'=> 'img/systems/stormbyte.jpg',
+                        'alt'  => 'Stormbyte — a black custom gaming PC with teal RGB lighting and a mesh front panel.',
+                        'w'    => 1024, 'h' => 1024, 'bg' => 'bg-black',
+                    ],
+                ];
+            @endphp
 
-            <x-pctg.hover-card>
-                <span class="pctg-badge bg-purple-500/10 text-purple-300">4K Ultra</span>
-                <h3 class="mt-5 text-2xl font-black">Arctic Ghost</h3>
-                <ul class="mt-4 space-y-2 text-sm text-slate-400">
-                    <li><strong class="text-white">CPU:</strong> AMD Ryzen 7 9800X3D</li>
-                    <li><strong class="text-white">GPU:</strong> RTX 5080</li>
-                    <li><strong class="text-white">Performance:</strong> 4K ultra gaming ready</li>
-                </ul>
-                <div class="mt-6">
-                    <x-pctg.button href="/builder" variant="secondary">Customise this build</x-pctg.button>
+            @foreach ($featuredSystems as $system)
+                <div class="overflow-hidden rounded-2xl border border-white/5 bg-pctg-surface transition hover:border-red-500/30">
+                    <div class="{{ $system['bg'] }} flex aspect-[4/3] items-center justify-center overflow-hidden">
+                        <img
+                            src="{{ asset($system['image']) }}"
+                            alt="{{ $system['alt'] }}"
+                            width="{{ $system['w'] }}"
+                            height="{{ $system['h'] }}"
+                            loading="lazy"
+                            decoding="async"
+                            class="h-full w-full object-contain p-3"
+                        >
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between gap-3">
+                            <h3 class="text-2xl font-black">{{ $system['name'] }}</h3>
+                            <span class="pctg-badge {{ $system['badge'] }}">{{ $system['tag'] }}</span>
+                        </div>
+                        <p class="mt-3 text-sm text-slate-400">
+                            Photographed in our workshop. Ask us for the full part list, or build your
+                            own from scratch in the configurator.
+                        </p>
+                        <div class="mt-6">
+                            <x-pctg.button href="/builder" variant="secondary">Build one like this</x-pctg.button>
+                        </div>
+                    </div>
                 </div>
-            </x-pctg.hover-card>
-
-            <x-pctg.hover-card>
-                <span class="pctg-badge bg-yellow-500/10 text-yellow-300">Streamer</span>
-                <h3 class="mt-5 text-2xl font-black">Stormbyte</h3>
-                <ul class="mt-4 space-y-2 text-sm text-slate-400">
-                    <li><strong class="text-white">CPU:</strong> AMD Ryzen 7 9700X</li>
-                    <li><strong class="text-white">GPU:</strong> RTX 5070 (NVENC)</li>
-                    <li><strong class="text-white">Performance:</strong> 1440P gaming + 1080P stream</li>
-                </ul>
-                <div class="mt-6">
-                    <x-pctg.button href="/builder" variant="secondary">Customise this build</x-pctg.button>
-                </div>
-            </x-pctg.hover-card>
+            @endforeach
         </div>
     </section>
 

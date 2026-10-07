@@ -7,109 +7,6 @@ using System.IO;
 
 internal static class BrandAssets
 {
-    private static Bitmap Mark(int size)
-    {
-        Bitmap bmp = new Bitmap(size, size);
-        using (Graphics g = Graphics.FromImage(bmp))
-        {
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            g.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
-            g.Clear(Color.Transparent);
-
-            float s = size / 512f;
-
-            // rounded red tile
-            using (GraphicsPath path = new GraphicsPath())
-            {
-                float r = 112 * s, d = 512 * s;
-                path.AddArc(0, 0, r, r, 180, 90);
-                path.AddArc(d - r, 0, r, r, 270, 90);
-                path.AddArc(d - r, d - r, r, r, 0, 90);
-                path.AddArc(0, d - r, r, r, 90, 90);
-                path.CloseFigure();
-                using (LinearGradientBrush br = new LinearGradientBrush(
-                    new RectangleF(0, 0, d, d),
-                    Color.FromArgb(239, 68, 68),
-                    Color.FromArgb(185, 28, 28), 45f))
-                {
-                    g.FillPath(br, path);
-                }
-            }
-
-            using (Pen white = new Pen(Color.White, 22 * s))
-            {
-                white.LineJoin = LineJoin.Round;
-                float w = 170 * s, h = 252 * s, x = 130 * s, y = 140 * s;
-                g.DrawRectangle(white, x, y, w, h);
-            }
-
-            using (Brush b = new SolidBrush(Color.White))
-            {
-                g.FillRectangle(b, 146 * s, 276 * s, 150 * s, 26 * s);
-                using (Brush b2 = new SolidBrush(Color.FromArgb(217, Color.White)))
-                    g.FillRectangle(b2, 146 * s, 212 * s, 118 * s, 16 * s);
-                g.FillEllipse(b, 339 * s, 183 * s, 26 * s, 26 * s);
-
-                // lightning bolt
-                PointF[] bolt = new PointF[]
-                {
-                    new PointF(232*s,132*s), new PointF(188*s,240*s), new PointF(228*s,240*s),
-                    new PointF(206*s,332*s), new PointF(264*s,204*s), new PointF(224*s,204*s)
-                };
-                g.FillPolygon(b, bolt);
-            }
-        }
-        return bmp;
-    }
-
-    private static void SavePng(Bitmap bmp, string path, int w, int h)
-    {
-        using (Bitmap outp = new Bitmap(w, h))
-        using (Graphics g = Graphics.FromImage(outp))
-        {
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-            g.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
-            g.Clear(Color.FromArgb(11, 12, 16));
-
-            // subtle vignette so it does not read as a flat black rectangle
-            using (LinearGradientBrush bg = new LinearGradientBrush(
-                new Rectangle(0, 0, w, h),
-                Color.FromArgb(20, 22, 28), Color.FromArgb(8, 9, 12), 90f))
-            {
-                g.FillRectangle(bg, 0, 0, w, h);
-            }
-
-            using (Brush glow = new SolidBrush(Color.FromArgb(38, 239, 68, 68)))
-                g.FillEllipse(glow, w / 2 - (int)(0.55 * h), h - (int)(0.5 * h), (int)(1.1 * h), (int)(1.1 * h));
-
-            int markSize = (int)(h * 0.52);
-            using (Bitmap mark = Mark(markSize))
-                g.DrawImage(mark, (w - markSize) / 2, (int)(h * 0.16), markSize, markSize);
-
-            // wordmark
-            string brand = "PCTechGuy Online";
-            string sub = "Custom gaming PCs — built and tested in the UK";
-
-            using (Font fb = new Font("Segoe UI", h * 0.085f, FontStyle.Bold, GraphicsUnit.Pixel))
-            using (SolidBrush tb = new SolidBrush(Color.White))
-            {
-                StringFormat sf = new StringFormat { Alignment = StringAlignment.Center };
-                g.DrawString(brand, fb, tb, new PointF(w / 2f, h * 0.735f - h * 0.045f), sf);
-            }
-
-            using (Font fs = new Font("Segoe UI", h * 0.043f, FontStyle.Regular, GraphicsUnit.Pixel))
-            using (SolidBrush tb2 = new SolidBrush(Color.FromArgb(190, 200, 210)))
-            {
-                StringFormat sf2 = new StringFormat { Alignment = StringAlignment.Center };
-                g.DrawString(sub, fs, tb2, new PointF(w / 2f, h * 0.80f), sf2);
-            }
-
-            outp.Save(path, ImageFormat.Png);
-        }
-    }
-
     private static byte[] PngBytes(Bitmap bmp)
     {
         using (MemoryStream t = new MemoryStream())
@@ -119,12 +16,62 @@ internal static class BrandAssets
         }
     }
 
-    private static void SaveIco(string path, int[] sizes)
+    // Favicon straight from the Boss's real logo: white is keyed out so the
+    // transparent favicon.ico has no white box, then the darkest pixels are
+    // lifted to white so the mark still reads on a light browser tab.
+    private static Bitmap FaviconSource(string logoPath)
+    {
+        using (Bitmap input = new Bitmap(logoPath))
+        {
+            int w = input.Width, h = input.Height;
+            Bitmap outp = new Bitmap(w, h, PixelFormat.Format32bppArgb);
+            using (Graphics g = Graphics.FromImage(outp))
+            {
+                g.Clear(Color.Transparent);
+                g.DrawImage(input, new Rectangle(0, 0, w, h));
+            }
+            for (int y = 0; y < h; y++)
+            {
+                for (int x = 0; x < w; x++)
+                {
+                    Color p = outp.GetPixel(x, y);
+                    int mx = Math.Max(p.R, Math.Max(p.G, p.B));
+                    int mn = Math.Min(p.R, Math.Min(p.G, p.B));
+                    if (p.R >= 232 && p.G >= 232 && p.B >= 232 && (mx - mn) <= 18)
+                    {
+                        outp.SetPixel(x, y, Color.FromArgb(0, p.R, p.G, p.B));
+                        continue;
+                    }
+                    double lum = 0.2126 * p.R + 0.7152 * p.G + 0.0722 * p.B;
+                    if (lum < 96)
+                    {
+                        int t = (int)Math.Round(Math.Min(1.0, (96 - lum) / 96.0) * 0.92);
+                        outp.SetPixel(x, y, Color.FromArgb(p.A,
+                            (int)Math.Min(255, p.R + (245 - p.R) * t),
+                            (int)Math.Min(255, p.G + (245 - p.G) * t),
+                            (int)Math.Min(255, p.B + (245 - p.B) * t)));
+                    }
+                }
+            }
+            return outp;
+        }
+    }
+
+    private static void SaveIcoFrom(string path, Bitmap src, int[] sizes)
     {
         byte[][] pngs = new byte[sizes.Length][];
         for (int i = 0; i < sizes.Length; i++)
         {
-            using (Bitmap b = Mark(sizes[i])) pngs[i] = PngBytes(b);
+            using (Bitmap b = new Bitmap(sizes[i], sizes[i]))
+            {
+                using (Graphics g = Graphics.FromImage(b))
+                {
+                    g.Clear(Color.Transparent);
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                    g.DrawImage(src, new Rectangle(0, 0, sizes[i], sizes[i]));
+                }
+                pngs[i] = PngBytes(b);
+            }
         }
 
         using (MemoryStream ms = new MemoryStream())
@@ -148,17 +95,90 @@ internal static class BrandAssets
         }
     }
 
-    private static int Main(string[] args)
+private static int Main(string[] args)
     {
         string dir = args.Length > 0 ? args[0] : "public/img/brand";
         Directory.CreateDirectory(dir);
 
-        SavePng(null, Path.Combine(dir, "pctg-og.png"), 1200, 630);
-        using (Bitmap m180 = Mark(180)) m180.Save(Path.Combine(dir, "pctg-mark-180.png"), ImageFormat.Png);
-        using (Bitmap m512 = Mark(512)) m512.Save(Path.Combine(dir, "pctg-mark-512.png"), ImageFormat.Png);
-        SaveIco(Path.Combine(dir, "..", "..", "favicon.ico"), new int[] { 16, 32, 48 });
+        // The OG card is composed from the REAL brand lockup and tagline when
+        // they are present, so the preview image a customer sees when the link
+        // is shared on WhatsApp or Facebook is the actual branding rather than
+        // a generated approximation.
+        string logo = Path.Combine(dir, "pctg-logo.png");
+        string tagline = Path.Combine(dir, "pctg-tagline.png");
 
-        Console.WriteLine("brand assets written to " + dir);
+        if (File.Exists(logo) && File.Exists(tagline))
+        {
+            using (Bitmap logoBmp = new Bitmap(logo))
+            using (Bitmap tagBmp = new Bitmap(tagline))
+            using (Bitmap card = new Bitmap(1200, 630))
+            using (Graphics g = Graphics.FromImage(card))
+            {
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                g.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
+                g.Clear(Color.FromArgb(11, 12, 16));
+
+                using (LinearGradientBrush bg = new LinearGradientBrush(
+                    new Rectangle(0, 0, 1200, 630),
+                    Color.FromArgb(22, 24, 31), Color.FromArgb(8, 9, 12), 65f))
+                {
+                    g.FillRectangle(bg, 0, 0, 1200, 630);
+                }
+
+                // Soft radial bloom rather than a hard-edged filled circle.
+                // Kept faint: at higher alpha the concentric passes banded into
+                // visible rings that competed with the logo for attention.
+                for (int i = 10; i >= 1; i--)
+                {
+                    int rr = 240 + i * 34;
+                    int alpha = (int)Math.Round(7.0 / i);
+                    if (alpha < 1) continue;
+                    using (Brush glow = new SolidBrush(Color.FromArgb(alpha, 239, 68, 68)))
+                        g.FillEllipse(glow, 600 - rr, 330 - rr, rr * 2, rr * 2);
+                }
+
+                int lw = 380;
+                int lh = (int)Math.Round(logoBmp.Height * (lw / (double)logoBmp.Width));
+                g.DrawImage(logoBmp, new Rectangle((1200 - lw) / 2, 96, lw, lh),
+                            new Rectangle(0, 0, logoBmp.Width, logoBmp.Height), GraphicsUnit.Pixel);
+
+                int tw = 620;
+                int th = (int)Math.Round(tagBmp.Height * (tw / (double)tagBmp.Width));
+                g.DrawImage(tagBmp, new Rectangle((1200 - tw) / 2, 96 + lh + 34, tw, th),
+                            new Rectangle(0, 0, tagBmp.Width, tagBmp.Height), GraphicsUnit.Pixel);
+
+                using (Font fb = new Font("Segoe UI", 30f, FontStyle.Bold, GraphicsUnit.Pixel))
+                using (SolidBrush tb = new SolidBrush(Color.White))
+                using (StringFormat sf = new StringFormat { Alignment = StringAlignment.Center })
+                {
+                    g.DrawString("Custom gaming PCs, built and tested in the UK",
+                                 fb, tb, new PointF(600f, 528f), sf);
+                }
+
+                card.Save(Path.Combine(dir, "pctg-og.png"), ImageFormat.Png);
+                Console.Error.WriteLine("pctg-og.png composed from the real logo + tagline");
+            }
+
+            using (Bitmap fav = FaviconSource(Path.Combine(dir, "pctg-mark-512.png")))
+            {
+                SaveIcoFrom(Path.Combine(dir, "..", "..", "favicon.ico"), fav, new int[] { 16, 32, 48 });
+                using (Bitmap f180 = new Bitmap(180, 180))
+                using (Graphics g = Graphics.FromImage(f180))
+                {
+                    g.Clear(Color.Transparent);
+                    g.DrawImage(fav, new Rectangle(0, 0, 180, 180));
+                    f180.Save(Path.Combine(dir, "pctg-mark-180.png"), ImageFormat.Png);
+                }
+            }
+        }
+        else
+        {
+            Console.Error.WriteLine("real logo/tagline not found - run prep-boss-assets.cs first");
+            return 1;
+        }
+
+        Console.Error.WriteLine("brand assets written to " + dir);
         return 0;
     }
 }

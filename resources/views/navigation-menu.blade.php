@@ -1,24 +1,32 @@
 ﻿<header class="border-b border-white/5 bg-pctg-background/85 backdrop-blur-xl">
     <div class="mx-auto flex h-16 max-w-[1600px] items-center gap-4 px-4 sm:px-6 lg:px-8">
         <a href="/" class="flex items-center gap-3">
-            {{-- The header mark was a CSS red square with a generic lightning-bolt
-                 glyph and the text "PCTG Builder" — a placeholder standing in for a
-                 brand that does not exist as an asset anywhere in the repo. Replaced
-                 with the real PCTechGuy Online mark (public/img/brand/pctg-mark.svg,
-                 rasterised from the same source as the favicon and OG image).
+            {{-- REAL brand asset, supplied by the Boss from
+                 OneDrive/PCTECHGUY/Marketing/PCTG Branding/pctg glow.png.
 
-                 width/height are set explicitly to reserve the box, and
-                 loading="eager" + fetchpriority="high" because this is the LCP
+                 It arrived on a WHITE background, not transparent, so
+                 scripts/prep-boss-assets.cs keys the white out and lifts the
+                 black lettering to near-white so it reads on this dark
+                 header. Brand red is left untouched. The square icon is
+                 cropped from the same file at 512px, so the header and the
+                 favicon are unmistakably the same mark.
+
+                 This replaces an invented mark I generated earlier in this
+                 session (a red tile with a generic lightning bolt) and a
+                 still-earlier CSS zap-square. Neither was the real logo.
+
+                 width/height reserve the box so the header does not shift as
+                 the image decodes, and loading="eager" because this is the LCP
                  element on every page. --}}
             <img
-                src="{{ asset('img/brand/pctg-mark.svg') }}"
+                src="{{ asset('img/brand/pctg-mark-512.png') }}"
                 alt="PCTechGuy Online"
                 width="36"
                 height="36"
                 loading="eager"
                 fetchpriority="high"
                 decoding="async"
-                class="h-9 w-9 rounded-xl"
+                class="h-9 w-9 rounded-lg object-cover"
             >
             <span class="hidden leading-tight sm:block">
                 <span class="block font-display text-sm font-bold text-white">PCTechGuy Online</span>
