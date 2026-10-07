@@ -4,6 +4,7 @@
   "buildCommand": "npm run build",
   "builds": [
     { "src": "/api/index.php", "use": "vercel-php@0.9.0", "config": { "excludeFiles": "{public/img/**,node_modules/**,.opencode/**,.git/**,.vercel/**,tests/**,test-results/**,storage/logs/**,database/scraped/**,.phpunit.result.cache}" } },
+    { "src": "/public/build/**", "use": "@vercel/static" },
     { "src": "/public/css/**", "use": "@vercel/static" },
     { "src": "/public/js/**", "use": "@vercel/static" },
     { "src": "/public/fonts/**", "use": "@vercel/static" },
