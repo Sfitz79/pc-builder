@@ -40,14 +40,48 @@ function num($v): ?int
     return ($d !== '' && is_numeric($d)) ? (int) round((float) $d) : null;
 }
 
+/**
+ * Manufacturer part number from the source product URL.
+ *
+ * CORRECTED 2026-10-07. The first attempt tokenised the path on "/" and took the
+ * whole final segment, which is the complete descriptive slug (~60 chars) and
+ * so never matched - mpn stayed NULL on every row.
+ *
+ * The part code is the LAST HYPHEN-DELIMITED TOKEN of that slug:
+ *
+ *   .../v-color-manta-xsky-rgb-32-gb-...-ddr5-6000-cl30-memory-tmxsal1660830kwk
+ *                                                                  ^^^^^^^^^^^^
+ *   .../corsair-vengeance-64-gb-...-ddr5-6000-cl30-memory-cmk64gx5m2b6000z30
+ *                                                                 ^^^^^^^^^^
+ *
+ * This is not cosmetic. Those trailing codes are what separate products that
+ * share a marketing name and near-identical specs:
+ *
+ *   cmk64gx5m2b6000z30  = black     cmk64gx5m2b6000c30 = white
+ *   tmxsal1660830kwk / tmxsal1660830wwk, f5-6000j2636h32gx2-tz5nrw / ...tz5nr
+ *
+ * I had recorded such pairs as "the same product listed twice" and proposed
+ * deactivating one of each. That was wrong, and following it would have deleted
+ * real colour variants from a live catalogue. This is why the dry-run existed.
+ */
 function mpnFromUrl(string $url): ?string
 {
     $path = parse_url($url, PHP_URL_PATH);
     if (! is_string($path) || $path === '') return null;
+
     $segs = array_values(array_filter(explode('/', $path), fn ($s) => $s !== ''));
     $last = end($segs);
-    if (! is_string($last) || ! preg_match('/^(?=.*\d)[a-z0-9]{6,20}$/i', $last)) return null;
-    return strtoupper($last);
+    if (! is_string($last) || $last === '') return null;
+
+    // The part code is the final hyphen-delimited token, not the whole slug.
+    $tokens = array_values(array_filter(explode('-', $last), fn ($t) => $t !== ''));
+    $code = (string) end($tokens);
+
+    // Must look like a code: alphanumeric, at least one digit, 5-24 chars.
+    // Rejects prose tokens such as "memory", "black", "warranty".
+    if (! preg_match('/^(?=.*\d)[a-z0-9]{5,24}$/i', $code)) return null;
+
+    return strtoupper($code);
 }
 
 $mode = $argv[1] ?? 'dry-run';

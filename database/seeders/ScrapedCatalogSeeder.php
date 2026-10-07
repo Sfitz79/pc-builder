@@ -456,15 +456,21 @@ class ScrapedCatalogSeeder extends Seeder
     /**
      * Manufacturer part number from the source product URL.
      *
-     * PCPartPicker URLs end with a human-readable slug whose LAST token is the
-     * manufacturer code:
-     *   uk.pcpartpicker.com/product/TQjRsY/crucial-pro-32-gb-2-x-16-gb-ddr5-6400-cl38-memory-cp2k16g64c38u5b
-     *                                                                                        ^^^^^^^^^^^^^
-     * It is the only field that identifies a PRODUCT rather than describing it,
-     * so it is what lets two rows be recognised as the same thing listed twice.
+     * The part code is the LAST HYPHEN-DELIMITED TOKEN of the URL's final
+     * segment, not the segment itself:
      *
-     * Guarded: only alphanumeric tokens with at least one digit are accepted, so
-     * a trailing word like "memory" or "black" is never mistaken for an MPN.
+     *   .../v-color-manta-xsky-rgb-32-gb-...-cl30-memory-tmxsal1660830kwk
+     *                                                                  ^^^^^^^^^^^^
+     *   .../corsair-vengeance-64-gb-...-cl30-memory-cmk64gx5m2b6000z30
+     *
+     * Taking the whole segment (the full descriptive slug) never matches and
+     * silently yields NULL - which is exactly what happened the first time.
+     *
+     * This matters for identity, not tidiness. Trailing codes distinguish
+     * products that share a marketing name AND near-identical specs:
+     * cmk64gx5m2b6000z30 is black, cmk64gx5m2b6000c30 is white. Treating such
+     * a pair as "the same product listed twice" and removing one would delete a
+     * real colour variant from a live catalogue.
      */
     protected function mpnFromUrl(string $url): ?string
     {
@@ -476,11 +482,21 @@ class ScrapedCatalogSeeder extends Seeder
         $segments = array_values(array_filter(explode('/', $path), fn ($s) => $s !== ''));
         $last = end($segments);
 
-        if (! is_string($last) || ! preg_match('/^(?=.*\d)[a-z0-9]{6,20}$/i', $last)) {
+        if (! is_string($last) || $last === '') {
             return null;
         }
 
-        return strtoupper($last);
+        $tokens = array_values(array_filter(explode('-', $last), fn ($t) => $t !== ''));
+        $code = (string) end($tokens);
+
+        // Must look like a code: alphanumeric, contains a digit, 5-24 chars.
+        // This rejects prose tokens such as "memory", "black" or "warranty",
+        // which would otherwise be written out as a bogus part number.
+        if (! preg_match('/^(?=.*\d)[a-z0-9]{5,24}$/i', $code)) {
+            return null;
+        }
+
+        return strtoupper($code);
     }
 
     protected function cpuSocket(string $name): ?string

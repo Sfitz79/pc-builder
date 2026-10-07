@@ -70,13 +70,25 @@ const BACKUP = __DIR__ . '/../database/backups/ambiguous-names-before.json';
  */
 const RULES = [
     // Now backed by real columns (migration 2026_10_07_000001), not by parsing
-    // specs JSON at every call site.
-    'storage' => [['specs:capacity', ''], ['col:storage_type', ''], ['col:interface', '']],
-    'ram' => [['col:memory_speed', ''], ['col:cas_latency', ''], ['col:module_config', '']],
-    'psu' => [['col:wattage', 'W']],
-    'gpu' => [['specs:chipset', ''], ['specs:memory', '']],
-    'case' => [['col:case_type', ''], ['col:side_panel', ''], ['col:included_fans', '']],
-    'cooler' => [['col:radiator_size', '']],
+    // specs JSON at every call site. `col:mpn` is LAST and deliberately so.
+    //
+    // The part code is what finally separates colour and revision variants that
+    // share a marketing name AND near-identical specs:
+    //   Corsair Vengeance 64 GB  CMK64GX5M2B6000Z30 (black) vs ...C30 (white)
+    // Those are two real products at two prices. Earlier I recorded such pairs
+    // as "the same product listed twice" and proposed deactivating one of each -
+    // which would have deleted real colour variants from a live catalogue. The
+    // dry-run is what caught it; the part code is what proves it.
+    //
+    // It goes last because it is the least readable identifier. Speed, latency,
+    // capacity and wattage are what a buyer scans; a part code in parentheses
+    // is what they check only when nothing else has told them apart.
+    'storage' => [['specs:capacity', ''], ['col:storage_type', ''], ['col:interface', ''], ['col:mpn', '']],
+    'ram' => [['col:memory_speed', ''], ['col:cas_latency', ''], ['col:module_config', ''], ['col:mpn', '']],
+    'psu' => [['col:wattage', 'W'], ['col:mpn', '']],
+    'gpu' => [['specs:chipset', ''], ['specs:memory', ''], ['col:mpn', '']],
+    'case' => [['col:case_type', ''], ['col:side_panel', ''], ['col:included_fans', ''], ['col:mpn', '']],
+    'cooler' => [['col:radiator_size', ''], ['col:mpn', '']],
 ];
 
 function frag(?string $v): string
@@ -106,12 +118,29 @@ function propose(string $name, array $row, array $rules): ?string
         if ($v === '') continue;
         // Add the unit only when the value does not already carry it, so
         // "850" becomes "850W" while "1024GB" is never doubled into "1024GBGB".
+        $unit = (string) $unit;
         if ($unit !== '' && !preg_match('/' . preg_quote($unit, '/') . '\b/i', $v)) {
             $v .= $unit;
         }
-        if (stripos($out, $v) !== false) continue; // already there
-        $out .= ' ' . $v;
-        $added++;
+        // Do not restate something the name already says, whichever field it came
+// from. "ARCTIC Liquid Freezer III Pro A-RGB 360" plus a radiator size of
+// "360 mm" must not become "... 360 360 mm"; a PSU already carrying its
+// wattage ("PX850") must not gain a second "850W".
+//
+// NOT applied to the part code. A part code is opaque: its digits are part of
+// an identifier, not a stated fact. "CMH32GX5M2E6000C36" begins with 32, but
+// that 32 is not the "32 GB" already in the name - and skipping it would drop
+// the single most reliable discriminator we have, leaving genuinely distinct
+// colour variants ambiguous. It is excluded by name below.
+$isMpn = str_contains($rule, 'mpn');
+if (! $isMpn
+    && preg_match('/(\d+)/', $v, $numMatch)
+    && preg_match('/(?<!\d)' . $numMatch[1] . '(?!\d)/', $out)) {
+    continue;
+}
+if (stripos($out, $v) !== false) continue; // already there
+$out .= ' ' . $v;
+$added++;
     }
     return $added > 0 ? $out : null;
 }
@@ -128,7 +157,7 @@ foreach (array_keys(RULES) as $cat) {
     $rows = DB::table('components')
         ->whereIn('category_id', $ids)
         ->where('active', true)
-        ->select('id', 'name', 'price', 'specs', 'wattage', 'storage_type', 'interface',
+        ->select('id', 'name', 'price', 'specs', 'wattage', 'storage_type', 'interface', 'mpn',
                  'memory_speed', 'cas_latency', 'module_config',
                  'case_type', 'side_panel', 'included_fans', 'radiator_size')
         ->orderBy('id')
@@ -194,7 +223,7 @@ if ($mode === 'backup') {
         $ids = DB::table('categories')->where('slug', $cat)->pluck('id');
         $payload[$cat] = DB::table('components')->whereIn('category_id', $ids)->where('active', true)
             ->select('id', 'name', 'price', 'specs', 'wattage', 'storage_type',
-                     'interface', 'memory_speed', 'cas_latency', 'module_config',
+                     'interface', 'mpn', 'memory_speed', 'cas_latency', 'module_config',
                      'case_type', 'side_panel', 'included_fans', 'radiator_size')
             ->get()->all();
     }
