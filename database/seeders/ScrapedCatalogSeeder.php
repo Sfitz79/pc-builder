@@ -140,7 +140,18 @@ class ScrapedCatalogSeeder extends Seeder
             Component::upsert(
                 $chunk,
                 ['slug'],
-                ['name', 'sku', 'description', 'price', 'currency', 'socket', 'wattage', 'stock', 'active', 'specs', 'source_url', 'manufacturer_id', 'updated_at']
+                // The identity columns are listed here as well as in payload().
+                // upsert() silently DROPS any column absent from this list, so
+                // omitting them would make the whole backfill a no-op that still
+                // looked like it had worked - the same failure shape as the
+                // fields this change was written to recover.
+                [
+                    'name', 'sku', 'description', 'price', 'currency', 'socket', 'wattage',
+                    'stock', 'active', 'specs', 'source_url', 'manufacturer_id', 'updated_at',
+                    'memory_speed', 'memory_type', 'cas_latency', 'module_config',
+                    'interface', 'storage_type', 'mpn',
+                    'case_type', 'side_panel', 'included_fans', 'radiator_size',
+                ]
             );
         }
     }
@@ -283,6 +294,17 @@ class ScrapedCatalogSeeder extends Seeder
         $socket = null;
         $wattage = null;
         $specs = [];
+        // New first-class identity columns; see migration 2026_10_07_000001.
+        $identity = [];
+
+        // The source URL carries the manufacturer part number, which is the
+        // only true product identity we have:
+        //   .../crucial-pro-32-gb-2-x-16-gb-ddr5-6400-cl38-memory-cp2k16g64c38u5b
+        //                                                              ^^^^^ MPN
+        $mpn = $this->mpnFromUrl((string) ($item['url'] ?? ''));
+        if ($mpn !== null) {
+            $identity['mpn'] = $mpn;
+        }
 
         if ($category->slug === 'cpu') {
             $cores = $raw['coreCount'] ?? null;
@@ -305,15 +327,72 @@ class ScrapedCatalogSeeder extends Seeder
                 $specs['memory'] = str_replace(' ', '', $memory);
             }
             $specs['chipset'] = $raw['chipset'] ?? null;
+            $specs['length'] = $raw['length'] ?? null;
         }
 
         if ($category->slug === 'ram') {
             $specs['speed'] = $raw['speed'] ?? null;
             $specs['capacity'] = $this->ramCapacity($name, $raw);
+
+            // Identity fields the scraper ALREADY fetched and this seeder used
+            // to throw away. Without them two different 32GB kits were
+            // indistinguishable - see migration 2026_10_07_000001.
+            $speed = trim((string) ($raw['speed'] ?? ''));
+            if ($speed !== '') {
+                $identity['memory_speed'] = $speed;
+                if (preg_match('/DDR\s?([345])/i', $speed, $m)) {
+                    $identity['memory_type'] = 'DDR' . $m[1];
+                }
+            }
+            // CL is stored as a NUMBER because it is compared numerically
+            // ("30" sorts worse than "28"); the scraper gives us "30" here and
+            // the pre-first-word figure separately, which we do not need.
+            $cas = $this->toNumber($raw['cASLatency'] ?? null);
+            if ($cas !== null) {
+                $identity['cas_latency'] = $cas;
+            }
+            $modules = trim((string) ($raw['modules'] ?? ''));
+            if ($modules !== '') {
+                $identity['module_config'] = $modules;
+            }
         }
 
         if ($category->slug === 'storage') {
             $specs['capacity'] = $this->storageCapacity($name, $raw);
+            $interface = trim((string) ($raw['interface'] ?? ''));
+            if ($interface !== '') {
+                $identity['interface'] = $interface;
+            }
+            $type = trim((string) ($raw['type'] ?? ''));
+            if ($type !== '') {
+                $identity['storage_type'] = $type;
+                $specs['type'] = $type;
+            }
+        }
+
+        if ($category->slug === 'case') {
+            // Persisted for the first time. The scrape has always carried these
+            // three; 197 case rows share a name and had NO discriminator at all
+            // because none of it was being written.
+            $type = trim((string) ($raw['type'] ?? ''));
+            if ($type !== '') {
+                $identity['case_type'] = $type;
+            }
+            $panel = trim((string) ($raw['sidePanel'] ?? ''));
+            if ($panel !== '') {
+                $identity['side_panel'] = $panel;
+            }
+            $fans = $this->toNumber($raw['includedFans'] ?? null);
+            if ($fans !== null) {
+                $identity['included_fans'] = $fans;
+            }
+        }
+
+        if ($category->slug === 'cooler') {
+            $radiator = trim((string) ($raw['radiatorSize'] ?? ''));
+            if ($radiator !== '') {
+                $identity['radiator_size'] = $radiator;
+            }
         }
 
         if ($category->slug === 'motherboard') {
@@ -351,7 +430,57 @@ class ScrapedCatalogSeeder extends Seeder
             // Stamped so the price-freshness gate starts its 7-day window at
             // deploy time rather than at some unknown earlier scrape.
             'price_checked_at' => now(),
-        ];
+        ] + $identity;
+    }
+
+    /**
+     * Parse a value that may be "38", 38 or "38 CL" into an int.
+     *
+     * The scraper is inconsistent - some fields arrive as strings, some as
+     * numbers, some with units - so every numeric identity field goes through
+     * here rather than being cast blindly.
+     */
+    protected function toNumber($value): ?int
+    {
+        if ($value === null || $value === '') {
+            return null;
+        }
+        if (is_int($value) || is_float($value)) {
+            return (int) $value;
+        }
+        $digits = preg_replace('/[^0-9.]/', '', (string) $value);
+
+        return ($digits !== '' && is_numeric($digits)) ? (int) round((float) $digits) : null;
+    }
+
+    /**
+     * Manufacturer part number from the source product URL.
+     *
+     * PCPartPicker URLs end with a human-readable slug whose LAST token is the
+     * manufacturer code:
+     *   uk.pcpartpicker.com/product/TQjRsY/crucial-pro-32-gb-2-x-16-gb-ddr5-6400-cl38-memory-cp2k16g64c38u5b
+     *                                                                                        ^^^^^^^^^^^^^
+     * It is the only field that identifies a PRODUCT rather than describing it,
+     * so it is what lets two rows be recognised as the same thing listed twice.
+     *
+     * Guarded: only alphanumeric tokens with at least one digit are accepted, so
+     * a trailing word like "memory" or "black" is never mistaken for an MPN.
+     */
+    protected function mpnFromUrl(string $url): ?string
+    {
+        $path = parse_url($url, PHP_URL_PATH);
+        if (! is_string($path) || $path === '') {
+            return null;
+        }
+
+        $segments = array_values(array_filter(explode('/', $path), fn ($s) => $s !== ''));
+        $last = end($segments);
+
+        if (! is_string($last) || ! preg_match('/^(?=.*\d)[a-z0-9]{6,20}$/i', $last)) {
+            return null;
+        }
+
+        return strtoupper($last);
     }
 
     protected function cpuSocket(string $name): ?string
