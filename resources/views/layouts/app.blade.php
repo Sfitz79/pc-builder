@@ -1,6 +1,6 @@
 @props([
     'title' => null,
-    'description' => 'PCTG Builder — configure a custom gaming PC to your own spec, assembled and tested in the UK. Free UK delivery, warranty and lifetime remote support.',
+    'description' => 'PC Builder — configure a custom gaming PC to your own spec, assembled and tested in the UK. UK delivery included in the price, two-year warranty, GBP prices that include VAT.',
     /*
      * `chrome` renders the MARKETING furniture around the slot: the public
      * navigation-menu, the max-width centred container and the site footer.
@@ -47,16 +47,16 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>document.documentElement.classList.remove('no-js');</script>
 
-    <title>{{ ($title ? $title . ' | ' : '') . config('app.name', 'PCTG Builder') }}</title>
+    <title>{{ ($title ? $title . ' | ' : '') . config('brand.name') }}</title>
 
     <meta name="description" content="{{ $description }}">
 
     <link rel="canonical" href="{{ $canonical ?? url()->current() }}">
 
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="{{ config('app.name', 'PCTG Builder') }}">
+    <meta property="og:site_name" content="{{ config('brand.name') }}">
     <meta property="og:url" content="{{ $canonical ?? url()->current() }}">
-    <meta property="og:title" content="{{ ($title ? $title . ' | ' : '') . config('app.name', 'PCTG Builder') }}">
+    <meta property="og:title" content="{{ ($title ? $title . ' | ' : '') . config('brand.name') }}">
     <meta property="og:description" content="{{ $description }}">
     <meta property="og:locale" content="en_GB">
     {{-- og:image was MISSING while twitter:card declared summary_large_image,
@@ -68,7 +68,7 @@
     <meta property="og:image:alt" content="PCTechGuy Online — custom gaming PCs built and tested in the UK">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ ($title ? $title . ' | ' : '') . config('app.name', 'PCTG Builder') }}">
+    <meta name="twitter:title" content="{{ ($title ? $title . ' | ' : '') . config('brand.name') }}">
     <meta name="twitter:description" content="{{ $description }}">
     <meta name="twitter:image" content="{{ asset('img/brand/pctg-og.png') }}">
 
@@ -99,7 +99,7 @@
 
         <footer class="border-t border-white/5 bg-pctg-surface">
             <div class="mx-auto flex max-w-[1600px] flex-wrap items-center justify-between gap-4 px-4 py-6 sm:px-6 lg:px-8">
-                <p class="text-sm text-pctg-text-secondary">&copy; {{ date('Y') }} PCTG Builder. Get Your Gamers Edge&trade;</p>
+                <p class="text-sm text-pctg-text-secondary">&copy; {{ date('Y') }} {{ config('brand.name') }}. {{ config('brand.tagline') }}&trade;</p>
                 <div class="flex items-center gap-6 text-sm text-pctg-text-secondary">
                     <a href="{{ route('privacy') }}" class="transition hover:text-white">Privacy</a>
                     <a href="{{ route('terms') }}" class="transition hover:text-white">Terms</a>

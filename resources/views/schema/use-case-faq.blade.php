@@ -35,7 +35,7 @@ $entryBudget = $entryBudget ?? 1000;
         },
         {
             "@type": "Question",
-            "name": "Can PCTG Builder recommend a {{ $topic }} PC?",
+            "name": "Can PC Builder recommend a {{ $topic }} PC?",
             "acceptedAnswer": {
                 "@type": "Answer",
                 "text": "Yes. The PCTG AI Builder recommends compatible components based on your budget, purpose and resolution, so you can generate a {{ $topic }} gaming PC in seconds."

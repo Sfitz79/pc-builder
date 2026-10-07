@@ -54,10 +54,10 @@ $performanceTier = match (true) {
         },
         {
             "@type": "Question",
-            "name": "Can PCTG Builder recommend parts automatically?",
+            "name": "Can PC Builder recommend parts automatically?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Yes. PCTG Builder includes AI-powered recommendations, compatibility checking and gaming PC configuration tools."
+                "text": "Yes. PC Builder includes AI-powered recommendations, compatibility checking and gaming PC configuration tools."
             }
         },
         {

@@ -1,6 +1,6 @@
 @extends('layouts.seo')
 
-@section('title', 'Your Key — ' . $purchase->product_name . ' | PCTG Builder')
+@section('title', 'Your Key — ' . $purchase->product_name . ' | ' . config('brand.name'))
 
 @section('description', 'Your software purchase confirmation and key delivery.')
 

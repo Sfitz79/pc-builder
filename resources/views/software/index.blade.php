@@ -1,8 +1,8 @@
 @extends('layouts.seo')
 
-@section('title', 'Software Store — Windows, Office & More | PCTG Builder')
+@section('title', 'Software Store — Windows, Office &amp; More | ' . config('brand.name'))
 
-@section('description', 'Buy genuine software license keys — Windows 11, Microsoft Office, security suites and more. Delivered instantly to your screen after payment.')
+@section('description', 'Buy genuine software licence keys — Windows 11, Microsoft Office, security suites and more. Delivered instantly to your screen after payment.')
 
 @section('content')
     <div x-data="{ showOverlay: true }" class="mx-auto max-w-6xl">
@@ -123,8 +123,25 @@
                         <div class="mt-5 flex items-end justify-between gap-4">
                             <div>
                                 <p class="text-xs text-pctg-text-secondary">
-                                    @if ($product->retail_price > 0)
-                                        &euro;{{ number_format((float) $product->retail_price, 2) }} / ~&pound;{{ number_format((float) $product->gbp_price, 2) }}
+                                    {{--
+                                        Was: "&euro;{{ retail_price }} / ~&pound;{{ gbp_price }}".
+
+                                        retail_price is EUR straight from the Metenzi
+                                        supplier feed (database/migrations/..._create_
+                                        software_products_table.php: "EUR from Metenzi")
+                                        and gbp_price is our converted store price.
+                                        Printing both on a UK storefront read as a
+                                        pricing error rather than information - it
+                                        invited the customer to do a currency
+                                        comparison they have no way to complete.
+
+                                        Only the price we actually charge in GBP is
+                                        shown now.
+                                    --}}
+                                    @if ($product->gbp_price > 0)
+                                        &pound;{{ number_format((float) $product->gbp_price, 2) }}
+                                    @elseif ($product->retail_price > 0)
+                                        Price on request
                                     @else
                                         Price on request
                                     @endif

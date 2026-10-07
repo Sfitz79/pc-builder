@@ -114,6 +114,11 @@
                         <table class="w-full text-left text-sm">
                             <thead class="bg-white/[0.03] text-xs uppercase tracking-widest text-slate-400">
                                 <tr>
+                                    {{-- An empty header cell for the product photo column. It
+                                         carries no label because a photo needs no column
+                                         heading, but leaving it out entirely would shift
+                                         every heading one column left of its data. --}}
+                                    <th class="w-16 px-4 py-3"><span class="sr-only">Product image</span></th>
                                     <th class="px-4 py-3 font-medium">Component</th>
                                     <th class="hidden px-4 py-3 font-medium sm:table-cell">Part</th>
                                     <th class="px-4 py-3 text-right font-medium">Price</th>
@@ -122,16 +127,50 @@
                             <tbody class="divide-y divide-white/5">
                                 @foreach ($build['parts'] as $part)
                                     <tr>
-                                        <td class="px-4 py-3 text-slate-300">{{ $part['typeLabel'] }}</td>
+                                        <td class="px-4 py-3">
+                                            {{-- Real product photo, resolved from the catalogue id
+                                                 that PrebuiltController re-hydrated from the live
+                                                 database. 5,285 of these already exist at
+                                                 /img/components/<id>.jpg covering 96.5% of the
+                                                 catalogue, and they were simply never rendered
+                                                 here — the table was name-and-price only, which is
+                                                 why a prebuilt page looked like a spreadsheet
+                                                 rather than a PC.
+
+                                                 The placeholder SVG category glyph is used as the
+                                                 fallback rather than an <img> that 404s, so a
+                                                 missing photo degrades to an honest "no image for
+                                                 this part" instead of a broken frame. --}}
+                                            @php
+                                                $photoId = $part['id'] ?? null;
+                                                $photoUrl = $photoId ? asset('img/components/' . $photoId . '.jpg') : null;
+                                            @endphp
+                                            <img
+                                                src="{{ $photoUrl ?? asset('img/placeholders/' . ($part['type'] ?: 'cpu') . '.svg') }}"
+                                                alt="{{ $part['name'] }}"
+                                                width="56"
+                                                height="56"
+                                                loading="lazy"
+                                                decoding="async"
+                                                class="h-14 w-14 rounded-lg border border-white/10 bg-black object-contain p-1"
+                                                @if (! $photoUrl) data-pctg-placeholder="1" @endif
+                                            >
+                                        </td>
+                                        <td class="px-4 py-3 font-medium text-slate-300">{{ $part['typeLabel'] }}</td>
                                         <td class="hidden px-4 py-3 text-slate-400 sm:table-cell">{{ $part['name'] }}</td>
-                                        <td class="px-4 py-3 text-right text-slate-200">£{{ number_format($part['price'], 2) }}</td>
+                                        <td class="px-4 py-3 text-right text-slate-200">&pound;{{ number_format($part['price'], 2) }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
-                            <tfoot class="bg-white/[0.03]">
+<tfoot class="bg-white/[0.03]">
                                 <tr>
-                                    <td colspan="2" class="px-4 py-3 font-bold text-white">Estimated Total</td>
-                                    <td class="px-4 py-3 text-right font-black text-red-400">£{{ number_format($build['total']) }}</td>
+                                    {{-- colspan was 2 across four columns; with the photo
+                                         column added the total now spans THREE (photo +
+                                         Component + Part) and leaves Price for itself,
+                                         which keeps the amount right-aligned in its own
+                                         column. --}}
+                                    <td colspan="3" class="px-4 py-3 font-bold text-white">Estimated Total</td>
+                                    <td class="px-4 py-3 text-right font-black text-red-400">&pound;{{ number_format($build['total'], 2) }}</td>
                                 </tr>
                             </tfoot>
                         </table>

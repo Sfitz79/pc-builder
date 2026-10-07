@@ -1,6 +1,6 @@
 @extends('layouts.seo')
 
-@section('title', 'Checkout — ' . $purchase->product_name . ' | PCTG Builder')
+@section('title', 'Checkout — ' . $purchase->product_name . ' | ' . config('brand.name'))
 
 @section('description', 'Complete your software purchase securely with PayPal.')
 

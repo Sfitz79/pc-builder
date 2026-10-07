@@ -23,9 +23,17 @@
             md:grid-cols-4
         "
     >
+        {{-- Placeholder was the literal '£1,799'. That is a number we invented, and it
+             is shown as a price before any real quote exists. Worse, it sat
+             ABOVE our own measured 1080p entry price (£1,300) and close to the
+             1440p floor (£1,440), so a customer with an unquoted build was shown
+             a figure that implies we had already costed their machine.
+
+             Now it shows a dash until the live price or a stored build total
+             arrives. An honest blank beats a fabricated price. --}}
         <x-pctg.metric
             title="Build Cost"
-            :value="$buildTotal ?? '£1,799'"
+            :value="$buildTotal ?? '&mdash;'"
             :live="$live"
         />
 

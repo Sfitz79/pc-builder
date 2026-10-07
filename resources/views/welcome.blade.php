@@ -3,7 +3,7 @@
      This is what search results and social previews show. --}}
 <x-app-layout
     title="Custom Gaming PCs, Built to Order in the UK"
-    description="Configure your own custom gaming PC to your spec. Real UK prices, compatibility checked, built and tested in Bristol, two-year warranty and free UK delivery."
+    description="Configure your own custom gaming PC to your spec. Real UK prices, compatibility checked, built and tested in Bristol, two-year warranty and UK delivery included in the price."
 >
 
     @include('partials.intro')
@@ -302,9 +302,18 @@
                     >
 
                     <div class="mt-2 flex items-center justify-between text-sm">
-                        <span class="text-slate-400" data-demo-budget-floor>£1,350</span>
-                        <span class="font-bold text-white" data-demo-budget-label>£1,500</span>
-                        <span class="text-slate-400" data-demo-budget-ceiling>£3,500</span>
+                        {{-- Floor was a hardcoded £1,350, but the JS fallback in
+                             pctg-landing-demos.js is now £1,300 to match the measured
+                             1080p entry price (workableBands() -> entryPriceFor
+                             returns 1297.92, published rounded to 1300). Leaving the
+                             markup at £1,350 made the slider advertise a higher
+                             minimum than the code enforces, so the number visibly
+                             jumped DOWN on load. These are only the pre-fetch
+                             placeholders; loadBands() overwrites all three from
+                             /builder/bands once it answers. --}}
+                        <span class="text-slate-400" data-demo-budget-floor>&pound;1,300</span>
+                        <span class="font-bold text-white" data-demo-budget-label>&pound;1,500</span>
+                        <span class="text-slate-400" data-demo-budget-ceiling>&pound;3,500</span>
                     </div>
 
                     <div
