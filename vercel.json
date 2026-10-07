@@ -2,9 +2,9 @@
   "version": 2,
   "framework": null,
   "buildCommand": "npm run build",
+  "_buildCommandNote": "This ONLY runs because the frontend was moved out of the `builds` array and is served as ordinary static output below. While a `builds` array exists, Vercel IGNORES buildCommand entirely, so `npm run build` never ran and `public/build` (gitignored, so never uploaded) stayed at whatever stale copy sat in the working directory. Measured 2026-10-07: a deploy shipped a JS bundle from 06/10 containing fabricated prices because of exactly this.",
   "builds": [
     { "src": "/api/index.php", "use": "vercel-php@0.9.0", "config": { "excludeFiles": "{public/img/**,node_modules/**,.opencode/**,.git/**,.vercel/**,tests/**,test-results/**,storage/logs/**,database/scraped/**,.phpunit.result.cache}" } },
-    { "src": "/public/build/**", "use": "@vercel/static" },
     { "src": "/public/css/**", "use": "@vercel/static" },
     { "src": "/public/js/**", "use": "@vercel/static" },
     { "src": "/public/fonts/**", "use": "@vercel/static" },
