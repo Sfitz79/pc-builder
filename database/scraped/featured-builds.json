@@ -1,5 +1,5 @@
 {
-    "generated": "2026-10-08T16:15:41+00:00",
+    "generated": "2026-10-08T16:28:59+00:00",
     "source": "production pgsql, genie-prod-guard asserted",
     "policy": "config\/build_policy.php via App\\Services\\BuildPolicyGate",
     "count": 27,
@@ -647,7 +647,7 @@
             ]
         },
         {
-            "slug": "Signal-1080p-mid",
+            "slug": "signal-1080p-mid",
             "name": "PCTG Signal",
             "summary": "Go live without buffering your own gameplay.",
             "promise": "Built for Streaming at 1080p, mid performance.",
@@ -719,7 +719,7 @@
             ]
         },
         {
-            "slug": "Relay-1080p-high",
+            "slug": "relay-1080p-high",
             "name": "PCTG Relay",
             "summary": "Built for the hours between going live and staying live.",
             "promise": "Built for Streaming at 1080p, high performance.",
@@ -791,7 +791,7 @@
             ]
         },
         {
-            "slug": "Transmission-1440p-mid",
+            "slug": "transmission-1440p-mid",
             "name": "PCTG Transmission",
             "summary": "Your channel, running smooth, all evening.",
             "promise": "Built for Streaming at 1440p, mid performance.",
@@ -863,7 +863,7 @@
             ]
         },
         {
-            "slug": "Livewire-1440p-high",
+            "slug": "livewire-1440p-high",
             "name": "PCTG Livewire",
             "summary": "Go live without buffering your own gameplay.",
             "promise": "Built for Streaming at 1440p, high performance.",
@@ -935,7 +935,7 @@
             ]
         },
         {
-            "slug": "Broadcast-4K-mid",
+            "slug": "broadcast-4-mid",
             "name": "PCTG Broadcast",
             "summary": "Built for the hours between going live and staying live.",
             "promise": "Built for Streaming at 4K, mid performance.",
@@ -1007,7 +1007,7 @@
             ]
         },
         {
-            "slug": "On Air-4K-high",
+            "slug": "on-air-4-high",
             "name": "PCTG On Air",
             "summary": "Your channel, running smooth, all evening.",
             "promise": "Built for Streaming at 4K, high performance.",
@@ -1079,7 +1079,7 @@
             ]
         },
         {
-            "slug": "Cutline-1080p-mid",
+            "slug": "cutline-1080p-mid",
             "name": "PCTG Cutline",
             "summary": "Cuts fast, previews smooth, exports without the wait.",
             "promise": "Built for Content Creation at 1080p, mid performance.",
@@ -1151,7 +1151,7 @@
             ]
         },
         {
-            "slug": "Keyframe-1080p-high",
+            "slug": "keyframe-1080p-high",
             "name": "PCTG Keyframe",
             "summary": "Heavy timelines and long renders, handled without drama.",
             "promise": "Built for Content Creation at 1080p, high performance.",
@@ -1223,7 +1223,7 @@
             ]
         },
         {
-            "slug": "Exposure-1440p-mid",
+            "slug": "exposure-1440p-mid",
             "name": "PCTG Exposure",
             "summary": "The boring parts of making things, made fast.",
             "promise": "Built for Content Creation at 1440p, mid performance.",
@@ -1295,7 +1295,7 @@
             ]
         },
         {
-            "slug": "Masterwork-1440p-high",
+            "slug": "masterwork-1440p-high",
             "name": "PCTG Masterwork",
             "summary": "Cuts fast, previews smooth, exports without the wait.",
             "promise": "Built for Content Creation at 1440p, high performance.",
@@ -1367,7 +1367,7 @@
             ]
         },
         {
-            "slug": "Renderworks-4K-mid",
+            "slug": "renderworks-4-mid",
             "name": "PCTG Renderworks",
             "summary": "Heavy timelines and long renders, handled without drama.",
             "promise": "Built for Content Creation at 4K, mid performance.",
@@ -1439,7 +1439,7 @@
             ]
         },
         {
-            "slug": "Edit-4K-high",
+            "slug": "edit-4-high",
             "name": "PCTG Edit",
             "summary": "The boring parts of making things, made fast.",
             "promise": "Built for Content Creation at 4K, high performance.",
@@ -1511,7 +1511,7 @@
             ]
         },
         {
-            "slug": "Workbench-1080p-mid",
+            "slug": "workbench-1080p-mid",
             "name": "PCTG Workbench",
             "summary": "A quiet, reliable machine for long sessions at the desk.",
             "promise": "Built for Studio at 1080p, mid performance.",
@@ -1583,7 +1583,7 @@
             ]
         },
         {
-            "slug": "Drafting-1080p-high",
+            "slug": "drafting-1080p-high",
             "name": "PCTG Drafting",
             "summary": "Everything open at once, and it stays that way.",
             "promise": "Built for Studio at 1080p, high performance.",
@@ -1655,7 +1655,7 @@
             ]
         },
         {
-            "slug": "Atelier-1440p-mid",
+            "slug": "atelier-1440p-mid",
             "name": "PCTG Atelier",
             "summary": "Built for the work, not the glamour.",
             "promise": "Built for Studio at 1440p, mid performance.",
@@ -1727,7 +1727,7 @@
             ]
         },
         {
-            "slug": "Soundhouse-1440p-high",
+            "slug": "soundhouse-1440p-high",
             "name": "PCTG Soundhouse",
             "summary": "A quiet, reliable machine for long sessions at the desk.",
             "promise": "Built for Studio at 1440p, high performance.",
@@ -1799,7 +1799,7 @@
             ]
         },
         {
-            "slug": "Workshop-4K-mid",
+            "slug": "workshop-4-mid",
             "name": "PCTG Workshop",
             "summary": "Everything open at once, and it stays that way.",
             "promise": "Built for Studio at 4K, mid performance.",
@@ -1871,7 +1871,7 @@
             ]
         },
         {
-            "slug": "Studio Floor-4K-high",
+            "slug": "studio-floor-4-high",
             "name": "PCTG Studio Floor",
             "summary": "Built for the work, not the glamour.",
             "promise": "Built for Studio at 4K, high performance.",

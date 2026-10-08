@@ -136,11 +136,21 @@ function cells(array $taxonomy): array
                 // Coalesce before interpolating: "??" is not valid inside a
                 // double-quoted string's {} expression.
                 $usageLabel = $taxonomy['axes']['usage'][$usage] ?? $usage;
+                // SLUGIFY. The first version interpolated the raw word straight
+                // into the slug, producing "Signal-1080p-mid" and
+                // "Studio Floor-4K-high" - capitals, and a literal space that made
+                // the apply endpoint 404. Lowercase, non-alphanumerics collapsed
+                // to a single hyphen, and separators trimmed from both ends.
+                $slugBase = trim(
+                    strtolower(preg_replace('/[^a-z0-9]+/i', '-', (string) $word) ?? ''),
+                    '-'
+                );
+                $slugRes = strtolower(preg_replace('/[^a-z0-9]+/', '', (string) $resLabel) ?? '');
                 $out[] = [
                     'usage' => $usage,
                     'resolution' => $resolution,
                     'tier' => $tier,
-                    'slug' => $word . '-' . $resLabel . '-' . $tier,
+                    'slug' => $slugBase . '-' . $slugRes . '-' . $tier,
                     'name' => 'PCTG ' . $word,
                     'summary' => $pool['summaries'][$sIdx],
                     'promise' => "Built for {$usageLabel} at {$resLabel}, {$tier} performance.",
