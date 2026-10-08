@@ -1,4 +1,10 @@
-@extends('layouts.app')
+{{--
+    layouts.seo, NOT layouts.app. layouts.app is a Blade COMPONENT layout - it
+    renders {{ $slot }} - so @extends('layouts.app') threw "Undefined variable
+    $slot" and took the page down with a 500. The other public pages use
+    layouts.seo for exactly this reason.
+--}}
+@extends('layouts.seo')
 
 @section('title', 'PCTG Featured Systems — Gaming, Streaming, Studio')
 @section('description', 'Every PCTG system, tagged by what it is for, the resolution it targets and where it sits on performance. Filterable, with the full parts list on every build.')
