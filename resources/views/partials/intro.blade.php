@@ -1,53 +1,57 @@
 {{--
     Intro overlay.
 
-    LAYOUT (Boss instruction): the PCTG Business badge takes the upper THREE
-    QUARTERS, the grid-and-boot animation takes the bottom QUARTER. Implemented
-    as a flex column with flex-[3] and flex-[1] on a zero basis, so the split is
-    exactly 3:1 at every viewport rather than depending on the order things
-    happen to stack.
+    LAYOUT (Boss instruction): the startup artwork takes the upper THREE QUARTERS and
+    the grid-and-boot animation takes the bottom QUARTER. Implemented as a flex column
+    with flex-[3] and flex-[1] on a zero basis, so the split is exactly 3:1 at every
+    viewport rather than depending on the order things happen to stack.
 
-    WHAT CHANGED AND WHY
-    - The upper band is the Business badge. The previous upper band was
-      startup-hero-top.jpg, the wide startup artwork with baked-in telemetry.
-    - The grid background and scan line MOVED down into the lower band. They were
-      on the outer container, so they covered the whole overlay; the instruction
-      is that the grid/animation occupies the bottom quarter.
-    - The "Illustrative image" caption went with the artwork it described. That
-      caption existed because the startup art carries fake specification
-      telemetry - "Intel Core i9 5.8 GHz 100% Load", "RTX 4080 98% Load" - which
-      on its own reads as a live spec sheet for a machine we built. The badge is a
-      real brand asset with no such claim, so carrying the caption over would
-      mislabel it.
+    THE UPPER BAND ARTWORK.
+    Supplied by the Boss: E:\Downloads\Gemini_Generated_Image_bsi732bsi732bsi7.png -
+    the "BUILD YOUR GAMER'S EDGE" render. It was 2,029 KB, which is far too heavy for
+    the critical path of every page view (this overlay is on every page), so
+    scripts/genie-intro-artwork.php re-encodes it to 1408x768 JPEG at 201 KB - 90%
+    smaller, same pixels, same colours, nothing recoloured or cropped.
 
-    ASSETS
-    - img/brand/pctg-business-intro.png  700x219, 349 KB. Renders up to ~900px
-      wide, so it needs more than the 68 KB nav file and less than the 934 KB
-      master. Still on the critical path of every page view, which is why it was
-      sized deliberately rather than shipped at source resolution.
-    - The badge is 3.2:1, so it is laid out by width and centred; a fixed height
-      would overflow on narrow viewports.
+    WHY THE "ILLUSTRATIVE IMAGE" CAPTION IS BACK.
+    The artwork has telemetry baked into it: "Intel Core i9 5.8 GHz 100% Load",
+    "NVIDIA RTX 4080 2520 MHz 98% Load", "32GB DDR5 6400 MHz 64% Load". On its own,
+    next to a real Compatibility Engine status list, that reads as a live spec sheet
+    for a machine we built - and it is not one. It is artwork. The caption was
+    previously removed because the band used to hold the plain Business badge, which
+    carries no such claim; it is required again now that the artwork is back.
+
+    The bottom quarter keeps the grid background, scan line, PCTG mark and the boot
+    progress bar. Those were on the outer container before, so they covered the whole
+    overlay; the instruction is that the animation occupies the bottom quarter.
 --}}
 <div
     data-pctg-intro
-    data-pctg-duration="3600"
+    data-pctg-duration="3000"
     class="fixed inset-0 z-[999] flex flex-col overflow-hidden bg-black"
     role="status"
     aria-label="Loading PC Builder"
 >
 
-    {{-- Upper three quarters: the badge --}}
-    <div class="relative flex flex-[3] basis-0 items-center justify-center px-6">
+    {{-- Upper three quarters: the supplied startup artwork --}}
+    <div class="relative flex flex-[3] basis-0 flex-col items-center justify-center px-6">
+
         <img
-            src="{{ asset('img/brand/pctg-business-intro.png') }}"
+            src="{{ asset('img/brand/startup-hero-top.jpg') }}"
             alt=""
-            width="700"
-            height="219"
+            width="1408"
+            height="768"
             fetchpriority="high"
             decoding="async"
-            class="pctg-boot-logo w-full max-w-4xl"
+            class="max-h-full w-auto max-w-full object-contain"
             aria-hidden="true"
         >
+
+        {{-- Mandatory because the artwork carries fabricated telemetry. See above. --}}
+        <p class="mt-3 shrink-0 text-center text-[10px] uppercase tracking-[0.25em] text-slate-600">
+            Illustrative image
+        </p>
+
     </div>
 
     {{-- Bottom quarter: the grid and boot animation --}}

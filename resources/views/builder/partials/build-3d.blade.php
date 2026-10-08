@@ -211,7 +211,35 @@
         <div x-show="render3dUrl" x-cloak>
             @include('builder.partials.asset-credits')
         </div>
-    </div>
+
+        {{-- THE </div> THAT WAS HERE IS GONE, AND IT WAS BREAKING THE PAGE.
+
+             Measured on the live site at 1280px with Playwright: Build Summary,
+             Compatibility, Upgrade Path, Build Health and Expected FPS each rendered
+             57px wide and ~1471px tall, stepping sideways by ~81px, while the 3D card
+             directly above them was a correct 299px.
+
+             57px x 12 + 11 gaps x 24 = 944px, which is exactly #build-results, and
+             ~81px is exactly one 56.67px grid track plus one gap. So those five cards
+             were not mis-sized - they had been ejected from their
+             `<div class="lg:col-span-4 space-y-6">` column and become DIRECT children
+             of the 12-column grid, each confined to a single track.
+
+             The browser confirmed it without inference:
+
+               col-span-4 children: 1  (3D Build View only)
+               #build-results children: 7
+                 lg:col-span-8, lg:col-span-4, then 5 bare .pctg-card
+
+             Cause: this partial is wrapped in <x-pctg.card>, which emits its own
+             <div class="pctg-card"> AND its own closing </div>. The literal </div>
+             that sat here was a SECOND close for that same div. The card therefore
+             ended early, the column wrapper ended with it, and the browser silently
+             discarded the surplus close rather than erroring - which is why the page
+             still returned 200 and looked merely "squished" rather than broken.
+
+             Counting <div> against </div> per card in the served HTML pins it exactly:
+             card 2 (3D Build View) was the only one at delta -1. --}}
 
     @if (config('builder.enable_3d_viewport'))
     <div
