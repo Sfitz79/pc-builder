@@ -15,7 +15,24 @@
 
         @include('builder.partials.ai-wizard')
 
-        <div id="build-results" class="grid gap-6 lg:grid-cols-12">
+        {{-- grid-cols-1 AT THE BASE, NOT JUST lg:grid-cols-12.
+
+             MEASURED 2026-10-08 at a 360px viewport: documentElement.scrollWidth 372
+             against clientWidth 360, so the page still scrolled sideways on the
+             narrowest phones after main was given min-w-0.
+
+             Cause: below lg this grid had NO explicit columns - `grid gap-6
+             lg:grid-cols-12` only declares tracks at the lg breakpoint. With
+             grid-template-columns: none the items fall into a single IMPLICIT column
+             sized `auto`, which is content-driven, so the column settled at 356px and
+             pushed past the 328px content box. Every card then sat at 356px and the
+             document scrolled.
+
+             `grid-cols-1` declares the mobile column explicitly as minmax(0, 1fr), so
+             it cannot exceed its container and the cards reflow to the screen instead.
+             This is the mobile-first half of the layout; lg:grid-cols-12 is the
+             desktop half, and neither overrides the other. --}}
+        <div id="build-results" class="grid grid-cols-1 gap-6 lg:grid-cols-12">
 
             <div class="lg:col-span-8 space-y-6">
 
