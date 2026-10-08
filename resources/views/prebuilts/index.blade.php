@@ -63,9 +63,27 @@
                             <x-pctg.badge variant="ai">
                                 {{ $build['socket'] }}
                             </x-pctg.badge>
+
+                            {{-- An APU build has to announce its limit up front. There is
+                                 no dedicated graphics card, so calling it a "starter PC"
+                                 and leaving it there would sell the customer a machine
+                                 they discover the limits of after buying. Tagline is the
+                                 short version, notes is the honest explanation. --}}
+                            @if (! empty($build['tagline']))
+                                <x-pctg.badge variant="warning" class="mt-2 mr-2">
+                                    {{ $build['tagline'] }}
+                                </x-pctg.badge>
+                            @endif
+
                             <h2 class="mt-3 text-2xl font-black md:text-3xl">
                                 {{ $build['name'] }}
                             </h2>
+
+                            @if (! empty($build['notes']))
+                                <p class="mt-3 max-w-2xl rounded-xl border border-amber-500/20 bg-amber-500/10 p-4 text-sm text-amber-200">
+                                    {{ $build['notes'] }}
+                                </p>
+                            @endif
 
                             <div class="mt-3 flex flex-wrap gap-2">
                                 @if ($build['case_form_factor'])

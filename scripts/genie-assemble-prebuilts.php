@@ -126,38 +126,89 @@ $prebuilts = [];
 //     cheaper build, it is a broken one. No overclocking claim is made for any
 //     tier; the class exists to guarantee the board can physically and
 //     electrically carry the CPU and the GPU's PCIe 4.0 x16.
+/**
+ * AMD BOARD GATE.
+ *
+ * Boss decision: on AMD we build only these chipset families -
+ *   AM4: B550 (incl. mATX), X570
+ *   AM5: B650 (incl. M/E), X670 (incl. E), B850 (incl. mATX), X870 (incl. E/M/I)
+ *
+ * Deliberately excluded:
+ *   A520, A620  - the entry "*20" chipsets. A620M is GBP 67.50 and A520M is
+ *                 GBP 42.99, and both were being fitted: the esports build was
+ *                 picking a Gigabyte A520M because it was the cheapest row.
+ *   B450, B840  - the older/lower "*40" boards. B450 is PCIe 3.0 across the
+ *                 board and predates the generation it is paired with.
+ *
+ * Family members carry M/E/I suffixes and all count: B550M, B650E, B650M,
+ * B850M, X670E, X870E, X870I. A naive numeric suffix test is wrong here and was
+ * measured to be - `/\d0$/` style matching keeps B450 (ends "50") while
+ * dropping B550M, B650M, B850M and every "-E"/"-I" board, i.e. it keeps the
+ * cheapest old board and throws away the mainstream ones. Family-first regexes
+ * with the optional suffix inside the pattern avoid that.
+ *
+ * Applied to AMD sockets only. Intel (LGA1700/LGA1851) is untouched.
+ */
+const AMD_BOARD_GATE = [
+    '/\bB550M?\b/i',
+    '/\bX570\b/i',
+    '/\bB650[EM]?\b/i',
+    '/\bX670[E]?\b/i',
+    '/\bB850M?\b/i',
+    '/\bX870[EMI]?\b/i',
+];
+
+function amdBoardAllowed(string $name, string $socket): bool
+{
+    // Not an AMD socket: the gate is an AMD policy.
+    if (! in_array($socket, ['AM4', 'AM5', 'AM3'], true)) {
+        return true;
+    }
+
+    foreach (AMD_BOARD_GATE as $rx) {
+        if (preg_match($rx, $name) === 1) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 $defs = [
     [
-        // Starter is an APU build, NOT a weak discrete-GPU build.
+        // ES ONLY, and labelled as such.
         //
-        // It used to carry a dedicated card under gpuMax GBP 320, which meant
-        // the cheapest legal machine cost GBP 1175 - more than twice the
-        // advertised GBP 700-900 band, so the tier never published. A discrete
-        // card was also simply the wrong part: a 1080p esports box does not
-        // need one. A Ryzen 5 8600G (Radeon 780M) or 5600G (Vega 8) runs
-        // esports titles at 1080p from the CPU's integrated graphics.
+        // An APU build drives the display from the CPU. There is no dedicated
+        // graphics card, so this is an ESPORTS machine and not a general-purpose
+        // one: fine for competitive shooters and MOBAs at 1080p, not for
+        // creation, AAA or ray tracing. The name and the storefront copy say so
+        // plainly rather than letting "Starter" imply an ordinary small PC.
         //
-        // 'apu' => true means: no discrete GPU part, and the published build
-        // carries integrated_graphics so the storefront and checkout know a
-        // GPU is not required.
+        // Platform floors, set by the Boss:
+        //   - APU must be a 5600G / 5600GT or better. The Ryzen 3 3200G
+        //     (GBP 49) and Ryzen 5 3400G (GBP 105) are Zen/Zen+ with 4 cores
+        //     and weaker graphics; below the quality bar for a system we sell.
+        //     The 5500GT at GBP 112.99 is excluded for the same reason.
+        //   - 16GB DDR4-3200 as 2x8GB. DDR4 fixes the socket at AM4. Dual channel
+        //     is a hard requirement here because the iGPU shares system memory.
         //
-        // Only G-suffixed models qualify. AMD's "G" suffix is the documented
-        // APU designation; the catalogue carries NO integrated-graphics field
-        // (CPU specs are only cores/threads), so the iGPU claim rests on the
-        // model designation rather than on catalogue data. That is precisely
-        // why F-series and plain chips are excluded: the Ryzen 5 5500
-        // (GBP 74.99) and the 8400F/7500F/7400F have NO integrated graphics
-        // and would leave the customer with no display output at all.
-        'name' => 'Starter 1080p Esports', 'budget' => [450, 750], 'socket' => 'AM5',
+        // B550M rather than the cheaper A520M (GBP 42.99 vs 65.90): A520 is the
+        // entry chipset, and holding the same line on boards that we already
+        // applied to the CPUs costs GBP 23.
+        'name' => 'Esports 1080p APU (No Dedicated GPU)',
+        'budget' => [450, 750], 'socket' => 'AM4',
         'apu' => true,
-        'apuModels' => ['/\b8600G\b/i', '/\b8700G\b/i', '/\b8500G\b/i', '/\b5600G\b/i', '/\b5700G\b/i'],
+        'apuModels' => ['/\b5600G[TF]?\b/i', '/\b5700G\b/i', '/\b5700GT\b/i'],
+        'apuDualChannelRam' => true,
+        'tagline' => 'Esports only',
+        'notes' => 'Esports and 1080p gaming only. Graphics come from the Ryzen APU - there is no dedicated graphics card. Great for competitive shooters and MOBAs; not suited to video editing, 3D or AAA titles at high settings.',
         'targetFps' => 144, 'caseMin' => 25, 'coolerMin' => 15,
-        'boardChipsets' => ['/\bB650M?\b/i', '/\bA620M?\b/i', '/\bB550M?\b/i', '/\bA520M?\b/i'],
+        'boardChipsets' => ['/\bB550M\b/i', '/\bB550\b/i', '/\bX570\b/i'],
     ],
     [
         'name' => 'Mainstream 1080p Ultra', 'budget' => [1100, 1400], 'socket' => 'AM5',
         'gpuMax' => 480, 'gpuFloorTier' => 3, 'targetFps' => 144, 'caseMin' => 45, 'coolerMin' => 25,
-        'boardChipsets' => ['/\bB650\b/i', '/\bX670\b/i'],
+        'boardChipsets' => ['/\bB650M?\b/i', '/\bB850M?\b/i', '/\bX670E?\b/i', '/\bX870[E]?\b/i'],
     ],
     [
         // gpuFloorTier 4, not 3. A "High End 1440p" machine carrying a tier-3
@@ -166,7 +217,7 @@ $defs = [
         // (RTX 5070 / RX 9070 / RTX 5070 Ti and up).
         'name' => 'High End 1440p', 'budget' => [1900, 2400], 'socket' => 'AM5',
         'gpuMax' => 900, 'gpuFloorTier' => 4, 'targetFps' => 144, 'caseMin' => 70, 'coolerMin' => 40,
-        'boardChipsets' => ['/\bB650E?\b/i', '/\bX670[E]?\b/i'],
+        'boardChipsets' => ['/\bB650E\b/i', '/\bB850M?\b/i', '/\bX670[E]?\b/i', '/\bX870[E]?\b/i'],
     ],
 ];
 
@@ -185,7 +236,7 @@ foreach ($defs as $def) {
             ->orderBy('price')->get()
             ->first(fn ($c) => specsOf($c)['cores'] ?? null);
         if (!$cpu) {
-            printf("  %-28s SKIPPED: no CPU found\n", $def['name']);
+            printf("  %-44s SKIPPED: no CPU found\n", $def['name']);
             continue;
         }
         $cpuWatts = (int) ($cpu->wattage ?: $defaultCpuWatts);
@@ -264,7 +315,7 @@ if ($isApu) {
     }
 
     if (! $cpu) {
-        printf("  %-28s SKIPPED: no G-series APU on %s in catalogue\n", $def['name'], $def['socket']);
+        printf("  %-44s SKIPPED: no G-series APU on %s in catalogue\n", $def['name'], $def['socket']);
         continue;
     }
 
@@ -275,9 +326,12 @@ if ($isApu) {
     // here instead would leave $cores describing a different chip entirely.
     $cores = (int) ($cpuSpecs['cores'] ?? 0);
     $threads = (int) ($cpuSpecs['threads'] ?? ($cores > 0 ? $cores * 2 : 0));
+    // Name goes on its own line. It is padded to 44 because the esports tier's
+    // name is 39 characters and was running straight into the literal label.
+    printf("  %s\n", $def['name']);
     printf(
-        "  %-28s APU:  %s GBP %s on %s (%d cores, integrated graphics, no discrete GPU)\n",
-        $def['name'], $cpu->name, number_format((float) $cpu->price, 2), $socket, $cores
+        "  %-44s APU:  %s GBP %s on %s (%d cores, integrated graphics, no discrete GPU)\n",
+        '', $cpu->name, number_format((float) $cpu->price, 2), $socket, $cores
     );
 } else {
     $gpuCandidates = DB::table('components')
@@ -314,7 +368,7 @@ foreach ($gpuCandidates as $candidate) {
 
         $gpu = $candidate;
         printf(
-            "  %-28s GPU:  %s GBP %s, tier %d (floor %d, cap GBP %s)\n",
+            "  %-44s GPU:  %s GBP %s, tier %d (floor %d, cap GBP %s)\n",
             $def['name'], $candidate->name, number_format((float) $candidate->price, 2),
             $tier, $gpuFloorTier, number_format($def['gpuMax'])
         );
@@ -323,7 +377,7 @@ foreach ($gpuCandidates as $candidate) {
 
     if (!$gpu) {
         printf(
-            "  %-28s SKIPPED: no GPU at tier >= %d under GBP %s (tiers seen: %s)\n",
+            "  %-44s SKIPPED: no GPU at tier >= %d under GBP %s (tiers seen: %s)\n",
             $def['name'],
             $gpuFloorTier,
             number_format($def['gpuMax']),
@@ -365,19 +419,21 @@ if ($isApu) {
     // Form factor is still NOT in production data, so every board remains
     // ATX-width for case selection - that part was correct and is unchanged.
     $boardReq = $def['boardChipsets'];
-    // orderBy('price') is REQUIRED, same defect as the storage selection.
+    // The per-tier boardChipsets list says which CLASS this tier wants (for
+    // example mATX before ATX). The AMD_BOARD_GATE is a separate, global policy
+    // about which chipset families we will build at all. Both must pass: a tier
+    // list cannot re-admit a chipset the gate forbids.
     //
-    // This query had no ordering, so ->get()->first(...) returned whichever
-    // matching board happened to come first in Postgres order. Measured: it
-    // picked an Asus TUF GAMING B650-PLUS WIFI at GBP 140.91 for the GBP 618
-    // starter while a matching Gigabyte B650M S2H sat at GBP 82.95. The comment
-    // above this block claimed "combined with orderBy(price)" - that ordering
-    // was never actually in the query.
+    // Without the gate the esports tier fitted a Gigabyte A520M at GBP 42.99 -
+    // the cheapest row that matched its class list, and an entry "*20" chipset.
     $board = DB::table('components')->where('category_id', $ids['Motherboard'])->where('active', 1)
         ->where('socket', $socket)->whereNotNull('price')->where('price', '>', 0)
         ->orderBy('price')->get()
-        ->first(function ($b) use ($boardReq) {
+        ->first(function ($b) use ($boardReq, $socket) {
             $name = (string) $b->name;
+            if (! amdBoardAllowed($name, $socket)) {
+                return false;
+            }
             foreach ($boardReq as $re) {
                 if (preg_match($re, $name) === 1) {
                     return true;
@@ -387,7 +443,7 @@ if ($isApu) {
             return false;
         });
     if (!$board) {
-        printf("  %-28s SKIPPED: no %s-class motherboard\n", $def['name'], implode('/', $boardReq));
+        printf("  %-44s SKIPPED: no %s-class motherboard\n", $def['name'], implode('/', $boardReq));
         continue;
     }
 
@@ -403,9 +459,27 @@ if ($isApu) {
     // Reading the wrong field is not a defensible fallback - it makes the guard
     // reject the entire catalogue, which is what happened on the first attempt.
     $memGen = $socket === 'AM5' ? 'DDR5' : 'DDR4';
-    $ram = DB::table('components')->where('category_id', $ids['RAM'])->where('active', 1)
-        ->whereNotNull('price')->orderBy('price')->get()
-        ->first(function ($r) use ($ramBytes, $memGen) {
+
+    // APU floors, from the Boss: 16GB DDR4-3200 as 2x8GB.
+    //
+    // DUAL CHANNEL IS NOT COSMETIC ON AN APU. The integrated graphics share
+    // system memory, so a single-channel kit measurably reduces 1080p frame
+    // rates on exactly the esports titles this tier is sold for. A 1x16 kit
+    // halves the memory bandwidth available to the iGPU.
+    //
+    // The module layout is read from the module_config COLUMN, not from specs.
+    // Measured on production Neon: RAM specs carry only speed and capacity -
+    // there is no specs.modules key at all - while module_config holds strings
+    // like "2 x 8GB". Reading a JSON key that does not exist fails the same way
+    // the case form factor did (Rule 1: measure the field the consumer reads).
+    $apuRamMinSpeed = $isApu ? 3200 : 0;
+    $apuRequireDual = (bool) ($isApu && ($def['apuDualChannelRam'] ?? true));
+
+    $ram = DB::table('components')
+        ->where('category_id', $ids['RAM'])->where('active', 1)
+        ->whereNotNull('price')->where('price', '>', 0)
+        ->orderBy('price')->get()
+        ->first(function ($r) use ($ramBytes, $memGen, $apuRamMinSpeed, $apuRequireDual) {
             $s = specsOf($r);
             $cap = (int) preg_replace('/[^0-9]/', '', (string) ($s['capacity'] ?? ''));
             if ($cap !== $ramBytes) {
@@ -414,15 +488,56 @@ if ($isApu) {
             // specs.speed carries the generation. Fail closed if it is absent:
             // unknown memory is never assumed compatible.
             $speed = (string) ($s['speed'] ?? '');
+            if ($speed === '' || stripos($speed, $memGen) === false) {
+                return false;
+            }
 
-            return $speed !== '' && stripos($speed, $memGen) !== false;
+            if ($apuRamMinSpeed > 0) {
+                // Parse the speed OFF THE END, never by stripping every
+                // non-digit. specs.speed is formatted "DDR4-3200", so
+                // preg_replace('/[^0-9]/', '', $speed) returns 43200 - the 4
+                // from "DDR4" is concatenated with 3200. That made this floor
+                // vacuous: a genuine DDR4-2133 kit parses as 42133 and sailed
+                // through a >= 3200 test. Strip the generation token first, then
+                // read the remaining number.
+                $numeric = preg_replace('/DDR[45]/i', '', $speed);
+                $mt = (int) preg_replace('/[^0-9]/', '', (string) $numeric);
+                if ($mt < $apuRamMinSpeed) {
+                    return false;
+                }
+            }
+
+            if ($apuRequireDual) {
+                $layout = strtolower((string) ($r->module_config ?? ''));
+                // Accept 2x8 and 2x8GB spellings. Fail closed: an unverified
+                // layout is never assumed to be dual channel.
+                if (preg_match('/2\s*x\s*8\s*gb|2x8/', $layout) !== 1) {
+                    return false;
+                }
+            }
+
+            return true;
         });
     if (!$ram) {
-        printf("  %-28s SKIPPED: no %dGB %s (catalogue has none for this socket)\n",
-            $def['name'], $ramBytes, $memGen);
+        printf(
+            "  %-44s SKIPPED: no %dGB %s%s%s (catalogue has none for this socket)\n",
+            $def['name'],
+            $ramBytes,
+            $memGen,
+            $apuRamMinSpeed > 0 ? " >= {$apuRamMinSpeed}" : '',
+            $apuRequireDual ? ' in 2x8' : ''
+        );
         continue;
     }
     $ramSpeed = specsOf($ram)['speed'] ?? null;
+    $ramLayout = $ram->module_config ?? null;
+    if ($apuRequireDual) {
+        printf(
+            "  %-44s RAM:  %s GBP %s, %s, %s (dual channel)\n",
+            $def['name'], $ram->name, number_format((float) $ram->price, 2),
+            (string) $ramSpeed, (string) $ramLayout
+        );
+    }
 
     // orderBy('price') is REQUIRED, not cosmetic.
 //
@@ -440,7 +555,7 @@ $storage = DB::table('components')->where('category_id', $ids['Storage'])->where
         return $cap >= 1000;
     });
     if (!$storage) {
-        printf("  %-28s SKIPPED: no >=1TB storage\n", $def['name']);
+        printf("  %-44s SKIPPED: no >=1TB storage\n", $def['name']);
         continue;
     }
 
@@ -464,7 +579,7 @@ $storage = DB::table('components')->where('category_id', $ids['Storage'])->where
             return ((int) $p->wattage) <= $ceiling;
         });
     if (!$psu) {
-        printf("  %-28s SKIPPED: no PSU with >=%dW headroom\n", $def['name'], (int) ceil($estDraw * 1.4));
+        printf("  %-44s SKIPPED: no PSU with >=%dW headroom\n", $def['name'], (int) ceil($estDraw * 1.4));
         continue;
     }
 
@@ -490,7 +605,7 @@ $storage = DB::table('components')->where('category_id', $ids['Storage'])->where
             return in_array($f, ['ATX', 'E-ATX'], true);
         });
     if (!$case) {
-        printf("  %-28s SKIPPED: no ATX-capable case\n", $def['name']);
+        printf("  %-44s SKIPPED: no ATX-capable case\n", $def['name']);
         continue;
     }
 
@@ -522,7 +637,7 @@ $storage = DB::table('components')->where('category_id', $ids['Storage'])->where
             return false;
         });
     if (!$cooler) {
-        printf("  %-28s SKIPPED: no recognised-brand cooler >= £%.0f\n", $def['name'], $coolerMin);
+        printf("  %-44s SKIPPED: no recognised-brand cooler >= £%.0f\n", $def['name'], $coolerMin);
 
         continue;
     }
@@ -557,24 +672,25 @@ $storage = DB::table('components')->where('category_id', $ids['Storage'])->where
     // selection bug and a stale band. It must name what it picked.
     if ($total < $def['budget'][0] || $total > $def['budget'][1]) {
         printf(
-            "  %-28s SKIPPED: total £%.0f outside band £%d-£%d\n"
-            . "  %-28s   picked [%s]\n",
+            "  %-44s SKIPPED: total £%.0f outside band £%d-£%d\n"
+            . "  %-44s   picked [%s]\n",
             $def['name'], $total, $def['budget'][0], $def['budget'][1],
             '', implode(', ', $line)
         );
         continue;
     }
 
-    printf("  %-28s £%.0f  [%s]\n", $def['name'], $total, implode(', ', $line));
+    printf("  %-44s £%.0f  [%s]\n", $def['name'], $total, implode(', ', $line));
     $prebuilts[] = [
         'name' => $def['name'],
         'total' => round($total, 2),
         'socket' => $socket,
-        // True when there is no discrete GPU and the CPU's integrated
-        // graphics drive the display. Consumers need this: the storefront
-        // renders a GPU row from parts[], and checkout refuses to create an
-        // order unless every required category is present. Without the flag a
-        // GPU-less build looks incomplete and cannot be bought.
+        // Honest labelling for the storefront. An APU build has to say plainly
+        // that it has no dedicated graphics and what that means for the buyer,
+        // otherwise "starter" implies an ordinary small PC and the customer
+        // discovers the limit after buying. The panel renders both fields.
+        'tagline' => $def['tagline'] ?? null,
+        'notes' => $def['notes'] ?? null,
         'integrated_graphics' => $isApu,
         'estimated_draw_watts' => $estDraw,
         'psu_watts' => (int) $psu->wattage,

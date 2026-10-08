@@ -1,8 +1,10 @@
 [
     {
-        "name": "Starter 1080p Esports",
-        "total": 554.9,
-        "socket": "AM5",
+        "name": "Esports 1080p APU (No Dedicated GPU)",
+        "total": 509.7,
+        "socket": "AM4",
+        "tagline": "Esports only",
+        "notes": "Esports and 1080p gaming only. Graphics come from the Ryzen APU - there is no dedicated graphics card. Great for competitive shooters and MOBAs; not suited to video editing, 3D or AAA titles at high settings.",
         "integrated_graphics": true,
         "estimated_draw_watts": 155,
         "psu_watts": 500,
@@ -12,21 +14,21 @@
         "parts": [
             {
                 "type": "CPU",
-                "id": 38967,
-                "name": "AMD Ryzen 5 8500G",
-                "price": 114.99
+                "id": 38991,
+                "name": "AMD Ryzen 5 5600GT",
+                "price": 136.99
             },
             {
                 "type": "Motherboard",
-                "id": 39728,
-                "name": "Gigabyte A620M S2H",
-                "price": 77.99
+                "id": 39649,
+                "name": "ASRock B550M-HDV",
+                "price": 65.9
             },
             {
                 "type": "RAM",
-                "id": 40445,
-                "name": "ADATA Premier 16 GB",
-                "price": 148.94
+                "id": 40592,
+                "name": "PNY MN16GK2D43200-TB 16 GB",
+                "price": 93.83
             },
             {
                 "type": "Storage",
@@ -62,10 +64,10 @@
             "gpu_vram_gb": 0,
             "gpu_watts_source": "n/a - no discrete GPU; iGPU draws from the CPU TDP",
             "ram_capacity_source": "specs.capacity",
-            "ram_speed": "DDR5-4800",
+            "ram_speed": "DDR4-3200",
             "case_form_factor_source": "specs.form_factor (verified backfill 2026-09-29, 399/399)",
             "case_price_floor": "£25 enforced (brand integrity: cheapest 4 ATX cases are £17.99-£19.99)",
-            "board_chipset_class": "/\\bB650M?\\b/i | /\\bA620M?\\b/i | /\\bB550M?\\b/i | /\\bA520M?\\b/i required by tier",
+            "board_chipset_class": "/\\bB550M\\b/i | /\\bB550\\b/i | /\\bX570\\b/i required by tier",
             "board_chipset_source": "NAME MATCH ONLY - 0/397 production motherboards carry specs, so chipset is unverified",
             "cooler_brand_source": "NAME MATCH only (whitelist: Noctua, Arctic, be quiet, Thermalright, NZXT, Corsair, Cooler Master)",
             "cooler_thermal_evidence": "NONE - 0/372 production coolers carry specs, so TDP/socket coverage is NOT verified. No cooling capacity is claimed.",
@@ -76,8 +78,10 @@
     },
     {
         "name": "Mainstream 1080p Ultra",
-        "total": 1288.87,
+        "total": 1258.83,
         "socket": "AM5",
+        "tagline": null,
+        "notes": null,
         "integrated_graphics": false,
         "estimated_draw_watts": 355,
         "psu_watts": 500,
@@ -99,9 +103,9 @@
             },
             {
                 "type": "Motherboard",
-                "id": 39540,
-                "name": "Gigabyte B650 EAGLE AX",
-                "price": 112.99
+                "id": 39853,
+                "name": "Gigabyte B650M S2H",
+                "price": 82.95
             },
             {
                 "type": "RAM",
@@ -146,7 +150,7 @@
             "ram_speed": "DDR5-4800",
             "case_form_factor_source": "specs.form_factor (verified backfill 2026-09-29, 399/399)",
             "case_price_floor": "£45 enforced (brand integrity: cheapest 4 ATX cases are £17.99-£19.99)",
-            "board_chipset_class": "/\\bB650\\b/i | /\\bX670\\b/i required by tier",
+            "board_chipset_class": "/\\bB650M?\\b/i | /\\bB850M?\\b/i | /\\bX670E?\\b/i | /\\bX870[E]?\\b/i required by tier",
             "board_chipset_source": "NAME MATCH ONLY - 0/397 production motherboards carry specs, so chipset is unverified",
             "cooler_brand_source": "NAME MATCH only (whitelist: Noctua, Arctic, be quiet, Thermalright, NZXT, Corsair, Cooler Master)",
             "cooler_thermal_evidence": "NONE - 0/372 production coolers carry specs, so TDP/socket coverage is NOT verified. No cooling capacity is claimed.",
@@ -157,8 +161,10 @@
     },
     {
         "name": "High End 1440p",
-        "total": 2173.32,
+        "total": 2165.32,
         "socket": "AM5",
+        "tagline": null,
+        "notes": null,
         "integrated_graphics": false,
         "estimated_draw_watts": 410,
         "psu_watts": 600,
@@ -180,9 +186,9 @@
             },
             {
                 "type": "Motherboard",
-                "id": 39540,
-                "name": "Gigabyte B650 EAGLE AX",
-                "price": 112.99
+                "id": 39570,
+                "name": "ASRock B850M-X R2.0",
+                "price": 104.99
             },
             {
                 "type": "RAM",
@@ -227,7 +233,7 @@
             "ram_speed": "DDR5-5600",
             "case_form_factor_source": "specs.form_factor (verified backfill 2026-09-29, 399/399)",
             "case_price_floor": "£70 enforced (brand integrity: cheapest 4 ATX cases are £17.99-£19.99)",
-            "board_chipset_class": "/\\bB650E?\\b/i | /\\bX670[E]?\\b/i required by tier",
+            "board_chipset_class": "/\\bB650E\\b/i | /\\bB850M?\\b/i | /\\bX670[E]?\\b/i | /\\bX870[E]?\\b/i required by tier",
             "board_chipset_source": "NAME MATCH ONLY - 0/397 production motherboards carry specs, so chipset is unverified",
             "cooler_brand_source": "NAME MATCH only (whitelist: Noctua, Arctic, be quiet, Thermalright, NZXT, Corsair, Cooler Master)",
             "cooler_thermal_evidence": "NONE - 0/372 production coolers carry specs, so TDP/socket coverage is NOT verified. No cooling capacity is claimed.",
