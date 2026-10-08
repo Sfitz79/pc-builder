@@ -1,87 +1,94 @@
+{{--
+    Intro overlay.
+
+    LAYOUT (Boss instruction): the PCTG Business badge takes the upper THREE
+    QUARTERS, the grid-and-boot animation takes the bottom QUARTER. Implemented
+    as a flex column with flex-[3] and flex-[1] on a zero basis, so the split is
+    exactly 3:1 at every viewport rather than depending on the order things
+    happen to stack.
+
+    WHAT CHANGED AND WHY
+    - The upper band is the Business badge. The previous upper band was
+      startup-hero-top.jpg, the wide startup artwork with baked-in telemetry.
+    - The grid background and scan line MOVED down into the lower band. They were
+      on the outer container, so they covered the whole overlay; the instruction
+      is that the grid/animation occupies the bottom quarter.
+    - The "Illustrative image" caption went with the artwork it described. That
+      caption existed because the startup art carries fake specification
+      telemetry - "Intel Core i9 5.8 GHz 100% Load", "RTX 4080 98% Load" - which
+      on its own reads as a live spec sheet for a machine we built. The badge is a
+      real brand asset with no such claim, so carrying the caption over would
+      mislabel it.
+
+    ASSETS
+    - img/brand/pctg-business-intro.png  700x219, 349 KB. Renders up to ~900px
+      wide, so it needs more than the 68 KB nav file and less than the 934 KB
+      master. Still on the critical path of every page view, which is why it was
+      sized deliberately rather than shipped at source resolution.
+    - The badge is 3.2:1, so it is laid out by width and centred; a fixed height
+      would overflow on narrow viewports.
+--}}
 <div
     data-pctg-intro
     data-pctg-duration="3600"
-    class="pctg-grid-bg fixed inset-0 z-[999] flex items-center justify-center overflow-hidden bg-black"
+    class="fixed inset-0 z-[999] flex flex-col overflow-hidden bg-black"
     role="status"
     aria-label="Loading PC Builder"
 >
 
-    <div class="pctg-scan-line"></div>
+    {{-- Upper three quarters: the badge --}}
+    <div class="relative flex flex-[3] basis-0 items-center justify-center px-6">
+        <img
+            src="{{ asset('img/brand/pctg-business-intro.png') }}"
+            alt=""
+            width="700"
+            height="219"
+            fetchpriority="high"
+            decoding="async"
+            class="pctg-boot-logo w-full max-w-4xl"
+            aria-hidden="true"
+        >
+    </div>
 
-    {{-- Startup artwork, supplied by the Boss.
+    {{-- Bottom quarter: the grid and boot animation --}}
+    <div class="pctg-grid-bg relative flex flex-[1] basis-0 flex-col justify-center border-t border-white/5 px-6 py-4">
 
-         Source was a 1408x768 PNG at 2.08 MB. This overlay renders on EVERY
-         page view before the site resolves, so that size cannot go on the
-         critical path. scripts/prep-startup-image.cs re-encodes it as a
-         progressive JPEG at the 1200px the overlay actually paints: the top
-         half is 76 KB, the full frame 137 KB.
+        <div class="pctg-scan-line"></div>
 
-         WHY TOP HALF: the supplied artwork is a wide frame where the PC sits
-         in the lower half and the headline sits in the top half. Painting only
-         the top keeps the machine visible behind the panel without pushing the
-         status text off screen on short viewports.
+        <div class="relative mx-auto w-full max-w-md">
 
-         ILLUSTRATIVE, AND LABELLED AS SUCH. The artwork has specification
-         telemetry baked into it - "Intel Core i9 5.8 GHz 100% Load", "RTX 4080
-         98% Load", "32GB DDR5 6400 MHz" - and it is a generated image, not a
-         photograph of a machine we built. On its own that reads as a live spec
-         sheet for a real system. The caption below marks it as illustration so
-         it cannot be taken for a specification or for a customer's machine.
-         Do not remove that caption without replacing the telemetry in the art.
-    --}}
-    <img
-        src="{{ asset('img/brand/startup-hero-top.jpg') }}"
-        alt=""
-        width="1200"
-        height="328"
-        fetchpriority="high"
-        decoding="async"
-        class="pointer-events-none absolute inset-x-0 top-0 h-[38vh] w-full object-cover opacity-45"
-        aria-hidden="true"
-    >
-    <div class="pointer-events-none absolute inset-x-0 top-0 h-[38vh] bg-gradient-to-b from-black/40 via-black/70 to-black" aria-hidden="true"></div>
-
-    <div class="relative w-full max-w-md px-6 text-center">
-
-        <div class="pctg-boot-logo pctg-pulse text-7xl font-black text-red-500">
-            PCTG
-        </div>
-
-        <div class="mt-4 text-sm font-semibold uppercase tracking-[.35em] text-slate-500">
-            Power Pulse Engine
-        </div>
-
-        <p class="mt-3 text-[11px] uppercase tracking-[0.18em] text-slate-600">
-            Illustrative image
-        </p>
-
-        <div class="mt-4 text-sm font-semibold uppercase tracking-[.35em] text-slate-500">
-            Power Pulse Engine
-        </div>
-
-        <div class="mt-10 space-y-3 text-left">
-
-            <div data-pctg-status hidden class="flex items-center gap-3 text-slate-300">
-                <span class="pctg-check-pop inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-500/10 text-sm text-red-400">✓</span>
-                <span>Compatibility Engine Online</span>
+            <div class="pctg-boot-logo pctg-pulse text-center text-3xl font-black text-red-500">
+                PCTG
             </div>
 
-            <div data-pctg-status hidden class="flex items-center gap-3 text-slate-300">
-                <span class="pctg-check-pop inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-500/10 text-sm text-red-400">✓</span>
-                <span>AI Recommendation System Active</span>
+            <p class="mt-1 text-center text-[10px] font-semibold uppercase tracking-[.35em] text-slate-500">
+                Power Pulse Engine
+            </p>
+
+            <div class="mt-3 space-y-1.5 text-left text-sm">
+
+                <div data-pctg-status hidden class="flex items-center gap-3 text-slate-300">
+                    <span class="pctg-check-pop inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-500/10 text-xs text-red-400">✓</span>
+                    <span>Compatibility Engine Online</span>
+                </div>
+
+                <div data-pctg-status hidden class="flex items-center gap-3 text-slate-300">
+                    <span class="pctg-check-pop inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-500/10 text-xs text-red-400">✓</span>
+                    <span>AI Recommendation System Active</span>
+                </div>
+
+                <div data-pctg-status hidden class="flex items-center gap-3 text-slate-300">
+                    <span class="pctg-check-pop inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-500/10 text-xs text-red-400">✓</span>
+                    <span>FPS Prediction Models Loaded</span>
+                </div>
+
             </div>
 
-            <div data-pctg-status hidden class="flex items-center gap-3 text-slate-300">
-                <span class="pctg-check-pop inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-500/10 text-sm text-red-400">✓</span>
-                <span>FPS Prediction Models Loaded</span>
+            <div class="mt-3 h-1 w-full overflow-hidden rounded-full bg-slate-800">
+                <div class="pctg-boot-bar h-full rounded-full"></div>
             </div>
 
         </div>
-
-        <div class="mt-10 h-1 w-full overflow-hidden rounded-full bg-slate-800">
-            <div class="pctg-boot-bar h-full rounded-full"></div>
-        </div>
-
     </div>
 
 </div>
