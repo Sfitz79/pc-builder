@@ -34,7 +34,24 @@ document.addEventListener('alpine:init', () => {
             return (this.order && this.order.build && this.order.build.name) || 'Custom Build';
         },
 
-        requiredCategories: ['cpu', 'motherboard', 'gpu', 'ram', 'storage', 'psu', 'case', 'cooler'],
+        allCategories: ['cpu', 'motherboard', 'gpu', 'ram', 'storage', 'psu', 'case', 'cooler'],
+
+        /**
+         * Categories this build actually needs.
+         *
+         * 'gpu' drops out when the selection declares integrated graphics - a
+         * G-series APU build that deliberately carries no discrete card. The
+         * flag is granted by the server in the preset payload and persisted by
+         * builder.js; it is not inferred here, so this cannot drift from what
+         * the catalogue says.
+         */
+        get requiredCategories() {
+            if (this.selection && this.selection.integratedGraphics === true) {
+                return this.allCategories.filter(c => c !== 'gpu');
+            }
+
+            return this.allCategories;
+        },
 
         get hasSelection() {
             return this.selection !== null && this.selection.components.length > 0;
@@ -147,7 +164,15 @@ document.addEventListener('alpine:init', () => {
         async createOrder() {
             if (!this.selectionComplete) {
                 this.status = 'idle';
-                this.error = 'Your build is incomplete. Please return to the builder and add all required components (CPU, motherboard, cooler, GPU, RAM, storage, PSU and case).';
+                // Name the categories actually missing. A fixed sentence
+                // listing "GPU" told an APU customer their complete machine was
+                // broken, because the message always demanded a card.
+                const missing = this.missingCategories.map(c => ({
+                    cpu: 'CPU', motherboard: 'motherboard', ram: 'memory',
+                    storage: 'storage', psu: 'power supply', case: 'case',
+                    cooler: 'CPU cooler'
+                })[c] || c).join(', ');
+                this.error = `Your build is incomplete. Please return to the builder and add: ${missing}.`;
                 return;
             }
 

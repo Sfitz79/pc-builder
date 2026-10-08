@@ -1,8 +1,84 @@
 [
     {
-        "name": "Mainstream 1080p Ultra",
-        "total": 1316.79,
+        "name": "Starter 1080p Esports",
+        "total": 554.9,
         "socket": "AM5",
+        "integrated_graphics": true,
+        "estimated_draw_watts": 155,
+        "psu_watts": 500,
+        "headroom": 3.23,
+        "case_form_factor": "ATX",
+        "board_form_factor": "unknown (treated as ATX-width; no board FF evidence exists)",
+        "parts": [
+            {
+                "type": "CPU",
+                "id": 38967,
+                "name": "AMD Ryzen 5 8500G",
+                "price": 114.99
+            },
+            {
+                "type": "Motherboard",
+                "id": 39728,
+                "name": "Gigabyte A620M S2H",
+                "price": 77.99
+            },
+            {
+                "type": "RAM",
+                "id": 40445,
+                "name": "ADATA Premier 16 GB",
+                "price": 148.94
+            },
+            {
+                "type": "Storage",
+                "id": 40861,
+                "name": "Silicon Power Ace A5X 1024GB",
+                "price": 92.97
+            },
+            {
+                "type": "PSU",
+                "id": 40968,
+                "name": "Thermaltake Smart 500W",
+                "price": 73.04
+            },
+            {
+                "type": "Case",
+                "id": 41458,
+                "name": "Montech X5",
+                "price": 29.99
+            },
+            {
+                "type": "Cooler",
+                "id": 39476,
+                "name": "ARCTIC Freezer 8A CO",
+                "price": 16.98
+            }
+        ],
+        "evidence": {
+            "cpu_cores": 6,
+            "cpu_threads": 12,
+            "cpu_tdp_source": "components.wattage",
+            "gpu_chipset": null,
+            "gpu_chipset_source": "n/a - integrated graphics on CPU",
+            "gpu_vram_gb": 0,
+            "gpu_watts_source": "n/a - no discrete GPU; iGPU draws from the CPU TDP",
+            "ram_capacity_source": "specs.capacity",
+            "ram_speed": "DDR5-4800",
+            "case_form_factor_source": "specs.form_factor (verified backfill 2026-09-29, 399/399)",
+            "case_price_floor": "£25 enforced (brand integrity: cheapest 4 ATX cases are £17.99-£19.99)",
+            "board_chipset_class": "/\\bB650M?\\b/i | /\\bA620M?\\b/i | /\\bB550M?\\b/i | /\\bA520M?\\b/i required by tier",
+            "board_chipset_source": "NAME MATCH ONLY - 0/397 production motherboards carry specs, so chipset is unverified",
+            "cooler_brand_source": "NAME MATCH only (whitelist: Noctua, Arctic, be quiet, Thermalright, NZXT, Corsair, Cooler Master)",
+            "cooler_thermal_evidence": "NONE - 0/372 production coolers carry specs, so TDP/socket coverage is NOT verified. No cooling capacity is claimed.",
+            "board_form_factor_source": "NONE in production data - ATX-width assumed, fail closed",
+            "gpu_length_fit": "NOT CHECKED - 0/399 production cases carry max_gpu_length, so no GPU length gate is enforced",
+            "price_source": "catalogue price - NOT merchant-verified"
+        }
+    },
+    {
+        "name": "Mainstream 1080p Ultra",
+        "total": 1288.87,
+        "socket": "AM5",
+        "integrated_graphics": false,
         "estimated_draw_watts": 355,
         "psu_watts": 500,
         "headroom": 1.41,
@@ -23,9 +99,9 @@
             },
             {
                 "type": "Motherboard",
-                "id": 39541,
-                "name": "Asus TUF GAMING B650-PLUS WIFI",
-                "price": 140.91
+                "id": 39540,
+                "name": "Gigabyte B650 EAGLE AX",
+                "price": 112.99
             },
             {
                 "type": "RAM",
@@ -81,8 +157,9 @@
     },
     {
         "name": "High End 1440p",
-        "total": 2201.24,
+        "total": 2173.32,
         "socket": "AM5",
+        "integrated_graphics": false,
         "estimated_draw_watts": 410,
         "psu_watts": 600,
         "headroom": 1.46,
@@ -103,9 +180,9 @@
             },
             {
                 "type": "Motherboard",
-                "id": 39541,
-                "name": "Asus TUF GAMING B650-PLUS WIFI",
-                "price": 140.91
+                "id": 39540,
+                "name": "Gigabyte B650 EAGLE AX",
+                "price": 112.99
             },
             {
                 "type": "RAM",

@@ -128,9 +128,31 @@ $prebuilts = [];
 //     electrically carry the CPU and the GPU's PCIe 4.0 x16.
 $defs = [
     [
-        'name' => 'Starter 1080p Esports', 'budget' => [700, 900], 'socket' => 'AM5',
-        'gpuMax' => 320, 'gpuFloorTier' => 2, 'targetFps' => 144, 'caseMin' => 35, 'coolerMin' => 20,
-        'boardChipsets' => ['/\bA620\b/i', '/\bB650\b/i'],
+        // Starter is an APU build, NOT a weak discrete-GPU build.
+        //
+        // It used to carry a dedicated card under gpuMax GBP 320, which meant
+        // the cheapest legal machine cost GBP 1175 - more than twice the
+        // advertised GBP 700-900 band, so the tier never published. A discrete
+        // card was also simply the wrong part: a 1080p esports box does not
+        // need one. A Ryzen 5 8600G (Radeon 780M) or 5600G (Vega 8) runs
+        // esports titles at 1080p from the CPU's integrated graphics.
+        //
+        // 'apu' => true means: no discrete GPU part, and the published build
+        // carries integrated_graphics so the storefront and checkout know a
+        // GPU is not required.
+        //
+        // Only G-suffixed models qualify. AMD's "G" suffix is the documented
+        // APU designation; the catalogue carries NO integrated-graphics field
+        // (CPU specs are only cores/threads), so the iGPU claim rests on the
+        // model designation rather than on catalogue data. That is precisely
+        // why F-series and plain chips are excluded: the Ryzen 5 5500
+        // (GBP 74.99) and the 8400F/7500F/7400F have NO integrated graphics
+        // and would leave the customer with no display output at all.
+        'name' => 'Starter 1080p Esports', 'budget' => [450, 750], 'socket' => 'AM5',
+        'apu' => true,
+        'apuModels' => ['/\b8600G\b/i', '/\b8700G\b/i', '/\b8500G\b/i', '/\b5600G\b/i', '/\b5700G\b/i'],
+        'targetFps' => 144, 'caseMin' => 25, 'coolerMin' => 15,
+        'boardChipsets' => ['/\bB650M?\b/i', '/\bA620M?\b/i', '/\bB550M?\b/i', '/\bA520M?\b/i'],
     ],
     [
         'name' => 'Mainstream 1080p Ultra', 'budget' => [1100, 1400], 'socket' => 'AM5',
@@ -150,20 +172,27 @@ $defs = [
 
 foreach ($defs as $def) {
     $socket = $def['socket'];
+    $isApu = ! empty($def['apu']);
 
-    $cpu = DB::table('components')->where('category_id', $ids['CPU'])->where('active', 1)
-        ->where('socket', $socket)->whereNotNull('price')
-        ->where('price', '>=', $def['budget'][0] * 0.28)
-        ->orderBy('price')->get()
-        ->first(fn ($c) => specsOf($c)['cores'] ?? null);
-    if (!$cpu) {
-        printf("  %-28s SKIPPED: no CPU found\n", $def['name']);
-        continue;
+    // APU tiers choose their CPU in the graphics block below, because the CPU
+    // IS the graphics card there. Running the ordinary CPU selection first
+    // would pick a non-G part and then leave $cores/$threads describing a chip
+    // that is not in the build, which is what sizes the memory.
+    if (! $isApu) {
+        $cpu = DB::table('components')->where('category_id', $ids['CPU'])->where('active', 1)
+            ->where('socket', $socket)->whereNotNull('price')
+            ->where('price', '>=', $def['budget'][0] * 0.28)
+            ->orderBy('price')->get()
+            ->first(fn ($c) => specsOf($c)['cores'] ?? null);
+        if (!$cpu) {
+            printf("  %-28s SKIPPED: no CPU found\n", $def['name']);
+            continue;
+        }
+        $cpuWatts = (int) ($cpu->wattage ?: $defaultCpuWatts);
+        $cpuSpecs = specsOf($cpu);
+        $cores = (int) ($cpuSpecs['cores'] ?? 0);
+        $threads = (int) ($cpuSpecs['threads'] ?? ($cores > 0 ? $cores * 2 : 0));
     }
-    $cpuWatts = (int) ($cpu->wattage ?: $defaultCpuWatts);
-    $cpuSpecs = specsOf($cpu);
-    $cores = (int) ($cpuSpecs['cores'] ?? 0);
-    $threads = (int) ($cpuSpecs['threads'] ?? ($cores > 0 ? $cores * 2 : 0));
 
 /*
  * GPU SELECTION — BY PERFORMANCE TIER, NOT BY PRICE.
@@ -194,58 +223,128 @@ foreach ($defs as $def) {
 $gpuFloorTier = $def['gpuFloorTier'] ?? 3;
 $gpuService = app(\App\Services\AIRecommendationService::class);
 
-$gpuCandidates = DB::table('components')
-    ->where('category_id', $ids['GPU'])
-    ->where('active', 1)
-    ->whereNotNull('price')
-    ->where('price', '>', 0)
-    ->where('price', '<=', $def['gpuMax'])
-    ->orderByDesc('price')
-    ->get();
-
 $gpu = null;
 $gpuTierSeen = [];
-foreach ($gpuCandidates as $candidate) {
-    if (((specsOf($candidate)['chipset'] ?? '') === '')) {
-        continue; // unidentifiable card - Rule 6: unknown must never equal permitted
+
+if ($isApu) {
+    // APU BUILD: no discrete graphics card at all.
+    //
+    // The tier floor is skipped deliberately, not overlooked. On a
+    // dedicated-GPU build the floor is what stops an RX 6700 XT being sold as
+    // "High End 1440p". On an APU build there is no card to grade, and the
+    // equivalent guarantee comes from the CPU being a known G-series part.
+    //
+    // The CPU IS the graphics card here, so it is selected in this block.
+    $apuRx = $def['apuModels'] ?? [];
+    $minCores = 4;
+
+    $apuCandidates = DB::table('components')
+        ->where('category_id', $ids['CPU'])->where('active', 1)
+        ->where('socket', $def['socket'])
+        ->whereNotNull('price')->where('price', '>', 0)
+        ->orderBy('price')->get();
+
+    $cpu = null;
+    foreach ($apuCandidates as $cand) {
+        $isApuChip = false;
+        foreach ($apuRx as $rx) {
+            if (preg_match($rx, (string) $cand->name) === 1) {
+                $isApuChip = true;
+                break;
+            }
+        }
+        if (! $isApuChip) {
+            continue;
+        }
+        if ((int) (specsOf($cand)['cores'] ?? 0) < $minCores) {
+            continue;
+        }
+        $cpu = $cand;
+        break;
     }
 
-    $model = new \App\Models\Component();
-    $model->forceFill([
-        'name'     => $candidate->name,
-        'chipset'  => $candidate->chipset,
-        'specs'    => json_decode((string) $candidate->specs, true) ?: [],
-        'wattage'  => $candidate->wattage,
-        'price'    => $candidate->price,
-        'active'   => true,
-    ]);
-
-    $tier = $gpuService->gpuPerformanceTierPublic($model);
-    $gpuTierSeen[$tier] = $gpuTierSeen[$tier] ?? 0;
-    $gpuTierSeen[$tier]++;
-
-    if ($tier < $gpuFloorTier) {
+    if (! $cpu) {
+        printf("  %-28s SKIPPED: no G-series APU on %s in catalogue\n", $def['name'], $def['socket']);
         continue;
     }
 
-    $gpu = $candidate;
-    break;
-}
-
-if (!$gpu) {
+    $cpuSpecs = specsOf($cpu);
+    $cpuWatts = (int) ($cpu->wattage ?: $defaultCpuWatts);
+    // These must be the SAME variable names the non-APU path uses, because the
+    // RAM sizing below reads $cores to decide 16GB vs 32GB. Setting $cpuCores
+    // here instead would leave $cores describing a different chip entirely.
+    $cores = (int) ($cpuSpecs['cores'] ?? 0);
+    $threads = (int) ($cpuSpecs['threads'] ?? ($cores > 0 ? $cores * 2 : 0));
     printf(
-        "  %-28s SKIPPED: no GPU at tier >= %d under GBP %s (tiers seen: %s)\n",
-        $def['name'],
-        $gpuFloorTier,
-        number_format($def['gpuMax']),
-        $gpuTierSeen ? json_encode($gpuTierSeen) : 'none identifiable'
+        "  %-28s APU:  %s GBP %s on %s (%d cores, integrated graphics, no discrete GPU)\n",
+        $def['name'], $cpu->name, number_format((float) $cpu->price, 2), $socket, $cores
     );
-    continue;
-}
+} else {
+    $gpuCandidates = DB::table('components')
+        ->where('category_id', $ids['GPU'])
+        ->where('active', 1)
+        ->whereNotNull('price')
+        ->where('price', '>', 0)
+        ->where('price', '<=', $def['gpuMax'])
+        ->orderByDesc('price')
+        ->get();
+
+foreach ($gpuCandidates as $candidate) {
+        if (((specsOf($candidate)['chipset'] ?? '') === '')) {
+            continue; // unidentifiable card - Rule 6: unknown must never equal permitted
+        }
+
+        $model = new \App\Models\Component();
+        $model->forceFill([
+            'name'     => $candidate->name,
+            'chipset'  => $candidate->chipset,
+            'specs'    => json_decode((string) $candidate->specs, true) ?: [],
+            'wattage'  => $candidate->wattage,
+            'price'    => $candidate->price,
+            'active'   => true,
+        ]);
+
+        $tier = $gpuService->gpuPerformanceTierPublic($model);
+        $gpuTierSeen[$tier] = $gpuTierSeen[$tier] ?? 0;
+        $gpuTierSeen[$tier]++;
+
+        if ($tier < $gpuFloorTier) {
+            continue;
+        }
+
+        $gpu = $candidate;
+        printf(
+            "  %-28s GPU:  %s GBP %s, tier %d (floor %d, cap GBP %s)\n",
+            $def['name'], $candidate->name, number_format((float) $candidate->price, 2),
+            $tier, $gpuFloorTier, number_format($def['gpuMax'])
+        );
+        break;
+    }
+
+    if (!$gpu) {
+        printf(
+            "  %-28s SKIPPED: no GPU at tier >= %d under GBP %s (tiers seen: %s)\n",
+            $def['name'],
+            $gpuFloorTier,
+            number_format($def['gpuMax']),
+            $gpuTierSeen ? json_encode($gpuTierSeen) : 'none identifiable'
+        );
+        continue;
+    }
+
     $gpuSpecs = specsOf($gpu);
     $gpuWatts = (int) ($gpu->wattage ?: $defaultGpuWatts);
     $gpuChipset = $gpuSpecs['chipset'];
     $vram = (int) round((float) ($gpuSpecs['memory'] ?? 0));
+}
+
+// An APU build has no discrete card: nothing to power beyond the CPU's own
+// integrated graphics, which draws from the CPU's TDP rather than a 6-pin rail.
+if ($isApu) {
+    $gpuWatts = 0;
+    $gpuChipset = null;
+    $vram = 0;
+}
 
     // Board on the socket, chosen by CHIPSET CLASS not by price.
     //
@@ -266,9 +365,17 @@ if (!$gpu) {
     // Form factor is still NOT in production data, so every board remains
     // ATX-width for case selection - that part was correct and is unchanged.
     $boardReq = $def['boardChipsets'];
+    // orderBy('price') is REQUIRED, same defect as the storage selection.
+    //
+    // This query had no ordering, so ->get()->first(...) returned whichever
+    // matching board happened to come first in Postgres order. Measured: it
+    // picked an Asus TUF GAMING B650-PLUS WIFI at GBP 140.91 for the GBP 618
+    // starter while a matching Gigabyte B650M S2H sat at GBP 82.95. The comment
+    // above this block claimed "combined with orderBy(price)" - that ordering
+    // was never actually in the query.
     $board = DB::table('components')->where('category_id', $ids['Motherboard'])->where('active', 1)
-        ->where('socket', $socket)->whereNotNull('price')
-        ->get()
+        ->where('socket', $socket)->whereNotNull('price')->where('price', '>', 0)
+        ->orderBy('price')->get()
         ->first(function ($b) use ($boardReq) {
             $name = (string) $b->name;
             foreach ($boardReq as $re) {
@@ -344,8 +451,17 @@ $storage = DB::table('components')->where('category_id', $ids['Storage'])->where
         ->whereNotNull('price')->whereNotNull('wattage')
         ->where('wattage', '>=', (int) ceil($estDraw * 1.4)) // 40% headroom
         ->orderBy('wattage')->get()
+        // Do not massively over-provision, but do not scale the ceiling with
+        // draw alone. A 155W APU box drew a 341W cap (estDraw * 2.2), and the
+        // catalogue records nothing between 217W and 341W, so the starter tier
+        // was skipped for "no PSU" - while a 500W unit is the smallest sensible
+        // ATX PSU and is what anyone would actually fit. 2.2x still binds on the
+        // high-draw builds (410W draw -> 902W cap), so the guard keeps its teeth
+        // where over-provisioning is the actual risk.
         ->first(function ($p) use ($estDraw) {
-            return ((int) $p->wattage) <= $estDraw * 2.2; // do not massively over-provision
+            $ceiling = max($estDraw * 2.2, 500);
+
+            return ((int) $p->wattage) <= $ceiling;
         });
     if (!$psu) {
         printf("  %-28s SKIPPED: no PSU with >=%dW headroom\n", $def['name'], (int) ceil($estDraw * 1.4));
@@ -411,10 +527,19 @@ $storage = DB::table('components')->where('category_id', $ids['Storage'])->where
         continue;
     }
 
-    $parts = [
-        'CPU' => $cpu, 'GPU' => $gpu, 'Motherboard' => $board, 'RAM' => $ram,
-        'Storage' => $storage, 'PSU' => $psu, 'Case' => $case, 'Cooler' => $cooler,
-    ];
+    // An APU build has no GPU part at all. The key is omitted entirely rather
+    // than keyed null: the total loop below dereferences ->price, and the
+    // storefront renders one row per part, so a null would either crash or
+    // print an empty GPU row. Insertion order is the display order.
+    $parts = $isApu
+        ? [
+            'CPU' => $cpu, 'Motherboard' => $board, 'RAM' => $ram,
+            'Storage' => $storage, 'PSU' => $psu, 'Case' => $case, 'Cooler' => $cooler,
+        ]
+        : [
+            'CPU' => $cpu, 'GPU' => $gpu, 'Motherboard' => $board, 'RAM' => $ram,
+            'Storage' => $storage, 'PSU' => $psu, 'Case' => $case, 'Cooler' => $cooler,
+        ];
 
     $total = 0.0;
     $line = [];
@@ -445,6 +570,12 @@ $storage = DB::table('components')->where('category_id', $ids['Storage'])->where
         'name' => $def['name'],
         'total' => round($total, 2),
         'socket' => $socket,
+        // True when there is no discrete GPU and the CPU's integrated
+        // graphics drive the display. Consumers need this: the storefront
+        // renders a GPU row from parts[], and checkout refuses to create an
+        // order unless every required category is present. Without the flag a
+        // GPU-less build looks incomplete and cannot be bought.
+        'integrated_graphics' => $isApu,
         'estimated_draw_watts' => $estDraw,
         'psu_watts' => (int) $psu->wattage,
         'headroom' => round((int) $psu->wattage / max(1, $estDraw), 2),
@@ -461,9 +592,11 @@ $storage = DB::table('components')->where('category_id', $ids['Storage'])->where
             'cpu_threads' => $threads,
             'cpu_tdp_source' => $cpu->wattage ? 'components.wattage' : 'default 65W (no TDP recorded)',
             'gpu_chipset' => $gpuChipset,
-            'gpu_chipset_source' => 'specs.chipset',
+            'gpu_chipset_source' => $isApu ? 'n/a - integrated graphics on CPU' : 'specs.chipset',
             'gpu_vram_gb' => $vram,
-            'gpu_watts_source' => $gpu->wattage ? 'components.wattage' : 'default 200W (no TDP recorded)',
+            'gpu_watts_source' => $isApu
+                ? 'n/a - no discrete GPU; iGPU draws from the CPU TDP'
+                : ($gpu->wattage ? 'components.wattage' : 'default 200W (no TDP recorded)'),
             'ram_capacity_source' => 'specs.capacity',
             'ram_speed' => $ramSpeed,
             'case_form_factor_source' => 'specs.form_factor (verified backfill 2026-09-29, 399/399)',

@@ -30,6 +30,11 @@ window.builderState = () => ({
 
     fpsResults: [],
 
+    // True when the current build deliberately has no discrete GPU because the
+    // CPU carries integrated graphics (a G-series APU). checkout.js reads this
+    // to stop treating 'gpu' as a missing category.
+    integratedGraphics: false,
+
     aiRecommendation: null,
 
     aiIdealBuild: null,
@@ -333,7 +338,10 @@ window.builderState = () => ({
                 })),
             resolution: this.resolution,
             budget: this.budget,
-            purpose: this.purpose
+            purpose: this.purpose,
+            // Persisted because checkout rehydrates the selection from this
+            // key in a fresh page load and would otherwise re-demand a GPU.
+            integratedGraphics: this.integratedGraphics === true
         };
 
         sessionStorage.setItem(this.selectionStorageKey(), JSON.stringify(selection));
@@ -473,6 +481,8 @@ window.builderState = () => ({
     selectComponent(category, component) {
         this.selected[category] = component;
         this.componentModal = false;
+        // Adding or removing a discrete card changes whether a GPU is required.
+        this.syncIntegratedGraphics();
         this.persistSelection();
         this.validateBuild();
         this.refreshFps();
@@ -892,10 +902,34 @@ window.builderState = () => ({
             this.selected[category] = component;
         }
 
+        // Only a build the SERVER declared as APU-driven may drop the GPU
+        // requirement. AI-generated and manually rebuilt builds do not carry
+        // the flag, so they keep requiring a GPU.
+        this.integratedGraphics = build.integrated_graphics === true;
+        this.syncIntegratedGraphics();
+
         this.persistSelection();
         this.validateBuild();
         this.refreshFps();
         this.refreshLivePrice();
+    },
+
+    /**
+     * The GPU requirement is granted by the server, but it self-clears as soon
+     * as a discrete GPU is in the selection.
+     *
+     * That ordering is deliberate. Inferring "this CPU is an APU" client-side
+     * would duplicate AMD's G-suffix convention in a second place, and a drift
+     * there would let a customer order a GPU-less machine with a CPU that
+     * cannot drive a display - no picture at all. Instead the flag can only be
+     * set by the server and only survives while no card is present.
+     */
+    syncIntegratedGraphics() {
+        if (this.selected.gpu) {
+            this.integratedGraphics = false;
+        }
+
+        return this.integratedGraphics === true;
     },
 
     allIdealApplied() {

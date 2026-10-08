@@ -154,6 +154,14 @@ class PrebuiltController extends Controller
             'build' => [
                 'name' => $entry['name'],
                 'complete' => true,
+                // An APU build has no discrete GPU: the CPU's integrated
+                // graphics drive the display. The client needs to know, because
+                // checkout refuses to create an order while a required category
+                // is missing, and 'gpu' is in that list. Without this flag the
+                // build loads with a blank GPU slot and reads as incomplete, so
+                // the customer cannot buy a machine that is deliberately
+                // complete.
+                'integrated_graphics' => (bool) ($entry['integrated_graphics'] ?? false),
                 'components' => $selection,
             ],
         ]);
