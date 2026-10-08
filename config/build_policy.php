@@ -258,10 +258,18 @@ return [
      * PREFER Gold 80+; if the budget will not reach a Gold, take Bronze 80+.
      *
      * MEASURED LIMITATION, and the reason this is a preference and not a gate:
-     * there is NO efficiency field anywhere for PSUs. PSU specs carry only
-     * form_factor, width, height, depth and dimension_source; no column holds a
-     * rating either. Only 26 of 287 active priced PSU names mention a rating at
-     * all ("Cooler Master MWE Gold V2", "Fractal Design Ion 3 Gold 750W").
+     * CORRECTED 2026-10-08. This used to read "there is NO efficiency field anywhere
+     * for PSUs... Only 26 of 287 active priced PSU names mention a rating at all".
+     * That was true of the DATABASE and false of the SCRAPE. Measured over
+     * database/scraped/power-supply.json, 3,245 of 3,669 PSU rows (88.44%) carry
+     * specs.efficiencyRating, and 496 of the 530 seedable rows (93.58%) do. The
+     * seeder was discarding it, which is why 287 of 290 PSU rows had specs IS NULL
+     * and BuildPolicyGate had to parse the product name instead.
+     *
+     * Both are fixed: the seeder now writes specs.efficiency_rating, and the gate
+     * reads that field first and falls back to the name match only for the ~6% with
+     * no stated rating. It stays a PREFERENCE rather than a gate because a hard gate
+     * would reject every PSU whose retailer did not state a tier.
      *
      * So the rating is read from the name and scored, and a PSU with no rating
      * in its name is treated as UNKNOWN and ranked below Bronze rather than

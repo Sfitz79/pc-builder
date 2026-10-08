@@ -90,6 +90,50 @@ class BudgetBandsTest extends TestCase
         // viablePool('ram') reads it directly while passesSpecFloor() falls back
         // to the product name, so a kit must carry it to be quotable at all.
         $part('ram', 'Crucial Pro 32 GB DDR4 3200', 215.94, ['capacity' => '32GB', 'speed' => 3200, 'type' => 'DDR4']);
+
+        // ---------------------------------------------------------------------
+        // The 4K PLATFORM: LGA1851 + DDR5.
+        //
+        // Why these three rows exist. GPU_CPU_COHERENCE[5] is not a core-count
+        // rule alone - it is `min_cores => 8, modern_platform => true`, and
+        // MODERN_PLATFORM_SOCKETS is ['AM5', 'LGA1851']. The AM4-only fixture
+        // above therefore cannot express a 4K machine AT ALL: the 8-core Ryzen
+        // 7 2700X clears the core count and is then refused by
+        // isEntryPlatformCpu(), so cpuCanFeedGpu() is false for every card in
+        // the pool, cheapestCompleteDgpuBuild() finds no coherent pair, and
+        // entryPriceFor('4K') returns null. That made workableBands() fall back
+        // to the hand-typed GBP 2,290 floor with measured => false, which is
+        // precisely the "typed guess advertised as a measured price" the two
+        // failing tests exist to forbid.
+        //
+        // This is a FIXTURE gap, not a code defect. The policy is correct and
+        // deliberate (a tier-5 card behind an EOL AM4 board is the exact
+        // mismatch the coherence rule exists to stop), and the real catalogue
+        // is not short of modern parts - measured against the UK snapshot in
+        // database/scraped/: 49 priced AM5/LGA1851 CPUs, 330 AM5 boards and 744
+        // dual-channel DDR5 kits. The fixture simply failed to include one.
+        //
+        // Every row below is a REAL UK catalogue row, price and spec included,
+        // from database/scraped/ (pcpartpicker, scraped 2026-07-31):
+        //   Intel Core Ultra 5 225F  GBP 138.97  LGA1851, 10 cores, no iGPU
+        //   ASRock H810M-H            GBP  71.99  LGA1851, mATX, 2 DIMM slots
+        //   Crucial CT2K16G56C46S5    GBP 284.00  DDR5-5600, 2 x 16GB
+        // The 225F is deliberately the CHEAPEST compliant modern processor in
+        // that snapshot (GBP 138.97 vs the Ryzen 7 8700F at GBP 192.05), because
+        // entryPriceFor() must measure the cheapest legal build, not a convenient
+        // one. LGA1851 rather than AM5 because the 225F is genuinely cheaper than
+        // any 8-core AM5 part without integrated graphics.
+        //
+        // These rows deliberately do NOT disturb the 1080p or 1440p floors: both
+        // bands are tier 2 and tier 3, and GPU_CPU_COHERENCE only constrains
+        // tiers 4 and 5, so cpuCanFeedGpu() places no platform constraint there
+        // and the GBP 59.99 Ryzen 5 4500 still wins the cheapest-CPU race. Both
+        // floors still measure at GBP 1,368.46 and GBP 1,522.35 with these rows
+        // present.
+        // ---------------------------------------------------------------------
+        $part('cpu', 'Intel Core Ultra 5 225F', 138.97, ['cores' => 10, 'threads' => 10, 'tdp' => 65], ['socket' => 'LGA1851']);
+        $part('motherboard', 'ASRock H810M-H', 71.99, ['socketCPU' => 'LGA1851', 'memorySlots' => 2], ['socket' => 'LGA1851', 'memory_type' => 'DDR5']);
+        $part('ram', 'Crucial Pro 32 GB DDR5 5600', 284.00, ['capacity' => '32GB', 'speed' => 'DDR5-5600', 'type' => 'DDR5', 'modules' => '2 x 16GB'], ['memory_type' => 'DDR5']);
         $part('storage', 'Silicon Power Ace A5X 1TB', 57.99, ['capacity' => '1TB', 'type' => 'NVMe']);
         $part('case', 'Thermaltake View 170 ARGB', 50.47, ['psu_shroud' => true]);
         $part('cooler', 'ID-COOLING FROSTFLOW X', 44.99, ['type' => 'Air', 'tdp' => 150]);

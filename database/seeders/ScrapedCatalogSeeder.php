@@ -402,6 +402,46 @@ class ScrapedCatalogSeeder extends Seeder
         if ($category->slug === 'psu') {
             preg_match('/\b([5-9]\d\d|1\d\d\d)\s*W\b/i', (string) ($raw['wattage'] ?? ''), $m);
             $wattage = isset($m[1]) ? (int) $m[1] : null;
+
+            /*
+             * THE SCRAPE HAS ALWAYS CARRIED THE EFFICIENCY RATING. WE WERE THROWING IT AWAY.
+             *
+             * Measured 2026-10-08 over database/scraped/power-supply.json: 3,669 PSU
+             * rows, of which 3,245 (88.44%) carry specs.efficiencyRating, and 496 of
+             * the 530 seedable rows (93.58%) do. Real values, six clean tiers, no
+             * sentinels: 80+ Gold, 80+ Bronze, 80+ Platinum, 80+ Titanium, 80+ Silver,
+             * and a bare '80+' meaning certified-but-tier-not-stated.
+             *
+             * This branch assigned only $wattage and nothing else, so $specs stayed
+             * empty and line 407's array_filter emptied it again - which is why 287 of
+             * 290 PSU rows had specs IS NULL and why the policy had to infer efficiency
+             * from the product NAME. The data was in the file the whole time.
+             *
+             * IT ALSO DISCARDED specs.modular and specs.type, both present on all
+             * 3,669 rows. All three are recovered here in one edit.
+             *
+             * WARNING - DO NOT BACKFILL FROM THE WRONG KEY. Every PSU row also carries a
+             * top-level `rating` field, which is the RETAILER CUSTOMER REVIEW SCORE
+             * (paired with ratingCount, 0-976 reviews), not efficiency. Reading it
+             * would stamp every PSU with a fake efficiency rating of 4-5. The correct
+             * key is the nested specs.efficiencyRating below.
+             *
+             * A bare '80+' is stored as-is. It is a genuine 80 PLUS certification with
+             * no tier stated, and consumers must say exactly that rather than guessing
+             * Gold or quietly folding it into Bronze.
+             */
+            $efficiency = trim((string) ($raw['efficiencyRating'] ?? ''));
+            if ($efficiency !== '') {
+                $specs['efficiency_rating'] = $efficiency;
+            }
+            $modular = trim((string) ($raw['modular'] ?? ''));
+            if ($modular !== '') {
+                $specs['modular'] = $modular;
+            }
+            $formFactor = trim((string) ($raw['type'] ?? ''));
+            if ($formFactor !== '') {
+                $specs['form_factor'] = $formFactor;
+            }
         }
 
         $specs = array_filter($specs, fn ($value) => $value !== null && $value !== '');

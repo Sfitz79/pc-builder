@@ -367,40 +367,77 @@ class BuildPolicyGate
     /**
      * PSU efficiency is a RANKING, never a gate.
      *
-     * Measured: there is no efficiency field for PSUs anywhere. specs carry only
-     * form_factor, width, height, depth and dimension_source; no column holds a
-     * rating; only 26 of 287 active priced PSU names mention a rating at all.
+     * CORRECTED 2026-10-08. The comment previously here said:
      *
-     * So the rating is parsed from the name where present, and a PSU with no
-     * rating is ranked below Bronze rather than excluded. A hard gate here would
-     * reject 261 of 287 and take the builder offline, and failing closed would
-     * be dishonest about data we do not have.
+     *   "Measured: there is no efficiency field for PSUs anywhere... only 26 of 287
+     *    active priced PSU names mention a rating at all."
      *
-     * Until a real rating field is backfilled, nothing customer-facing may
-     * claim an efficiency rating it cannot evidence.
+     * That was true of the DATABASE and false of the SCRAPE, and it was the reason
+     * this method existed at all. Measured over
+     * database/scraped/power-supply.json: 3,245 of 3,669 PSU rows (88.44%) carry
+     * specs.efficiencyRating, and 496 of the 530 seedable rows (93.58%) do. The
+     * seeder simply discarded it - ScrapedCatalogSeeder's psu branch assigned only
+     * $wattage - so 287 of 290 PSU rows ended up with specs IS NULL and this method
+     * was left inferring a certification from the product name.
+     *
+     * So the order is now: real sourced field first, name match only as a clearly
+     * labelled fallback for the ~6% with no stated rating.
+     *
+     * IT STAYS A RANKING, NOT A GATE. A hard gate would reject every PSU whose
+     * retailer did not state a tier, and failing closed on data we do not have
+     * would be dishonest. An unknown rating ranks last and is reported as unknown.
+     *
+     * A bare '80+' from the source means certified with the tier not stated. That
+     * is preserved verbatim - it is NOT upgraded to Gold and NOT demoted to Bronze.
      */
     public function psuEfficiencyRank(object $psu): array
     {
+        // 1. THE REAL, SOURCED FIELD.
+        $sourced = $psu->specs['efficiency_rating'] ?? null;
+        if (is_string($sourced) && trim($sourced) !== '') {
+            $value = trim($sourced);
+
+            // A bare 80+ certification with no tier named.
+            if (preg_match('/^80\s*\+?\s*$/i', $value) === 1) {
+                return ['rank' => 20, 'rating' => '80 PLUS (tier not stated by retailer)', 'known' => true, 'source' => 'sourced'];
+            }
+
+            foreach ($this->policy['psu']['prefer'] ?? [] as $i => $tier) {
+                if (stripos($value, $tier) !== false) {
+                    return ['rank' => $i, 'rating' => $value, 'known' => true, 'source' => 'sourced'];
+                }
+            }
+            foreach ($this->policy['psu']['fallback'] ?? [] as $j => $tier) {
+                if (stripos($value, $tier) !== false) {
+                    return ['rank' => 10 + $j, 'rating' => $value, 'known' => true, 'source' => 'sourced'];
+                }
+            }
+            if (preg_match('/80\s*\+?\s*PLUS/i', $value) === 1) {
+                return ['rank' => 20, 'rating' => $value, 'known' => true, 'source' => 'sourced'];
+            }
+        }
+
+        // 2. NAME MATCH - a labelled fallback, not the primary source.
         $name = strtoupper((string) $psu->name);
 
         foreach ($this->policy['psu']['prefer'] ?? [] as $i => $tier) {
             if (preg_match('/\b' . preg_quote($tier, '/') . '\b/', $name) === 1) {
-                return ['rank' => $i, 'rating' => $tier, 'known' => true];
+                return ['rank' => $i, 'rating' => $tier, 'known' => true, 'source' => 'name-fallback'];
             }
         }
 
         foreach ($this->policy['psu']['fallback'] ?? [] as $j => $tier) {
             if (preg_match('/\b' . preg_quote($tier, '/') . '\b/', $name) === 1) {
-                return ['rank' => 10 + $j, 'rating' => $tier, 'known' => true];
+                return ['rank' => 10 + $j, 'rating' => $tier, 'known' => true, 'source' => 'name-fallback'];
             }
         }
 
         // 80 PLUS branding without a tier word still proves certification.
         if (preg_match('/80\s*\+?\s*PLUS/i', $name) === 1) {
-            return ['rank' => 20, 'rating' => '80 PLUS (tier unstated)', 'known' => true];
+            return ['rank' => 20, 'rating' => '80 PLUS (tier unstated)', 'known' => true, 'source' => 'name-fallback'];
         }
 
-        return ['rank' => 99, 'rating' => null, 'known' => false];
+        return ['rank' => 99, 'rating' => null, 'known' => false, 'source' => null];
     }
 
     /**

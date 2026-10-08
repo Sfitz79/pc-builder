@@ -3383,21 +3383,43 @@ class AIRecommendationService
      */
     protected function psuQualityBonus(Component $component): int
     {
-        $name = strtoupper((string) $component->name);
         $bonus = 0;
 
-        // Efficiency tier from the model name (catalogue stores no specs for
-        // most PSUs, so the name is the honest signal we have).
-        if (preg_match('/\b(?:TITANIUM|PLATINUM)\b/', $name) === 1) {
+        /*
+         * CORRECTED 2026-10-08. This used to read the tier out of the model name with
+         * the comment "catalogue stores no specs for most PSUs, so the name is the
+         * honest signal we have". That comment is now provably wrong: the scrape has
+         * always carried specs.efficiencyRating (3,245 of 3,669 rows, 88.44%), and the
+         * seeder now writes it as specs.efficiency_rating.
+         *
+         * So the sourced field is read FIRST and the name is only a fallback. Keeping
+         * the name path is deliberate - roughly 6% of seedable rows state no tier, and
+         * their names often do carry the brand - but it must never outrank real data.
+         *
+         * `unknown` stays worth 0 rather than being treated as Bronze, because an
+         * unstated tier is not a low tier.
+         */
+        $sourced = $component->specs['efficiency_rating'] ?? null;
+        $haystack = is_string($sourced) && trim($sourced) !== ''
+            ? strtoupper(trim($sourced))
+            : strtoupper((string) $component->name);
+
+        if (preg_match('/\b(?:TITANIUM|PLATINUM)\b/', $haystack) === 1) {
             $bonus += 18;
-        } elseif (preg_match('/\bGOLD\b/', $name) === 1) {
+        } elseif (preg_match('/\bGOLD\b/', $haystack) === 1) {
             $bonus += 14;
-        } elseif (preg_match('/\bBRONZE\b/', $name) === 1) {
+        } elseif (preg_match('/\bBRONZE\b/', $haystack) === 1) {
             $bonus += 6;
         }
 
         // Trusted PSU brands whose units are known to be quiet, efficient and
         // long-lived. Explicit list, no hallucinated quality claims.
+        //
+        // This one stays name-based on purpose, and deliberately does NOT reuse the
+        // efficiency haystack above: brand trust is an attribute of the product NAME
+        // ("CORSAIR RM", "MSI MAG A"), not of an efficiency certification, and
+        // searching for it in specs.efficiency_rating would find nothing.
+        $name = strtoupper((string) $component->name);
         $quality = [
             'BE QUIET', 'SEASONIC', 'CORSAIR RM', 'CORSAIR HX', 'CORSAIR AX',
             'NZXT C', 'MSI MAG A', 'GIGABYTE UD', 'GIGABYTE GP-P',
