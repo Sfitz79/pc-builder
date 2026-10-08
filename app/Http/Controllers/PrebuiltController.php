@@ -175,9 +175,20 @@ class PrebuiltController extends Controller
         ]);
     }
 
+    /**
+     * URL slug for a build name.
+     *
+     * Separators are trimmed from BOTH ends. Without this,
+     * "Esports 1080p APU (No Dedicated GPU)" produced
+     * "esports-1080p-apu-no-dedicated-gpu-" because the closing bracket became a
+     * trailing hyphen. The storefront link and the route agreed, so it worked,
+     * but any parenthesised name produced a malformed URL.
+     */
     protected function slugify(string $name): string
     {
-        return strtolower(preg_replace('/[^a-z0-9]+/i', '-', trim($name)) ?? '');
+        $slug = strtolower(preg_replace('/[^a-z0-9]+/i', '-', trim($name)) ?? '');
+
+        return trim($slug, '-');
     }
 
     protected function typeLabel(string $type): string

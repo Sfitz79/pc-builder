@@ -1,0 +1,1946 @@
+{
+    "generated": "2026-10-08T16:15:41+00:00",
+    "source": "production pgsql, genie-prod-guard asserted",
+    "policy": "config\/build_policy.php via App\\Services\\BuildPolicyGate",
+    "count": 27,
+    "builds": [
+        {
+            "slug": "nimbus",
+            "name": "PCTG Nimbus",
+            "summary": "Plug in and play. Esports-grade responsiveness without the shouting.",
+            "promise": "Built for competitive shooters and MOBAs at 1080p. Not a creator machine.",
+            "tags": {
+                "usage": "gaming",
+                "usage_label": "Gaming",
+                "resolution": "1080P",
+                "tier": "low",
+                "tier_label": "Low performance"
+            },
+            "total": 470.84,
+            "budget_band": [
+                380,
+                700
+            ],
+            "socket": "AM4",
+            "integrated_graphics": true,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38974,
+                    "name": "AMD Ryzen 7 5700G",
+                    "price": 174.99
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39649,
+                    "name": "ASRock B550M-HDV",
+                    "price": 65.9
+                },
+                {
+                    "type": "RAM",
+                    "id": 40592,
+                    "name": "PNY MN16GK2D43200-TB 16 GB",
+                    "price": 93.83
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41130,
+                    "name": "Cooler Master MWE Gold V3 550W",
+                    "price": 59.99
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "cascade",
+            "name": "PCTG Cascade",
+            "summary": "The everyday all-rounder. Smooth everywhere, quiet where it matters.",
+            "promise": "A confident 1080p gaming machine for everyday play.",
+            "tags": {
+                "usage": "gaming",
+                "usage_label": "Gaming",
+                "resolution": "1080P",
+                "tier": "mid",
+                "tier_label": "Mid performance"
+            },
+            "total": 1434.95,
+            "budget_band": [
+                800,
+                1500
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38997,
+                    "name": "AMD Ryzen 9 7950X3D",
+                    "price": 590.99
+                },
+                {
+                    "type": "GPU",
+                    "id": 40192,
+                    "name": "XFX Speedster QICK 319 BLACK Radeon RX 7700 XT 12GB",
+                    "price": 407.83
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "tempest",
+            "name": "PCTG Tempest",
+            "summary": "Frames you can feel. Nothing between you and the next round.",
+            "promise": "High-refresh 1080p built for competitive play at high settings.",
+            "tags": {
+                "usage": "gaming",
+                "usage_label": "Gaming",
+                "resolution": "1080P",
+                "tier": "high",
+                "tier_label": "High performance"
+            },
+            "total": 1907.28,
+            "budget_band": [
+                1200,
+                2000
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38997,
+                    "name": "AMD Ryzen 9 7950X3D",
+                    "price": 590.99
+                },
+                {
+                    "type": "GPU",
+                    "id": 40116,
+                    "name": "Palit GamingPro-S GeForce RTX 5070 Ti ne7507t019t2 gb2031u",
+                    "price": 880.16
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "harbour",
+            "name": "PCTG Harbour",
+            "summary": "Step up a notch. Sharper picture, still sensible.",
+            "promise": "Entry 1440p gaming. Strong at competitive settings, not chasing 4K.",
+            "tags": {
+                "usage": "gaming",
+                "usage_label": "Gaming",
+                "resolution": "1440P",
+                "tier": "low",
+                "tier_label": "Low performance"
+            },
+            "total": 1587.11,
+            "budget_band": [
+                900,
+                1600
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38997,
+                    "name": "AMD Ryzen 9 7950X3D",
+                    "price": 590.99
+                },
+                {
+                    "type": "GPU",
+                    "id": 40014,
+                    "name": "Asus PRIME OC Radeon RX 9070 16GB",
+                    "price": 559.99
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "summit",
+            "name": "PCTG Summit",
+            "summary": "The sweet spot. This is where 1440p really opens up.",
+            "promise": "A properly balanced 1440p machine for high-refresh play.",
+            "tags": {
+                "usage": "gaming",
+                "usage_label": "Gaming",
+                "resolution": "1440P",
+                "tier": "mid",
+                "tier_label": "Mid performance"
+            },
+            "total": 2127.11,
+            "budget_band": [
+                1300,
+                2200
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38997,
+                    "name": "AMD Ryzen 9 7950X3D",
+                    "price": 590.99
+                },
+                {
+                    "type": "GPU",
+                    "id": 40036,
+                    "name": "Asus ROG STRIX GAMING OC GeForce RTX 5070 Ti rog strix rtx5070ti o16g gaming",
+                    "price": 1099.99
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "titan",
+            "name": "PCTG Titan",
+            "summary": "Enthusiast grade. Everything on, nothing held back.",
+            "promise": "Enthusiast 1440p with the headroom for tomorrow.",
+            "tags": {
+                "usage": "gaming",
+                "usage_label": "Gaming",
+                "resolution": "1440P",
+                "tier": "high",
+                "tier_label": "High performance"
+            },
+            "total": 3158.42,
+            "budget_band": [
+                1900,
+                3200
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38942,
+                    "name": "AMD Ryzen 9 9950X3D2",
+                    "price": 776.39
+                },
+                {
+                    "type": "GPU",
+                    "id": 40214,
+                    "name": "Gigabyte GAMING OC GeForce RTX 4080 SUPER 16GB",
+                    "price": 1945.9
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "vista",
+            "name": "PCTG Vista",
+            "summary": "Real 4K, sensible settings. The doorway in, not the whole house.",
+            "promise": "Entry 4K gaming. Requires a 4K display to make sense.",
+            "tags": {
+                "usage": "gaming",
+                "usage_label": "Gaming",
+                "resolution": "4K",
+                "tier": "low",
+                "tier_label": "Low performance"
+            },
+            "total": 2544.1,
+            "budget_band": [
+                1500,
+                2600
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38997,
+                    "name": "AMD Ryzen 9 7950X3D",
+                    "price": 590.99
+                },
+                {
+                    "type": "GPU",
+                    "id": 39954,
+                    "name": "Asus ROG Astral OC GeForce RTX 5080 rog astral rtx5080 o16g gaming",
+                    "price": 1516.98
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "apex",
+            "name": "PCTG Apex",
+            "summary": "4K without compromise. High refresh and detail together.",
+            "promise": "A strong all-round 4K machine for high refresh and high settings.",
+            "tags": {
+                "usage": "gaming",
+                "usage_label": "Gaming",
+                "resolution": "4K",
+                "tier": "mid",
+                "tier_label": "Mid performance"
+            },
+            "total": 3590.12,
+            "budget_band": [
+                2200,
+                3600
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 39034,
+                    "name": "AMD Ryzen 9 7900X3D",
+                    "price": 510
+                },
+                {
+                    "type": "GPU",
+                    "id": 40208,
+                    "name": "Gigabyte WINDFORCE SFF GeForce RTX 5080 gv n5080wf3 16gd",
+                    "price": 2643.99
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "zenith",
+            "name": "PCTG Zenith",
+            "summary": "The top of the range. Built for the games that ask for everything.",
+            "promise": "Flagship 4K. Pair with a high-refresh 4K display.",
+            "tags": {
+                "usage": "gaming",
+                "usage_label": "Gaming",
+                "resolution": "4K",
+                "tier": "high",
+                "tier_label": "High performance"
+            },
+            "total": 5467.11,
+            "budget_band": [
+                3200,
+                5500
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38997,
+                    "name": "AMD Ryzen 9 7950X3D",
+                    "price": 590.99
+                },
+                {
+                    "type": "GPU",
+                    "id": 39965,
+                    "name": "NVIDIA Founders Edition GeForce RTX 5090 32GB",
+                    "price": 4439.99
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "Signal-1080p-mid",
+            "name": "PCTG Signal",
+            "summary": "Go live without buffering your own gameplay.",
+            "promise": "Built for Streaming at 1080p, mid performance.",
+            "tags": {
+                "usage": "streaming",
+                "usage_label": "Streaming",
+                "resolution": "1080P",
+                "tier": "mid",
+                "tier_label": "Mid performance"
+            },
+            "total": 1627.11,
+            "budget_band": [
+                800,
+                1700
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38997,
+                    "name": "AMD Ryzen 9 7950X3D",
+                    "price": 590.99
+                },
+                {
+                    "type": "GPU",
+                    "id": 40157,
+                    "name": "PowerColor Hellhound OC Radeon RX 9070 16GB",
+                    "price": 599.99
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "Relay-1080p-high",
+            "name": "PCTG Relay",
+            "summary": "Built for the hours between going live and staying live.",
+            "promise": "Built for Streaming at 1080p, high performance.",
+            "tags": {
+                "usage": "streaming",
+                "usage_label": "Streaming",
+                "resolution": "1080P",
+                "tier": "high",
+                "tier_label": "High performance"
+            },
+            "total": 2391.51,
+            "budget_band": [
+                1600,
+                2500
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38942,
+                    "name": "AMD Ryzen 9 9950X3D2",
+                    "price": 776.39
+                },
+                {
+                    "type": "GPU",
+                    "id": 40070,
+                    "name": "PNY Slim OC GeForce RTX 5080 16GB",
+                    "price": 1178.99
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "Transmission-1440p-mid",
+            "name": "PCTG Transmission",
+            "summary": "Your channel, running smooth, all evening.",
+            "promise": "Built for Streaming at 1440p, mid performance.",
+            "tags": {
+                "usage": "streaming",
+                "usage_label": "Streaming",
+                "resolution": "1440P",
+                "tier": "mid",
+                "tier_label": "Mid performance"
+            },
+            "total": 2084.31,
+            "budget_band": [
+                1000,
+                2100
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38997,
+                    "name": "AMD Ryzen 9 7950X3D",
+                    "price": 590.99
+                },
+                {
+                    "type": "GPU",
+                    "id": 40127,
+                    "name": "MSI VENTUS 3X OC BLACK GeForce RTX 5070 Ti geforce rtx 5070 ti 16g ventus 3x oc black",
+                    "price": 1057.19
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "Livewire-1440p-high",
+            "name": "PCTG Livewire",
+            "summary": "Go live without buffering your own gameplay.",
+            "promise": "Built for Streaming at 1440p, high performance.",
+            "tags": {
+                "usage": "streaming",
+                "usage_label": "Streaming",
+                "resolution": "1440P",
+                "tier": "high",
+                "tier_label": "High performance"
+            },
+            "total": 2973.02,
+            "budget_band": [
+                1900,
+                3000
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38997,
+                    "name": "AMD Ryzen 9 7950X3D",
+                    "price": 590.99
+                },
+                {
+                    "type": "GPU",
+                    "id": 40214,
+                    "name": "Gigabyte GAMING OC GeForce RTX 4080 SUPER 16GB",
+                    "price": 1945.9
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "Broadcast-4K-mid",
+            "name": "PCTG Broadcast",
+            "summary": "Built for the hours between going live and staying live.",
+            "promise": "Built for Streaming at 4K, mid performance.",
+            "tags": {
+                "usage": "streaming",
+                "usage_label": "Streaming",
+                "resolution": "4K",
+                "tier": "mid",
+                "tier_label": "Mid performance"
+            },
+            "total": 2657.09,
+            "budget_band": [
+                1400,
+                2700
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38997,
+                    "name": "AMD Ryzen 9 7950X3D",
+                    "price": 590.99
+                },
+                {
+                    "type": "GPU",
+                    "id": 40049,
+                    "name": "Asus Noctua OC GeForce RTX 5080 rtx5080 o16g noctua",
+                    "price": 1629.97
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "On Air-4K-high",
+            "name": "PCTG On Air",
+            "summary": "Your channel, running smooth, all evening.",
+            "promise": "Built for Streaming at 4K, high performance.",
+            "tags": {
+                "usage": "streaming",
+                "usage_label": "Streaming",
+                "resolution": "4K",
+                "tier": "high",
+                "tier_label": "High performance"
+            },
+            "total": 4029.12,
+            "budget_band": [
+                2500,
+                4100
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38997,
+                    "name": "AMD Ryzen 9 7950X3D",
+                    "price": 590.99
+                },
+                {
+                    "type": "GPU",
+                    "id": 39978,
+                    "name": "NVIDIA Founders Edition GeForce RTX 5080 16GB",
+                    "price": 3002
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "Cutline-1080p-mid",
+            "name": "PCTG Cutline",
+            "summary": "Cuts fast, previews smooth, exports without the wait.",
+            "promise": "Built for Content Creation at 1080p, mid performance.",
+            "tags": {
+                "usage": "content_creation",
+                "usage_label": "Content Creation",
+                "resolution": "1080P",
+                "tier": "mid",
+                "tier_label": "Mid performance"
+            },
+            "total": 1845.11,
+            "budget_band": [
+                900,
+                1900
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38997,
+                    "name": "AMD Ryzen 9 7950X3D",
+                    "price": 590.99
+                },
+                {
+                    "type": "GPU",
+                    "id": 40031,
+                    "name": "Asus PRIME OC Radeon RX 9070 XT prime rx9070xt o16g white",
+                    "price": 817.99
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "Keyframe-1080p-high",
+            "name": "PCTG Keyframe",
+            "summary": "Heavy timelines and long renders, handled without drama.",
+            "promise": "Built for Content Creation at 1080p, high performance.",
+            "tags": {
+                "usage": "content_creation",
+                "usage_label": "Content Creation",
+                "resolution": "1080P",
+                "tier": "high",
+                "tier_label": "High performance"
+            },
+            "total": 2892.03,
+            "budget_band": [
+                1700,
+                2900
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 39034,
+                    "name": "AMD Ryzen 9 7900X3D",
+                    "price": 510
+                },
+                {
+                    "type": "GPU",
+                    "id": 40214,
+                    "name": "Gigabyte GAMING OC GeForce RTX 4080 SUPER 16GB",
+                    "price": 1945.9
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "Exposure-1440p-mid",
+            "name": "PCTG Exposure",
+            "summary": "The boring parts of making things, made fast.",
+            "promise": "Built for Content Creation at 1440p, mid performance.",
+            "tags": {
+                "usage": "content_creation",
+                "usage_label": "Content Creation",
+                "resolution": "1440P",
+                "tier": "mid",
+                "tier_label": "Mid performance"
+            },
+            "total": 2227.11,
+            "budget_band": [
+                1200,
+                2300
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38997,
+                    "name": "AMD Ryzen 9 7950X3D",
+                    "price": 590.99
+                },
+                {
+                    "type": "GPU",
+                    "id": 40103,
+                    "name": "Palit GamingPro OC GeForce RTX 5080 ne75080s19t2 gb2031a",
+                    "price": 1199.99
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "Masterwork-1440p-high",
+            "name": "PCTG Masterwork",
+            "summary": "Cuts fast, previews smooth, exports without the wait.",
+            "promise": "Built for Content Creation at 1440p, high performance.",
+            "tags": {
+                "usage": "content_creation",
+                "usage_label": "Content Creation",
+                "resolution": "1440P",
+                "tier": "high",
+                "tier_label": "High performance"
+            },
+            "total": 3437.13,
+            "budget_band": [
+                2100,
+                3500
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38942,
+                    "name": "AMD Ryzen 9 9950X3D2",
+                    "price": 776.39
+                },
+                {
+                    "type": "GPU",
+                    "id": 40218,
+                    "name": "Zotac GAMING AMP Extreme AIRO GeForce RTX 4090 zt d40900b 10p",
+                    "price": 2224.61
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "Renderworks-4K-mid",
+            "name": "PCTG Renderworks",
+            "summary": "Heavy timelines and long renders, handled without drama.",
+            "promise": "Built for Content Creation at 4K, mid performance.",
+            "tags": {
+                "usage": "content_creation",
+                "usage_label": "Content Creation",
+                "resolution": "4K",
+                "tier": "mid",
+                "tier_label": "Mid performance"
+            },
+            "total": 2892.03,
+            "budget_band": [
+                1500,
+                2900
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 39034,
+                    "name": "AMD Ryzen 9 7900X3D",
+                    "price": 510
+                },
+                {
+                    "type": "GPU",
+                    "id": 40214,
+                    "name": "Gigabyte GAMING OC GeForce RTX 4080 SUPER 16GB",
+                    "price": 1945.9
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "Edit-4K-high",
+            "name": "PCTG Edit",
+            "summary": "The boring parts of making things, made fast.",
+            "promise": "Built for Content Creation at 4K, high performance.",
+            "tags": {
+                "usage": "content_creation",
+                "usage_label": "Content Creation",
+                "resolution": "4K",
+                "tier": "high",
+                "tier_label": "High performance"
+            },
+            "total": 4214.52,
+            "budget_band": [
+                2700,
+                4600
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38942,
+                    "name": "AMD Ryzen 9 9950X3D2",
+                    "price": 776.39
+                },
+                {
+                    "type": "GPU",
+                    "id": 39978,
+                    "name": "NVIDIA Founders Edition GeForce RTX 5080 16GB",
+                    "price": 3002
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "Workbench-1080p-mid",
+            "name": "PCTG Workbench",
+            "summary": "A quiet, reliable machine for long sessions at the desk.",
+            "promise": "Built for Studio at 1080p, mid performance.",
+            "tags": {
+                "usage": "studio",
+                "usage_label": "Studio",
+                "resolution": "1080P",
+                "tier": "mid",
+                "tier_label": "Mid performance"
+            },
+            "total": 1907.28,
+            "budget_band": [
+                950,
+                2000
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38997,
+                    "name": "AMD Ryzen 9 7950X3D",
+                    "price": 590.99
+                },
+                {
+                    "type": "GPU",
+                    "id": 40116,
+                    "name": "Palit GamingPro-S GeForce RTX 5070 Ti ne7507t019t2 gb2031u",
+                    "price": 880.16
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "Drafting-1080p-high",
+            "name": "PCTG Drafting",
+            "summary": "Everything open at once, and it stays that way.",
+            "promise": "Built for Studio at 1080p, high performance.",
+            "tags": {
+                "usage": "studio",
+                "usage_label": "Studio",
+                "resolution": "1080P",
+                "tier": "high",
+                "tier_label": "High performance"
+            },
+            "total": 2902.52,
+            "budget_band": [
+                1800,
+                3100
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38942,
+                    "name": "AMD Ryzen 9 9950X3D2",
+                    "price": 776.39
+                },
+                {
+                    "type": "GPU",
+                    "id": 40205,
+                    "name": "Gigabyte AORUS XTREME WATERFORCE GeForce RTX 5080 16GB",
+                    "price": 1690
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "Atelier-1440p-mid",
+            "name": "PCTG Atelier",
+            "summary": "Built for the work, not the glamour.",
+            "promise": "Built for Studio at 1440p, mid performance.",
+            "tags": {
+                "usage": "studio",
+                "usage_label": "Studio",
+                "resolution": "1440P",
+                "tier": "mid",
+                "tier_label": "Mid performance"
+            },
+            "total": 2544.1,
+            "budget_band": [
+                1300,
+                2600
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38997,
+                    "name": "AMD Ryzen 9 7950X3D",
+                    "price": 590.99
+                },
+                {
+                    "type": "GPU",
+                    "id": 39954,
+                    "name": "Asus ROG Astral OC GeForce RTX 5080 rog astral rtx5080 o16g gaming",
+                    "price": 1516.98
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "Soundhouse-1440p-high",
+            "name": "PCTG Soundhouse",
+            "summary": "A quiet, reliable machine for long sessions at the desk.",
+            "promise": "Built for Studio at 1440p, high performance.",
+            "tags": {
+                "usage": "studio",
+                "usage_label": "Studio",
+                "resolution": "1440P",
+                "tier": "high",
+                "tier_label": "High performance"
+            },
+            "total": 4029.12,
+            "budget_band": [
+                2400,
+                4100
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38997,
+                    "name": "AMD Ryzen 9 7950X3D",
+                    "price": 590.99
+                },
+                {
+                    "type": "GPU",
+                    "id": 39978,
+                    "name": "NVIDIA Founders Edition GeForce RTX 5080 16GB",
+                    "price": 3002
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "Workshop-4K-mid",
+            "name": "PCTG Workshop",
+            "summary": "Everything open at once, and it stays that way.",
+            "promise": "Built for Studio at 4K, mid performance.",
+            "tags": {
+                "usage": "studio",
+                "usage_label": "Studio",
+                "resolution": "4K",
+                "tier": "mid",
+                "tier_label": "Mid performance"
+            },
+            "total": 3251.73,
+            "budget_band": [
+                1700,
+                3300
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38997,
+                    "name": "AMD Ryzen 9 7950X3D",
+                    "price": 590.99
+                },
+                {
+                    "type": "GPU",
+                    "id": 40218,
+                    "name": "Zotac GAMING AMP Extreme AIRO GeForce RTX 4090 zt d40900b 10p",
+                    "price": 2224.61
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        },
+        {
+            "slug": "Studio Floor-4K-high",
+            "name": "PCTG Studio Floor",
+            "summary": "Built for the work, not the glamour.",
+            "promise": "Built for Studio at 4K, high performance.",
+            "tags": {
+                "usage": "studio",
+                "usage_label": "Studio",
+                "resolution": "4K",
+                "tier": "high",
+                "tier_label": "High performance"
+            },
+            "total": 5212.47,
+            "budget_band": [
+                3100,
+                5300
+            ],
+            "socket": "AM5",
+            "integrated_graphics": false,
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue",
+            "parts": [
+                {
+                    "type": "CPU",
+                    "id": 38942,
+                    "name": "AMD Ryzen 9 9950X3D2",
+                    "price": 776.39
+                },
+                {
+                    "type": "GPU",
+                    "id": 40037,
+                    "name": "Gigabyte AORUS MASTER GeForce RTX 5090 gv n5090aorusm ice 32gd",
+                    "price": 3999.95
+                },
+                {
+                    "type": "Motherboard",
+                    "id": 39604,
+                    "name": "ASRock B650M-H\/M.2+",
+                    "price": 90.06
+                },
+                {
+                    "type": "RAM",
+                    "id": 40272,
+                    "name": "Corsair Vengeance 16 GB DDR5-5200 40 2 x 8GB CMK16GX5M2B5200Z40",
+                    "price": 199.99
+                },
+                {
+                    "type": "Storage",
+                    "id": 40878,
+                    "name": "Western Digital Blue SN580 500GB",
+                    "price": 47.15
+                },
+                {
+                    "type": "PSU",
+                    "id": 41229,
+                    "name": "Aerocool Integrator Gold 850W",
+                    "price": 69.95
+                },
+                {
+                    "type": "Case",
+                    "id": 41503,
+                    "name": "KOLINK KLA-003",
+                    "price": 17.99
+                },
+                {
+                    "type": "Cooler",
+                    "id": 39341,
+                    "name": "ARCTIC Alpine 23 CO",
+                    "price": 10.99
+                }
+            ]
+        }
+    ]
+}
