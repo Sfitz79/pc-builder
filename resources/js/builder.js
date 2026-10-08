@@ -43,6 +43,10 @@ window.builderState = () => ({
 
     aiRecommendation: null,
 
+    // The three-slot layer: under_budget, at_budget, best_value.
+    // Populated from the same /ai response that carries the legacy builds.
+    aiOptions: null,
+
     aiIdealBuild: null,
 
     loading: false,
@@ -218,7 +222,28 @@ window.builderState = () => ({
         }
     },
 
-    bandKey() {
+    /**
+ * Apply one of the three budget options to the builder.
+ *
+ * The payload already has the same shape applyBuild() consumes - a flat
+ * {category: component} map - so the option drops straight in. Integrated
+ * graphics are honoured, so an APU option does not leave a phantom GPU
+ * requirement behind.
+ */
+applyAiOption(opt) {
+        if (!opt || !opt.components) return;
+        this.applyBuild({
+            name: `AI option — £${Number(opt.total).toLocaleString()}`,
+            complete: true,
+            integrated_graphics: opt.integrated_graphics === true,
+            components: (opt.components || []).reduce((acc, c) => {
+                acc[c.type] = c;
+                return acc;
+            }, {})
+        });
+    },
+
+bandKey() {
         return (this.resolution || '').toString().toUpperCase().includes('4K') ? '4k'
             : (this.resolution || '').toString().toUpperCase().includes('1440') ? '1440p'
             : '1080p';
@@ -791,6 +816,10 @@ window.builderState = () => ({
 
             this.aiRecommendation = data.budget || data;
             this.aiIdealBuild = data.ideal || null;
+            // Three-option layer. Absent on older deployments, so guarded rather
+            // than assumed - an empty object here would render an empty strip
+            // with no explanation.
+            this.aiOptions = (data.options && Object.keys(data.options).length) ? data.options : null;
 
             // The server is the authority on the minimum. If it clamped a
             // budget this client had not yet corrected, adopt its number and

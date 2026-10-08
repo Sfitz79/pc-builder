@@ -1,5 +1,66 @@
 <x-pctg.card>
 
+    {{-- THE THREE-OPTION LAYER.
+
+         One under budget, one closest to the figure asked for (within
+         +/- GBP 150), and one best performance for the money. Produced by
+         App\Services\BudgetOptions on the same SystemAssembler the featured
+         range uses, so every part here already passes the component policy.
+
+         A slot is OMITTED rather than filled when nothing lands inside its
+         tolerance. An empty slot is honest; a filled one that quietly overshoots
+         the budget the customer typed is not. --}}
+    <template x-if="aiOptions && Object.keys(aiOptions).length">
+        <div class="mb-8 border-b border-white/10 pb-8">
+            <h3 class="text-sm font-semibold uppercase tracking-widest text-slate-400">
+                Three ways to spend your budget
+            </h3>
+
+            <div class="mt-4 grid gap-4 md:grid-cols-3">
+                <template x-for="(opt, slot) in aiOptions" :key="slot">
+                    <div class="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-4">
+                        <div class="flex items-start justify-between gap-2">
+                            <span class="rounded-full bg-slate-700/70 px-2.5 py-1 text-[11px] font-semibold text-slate-200"
+                                  x-text="({
+                                    under_budget: 'Under budget',
+                                    at_budget: 'At your budget',
+                                    best_value: 'Best for the money'
+                                  })[slot] || slot"></span>
+                            <span class="text-lg font-black text-white"
+                                  x-text="'£' + Number(opt.total).toLocaleString(undefined, {minimumFractionDigits: 2})"></span>
+                        </div>
+
+                        <p class="mt-2 text-xs"
+                           :class="opt.within_budget ? 'text-green-400' : 'text-amber-400'"
+                           x-text="opt.within_budget
+                               ? ('£' + Math.abs(opt.remaining).toFixed(0) + ' under your budget')
+                               : ('£' + Math.abs(opt.difference).toFixed(0) + ' over your budget')"></p>
+
+                        <ul class="mt-3 flex-1 space-y-1 text-xs text-slate-300">
+                            <template x-for="c in (opt.components || [])" :key="c.type">
+                                <li class="flex justify-between gap-2">
+                                    <span class="text-slate-500" x-text="c.type"></span>
+                                    <span class="truncate text-right" x-text="c.name"></span>
+                                </li>
+                            </template>
+                        </ul>
+
+                        <button type="button"
+                                class="mt-4 rounded-lg bg-red-500 px-4 py-2 text-sm font-bold text-white hover:bg-red-600"
+                                @click="applyAiOption(opt)">
+                            Use this build
+                        </button>
+                    </div>
+                </template>
+            </div>
+
+            <p class="mt-3 text-xs text-slate-500">
+                Every option is assembled from parts we stock and checked against our compatibility
+                and component rules. Prices are today's catalogue estimate, confirmed at checkout.
+            </p>
+        </div>
+    </template>
+
     <x-pctg.section-heading
         title="AI Recommended Builds"
         description="Best value for your budget, plus the ideal newest build."
