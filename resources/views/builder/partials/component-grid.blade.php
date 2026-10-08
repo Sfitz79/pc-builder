@@ -4,7 +4,16 @@
         title="Selected Components"
     />
 
-    <div class="mt-6 grid gap-4 md:grid-cols-2">
+        {{-- grid-cols-1 AT THE BASE, for the same reason as #build-results.
+
+             MEASURED 2026-10-08 at 360px: this element reported clientWidth 286 against
+             scrollWidth 314, so the CPU/Motherboard/GPU/RAM/Storage/PSU/Case/Cooler rows
+             scrolled sideways inside their own card. With only `md:grid-cols-2`
+             declared, the sub-md layout fell into a single implicit column sized
+             `auto`, which is content-driven, and the row refused to fit.
+
+             grid-cols-1 makes the mobile column minmax(0,1fr) so it fits the screen. --}}
+        <div class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
 
         <x-pctg.selected-component category="cpu" label="CPU" />
         <x-pctg.selected-component category="motherboard" label="Motherboard" />
