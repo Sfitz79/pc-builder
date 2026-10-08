@@ -98,6 +98,14 @@ class PrebuiltController extends Controller
                 'name' => $entry['name'],
                 'slug' => $this->slugify($entry['name']),
                 'socket' => $entry['socket'] ?? null,
+                // APU builds must say so on the card, not just in the JSON.
+                // These three were missing here, so the storefront silently
+                // rendered "Esports only" nowhere even though the assembler had
+                // published it - the honest label existed and was discarded
+                // one layer up.
+                'integrated_graphics' => (bool) ($entry['integrated_graphics'] ?? false),
+                'tagline' => $entry['tagline'] ?? null,
+                'notes' => $entry['notes'] ?? null,
                 'estimated_draw_watts' => $entry['estimated_draw_watts'] ?? null,
                 'psu_watts' => $entry['psu_watts'] ?? null,
                 'headroom' => $entry['headroom'] ?? null,
