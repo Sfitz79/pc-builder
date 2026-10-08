@@ -25,7 +25,13 @@ window.builderState = () => ({
         cpuMotherboard: true,
         ramSupported: true,
         powerEnough: true,
-        gpuClearance: true
+        gpuClearance: true,
+        // Whether the selected board physically fits the selected case.
+        // Starts false, not true: every other flag defaults true because it is
+        // vacuously satisfied while parts are missing, but an unverified case
+        // fit must not read as a green tick. The builder panel shows this as a
+        // warning until a board and a case are both chosen.
+        formFactorFits: false
     },
 
     fpsResults: [],
@@ -506,7 +512,40 @@ window.builderState = () => ({
 
         this.compatibility.gpuClearance = !gpu;
 
+        this.compatibility.formFactorFits = this.caseFitHolds();
+
         this.validateServerSide();
+    },
+
+    /**
+     * Does the selected motherboard physically fit the selected case?
+     *
+     * Data: board.specs.form_factor and case.specs.supported_form_factors, both
+     * verified on production Neon - 397/397 boards and 399/399 cases as of
+     * 2026-10-08. The catalogue endpoint emits `specs`, so this runs instantly
+     * instead of waiting for the server round-trip; the server computes the same
+     * answer and overwrites it.
+     *
+     * Deliberately duplicated on the server rather than inferred only there: the
+     * server check is the one that matters for ordering, and the client copy is
+     * the one the customer reacts to. Both read the same two fields, so they
+     * cannot disagree about which part is which.
+     *
+     * Unknown resolves to FALSE, not TRUE. Mirrors CompatibilityRule::
+     * evaluateFormFactor() - an unverified board must never satisfy a case it
+     * might not fit, or the panel shows a green tick for a machine that will
+     * not assemble.
+     */
+    caseFitHolds() {
+        const board = this.selected.motherboard;
+        const casePart = this.selected.case;
+        if (!board || !casePart) return false;
+
+        const boardFf = board.specs && board.specs.form_factor;
+        const caseFf = casePart.specs && casePart.specs.supported_form_factors;
+        if (!boardFf || !Array.isArray(caseFf) || caseFf.length === 0) return false;
+
+        return caseFf.includes(boardFf);
     },
 
     async validateServerSide() {

@@ -152,8 +152,32 @@ class CompatibilityRule extends Model
         $boardFormFactor = $board['specs']['form_factor'] ?? $board['form_factor'] ?? '';
         $caseFormFactors = $case['specs']['supported_form_factors'] ?? [];
 
+        // FAIL CLOSED, and name what is missing.
+        //
+        // This used to `return true` when either side was unknown, which is the
+        // wrong direction: an unverified board satisfied every case, so a
+        // full-size ATX board could be approved for a Mini-ITX case. Rule 6 -
+        // unknown must never equal permitted.
+        //
+        // Failing closed was only safe once the data existed. It is 397/397
+        // boards and 399/399 cases as of 2026-10-08, derived from the PCPP slug
+        // on every board row and the verified case plan. Before that, closing
+        // this branch would have rejected 394 unknown boards against all 399
+        // cases and taken the builder offline.
+        //
+        // The log line exists because a silent block looks identical to a
+        // correct block from the customer's side. Rule 5: a fallback that
+        // changes the outcome has to announce itself.
         if ($boardFormFactor === '' || empty($caseFormFactors)) {
-            return true;
+            \Illuminate\Support\Facades\Log::warning('compatibility.form_factor.unknown', [
+                'board_id' => $board['id'] ?? null,
+                'board_name' => $board['name'] ?? null,
+                'case_id' => $case['id'] ?? null,
+                'case_name' => $case['name'] ?? null,
+                'missing' => $boardFormFactor === '' ? 'board.form_factor' : 'case.supported_form_factors',
+            ]);
+
+            return false;
         }
 
         return in_array($boardFormFactor, $caseFormFactors);

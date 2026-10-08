@@ -87,15 +87,132 @@ class CaseFormFactorGateTest extends TestCase
             'motherboard' => ['form_factor' => 'Micro-ATX'],
         ]), 'board form_factor fallback must pass for the right case');
 
-        // No case data => rule passes (consistent with current code). This is
-        // documented as the CURRENT fail-open behaviour - the gate cannot lie
-        // about a case whose data is missing, and the production backfill
-        // guarantees the supported list is now populated. The prebuilt
-        // assembler refuses to publish builds for cases without it.
-        $this->assertTrue($m->invoke($rule, [
+        // Unknown data on EITHER side now FAILS CLOSED.
+        //
+        // This assertion used to require `true` here, documented as temporary
+        // fail-open whose safety depended on "the production backfill guarantees
+        // the supported list is now populated". That precondition is met as of
+        // 2026-10-08 on both sides:
+        //   - cases:  specs.form_factor + supported_form_factors 399/399
+        //   - boards: specs.form_factor 397/397, derived from the PCPP slug each
+        //     row already carried, cross-checked against the board name (138/138
+        //     agreements, 0 disagreements)
+        //
+        // So the temporary window is closed and the gate no longer gets to pass
+        // a pairing it cannot verify. Rule 6: unknown must never equal permitted.
+        // Reversing this would reintroduce the hole that let an ATX board be
+        // approved for a Mini-ITX case.
+        $this->assertFalse($m->invoke($rule, [
             'case' => ['specs' => []],
             'motherboard' => ['specs' => ['form_factor' => 'ATX']],
-        ]), 'documented: missing case data is not rejected by the legacy rule');
+        ]), 'missing case data must NOT be reported as a fit');
+
+        $this->assertFalse($m->invoke($rule, [
+            'case' => ['specs' => ['supported_form_factors' => ['ATX', 'Micro-ATX', 'Mini-ITX']]],
+            'motherboard' => ['specs' => []],
+        ]), 'missing board data must NOT be reported as a fit');
+
+        $this->assertFalse($m->invoke($rule, [
+            'case' => ['specs' => ['supported_form_factors' => []]],
+            'motherboard' => ['specs' => ['form_factor' => 'ATX']],
+        ]), 'an empty case acceptance list must NOT be reported as a fit');
+
+        // A board with no case chosen at all cannot be judged either way, so the
+        // rule stays out of the way - that is the vacuous case, not the
+        // fail-open one.
+        $this->assertTrue($m->invoke($rule, [
+            'motherboard' => ['specs' => ['form_factor' => 'ATX']],
+        ]), 'no case selected yet: rule does not apply');
+    }
+
+    /**
+     * The gate is only enforced if an ACTIVE form_factor_match rule row exists.
+     *
+     * Regression: compatibility_rules held only socket_match, wattage_sufficient,
+     * memory_supported and clearance_check. CompatibilityService evaluates
+     * whatever rows are active, so evaluateFormFactor() was never called and the
+     * builder performed NO form-factor check at all - not fail-open, absent.
+     * Activating the rule row without pinning it is how that returns.
+     *
+     * Neon-gated on purpose. The table exists in production Postgres but NOT in
+     * the in-memory SQLite the suite runs on, so an ungated assertion either
+     * errors on "no such table" or runs against the wrong engine (Rule 7).
+     * The pure logic is covered without a database by
+     * test_summary_reports_form_factor_and_defaults_to_false above.
+     *
+     * Run: $env:FORM_FACTOR_REGRESSION="neon"; php artisan test --filter=CaseFormFactorGateTest
+     */
+    public function test_form_factor_rule_row_is_active(): void
+    {
+        if (($env = getenv('FORM_FACTOR_REGRESSION')) !== 'neon') {
+            $this->markTestSkipped('set FORM_FACTOR_REGRESSION=neon to run against production');
+        }
+
+        require base_path('scripts/genie-prod-guard.php'); // asserts pgsql or exits 3
+
+        $row = \Illuminate\Support\Facades\DB::table('compatibility_rules')
+            ->where('rule_type', 'form_factor_match')
+            ->where('active', true)
+            ->first();
+
+        $this->assertNotNull(
+            $row,
+            'an ACTIVE form_factor_match rule must exist or the form-factor gate never runs'
+        );
+        $this->assertSame('form_factor', $row->category ?? null,
+            'the rule must use the form_factor category so summary() reports it as formFactorFits');
+    }
+
+    /**
+     * summary() is what the builder and /builder/validate actually consume, so
+     * the fifth flag has to exist there and must default FALSE.
+     *
+     * A missing rule row makes the category absent, and every other flag in this
+     * method defaults true when its category is absent. formFactorFits must not
+     * inherit that: an unverified fit reported as true is the exact fail-open
+     * this whole path exists to prevent.
+     */
+    public function test_summary_reports_form_factor_and_defaults_to_false(): void
+    {
+        // summary() reads whatever rules are active, so this needs the table.
+        // The suite runs on in-memory SQLite without migrations, so build the
+        // table from its real migration rather than inventing a schema here -
+        // a hand-rolled schema could pass while production differs (Rule 7).
+        if (! \Illuminate\Support\Facades\Schema::hasTable('compatibility_rules')) {
+            $migration = require database_path('migrations/2025_01_01_000009_create_compatibility_rules_table.php');
+            $migration->up();
+        }
+
+        // Only the form-factor rule, so the assertion is about that rule and not
+        // about whichever other rows happen to exist.
+        \Illuminate\Support\Facades\DB::table('compatibility_rules')->delete();
+        \Illuminate\Support\Facades\DB::table('compatibility_rules')->insert([
+            'name' => 'Motherboard fits case',
+            'category' => 'form_factor',
+            'rule_type' => 'form_factor_match',
+            'conditions' => json_encode(['fail_closed' => true]),
+            'active' => true,
+        ]);
+
+        $svc = new CompatibilityService();
+
+        $atxBoard = ['id' => 1, 'name' => 'Board', 'specs' => ['form_factor' => 'ATX']];
+        $itxCase = ['id' => 2, 'name' => 'Case', 'specs' => ['supported_form_factors' => ['Mini-ITX']]];
+
+        $blocked = $svc->summary(['motherboard' => $atxBoard, 'case' => $itxCase]);
+        $this->assertArrayHasKey('formFactorFits', $blocked);
+        $this->assertFalse($blocked['formFactorFits'],
+            'an ATX board in a Mini-ITX case must be reported as not fitting');
+
+        $ok = $svc->summary([
+            'motherboard' => $atxBoard,
+            'case' => ['id' => 3, 'name' => 'Case', 'specs' => ['supported_form_factors' => ['ATX', 'Micro-ATX', 'Mini-ITX']]],
+        ]);
+        $this->assertTrue($ok['formFactorFits'], 'an ATX board in an ATX case must be reported as fitting');
+
+        // Nothing selected: false, never true.
+        $this->assertFalse($svc->summary([])['formFactorFits'],
+            'with no parts chosen the fit is unknown, and unknown must not read as compatible');
     }
 
     public function test_prebuilt_assembler_uses_the_verified_field(): void
