@@ -41,8 +41,8 @@
                 <img
                     src="{{ asset('img/business/logo.png') }}"
                     alt="PCTechGuy Business — Technology That Means Business"
-                    width="640"
-                    height="574"
+                    width="1024"
+                    height="1024"
                     loading="eager"
                     fetchpriority="high"
                     decoding="async"
