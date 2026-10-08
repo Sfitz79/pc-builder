@@ -149,29 +149,21 @@ $prebuilts = [];
  *
  * Applied to AMD sockets only. Intel (LGA1700/LGA1851) is untouched.
  */
-const AMD_BOARD_GATE = [
-    '/\bB550M?\b/i',
-    '/\bX570\b/i',
-    '/\bB650[EM]?\b/i',
-    '/\bX670[E]?\b/i',
-    '/\bB850M?\b/i',
-    '/\bX870[EMI]?\b/i',
-];
-
+/*
+ * AMD board families now live in ONE place: BuildPolicyGate::AMD_BOARD_FAMILIES,
+ * read from config/build_policy.php. This script previously carried its own
+ * copy, which is exactly the duplication that let the per-tier chipset list
+ * re-admit a forbidden family. Kept as a thin delegate so the existing call
+ * sites do not change.
+ *
+ * @see config/build_policy.php for the rejected readings and why a numeric
+ *      suffix test is wrong (it keeps B450 and drops B550M/B650M/B850M).
+ */
 function amdBoardAllowed(string $name, string $socket): bool
 {
-    // Not an AMD socket: the gate is an AMD policy.
-    if (! in_array($socket, ['AM4', 'AM5', 'AM3'], true)) {
-        return true;
-    }
-
-    foreach (AMD_BOARD_GATE as $rx) {
-        if (preg_match($rx, $name) === 1) {
-            return true;
-        }
-    }
-
-    return false;
+    return app(\App\Services\BuildPolicyGate::class)->boardAllowed(
+        (object) ['name' => $name, 'socket' => $socket]
+    )['ok'];
 }
 
 $defs = [
@@ -195,8 +187,15 @@ $defs = [
         // B550M rather than the cheaper A520M (GBP 42.99 vs 65.90): A520 is the
         // entry chipset, and holding the same line on boards that we already
         // applied to the CPUs costs GBP 23.
+        // Band floor set to GBP 400, not the GBP 450 the build actually came to.
+        //
+        // At a GBP 450 floor this tier sat GBP 0.83 above its own limit, so a
+        // single price dip - and component prices move daily, which PriceInteg-
+        // rityService already reports as stale - would drop the esports build off
+        // /prebuilts entirely. The band exists to stop us advertising a price we
+        // cannot honour, so it needs margin, not a hairline.
         'name' => 'Esports 1080p APU (No Dedicated GPU)',
-        'budget' => [450, 750], 'socket' => 'AM4',
+        'budget' => [400, 750], 'socket' => 'AM4',
         'apu' => true,
         'apuModels' => ['/\b5600G[TF]?\b/i', '/\b5700G\b/i', '/\b5700GT\b/i'],
         'apuDualChannelRam' => true,
@@ -273,6 +272,7 @@ foreach ($defs as $def) {
  */
 $gpuFloorTier = $def['gpuFloorTier'] ?? 3;
 $gpuService = app(\App\Services\AIRecommendationService::class);
+$policy = app(\App\Services\BuildPolicyGate::class);
 
 $gpu = null;
 $gpuTierSeen = [];
@@ -344,6 +344,14 @@ if ($isApu) {
         ->get();
 
 foreach ($gpuCandidates as $candidate) {
+        // The shared policy: 8GB VRAM minimum, and no family below the
+        // B570 / RTX 3050 8GB / RX 7000 floor. This is a FLOOR check, so cards
+        // far above it pass - an earlier allow-list version rejected 271 of 306
+        // cards including every RTX 50-series part.
+        if (! $policy->gpuAllowed($candidate)['ok']) {
+            continue;
+        }
+
         if (((specsOf($candidate)['chipset'] ?? '') === '')) {
             continue; // unidentifiable card - Rule 6: unknown must never equal permitted
         }
@@ -420,12 +428,12 @@ if ($isApu) {
     // ATX-width for case selection - that part was correct and is unchanged.
     $boardReq = $def['boardChipsets'];
     // The per-tier boardChipsets list says which CLASS this tier wants (for
-    // example mATX before ATX). The AMD_BOARD_GATE is a separate, global policy
-    // about which chipset families we will build at all. Both must pass: a tier
-    // list cannot re-admit a chipset the gate forbids.
+    // example mATX before ATX). The AMD board-family gate is a separate, global
+    // policy in BuildPolicyGate and both must pass: a tier list cannot re-admit
+    // a chipset the gate forbids.
     //
-    // Without the gate the esports tier fitted a Gigabyte A520M at GBP 42.99 -
-    // the cheapest row that matched its class list, and an entry "*20" chipset.
+    // Without it the esports tier fitted a Gigabyte A520M at GBP 42.99 purely
+    // because it was the cheapest row matching its class list.
     $board = DB::table('components')->where('category_id', $ids['Motherboard'])->where('active', 1)
         ->where('socket', $socket)->whereNotNull('price')->where('price', '>', 0)
         ->orderBy('price')->get()
@@ -479,39 +487,26 @@ if ($isApu) {
         ->where('category_id', $ids['RAM'])->where('active', 1)
         ->whereNotNull('price')->where('price', '>', 0)
         ->orderBy('price')->get()
-        ->first(function ($r) use ($ramBytes, $memGen, $apuRamMinSpeed, $apuRequireDual) {
+        ->first(function ($r) use ($ramBytes, $memGen, $apuRamMinSpeed, $apuRequireDual, $policy, $socket) {
             $s = specsOf($r);
             $cap = (int) preg_replace('/[^0-9]/', '', (string) ($s['capacity'] ?? ''));
             if ($cap !== $ramBytes) {
                 return false;
             }
-            // specs.speed carries the generation. Fail closed if it is absent:
-            // unknown memory is never assumed compatible.
-            $speed = (string) ($s['speed'] ?? '');
-            if ($speed === '' || stripos($speed, $memGen) === false) {
+
+            // The shared policy owns this decision now. It enforces 16GB, dual
+            // channel as a MODULE COUNT, the socket's memory generation and the
+            // per-generation speed floor - including the DDR4-3200 parse, where
+            // stripping non-digits yields 43200 and makes the floor vacuous.
+            if (! $policy->ramAllowed($r, $socket)['ok']) {
                 return false;
             }
 
             if ($apuRamMinSpeed > 0) {
-                // Parse the speed OFF THE END, never by stripping every
-                // non-digit. specs.speed is formatted "DDR4-3200", so
-                // preg_replace('/[^0-9]/', '', $speed) returns 43200 - the 4
-                // from "DDR4" is concatenated with 3200. That made this floor
-                // vacuous: a genuine DDR4-2133 kit parses as 42133 and sailed
-                // through a >= 3200 test. Strip the generation token first, then
-                // read the remaining number.
+                $speed = (string) ($s['speed'] ?? '');
                 $numeric = preg_replace('/DDR[45]/i', '', $speed);
                 $mt = (int) preg_replace('/[^0-9]/', '', (string) $numeric);
                 if ($mt < $apuRamMinSpeed) {
-                    return false;
-                }
-            }
-
-            if ($apuRequireDual) {
-                $layout = strtolower((string) ($r->module_config ?? ''));
-                // Accept 2x8 and 2x8GB spellings. Fail closed: an unverified
-                // layout is never assumed to be dual channel.
-                if (preg_match('/2\s*x\s*8\s*gb|2x8/', $layout) !== 1) {
                     return false;
                 }
             }
@@ -550,10 +545,13 @@ if ($isApu) {
 $storage = DB::table('components')->where('category_id', $ids['Storage'])->where('active', 1)
     ->whereNotNull('price')->where('price', '>', 0)
     ->orderBy('price')->get()
-    ->first(function ($s) {
-        $cap = (int) preg_replace('/[^0-9]/', '', (string) (specsOf($s)['capacity'] ?? ''));
-        return $cap >= 1000;
-    });
+    ->filter(fn ($s) => $policy->storageAllowed($s)['ok'])
+    // M.2 / NVMe preferred over SATA. A preference, not a filter: a SATA SSD
+    // that clears the 500GB floor is still a legal drive, it simply loses the
+    // tie-break. The interface is read from the interface COLUMN - measured,
+    // specs.interface is populated on 0 of 338 active rows.
+    ->sortBy(fn ($s) => [$policy->storageRank($s), (float) $s->price])
+    ->first();
     if (!$storage) {
         printf("  %-44s SKIPPED: no >=1TB storage\n", $def['name']);
         continue;
@@ -562,26 +560,56 @@ $storage = DB::table('components')->where('category_id', $ids['Storage'])->where
     // CPU + GPU + ~90W for board/RAM/drives/fans. Expression was previously
     // buried in a precedence trap; now explicit.
     $estDraw = $cpuWatts + $gpuWatts + 90;
-    $psu = DB::table('components')->where('category_id', $ids['PSU'])->where('active', 1)
-        ->whereNotNull('price')->whereNotNull('wattage')
-        ->where('wattage', '>=', (int) ceil($estDraw * 1.4)) // 40% headroom
-        ->orderBy('wattage')->get()
-        // Do not massively over-provision, but do not scale the ceiling with
-        // draw alone. A 155W APU box drew a 341W cap (estDraw * 2.2), and the
-        // catalogue records nothing between 217W and 341W, so the starter tier
-        // was skipped for "no PSU" - while a 500W unit is the smallest sensible
-        // ATX PSU and is what anyone would actually fit. 2.2x still binds on the
-        // high-draw builds (410W draw -> 902W cap), so the guard keeps its teeth
-        // where over-provisioning is the actual risk.
-        ->first(function ($p) use ($estDraw) {
-            $ceiling = max($estDraw * 2.2, 500);
 
-            return ((int) $p->wattage) <= $ceiling;
-        });
+    // Headroom band from the shared policy. The ceiling is not draw-scaled
+    // alone: a 155W APU box drew a 341W cap and the catalogue records nothing
+    // between 217W and 341W, so the esports tier was skipped for "no PSU" while
+    // 500W is the smallest sensible ATX unit. 2.2x still binds on the high-draw
+    // builds (410W draw -> 902W cap), so the guard keeps its teeth where
+    // over-provisioning is the actual risk.
+    $psuBand = $policy->psuWattageBand($estDraw);
+
+    $psuCandidates = DB::table('components')->where('category_id', $ids['PSU'])->where('active', 1)
+        ->whereNotNull('price')->where('price', '>', 0)
+        ->whereNotNull('wattage')
+        ->where('wattage', '>=', $psuBand['min'])
+        ->where('wattage', '<=', $psuBand['max'])
+        ->get()
+        ->filter(fn ($p) => $policy->brandAllowed($p->name)['ok']);
+
+    // Prefer Gold 80+, then Bronze, then an unreadable rating - price breaks
+    // ties inside a rank.
+    //
+    // Measured: this is not cosmetic. All three tiers were previously landing
+    // on a PSU with NO rating in its name while paying MORE for it than a Gold
+    // unit that was in stock - the esports build fitted an unreadable GBP 73.04
+    // unit when a GBP 59.99 Cooler Master MWE Gold V3 550W covers a 155W draw.
+    // The rating is name-derived because no efficiency field exists for PSUs at
+    // all (see BuildPolicyGate::psuEfficiencyRank), so this is a preference and
+    // never an exclusion.
+    $psu = $psuCandidates
+        ->sortBy(fn ($p) => [$policy->psuEfficiencyRank($p)['rank'], (float) $p->price])
+        ->first();
+
     if (!$psu) {
-        printf("  %-44s SKIPPED: no PSU with >=%dW headroom\n", $def['name'], (int) ceil($estDraw * 1.4));
+        printf(
+            "  %-44s SKIPPED: no %d-%dW PSU passing the brand gate\n",
+            $def['name'],
+            $psuBand['min'],
+            $psuBand['max']
+        );
         continue;
     }
+
+    $psuEfficiency = $policy->psuEfficiencyRank($psu);
+    printf(
+        "  %-44s PSU:  %s GBP %s, %sW, %s\n",
+        '',
+        $psu->name,
+        number_format((float) $psu->price, 2),
+        (string) $psu->wattage,
+        $psuEfficiency['rating'] ?? 'efficiency not stated by the source'
+    );
 
     // Boards are unprovable below ATX width, so the case MUST accept ATX.
     // ATX cases accept every board in the catalogue. Smaller cases are only
@@ -715,6 +743,16 @@ $storage = DB::table('components')->where('category_id', $ids['Storage'])->where
                 : ($gpu->wattage ? 'components.wattage' : 'default 200W (no TDP recorded)'),
             'ram_capacity_source' => 'specs.capacity',
             'ram_speed' => $ramSpeed,
+            'ram_layout' => $ramLayout,
+            // PSU efficiency is NAME-DERIVED and says so. Measured: no efficiency
+            // field exists for PSUs anywhere - specs carry only dimensions, no
+            // column holds a rating, and only 26 of 287 active priced names
+            // mention one. The storefront must present this as the supplier's
+            // stated rating, not as something we verified.
+            'psu_efficiency' => $psuEfficiency['rating'],
+            'psu_efficiency_source' => $psuEfficiency['known']
+                ? 'NAME MATCH on the product name - no efficiency field exists in the catalogue to verify it'
+                : 'NOT STATED by the supplier; no efficiency field exists in the catalogue',
             'case_form_factor_source' => 'specs.form_factor (verified backfill 2026-09-29, 399/399)',
             'case_price_floor' => '£' . number_format((float) $def['caseMin'], 0) . ' enforced (brand integrity: cheapest 4 ATX cases are £17.99-£19.99)',
             'board_chipset_class' => implode(' | ', $def['boardChipsets']) . ' required by tier',

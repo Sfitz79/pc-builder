@@ -1,14 +1,14 @@
 [
     {
         "name": "Esports 1080p APU (No Dedicated GPU)",
-        "total": 509.7,
+        "total": 450.83,
         "socket": "AM4",
         "tagline": "Esports only",
         "notes": "Esports and 1080p gaming only. Graphics come from the Ryzen APU - there is no dedicated graphics card. Great for competitive shooters and MOBAs; not suited to video editing, 3D or AAA titles at high settings.",
         "integrated_graphics": true,
         "estimated_draw_watts": 155,
-        "psu_watts": 500,
-        "headroom": 3.23,
+        "psu_watts": 550,
+        "headroom": 3.55,
         "case_form_factor": "ATX",
         "board_form_factor": "unknown (treated as ATX-width; no board FF evidence exists)",
         "parts": [
@@ -32,15 +32,15 @@
             },
             {
                 "type": "Storage",
-                "id": 40861,
-                "name": "Silicon Power Ace A5X 1024GB",
-                "price": 92.97
+                "id": 40878,
+                "name": "Western Digital Blue SN580 500GB",
+                "price": 47.15
             },
             {
                 "type": "PSU",
-                "id": 40968,
-                "name": "Thermaltake Smart 500W",
-                "price": 73.04
+                "id": 41130,
+                "name": "Cooler Master MWE Gold V3 550W",
+                "price": 59.99
             },
             {
                 "type": "Case",
@@ -65,6 +65,9 @@
             "gpu_watts_source": "n/a - no discrete GPU; iGPU draws from the CPU TDP",
             "ram_capacity_source": "specs.capacity",
             "ram_speed": "DDR4-3200",
+            "ram_layout": "2 x 8GB",
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue to verify it",
             "case_form_factor_source": "specs.form_factor (verified backfill 2026-09-29, 399/399)",
             "case_price_floor": "£25 enforced (brand integrity: cheapest 4 ATX cases are £17.99-£19.99)",
             "board_chipset_class": "/\\bB550M\\b/i | /\\bB550\\b/i | /\\bX570\\b/i required by tier",
@@ -78,14 +81,14 @@
     },
     {
         "name": "Mainstream 1080p Ultra",
-        "total": 1258.83,
+        "total": 1258.12,
         "socket": "AM5",
         "tagline": null,
         "notes": null,
         "integrated_graphics": false,
         "estimated_draw_watts": 355,
-        "psu_watts": 500,
-        "headroom": 1.41,
+        "psu_watts": 550,
+        "headroom": 1.55,
         "case_form_factor": "ATX",
         "board_form_factor": "unknown (treated as ATX-width; no board FF evidence exists)",
         "parts": [
@@ -103,27 +106,27 @@
             },
             {
                 "type": "Motherboard",
-                "id": 39853,
-                "name": "Gigabyte B650M S2H",
-                "price": 82.95
+                "id": 39604,
+                "name": "ASRock B650M-H/M.2+",
+                "price": 90.06
             },
             {
                 "type": "RAM",
-                "id": 40445,
-                "name": "ADATA Premier 16 GB",
-                "price": 148.94
+                "id": 40473,
+                "name": "ADATA XPG Lancer Blade 16 GB DDR5-5600 46 2 x 8GB",
+                "price": 199.99
             },
             {
                 "type": "Storage",
-                "id": 40861,
-                "name": "Silicon Power Ace A5X 1024GB",
-                "price": 92.97
+                "id": 40878,
+                "name": "Western Digital Blue SN580 500GB",
+                "price": 47.15
             },
             {
                 "type": "PSU",
-                "id": 40968,
-                "name": "Thermaltake Smart 500W",
-                "price": 73.04
+                "id": 41130,
+                "name": "Cooler Master MWE Gold V3 550W",
+                "price": 59.99
             },
             {
                 "type": "Case",
@@ -147,7 +150,10 @@
             "gpu_vram_gb": 16,
             "gpu_watts_source": "default 200W (no TDP recorded)",
             "ram_capacity_source": "specs.capacity",
-            "ram_speed": "DDR5-4800",
+            "ram_speed": "DDR5-5600",
+            "ram_layout": "2 x 8GB",
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue to verify it",
             "case_form_factor_source": "specs.form_factor (verified backfill 2026-09-29, 399/399)",
             "case_price_floor": "£45 enforced (brand integrity: cheapest 4 ATX cases are £17.99-£19.99)",
             "board_chipset_class": "/\\bB650M?\\b/i | /\\bB850M?\\b/i | /\\bX670E?\\b/i | /\\bX870[E]?\\b/i required by tier",
@@ -161,14 +167,14 @@
     },
     {
         "name": "High End 1440p",
-        "total": 2165.32,
+        "total": 2124.2,
         "socket": "AM5",
         "tagline": null,
         "notes": null,
         "integrated_graphics": false,
         "estimated_draw_watts": 410,
-        "psu_watts": 600,
-        "headroom": 1.46,
+        "psu_watts": 850,
+        "headroom": 2.07,
         "case_form_factor": "ATX",
         "board_form_factor": "unknown (treated as ATX-width; no board FF evidence exists)",
         "parts": [
@@ -198,15 +204,15 @@
             },
             {
                 "type": "Storage",
-                "id": 40861,
-                "name": "Silicon Power Ace A5X 1024GB",
-                "price": 92.97
+                "id": 40878,
+                "name": "Western Digital Blue SN580 500GB",
+                "price": 47.15
             },
             {
                 "type": "PSU",
-                "id": 40982,
-                "name": "Thermaltake Smart 600W",
-                "price": 65.25
+                "id": 41229,
+                "name": "Aerocool Integrator Gold 850W",
+                "price": 69.95
             },
             {
                 "type": "Case",
@@ -231,6 +237,9 @@
             "gpu_watts_source": "default 200W (no TDP recorded)",
             "ram_capacity_source": "specs.capacity",
             "ram_speed": "DDR5-5600",
+            "ram_layout": "2 x 16GB",
+            "psu_efficiency": "GOLD",
+            "psu_efficiency_source": "NAME MATCH on the product name - no efficiency field exists in the catalogue to verify it",
             "case_form_factor_source": "specs.form_factor (verified backfill 2026-09-29, 399/399)",
             "case_price_floor": "£70 enforced (brand integrity: cheapest 4 ATX cases are £17.99-£19.99)",
             "board_chipset_class": "/\\bB650E\\b/i | /\\bB850M?\\b/i | /\\bX670[E]?\\b/i | /\\bX870[E]?\\b/i required by tier",

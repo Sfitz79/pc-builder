@@ -355,9 +355,21 @@ class BuilderController extends Controller
     protected function gateComponents($components)
     {
         try {
-            return $components->reject(
-                fn (Component $c) => CatalogueGate::rejectReason($c) !== null
-            );
+            return $components->reject(function (Component $c) {
+                if (CatalogueGate::rejectReason($c) !== null) {
+                    return true;
+                }
+
+                // Brand policy, applied storefront-wide.
+                //
+                // The instruction was "across the board", so the blocklist has to
+                // reach the catalogue the customer actually browses, not just the
+                // prebuilt assembler. Measured on the live catalogue before this:
+                // 32 Silicon Power, 5 FanXiang and 59 Gigabyte rows outside
+                // AORUS/GAMING/WINDFORCE were all still being offered.
+                return ! app(\App\Services\BuildPolicyGate::class)
+                    ->brandAllowed($c->name, $c->manufacturer?->name)['ok'];
+            });
         } catch (\Throwable $e) {
             report($e);
             Log::warning('[catalogue] modern gate failed, serving ungated list', [

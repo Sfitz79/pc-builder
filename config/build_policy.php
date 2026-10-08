@@ -231,19 +231,23 @@ return [
         ],
         // Blocked unless the name also matches one of these.
         //
-        // MEASURED: "ELITE" appears on 0 Gigabyte rows that do not also carry
-        // "AORUS" - it is part of the AORUS naming (B850 AORUS ELITE), not a
-        // standalone line. The AORUS rule alone therefore already implements
-        // the instruction, and ELITE is listed for clarity rather than because
-        // it widens anything.
+        // Boss decision, 2026-10-08: AORUS, plus the mainstream GAMING and
+        // WINDFORCE lines. Everything else Gigabyte is blocked.
         //
-        // SCOPE WARNING, needs a Boss decision: this removes 117 active priced
-        // rows, including 42 GPUs and 58 motherboards from mainstream Gigabyte
-        // lines (GAMING, WINDFORCE, EAGLE, GV-R9070XTGAMING). All three
-        // published prebuilts currently contain a blocked part: every build
-        // uses a Silicon Power SSD and Mainstream uses a Gigabyte B650M S2H.
+        // Measured before that decision: "ELITE" appears on 0 Gigabyte rows
+        // that do not also carry "AORUS" - it is part of the AORUS naming
+        // (B850 AORUS ELITE), not a standalone line, so it is listed for
+        // clarity rather than because it widens the set.
+        //
+        // GAMING and WINDFORCE are Gigabyte-specific line names, so matching
+        // them is safe here: the conditional block only applies to a row whose
+        // name already contains "Gigabyte", so an ASUS TUF GAMING or an MSI MAG
+        // board is unaffected by these patterns.
+        //
+        // Confirmed by the Boss: applying this to the three already-published
+        // prebuilts is expected - all three carried a blocked part.
         'conditional_block' => [
-            'Gigabyte' => ['/\bAORUS\b/i', '/\bELITE\b/i'],
+            'Gigabyte' => ['/\bAORUS\b/i', '/\bGAMING\b/i', '/\bWINDFORCE\b/i', '/\bELITE\b/i'],
         ],
         'match' => 'name_and_manufacturer',
     ],

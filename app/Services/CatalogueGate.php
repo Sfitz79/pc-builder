@@ -113,7 +113,13 @@ class CatalogueGate
     ];
 
     /** Entry chipsets: no real VRM or update path for a gaming build. */
-    public const ENTRY_CHIPSETS = ['A320', 'A520', 'A620', 'Q570', 'Q650', 'B450', 'X460', 'X470', 'H610', 'H670', 'H810', 'B660', 'Z490', 'Z590'];
+    //
+    // B840 was MISSING while B660 was present, so 8 B840 boards were still being
+    // offered in the live storefront catalogue - verified against the deployed
+    // /builder/catalog payload, where A520M, A620M and B450 correctly returned 0
+    // but B840 returned 8. It is one of the "*40" families the AMD board gate
+    // excludes.
+    public const ENTRY_CHIPSETS = ['A320', 'A520', 'A620', 'Q570', 'Q650', 'B450', 'B840', 'X460', 'X470', 'H610', 'H670', 'H810', 'B660', 'Z490', 'Z590'];
 
     /** Chipset prefixes, longest first so X870E is not read as X870. */
     public const CHIPSET_PATTERNS = [

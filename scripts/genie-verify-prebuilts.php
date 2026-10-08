@@ -21,6 +21,7 @@ require __DIR__ . '/genie-prod-guard.php';
 
 use App\Models\Component;
 use App\Services\AIRecommendationService;
+use App\Services\BuildPolicyGate;
 
 $fail = 0;
 $t = function (bool $ok, string $l) use (&$fail) {
@@ -41,6 +42,7 @@ $chipsetOf = function (string $name): ?string {
 };
 
 $service = app(AIRecommendationService::class);
+$policy = new BuildPolicyGate();
 $builds = json_decode(file_get_contents(__DIR__ . '/../database/scraped/prebuilts.json'), true);
 printf("builds: %d\n\n", count($builds));
 
@@ -137,6 +139,35 @@ foreach ($builds as $b) {
 
     $t((int) ($b['psu_watts'] ?? 0) > 0, 'PSU wattage recorded');
     $t((float) ($b['headroom'] ?? 0) > 1.0, sprintf('PSU headroom %.2fx', (float) ($b['headroom'] ?? 0)));
+
+    // --- the shared policy, applied to every part -------------------------
+    echo "  -- BuildPolicyGate --\n";
+    foreach ($byType as $type => $part) {
+        $slug = strtolower($type);
+        $res = match ($slug) {
+            'cpu' => $policy->cpuAllowed($part),
+            'motherboard' => $policy->boardAllowed($part),
+            'ram' => $policy->ramAllowed($part, $socket),
+            'storage' => $policy->storageAllowed($part),
+            'gpu' => $policy->gpuAllowed($part),
+            default => null,
+        };
+        if ($res === null) {
+            continue;
+        }
+        $t($res['ok'], sprintf('%-11s %s%s', $slug, substr($part->name, 0, 40),
+            $res['ok'] ? '' : '  -> ' . $res['reason']));
+    }
+    foreach ($byType as $type => $part) {
+        $brand = $policy->brandAllowed($part->name);
+        $t($brand['ok'], sprintf('brand %-6s %s%s', strtolower($type), substr($part->name, 0, 38),
+            $brand['ok'] ? '' : '  -> ' . $brand['reason']));
+    }
+    if (isset($byType['PSU'])) {
+        $eff = $policy->psuEfficiencyRank($byType['PSU']);
+        printf("       PSU efficiency: %s (known=%s, rank=%d)\n",
+            $eff['rating'] ?? 'UNREADABLE', $eff['known'] ? 'yes' : 'no', $eff['rank']);
+    }
     echo "\n";
 }
 
