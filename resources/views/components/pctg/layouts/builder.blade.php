@@ -73,8 +73,27 @@
                 <x-pctg.sidebar />
 
                 {{-- Main Content --}}
+                {{-- MEASURED 2026-10-08, mobile-first. At a 360px viewport the page
+                     scrolled horizontally: documentElement.scrollWidth 388 against
+                     clientWidth 360.
+
+                     main is a flex item, and a flex item's default `min-width` is
+                     `auto`, which means it refuses to shrink below its own min-content
+                     width. Something inside needs 356px, so main could not go below
+                     356 + 32px of p-4 = 388px, and the whole document scrolled sideways
+                     on the narrowest phones - exactly the case a mobile-first layout
+                     has to get right.
+
+                     `min-w-0` removes that floor and lets the content reflow. It does
+                     not change the desktop layout: above md the column is 621-1475px
+                     wide and far above its min-content, so the floor was never binding
+                     there anyway.
+
+                     Verified across 360 / 390 / 768 / 1280 / 1920 / 2560 by
+                     scripts/measure-builder-cards.mjs. --}}
                 <main
                     class="
+                        min-w-0
                         flex-1
                         p-4
                         pb-36
