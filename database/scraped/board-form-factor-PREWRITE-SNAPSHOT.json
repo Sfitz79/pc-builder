@@ -1,0 +1,2785 @@
+{
+    "taken": "2026-10-08T12:11:00+00:00",
+    "row_count": 397,
+    "rows": [
+        {
+            "id": 39536,
+            "name": "MSI MAG B850 TOMAHAWK MAX WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/vjpD4D\/msi-mag-b850-tomahawk-max-wifi-atx-am5-motherboard-mag-b850-tomahawk-max-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39537,
+            "name": "Gigabyte B850 AORUS ELITE WIFI7",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/72RnTW\/gigabyte-b850-aorus-elite-wifi7-atx-am5-motherboard-b850-aorus-elite-wifi7",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39538,
+            "name": "Asus PRIME B550M-A WIFI II",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/jQrRsY\/asus-prime-b550m-a-wifi-ii-micro-atx-am4-motherboard-prime-b550m-a-wifi-ii",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39541,
+            "name": "Asus TUF GAMING B650-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Pz2WGX\/asus-tuf-gaming-b650-plus-wifi-atx-am5-motherboard-tuf-gaming-b650-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39542,
+            "name": "Gigabyte A520M K V2",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/ZjCZxr\/gigabyte-a520m-k-v2-micro-atx-am4-motherboard-a520m-k-v2",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39543,
+            "name": "MSI B550M PRO-VDH WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/PDsnTW\/msi-b550m-pro-vdh-wifi-micro-atx-am4-motherboard-b550m-pro-vdh-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39544,
+            "name": "Gigabyte B550 EAGLE WIFI6",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/fzNscf\/gigabyte-b550-eagle-wifi6-atx-am4-motherboard-b550-eagle-wifi6",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39545,
+            "name": "Gigabyte B650M GAMING PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/9HTZxr\/gigabyte-b650m-gaming-plus-wifi-micro-atx-am5-motherboard-b650m-gaming-plus-wf",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39546,
+            "name": "ASRock B850M Pro-A WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/FFdMnQ\/asrock-b850m-pro-a-wifi-micro-atx-am5-motherboard-b850m-pro-a-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39547,
+            "name": "Asus TUF GAMING B850-E WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/RNBFf7\/asus-tuf-gaming-b850-e-wifi-atx-am5-motherboard-tuf-gaming-b850-e-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39549,
+            "name": "Gigabyte X870E AORUS ELITE WIFI7",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/pLtLrH\/gigabyte-x870e-aorus-elite-wifi7-atx-am5-motherboard-x870e-aorus-elite-wifi7",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39550,
+            "name": "Gigabyte B850 EAGLE WIFI6E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Rf8Pxr\/gigabyte-b850-eagle-wifi6e-atx-am5-motherboard-b850-eagle-wifi6e",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39551,
+            "name": "ASRock B850I Lightning WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/9hqNnQ\/asrock-b850i-lightning-wifi-mini-itx-am5-motherboard-b850i-lightning-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39552,
+            "name": "MSI MAG B650 TOMAHAWK WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/LwNxFT\/msi-mag-b650-tomahawk-wifi-atx-am5-motherboard-mag-b650-tomahawk-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39553,
+            "name": "ASRock B650M Pro RS WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/qcbRsY\/asrock-b650m-pro-rs-wifi-micro-atx-am5-motherboard-b650m-pro-rs-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39554,
+            "name": "Gigabyte B760M GAMING PLUS WIFI DDR4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/NMWJ7P\/gigabyte-b760m-gaming-plus-wifi-ddr4-micro-atx-lga1700-motherboard-b760m-g-p-wifi-ddr4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39555,
+            "name": "Asus ROG STRIX B850-A GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/d4CCmG\/asus-rog-strix-b850-a-gaming-wifi-atx-am5-motherboard-rog-strix-b850-a-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39556,
+            "name": "Asus TUF GAMING B850-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/sRG2FT\/asus-tuf-gaming-b850-plus-wifi-atx-am5-motherboard-tuf-gaming-b850-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39557,
+            "name": "Asus ROG STRIX B650E-I GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/WQTp99\/asus-rog-strix-b650e-i-gaming-wifi-mini-itx-am5-motherboard-rog-strix-b650e-i-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39558,
+            "name": "MSI PRO B550M-VC WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/tr4Ycf\/msi-pro-b550m-vc-wifi-micro-atx-am4-motherboard-pro-b550m-vc-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39559,
+            "name": "MSI MAG X870 TOMAHAWK WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/WzzXsY\/msi-mag-x870-tomahawk-wifi-atx-am5-motherboard-mag-x870-tomahawk-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39560,
+            "name": "Asus ROG CROSSHAIR X870E DARK HERO",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/mV9nTW\/asus-rog-crosshair-x870e-dark-hero-atx-am5-motherboard-rog-crosshair-x870e-dark-hero",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39563,
+            "name": "MSI B650 GAMING PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/szfxFT\/msi-b650-gaming-plus-wifi-atx-am5-motherboard-b650-gaming-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39564,
+            "name": "MSI PRO B760-P WIFI DDR4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/yMGbt6\/msi-pro-b760-p-wifi-ddr4-atx-lga1700-motherboard-pro-b760-p-wifi-ddr4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39565,
+            "name": "Gigabyte X870 AORUS ELITE WIFI7 ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/HZtLrH\/gigabyte-x870-aorus-elite-wifi7-ice-atx-am5-motherboard-x870-aorus-elite-wifi7-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39566,
+            "name": "Asus ROG CROSSHAIR X870E GLACIAL",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/r9dMnQ\/asus-rog-crosshair-x870e-glacial-eatx-am5-motherboard-rog-crosshair-x870e-glacial",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39567,
+            "name": "MSI B850 GAMING PLUS WIFI6E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/CpQwrH\/msi-b850-gaming-plus-wifi6e-atx-am5-motherboard-b850-gaming-plus-wifi6e",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39568,
+            "name": "Asus ROG STRIX B550-F GAMING WIFI II",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/K4LFf7\/asus-rog-strix-b550-f-gaming-wifi-ii-atx-am4-motherboard-strix-b550-f-gaming-wifi-ii",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39569,
+            "name": "MSI PRO B850-S WIFI6E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/GP7MnQ\/msi-pro-b850-s-wifi6e-atx-am5-motherboard-pro-b850-s-wifi6e",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39571,
+            "name": "ASRock B550M-ITX\/ac",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"width\":170,\"depth\":170,\"dimension_source\":\"Mini-ITX form factor is fixed by published specification\"}",
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/G6VG3C\/asrock-b550m-itxac-mini-itx-am4-motherboard-b550m-itxac",
+            "updated_at": "2026-10-05 20:30:17"
+        },
+        {
+            "id": 39570,
+            "name": "ASRock B850M-X R2.0",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/BspD4D\/asrock-b850m-x-r20-micro-atx-am5-motherboard-b850m-x-r20",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39572,
+            "name": "Gigabyte A520I AC",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/s6tKHx\/gigabyte-a520i-ac-mini-itx-am4-motherboard-a520i-ac",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39573,
+            "name": "Asus ROG STRIX B850-I GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/ysJBD3\/asus-rog-strix-b850-i-gaming-wifi-mini-itx-am5-motherboard-rog-strix-b850-i-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39574,
+            "name": "Gigabyte B650 GAMING X AX V2",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/cPNYcf\/gigabyte-b650-gaming-x-ax-v2-atx-am5-motherboard-b650-gaming-x-ax-v2",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39575,
+            "name": "Gigabyte B550M GAMING X WIFI6",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/sd9nTW\/gigabyte-b550m-gaming-x-wifi6-micro-atx-am4-motherboard-b550m-gaming-x-wifi6",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39576,
+            "name": "Gigabyte Z790 EAGLE AX",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Yj7scf\/gigabyte-z790-eagle-ax-atx-lga1700-motherboard-z790-eagle-ax",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39577,
+            "name": "Gigabyte B850M GAMING X WIFI6E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/KCy8TW\/gigabyte-b850m-gaming-x-wifi6e-micro-atx-am5-motherboard-b850m-gaming-x-wifi6e",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39578,
+            "name": "Asus ROG STRIX X870E-E GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/MfNYcf\/asus-rog-strix-x870e-e-gaming-wifi-atx-am5-motherboard-rog-strix-x870e-e-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39579,
+            "name": "Gigabyte B850M EAGLE WIFI6E ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/JXfV3C\/gigabyte-b850m-eagle-wifi6e-ice-micro-atx-am5-motherboard-b850m-eagle-wifi6e-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39580,
+            "name": "Gigabyte B550M AORUS ELITE AX",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/YhtLrH\/gigabyte-b550m-aorus-elite-ax-micro-atx-am4-motherboard-b550m-aorus-elite-ax",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39581,
+            "name": "ASRock B650I Lightning Wifi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/rVfxFT\/asrock-b650i-lightning-wifi-mini-itx-am5-motherboard-b650i-lightning-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39582,
+            "name": "ASRock B650M Pro RS",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/FcbRsY\/asrock-b650m-pro-rs-micro-atx-am5-motherboard-b650m-pro-rs",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39583,
+            "name": "Gigabyte X870 GAMING WIFI6",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/n3cgXL\/gigabyte-x870-gaming-wifi6-atx-am5-motherboard-x870-gaming-wifi6",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39585,
+            "name": "MSI MPG B550 GAMING PLUS",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/yKVG3C\/msi-mpg-b550-gaming-plus-atx-am4-motherboard-mpg-b550-gaming-plus",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39586,
+            "name": "MSI Z790 GAMING PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/nYfxFT\/msi-z790-gaming-plus-wifi-atx-lga1700-motherboard-z790-gaming-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39587,
+            "name": "MSI MAG X870E TOMAHAWK WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/mgJBD3\/msi-mag-x870e-tomahawk-wifi-atx-am5-motherboard-mag-x870e-tomahawk-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39588,
+            "name": "Gigabyte B550I AORUS PRO AX",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/9pn8TW\/gigabyte-b550i-aorus-pro-ax-mini-itx-am4-motherboard-b550i-aorus-pro-ax",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39540,
+            "name": "Gigabyte B650 EAGLE AX",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/CvcgXL\/gigabyte-b650-eagle-ax-atx-am5-motherboard-b650-eagle-ax",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39589,
+            "name": "Asus TUF GAMING B650-E WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/9BJp99\/asus-tuf-gaming-b650-e-wifi-atx-am5-motherboard-tuf-gaming-b650-e-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39590,
+            "name": "Asus ROG STRIX B860-I GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/F4qNnQ\/asus-rog-strix-b860-i-gaming-wifi-mini-itx-lga1851-motherboard-rog-strix-b860-i-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39591,
+            "name": "Gigabyte B550 GAMING X V2",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/KxFbt6\/gigabyte-b550-gaming-x-v2-atx-am4-motherboard-b550-gaming-x-v2",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39592,
+            "name": "Asus ROG STRIX B850-F GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/9hy8TW\/asus-rog-strix-b850-f-gaming-wifi-atx-am5-motherboard-rog-strix-b850-f-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39593,
+            "name": "ASRock B550M Pro4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/NT7p99\/asrock-b550m-pro4-micro-atx-am4-motherboard-b550m-pro4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39594,
+            "name": "Gigabyte X870 EAGLE WIFI7",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/mhWJ7P\/gigabyte-x870-eagle-wifi7-atx-am5-motherboard-x870-eagle-wifi7",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39595,
+            "name": "Gigabyte B850 EAGLE WIFI7 ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/rBqNnQ\/gigabyte-b850-eagle-wifi7-ice-atx-am5-motherboard-b850-eagle-wifi7-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39596,
+            "name": "Asus ROG CROSSHAIR X870E EXTREME",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/NDkqqs\/asus-rog-crosshair-x870e-extreme-eatx-am5-motherboard-rog-crosshair-x870e-extreme",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39597,
+            "name": "MSI MAG B850M MORTAR WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/m74Pxr\/msi-mag-b850m-mortar-wifi-micro-atx-am5-motherboard-mag-b850m-mortar-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39598,
+            "name": "MSI PRO H610M-G DDR4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/hPWzK8\/msi-pro-h610m-g-ddr4-micro-atx-lga1700-motherboard-pro-h610m-g-ddr4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39599,
+            "name": "Asus ROG STRIX X870E-E GAMING WIFI7 NEO",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/hLRnTW\/asus-rog-strix-x870e-e-gaming-wifi7-neo-atx-am5-motherboard-rog-strix-x870e-e-gaming-wifi7-neo",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39601,
+            "name": "ASRock B860 Rock WiFi 7",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/QTTFf7\/asrock-b860-rock-wifi-7-atx-lga1851-motherboard-b860-rock-wifi-7",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39602,
+            "name": "MSI A520M-A PRO",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/nZTzK8\/msi-a520m-a-pro-micro-atx-am4-motherboard-a520m-a-pro",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39603,
+            "name": "Asus ROG STRIX X870-I GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Pm6NnQ\/asus-rog-strix-x870-i-gaming-wifi-mini-itx-am5-motherboard-rog-strix-x870-i-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39604,
+            "name": "ASRock B650M-H\/M.2+",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/xFmNnQ\/asrock-b650m-hm2-micro-atx-am5-motherboard-b650m-hm2",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39606,
+            "name": "Gigabyte B850 AORUS ELITE WIFI7 ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/VtJBD3\/gigabyte-b850-aorus-elite-wifi7-ice-atx-am5-motherboard-b850-aorus-elite-wifi7-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39607,
+            "name": "MSI PRO B850M-P WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/p7G2FT\/msi-pro-b850m-p-wifi-micro-atx-am5-motherboard-pro-b850m-p-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39608,
+            "name": "Asus ProArt X870E-CREATOR WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/mFFmP6\/asus-proart-x870e-creator-wifi-atx-am5-motherboard-proart-x870e-creator-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39609,
+            "name": "Asus ROG STRIX B650-A GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Gjt9TW\/asus-rog-strix-b650-a-gaming-wifi-atx-am5-motherboard-rog-strix-b650-a-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39611,
+            "name": "Gigabyte B850 GAMING X WIFI6E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/9xYfrH\/gigabyte-b850-gaming-x-wifi6e-atx-am5-motherboard-b850-gaming-x-wifi6e",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39612,
+            "name": "ASRock B650 Steel Legend WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/MgHqqs\/asrock-b650-steel-legend-wifi-atx-am5-motherboard-b650-steel-legend-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39613,
+            "name": "MSI PRO B850M-A WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/tvdMnQ\/msi-pro-b850m-a-wifi-micro-atx-am5-motherboard-pro-b850m-a-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39614,
+            "name": "Asus ROG STRIX X870E-A GAMING WIFI7 NEO",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/gs4Pxr\/asus-rog-strix-x870e-a-gaming-wifi7-neo-atx-am5-motherboard-rog-strix-x870e-a-gaming-wifi7-neo",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39615,
+            "name": "ASRock B550 Phantom Gaming 4\/ac",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Ytdrxr\/asrock-b550-phantom-gaming-4ac-atx-am4-motherboard-b550-phantom-gaming-4ac",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39616,
+            "name": "Gigabyte X870I AORUS PRO ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/3LV2FT\/gigabyte-x870i-aorus-pro-ice-mini-itx-am5-motherboard-x870i-aorus-pro-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39617,
+            "name": "MSI PRO B760M-P DDR4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/M6nypg\/msi-pro-b760m-p-ddr4-micro-atx-lga1700-motherboard-pro-b760m-p-ddr4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39618,
+            "name": "Asus ROG STRIX X870-A GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/ybBzK8\/asus-rog-strix-x870-a-gaming-wifi-atx-am5-motherboard-rog-strix-x870-a-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39620,
+            "name": "Asus TUF GAMING B850M-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/c3FCmG\/asus-tuf-gaming-b850m-plus-wifi-micro-atx-am5-motherboard-tuf-gaming-b850m-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39621,
+            "name": "Gigabyte B550M DS3H AC R2",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/HwcBD3\/gigabyte-b550m-ds3h-ac-r2-micro-atx-am4-motherboard-b550m-ds3h-ac-r2",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39622,
+            "name": "MSI PRO B650-S WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/mP88TW\/msi-pro-b650-s-wifi-atx-am5-motherboard-pro-b650-s-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39623,
+            "name": "Gigabyte B650M GAMING WIFI6E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/sNQwrH\/gigabyte-b650m-gaming-wifi6e-micro-atx-am5-motherboard-b650m-gaming-wifi6e",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39624,
+            "name": "MSI MPG X870E CARBON WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/dGWJ7P\/msi-mpg-x870e-carbon-wifi-atx-am5-motherboard-mpg-x870e-carbon-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39625,
+            "name": "Asus TUF GAMING B860M-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/p3bypg\/asus-tuf-gaming-b860m-plus-wifi-micro-atx-lga1851-motherboard-tuf-gaming-b860m-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39626,
+            "name": "MSI PRO X870E-P WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/bcG2FT\/msi-pro-x870e-p-wifi-atx-am5-motherboard-pro-x870e-p-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39634,
+            "name": "MSI MPG B850I EDGE TI WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/gvdMnQ\/msi-mpg-b850i-edge-ti-wifi-mini-itx-am5-motherboard-mpg-b850i-edge-ti-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39636,
+            "name": "Asus TUF GAMING B550M-PLUS WIFI II",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/kLNxFT\/asus-tuf-gaming-b550m-plus-wifi-ii-micro-atx-am4-motherboard-tuf-gaming-b550m-plus-wifi-ii",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39637,
+            "name": "Gigabyte A520M DS3H V2",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/rxfxFT\/gigabyte-a520m-ds3h-v2-micro-atx-am4-motherboard-a520m-ds3h-v2",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39638,
+            "name": "MSI B760 GAMING PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/TxcgXL\/msi-b760-gaming-plus-wifi-atx-lga1700-motherboard-b760-gaming-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39639,
+            "name": "MSI B850 GAMING PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/4XHp99\/msi-b850-gaming-plus-wifi-atx-am5-motherboard-b850-gaming-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39640,
+            "name": "MSI B760 GAMING PLUS WIFI DDR4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Zhhv6h\/msi-b760-gaming-plus-wifi-ddr4-atx-lga1700-motherboard-b760-gaming-plus-wifi-ddr4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39641,
+            "name": "Asus ROG CROSSHAIR X870E HERO",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Jzqrxr\/asus-rog-crosshair-x870e-hero-atx-am5-motherboard-rog-crosshair-x870e-hero",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39642,
+            "name": "Asus PRIME A620A-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Ypkqqs\/asus-prime-a620a-plus-wifi-atx-am5-motherboard-prime-a620a-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39643,
+            "name": "ASRock Phantom Gaming X870E Nova WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/4bFmP6\/asrock-phantom-gaming-x870e-nova-wifi-atx-am5-motherboard-x870e-nova-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39644,
+            "name": "MSI X870E GAMING PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/wqh2FT\/msi-x870e-gaming-plus-wifi-atx-am5-motherboard-x870e-gaming-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39645,
+            "name": "Asus ROG CROSSHAIR X870E HERO BTF",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/B9FCmG\/asus-rog-crosshair-x870e-hero-btf-atx-am5-motherboard-rog-crosshair-x870e-hero-btf",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39646,
+            "name": "Asus TUF GAMING B650E-E WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/K8XMnQ\/asus-tuf-gaming-b650e-e-wifi-atx-am5-motherboard-tuf-gaming-b650e-e-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39647,
+            "name": "Asus TUF GAMING X870-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/KT88TW\/asus-tuf-gaming-x870-plus-wifi-atx-am5-motherboard-tuf-gaming-x870-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39651,
+            "name": "ASRock A520M-ITX\/ac",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"width\":170,\"depth\":170,\"dimension_source\":\"Mini-ITX form factor is fixed by published specification\"}",
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/zBn8TW\/asrock-a520m-itxac-mini-itx-am4-motherboard-a520m-itxac",
+            "updated_at": "2026-10-05 20:30:17"
+        },
+        {
+            "id": 39600,
+            "name": "ASRock A620AI WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/FcG2FT\/asrock-a620ai-wifi-mini-itx-am5-motherboard-a620ai-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39648,
+            "name": "Gigabyte B850M AORUS ELITE WIFI6E ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Q8KnTW\/gigabyte-b850m-aorus-elite-wifi6e-ice-micro-atx-am5-motherboard-b850m-aorus-elite-wifi6e-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39649,
+            "name": "ASRock B550M-HDV",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/LKLwrH\/asrock-b550m-hdv-micro-atx-am4-motherboard-b550m-hdv",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39650,
+            "name": "Asus PRIME B550-PLUS AC-HES",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/4bqPxr\/asus-prime-b550-plus-ac-hes-atx-am4-motherboard-prime-b550-plus-ac-hes",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39652,
+            "name": "MSI B760M GAMING PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/fGtLrH\/msi-b760m-gaming-plus-wifi-micro-atx-lga1700-motherboard-b760m-gaming-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39653,
+            "name": "Gigabyte B550M DS3H R2",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/ptnXsY\/gigabyte-b550m-ds3h-r2-micro-atx-am4-motherboard-b550m-ds3h-r2",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39654,
+            "name": "MSI Z890 GAMING PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/42grxr\/msi-z890-gaming-plus-wifi-atx-lga1851-motherboard-z890-gaming-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39655,
+            "name": "Asus TUF GAMING A520M-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/T6YmP6\/asus-tuf-gaming-a520m-plus-wifi-micro-atx-am4-motherboard-tuf-gaming-a520m-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39656,
+            "name": "ASRock X870E Taichi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/6HkH99\/asrock-x870e-taichi-eatx-am5-motherboard-x870e-taichi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39658,
+            "name": "ASRock A620AM-X",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/BNgZxr\/asrock-a620am-x-micro-atx-am5-motherboard-a620am-x",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39659,
+            "name": "ASRock B850M Pro RS WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/KyfV3C\/asrock-b850m-pro-rs-wifi-micro-atx-am5-motherboard-b850m-pro-rs-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39660,
+            "name": "ASRock B860M Pro-A WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/NcYfrH\/asrock-b860m-pro-a-wifi-micro-atx-lga1851-motherboard-b860m-pro-a-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39661,
+            "name": "Asus TUF GAMING Z790-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/s3cG3C\/asus-tuf-gaming-z790-plus-wifi-atx-lga1700-motherboard-tuf-gaming-z790-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39662,
+            "name": "Asus ROG STRIX B550-A GAMING",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/y96qqs\/asus-rog-strix-b550-a-gaming-atx-am4-motherboard-rog-strix-b550-a-gaming",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39663,
+            "name": "Gigabyte X870E AORUS PRO ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/3QtLrH\/gigabyte-x870e-aorus-pro-ice-atx-am5-motherboard-x870e-aorus-pro-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39664,
+            "name": "Asus TUF GAMING B850M-E WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/3K2j4D\/asus-tuf-gaming-b850m-e-wifi-micro-atx-am5-motherboard-tuf-gaming-b850m-e-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39665,
+            "name": "Gigabyte B650 AORUS ELITE AX ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/CwjRsY\/gigabyte-b650-aorus-elite-ax-ice-atx-am5-motherboard-b650-aorus-elite-ax-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39666,
+            "name": "Asus PRIME B650-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/KtcgXL\/asus-prime-b650-plus-wifi-atx-am5-motherboard-prime-b650-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39667,
+            "name": "MSI MAG Z890 TOMAHAWK WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/BW26Mp\/msi-mag-z890-tomahawk-wifi-atx-lga1851-motherboard-mag-z890-tomahawk-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39668,
+            "name": "Gigabyte B850 GAMING WIFI6",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/3f8Pxr\/gigabyte-b850-gaming-wifi6-atx-am5-motherboard-b850-gaming-wifi6",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39669,
+            "name": "ASRock B650M-HDV\/M.2 White",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/8LFCmG\/asrock-b650m-hdvm2-white-micro-atx-am5-motherboard-b650m-hdvm2-white",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39670,
+            "name": "Gigabyte Z890 EAGLE WIFI7 PLUS",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/y9zp99\/gigabyte-z890-eagle-wifi7-plus-atx-lga1851-motherboard-z890-eagle-wifi7-plus",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39672,
+            "name": "MSI B850 GAMING PRO WIFI6E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/gnCCmG\/msi-b850-gaming-pro-wifi6e-atx-am5-motherboard-b850-gaming-pro-wifi6e",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39673,
+            "name": "MSI B650M GAMING PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/QcvD4D\/msi-b650m-gaming-plus-wifi-micro-atx-am5-motherboard-b650m-gaming-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39675,
+            "name": "Gigabyte B550 AORUS ELITE AX V2",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Vb3mP6\/gigabyte-b550-aorus-elite-ax-v2-atx-am4-motherboard-b550aorus-elite-axv2",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39676,
+            "name": "Gigabyte X870 AORUS STEALTH",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/HBdMnQ\/gigabyte-x870-aorus-stealth-atx-am5-motherboard-x870-aorus-stealth",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39677,
+            "name": "Gigabyte Z890 AORUS ELITE WIFI7",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/WjP8TW\/gigabyte-z890-aorus-elite-wifi7-atx-lga1851-motherboard-z890-aorus-elite-wifi7",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39678,
+            "name": "Gigabyte Z790 AORUS ELITE AX",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/T2H7YJ\/gigabyte-z790-aorus-elite-ax-atx-lga1700-motherboard-z790-aorus-elite-ax",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39679,
+            "name": "Gigabyte B650E EAGLE WIFI6E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/9NFCmG\/gigabyte-b650e-eagle-wifi6e-atx-am5-motherboard-b650e-eagle-wifi6e",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39701,
+            "name": "Asus TUF GAMING B760M-PLUS WIFI II",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Wnrqqs\/asus-tuf-gaming-b760m-plus-wifi-ii-micro-atx-lga1700-motherboard-tuf-gaming-b760m-plus-wifi-ii",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39702,
+            "name": "ASRock B860I WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/sLJBD3\/asrock-b860i-wifi-mini-itx-lga1851-motherboard-b860i-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39703,
+            "name": "MSI MEG X870E GODLIKE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/pRLdnQ\/msi-meg-x870e-godlike-eatx-am5-motherboard-meg-x870e-godlike",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39704,
+            "name": "Asus TUF GAMING X870E-PLUS WIFI7",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/QjJBD3\/asus-tuf-gaming-x870e-plus-wifi7-atx-am5-motherboard-tuf-gaming-x870e-plus-wifi7",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39705,
+            "name": "ASRock X870 Pro RS WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/mtcgXL\/asrock-x870-pro-rs-wifi-atx-am5-motherboard-x870-pro-rs-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39706,
+            "name": "MSI PRO X870-P WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/2WV2FT\/msi-pro-x870-p-wifi-atx-am5-motherboard-pro-x870-p-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39707,
+            "name": "Gigabyte B550 EAGLE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/4f9nTW\/gigabyte-b550-eagle-atx-am4-motherboard-b550-eagle",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39708,
+            "name": "ASRock H610M-HDV\/M.2+ D5",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/z7GhP6\/asrock-h610m-hdvm2-d5-micro-atx-lga1700-motherboard-h610m-hdvm2-d5",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39709,
+            "name": "MSI MAG B850 TOMAHAWK WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/w6dMnQ\/msi-mag-b850-tomahawk-wifi-atx-am5-motherboard-mag-b850-tomahawk-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39710,
+            "name": "ASRock B550M Steel Legend",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/nFhmP6\/asrock-b550m-steel-legend-micro-atx-am4-motherboard-b550m-steel-legend",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39711,
+            "name": "Gigabyte A520M S2H",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/HVK2FT\/gigabyte-a520m-s2h-micro-atx-am4-motherboard-a520m-s2h",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39712,
+            "name": "MSI B550M PRO-VDH",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/DLcG3C\/msi-b550m-pro-vdh-micro-atx-am4-motherboard-b550m-pro-vdh",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39713,
+            "name": "Gigabyte X870E AORUS XTREME X3D AI TOP",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/mXNscf\/gigabyte-x870e-aorus-xtreme-x3d-ai-top-eatx-am5-motherboard-x870e-aorus-xtreme-x3d-ai-top",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39714,
+            "name": "MSI PRO Z790-P WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/k7mmP6\/msi-pro-z790-p-wifi-atx-lga1700-motherboard-pro-z790-p-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39715,
+            "name": "ASRock B450M\/ac R2.0",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/KcyH99\/asrock-b450mac-r20-micro-atx-am4-motherboard-b450mac-r20",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39716,
+            "name": "Gigabyte X870 AORUS STEALTH ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/yqBFf7\/gigabyte-x870-aorus-stealth-ice-atx-am5-motherboard-x870-a-stealth-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39717,
+            "name": "ASRock B860 Challenger WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/BKDnTW\/asrock-b860-challenger-wifi-atx-lga1851-motherboard-b860-challenger-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39731,
+            "name": "ASRock B760M-ITX\/D4 WiFi",
+            "specs": "{\"form_factor\":\"Mini-ITX\",\"width\":170,\"depth\":170,\"dimension_source\":\"Mini-ITX form factor is fixed by published specification\"}",
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/3xLFf7\/asrock-b760m-itxd4-wifi-mini-itx-lga1700-motherboard-b760m-itxd4-wifi",
+            "updated_at": "2026-10-05 20:30:17"
+        },
+        {
+            "id": 39671,
+            "name": "MSI PRO B850-P WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Ypbypg\/msi-pro-b850-p-wifi-atx-am5-motherboard-pro-b850-p-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39719,
+            "name": "Gigabyte B550M AORUS ELITE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Kb6qqs\/gigabyte-b550m-aorus-elite-micro-atx-am4-motherboard-b550m-aorus-elite",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39720,
+            "name": "Asus ROG STRIX B550-F GAMING",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/JXBhP6\/asus-rog-strix-b550-f-gaming-atx-am4-motherboard-rog-strix-b550-f-gaming",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39721,
+            "name": "Asus B850 MAX GAMING WIFI W",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/MCvscf\/asus-b850-max-gaming-wifi-w-atx-am5-motherboard-b850-max-gaming-wifi-w",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39722,
+            "name": "Gigabyte Z890 AORUS XTREME AI TOP",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/ZjP8TW\/gigabyte-z890-aorus-xtreme-ai-top-eatx-lga1851-motherboard-z890-aorus-xtreme-ai-top",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39723,
+            "name": "Asus ProArt Z890-CREATOR WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/mKCZxr\/asus-proart-z890-creator-wifi-atx-lga1851-motherboard-proart-z890-creator-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39724,
+            "name": "Gigabyte B850M AORUS ELITE WIFI6E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/rJy8TW\/gigabyte-b850m-aorus-elite-wifi6e-micro-atx-am5-motherboard-b850m-aorus-elite-wifi6e",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39725,
+            "name": "Asus TUF GAMING Z890-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/6jP8TW\/asus-tuf-gaming-z890-plus-wifi-atx-lga1851-motherboard-tuf-gaming-z890-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39726,
+            "name": "ASRock B850M Riptide WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/RjcBD3\/asrock-b850m-riptide-wifi-micro-atx-am5-motherboard-b850m-riptide-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39727,
+            "name": "Gigabyte X870 GAMING X WIFI7",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/9ZtLrH\/gigabyte-x870-gaming-x-wifi7-atx-am5-motherboard-x870-gaming-x-wifi7",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39729,
+            "name": "MSI B650M PROJECT ZERO",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/9sTZxr\/msi-b650m-project-zero-micro-atx-am5-motherboard-b650m-project-zero",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39730,
+            "name": "MSI B840 GAMING PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/ZnnXsY\/msi-b840-gaming-plus-wifi-atx-am5-motherboard-b840-gaming-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39732,
+            "name": "Gigabyte B650 EAGLE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/vXcgXL\/gigabyte-b650-eagle-atx-am5-motherboard-b650-eagle",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39733,
+            "name": "Gigabyte X870E AORUS PRO X3D ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/jhTFf7\/gigabyte-x870e-aorus-pro-x3d-ice-atx-am5-motherboard-x870e-a-pro-x-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39734,
+            "name": "MSI PRO Z790-A WIFI II",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/PFy8TW\/msi-pro-z790-a-wifi-ii-atx-lga1700-motherboard-pro-z790-a-wifi-ii",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39735,
+            "name": "Asus ROG STRIX B850-E GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/FQZWGX\/asus-rog-strix-b850-e-gaming-wifi-atx-am5-motherboard-rog-strix-b850-e-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39736,
+            "name": "Asus PRIME B650M-A AX II",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/9HVmP6\/asus-prime-b650m-a-ax-ii-micro-atx-am5-motherboard-prime-b650m-a-ax-ii",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39737,
+            "name": "Gigabyte X870M AORUS ELITE WIFI7",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/KxTFf7\/gigabyte-x870m-aorus-elite-wifi7-micro-atx-am5-motherboard-x870m-a-elite-wifi7",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39738,
+            "name": "ASRock B850M Pro-A",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/3VYfrH\/asrock-b850m-pro-a-micro-atx-am5-motherboard-b850m-pro-a",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39745,
+            "name": "Asus ROG STRIX X870-F GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/CpfxFT\/asus-rog-strix-x870-f-gaming-wifi-atx-am5-motherboard-rog-strix-x870-f-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39746,
+            "name": "MSI MPG X870E CARBON MAX WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/xqMXsY\/msi-mpg-x870e-carbon-max-wifi-atx-am5-motherboard-mpg-x870e-carbon-max-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39747,
+            "name": "Asus ROG STRIX B760-I GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/YxLFf7\/asus-rog-strix-b760-i-gaming-wifi-mini-itx-lga1700-motherboard-rog-strix-b760-i-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39748,
+            "name": "Gigabyte B650M AORUS ELITE AX ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/w3dG3C\/gigabyte-b650m-aorus-elite-ax-ice-micro-atx-am5-motherboard-b650m-aorus-elite-ax-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39749,
+            "name": "ASRock B850M Pro RS WiFi White",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/g79nTW\/asrock-b850m-pro-rs-wifi-white-micro-atx-am5-motherboard-b850m-pro-rs-wifi-white",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39750,
+            "name": "MSI PRO Z890-P WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/C9hv6h\/msi-pro-z890-p-wifi-atx-lga1851-motherboard-pro-z890-p-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39751,
+            "name": "Gigabyte B760M DS3H DDR4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/DLVmP6\/gigabyte-b760m-ds3h-ddr4-micro-atx-lga1700-motherboard-b760m-ds3h-ddr4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39752,
+            "name": "Gigabyte B850 EAGLE ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/ffm2FT\/gigabyte-b850-eagle-ice-atx-am5-motherboard-b850-eagle-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39753,
+            "name": "MSI PRO B840-P WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/TvVfrH\/msi-pro-b840-p-wifi-atx-am5-motherboard-pro-b840-p-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39754,
+            "name": "Gigabyte X870E AORUS ELITE X3D",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/6LYfrH\/gigabyte-x870e-aorus-elite-x3d-atx-am5-motherboard-x870e-a-elite-x",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39755,
+            "name": "ASRock B650M PG RIPTIDE WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Ng2WGX\/asrock-b650m-pg-riptide-wifi-micro-atx-am5-motherboard-b650m-pg-riptide-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39757,
+            "name": "MSI MAG X870E TOMAHAWK MAX WIFI PZ",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/vTqNnQ\/msi-mag-x870e-tomahawk-max-wifi-pz-atx-am5-motherboard-mag-x870e-tomahawk-max-wifi-pz",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39758,
+            "name": "Asus TUF GAMING B650M-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/dFzhP6\/asus-tuf-gaming-b650m-plus-wifi-micro-atx-am5-motherboard-tuf-gaming-b650m-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39760,
+            "name": "MSI MPG X870E EDGE TI WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/3hy8TW\/msi-mpg-x870e-edge-ti-wifi-atx-am5-motherboard-mpg-x870e-edge-ti-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39761,
+            "name": "Gigabyte X870E AORUS PRO",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/RXxxFT\/gigabyte-x870e-aorus-pro-atx-am5-motherboard-x870e-aorus-pro",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39762,
+            "name": "MSI PRO B760M-P",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/k7XV3C\/msi-pro-b760m-p-micro-atx-lga1700-motherboard-pro-b760m-p",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39763,
+            "name": "Asus TUF GAMING B850-BTF WIFI W",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/NXRnTW\/asus-tuf-gaming-b850-btf-wifi-w-atx-am5-motherboard-tuf-gaming-b850-btf-wifi-w",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39764,
+            "name": "Asus PRIME H610I-PLUS D4-CSM",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/M6t9TW\/asus-prime-h610i-plus-d4-csm-mini-itx-lga1700-motherboard-prime-h610i-plus-d4-csm",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39765,
+            "name": "ASRock B860M Pro-A",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/LsZWGX\/asrock-b860m-pro-a-micro-atx-lga1851-motherboard-b860m-pro-a",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39766,
+            "name": "MSI MAG B760 TOMAHAWK WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/CxLFf7\/msi-mag-b760-tomahawk-wifi-atx-lga1700-motherboard-mag-b760-tomahawk-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39767,
+            "name": "ASRock X870 Steel Legend WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/yCfxFT\/asrock-x870-steel-legend-wifi-atx-am5-motherboard-x870-steel-legend-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39768,
+            "name": "Asus PRIME A520M-K",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/khcRsY\/asus-prime-a520m-k-micro-atx-am4-motherboard-prime-a520m-k",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39769,
+            "name": "ASRock B850M Steel Legend WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/qxYfrH\/asrock-b850m-steel-legend-wifi-micro-atx-am5-motherboard-b850m-steel-legend-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39770,
+            "name": "Gigabyte H610M S2H V2",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/CZDQzy\/gigabyte-h610m-s2h-v2-micro-atx-lga1700-motherboard-h610m-s2h-v2",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39771,
+            "name": "Gigabyte B850 AORUS STEALTH ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/sn8Pxr\/gigabyte-b850-aorus-stealth-ice-atx-am5-motherboard-b850-a-stealth-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39772,
+            "name": "ASRock B850 Pro RS WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/hRG2FT\/asrock-b850-pro-rs-wifi-atx-am5-motherboard-b850-pro-rs-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39773,
+            "name": "Gigabyte X870E AERO X3D DARK WOOD",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/sjVfrH\/gigabyte-x870e-aero-x3d-dark-wood-atx-am5-motherboard-x870e-aero-x3d-dark-wood",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39774,
+            "name": "ASRock B550 Phantom Gaming 4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/4mjNnQ\/asrock-b550-phantom-gaming-4-atx-am4-motherboard-b550-phantom-gaming-4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39775,
+            "name": "MSI MEG X870E ACE MAX",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/n2G2FT\/msi-meg-x870e-ace-max-atx-am5-motherboard-meg-x870e-ace-max",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39778,
+            "name": "MSI MAG X870E GAMING PLUS MAX WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/bf4Pxr\/msi-mag-x870e-gaming-plus-max-wifi-atx-am5-motherboard-mag-x870e-gaming-plus-max-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39779,
+            "name": "Asus PRIME X870-P WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/d7zXsY\/asus-prime-x870-p-wifi-atx-am5-motherboard-prime-x870-p-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39780,
+            "name": "ASRock B650 PG LIGHTNING",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/jN3gXL\/asrock-b650-pg-lightning-atx-am5-motherboard-b650-pg-lightning",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39782,
+            "name": "Asus TUF GAMING B650M-E WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/nfyH99\/asus-tuf-gaming-b650m-e-wifi-micro-atx-am5-motherboard-tuf-gaming-b650m-e-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39783,
+            "name": "Gigabyte B650 AORUS ELITE AX V2",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/KrWJ7P\/gigabyte-b650-aorus-elite-ax-v2-atx-am5-motherboard-b650-aorus-elite-ax-v2",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39784,
+            "name": "Asus TUF GAMING B860-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/vZRnTW\/asus-tuf-gaming-b860-plus-wifi-atx-lga1851-motherboard-tuf-gaming-b860-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39785,
+            "name": "Gigabyte X870E AORUS MASTER",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/PdsV3C\/gigabyte-x870e-aorus-master-atx-am5-motherboard-x870e-aorus-master",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39786,
+            "name": "Gigabyte B850 AORUS STEALTH",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/zyBFf7\/gigabyte-b850-aorus-stealth-atx-am5-motherboard-b850-aorus-stealth",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39787,
+            "name": "MSI MAG X670E TOMAHAWK WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/bGfxFT\/msi-mag-x670e-tomahawk-wifi-atx-am5-motherboard-mag-x670e-tomahawk-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39788,
+            "name": "MSI PRO B860M-A WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/629nTW\/msi-pro-b860m-a-wifi-micro-atx-lga1851-motherboard-pro-b860m-a-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39789,
+            "name": "Asus PRO Q570M-C\/CSM",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/LbD7YJ\/asus-pro-q570m-ccsm-micro-atx-lga1200-motherboard-pro-q570m-ccsm",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39790,
+            "name": "Gigabyte X870E AORUS ELITE WIFI7 ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/FcMXsY\/gigabyte-x870e-aorus-elite-wifi7-ice-atx-am5-motherboard-x870e-aorus-elite-wifi7-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39791,
+            "name": "Asus ROG STRIX B650E-E GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/M36p99\/asus-rog-strix-b650e-e-gaming-wifi-atx-am5-motherboard-rog-strix-b650e-e-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39792,
+            "name": "ASRock B850 Pro-A",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/tccBD3\/asrock-b850-pro-a-atx-am5-motherboard-b850-pro-a",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39793,
+            "name": "MSI PRO-H610M-E-DDR4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/d72WGX\/msi-pro-h610m-e-ddr4-micro-atx-lga1700-motherboard-pro-h610m-e-ddr4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39759,
+            "name": "ASRock A520M-HVS",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/WWqBD3\/asrock-a520m-hvs-micro-atx-am4-motherboard-a520m-hvs",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39794,
+            "name": "ASRock B850M Pro RS",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/QFdMnQ\/asrock-b850m-pro-rs-micro-atx-am5-motherboard-b850m-pro-rs",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39795,
+            "name": "ASRock B450 Pro4 R2.0",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/wjcG3C\/asrock-b450-pro4-r20-atx-am4-motherboard-b450-pro4-r20",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39796,
+            "name": "Asus PRIME B760-PLUS D4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/6wwypg\/asus-prime-b760-plus-d4-atx-lga1700-motherboard-prime-b760-plus-d4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39797,
+            "name": "Asus PRIME B650M-A WIFI II",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/zFJgXL\/asus-prime-b650m-a-wifi-ii-micro-atx-am5-motherboard-prime-b650m-a-wifi-ii",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39800,
+            "name": "MSI B840M GAMING PLUS WIFI6E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/khFCmG\/msi-b840m-gaming-plus-wifi6e-micro-atx-am5-motherboard-b840m-gaming-plus-wifi6e",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39801,
+            "name": "Gigabyte B840M GAMING PLUS WIFI6E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/9vtkcf\/gigabyte-b840m-gaming-plus-wifi6e-micro-atx-am5-motherboard-b840m-gaming-plus-wifi6e",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39802,
+            "name": "Asus ROG STRIX Z790-F GAMING WIFI II",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/tJRwrH\/asus-rog-strix-z790-f-gaming-wifi-ii-atx-lga1700-motherboard-rog-strix-z790-f-gaming-wifi-ii",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39803,
+            "name": "ASRock B760M PG Lightning Wifi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/6Rn9TW\/asrock-b760m-pg-lightning-wifi-micro-atx-lga1700-motherboard-b760m-pg-lightning-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39804,
+            "name": "Asus ROG STRIX Z890-A GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/6Vrqqs\/asus-rog-strix-z890-a-gaming-wifi-atx-lga1851-motherboard-rog-strix-z890-a-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39805,
+            "name": "ASRock H810M-X WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/yKBFf7\/asrock-h810m-x-wifi-micro-atx-lga1851-motherboard-h810m-x-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39806,
+            "name": "ASRock X870 Taichi Creator",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/TyLp99\/asrock-x870-taichi-creator-atx-am5-motherboard-x870-taichi-creator",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39807,
+            "name": "Asus ROG CROSSHAIR X870E APEX",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/xtWmP6\/asus-rog-crosshair-x870e-apex-atx-am5-motherboard-rog-crosshair-x870e-apex",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39809,
+            "name": "Asus TUF GAMING B760-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/LqkH99\/asus-tuf-gaming-b760-plus-wifi-atx-lga1700-motherboard-tuf-gaming-b760-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39810,
+            "name": "ASRock A520M Pro4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/2pwkcf\/asrock-a520m-pro4-micro-atx-am4-motherboard-a520m-pro4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39811,
+            "name": "Gigabyte B650M D3HP AX",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Dvhv6h\/gigabyte-b650m-d3hp-ax-micro-atx-am5-motherboard-b650m-d3hp-ax",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39812,
+            "name": "Gigabyte X870E AORUS MASTER X3D",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/QKgZxr\/gigabyte-x870e-aorus-master-x3d-atx-am5-motherboard-x870e-aorus-master-x3d",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39813,
+            "name": "Asus TUF GAMING B550-PLUS",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/pnqBD3\/asus-tuf-gaming-b550-plus-atx-am4-motherboard-tuf-gaming-b550-plus",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39814,
+            "name": "ASRock X870E Taichi Lite",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/pcdG3C\/asrock-x870e-taichi-lite-eatx-am5-motherboard-x870e-taichi-lite",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39815,
+            "name": "ASRock X870 Pro RS",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/rk4Zxr\/asrock-x870-pro-rs-atx-am5-motherboard-x870-pro-rs",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39817,
+            "name": "Gigabyte Z890 AORUS ELITE WIFI7 PLUS",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/KMNscf\/gigabyte-z890-aorus-elite-wifi7-plus-atx-lga1851-motherboard-z890-aorus-elite-wifi7-plus",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39818,
+            "name": "Asus ROG STRIX B850-F GAMING WIFI7 NEO",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/XzVfrH\/asus-rog-strix-b850-f-gaming-wifi7-neo-atx-am5-motherboard-rog-strix-b850-f-gaming-wifi7-neo",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39820,
+            "name": "Asus PRIME Z890-P WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/BYyH99\/asus-prime-z890-p-wifi-atx-lga1851-motherboard-prime-z890-p-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39821,
+            "name": "MSI MAG B650M MORTAR WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/GncG3C\/msi-mag-b650m-mortar-wifi-micro-atx-am5-motherboard-mag-b650m-mortar-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39823,
+            "name": "ASRock B760M-HDV\/M.2",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/j2WJ7P\/asrock-b760m-hdvm2-micro-atx-lga1700-motherboard-b760m-hdvm2",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39824,
+            "name": "Gigabyte B760I AORUS PRO",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/WC6NnQ\/gigabyte-b760i-aorus-pro-mini-itx-lga1700-motherboard-b760i-aorus-pro",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39825,
+            "name": "MSI PRO B840M-P WIFI6E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/QvDnTW\/msi-pro-b840m-p-wifi6e-micro-atx-am5-motherboard-pro-b840m-p-wifi6e",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39826,
+            "name": "Asus ROG STRIX Z890-H GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/76RnTW\/asus-rog-strix-z890-h-gaming-wifi-atx-lga1851-motherboard-rog-strix-z890-h-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39827,
+            "name": "ASRock B850 Steel Legend WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/vHNscf\/asrock-b850-steel-legend-wifi-atx-am5-motherboard-b850-steel-legend-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39828,
+            "name": "Asus ROG MAXIMUS Z790 HERO",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/LYM48d\/asus-rog-maximus-z790-hero-atx-lga1700-motherboard-rog-maximus-z790-hero",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39829,
+            "name": "Asus X870 MAX GAMING WIFI7 W",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/4yFCmG\/asus-x870-max-gaming-wifi7-w-atx-am5-motherboard-x870-max-gaming-wifi7-w",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39830,
+            "name": "Asus PRIME B660-PLUS D4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/32NxFT\/asus-prime-b660-plus-d4-atx-lga1700-motherboard-prime-b660-plus-d4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39831,
+            "name": "Asus PRIME Z790-P WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/nCGbt6\/asus-prime-z790-p-wifi-atx-lga1700-motherboard-prime-z790-p-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39832,
+            "name": "Asus PRIME B850M-A WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/YPzp99\/asus-prime-b850m-a-wifi-micro-atx-am5-motherboard-prime-b850m-a-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39833,
+            "name": "ASRock Phantom Gaming X870 Riptide WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/QJsV3C\/asrock-phantom-gaming-x870-riptide-wifi-atx-am5-motherboard-x870-riptide-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39834,
+            "name": "MSI PRO H610M-G WIFI DDR4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/yG7G3C\/msi-pro-h610m-g-wifi-ddr4-micro-atx-lga1700-motherboard-pro-h610m-g-wifi-ddr4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39835,
+            "name": "MSI MAG Z890 TOMAHAWK WIFI II",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/r6fV3C\/msi-mag-z890-tomahawk-wifi-ii-atx-lga1851-motherboard-mag-z890-tomahawk-wifi-ii",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39836,
+            "name": "Gigabyte X570 AORUS ELITE WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/XV6qqs\/gigabyte-x570-aorus-elite-wifi-atx-am4-motherboard-x570-aorus-elite-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39837,
+            "name": "MSI MPG Z490 GAMING EDGE WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/ZJ2bt6\/msi-mpg-z490-gaming-edge-wifi-atx-lga1200-motherboard-mpg-z490-gaming-edge-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39838,
+            "name": "Asus ROG STRIX Z790-A GAMING WIFI II",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/p8P8TW\/asus-rog-strix-z790-a-gaming-wifi-ii-atx-lga1700-motherboard-rog-strix-z790-a-gaming-wifi-ii",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39839,
+            "name": "MSI PRO B850-V EVO WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/xGgZxr\/msi-pro-b850-v-evo-wifi-atx-am5-motherboard-pro-b850-v-evo-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39840,
+            "name": "MSI PRO Z890-S WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/dzbRsY\/msi-pro-z890-s-wifi-atx-lga1851-motherboard-pro-z890-s-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39841,
+            "name": "MSI PRO A620M-E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/NL26Mp\/msi-pro-a620m-e-micro-atx-am5-motherboard-pro-a620m-e",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39816,
+            "name": "Asus TUF GAMING B650-PLUS",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/9rV2FT\/asus-tuf-gaming-b650-plus-atx-am5-motherboard-tuf-gaming-b650-plus",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39819,
+            "name": "MSI MPG Z890I EDGE TI WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/ttxxFT\/msi-mpg-z890i-edge-ti-wifi-mini-itx-lga1851-motherboard-mpg-z890i-edge-ti-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39842,
+            "name": "NZXT N7-B85XT-B1",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/XRRnTW\/nzxt-n7-b85xt-b1-atx-am5-motherboard-n7-b85xt-b1",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39849,
+            "name": "Asus PRIME B550M-A AC",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/48cG3C\/asus-prime-b550m-a-ac-micro-atx-am4-motherboard-prime-b550m-a-ac",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39850,
+            "name": "Asus ROG MAXIMUS Z890 EXTREME",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/gmyH99\/asus-rog-maximus-z890-extreme-eatx-lga1851-motherboard-rog-maximus-z890-extreme",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39851,
+            "name": "Gigabyte B760M DS3H WIFI6E GEN5",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/H9tkcf\/gigabyte-b760m-ds3h-wifi6e-gen5-micro-atx-lga1700-motherboard-b760m-ds3h-wf6e-gen5",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39852,
+            "name": "MSI PRO B840M-B",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/qbRnTW\/msi-pro-b840m-b-micro-atx-am5-motherboard-pro-b840m-b",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39853,
+            "name": "Gigabyte B650M S2H",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/wWfxFT\/gigabyte-b650m-s2h-micro-atx-am5-motherboard-b650m-s2h",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39854,
+            "name": "MSI PRO B650-A WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/V7tLrH\/msi-pro-b650-a-wifi-atx-am5-motherboard-pro-b650-a-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39855,
+            "name": "ASRock B450 Pro4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/PCKcCJ\/asrock-b450-pro4-atx-am4-motherboard-b450-pro4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39856,
+            "name": "Asus PRIME B760M-K D4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/VkGbt6\/asus-prime-b760m-k-d4-micro-atx-lga1700-motherboard-prime-b760m-k-d4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39857,
+            "name": "Asus ROG STRIX Z790-E GAMING WIFI II",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/KzCZxr\/asus-rog-strix-z790-e-gaming-wifi-ii-atx-lga1700-motherboard-rog-strix-z790-e-gaming-wifi-ii",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39859,
+            "name": "Asus TUF GAMING Z790-BTF WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/k4zXsY\/asus-tuf-gaming-z790-btf-wifi-atx-lga1700-motherboard-tuf-gaming-z790-btf-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39860,
+            "name": "MSI PRO B850M-A WIFI PZ",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Yyy8TW\/msi-pro-b850m-a-wifi-pz-micro-atx-am5-motherboard-pro-b850m-a-wifi-pz",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39861,
+            "name": "Asus ROG STRIX Z890-F GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/kn3NnQ\/asus-rog-strix-z890-f-gaming-wifi-atx-lga1851-motherboard-rog-strix-z890-f-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39862,
+            "name": "NZXT N9 X870E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/nBvscf\/nzxt-n9-x870e-atx-am5-motherboard-n9-x87xt-w1",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39863,
+            "name": "Asus TUF GAMING A520M-PLUS II",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/YTsV3C\/asus-tuf-gaming-a520m-plus-ii-micro-atx-am4-motherboard-tuf-gaming-a520m-plus-ii",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39864,
+            "name": "ASRock B860 Challenger WiFi White",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/ZM7MnQ\/asrock-b860-challenger-wifi-white-atx-lga1851-motherboard-b860-challenger-wifi-white",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39865,
+            "name": "ASRock B860 Pro-A WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Bjy8TW\/asrock-b860-pro-a-wifi-atx-lga1851-motherboard-b860-pro-a-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39866,
+            "name": "Asus TUF GAMING X670E-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/8yjBD3\/asus-tuf-gaming-x670e-plus-wifi-atx-am5-motherboard-tuf-gaming-x670e-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39867,
+            "name": "ASRock X870 LiveMixer WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/YjqNnQ\/asrock-x870-livemixer-wifi-atx-am5-motherboard-x870-livemixer-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39868,
+            "name": "Asus ROG STRIX B550-F GAMING (WI-FI)",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/vFhmP6\/asus-rog-strix-b550-f-gaming-wi-fi-atx-am4-motherboard-rog-strix-b550-f-gaming-wi-fi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39869,
+            "name": "Asus TUF GAMING A620AM-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/wcFCmG\/asus-tuf-gaming-a620am-plus-wifi-micro-atx-am5-motherboard-tuf-gaming-a620am-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39870,
+            "name": "Gigabyte Z890M AORUS ELITE WIFI7 ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/N9hv6h\/gigabyte-z890m-aorus-elite-wifi7-ice-micro-atx-lga1851-motherboard-z890m-aorus-elite-wifi7-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39871,
+            "name": "Asus PRIME B860-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/dFtkcf\/asus-prime-b860-plus-wifi-atx-lga1851-motherboard-prime-b860-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39872,
+            "name": "MSI MAG X870E GAMING MAX WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/YJXMnQ\/msi-mag-x870e-gaming-max-wifi-atx-am5-motherboard-mag-x870e-gaming-max-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39873,
+            "name": "Gigabyte H610M D3H WIFI DDR4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/p6QwrH\/gigabyte-h610m-d3h-wifi-ddr4-micro-atx-lga1700-motherboard-h610m-d3h-wifi-ddr4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39874,
+            "name": "Gigabyte B650E AORUS ELITE X AX ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/2KRwrH\/gigabyte-b650e-aorus-elite-x-ax-ice-atx-am5-motherboard-b650e-aorus-elite-x-ax-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39875,
+            "name": "MSI MPG Z890 CARBON WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/xPtLrH\/msi-mpg-z890-carbon-wifi-atx-lga1851-motherboard-mpg-z890-carbon-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39876,
+            "name": "ASRock A620AM Pro-A WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/6CKnTW\/asrock-a620am-pro-a-wifi-micro-atx-am5-motherboard-a620am-pro-a-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39877,
+            "name": "MSI X870 GAMING PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/xFfV3C\/msi-x870-gaming-plus-wifi-atx-am5-motherboard-x870-gaming-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39879,
+            "name": "Asus PRIME H610M-K D4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/wHLFf7\/asus-prime-h610m-k-d4-micro-atx-lga1700-motherboard-prime-h610m-k-d4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39880,
+            "name": "Asus ROG STRIX X670E-E GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/bGrRsY\/asus-rog-strix-x670e-e-gaming-wifi-atx-am5-motherboard-rog-strix-x670e-e-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39881,
+            "name": "Asus TUF GAMING A620M-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/T4n9TW\/asus-tuf-gaming-a620m-plus-wifi-micro-atx-am5-motherboard-tuf-gaming-a620m-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39883,
+            "name": "ASRock Z890M Riptide WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/LYyH99\/asrock-z890m-riptide-wifi-micro-atx-lga1851-motherboard-z890m-riptide-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39884,
+            "name": "ASRock B850 Pro RS",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/HkTFf7\/asrock-b850-pro-rs-atx-am5-motherboard-b850-pro-rs",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39885,
+            "name": "ASRock B860 Lightning WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Y9JBD3\/asrock-b860-lightning-wifi-atx-lga1851-motherboard-b860-lightning-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39886,
+            "name": "MSI B760M PROJECT ZERO",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/7kYRsY\/msi-b760m-project-zero-micro-atx-lga1700-motherboard-b760m-project-zero",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39887,
+            "name": "Gigabyte B650M D3HP",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/mkqrxr\/gigabyte-b650m-d3hp-micro-atx-am5-motherboard-b650m-d3hp",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39888,
+            "name": "ASRock B550M Phantom Gaming 4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/TG9tt6\/asrock-b550m-phantom-gaming-4-micro-atx-am4-motherboard-b550m-phantom-gaming-4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39889,
+            "name": "ASRock B760M Steel Legend WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/QJC48d\/asrock-b760m-steel-legend-wifi-micro-atx-lga1700-motherboard-b760m-steel-legend-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39890,
+            "name": "Gigabyte B760 GAMING X DDR4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/44t9TW\/gigabyte-b760-gaming-x-ddr4-atx-lga1700-motherboard-b760-gaming-x-ddr4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39891,
+            "name": "ASRock B860 Pro-A",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/TnHp99\/asrock-b860-pro-a-atx-lga1851-motherboard-b860-pro-a",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39892,
+            "name": "Asus TUF GAMING B450-PLUS II",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/L2qBD3\/asus-tuf-gaming-b450-plus-ii-atx-am4-motherboard-tuf-gaming-b450-plus-ii",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39893,
+            "name": "Asus Z790-AYW WIFI W",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/g7LdnQ\/asus-z790-ayw-wifi-w-atx-lga1700-motherboard-z790-ayw-wifi-w",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39878,
+            "name": "Asus TUF GAMING B550M-PLUS",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/hrCFf7\/asus-tuf-gaming-b550m-plus-micro-atx-am4-motherboard-tuf-gaming-b550m-plus",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39894,
+            "name": "Gigabyte B860M AORUS ELITE WIFI6E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/tQZWGX\/gigabyte-b860m-aorus-elite-wifi6e-micro-atx-lga1851-motherboard-b860m-aorus-elite-wifi6e",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39895,
+            "name": "Asus TUF GAMING B850M-PLUS WIFI7 W",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/mgCCmG\/asus-tuf-gaming-b850m-plus-wifi7-w-micro-atx-am5-motherboard-tuf-gaming-b850m-plus-wifi7-w",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39896,
+            "name": "Gigabyte B850M EAGLE WIFI7",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Rv7MnQ\/gigabyte-b850m-eagle-wifi7-micro-atx-am5-motherboard-b850m-eagle-wifi7",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39897,
+            "name": "Asus PRIME B760-PLUS",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/fRGhP6\/asus-prime-b760-plus-atx-lga1700-motherboard-prime-b760-plus",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39898,
+            "name": "ASRock H810M-X",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/d9JBD3\/asrock-h810m-x-micro-atx-lga1851-motherboard-h810m-x",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39899,
+            "name": "MSI MEG Z890 GODLIKE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/XZgrxr\/msi-meg-z890-godlike-eatx-lga1851-motherboard-meg-z890-godlike",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39900,
+            "name": "Gigabyte B850M FORCE WIFI6E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/F88Pxr\/gigabyte-b850m-force-wifi6e-micro-atx-am5-motherboard-b850m-force-wf6e",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39901,
+            "name": "Gigabyte X870E AORUS ELITE X3D ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/k7dMnQ\/gigabyte-x870e-aorus-elite-x3d-ice-atx-am5-motherboard-x870e-a-elite-x-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39907,
+            "name": "MSI B850 GAMING PLUS WIFI PZ",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Y3Nscf\/msi-b850-gaming-plus-wifi-pz-atx-am5-motherboard-b850-gaming-plus-wifi-pz",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39908,
+            "name": "Gigabyte Z890 AORUS MASTER",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/kRjRsY\/gigabyte-z890-aorus-master-atx-lga1851-motherboard-z890-aorus-master",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39909,
+            "name": "Asus ROG MAXIMUS Z790 DARK HERO",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/PnXV3C\/asus-rog-maximus-z790-dark-hero-atx-lga1700-motherboard-rog-maximus-z790-dark-hero",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39910,
+            "name": "Gigabyte H610I DDR4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/yhwypg\/gigabyte-h610i-ddr4-mini-itx-lga1700-motherboard-h610i-ddr4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39911,
+            "name": "ASRock B850 Riptide WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/gRG2FT\/asrock-b850-riptide-wifi-atx-am5-motherboard-b850-riptide-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39914,
+            "name": "Asus TUF GAMING B850-PRO WIFI7 W NEO",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/sdVfrH\/asus-tuf-gaming-b850-pro-wifi7-w-neo-atx-am5-motherboard-tuf-gaming-b850-pro-wifi7-w-neo",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39915,
+            "name": "Gigabyte B650 UD AX (rev. 1.0)",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/hKwmP6\/gigabyte-b650-ud-ax-rev-10-atx-am5-motherboard-b650-ud-ax-rev-10",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39916,
+            "name": "Asus PRIME B650M-K",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/yb26Mp\/asus-prime-b650m-k-micro-atx-am5-motherboard-prime-b650m-k",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39917,
+            "name": "ASRock B860 Steel Legend WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/6r62FT\/asrock-b860-steel-legend-wifi-atx-lga1851-motherboard-b860-steel-legend-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39918,
+            "name": "Asus PRIME Z790-A WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/fGrRsY\/asus-prime-z790-a-wifi-atx-lga1700-motherboard-prime-z790-a-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39919,
+            "name": "Asus ProArt X670E-CREATOR WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/mR2WGX\/asus-proart-x670e-creator-wifi-atx-am5-motherboard-proart-x670e-creator-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39920,
+            "name": "Gigabyte H610M H V3 DDR4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Y8vD4D\/gigabyte-h610m-h-v3-ddr4-micro-atx-lga1700-motherboard-h610m-h-v3-ddr4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39921,
+            "name": "Asus PRIME B550M-K",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/96gQzy\/asus-prime-b550m-k-micro-atx-am4-motherboard-prime-b550m-k",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39922,
+            "name": "Gigabyte Z790 AORUS ELITE X WIFI7",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/MZWJ7P\/gigabyte-z790-aorus-elite-x-wifi7-atx-lga1700-motherboard-z790-aorus-elite-x-wifi7",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39923,
+            "name": "Asus PRIME X570-PRO",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/DxrYcf\/asus-prime-x570-pro-atx-am4-motherboard-prime-x570-pro",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39924,
+            "name": "Asus ROG Crosshair VIII Hero (WI-FI)",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/GcfFf7\/asus-rog-crosshair-viii-hero-wi-fi-atx-am4-motherboard-rog-crosshair-viii-hero-wi-fi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39925,
+            "name": "Gigabyte Z890 AORUS PRO ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/2Zgrxr\/gigabyte-z890-aorus-pro-ice-atx-lga1851-motherboard-z890-aorus-pro-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39926,
+            "name": "ASRock B850 LiveMixer WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/XgLp99\/asrock-b850-livemixer-wifi-atx-am5-motherboard-b850-livemixer-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39927,
+            "name": "Gigabyte B840 EAGLE WIFI6E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/gq9nTW\/gigabyte-b840-eagle-wifi6e-atx-am5-motherboard-b840-eagle-wf6e",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39928,
+            "name": "NZXT N9 X870E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/fZQwrH\/nzxt-n9-x870e-atx-am5-motherboard-n9-x87xt-b1",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39929,
+            "name": "MSI PRO Z790-P WIFI DDR4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/rLzhP6\/msi-pro-z790-p-wifi-ddr4-atx-lga1700-motherboard-pro-z790-p-wifi-ddr4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39548,
+            "name": "Gigabyte B550M K",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/RH9wrH\/gigabyte-b550m-k-micro-atx-am4-motherboard-b550m-k",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39561,
+            "name": "Gigabyte A620I AX",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Hp3NnQ\/gigabyte-a620i-ax-mini-itx-am5-motherboard-a620i-ax",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39605,
+            "name": "ASRock B850M-X WiFi R2.0",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Tdbypg\/asrock-b850m-x-wifi-r20-micro-atx-am5-motherboard-b850m-x-wifi-r20",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39674,
+            "name": "ASRock B650M-HDV\/M.2",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Dq4Zxr\/asrock-b650m-hdvm2-micro-atx-am5-motherboard-b650m-hdvm2",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39691,
+            "name": "Gigabyte X870E AORUS MASTER X3D ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/brLp99\/gigabyte-x870e-aorus-master-x3d-ice-atx-am5-motherboard-x870e-a-master-x-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39692,
+            "name": "ASRock B850 Rock WiFi 7",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/3KVfrH\/asrock-b850-rock-wifi-7-atx-am5-motherboard-b850-rock-wifi-7",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39694,
+            "name": "MSI MAG X870E TOMAHAWK MAX WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/nnBFf7\/msi-mag-x870e-tomahawk-max-wifi-atx-am5-motherboard-mag-x870e-tomahawk-max-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39695,
+            "name": "Gigabyte B650M AORUS ELITE AX",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/fFzhP6\/gigabyte-b650m-aorus-elite-ax-micro-atx-am5-motherboard-b650m-aorus-elite-ax",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39696,
+            "name": "Asus TUF GAMING B850M-PLUS WIFI7",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/GFYfrH\/asus-tuf-gaming-b850m-plus-wifi7-micro-atx-am5-motherboard-tuf-gaming-b850m-plus-wifi7",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39697,
+            "name": "Asus PRIME B550M-K ARGB",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/b7GhP6\/asus-prime-b550m-k-argb-micro-atx-am4-motherboard-prime-b550m-k-argb",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39698,
+            "name": "MSI MAG Z790 TOMAHAWK WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/9B2WGX\/msi-mag-z790-tomahawk-wifi-atx-lga1700-motherboard-mag-z790-tomahawk-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39699,
+            "name": "MSI B550 GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/mB9nTW\/msi-b550-gaming-wifi-atx-am4-motherboard-b550-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39700,
+            "name": "Asus PRIME Z890M-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/zsRwrH\/asus-prime-z890m-plus-wifi-micro-atx-lga1851-motherboard-prime-z890m-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39776,
+            "name": "MSI MPG B850 EDGE TI WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/fKZWGX\/msi-mpg-b850-edge-ti-wifi-atx-am5-motherboard-mpg-b850-edge-ti-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39610,
+            "name": "MSI PRO B650M-A WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/cRQcCJ\/msi-pro-b650m-a-wifi-micro-atx-am5-motherboard-pro-b650m-a-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39808,
+            "name": "Asus PRIME B550-PLUS",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/TR848d\/asus-prime-b550-plus-atx-am4-motherboard-prime-b550-plus",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39686,
+            "name": "Asus ROG STRIX X870E-H GAMING WIFI7",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/xkqNnQ\/asus-rog-strix-x870e-h-gaming-wifi7-atx-am5-motherboard-rog-strix-x870e-h-gaming-wifi7",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39688,
+            "name": "Asus PRIME B840-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Dpbypg\/asus-prime-b840-plus-wifi-atx-am5-motherboard-prime-b840-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39689,
+            "name": "MSI MAG B850 TOMAHAWK MAX WIFI II",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/WqZWGX\/msi-mag-b850-tomahawk-max-wifi-ii-atx-am5-motherboard-mag-b850-tomahawk-max-wifi-ii",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39690,
+            "name": "Asus TUF GAMING B650E-PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/6mCCmG\/asus-tuf-gaming-b650e-plus-wifi-atx-am5-motherboard-tuf-gaming-b650e-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39728,
+            "name": "Gigabyte A620M S2H",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Mh3NnQ\/gigabyte-a620m-s2h-micro-atx-am5-motherboard-a620m-s2h",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39539,
+            "name": "Asus B650E MAX GAMING WIFI W",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/QtnXsY\/asus-b650e-max-gaming-wifi-w-atx-am5-motherboard-b650e-max-gaming-wifi-w",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39562,
+            "name": "Asus TUF GAMING B550-PLUS WIFI II",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/pLNxFT\/asus-tuf-gaming-b550-plus-wifi-ii-atx-am4-motherboard-tuf-gaming-b550-plus-wifi-ii",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39584,
+            "name": "Gigabyte B650 AORUS ELITE AX",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/WBwypg\/gigabyte-b650-aorus-elite-ax-atx-am5-motherboard-b650-aorus-elite-ax",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39619,
+            "name": "MSI PRO B650M-P",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/LdHqqs\/msi-pro-b650m-p-micro-atx-am5-motherboard-pro-b650m-p",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39627,
+            "name": "Asus ROG STRIX B850-G GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/y97MnQ\/asus-rog-strix-b850-g-gaming-wifi-micro-atx-am5-motherboard-rog-strix-b850-g-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39628,
+            "name": "MSI PRO B650-P WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/CFzhP6\/msi-pro-b650-p-wifi-atx-am5-motherboard-pro-b650-p-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39629,
+            "name": "MSI B550-A PRO",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/7gxbt6\/msi-b550-a-pro-atx-am4-motherboard-b550-a-pro",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39630,
+            "name": "Gigabyte B850M EAGLE WIFI6E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/mMMXsY\/gigabyte-b850m-eagle-wifi6e-micro-atx-am5-motherboard-b850m-eagle-wifi6e",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39631,
+            "name": "ASRock A620AM-X WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Yrm2FT\/asrock-a620am-x-wifi-micro-atx-am5-motherboard-a620am-x-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39632,
+            "name": "MSI PRO Z790-A MAX WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/CsvD4D\/msi-pro-z790-a-max-wifi-atx-lga1700-motherboard-pro-z790-a-max-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39633,
+            "name": "Asus ROG STRIX Z890-E GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/T7cgXL\/asus-rog-strix-z890-e-gaming-wifi-atx-lga1851-motherboard-rog-strix-z890-e-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39635,
+            "name": "Gigabyte X870 AORUS ELITE WIFI7",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/836NnQ\/gigabyte-x870-aorus-elite-wifi7-atx-am5-motherboard-x870-aorus-elite-wifi7",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39657,
+            "name": "Gigabyte B650I AX",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/jGHqqs\/gigabyte-b650i-ax-mini-itx-am5-motherboard-b650i-ax",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39680,
+            "name": "MSI B850M GAMING PLUS WIFI6E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/KtLp99\/msi-b850m-gaming-plus-wifi6e-micro-atx-am5-motherboard-b850m-gaming-plus-wifi6e",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39681,
+            "name": "MSI PRO A620AM-B EVO",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/9vh2FT\/msi-pro-a620am-b-evo-micro-atx-am5-motherboard-pro-a620am-b-evo",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39682,
+            "name": "Gigabyte B850I AORUS PRO",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/FwVfrH\/gigabyte-b850i-aorus-pro-mini-itx-am5-motherboard-b850i-aorus-pro",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39683,
+            "name": "Asus X870 MAX GAMING WIFI7",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/jtCCmG\/asus-x870-max-gaming-wifi7-atx-am5-motherboard-x870-max-gaming-wifi7",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39684,
+            "name": "Asus ROG STRIX B650E-F GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/s8nypg\/asus-rog-strix-b650e-f-gaming-wifi-atx-am5-motherboard-rog-strix-b650e-f-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39685,
+            "name": "ASRock A520M-HDV",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/bWqBD3\/asrock-a520m-hdv-micro-atx-am4-motherboard-a520m-hdv",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39687,
+            "name": "ASRock B650 PRO RS",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/zFzhP6\/asrock-b650-pro-rs-atx-am5-motherboard-b650-pro-rs",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39693,
+            "name": "MSI MAG B860 TOMAHAWK WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/rpG2FT\/msi-mag-b860-tomahawk-wifi-atx-lga1851-motherboard-mag-b860-tomahawk-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39718,
+            "name": "ASRock A620AM-HVS",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/jc4Pxr\/asrock-a620am-hvs-micro-atx-am5-motherboard-a620am-hvs",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39739,
+            "name": "Asus ROG MAXIMUS Z890 HERO",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/9LvD4D\/asus-rog-maximus-z890-hero-atx-lga1851-motherboard-rog-maximus-z890-hero",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39740,
+            "name": "MSI B850M GAMING PLUS WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/vnjv6h\/msi-b850m-gaming-plus-wifi-micro-atx-am5-motherboard-b850m-gaming-plus-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39741,
+            "name": "Asus PRIME B760M-A WIFI D4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/xpxRsY\/asus-prime-b760m-a-wifi-d4-micro-atx-lga1700-motherboard-prime-b760m-a-wifi-d4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39742,
+            "name": "Asus ProArt B850-CREATOR WIFI NEO",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/y6tkcf\/asus-proart-b850-creator-wifi-neo-atx-am5-motherboard-proart-b850-creator-wifi-neo",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39743,
+            "name": "Gigabyte B760M GAMING X WIFI6E GEN5",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/BXnXsY\/gigabyte-b760m-gaming-x-wifi6e-gen5-micro-atx-lga1700-motherboard-b760m-gaming-x-wifi6e-gen5",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39744,
+            "name": "ASRock B850M Challenger WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Tvtkcf\/asrock-b850m-challenger-wifi-micro-atx-am5-motherboard-b850m-challenger-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39756,
+            "name": "Asus Prime B450M-A II",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/kthmP6\/asus-prime-b450m-a-ii-micro-atx-am4-motherboard-prime-b450m-a-ii",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39777,
+            "name": "ASRock B650M PG Lightning Wifi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/b8P8TW\/asrock-b650m-pg-lightning-wifi-micro-atx-am5-motherboard-b650m-pg-lightning-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39781,
+            "name": "MSI PRO H810I WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/bBFCmG\/msi-pro-h810i-wifi-mini-itx-lga1851-motherboard-pro-h810i-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39798,
+            "name": "Gigabyte H610M K V2",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/wmvD4D\/gigabyte-h610m-k-v2-micro-atx-lga1700-motherboard-h610m-k-v2",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39799,
+            "name": "ASRock X870 Pro-A WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/4bVfrH\/asrock-x870-pro-a-wifi-atx-am5-motherboard-x870-pro-a-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39822,
+            "name": "Gigabyte B760M D3HP DDR4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/G8tLrH\/gigabyte-b760m-d3hp-ddr4-micro-atx-lga1700-motherboard-b760m-d3hp-ddr4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39843,
+            "name": "Gigabyte B860 AORUS ELITE WIFI7 ICE",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/rYTFf7\/gigabyte-b860-aorus-elite-wifi7-ice-atx-lga1851-motherboard-b860-aorus-elite-wifi7-ice",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39844,
+            "name": "Asus PRIME A520M-A II\/CSM",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/ntqPxr\/asus-prime-a520m-a-iicsm-micro-atx-am4-motherboard-prime-a520m-a-iicsm",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39845,
+            "name": "Gigabyte X870E AORUS PRO X3D",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Kkrp99\/gigabyte-x870e-aorus-pro-x3d-atx-am5-motherboard-x870e-aorus-pro-x3d",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39846,
+            "name": "Gigabyte X870E AERO X3D WOOD",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/j7BFf7\/gigabyte-x870e-aero-x3d-wood-atx-am5-motherboard-x870e-aero-x3d-wood",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39847,
+            "name": "ASRock Z890 Pro RS WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/B9hv6h\/asrock-z890-pro-rs-wifi-atx-lga1851-motherboard-z890-pro-rs-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39848,
+            "name": "Gigabyte B850 AI TOP",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/mVYfrH\/gigabyte-b850-ai-top-atx-am5-motherboard-b850-ai-top",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39858,
+            "name": "Gigabyte B760M DS3H AX DDR4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/nz8bt6\/gigabyte-b760m-ds3h-ax-ddr4-micro-atx-lga1700-motherboard-b760m-ds3h-ax-ddr4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39882,
+            "name": "ASRock X870E Taichi OCF",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/jzLp99\/asrock-x870e-taichi-ocf-atx-am5-motherboard-x870e-taichi-ocf",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39902,
+            "name": "ASRock B650 Pro RS WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/Lnrqqs\/asrock-b650-pro-rs-wifi-atx-am5-motherboard-b650-pro-rs-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39903,
+            "name": "MSI PRO X870E-S EVO WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/DdYfrH\/msi-pro-x870e-s-evo-wifi-atx-am5-motherboard-pro-x870e-s-evo-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39904,
+            "name": "ASRock B550 Pro4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/T3XYcf\/asrock-b550-pro4-atx-am4-motherboard-b550-pro4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39905,
+            "name": "Gigabyte B650 GAMING X AX",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/YZgFf7\/gigabyte-b650-gaming-x-ax-atx-am5-motherboard-b650-gaming-x-ax",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39906,
+            "name": "Gigabyte H610M S2H V3 DDR4",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/TVyH99\/gigabyte-h610m-s2h-v3-ddr4-micro-atx-lga1700-motherboard-h610m-s2h-v3-ddr4",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39912,
+            "name": "Asus ROG STRIX B760-A GAMING WIFI",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/tcqrxr\/asus-rog-strix-b760-a-gaming-wifi-atx-lga1700-motherboard-rog-strix-b760-a-gaming-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39913,
+            "name": "Asus PRIME B650M-R",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/csxxFT\/asus-prime-b650m-r-micro-atx-am5-motherboard-prime-b650m-r",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39930,
+            "name": "MSI Z890 GAMING PLUS WIFI6E",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/H2DnTW\/msi-z890-gaming-plus-wifi6e-atx-lga1851-motherboard-z890-gaming-plus-wifi6e",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39931,
+            "name": "Gigabyte X670 AORUS ELITE AX",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/m7mmP6\/gigabyte-x670-aorus-elite-ax-atx-am5-motherboard-x670-aorus-elite-ax-rev-10",
+            "updated_at": "2026-10-01 14:21:42"
+        },
+        {
+            "id": 39932,
+            "name": "ASRock Z890I Nova WiFi",
+            "specs": null,
+            "source_url": "https:\/\/uk.pcpartpicker.com\/product\/GwGhP6\/asrock-z890i-nova-wifi-mini-itx-lga1851-motherboard-z890i-nova-wifi",
+            "updated_at": "2026-10-01 14:21:42"
+        }
+    ]
+}
