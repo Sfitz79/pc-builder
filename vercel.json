@@ -3,7 +3,7 @@
   "framework": null,
   "buildCommand": "npm run build",
   "builds": [
-    { "src": "/api/index.php", "use": "vercel-php@0.9.0", "config": { "excludeFiles": "{public/img/**,node_modules/**,.opencode/**,.git/**,.vercel/**,tests/**,test-results/**,storage/logs/**,database/scraped/**,.phpunit.result.cache}" } },
+    { "src": "/api/index.php", "use": "vercel-php@0.9.0", "config": { "excludeFiles": "{public/img/**,node_modules/**,.opencode/**,.git/**,.vercel/**,tests/**,test-results/**,storage/logs/**,database/scraped/prod-batches/**,database/scraped/{ram,motherboard,power-supply,case,cooler,gpu,cpu,storage,prebuilt-candidates,pcpp-image-fetch,steam-top150}*,.phpunit.result.cache}" } },
     { "src": "/public/build/**", "use": "@vercel/static" },
     { "src": "/public/css/**", "use": "@vercel/static" },
     { "src": "/public/js/**", "use": "@vercel/static" },

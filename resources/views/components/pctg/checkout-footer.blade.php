@@ -32,7 +32,10 @@
             @if ($live)
                 <p class="text-2xl font-bold" x-text="$store.checkout.totalLabel"></p>
             @else
-                <p class="text-2xl font-bold">{{ $buildTotal ?? '&mdash;' }}</p>
+                {{-- Literal em dash character, not the '&mdash;' entity. Rendered
+                     through {{ }}, an entity becomes '&amp;mdash;' and the
+                     customer sees the raw text. Same bug as metrics-bar. --}}
+                <p class="text-2xl font-bold">{{ $buildTotal ?? '—' }}</p>
             @endif
         </div>
 

@@ -4080,6 +4080,29 @@ class AIRecommendationService
     }
 
     /**
+     * Public wrapper so a script can ask the engine the SAME question the
+     * engine asks itself.
+     *
+     * Exists because scripts/genie-assemble-prebuilts.php used to choose a GPU
+     * by PRICE alone - `where('price','<=',$gpuMax)->orderByDesc('price')` - and
+     * so shipped a Sapphire PULSE whose specs.chipset is an "Radeon RX 6700 XT"
+     * at GBP 899 inside a machine labelled "High End 1440p". It won purely by
+     * being the priciest row under the ceiling, while real RTX cards sat in the
+     * same pool. A price ceiling is not a performance target.
+     *
+     * Deliberately a thin delegate rather than a refactor of the tier ladder
+     * into a static helper: an earlier attempt to extract the ladder orphaned
+     * the original body and broke the parse, so this leaves the ladder exactly
+     * where it is and only adds a door to it.
+     *
+     * @see scripts/genie-assemble-prebuilts.php
+     */
+    public function gpuPerformanceTierPublic(Component $gpu): int
+    {
+        return $this->gpuPerformanceTier($gpu);
+    }
+
+    /**
      * Minimum performance tier a graphics card must reach for a resolution.
      *
      * 1080p has no floor: any card in the catalogue is a 1080p card, and

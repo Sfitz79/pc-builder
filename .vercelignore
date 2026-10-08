@@ -92,7 +92,20 @@
 
 # Build-time only. Never read at runtime: the catalogue lives in Neon (pgsql).
 /.opencode
-/database/scraped
+# database/scraped holds ~31 MB of scrape output, but it is NOT all junk any
+# more: PrebuiltController reads database/scraped/prebuilts.json at runtime
+# (PrebuiltController.php, $path = database_path('scraped/prebuilts.json')).
+#
+# The old blanket ignore of the directory is therefore what caused
+# /prebuilts to render "Pre-builts are being tuned" in production and every
+# /builder/preset/{slug} to 404, while passing local tests and preview builds.
+# The comment above this line used to assert that no runtime code opened a
+# file under scraped/ - that was true when written and stopped being true when
+# the prebuilt assembler shipped.
+#
+# So: ignore the bulk scraper dumps, keep the prebuilt catalogue.
+/database/scraped/prod-batches
+/database/scraped/{ram,motherboard,power-supply,case,cooler,gpu,cpu,storage,prebuilt-candidates,pcpp-image-fetch,steam-top150}*
 /database/*.sqlite-journal
 /database/*.bak
 **/*.bak

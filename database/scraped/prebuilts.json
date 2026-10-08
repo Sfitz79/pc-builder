@@ -1,7 +1,87 @@
 [
     {
+        "name": "Mainstream 1080p Ultra",
+        "total": 1316.79,
+        "socket": "AM5",
+        "estimated_draw_watts": 355,
+        "psu_watts": 500,
+        "headroom": 1.41,
+        "case_form_factor": "ATX",
+        "board_form_factor": "unknown (treated as ATX-width; no board FF evidence exists)",
+        "parts": [
+            {
+                "type": "CPU",
+                "id": 38943,
+                "name": "AMD Ryzen 5 7600X3D",
+                "price": 319.99
+            },
+            {
+                "type": "GPU",
+                "id": 40162,
+                "name": "PowerColor Hellhound OC Radeon RX 9060 XT 16GB",
+                "price": 465.46
+            },
+            {
+                "type": "Motherboard",
+                "id": 39541,
+                "name": "Asus TUF GAMING B650-PLUS WIFI",
+                "price": 140.91
+            },
+            {
+                "type": "RAM",
+                "id": 40445,
+                "name": "ADATA Premier 16 GB",
+                "price": 148.94
+            },
+            {
+                "type": "Storage",
+                "id": 40861,
+                "name": "Silicon Power Ace A5X 1024GB",
+                "price": 92.97
+            },
+            {
+                "type": "PSU",
+                "id": 40968,
+                "name": "Thermaltake Smart 500W",
+                "price": 73.04
+            },
+            {
+                "type": "Case",
+                "id": 41538,
+                "name": "NOX Infinity Beta",
+                "price": 47.99
+            },
+            {
+                "type": "Cooler",
+                "id": 39244,
+                "name": "ARCTIC Freezer 36 A-RGB ACFRE00124A",
+                "price": 27.49
+            }
+        ],
+        "evidence": {
+            "cpu_cores": 6,
+            "cpu_threads": 12,
+            "cpu_tdp_source": "components.wattage",
+            "gpu_chipset": "Radeon RX 9060 XT",
+            "gpu_chipset_source": "specs.chipset",
+            "gpu_vram_gb": 16,
+            "gpu_watts_source": "default 200W (no TDP recorded)",
+            "ram_capacity_source": "specs.capacity",
+            "ram_speed": "DDR5-4800",
+            "case_form_factor_source": "specs.form_factor (verified backfill 2026-09-29, 399/399)",
+            "case_price_floor": "£45 enforced (brand integrity: cheapest 4 ATX cases are £17.99-£19.99)",
+            "board_chipset_class": "/\\bB650\\b/i | /\\bX670\\b/i required by tier",
+            "board_chipset_source": "NAME MATCH ONLY - 0/397 production motherboards carry specs, so chipset is unverified",
+            "cooler_brand_source": "NAME MATCH only (whitelist: Noctua, Arctic, be quiet, Thermalright, NZXT, Corsair, Cooler Master)",
+            "cooler_thermal_evidence": "NONE - 0/372 production coolers carry specs, so TDP/socket coverage is NOT verified. No cooling capacity is claimed.",
+            "board_form_factor_source": "NONE in production data - ATX-width assumed, fail closed",
+            "gpu_length_fit": "NOT CHECKED - 0/399 production cases carry max_gpu_length, so no GPU length gate is enforced",
+            "price_source": "catalogue price - NOT merchant-verified"
+        }
+    },
+    {
         "name": "High End 1440p",
-        "total": 2244.83,
+        "total": 2201.24,
         "socket": "AM5",
         "estimated_draw_watts": 410,
         "psu_watts": 600,
@@ -17,39 +97,39 @@
             },
             {
                 "type": "GPU",
-                "id": 40130,
-                "name": "Sapphire PULSE",
+                "id": 39973,
+                "name": "MSI GAMING TRIO OC GeForce RTX 5070 Ti geforce rtx 5070 ti 16g gaming trio oc",
                 "price": 899
             },
             {
                 "type": "Motherboard",
-                "id": 39539,
-                "name": "Asus B650E MAX GAMING WIFI W",
-                "price": 149.99
+                "id": 39541,
+                "name": "Asus TUF GAMING B650-PLUS WIFI",
+                "price": 140.91
             },
             {
                 "type": "RAM",
                 "id": 40328,
-                "name": "Kingston FURY Beast 32 GB",
+                "name": "Kingston FURY Beast 32 GB DDR5-5600 36 2 x 16GB",
                 "price": 299.99
             },
             {
                 "type": "Storage",
-                "id": 40614,
-                "name": "Kingston NV3",
-                "price": 128.94
+                "id": 40861,
+                "name": "Silicon Power Ace A5X 1024GB",
+                "price": 92.97
             },
             {
                 "type": "PSU",
                 "id": 40982,
-                "name": "Thermaltake Smart",
+                "name": "Thermaltake Smart 600W",
                 "price": 65.25
             },
             {
                 "type": "Case",
-                "id": 41602,
-                "name": "Cooler Master Q300L V2",
-                "price": 70.53
+                "id": 41618,
+                "name": "HYTE Y40",
+                "price": 71.99
             },
             {
                 "type": "Cooler",
@@ -62,9 +142,9 @@
             "cpu_cores": 16,
             "cpu_threads": 32,
             "cpu_tdp_source": "components.wattage",
-            "gpu_chipset": "Radeon RX 6700 XT",
+            "gpu_chipset": "GeForce RTX 5070 Ti",
             "gpu_chipset_source": "specs.chipset",
-            "gpu_vram_gb": 12,
+            "gpu_vram_gb": 16,
             "gpu_watts_source": "default 200W (no TDP recorded)",
             "ram_capacity_source": "specs.capacity",
             "ram_speed": "DDR5-5600",

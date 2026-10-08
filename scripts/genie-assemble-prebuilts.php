@@ -129,17 +129,21 @@ $prebuilts = [];
 $defs = [
     [
         'name' => 'Starter 1080p Esports', 'budget' => [700, 900], 'socket' => 'AM5',
-        'gpuMax' => 320, 'targetFps' => 144, 'caseMin' => 35, 'coolerMin' => 20,
+        'gpuMax' => 320, 'gpuFloorTier' => 2, 'targetFps' => 144, 'caseMin' => 35, 'coolerMin' => 20,
         'boardChipsets' => ['/\bA620\b/i', '/\bB650\b/i'],
     ],
     [
         'name' => 'Mainstream 1080p Ultra', 'budget' => [1100, 1400], 'socket' => 'AM5',
-        'gpuMax' => 480, 'targetFps' => 144, 'caseMin' => 45, 'coolerMin' => 25,
+        'gpuMax' => 480, 'gpuFloorTier' => 3, 'targetFps' => 144, 'caseMin' => 45, 'coolerMin' => 25,
         'boardChipsets' => ['/\bB650\b/i', '/\bX670\b/i'],
     ],
     [
+        // gpuFloorTier 4, not 3. A "High End 1440p" machine carrying a tier-3
+        // card is not high end, and the whole point of this tier is that it is
+        // the enthusiast 1440p build. Tier 4 is the 1440p-strong class
+        // (RTX 5070 / RX 9070 / RTX 5070 Ti and up).
         'name' => 'High End 1440p', 'budget' => [1900, 2400], 'socket' => 'AM5',
-        'gpuMax' => 900, 'targetFps' => 144, 'caseMin' => 70, 'coolerMin' => 40,
+        'gpuMax' => 900, 'gpuFloorTier' => 4, 'targetFps' => 144, 'caseMin' => 70, 'coolerMin' => 40,
         'boardChipsets' => ['/\bB650E?\b/i', '/\bX670[E]?\b/i'],
     ],
 ];
@@ -161,14 +165,83 @@ foreach ($defs as $def) {
     $cores = (int) ($cpuSpecs['cores'] ?? 0);
     $threads = (int) ($cpuSpecs['threads'] ?? ($cores > 0 ? $cores * 2 : 0));
 
-    $gpu = DB::table('components')->where('category_id', $ids['GPU'])->where('active', 1)
-        ->whereNotNull('price')->where('price', '<=', $def['gpuMax'])
-        ->orderByDesc('price')->get()
-        ->first(fn ($g) => (specsOf($g)['chipset'] ?? '') !== '');
-    if (!$gpu) {
-        printf("  %-28s SKIPPED: no GPU with a real chipset identity\n", $def['name']);
+/*
+ * GPU SELECTION — BY PERFORMANCE TIER, NOT BY PRICE.
+ *
+ * THE BUG THIS REPLACES
+ * ---------------------
+ * The original gate was:
+ *
+ *   ->where('price', '<=', $def['gpuMax'])
+ *   ->orderByDesc('price')->get()
+ *   ->first(fn ($g) => (specsOf($g)['chipset'] ?? '') !== '');
+ *
+ * That takes the most expensive card under a price ceiling. Measured result on
+ * production: "High End 1440p" shipped a Sapphire PULSE whose specs.chipset is
+ * "Radeon RX 6700 XT" at GBP 899. It won purely because it was the priciest
+ * row under GBP 900 that happened to have a chipset string — while real RTX
+ * cards sat in the same pool.
+ *
+ * A price ceiling is not a performance target. Putting an RX 6700 XT in a
+ * "High End 1440p" machine is exactly the kind of mislabel that burns a 5-star
+ * reputation, so the gate now asks the ENGINE for the card's performance tier
+ * and requires the tier the band actually promises.
+ *
+ * Ordering among qualifying cards is still by price descending, so within the
+ * correct tier we take the strongest card the budget affords. gpuMax remains a
+ * genuine budget ceiling; it is simply no longer the ONLY constraint.
+ */
+$gpuFloorTier = $def['gpuFloorTier'] ?? 3;
+$gpuService = app(\App\Services\AIRecommendationService::class);
+
+$gpuCandidates = DB::table('components')
+    ->where('category_id', $ids['GPU'])
+    ->where('active', 1)
+    ->whereNotNull('price')
+    ->where('price', '>', 0)
+    ->where('price', '<=', $def['gpuMax'])
+    ->orderByDesc('price')
+    ->get();
+
+$gpu = null;
+$gpuTierSeen = [];
+foreach ($gpuCandidates as $candidate) {
+    if (((specsOf($candidate)['chipset'] ?? '') === '')) {
+        continue; // unidentifiable card - Rule 6: unknown must never equal permitted
+    }
+
+    $model = new \App\Models\Component();
+    $model->forceFill([
+        'name'     => $candidate->name,
+        'chipset'  => $candidate->chipset,
+        'specs'    => json_decode((string) $candidate->specs, true) ?: [],
+        'wattage'  => $candidate->wattage,
+        'price'    => $candidate->price,
+        'active'   => true,
+    ]);
+
+    $tier = $gpuService->gpuPerformanceTierPublic($model);
+    $gpuTierSeen[$tier] = $gpuTierSeen[$tier] ?? 0;
+    $gpuTierSeen[$tier]++;
+
+    if ($tier < $gpuFloorTier) {
         continue;
     }
+
+    $gpu = $candidate;
+    break;
+}
+
+if (!$gpu) {
+    printf(
+        "  %-28s SKIPPED: no GPU at tier >= %d under GBP %s (tiers seen: %s)\n",
+        $def['name'],
+        $gpuFloorTier,
+        number_format($def['gpuMax']),
+        $gpuTierSeen ? json_encode($gpuTierSeen) : 'none identifiable'
+    );
+    continue;
+}
     $gpuSpecs = specsOf($gpu);
     $gpuWatts = (int) ($gpu->wattage ?: $defaultGpuWatts);
     $gpuChipset = $gpuSpecs['chipset'];
@@ -244,12 +317,21 @@ foreach ($defs as $def) {
     }
     $ramSpeed = specsOf($ram)['speed'] ?? null;
 
-    $storage = DB::table('components')->where('category_id', $ids['Storage'])->where('active', 1)
-        ->whereNotNull('price')->get()
-        ->first(function ($s) {
-            $cap = (int) preg_replace('/[^0-9]/', '', (string) (specsOf($s)['capacity'] ?? ''));
-            return $cap >= 1000;
-        });
+    // orderBy('price') is REQUIRED, not cosmetic.
+//
+// This query used to be ->get()->first(...) with no ordering at all, so
+// "the first row with >=1TB" was whatever order Postgres happened to return -
+// effectively arbitrary. It selected a GBP 520 drive in every tier and then
+// reported the tier as too expensive, which is how all three bands came to
+// fail. RAM right above already used orderBy('price')->first(...), so this
+// also makes the two selections consistent.
+$storage = DB::table('components')->where('category_id', $ids['Storage'])->where('active', 1)
+    ->whereNotNull('price')->where('price', '>', 0)
+    ->orderBy('price')->get()
+    ->first(function ($s) {
+        $cap = (int) preg_replace('/[^0-9]/', '', (string) (specsOf($s)['capacity'] ?? ''));
+        return $cap >= 1000;
+    });
     if (!$storage) {
         printf("  %-28s SKIPPED: no >=1TB storage\n", $def['name']);
         continue;
@@ -343,8 +425,18 @@ foreach ($defs as $def) {
 
     // Publish only if the total is in the advertised band. Otherwise the page
     // would advertise a price it cannot honour.
+    //
+    // The skip line carries the full breakdown, not just the total. A bare
+    // "outside band £700-£900" gives no way to tell whether one part is
+    // overshooting or all eight are, which is the difference between a
+    // selection bug and a stale band. It must name what it picked.
     if ($total < $def['budget'][0] || $total > $def['budget'][1]) {
-        printf("  %-28s SKIPPED: total £%.0f outside band £%d-£%d\n", $def['name'], $total, $def['budget'][0], $def['budget'][1]);
+        printf(
+            "  %-28s SKIPPED: total £%.0f outside band £%d-£%d\n"
+            . "  %-28s   picked [%s]\n",
+            $def['name'], $total, $def['budget'][0], $def['budget'][1],
+            '', implode(', ', $line)
+        );
         continue;
     }
 
