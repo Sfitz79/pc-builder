@@ -182,11 +182,25 @@ window.builderState = () => ({
      */
     async loadPrebuiltFromUrl() {
         const params = new URLSearchParams(window.location.search);
-        const slug = params.get('prebuilt');
+
+        // Two deep-link forms, one code path:
+        //   ?prebuilt=<slug>  a pre-built from /prebuilts
+        //   ?featured=<slug>  a featured system from /featured
+        //
+        // The featured endpoint returns the SAME payload shape as the prebuilt
+        // preset endpoint, so applyBuild() serves both. Featured builds also
+        // carry integrated_graphics, which applyBuild() reads to decide whether a
+        // discrete GPU is still required.
+        const slug = params.get('prebuilt') || params.get('featured');
         if (!slug) return;
 
+        const fromFeatured = params.get('featured') !== null;
+        const endpoint = fromFeatured
+            ? `/featured/${encodeURIComponent(slug)}/apply`
+            : this.endpoints.preset(slug);
+
         try {
-            const response = await fetch(this.endpoints.preset(slug));
+            const response = await fetch(endpoint);
             if (!response.ok) return;
 
             const payload = await response.json();

@@ -4,6 +4,7 @@ use App\Http\Controllers\BuilderController;
 use App\Http\Controllers\BuildController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PrebuiltController;
+use App\Http\Controllers\FeaturedController;
 use App\Http\Controllers\SoftwareController;
 use Illuminate\Support\Facades\Route;
 
@@ -123,6 +124,10 @@ Route::view('/components', 'info-page', [
 // Pre-built configurator listings (live catalogue prices with an honest
 // price-fluctuation disclaimer, per Boss decision 2026-09-29).
 Route::get('/prebuilts', [PrebuiltController::class, 'index'])->name('prebuilts');
+
+// Featured systems range: three closed axes (usage, resolution, tier).
+Route::get('/featured', [FeaturedController::class, 'index'])->name('featured');
+Route::get('/featured/{slug}/apply', [FeaturedController::class, 'apply'])->name('featured.apply');
 Route::get('/builder/preset/{slug}', [PrebuiltController::class, 'preset'])->name('prebuilts.preset');
 
 /*
