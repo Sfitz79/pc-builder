@@ -63,6 +63,12 @@ public/textures/pbr/*.jpg
 # scripts/start-catalogue-refresh.ps1, so the backups are not history.
 database/scraped/*.bak
 
+# --- Runtime database snapshots (2026-10-09) ---------------------------------
+# scripts/genie-backfill-psu-efficiency.php dumps every specs object it is about
+# to change here BEFORE writing, giving a reversible rollback point. These are
+# production data snapshots, never code, and must never be swept into a commit.
+scripts/backups/
+
 # --- Scratch files ---------------------------------------------------------
 # One-off batch generators written to be run and thrown away. A file named
 # tmp-*.php has never once been the thing we wanted to keep.
