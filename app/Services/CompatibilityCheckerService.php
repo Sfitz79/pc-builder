@@ -225,8 +225,9 @@ class CompatibilityCheckerService
             case 'psu':
                 $specs = [
                     'Wattage' => ($part['wattage'] ?? 'N/A') . 'W',
-                    'Efficiency' => $part['efficiency'] ?? 'N/A',
-                    'Modular' => $part['modular'] ?? 'N/A',
+                    'Efficiency' => $part['specs']['efficiency_rating'] ?? 'N/A',
+                    'Modular' => $part['specs']['modular'] ?? 'N/A',
+                    'Form Factor' => $part['specs']['form_factor'] ?? 'N/A',
                 ];
                 break;
         }
