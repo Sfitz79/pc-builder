@@ -25,37 +25,29 @@
 
     <div class="mt-6 space-y-4">
 
-        <div class="flex justify-between">
-            <span>System price</span>
-            <span
-                class="font-bold text-red-400"
-                x-text="livePrice ? '£' + Number(livePrice.complete_price).toLocaleString() : '—'"
-            ></span>
-        </div>
-
-        <p class="text-sm text-slate-400">
-            One complete price for your system — includes build, burn test, cable
-            management and warranty. Shown in full at checkout.
-        </p>
-
-        <div class="flex justify-between">
-            <span>Assembly, burn test &amp; cable management</span>
-            <span class="text-emerald-400">Included</span>
-        </div>
-
-        <hr class="border-slate-800">
-
-        <div class="flex justify-between">
-
-            <span class="font-bold">
-                Total (with delivery)
-            </span>
-
+        <div class="flex items-end justify-between">
+            <span class="font-bold">Total to pay</span>
             <span
                 class="text-2xl font-bold text-red-400"
                 x-text="livePrice ? '£' + Number(livePrice.total).toLocaleString() : '—'"
             ></span>
+        </div>
 
+        <p class="text-sm text-slate-400">
+            One complete price — includes build, burn test, cable management,
+            delivery and warranty. Shown in full at checkout.
+        </p>
+
+        <div
+            class="flex items-center justify-between rounded-xl bg-sky-500/10 p-3 text-sm text-sky-200"
+            x-show="livePrice"
+            x-cloak
+        >
+            <span>or 3 interest-free payments of</span>
+            <span
+                class="font-bold text-white"
+                x-text="livePrice ? '£' + (Number(livePrice.total) / 3).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : ''"
+            ></span>
         </div>
 
         <div

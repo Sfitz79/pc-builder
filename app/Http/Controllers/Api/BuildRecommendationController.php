@@ -82,7 +82,15 @@ class BuildRecommendationController extends Controller
         $both = $this->recommendations->recommendBoth($budget, $purpose, $resolution, null);
 
         $build = $both[$want] ?? $both['ideal'] ?? [];
-        $delivery = (float) config('pricing.build_delivery', 0);
+
+        // $build['total'] is BuildPricingService::completePrice(), which already
+        // folds delivery in (Simon's directive 2026-09-28). Adding the delivery
+        // fee again here double-charged GBP 250 in the all-in figure the
+        // auto-reply engine quotes to real leads. Mirror the fold flag exactly;
+        // when folded, delivery is 0 and all_in_total == total.
+        $delivery = (bool) config('pricing.include_delivery_in_system_price', true)
+            ? 0.0
+            : (float) config('pricing.build_delivery', 0);
         $total = round((float) ($build['total'] ?? 0.0), 2);
 
         return response()->json([

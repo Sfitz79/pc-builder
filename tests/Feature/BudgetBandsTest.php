@@ -127,9 +127,8 @@ class BudgetBandsTest extends TestCase
         // These rows deliberately do NOT disturb the 1080p or 1440p floors: both
         // bands are tier 2 and tier 3, and GPU_CPU_COHERENCE only constrains
         // tiers 4 and 5, so cpuCanFeedGpu() places no platform constraint there
-        // and the GBP 59.99 Ryzen 5 4500 still wins the cheapest-CPU race. Both
-        // floors still measure at GBP 1,368.46 and GBP 1,522.35 with these rows
-        // present.
+        // and the GBP 59.99 Ryzen 5 4500 still wins the cheapest-CPU race at
+        // both resolutions with these rows present.
         // ---------------------------------------------------------------------
         $part('cpu', 'Intel Core Ultra 5 225F', 138.97, ['cores' => 10, 'threads' => 10, 'tdp' => 65], ['socket' => 'LGA1851']);
         $part('motherboard', 'ASRock H810M-H', 71.99, ['socketCPU' => 'LGA1851', 'memorySlots' => 2], ['socket' => 'LGA1851', 'memory_type' => 'DDR5']);
@@ -241,22 +240,20 @@ class BudgetBandsTest extends TestCase
     /**
      * "1080p from GBP X" has to mean a build exists at GBP X.
      *
-     * The published floors were originally measured against the local SQLite
-     * catalogue while the storefront served the Neon one, which made every floor
-     * an under-promise: 1080p was advertised from GBP 1,350 when the cheapest
-     * machine the engine can quote from the real catalogue is GBP 1,430.
-     *
-     * This pins the numbers that came back from live Neon on 2026-09-28
-     * (2,708 components, PostgreSQL 18.6) rather than re-deriving them from
-     * whatever fixture is loaded, so a real price move has to be a deliberate
-     * edit to this test with a new measurement behind it - not a silent drift.
+     * The published floors are measured against live Neon, not the fixture, so
+     * this pins the published floor that came back on 2026-10-09 (2,708
+     * components, PostgreSQL 18.6) after the pricing model moved to a 5% margin
+     * over parts + the folded GBP 250 build & delivery and the 3% merchant
+     * rate. Re-deriving them from whatever fixture is loaded would hide a real
+     * price move, so a change here has to be a deliberate edit with a fresh
+     * Neon measurement behind it - not a silent drift.
      */
     public function test_published_floors_match_the_live_neon_measurement(): void
     {
         $measuredOnProduction = [
-            '1080p' => 1430.00,
-            '1440p' => 1640.00,
-            '4k' => 2290.00,
+            '1080p' => 1040.00,
+            '1440p' => 1190.00,
+            '4k' => 1630.00,
         ];
 
         foreach ($measuredOnProduction as $key => $measured) {
@@ -267,7 +264,7 @@ class BudgetBandsTest extends TestCase
                 $published,
                 0.01,
                 sprintf(
-                    'The %s floor is GBP %s but the live Neon catalogue measured GBP %s on 2026-09-28. '
+                    'The %s floor is GBP %s but the live Neon catalogue measured GBP %s on 2026-10-09. '
                     .'If the catalogue has genuinely moved, re-measure against Neon and update both '
                     .'this test and RESOLUTION_BANDS together.',
                     $key,

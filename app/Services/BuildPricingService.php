@@ -11,10 +11,12 @@ use App\Models\Build;
  * for a system — never a per-part breakdown. The hidden margin covers build,
  * testing and warranty costs plus merchant processing:
  *
- *   complete_price = ( parts_cost + service_charge + delivery + min_margin ) / ( 1 - merchant_rate )
+ *   complete_price = ( parts_cost + service_charge + delivery )
+ *                    * ( 1 + margin_rate ) / ( 1 - merchant_rate )
  *
- * So the margin on every build is at least £min_margin + merchant_rate% of the
- * complete price, while the customer-facing figure stays a single clean number.
+ * So the customer pays parts + build & delivery + a percentage margin, grossed
+ * up to cover the payment processor, while the customer-facing figure stays a
+ * single clean number.
  *
  * Delivery is inside that one number (Simon's directive 2026-09-28: "total
  * customer system price inc parts/del/build/service/margin as one cost"). It
@@ -44,11 +46,15 @@ class BuildPricingService
         $parts = (float) $partsCost;
         $service = $serviceCharge ?? (float) config('pricing.service_charge', 0);
         $delivery = $this->foldedDelivery();
-        $minMargin = (float) config('pricing.min_margin', 300);
+        $marginRate = (float) config('pricing.margin_rate', 0.05);
         $merchantRate = (float) config('pricing.merchant_rate', 0.03);
 
         $denominator = max(1 - $merchantRate, 0.5);
-        $total = ($parts + $service + $delivery + $minMargin) / $denominator;
+
+        // Cost base = parts + build & delivery, then a percentage margin, then
+        // the payment-processor fee grossed into the single customer price.
+        $base = $parts + $service + $delivery;
+        $total = $base * (1 + $marginRate) / $denominator;
 
         return round($total, 2);
     }
@@ -63,9 +69,8 @@ class BuildPricingService
 
     /**
      * The hidden margin for a complete price / parts cost pair.
-     * Ensures the margin is at least min_margin + merchant_rate% of complete.
-     * Delivery is treated as a cost we carry, not as part of the margin base,
-     * so it is excluded here when it is folded into the system price.
+     * This is what the customer pays above parts + build & delivery: the
+     * percentage margin plus the grossed-up payment-processor fee.
      */
     public function margin(float $complete, float|int|string $partsCost, float|int|string|null $serviceCharge = null): float
     {
@@ -76,22 +81,26 @@ class BuildPricingService
 
     /**
      * Parts budget that keeps the COMPLETE price within a customer's system
-     * budget. Works backwards from:
+     * budget. Inverts completePrice:
      *
-     *   complete <= budget  =>  parts <= budget*(1-rate) - min_margin - service - delivery
+     *   complete = (parts + service + delivery) * (1+margin) / (1-rate)
+     *   => parts = budget*(1-rate)/(1+margin) - service - delivery
      *
-     * Delivery is subtracted because the customer's budget is now the single
-     * all-in figure - if we did not reserve the delivery cost here, every build
-     * would be quoted as if delivery were free and then overshoot by GBP 250.
+     * Both the build & delivery cost and the grossed-up processor fee are
+     * reserved out of the customer's all-in budget - if they were not, every
+     * build would be quoted as if delivery and margin were free and overshoot.
      */
     public function partsBudgetFor(float $systemBudget): float
     {
         $budget = (float) $systemBudget;
-        $minMargin = (float) config('pricing.min_margin', 300);
+        $marginRate = (float) config('pricing.margin_rate', 0.05);
         $merchantRate = (float) config('pricing.merchant_rate', 0.03);
         $service = (float) config('pricing.service_charge', 0);
         $delivery = $this->foldedDelivery();
 
-        return max(0.0, round($budget * (1 - $merchantRate) - $minMargin - $service - $delivery, 2));
+        return max(0.0, round(
+            $budget * (1 - $merchantRate) / (1 + $marginRate) - $service - $delivery,
+            2
+        ));
     }
 }

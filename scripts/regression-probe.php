@@ -50,17 +50,17 @@ function vramOf(Component $c): int
 // AAA games at high settings at that resolution - that is what the bands are
 // for, so the probe holds them to it rather than to "a build appeared".
 //
-//   1080p GBP 1,350-1,500  GPU tier 2+  (RTX 4060 / RX 7600 XT / Arc A750 up)
-//   1440p GBP 1,530-2,500  GPU tier 3+  (RTX 5060 Ti / RX 9060 XT / RTX 4070)
-//   4K    GBP 1,960-3,500  GPU tier 5+  (RTX 5070 Ti / RX 9070 XT / RTX 5080)
+//   1080p GBP 1,040-1,190  GPU tier 2+  (RTX 4060 / RX 7600 XT / Arc A750 up)
+//   1440p GBP 1,190-1,630  GPU tier 3+  (RTX 5060 Ti / RX 9060 XT / RTX 4070)
+//   4K    GBP 1,630-3,500  GPU tier 5+  (RTX 5070 Ti / RX 9070 XT / RTX 5080)
 //
 // Floors are read from the service so the probe cannot drift from the storefront.
 $bands = $service->workableBands();
 
 $ladder = [
-    '1080P' => [1350, 1400, 1450, 1500],
-    '1440P' => [1530, 1700, 1900, 2100, 2300, 2500],
-    '4K' => [1960, 2100, 2400, 2700, 3000, 3300, 3500],
+    '1080P' => [1040, 1090, 1140, 1190],
+    '1440P' => [1190, 1300, 1420, 1540, 1630],
+    '4K' => [1630, 1800, 2100, 2500, 2900, 3300, 3500],
 ];
 
 

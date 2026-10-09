@@ -9,13 +9,14 @@ return [
     |
     | Pricing model (Simon's mandate, 2026-09-08):
     |
-    |   complete_price = ( parts_cost + service_charge + min_margin ) / ( 1 - merchant_rate )
+    |   complete_price = ( parts_cost + service_charge + delivery )
+    |                    * ( 1 + margin_rate ) / ( 1 - merchant_rate )
     |
     | The margin (build/test/warranty + merchant costs) is HIDDEN from clients.
     | Customers see ONE complete price for the system - never a parts breakdown.
     |
-    | Env: BUILD_DELIVERY_FEE, PAYPAL_FEE_RATE, PCTG_MIN_MARGIN,
-    |      PCTG_MERCHANT_RATE, PCTG_SERVICE_CHARGE, PAYPAL_CURRENCY
+    | Env: BUILD_DELIVERY_FEE, PCTG_MARGIN_RATE, PCTG_MERCHANT_RATE,
+    |      PCTG_SERVICE_CHARGE, PAYPAL_CURRENCY
     |
     */
 
@@ -41,8 +42,17 @@ return [
     // customer as an itemised fee).
     'merchant_rate' => (float) env('PCTG_MERCHANT_RATE', 0.03),
 
-    // Minimum build/test/warranty margin added to every system, hidden.
-    'min_margin' => (float) env('PCTG_MIN_MARGIN', 300),
+    // Percentage margin applied to the cost base (parts + build & delivery).
+    //
+    // Simon's model, 2026-10-09: "parts + build & del (GBP 250) + margin
+    // + 3% of total for PayPal fees = total customer cost". Margin set to 5%.
+    //
+    //   total = ( parts + 250 ) * 1.05 / 0.97
+    'margin_rate' => (float) env('PCTG_MARGIN_RATE', 0.05),
+
+    // Legacy flat margin. Retained so an old env var cannot silently re-add it;
+    // the percentage margin above supersedes it. Keep at 0.
+    'min_margin' => (float) env('PCTG_MIN_MARGIN', 0),
 
     // Optional service charge line included in the margin base (default 0 —
     // build/test/warranty is covered entirely by the margin).

@@ -90,7 +90,7 @@ class AIRecommendationService
      * The floor that actually governs pricing is now per-resolution and
      * MEASURED rather than typed - see `workableBands()` and `entryPriceFor()`:
      *
-     *   1080p  GBP 1,350    1440p  GBP 1,530    4K  GBP 1,960
+     *   1080p  GBP 1,040    1440p  GBP 1,190    4K  GBP 1,630
      *
      * @see workableBands() for the live figures the storefront uses
      */
@@ -341,25 +341,25 @@ class AIRecommendationService
      * quote (Ryzen 5 4500 / Core i5-12400) has no integrated graphics, so every
      * machine we sell now needs a discrete card.
      *
-     * SUPERSEDED 2026-09-28 by the figures above being re-measured against live
-     * Neon for the first time. Every number in this table had been measured
-     * against the LOCAL SQLite catalogue, which is a different and smaller
-     * dataset. Measured against the real 2,708-row production catalogue:
+     * RE-MEASURED 2026-10-09 against live Neon after the pricing model moved.
+     * The old completePrice (bare +10% margin) became a 5% margin over parts
+     * plus the GBP 250 build & delivery that is now folded into the system
+     * price, plus the 3% merchant rate. The same cheapest legal build now comes
+     * out materially lower, so the published floors moved down with it -
+     * measured against the 2,708-row production catalogue:
      *
-     *   1080p  GBP 1,430.00 (measured)   1440p  GBP 1,640.00   4K  GBP 2,290.00
+     *   1080p  GBP 1,040.00 (measured)   1440p  GBP 1,190.00   4K  GBP 1,630.00
      *
-     * Two consequences, both of which are why the table is now contiguous:
+     * These constants are the published FALLBACK: workableBands() prefers the
+     * live measurement and only falls back to these numbers when the catalogue
+     * cannot be measured at all, so they must stay equal to a real measurement
+     * rather than drift back into a hand-typed guess.
      *
-     * 1. The old floors UNDER-PROMISED. Advertising "1080p from GBP 1,350"
-     *    when the cheapest machine the engine can actually quote is GBP 1,430
-     *    means a customer who types GBP 1,350-1,429 is quoting a budget we
-     *    cannot fill. "From" has to mean we can build it from there.
-     * 2. The old ceilings OVERLAPPED. 1440p maxed at GBP 2,500 while 4K started
-     *    at GBP 1,960, so a GBP 2,000 budget satisfied both bands at once and
-     *    the resolution promise became ambiguous for the whole of that range.
-     *
-     * The table is therefore a contiguous ladder - each ceiling is the next
-     * floor - so every budget maps to exactly one resolution promise.
+     * The table is a contiguous ladder - each ceiling is the next floor - so
+     * every budget maps to exactly one resolution promise. That matters because
+     * the old, overlapping table let a GBP 2,000 budget be a valid 1440p AND a
+     * valid 4K ask at once, so which resolution the customer was promised came
+     * down to iteration order rather than to anything we told them.
      *
      * @see workableBands() for the live measured version, which is what the
      *      storefront, the budget slider and the clamp all read.
@@ -367,9 +367,9 @@ class AIRecommendationService
      * @var array<string, array{min: float, max: float, label: string, floor_gpu_tier: int}>
      */
     public const RESOLUTION_BANDS = [
-        '1080p' => ['min' => 1430.0, 'max' => 1640.0, 'label' => '1080p', 'floor_gpu_tier' => 2],
-        '1440p' => ['min' => 1640.0, 'max' => 2290.0, 'label' => '1440p', 'floor_gpu_tier' => 3],
-        '4k' => ['min' => 2290.0, 'max' => 3500.0, 'label' => '4K', 'floor_gpu_tier' => 5],
+        '1080p' => ['min' => 1040.0, 'max' => 1190.0, 'label' => '1080p', 'floor_gpu_tier' => 2],
+        '1440p' => ['min' => 1190.0, 'max' => 1630.0, 'label' => '1440p', 'floor_gpu_tier' => 3],
+        '4k' => ['min' => 1630.0, 'max' => 3500.0, 'label' => '4K', 'floor_gpu_tier' => 5],
     ];
 
 
@@ -2579,7 +2579,7 @@ class AIRecommendationService
      * The wording matters more than it looks. "Budget below minimum" is not an
      * explanation, it is a rejection. A customer who came here with GBP 900
      * has not done anything wrong, and telling them plainly that a complete
-     * new machine starts at GBP 1,260 - and that we can mix in parts we have
+     * new machine starts at GBP 1,040 - and that we can mix in parts we have
      * already checked to bring it down - is how you keep the sale.
      *
      * @return array{min: float, floor: float, raised: bool, message: string, hybrid: array}|null

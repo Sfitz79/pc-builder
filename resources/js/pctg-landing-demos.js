@@ -340,10 +340,10 @@ waitForDom(() => {
     let budget = Number(budgetInput.value) || 1500;
 
     // These are FALLBACKS only, until /builder/bands answers with the live
-    // measured figures. workableBands() measures the 1080p entry at 1,297.92,
-    // which it publishes rounded to 1,300, so the fallback floor matches that
-    // rather than the old 1,350 - which understated our own cheapest machine.
-    let floor = 1300;
+    // measured figures. workableBands() measures and rounds the 1080p entry up
+    // to the published floor (GBP 1,040 under the current pricing model), so
+    // the fallback matches it rather than a stale hand-typed number.
+    let floor = 1040;
     let ceiling = 3500;
 
     const WHATSAPP = '+447933101083';
@@ -402,8 +402,13 @@ waitForDom(() => {
 
             if (!band) return;
 
-            floor = Math.ceil((Number(band.min) || 1350) / 10) * 10;
-            ceiling = Number(band.max) || 3500;
+            // The floor is the cheapest band; the ceiling is the TOP band's
+            // ceiling, not the 1080p band's - the slider spans the whole range,
+            // so capping it at the 1080p ceiling would hide every dearer build.
+            const topBand = data && data.bands ? data.bands['4k'] : null;
+
+            floor = Math.ceil((Number(band.min) || 1040) / 10) * 10;
+            ceiling = Number(topBand && topBand.max) || 3500;
 
             budgetInput.min = String(floor);
             budgetInput.max = String(Math.max(ceiling, floor));

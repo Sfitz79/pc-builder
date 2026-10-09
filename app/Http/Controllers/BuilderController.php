@@ -310,7 +310,17 @@ class BuilderController extends Controller
             ->sum(fn (Component $component) => (float) $component->price);
 
         $complete = $this->pricing->completePrice($parts);
-        $delivery = (float) config('pricing.build_delivery', 0);
+
+        // Delivery is folded INTO complete_price (Simon's directive 2026-09-28),
+        // so it must NOT be added on top again here. This endpoint previously
+        // returned total = complete_price + build_delivery, double-charging the
+        // GBP 250 delivery in the live summary (System price GBP 1,504.35 but
+        // Total GBP 1,754.35). OrderController applies the same rule at
+        // checkout; match it exactly so the summary and checkout can never
+        // disagree. When folded we report 0, making complete_price == total.
+        $delivery = $this->pricing->foldedDelivery() > 0
+            ? 0.0
+            : (float) config('pricing.build_delivery', 0);
 
         return response()->json([
             'parts_total' => $parts,

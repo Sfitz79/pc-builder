@@ -362,7 +362,7 @@
                          never drift from the real measured floor. --}}
                     <input
                         type="range"
-                        min="1350"
+                        min="1040"
                         max="3500"
                         step="10"
                         value="1500"
@@ -372,16 +372,14 @@
                     >
 
                     <div class="mt-2 flex items-center justify-between text-sm">
-                        {{-- Floor was a hardcoded £1,350, but the JS fallback in
-                             pctg-landing-demos.js is now £1,300 to match the measured
-                             1080p entry price (workableBands() -> entryPriceFor
-                             returns 1297.92, published rounded to 1300). Leaving the
-                             markup at £1,350 made the slider advertise a higher
-                             minimum than the code enforces, so the number visibly
-                             jumped DOWN on load. These are only the pre-fetch
-                             placeholders; loadBands() overwrites all three from
-                             /builder/bands once it answers. --}}
-                        <span class="text-slate-400" data-demo-budget-floor>&pound;1,300</span>
+                        {{-- These are pre-fetch placeholders only; loadBands()
+                             overwrites all three from /builder/bands. The floor
+                             mirrors the measured 1080p entry price published by
+                             workableBands() under the current pricing model, so
+                             the number cannot visibly jump DOWN on load. If the
+                             catalogue moves, update this alongside the JS
+                             fallback in pctg-landing-demos.js. --}}
+                        <span class="text-slate-400" data-demo-budget-floor>&pound;1,040</span>
                         <span class="font-bold text-white" data-demo-budget-label>&pound;1,500</span>
                         <span class="text-slate-400" data-demo-budget-ceiling>&pound;3,500</span>
                     </div>

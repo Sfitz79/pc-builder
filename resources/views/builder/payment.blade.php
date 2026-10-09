@@ -99,20 +99,25 @@
 
         <x-pctg.card :padded="false" class="h-fit overflow-hidden lg:sticky lg:top-24">
             <div class="space-y-4 p-6">
-                <p class="text-xs font-medium uppercase tracking-[0.14em] text-pctg-text-secondary">System price</p>
-                <p class="font-display text-4xl font-bold text-white" x-text="$store.checkout.amount ? $store.checkout.money($store.checkout.amount.system_price) : '…'"></p>
+                <p class="text-xs font-medium uppercase tracking-[0.14em] text-pctg-text-secondary">Total to pay</p>
+                <p class="font-display text-4xl font-bold text-white" x-text="$store.checkout.amount ? $store.checkout.money($store.checkout.amount.total) : '…'"></p>
                 <p class="text-sm text-pctg-text-secondary">Includes build, burn test, cable management, delivery &amp; warranty</p>
 
+                <div
+                    class="flex items-center justify-between rounded-xl bg-sky-500/10 p-3 text-sm text-sky-200"
+                    x-cloak
+                    x-show="$store.checkout.amount"
+                >
+                    <span>or 3 interest-free payments of</span>
+                    <span class="font-bold text-white" x-text="$store.checkout.amount ? $store.checkout.money($store.checkout.amount.total / 3) : ''"></span>
+                </div>
+
                 <dl class="space-y-2 border-t border-white/5 pt-4 text-sm">
-                    {{-- Delivery is folded into the single system price, so this
-                         row only appears if it is ever billed separately again. --}}
+                    {{-- Delivery is folded into the single total, so this row only
+                         appears if it is ever billed separately again. --}}
                     <div class="flex items-center justify-between" x-show="$store.checkout.amount ? $store.checkout.amount.build_delivery : false">
                         <dt class="text-pctg-text-secondary">Delivery</dt>
                         <dd class="font-medium text-white" x-text="$store.checkout.amount ? $store.checkout.money($store.checkout.amount.build_delivery) : '…'"></dd>
-                    </div>
-                    <div class="flex items-center justify-between border-t border-white/5 pt-3">
-                        <dt class="font-semibold text-white">Total</dt>
-                        <dd class="font-display text-lg font-bold text-white" x-text="$store.checkout.amount ? $store.checkout.money($store.checkout.amount.total) : '…'"></dd>
                     </div>
                 </dl>
 
