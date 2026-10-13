@@ -269,15 +269,15 @@ class PcppPriceService
 
             // The final price is the delivered price: base + shipping + tax.
             // That is the figure we advertise, so it is the one we store.
-            $price = $this->firstAmount($rowHtml, '/td__finalPrice.*?(&pound;|£)\s?([\d,]+(?:\.\d{1,2})?)/is');
+            $price = $this->firstAmount($rowHtml, '/td__finalPrice.*?(\\&pound;|\\xC2\\xA3|\\xA3)\s?([\d,]+(?:\.\d{1,2})?)/is');
             if ($price === null) {
-                $price = $this->firstAmount($rowHtml, '/(&pound;|£)\s?([\d,]+(?:\.\d{1,2})?)/is');
+                $price = $this->firstAmount($rowHtml, '/(\\&pound;|\\xC2\\xA3|\\xA3)\s?([\d,]+(?:\.\d{1,2})?)/is');
             }
             if ($price === null || $price <= 0) {
                 continue;
             }
 
-            $base = $this->firstAmount($rowHtml, '/td__base[^>]*>\s*(&pound;|£)\s?([\d,]+(?:\.\d{1,2})?)/is');
+            $base = $this->firstAmount($rowHtml, '/td__base[^>]*>\s*(\\&pound;|\\xC2\\xA3|\\xA3)\s?([\d,]+(?:\.\d{1,2})?)/is');
 
             $shipping = null;
             if (preg_match('/td__shipping[^>]*>(.*?)<\/td>/is', $rowHtml, $sm) === 1) {
@@ -338,6 +338,241 @@ class PcppPriceService
             'offers' => count($rows),
             'in_stock_offers' => count($buyable),
         ];
+    }
+
+    /**
+     * The UK retailers we will take a catalogue price from.
+     *
+     * MEASURED 2026-10-13, and this is why the method exists. A dry run of
+     * components:refresh-prices against production Neon wanted to rewrite the catalogue as:
+     *
+     *     Intel Core i7-13700K   GBP 349.99 -> 485.00  (+39%)  merchant: amazonuk
+     *     Intel Core i5-13600K   GBP 259.99 -> 419.99  (+62%)  merchant: amazonuk
+     *     TEAMGROUP T-Create 32GB DDR5-6000  460.51 -> 527.14  merchant: newegguk
+     *
+     * Independent check the same day, against UK retailers directly:
+     *     Overclockers UK  i7-13700K  GBP 349.99 incl VAT   <- EXACTLY the current price
+     *     PriceSpy UK     best price GBP 382.45 across 5 UK shops
+     *                     OnBuy 382.45 | Amazon Marketplace 415.00 | Clove 438.99
+     *     Box.co.uk       adjacent i5 chips GBP 152.99 - 239.49
+     *
+     * So the catalogue already held the BEST UK price, and the marketplace feed sits
+     * 39-62 percent ABOVE every mainstream UK seller. Taking the cheapest offer overall is
+     * therefore not "cheapest" in any sense that matters - it is the most expensive credible
+     * source, and it would have overwritten good prices with bad ones.
+     *
+     * "Amazon Marketplace" is deliberately NOT the same entry as Amazon.co.uk. Marketplace
+     * rows are third-party sellers on Amazon's platform, which is exactly the kind of
+     * unverified seller the allowlist exists to exclude.
+     */
+    public const TRUSTED_RETAILERS = [
+        'scan' => 'Scan',
+        'scan.co.uk' => 'Scan',
+        'overclockers' => 'Overclockers UK',
+        'overclockers.co.uk' => 'Overclockers UK',
+        'ocuk' => 'Overclockers UK',
+        'clove' => 'Clove',
+        'clove.co.uk' => 'Clove',
+        'onbuy' => 'OnBuy',
+        'onbuy.co.uk' => 'OnBuy',
+        'box' => 'Box',
+        'box.co.uk' => 'Box',
+        'ebay' => 'eBay UK',
+        'ebay.co.uk' => 'eBay UK',
+        'amazon' => 'Amazon.co.uk',
+        'amazon.co.uk' => 'Amazon.co.uk',
+        'orbit' => 'Orbit',
+        'morethanpc' => 'moreco',
+        'moreco' => 'moreco',
+        // PCPP's own merchant tags are run-together ("overclockerscouk", "amazonuk",
+        // "onbuyco"). They are listed so a tagged row resolves the same way a named one does.
+        'overclockerscouk' => 'Overclockers UK',
+        'amazonuk' => 'Amazon.co.uk',
+        'onbuyco' => 'OnBuy',
+        'scanco' => 'Scan',
+        // UK-facing sellers that also appear in PCPP's feed. "Newegg UK" is the UK storefront,
+        // not the US newegg.com that inflated prices before.
+        'newegg' => 'Newegg UK',
+        'newegguk' => 'Newegg UK',
+        'cdw' => 'CDW UK',
+    ];
+
+    /**
+     * Minimum trusted offers before a computed price may be written.
+     *
+     * One offer is not an average, it is a single seller's number, and publishing it as
+     * "the market price" is how a catalogue ends up quoting one eBay listing.
+     */
+    public const MIN_AVERAGE_SAMPLE = 2;
+
+    /**
+     * Reduce a merchant name or PCPP tag to a comparable key.
+     *
+     * The same retailer arrives spelled several ways - "Overclockers.co.uk",
+     * "overclockerscouk", "Clove", "Clove Technology", "eBay UK" - and all of them must
+     * resolve to one entry, or the allowlist silently stops matching and every row falls
+     * through to the untrusted path. That failure is invisible: the code still returns a
+     * price, just from a seller we never vetted.
+     */
+    public static function normaliseMerchant(?string $merchant): string
+    {
+        $m = strtolower(trim((string) $merchant));
+        $m = preg_replace('#^www\.#', '', $m) ?? $m;
+        $m = preg_replace('#\.(co\.uk|com|uk|net)$#', '', $m) ?? $m;
+        $m = preg_replace('#\s+(technology|ltd|limited|uk)$#', '', $m) ?? $m;
+        $m = preg_replace('#[^a-z0-9]+#', '', $m) ?? $m;
+
+        return trim($m);
+    }
+
+    /**
+     * Is this seller one we will quote a catalogue price from?
+     *
+     * Static on purpose: this is a pure lookup over TRUSTED_RETAILERS, and the contract test
+     * (scripts/test-trusted-retailers.php) asserts it directly without booting a service.
+     */
+    public static function isTrustedMerchant(?string $merchant): bool
+    {
+        $key = self::normaliseMerchant($merchant);
+        if ($key === '') {
+            return false;
+        }
+
+        // Amazon Marketplace is a THIRD-PARTY seller on Amazon's platform, not Amazon UK.
+        // It must never be treated as the same trusted source.
+        if (str_contains($key, 'marketplace')) {
+            return false;
+        }
+
+        return array_key_exists($key, self::TRUSTED_RETAILERS);
+    }
+
+    /**
+     * The cheapest offer from a TRUSTED UK retailer, falling back to an untrusted one
+     * rather than returning nothing.
+     *
+     * The fallback is flagged, because a price we could not attribute to a mainstream UK
+     * seller must not be presented as if it could.
+     *
+     * @param  list<array{price: float, in_stock: bool, merchant: ?string, merchant_url: ?string, base: ?float, shipping: ?string}>  $rows
+     * @return array<string, mixed>|null
+     */
+    public function cheapestTrustedOffer(array $rows): ?array
+    {
+        if ($rows === []) {
+            return null;
+        }
+
+        $trusted = array_values(array_filter(
+            $rows,
+            fn (array $r) => self::isTrustedMerchant($r['merchant'] ?? null)
+        ));
+
+        $pool = $trusted !== [] ? $trusted : $rows;
+
+        usort($pool, fn (array $a, array $b) => $a['price'] <=> $b['price']);
+
+        // Prefer a buyable row, exactly as cheapestOffer() does, so the two agree.
+        $buyable = array_values(array_filter($pool, fn (array $r) => $r['in_stock']));
+        if ($buyable !== []) {
+            $pool = $buyable;
+        }
+
+        $best = $pool[0];
+
+        return [
+            'price' => $best['price'],
+            'in_stock' => $buyable !== [],
+            'merchant' => $best['merchant'],
+            'merchant_url' => $best['merchant_url'] ?? null,
+            'base' => $best['base'],
+            'shipping' => $best['shipping'],
+            'offers' => count($rows),
+            'in_stock_offers' => count($buyable),
+            'trusted_found' => $trusted !== [],
+            'trusted_note' => $trusted === []
+                ? 'No trusted UK retailer offered this part; the price is from an unverified seller and must not be advertised as a mainstream UK price.'
+                : null,
+        ];
+    }
+
+    /**
+     * The price we publish: the mean of every TRUSTED, IN-STOCK UK offer, rounded UP.
+     *
+     * Boss directive 2026-10-13: average across the popular UK retailers, then round up to
+     * the nearest pound, and require at least two trusted offers before writing anything.
+     *
+     * Rounding is UP because the published number is a promise we have to be able to keep.
+     * Rounding down would advertise a price that the average cannot always fund.
+     *
+     * Out-of-stock offers are excluded from the average: they are not a price anyone can
+     * buy today. They are still reported in `out_of_stock_trusted` so the caller can tell
+     * "no longer sold in the UK" from "sold, but the crawl failed".
+     *
+     * @param  list<array{price: float, in_stock: bool, merchant: ?string, merchant_url: ?string, base: ?float, shipping: ?string}>  $rows
+     * @return array<string, mixed>
+     */
+    public function averageTrustedPrice(array $rows): array
+    {
+        $trusted = array_values(array_filter(
+            $rows,
+            fn (array $r) => self::isTrustedMerchant($r['merchant'] ?? null)
+        ));
+
+        $buyable = array_values(array_filter($trusted, fn (array $r) => $r['in_stock']));
+
+        $base = [
+            'price' => null,
+            'sample_size' => count($buyable),
+            'trusted_offers' => count($trusted),
+            'out_of_stock_trusted' => count($trusted) - count($buyable),
+            'min' => null,
+            'max' => null,
+            'median' => null,
+            // An average belongs to nobody, so it must not be attributed to a merchant.
+            'merchant' => null,
+            'merchant_url' => null,
+            'base' => null,
+            'shipping' => null,
+            'note' => null,
+        ];
+
+        if ($buyable === []) {
+            $base['note'] = $trusted === []
+                ? 'No trusted UK retailer offered this part.'
+                : 'Every trusted UK offer is out of stock.';
+
+            return $base;
+        }
+
+        $prices = array_map(fn (array $r) => (float) $r['price'], $buyable);
+        sort($prices);
+
+        $count = count($prices);
+        $sum = array_sum($prices);
+        $mean = $sum / $count;
+
+        $median = $count % 2 === 1
+            ? $prices[intdiv($count, 2)]
+            : ($prices[intdiv($count, 2) - 1] + $prices[intdiv($count, 2)]) / 2;
+
+        // Round UP to the nearest whole pound. Round to 2dp first so 100.499999 from
+        // floating-point division cannot ceil to 101 when the true mean is 100.49.
+        $rounded = ceil(round($mean, 2));
+
+        $base['price'] = $rounded;
+        $base['min'] = $prices[0];
+        $base['max'] = $prices[$count - 1];
+        $base['median'] = round($median, 2);
+        $base['note'] = sprintf(
+            'Averaged across %d trusted UK retailer%s (min GBP %s, max GBP %s), rounded up to the nearest pound.',
+            $count,
+            $count === 1 ? '' : 's',
+            number_format($prices[0], 2),
+            number_format($prices[$count - 1], 2)
+        );
+
+        return $base;
     }
 
     /**

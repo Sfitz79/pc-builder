@@ -91,3 +91,6 @@ database/scraped/prod-batches/
 # uploads the working directory, not just tracked files. Never commit, and
 # scripts/deploy.ps1 now fails the build if it is present.
 public/hot
+
+# local run logs - never commit
+price-fill.log
