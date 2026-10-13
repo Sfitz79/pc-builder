@@ -38,10 +38,41 @@ class AIRecommendationService
     }
   }
 
-  /**
-   * Hidden-margin pricing engine (complete price = parts + margin).
-   */
-  protected BuildPricingService $pricing;
+    /**
+     * The Pay in 3 sentence, or an empty string when we cannot honour it.
+     *
+     * WHY THIS IS CONDITIONAL (verified 2026-10-13)
+     * ---------------------------------------------
+     * PayPal Pay in 3 caps at GBP 3,000 for the consumer. Our builds run to GBP 3,500, and
+     * the only two places this sentence appeared were the OVERSHOOT branches - the ones
+     * where the build costs MORE than the budget the customer gave us. That is precisely
+     * where a customer is most likely to be above the cap.
+     *
+     * So the copy could promise a payment option we are then unable to honour on the order.
+     * That is a small lie with a real consequence, and it is exactly the kind of overselling
+     * the brand exists to prevent. Above the cap we say nothing at all rather than something
+     * that will be refused at checkout.
+     *
+     * FCA note: BNPL became regulated credit on 15 July 2026, so this is described only as
+     * "interest-free" and never as unregulated or outside FCA control. Merchant brokering of
+     * regulated deferred payment credit remains exempt (PS26/1), so no authorisation is
+     * needed to offer it - but the wording must stay accurate.
+     */
+    protected function payInThreeSentence(float $total): string
+    {
+        // PayPal's published consumer cap is GBP 3,000. Quoting slightly under it leaves room
+        // for the shipping the order total may include.
+        if ($total > 3000.0 || $total <= 0) {
+            return '';
+        }
+
+        return ' or spread the cost with PayPal Pay in 3, interest-free';
+    }
+
+    /**
+     * Hidden-margin pricing engine (complete price = parts + margin).
+     */
+    protected BuildPricingService $pricing;
 
     /**
      * Price integrity gate: strips corrupt (bundle-priced / scraped-wrong)
@@ -2746,7 +2777,7 @@ class AIRecommendationService
                     . 'GBP ' . number_format($total, 2) . ' against your budget of GBP '
                     . number_format($budget) . ', and it is the cheapest machine we can '
                     . 'honestly build to that standard. Add a graphics card later if you '
-                    . 'want 1440p, or spread the cost with PayPal Pay in 3, interest-free.'
+                    . 'want 1440p' . $this->payInThreeSentence((float) $total) . '.'
                 // Resolution-floor overshoot (2026-09-28). At 1440p and 4K the
                 // reason a build costs more than the budget is almost always
                 // the graphics card, not the memory or the case, and the
@@ -2767,8 +2798,8 @@ class AIRecommendationService
                         . 'testing included. It comes to GBP ' . number_format($total, 2)
                         . ' against your budget of GBP ' . number_format($budget) . '. If you '
                         . 'would rather spend closer to your budget, ask us for a 1080p build '
-                        . 'instead - we will happily quote one - or spread the cost with PayPal '
-                        . 'Pay in 3, interest-free.'
+                        . 'instead - we will happily quote one'
+                        . $this->payInThreeSentence((float) $total) . '.'
                     : 'Our standard on every PCTechGuy build is 32GB of memory, '
                         . 'proper cooling, a case with a power-supply shroud, and a two-year '
                         . 'warranty with the build and testing included. That standard costs '
@@ -2776,8 +2807,8 @@ class AIRecommendationService
                         . ', so we will not pretend we can hit it and quietly send you a '
                         . 'weaker machine. What you see here is the cheapest build that still '
                         . 'meets our standard - it is the best value we can honestly do today, '
-                        . 'and it is a proper gaming PC, not a paperweight. You can spread the '
-                        . 'cost with PayPal Pay in 3, interest-free.');
+                        . 'and it is a proper gaming PC, not a paperweight.'
+                        . $this->payInThreeSentence((float) $total));
         }
 
         return [
