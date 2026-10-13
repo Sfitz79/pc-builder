@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 | PCTG Builder Routes
 |--------------------------------------------------------------------------
 |
-| The builder is fully public — visitors can build, generate and save
+| The builder is fully public â€” visitors can build, generate and save
 | without an account. Logged-in users additionally see their saved builds
 | tied to their account; guests get session-scoped builds instead.
 |
@@ -51,13 +51,26 @@ Route::prefix('builder')->name('builder.')->group(function () {
     Route::post('/price', [BuilderController::class, 'price'])->name('price');
 
     // 3D build viewport: same-origin part-image proxy (textures) + the
-    // render-to-Storefront bridge (3D geometry → aigen → photoreal render).
+    // render-to-Storefront bridge (3D geometry â†’ aigen â†’ photoreal render).
     Route::get('/part-image/{component}', [BuilderController::class, 'partImage'])->name('part-image');
     // Procedural 3D geometry for the current selection. Cached by signature,
     // and answerless-but-safe: it returns ok:false rather than 500 so the
     // viewport falls back to the legacy primitive scene instead of breaking.
     Route::post('/mesh-spec', [BuilderController::class, 'meshSpec'])->name('mesh-spec');
     Route::post('/render-3d', [BuilderController::class, 'render3d'])->name('render-3d');
+
+// BUILD PREVIEW IMAGE (Boss directive 2026-10-13). Replaces the withdrawn 3D viewport as
+// the build's picture: it renders the specification the customer actually picked, using
+// the real part names from our catalogue. See BuildPreviewController for why this does
+// not resurrect the 3D project.
+Route::post('/preview-image', [\App\Http\Controllers\BuildPreviewController::class, 'preview'])
+    ->name('build.preview-image');
+
+// META / FACEBOOK PRODUCT FEED. Meta removed in-app checkout globally in Sept 2025, so this
+// is a discovery + advert surface with zero commission that sends traffic to our own site.
+// Fed by Commerce Manager from a URL we control - no Shopify and no plugin needed.
+Route::post('/preview-image', [\App\Http\Controllers\BuildPreviewController::class, 'preview'])
+    ->name('build.preview-image');
     // Whether the render bridge is usable, so the button is only shown when it
     // can actually work. See BuilderController::renderCapability().
     Route::get('/render-capability', [BuilderController::class, 'renderCapability'])
@@ -70,7 +83,7 @@ Route::prefix('builder')->name('builder.')->group(function () {
     Route::patch('/builds/{build}', [BuildController::class, 'update'])->name('builds.update');
     Route::delete('/builds/{build}', [BuildController::class, 'destroy'])->name('builds.destroy');
 
-    // Orders / checkout — backed by PayPal.
+    // Orders / checkout â€” backed by PayPal.
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::post('/orders/{order}/paypal', [OrderController::class, 'paypal'])->name('orders.paypal');
@@ -79,6 +92,15 @@ Route::prefix('builder')->name('builder.')->group(function () {
     Route::get('/orders/{order}/confirmed', [OrderController::class, 'confirmed'])->name('orders.confirmed');
     Route::get('/builds/{build}/mockup.png', [OrderController::class, 'mockup'])->name('builds.mockup');
 });
+
+// META / FACEBOOK PRODUCT FEED. Meta removed in-app checkout globally in Sept 2025, so this
+// is a discovery + advert surface with zero commission that sends traffic to our own site.
+// Fed by Commerce Manager from a URL we control - no Shopify and no plugin needed.
+//
+// Declared OUTSIDE the builder group on purpose: Commerce Manager fetches this by its public
+// path, so it must be /meta/product-feed.csv and not /builder/meta/product-feed.csv.
+Route::get('/meta/product-feed.csv', [\App\Http\Controllers\MetaProductFeedController::class, 'csv'])
+    ->name('meta.product-feed');
 
 // Public shareable build URLs (no auth required).
 Route::get('/build/{shareSlug}', [BuildController::class, 'show'])
@@ -112,11 +134,11 @@ Route::view('/components', 'info-page', [
     'title' => 'Components',
     'subtitle' => 'Every part in a PCTG build is hand-picked for compatibility, real-world performance and value for money.',
     'items' => [
-        ['icon' => 'cpu', 'title' => 'Processors', 'body' => 'AMD Ryzen CPUs from value six-core chips to the 9800X3D gaming flagship — always paired with a socket-matched board.'],
+        ['icon' => 'cpu', 'title' => 'Processors', 'body' => 'AMD Ryzen CPUs from value six-core chips to the 9800X3D gaming flagship â€” always paired with a socket-matched board.'],
         ['icon' => 'gpu', 'title' => 'Graphics Cards', 'body' => 'NVIDIA GeForce RTX 40 and 50 series. Chosen for the games you play, not just the spec sheet.'],
         ['icon' => 'memory-stick', 'title' => 'Memory & Storage', 'body' => 'Fast DDR5 kits sized for your workload, plus Gen4 NVMe drives that keep load screens short.'],
         ['icon' => 'computer', 'title' => 'Cases & Cooling', 'body' => 'Airflow-first cases with quality cooling, so performance holds up under long sessions.'],
-        ['icon' => 'power', 'title' => 'Power Supplies', 'body' => '80+ rated units with headroom for your GPU — wattage is checked on every single build.'],
+        ['icon' => 'power', 'title' => 'Power Supplies', 'body' => '80+ rated units with headroom for your GPU â€” wattage is checked on every single build.'],
         ['icon' => 'shield-check', 'title' => 'Compatibility Verified', 'body' => 'Socket, clearance, wattage and BIOS checks run on every combination before you order.'],
     ],
 ])->name('components');
@@ -131,7 +153,7 @@ Route::get('/featured/{slug}/apply', [FeaturedController::class, 'apply'])->name
 Route::get('/builder/preset/{slug}', [PrebuiltController::class, 'preset'])->name('prebuilts.preset');
 
 /*
- * PCTG Business — the professional sub-brand.
+ * PCTG Business â€” the professional sub-brand.
  *
  * A separate blade rather than a themed variant of the gaming landing page,
  * because it is a different product aimed at a different buyer: workstations,
