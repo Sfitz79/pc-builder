@@ -15,10 +15,33 @@ class AIRecommendationService
         $this->priceIntegrity = app(PriceIntegrityService::class);
     }
 
-    /**
-     * Hidden-margin pricing engine (complete price = parts + margin).
-     */
-    protected BuildPricingService $pricing;
+  /**
+   * Does this CPU satisfy the build policy's generation floor?
+   *
+   * Delegates to the SAME BuildPolicyGate the rest of the site uses, rather than
+   * re-implementing a second rule here. Two independent copies of "how old is too old" is
+   * exactly how the recommendation path drifted away from the picker in the first place.
+   *
+   * Fails closed. The gate returns ok:false both for a part that is genuinely too old and
+   * for a part whose model number cannot be read; neither may be silently permitted.
+   */
+  protected function cpuPassesPolicy(Component $cpu): bool
+  {
+    try {
+      $verdict = app(BuildPolicyGate::class)->cpuAllowed($cpu);
+
+      return (bool) ($verdict['ok'] ?? false);
+    } catch (\Throwable $e) {
+      // The gate itself broke. That is not a reason to start quoting Ryzen 3 3200G
+      // again - it is a reason to refuse the part.
+      return false;
+    }
+  }
+
+  /**
+   * Hidden-margin pricing engine (complete price = parts + margin).
+   */
+  protected BuildPricingService $pricing;
 
     /**
      * Price integrity gate: strips corrupt (bundle-priced / scraped-wrong)
@@ -3919,13 +3942,32 @@ class AIRecommendationService
             ),
             'storage' => $pool->filter(fn (Component $component) => $this->specCapacityGb($component) >= 240),
             'psu' => $pool->filter(fn (Component $component) => $this->psuWattage($component) >= 400),
-            'cpu' => $pool->filter(fn (Component $component) =>
-                (int) ($component->specs['cores'] ?? 0) >= 4
-                // A CPU with an unknown socket cannot be paired safely, so it
-                // can never ship in a complete build. This kills legacy socket-
-                // less junk (e.g. i5-2400) at the source for every pick path.
-                && ! empty($this->canonicalSocket($component))
-            ),
+      'cpu' => $pool->filter(fn (Component $component) =>
+        (int) ($component->specs['cores'] ?? 0) >= 4
+        // A CPU with an unknown socket cannot be paired safely, so it
+        // can never ship in a complete build. This kills legacy socket-
+        // less junk (e.g. i5-2400) at the source for every pick path.
+      && ! empty($this->canonicalSocket($component))
+      // THE GENERATION FLOOR - added 2026-10-13 after the boss reported the builder
+      // still quoting Ryzen 3600/3700/3900 machines.
+      //
+      // WHY IT WAS MISSING: BuildPolicyGate::cpuAllowed() already enforces
+      // cpu.am4_min_model = 5500 and blocks all 24 active pre-Zen3 Ryzen parts, and a
+      // probe against production proved the gate itself is clean (24 blocked, 0 allowed).
+      // But THIS SERVICE NEVER CALLED IT. Its only CPU filters were "4+ cores" and "has a
+      // socket", followed by ->sortBy('price') - cheapest first. A Ryzen 5 3600 is a
+      // 6-core, dirt-cheap AM4 part, so it won that ordering every single time and was
+      // then offered to customers as a new build.
+      //
+      // Three gates existed (BuilderController, SystemAssembler, BudgetOptions) and all
+      // three worked. The AI recommendation path was the one path with no gate, and it is
+      // the path that writes into the auto-reply engine. Fixing the catalogue or the other
+      // three gates would have changed nothing; the leak was a missing call on one path.
+      //
+      // Fail CLOSED (my rule: unknown must never equal permitted). A part whose model
+      // number cannot be read is excluded here, exactly as the gate excludes it.
+      && $this->cpuPassesPolicy($component)
+      ),
             // A graphics card needs at least 4GB of memory AND must be a
             // consumer gaming part â€” Radeon Pro / Quadro / Tesla workstation
             // cards are rejected outright, because they are not gaming cards
