@@ -2566,14 +2566,52 @@ class AIRecommendationService
     {
         $out = [];
 
+        // Pass 1: resolve every band's LIVE measured floor.
+        //
+        // The floor is measured, not typed: entryPriceFor() assembles the cheapest COMPLETE
+        // build from the live catalogue. That is the whole point - a floor that is a typed
+        // guess is a price we may not be able to honour.
+        //
+        // The CPU generation floor (boss report 2026-10-13) raised these: the cheapest 1080p
+        // build used to be assemblable around a Ryzen 5 3600, and once pre-Zen3 parts cannot
+        // be quoted the honest cheapest build costs GBP 1,060, not GBP 1,040.
+        $mins = [];
         foreach (self::RESOLUTION_BANDS as $key => $band) {
             $measured = $this->entryPriceFor($key);
+            $mins[$key] = $measured !== null && $measured['complete']
+                ? (float) $measured['rounded']
+                : (float) $band['min'];
+        }
+
+        // Pass 2: make the ladder CONTIGUOUS BY CONSTRUCTION.
+        //
+        // A band's ceiling is the NEXT band's floor, so there is never a gap a customer can
+        // fall into and never an overlap where two bands both claim the same money.
+        //
+        // WHY THIS HAD TO CHANGE: min is live-measured but max came from the
+        // RESOLUTION_BANDS constants. With constants 1080p max 1190 and a newly measured
+        // 1440p floor of 1200, GBP 1,190-1,199 fitted NO band at all - a GBP 10 hole punched
+        // in the middle of the ladder by the floor moving under a fixed ceiling. Hand-tuning
+        // 1190 to 1200 would have hidden that for exactly as long as the next price move.
+        $keys = array_keys(self::RESOLUTION_BANDS);
+        $lastIndex = count($keys) - 1;
+
+        foreach ($keys as $index => $key) {
+            $band = self::RESOLUTION_BANDS[$key];
+            $measured = $this->entryPriceFor($key);
+
+            if ($index === $lastIndex) {
+                // The top band's ceiling is a genuine ceiling, not a junction.
+                $max = (float) $band['max'];
+            } else {
+                $nextKey = $keys[$index + 1];
+                // Never let a ceiling sit below its own floor (that is an inverted band).
+                $max = max($mins[$nextKey], $mins[$key]);
+            }
 
             $out[$key] = [
-                'min' => $measured !== null && $measured['complete']
-                    ? (float) $measured['rounded']
-                    : (float) $band['min'],
-                'max' => (float) $band['max'],
+                'min' => $mins[$key],
+                'max' => $max,
                 'label' => $band['label'],
                 'floor_gpu_tier' => (int) $band['floor_gpu_tier'],
                 'measured' => $measured !== null && $measured['complete'],
