@@ -104,8 +104,19 @@ Route::get('/meta/product-feed.csv', [\App\Http\Controllers\MetaProductFeedContr
 
 // Public shareable build URLs (no auth required).
 Route::get('/build/{shareSlug}', [BuildController::class, 'show'])
-    ->where('shareSlug', '[a-zA-Z0-9]+')
     ->name('build.show');
+
+// BUILD PASSPORT: the locked component manifest for a build.
+//
+// The locked BOM already exists - builds carry a price_snapshot per component - but nothing
+// surfaced it to the customer. Research on eight UK builders (2026-10-13) found the dominant
+// complaint in this category is not price but UNVERIFIABLE BUILD QUALITY, and that not one of
+// them publishes what it actually fitted. This is that record, at zero marginal cost.
+//
+// Deliberately contains no benchmark or temperature data: we do not capture those per build,
+// so publishing any would be inventing it. See BuildPassportController.
+Route::get('/build/{shareSlug}/passport', [\App\Http\Controllers\BuildPassportController::class, 'show'])
+    ->name('build.passport');
 
 // Public marketing pages use the shared app layout.
 Route::get('/', function () {
