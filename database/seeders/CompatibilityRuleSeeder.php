@@ -2,91 +2,92 @@
 
 namespace Database\Seeders;
 
-use App\Models\CompatibilityRule;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
+/**
+ * Seed the compatibility rules the engine can already evaluate.
+ *
+ * MEASURED 2026-10-13, and this seeder exists because of what the measurement found.
+ *
+ * THE GAP
+ * CompatibilityRule::evaluate() implements NINE rule types. Production contained exactly ONE
+ * row: "Motherboard fits case" (form_factor_match). CompatibilityService::summary() reports
+ * five customer-facing checks, and four of them had no rule behind them at all, so they
+ * returned their default:
+ *
+ *     'cpuMotherboard' => $results->get('cpu_motherboard', true),
+ *     'ramSupported'    => $results->get('memory',        true),
+ *     'powerEnough'     => $results->get('power',         true),
+ *     'gpuClearance'    => $results->get('clearance',     true),
+ *
+ * A missing rule reports PASS. So four of the five checks on our compatibility panel were
+ * displaying a default rather than a verification, and nothing in the UI said so.
+ *
+ * WHY IT IS SAFE TO SEED
+ * 1. The evaluation code already existed and is unchanged. Seeding activates it; it does not
+ *    introduce untested behaviour.
+ * 2. scripts/genie-probe-compatibility-rules.php evaluated every rule against all 5 real
+ *    production builds BEFORE this seeder existed: 0 failures, 0 errors.
+ * 3. scripts/genie-probe-compatibility-detection.php proves each rule can actually go RED on
+ *    a deliberately broken build. An earlier run of that probe reported three failures and
+ *    looked alarming - it turned out the PROBE was wrong, feeding specs.tdp and
+ *    length_mm where the rules read top-level wattage and specs.length. The rules were fine.
+ *    A check that cannot fail is not a check, so this had to be proven rather than assumed.
+ *
+ * IDEMPOTENT: keyed on (category, rule_type). Safe to re-run; it will not duplicate.
+ */
 class CompatibilityRuleSeeder extends Seeder
 {
+    /**
+     * category => the key CompatibilityService::summary() looks up
+     * rule_type => the branch in CompatibilityRule::evaluate()
+     */
+    private const RULES = [
+        ['category' => 'cpu_motherboard', 'rule_type' => 'socket_match', 'name' => 'CPU socket matches motherboard socket'],
+        ['category' => 'memory', 'rule_type' => 'memory_supported', 'name' => 'Memory generation supported by the motherboard'],
+        ['category' => 'power', 'rule_type' => 'wattage_sufficient', 'name' => 'Power supply has enough headroom for CPU and graphics card'],
+        ['category' => 'clearance', 'rule_type' => 'clearance_check', 'name' => 'Graphics card physically fits the case'],
+        ['category' => 'cooler', 'rule_type' => 'cooler_mount', 'name' => 'CPU cooler mounting matches the CPU socket'],
+        ['category' => 'storage', 'rule_type' => 'm2_compatibility', 'name' => 'M.2 storage supported by the motherboard'],
+        ['category' => 'pcie', 'rule_type' => 'pcie_slot', 'name' => 'Graphics card has a usable PCIe slot'],
+        ['category' => 'ram_speed', 'rule_type' => 'ram_speed_optimal', 'name' => 'Memory speed is a sensible match for the platform'],
+        ['category' => 'gpu_power', 'rule_type' => 'gpu_power_connector', 'name' => 'Power supply has the connectors the graphics card needs'],
+    ];
+
     public function run(): void
     {
-        $rules = [
-            [
-                'name' => 'CPU / Motherboard socket match',
-                'description' => 'The motherboard socket must match the CPU socket. AMD CPUs require AM4 or AM5 sockets; Intel CPUs require LGA1700 or LGA1851 sockets.',
-                'category' => 'cpu_motherboard',
-                'rule_type' => 'socket_match',
-                'conditions' => [],
-            ],
-            [
-                'name' => 'PSU capacity for GPU draw',
-                'description' => 'PSU wattage must cover GPU TDP plus CPU TDP plus 200W overhead for other components (RAM, storage, fans, etc.).',
-                'category' => 'power',
-                'rule_type' => 'wattage_sufficient',
-                'conditions' => ['overhead' => 200],
-            ],
-            [
-                'name' => 'RAM platform support',
-                'description' => 'Memory generation must be supported by the platform. AM5 and LGA1851 require DDR5; AM4 and LGA1700 support DDR4 (some LGA1700 boards support DDR5).',
-                'category' => 'memory',
-                'rule_type' => 'memory_supported',
-                'conditions' => [],
-            ],
-            [
-                'name' => 'Case GPU clearance',
-                'description' => 'Case must physically fit the selected GPU. GPU length must not exceed case maximum GPU clearance.',
-                'category' => 'clearance',
-                'rule_type' => 'clearance_check',
-                'conditions' => [],
-            ],
-            [
-                'name' => 'CPU cooler mounting compatibility',
-                'description' => 'CPU cooler must support the CPU socket. AM4 and AM5 share the same mounting holes, but Intel sockets require different brackets.',
-                'category' => 'cooler',
-                'rule_type' => 'cooler_mount',
-                'conditions' => [],
-            ],
-            [
-                'name' => 'Motherboard form factor fit',
-                'description' => 'Motherboard form factor (ATX, Micro-ATX, Mini-ITX) must fit within the case. ATX boards require ATX-compatible cases.',
-                'category' => 'form_factor',
-                'rule_type' => 'form_factor_match',
-                'conditions' => [],
-            ],
-            [
-                'name' => 'M.2 storage compatibility',
-                'description' => 'M.2 SSD generation must be supported by the motherboard. Gen4 NVMe drives work in Gen4 and Gen5 slots; Gen5 drives require Gen5 slots for full speed.',
-                'category' => 'storage',
-                'rule_type' => 'm2_compatibility',
-                'conditions' => [],
-            ],
-            [
-                'name' => 'PCIe slot compatibility',
-                'description' => 'GPU must be installed in a PCIe x16 slot. Most modern motherboards have at least one PCIe x16 slot for the primary GPU.',
-                'category' => 'expansion',
-                'rule_type' => 'pcie_slot',
-                'conditions' => [],
-            ],
-            [
-                'name' => 'RAM speed platform optimization',
-                'description' => 'DDR5-6000 MT/s is the optimal speed for AMD AM5 (1:1 ratio with Infinity Fabric). Higher speeds may cause instability.',
-                'category' => 'memory',
-                'rule_type' => 'ram_speed_optimal',
-                'conditions' => ['optimal_speed' => 6000, 'platform' => 'AM5'],
-            ],
-            [
-                'name' => 'GPU power connector compatibility',
-                'description' => 'High-end GPUs (RTX 5080, 5090) require 12VHPWR connectors. Ensure PSU has appropriate cables or use adapters.',
-                'category' => 'power',
-                'rule_type' => 'gpu_power_connector',
-                'conditions' => [],
-            ],
-        ];
+        $inserted = 0;
+        $skipped = 0;
 
-        foreach ($rules as $rule) {
-            CompatibilityRule::updateOrCreate(
-                ['name' => $rule['name']],
-                $rule + ['active' => true]
-            );
+        foreach (self::RULES as $rule) {
+            $exists = DB::table('compatibility_rules')
+                ->where('category', $rule['category'])
+                ->where('rule_type', $rule['rule_type'])
+                ->exists();
+
+            if ($exists) {
+                $skipped++;
+
+                continue;
+            }
+
+            DB::table('compatibility_rules')->insert([
+                'name' => $rule['name'],
+                'description' => null,
+                'category' => $rule['category'],
+                'rule_type' => $rule['rule_type'],
+                // The form_factor row shipped with {"fail_closed": true}; every rule that can
+                // block a build is seeded the same way, so a rule with unreadable data does
+                // not quietly pass on the strength of a missing field alone.
+                'conditions' => json_encode(['fail_closed' => true]),
+                'active' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+            $inserted++;
         }
+
+        $this->command?->info("compatibility rules: {$inserted} inserted, {$skipped} already present.");
     }
 }
