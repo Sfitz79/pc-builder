@@ -102,6 +102,39 @@ class AIRecommendationService
     public const MIN_STORAGE_GB = 500;
 
     /**
+     * Where the parts budget goes on a GAMING build, as a share per category.
+     *
+     * Calibrated against the live catalogue; these numbers produce the published
+     * 1080p / 1440p / 4K entry prices, so they are not a starting point to be
+     * "improved". A DECLARED workload replaces this table entirely - see
+     * workloadShares() and pickBalancedBuild().
+     */
+    public const BUDGET_SHARES = [
+        'cpu' => 0.30,
+        'gpu' => 0.40,
+        'ram' => 0.08,
+        'storage' => 0.07,
+        'motherboard' => 0.07,
+        'psu' => 0.04,
+        'case' => 0.07,
+        'cooler' => 0.06,
+    ];
+
+    /**
+     * Per-request budget shares declared by the workload, or null on the gaming
+     * path.
+     *
+     * Held on the instance rather than threaded through every picker because
+     * pickBalancedBuild() is reached from four call sites (budget dGPU lane,
+     * budget APU lane, ideal build, and fitToCeiling retries) and threading a
+     * new parameter through all of them to carry one value invites the next
+     * call site to silently forget it.
+     *
+     * @var array<string, float>|null
+     */
+    protected ?array $workloadShares = null;
+
+    /**
      * All-in price below which we cannot build a dedicated-GPU PCTG-standard
      * machine, so the integrated-graphics system becomes the honest entry
      * product.
@@ -1216,20 +1249,15 @@ class AIRecommendationService
         $categories = Category::active()->ordered()->get();
         $pools = $this->buildPools($categories, $purpose, $resolution);
 
+        // Where the money goes. This - not the scores below - is what makes a
+        // business build a different machine from a gaming one. Null on the
+        // gaming path, which leaves the calibrated table in force.
+        $this->workloadShares = $this->workloadShares($purpose);
+
         $ai = $this->gemini->scoreWeights($pools, $budget, $purpose, $resolution);
 
         if ($ai !== null) {
             $this->applyWeights($pools, $ai);
-        } else {
-            // Gemini is off or failed. The workload's own declared weights are
-            // still the customer's stated requirement, so apply them here rather
-            // than letting a provider outage quietly turn a NAS build into a
-            // gaming one. See workloadWeights() for why this is business-only.
-            $declared = $this->workloadWeights($purpose);
-
-            if ($declared !== null) {
-                $this->applyWeights($pools, ['weights' => $declared]);
-            }
         }
 
         $budgetBuild = $this->pickBudgetBuild($pools, $budget, $resolution);
@@ -1290,17 +1318,13 @@ class AIRecommendationService
         $categories = Category::active()->ordered()->get();
         $pools = $this->buildPools($categories, $purpose, $resolution);
 
+        // Same as recommendBoth(); see workloadShares().
+        $this->workloadShares = $this->workloadShares($purpose);
+
         $ai = $this->gemini->scoreWeights($pools, $budget, $purpose, $resolution);
 
         if ($ai !== null) {
             $this->applyWeights($pools, $ai);
-        } else {
-            // Same declared-workload fallback as recommendBoth(); see workloadWeights().
-            $declared = $this->workloadWeights($purpose);
-
-            if ($declared !== null) {
-                $this->applyWeights($pools, ['weights' => $declared]);
-            }
         }
 
         $result = $this->pickBudgetBuild($pools, $budget, $resolution);
@@ -1501,52 +1525,110 @@ class AIRecommendationService
     }
 
     /**
-     * Normalise a workload's declared 0-100 category weights into the same
-     * multiplier range Gemini returns, so one applyWeights() path serves both.
+     * Normalise a workload's declared 0-100 category weights into the share of
+     * the parts budget each category is allowed.
      *
-     * WHY THIS EXISTS
-     * ---------------
-     * config/workloads.php states that the declared weights "feed the
-     * deterministic scoring ... when Gemini is not configured". That was not
-     * true: with Gemini unavailable, scoreWeights() returns null, applyWeights()
-     * was never called, and the weights had no effect on the pick at all. The
-     * config therefore promised floors the engine did not enforce - a NAS build
-     * declaring gpu => 5 could still be quoted a gaming graphics card.
+     * WHY SHARES AND NOT SCORE MULTIPLIERS
+     * -----------------------------------
+     * This started out as a score multiplier and was INERT. applyWeights()
+     * multiplies every component in a pool by the same scalar, which cannot
+     * reorder that pool - the best candidate stays the best candidate. And the
+     * picker does not choose purely on score: it gives each category a budget
+     * ALLOWANCE and takes the best-scoring part that fits inside it
+     * (pickBalancedBuild, `$allow = max($partsBudget * $shares[$slug], $floorPrice)`).
+     * The allowance came from a hardcoded table - gpu 0.40 - which ignored the
+     * workload entirely.
      *
-     * SCOPED TO THE BUSINESS SEGMENT ON PURPOSE. Applying these weights on the
-     * gaming path would move the measured, published price-band floors
-     * (1080p / 1440p / 4K), which are verified against the live catalogue and
-     * published to customers. Gaming behaviour is left byte-identical; this only
-     * makes the business segment's declared floors real.
+     * MEASURED ON PRODUCTION AFTER THE MULTIPLIER VERSION SHIPPED
+     * A NAS request and a gaming request at GBP 2,500 returned byte-identical
+     * builds: an RTX 5070, a 360mm AIO and an RGB NZXT case, GBP 2,177.44 both
+     * times. config/workloads.php calls that out in as many words ("Do not let
+     * the generic scoring spend the budget on a graphics card") and the code
+     * was doing precisely that.
      *
-     * Range: 0.5 (a declared 0) to 1.5 (a declared 100), matching the clamp
-     * scoreWeights() puts on Gemini's own output, so neither path can dominate
-     * the price/value curve.
+     * So the weights have to move the MONEY, not the score. A NAS declaring
+     * storage => 99 and gpu => 5 gets ~19% of the parts budget in storage and
+     * ~1% in graphics, which lands on the cheapest legal card in the pool
+     * rather than the best one, because the allowance no longer affords the
+     * best one.
+     *
+     * SCOPED TO THE BUSINESS SEGMENT, as the multiplier version was. The shares
+     * below were calibrated against the live catalogue and produce the published
+     * 1080p/1440p/4K entry prices; changing them on the gaming path would move
+     * those floors.
+     *
+     * @return array<string, float>|null null on the gaming path, and for any
+     *                                   workload that declares nothing usable.
      */
-    protected function workloadWeights(?string $purpose): ?array
+    protected function workloadShares(?string $purpose): ?array
     {
         if ($purpose === null || ! \App\Services\GeminiService::isBusinessMode($purpose)) {
             return null;
         }
 
-        $declared = config('workloads.workloads.'.\App\Services\GeminiService::sanitizePurpose($purpose).'.weights', []);
+        $declared = config(
+            'workloads.workloads.'.\App\Services\GeminiService::sanitizePurpose($purpose).'.weights',
+            []
+        );
 
         if (! is_array($declared) || $declared === []) {
             return null;
         }
 
-        $weights = [];
-        foreach ($declared as $slug => $weight) {
-            if (! is_numeric($weight)) {
+        // Only the categories pickBalancedBuild() actually allocates for. A
+        // weight on something it does not spend on would silently deflate every
+        // share it does.
+        $allocates = array_keys(self::BUDGET_SHARES);
+
+        $values = [];
+        foreach ($allocates as $slug) {
+            $weight = $declared[$slug] ?? null;
+
+            if (is_numeric($weight)) {
+                $values[$slug] = max(0.0, min(100.0, (float) $weight));
+
                 continue;
             }
 
-            $normalised = max(0.0, min(100.0, (float) $weight)) / 100.0;
-
-            $weights[$slug] = round(0.5 + $normalised, 4);
+            $values[$slug] = null;
         }
 
-        return $weights === [] ? null : $weights;
+        $declaredSlugs = array_keys(array_filter($values, fn ($v) => $v !== null));
+
+        if ($declaredSlugs === []) {
+            return null;
+        }
+
+        /*
+         * Categories the workload does not mention - nas declares no cooler, case
+         * or motherboard weight - must NOT fall through to the picker's 0.05
+         * default. On a storage-heavy workload that would leave three
+         * categories at a combined 15% while storage alone took a fifth, and
+         * the floors would then, not the shares, decide those parts.
+         *
+         * They are given the MEAN of the declared weights: the workload has
+         * expressed no opinion about them, so they keep a typical share rather
+         * than a punitive one.
+         */
+        $mean = array_sum(array_map(fn ($v) => $v, array_filter($values, fn ($v) => $v !== null)))
+            / count($declaredSlugs);
+
+        foreach ($values as $slug => $value) {
+            $values[$slug] = $value ?? $mean;
+        }
+
+        $total = array_sum($values);
+
+        if ($total <= 0.0) {
+            return null;
+        }
+
+        $shares = [];
+        foreach ($values as $slug => $value) {
+            $shares[$slug] = $value / $total;
+        }
+
+        return $shares;
     }
 
     /**
@@ -1851,16 +1933,7 @@ class AIRecommendationService
         $partsBudget = $this->pricing->partsBudgetFor($budget);
         $hardCap = $partsBudget * 0.95;
 
-        $shares = [
-            'cpu' => 0.30,
-            'gpu' => 0.40,
-            'ram' => 0.08,
-            'storage' => 0.07,
-            'motherboard' => 0.07,
-            'psu' => 0.04,
-            'case' => 0.07,
-            'cooler' => 0.06,
-        ];
+        $shares = self::BUDGET_SHARES;
 
         // Premium look on premium tiers (boss directive 2026-09-27): the case
         // is the first thing a buyer sees. An entry Â£800 build gets a sensible
@@ -1869,6 +1942,24 @@ class AIRecommendationService
         // over. Kept explicit so the look is guaranteed at the top end.
         if ($budget >= 1300) {
             $shares['case'] = 0.12;
+        }
+
+        /*
+         * A DECLARED WORKLOAD OVERRIDES THE SHARES ENTIRELY.
+         *
+         * This is where a business build actually differs from a gaming one.
+         * The table above is calibrated for gaming and gives the GPU 40% of the
+         * parts budget whatever was asked for. When the caller declared a
+         * workload, its own weights decide where the money goes instead, and the
+         * case uplift above is dropped rather than layered on top - the brief
+         * for home-business is "quiet enough to sit in a room with people in
+         * it", and an RGB showcase case is the opposite of that.
+         *
+         * Null on the gaming path, which is why the published band floors do not
+         * move: nothing about this branch is reachable for a gaming workload.
+         */
+        if ($this->workloadShares !== null) {
+            $shares = $this->workloadShares;
         }
 
         $debug = (bool) env('PCTG_PICK_DEBUG', false);

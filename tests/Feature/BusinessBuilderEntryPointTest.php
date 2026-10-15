@@ -283,112 +283,241 @@ class BusinessBuilderEntryPointTest extends TestCase
         ];
     }
 
-    public function test_every_business_workload_is_accepted_by_the_build_endpoint(): void
-    {
-        // THE REGRESSION THAT MATTERS. Validation used to be a four-item
-        // literal naming only the gaming purposes, so every business scenario
-        // was a 422 before the engine ran.
-        foreach ($this->businessWorkloadSlugs() as $slug) {
-            $response = $this->postJson('/builder/ai', [
-                'budget' => 2500,
-                'purpose' => $slug,
-            ]);
+    /*
+     * ---------------------------------------------------------------------
+     * THE OUTCOME TESTS
+     *
+     * Everything above proves the ENTRY POINT is right: the links, the route,
+     * the payload, the fail-closed resolution. None of it proves the QUOTE is
+     * different, and that distinction cost a production deploy.
+     *
+     * The first version of this fix scaled each component pool's score by the
+     * workload's declared weights when Gemini was unavailable. That was inert:
+     * multiplying a whole pool by one scalar cannot reorder it, and the picker
+     * takes the best-scoring part that fits a per-category budget ALLOWANCE,
+     * and that allowance came from a hardcoded gaming table (gpu 0.40).
+     *
+     * Measured on production after shipping it: a GBP 2,500 NAS request and a
+     * GBP 2,500 gaming request returned byte-identical builds - RTX 5070, 360mm
+     * AIO, RGB NZXT case, GBP 2,177.44 both times. The blue panels were real;
+     * the machine behind them was still a gaming one.
+     *
+     * These assert the BUILD, not the mechanism, so the same class of
+     * plausible-but-inert change cannot pass again.
+     * ---------------------------------------------------------------------
+     */
 
-            $this->assertNotSame(
-                422,
-                $response->status(),
-                "business workload '{$slug}' was rejected by /builder/ai validation"
-            );
+    /** @return array<string, array{id: int, name: string, price: float}> */
+    private function quoteFor(string $purpose, float $budget = 2500.0): array
+    {
+        $this->seedCatalogue();
+
+        return $this->postJson('/builder/ai', [
+            'budget' => $budget,
+            'purpose' => $purpose,
+        ])->assertOk()->json('budget.components');
+    }
+
+    /**
+     * A minimal but COMPLETE and legal catalogue, with two price points in the
+     * two categories the business weights disagree about.
+     *
+     * The cheap and dear graphics card, and the small and large drive, are what
+     * make the outcome assertions meaningful: a workload that moves money must
+     * land on a different part from the same pool. Without two options in each,
+     * "the build changed" would be unprovable and "the build did not change"
+     * would be unfalsifiable.
+     *
+     * Prices are evidenced, because PriceIntegrityService::clean() drops any row
+     * with no source_url or a stale price_checked_at - the same requirement live
+     * catalogue rows carry.
+     */
+    private function seedCatalogue(): void
+    {
+        if (\App\Models\Category::count() > 0) {
+            return;
         }
+
+        $cats = [];
+        foreach ([
+            'cpu' => 'Processors',
+            'motherboard' => 'Motherboards',
+            'ram' => 'Memory',
+            'storage' => 'Storage',
+            'gpu' => 'Graphics Cards',
+            'psu' => 'Power Supplies',
+            'case' => 'Cases',
+            'cooler' => 'CPU Coolers',
+        ] as $slug => $name) {
+            $cats[$slug] = \App\Models\Category::create(['name' => $name, 'slug' => $slug]);
+        }
+
+        $maker = \App\Models\Manufacturer::create([
+            'name' => 'PCTechGuy Test',
+            'slug' => 'pctechguy-test',
+        ]);
+
+        $part = function (string $slug, string $name, float $price, array $specs = [], array $extra = []) use ($cats, $maker) {
+            return \App\Models\Component::create(array_merge([
+                'category_id' => $cats[$slug]->id,
+                'manufacturer_id' => $maker->id,
+                'name' => $name,
+                'slug' => strtolower(str_replace([' ', '/'], '-', $name)),
+                'price' => $price,
+                'currency' => 'GBP',
+                'stock' => 25,
+                'active' => true,
+                'specs' => $specs,
+                'source_url' => 'https://example.com/'.strtolower(str_replace([' ', '/'], '-', $name)),
+                'price_checked_at' => now(),
+            ], $extra));
+        };
+
+        // Eight cores clears GPU_CPU_COHERENCE, so both cards are reachable.
+        $part('cpu', 'Test Ryzen 7 5700G', 149.99, ['cores' => 8, 'threads' => 16], ['socket' => 'AM4']);
+        $part('motherboard', 'Test B550 Board', 119.99, ['memory_type' => 'DDR4'], ['socket' => 'AM4']);
+
+        // 32GB is the MIN_RAM_GB spec floor and it carries `capacity`, the field
+        // viablePool('ram') reads.
+        $part('ram', 'Test 32 GB DDR4 3200', 79.99, ['capacity' => '32GB', 'speed' => 3200, 'type' => 'DDR4']);
+
+        // TWO PRICE POINTS. MIN_STORAGE_GB is 500, so both clear the floor and
+        // the difference is purely the allowance.
+        $part('storage', 'Test 500GB NVMe', 39.99, ['capacity' => '500GB']);
+        $part('storage', 'Test 2TB NVMe', 129.99, ['capacity' => '2TB']);
+
+        // THREE PRICE POINTS, not two. With only two, studio (gpu share 0.144)
+        // and gaming (0.40) both landed on the dear card, because unspent
+        // budget from the earlier categories bridged the gap - and a test that
+        // cannot see a difference is a test that proves nothing. The middle card
+        // sits above studio's allowance and below gaming's, so each workload
+        // resolves to a different one and the comparison becomes falsifiable.
+        $part('gpu', 'Test Entry Card', 89.99, ['memory' => 4, 'chipset' => 'Test Entry']);
+        $part('gpu', 'Test Mid Card', 199.99, ['memory' => 8, 'chipset' => 'Test Mid']);
+        $part('gpu', 'Test Flagship Card', 449.99, ['memory' => 16, 'chipset' => 'Test Flagship']);
+
+        $part('psu', 'Test 750W PSU', 69.99, ['wattage' => 750]);
+        $part('case', 'Test Tower Case', 49.99);
+        $part('cooler', 'Test Air Cooler', 24.99);
     }
 
-    public function test_a_workload_outside_the_configured_list_is_still_rejected(): void
+    public function test_a_nas_build_is_not_the_gaming_build(): void
     {
-        // Widening the rule to read config must not have become "accept any
-        // string". Fail-closed is the point.
-        $this->postJson('/builder/ai', [
-            'budget' => 2500,
-            'purpose' => 'not-a-real-workload',
-        ])->assertStatus(422);
-    }
+        $nas = $this->quoteFor('nas');
+        $gaming = $this->quoteFor('gaming');
 
-    public function test_the_business_builder_sends_no_resolution_so_the_gaming_clamp_stays_off(): void
-    {
-        // Guards the client half of the fix: the request body omits
-        // `resolution` in business mode, so AIRecommendationService cannot apply
-        // the resolution-keyed GPU tier ladder or the 1080p band clamp to a
-        // server quote.
-        $js = file_get_contents(base_path('resources/js/builder.js'));
-
-        $this->assertStringContainsString(
-            '...(this.isBusiness() ? {} : { resolution: this.resolution })',
-            $js,
-            'the build request must omit `resolution` in business mode'
+        $this->assertNotSame(
+            array_column($gaming, 'name'),
+            array_column($nas, 'name'),
+            'a NAS build is identical to a gaming build - the workload is not reaching the picker'
         );
 
-        $this->assertStringContainsString(
-            'if (this.isBusiness() || !gpu)',
-            $js,
-            'FPS must never be requested in business mode'
-        );
-    }
-
-    public function test_declared_business_weights_are_enforced_without_gemini(): void
-    {
-        // config/workloads.php claims the declared weights feed the DETERMINISTIC
-        // scoring when Gemini is not configured. They did not: scoreWeights()
-        // returns null with no provider, applyWeights() was never called, and the
-        // weights had no effect on the pick at all - so a NAS build declaring
-        // gpu => 5 could still be quoted a gaming graphics card.
-        config(['gemini.key' => null]);
-        $this->assertFalse(
-            app(GeminiService::class)->available(),
-            'this test needs Gemini off to be meaningful'
-        );
-
-        $service = app(\App\Services\AIRecommendationService::class);
-        $method = new \ReflectionMethod($service, 'workloadWeights');
-        $method->setAccessible(true);
-
-        $nas = $method->invoke($service, 'nas');
-        $this->assertIsArray($nas, 'nas must resolve to declared weights with no provider');
+        // The specific failure config/workloads.php warns about in as many
+        // words: "Do not let the generic scoring spend the budget on a
+        // graphics card."
         $this->assertLessThan(
-            0.6,
-            $nas['gpu'],
-            'a NAS build must heavily discount the GPU when Gemini is unavailable'
-        );
-        $this->assertGreaterThan(
-            1.4,
-            $nas['storage'],
-            'a NAS build must heavily reward storage when Gemini is unavailable'
-        );
-
-        // And the gaming path must be untouched: applying these weights there
-        // would move the measured, published price-band floors.
-        $this->assertNull(
-            $method->invoke($service, 'gaming'),
-            'gaming weights must NOT be applied deterministically - the published band floors depend on it'
+            $gaming['gpu']['price'],
+            $nas['gpu']['price'],
+            sprintf(
+                'nas declares gpu => 5 and gaming gpu => 95, but nas still got the %s at GBP %s (gaming got the %s at GBP %s)',
+                $nas['gpu']['name'],
+                number_format($nas['gpu']['price'], 2),
+                $gaming['gpu']['name'],
+                number_format($gaming['gpu']['price'], 2)
+            )
         );
     }
 
-    public function test_no_gaming_workload_is_ever_affected_by_the_deterministic_weights(): void
+    public function test_the_gaming_build_spends_more_on_graphics_than_a_business_build(): void
+    {
+        /*
+         * The end-to-end version of the boundary test: gaming keeps the
+         * calibrated 40% graphics share, so it must still buy a materially
+         * better card than a workload that declares almost no graphics.
+         *
+         * Asserted RELATIVE rather than against a fixed price. The picker takes
+         * the best-SCORING card that fits the allowance, and scoring runs off
+         * the real GPU tier ladder, so an absolute threshold here would be
+         * asserting how synthetic fixture parts happen to tier. The invariant
+         * worth protecting is the ordering, and that is what the declared
+         * weights actually control.
+         */
+        $gaming = $this->quoteFor('gaming');
+        $nas = $this->quoteFor('nas');
+
+        $this->assertGreaterThan(
+            $nas['gpu']['price'],
+            $gaming['gpu']['price'],
+            sprintf(
+                'a gaming build (gpu => 95, 40%% calibrated share) got the %s at GBP %s; '
+                .'a NAS build (gpu => 5) got the %s at GBP %s',
+                $gaming['gpu']['name'],
+                number_format($gaming['gpu']['price'], 2),
+                $nas['gpu']['name'],
+                number_format($nas['gpu']['price'], 2)
+            )
+        );
+    }
+
+    public function test_workloads_that_disagree_actually_disagree(): void
+    {
+        $rendering = $this->quoteFor('rendering');
+        $nas = $this->quoteFor('nas');
+
+        $this->assertNotSame(
+            array_column($nas, 'name'),
+            array_column($rendering, 'name'),
+            'rendering (gpu => 97) and nas (gpu => 5) produced the same build'
+        );
+
+        // Opposite directions, so this catches a change that merely reshuffles
+        // everything rather than one that respects the declared weights.
+        $this->assertGreaterThan(
+            $nas['gpu']['price'],
+            $rendering['gpu']['price'],
+            'rendering should spend MORE on graphics than nas, not less'
+        );
+    }
+
+    public function test_workload_shares_sum_to_one_and_follow_the_declared_weights(): void
+    {
+        $shares = $this->workloadSharesFor('nas');
+
+        $this->assertEqualsWithDelta(1.0, array_sum($shares), 0.0001, 'shares must sum to the whole parts budget');
+
+        $keys = array_keys($shares);
+        sort($keys);
+        $expected = array_keys(\App\Services\AIRecommendationService::BUDGET_SHARES);
+        sort($expected);
+        $this->assertSame($expected, $keys, 'every allocated category needs a share, or the picker falls back to 0.05');
+
+        // The point of the whole change: a storage-bound workload moves the MONEY.
+        $this->assertLessThan(0.05, $shares['gpu'], 'nas must not keep a meaningful share of the budget for graphics');
+        $this->assertGreaterThan(0.10, $shares['storage'], 'nas must put real money into storage');
+
+        // Categories nas is silent about (cooler, case, motherboard) get the
+        // MEAN of what it did declare - not the picker's punitive 0.05 default,
+        // which would leave three categories starved and let their floors, not
+        // the workload, decide those parts.
+        $declared = [70.0, 5.0, 75.0, 99.0, 70.0];
+        $mean = array_sum($declared) / count($declared);
+        $total = array_sum($declared) + ($mean * 3);
+
+        $this->assertGreaterThan(0.05, $shares['cooler'], 'a silent category must not fall through to the 0.05 default');
+        $this->assertEqualsWithDelta($mean / $total, $shares['cooler'], 0.0001);
+    }
+
+    public function test_no_gaming_workload_can_ever_claim_a_business_share(): void
     {
         /*
          * THE BLAST-RADIUS BOUNDARY.
          *
          * The published 1080p / 1440p / 4K entry prices are measured from the
-         * live catalogue and quoted to customers. recommendBoth() changed shape
-         * (a new else-branch on the Gemini path), so this asserts the change is
-         * provably inert for every gaming workload - not just 'gaming' - rather
-         * than asking anyone to take the scoping comment on trust.
-         *
-         * If someone later adds a business weight under a gaming slug, or
-         * widens the segment check, this fails.
+         * live catalogue and quoted to customers. Business shares are a
+         * different allocation of the same money, so letting one reach the
+         * gaming picker would move those floors. This asserts the boundary
+         * rather than asking anyone to trust the scoping comment.
          */
-        $service = app(\App\Services\AIRecommendationService::class);
-        $method = new \ReflectionMethod($service, 'workloadWeights');
-        $method->setAccessible(true);
-
         $gamingSlugs = array_keys(array_filter(
             config('workloads.workloads', []),
             fn (array $spec) => ($spec['segment'] ?? 'gaming') === 'gaming'
@@ -398,31 +527,35 @@ class BusinessBuilderEntryPointTest extends TestCase
 
         foreach ($gamingSlugs as $slug) {
             $this->assertNull(
-                $method->invoke($service, $slug),
-                "gaming workload '{$slug}' must not receive deterministic business weights - it would move the published band floors"
+                $this->workloadSharesFor($slug),
+                "gaming workload '{$slug}' must not claim business shares - it would move the published band floors"
             );
         }
+
+        $this->assertNull($this->workloadSharesFor(null), 'no purpose at all must use the calibrated gaming table');
     }
 
-    public function test_the_nas_gpu_floor_is_not_higher_than_the_gaming_one(): void
+    public function test_the_gaming_build_is_untouched_by_all_of_this(): void
     {
-        // Sanity on the normalisation: 0-100 must map monotonically into the
-        // 0.5-1.5 multiplier range Gemini itself is clamped to, so neither path
-        // can dominate the price/value curve.
-        $service = app(\App\Services\AIRecommendationService::class);
-        $method = new \ReflectionMethod($service, 'workloadWeights');
+        // A real gaming quote still comes back complete, with a discrete GPU.
+        // If the business shares had leaked onto this path the GPU allowance
+        // would collapse and either the build would go incomplete or the card
+        // would drop to the cheapest in the pool.
+        $build = $this->quoteFor('gaming');
+
+        $this->assertArrayHasKey('gpu', $build);
+        $this->assertNotSame('Test Entry Card', $build['gpu']['name'] ?? null);
+    }
+
+    /** @return array<string, float>|null */
+    private function workloadSharesFor(?string $purpose): ?array
+    {
+        $method = new \ReflectionMethod(
+            app(\App\Services\AIRecommendationService::class),
+            'workloadShares'
+        );
         $method->setAccessible(true);
 
-        $weights = $method->invoke($service, 'studio');
-
-        foreach ($weights as $slug => $weight) {
-            $this->assertGreaterThanOrEqual(0.5, $weight, "weight '{$slug}' below the floor");
-            $this->assertLessThanOrEqual(1.5, $weight, "weight '{$slug}' above the ceiling");
-        }
-
-        // studio rewards ram; nas punishes gpu. Both are relative to each other.
-        $nas = $method->invoke($service, 'nas');
-        $this->assertGreaterThan($nas['gpu'], $weights['gpu'], 'nas should discount the GPU harder than studio');
-        $this->assertLessThan($weights['ram'], $nas['ram'], 'nas should reward ram more than studio');
+        return $method->invoke(app(\App\Services\AIRecommendationService::class), $purpose);
     }
 }
