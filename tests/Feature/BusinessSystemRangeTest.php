@@ -469,4 +469,66 @@ class BusinessSystemRangeTest extends TestCase
             'even with no signpost, the customer must be told why it is unavailable'
         );
     }
+
+    public function test_the_signpost_resolves_from_a_workload_slug_too(): void
+    {
+        $this->seedBusinessAirCooler();
+
+        /*
+         * REGRESSION. The /business range page is written in WORKLOAD slugs
+         * ("Enterprise Servers", "NAS & Storage") because that is how the page
+         * was already structured. config/business.php is written in SYSTEM TYPE
+         * slugs. Looking a workload up in the system-type table returned null,
+         * and the pillar rendered with no signpost and no error - a missing
+         * feature that looked deliberate, and the only reason it was caught is
+         * that the counts on the live page came back zero.
+         */
+        foreach (['enterprise', 'server', 'nas'] as $workload) {
+            $sourcing = app(BusinessSystemType::class)->sourcingForWorkload($workload);
+
+            $this->assertNotNull(
+                $sourcing,
+                "no signpost resolves for the '{$workload}' workload used by a /business pillar"
+            );
+            $this->assertNotEmpty($sourcing['links']);
+        }
+
+        // A workload with no unbuildable system type under it has nothing to
+        // signpost, and must return null rather than an empty panel.
+        $this->assertNull(app(BusinessSystemType::class)->sourcingForWorkload('home-business'));
+    }
+
+    public function test_the_business_page_renders_the_signpost_for_unbuildable_pillars(): void
+    {
+        $this->seedBusinessAirCooler();
+
+        // layouts.seo - reached through @include('navigation-menu') - leaves an
+        // output buffer open when it renders, which PHPUnit reports as a risky
+        // test even though every assertion ran. Pre-existing quirk of that
+        // layout, not of this change. Only the buffer THIS render opened is
+        // closed, never one PHPUnit or the framework opened before it.
+        $level = ob_get_level();
+
+        try {
+            $html = $this->get('/business')->assertOk()->getContent();
+        } finally {
+            while (ob_get_level() > $level) {
+                ob_end_clean();
+            }
+        }
+
+        // Enterprise, server and NAS cannot be built, so all three pillars must
+        // carry the signpost and the disclosure.
+        $this->assertGreaterThanOrEqual(
+            3,
+            substr_count($html, 'noopener nofollow'),
+            'the unbuildable /business pillars are not showing the signpost'
+        );
+
+        $this->assertStringContainsString(
+            'do not earn from these links',
+            $html,
+            'the /business signpost must be disclosed as unmonetised'
+        );
+    }
 }

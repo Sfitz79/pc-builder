@@ -182,6 +182,39 @@ class BusinessSystemType
     }
 
     /**
+     * The signpost for a WORKLOAD rather than a system type.
+     *
+     * The /business range page is written in workload slugs - "Enterprise
+     * Servers", "NAS & Storage" - because that is how the page was already
+     * structured and what customers recognise. config/business.php is written in
+     * system-type slugs. Looking one up in the other returns null, and the
+     * pillar rendered with no signpost at all and no error, which is the worst
+     * of both: a missing feature that looks deliberate.
+     *
+     * Picks the FIRST unbuildable system type that targets this workload. Which
+     * one it is does not matter - they all need the same class of part, so the
+     * supplier set is the same.
+     *
+     * @return array{blurb: string, links: array<int, array{name: string, url: string}>}|null
+     */
+    public function sourcingForWorkload(string $workload): ?array
+    {
+        foreach ($this->all() as $system) {
+            if (($system['workload'] ?? null) !== $workload) {
+                continue;
+            }
+
+            $detail = $this->find($system['slug']);
+
+            if (! empty($detail['sourcing'])) {
+                return $detail['sourcing'];
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * The verified signpost links for a system type, or null.
      *
      * Returned only for system types that declare a `sourcing` group AND cannot
