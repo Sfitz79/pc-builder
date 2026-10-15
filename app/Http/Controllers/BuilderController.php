@@ -57,11 +57,40 @@ class BuilderController extends Controller
      */
     public function businessBuild(Request $request): View
     {
+        $gate = app(\App\Services\BusinessCapabilityGate::class);
+        $partition = $gate->partition();
+
         return $this->view->make('builder.dashboard', [
             'segment' => 'business',
-            'purpose' => GeminiService::resolveBusinessWorkload($request->get('purpose')),
-            'workloads' => GeminiService::businessWorkloads(),
+            // Resolved against the BUILDABLE set only. Falling back to a
+            // workload we cannot assemble would put the build button back on
+            // for a NAS, which is the whole failure this gate exists to stop.
+            'purpose' => $this->resolveAgainst($request->get('purpose'), array_keys($partition['buildable'])),
+            'workloads' => $partition['buildable'],
+            'specOnlyWorkloads' => $partition['spec_only'],
+            'buildableDefault' => array_key_first($partition['buildable']),
         ]);
+    }
+
+    /**
+     * Resolve a requested workload, but only ever to one that is in the allowed
+     * set.
+     *
+     * GeminiService::resolveBusinessWorkload() answers "is this a business
+     * workload". This answers the stricter question: "is this a business
+     * workload we can actually build", falling back the same fail-closed way.
+     *
+     * @param  array<int, string>  $allowed
+     */
+    private function resolveAgainst(?string $requested, array $allowed): ?string
+    {
+        if ($allowed === []) {
+            return null;
+        }
+
+        $candidate = GeminiService::resolveBusinessWorkload($requested);
+
+        return in_array($candidate, $allowed, true) ? $candidate : $allowed[0];
     }
 
     public function generate(): View

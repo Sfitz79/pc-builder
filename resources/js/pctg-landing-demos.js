@@ -343,7 +343,7 @@ waitForDom(() => {
     // measured figures. workableBands() measures and rounds the 1080p entry up
     // to the published floor (GBP 1,040 under the current pricing model), so
     // the fallback matches it rather than a stale hand-typed number.
-    let floor = 1040;
+    let floor = 1060;
     let ceiling = 3500;
 
     const WHATSAPP = '+447933101083';
@@ -407,7 +407,13 @@ waitForDom(() => {
             // so capping it at the 1080p ceiling would hide every dearer build.
             const topBand = data && data.bands ? data.bands['4k'] : null;
 
-            floor = Math.ceil((Number(band.min) || 1040) / 10) * 10;
+            // 1060, not 1040. This is the MEASURED workableBands() 1080p floor
+            // that /builder/bands publishes and that the builder itself
+            // enforces. 1040 was bandEntryPrice(), a hand-typed legacy figure,
+            // so a failed fetch here advertised an entry price GBP 20 below the
+            // one a customer would actually be allowed to build. Re-measured
+            // 2026-10-15.
+            floor = Math.ceil((Number(band.min) || 1060) / 10) * 10;
             ceiling = Number(topBand && topBand.max) || 3500;
 
             budgetInput.min = String(floor);

@@ -140,38 +140,101 @@ class BusinessBuilderEntryPointTest extends TestCase
                 "the '{$label}' button is missing from /business"
             );
 
-            $this->assertStringContainsString(
-                '/business/build',
+            /*
+             * Build OR contact. This used to assert "/business/build" outright,
+             * which was true only while every CTA produced a one-click build -
+             * including for products we cannot assemble. "Configure one"
+             * describes a dual professional-GPU render node, and routing it
+             * straight at the builder is a build button for something the
+             * catalogue cannot build. Both destinations are correct; the
+             * GAMING builder is the only one that is not.
+             */
+            $this->assertTrue(
+                str_contains($matches[1], '/business/build')
+                    || str_contains($matches[1], '/support'),
+                "the '{$label}' button on /business points at '{$matches[1]}', which is neither the "
+                .'business builder nor contact'
+            );
+
+            $this->assertDoesNotMatchRegularExpression(
+                '#/builder(?:"|\?|$)#',
                 $matches[1],
-                "the '{$label}' button on /business still points at '{$matches[1]}' (the gaming builder)"
+                "the '{$label}' button on /business still points at the GAMING builder"
             );
         }
     }
 
-    public function test_every_pillar_card_is_a_link_into_the_business_builder(): void
+    public function test_every_pillar_card_leads_somewhere_honest(): void
     {
         // See test_no_build_button... for why this reads the view directly.
         $html = $this->renderView('business.index');
 
-        // Eight pillars, each now an <a>. Count the anchor hrefs rather than
-        // trusting the array length, so a future edit that drops one fails here.
-        preg_match_all('/href="[^"]*\/business\/build[^"]*"/', $html, $matches);
+        /*
+         * REWRITTEN. This used to assert that all eight pillars link to
+         * /business/build. It now asserts the thing that actually matters:
+         * every pillar goes to a build button OR to contact, never to a build
+         * button for something we cannot assemble.
+         *
+         * A blanket "all pillars build" assertion was only ever true while the
+         * business builder would happily quote a gaming PC as a NAS, which is
+         * the defect the whole catalogue split exists to remove. Asserting eight
+         * build links would have re-encoded it.
+         */
+        preg_match_all('/<a\s+href="([^"]+)"[^>]*>(.*?)<\/a>/s', $html, $matches, PREG_SET_ORDER);
+
+        $targets = [];
+        foreach ($matches as $m) {
+            $href = $m[1];
+            if (str_contains($href, '/business/build') || str_contains($href, '/support?workload=')) {
+                $targets[] = $href;
+            }
+        }
+
         $this->assertGreaterThanOrEqual(
             8,
-            count($matches[0]),
-            'every "Who these are for" pillar should link into the business builder'
+            count($targets),
+            'every "Who these are for" pillar should link into the business builder or to contact'
         );
+
+        foreach ($targets as $href) {
+            $this->assertDoesNotMatchRegularExpression(
+                '#/business/build\?purpose=(nas|enterprise|server|rendering)$#',
+                $href,
+                "a workload the catalogue cannot build is still offered as a one-click build: {$href}"
+            );
+        }
     }
 
     public function test_the_business_builder_renders_business_scenarios_not_gaming_ones(): void
     {
+        $this->seedCatalogue();
+
         $html = $this->get('/business/build')->assertOk()->getContent();
 
-        foreach ($this->businessWorkloadSlugs() as $slug) {
+        $partition = app(\App\Services\BusinessCapabilityGate::class)->partition();
+
+        // Every workload the catalogue can build gets a scenario button...
+        foreach (array_keys($partition['buildable']) as $slug) {
             $this->assertStringContainsString(
                 $slug,
                 $html,
-                "business workload '{$slug}' is missing from the business scenario picker"
+                "buildable workload '{$slug}' is missing from the business scenario picker"
+            );
+        }
+
+        // ...and every one it cannot gets named as a conversation instead, with
+        // the reason. Silently omitting it would hide the range; offering a
+        // build button would be a lie we could not keep.
+        foreach ($partition['spec_only'] as $slug => $workload) {
+            $this->assertStringNotContainsString(
+                "purpose = " . json_encode($slug),
+                $html,
+                "'{$slug}' cannot be built but is still offered as a one-click build"
+            );
+            $this->assertStringContainsString(
+                'workload=' . urlencode($slug),
+                $html,
+                "'{$slug}' should link to contact so the buyer can still reach us for it"
             );
         }
 
@@ -179,6 +242,43 @@ class BusinessBuilderEntryPointTest extends TestCase
         $this->assertStringNotContainsString('🎮 Gaming', $html);
         $this->assertStringNotContainsString('🤖 AI Development', $html);
         $this->assertStringNotContainsString('Build Your Next PC', $html);
+    }
+
+    public function test_a_workload_we_cannot_build_is_never_pre_selected(): void
+    {
+        $this->seedCatalogue();
+
+        $partition = app(\App\Services\BusinessCapabilityGate::class)->partition();
+        $buildable = array_keys($partition['buildable']);
+
+        $this->assertNotEmpty($buildable, 'the fixture should make at least one workload buildable');
+
+        foreach (array_keys($partition['spec_only']) as $slug) {
+            $html = $this->get('/business/build?purpose=' . $slug)->assertOk()->getContent();
+
+            // Plain string search, not a regex: PCRE2 has no \u escape, and
+            // doubling the backslashes again buys nothing here.
+            $needle = '\u0022purpose\u0022:\u0022';
+            $at = strpos($html, $needle);
+            $seeded = '';
+
+            if ($at !== false) {
+                $rest = substr($html, $at + strlen($needle), 128);
+                $seeded = substr($rest, 0, (int) strpos($rest, '\u0022'));
+            }
+
+            $this->assertNotSame(
+                $slug,
+                $seeded,
+                "/business/build?purpose={$slug} pre-selected a workload we cannot build"
+            );
+
+            $this->assertContains(
+                $seeded,
+                $buildable,
+                'the fallback must be a buildable workload, not an arbitrary one'
+            );
+        }
     }
 
     public function test_the_business_builder_carries_the_business_palette_and_no_fps_claim(): void
@@ -221,9 +321,24 @@ class BusinessBuilderEntryPointTest extends TestCase
      */
     public function test_the_requested_business_scenario_is_pre_selected(string $requested): void
     {
-        $html = $this->get('/business/build?purpose=' . $requested)->assertOk()->getContent();
+        $this->seedCatalogue();
 
-        $expected = GeminiService::resolveBusinessWorkload($requested);
+        // A human form ("Home Business") resolves to a slug before anything
+        // else happens, so it is the slug that is looked up and asserted on.
+        $slug = GeminiService::resolveBusinessWorkload($requested);
+
+        $partition = app(\App\Services\BusinessCapabilityGate::class)->partition();
+
+        // Only a BUILDABLE workload may be pre-selected. The unbuildable case is
+        // asserted separately, in
+        // test_a_workload_we_cannot_build_is_never_pre_selected.
+        $this->assertArrayHasKey(
+            $slug,
+            $partition['buildable'],
+            "test data problem: '{$requested}' resolves to '{$slug}', which is not buildable with this fixture"
+        );
+
+        $html = $this->get('/business/build?purpose=' . urlencode($requested))->assertOk()->getContent();
 
         // The seeded Alpine state is the source of truth for what gets quoted,
         // so assert on it rather than on which card happens to be ringed.
@@ -233,22 +348,22 @@ class BusinessBuilderEntryPointTest extends TestCase
         // the raw form here would pass on a page that had not actually seeded
         // the workload.
         $this->assertStringContainsString(
-            '\u0022purpose\u0022:\u0022' . $expected . '\u0022',
+            '\u0022purpose\u0022:\u0022' . $slug . '\u0022',
             $html,
-            "requesting '{$requested}' did not seed the builder with '{$expected}'"
+            "requesting '{$requested}' did not seed the builder with '{$slug}'"
         );
     }
 
     public static function requestedWorkloads(): array
     {
+        // Buildable with the test fixture, which stocks an air cooler (quiet)
+        // and nothing else the business capabilities ask for. rendering is NOT
+        // here because it needs a professional GPU, and the fixture's cards are
+        // plainly named test parts.
         return [
             'studio' => ['studio'],
-            'rendering' => ['rendering'],
-            'enterprise' => ['enterprise'],
-            'server' => ['server'],
-            'nas' => ['nas'],
             'home-business' => ['home-business'],
-            'ai' => ['ai'],
+            'live-production' => ['live-production'],
             'human form' => ['Home Business'],
         ];
     }
@@ -368,6 +483,12 @@ class BusinessBuilderEntryPointTest extends TestCase
                 'stock' => 25,
                 'active' => true,
                 'specs' => $specs,
+                // Business-tagged. The business builder draws ONLY from
+                // components carrying this tag, so an untagged fixture would
+                // return an empty selection and every outcome test below would
+                // pass for the wrong reason - or fail, which is worse, because
+                // it would look like the catalogue split is broken.
+                'segments' => ['gaming', 'business'],
                 'source_url' => 'https://example.com/'.strtolower(str_replace([' ', '/'], '-', $name)),
                 'price_checked_at' => now(),
             ], $extra));
@@ -398,7 +519,13 @@ class BusinessBuilderEntryPointTest extends TestCase
 
         $part('psu', 'Test 750W PSU', 69.99, ['wattage' => 750]);
         $part('case', 'Test Tower Case', 49.99);
-        $part('cooler', 'Test Air Cooler', 24.99);
+
+        // Named for a real air cooler rather than "Test Air Cooler" on purpose.
+        // The capability gate reads the PRODUCT NAME for quiet_cooling, exactly
+        // as it does in production, so a fixture that did not match a recognised
+        // air-cooler family would leave every workload unbuildable and the gate
+        // tests would pass by accident - proving nothing while looking green.
+        $part('cooler', 'Noctua NH-D15 chromax.black', 109.95);
     }
 
     public function test_a_nas_build_is_not_the_gaming_build(): void
@@ -557,5 +684,160 @@ class BusinessBuilderEntryPointTest extends TestCase
         $method->setAccessible(true);
 
         return $method->invoke(app(\App\Services\AIRecommendationService::class), $purpose);
+    }
+
+    /*
+     * ---------------------------------------------------------------------
+     * THE CATALOGUE SPLIT
+     *
+     * The business builder must draw from a business catalogue, not from the
+     * gaming one with a blue theme on it. These assert the split itself,
+     * because a filter that silently stopped filtering would leave everything
+     * looking fine - the gaming build would still be complete, still be priced,
+     * still pass every existing test.
+     * ---------------------------------------------------------------------
+     */
+
+    public function test_the_business_builder_cannot_see_an_untagged_component(): void
+    {
+        $this->seedCatalogue();
+
+        // Untagged: the state of every component until someone puts it in the
+        // business catalogue on purpose.
+        $gamingOnly = \App\Models\Component::create([
+            'category_id' => \App\Models\Category::where('slug', 'psu')->value('id'),
+            'manufacturer_id' => \App\Models\Manufacturer::first()->id,
+            'name' => 'Untagged Gaming PSU',
+            'slug' => 'untagged-gaming-psu',
+            'price' => 55.00,
+            'currency' => 'GBP',
+            'stock' => 10,
+            'active' => true,
+            'specs' => ['wattage' => 750],
+            'source_url' => 'https://example.com/untagged',
+            'price_checked_at' => now(),
+        ]);
+
+        $build = $this->quoteFor('nas');
+
+        $this->assertNotSame(
+            'Untagged Gaming PSU',
+            $build['psu']['name'] ?? null,
+            'an untagged component reached a business build - the catalogue split is not filtering'
+        );
+    }
+
+    public function test_the_gaming_builder_still_sees_every_component_including_untagged_ones(): void
+    {
+        $this->seedCatalogue();
+
+        $gamingOnly = \App\Models\Component::create([
+            'category_id' => \App\Models\Category::where('slug', 'psu')->value('id'),
+            'manufacturer_id' => \App\Models\Manufacturer::first()->id,
+            'name' => 'Untagged Gaming PSU',
+            'slug' => 'untagged-gaming-psu-2',
+            'price' => 55.00,
+            'currency' => 'GBP',
+            'stock' => 10,
+            'active' => true,
+            'specs' => ['wattage' => 750],
+            'source_url' => 'https://example.com/untagged-2',
+            'price_checked_at' => now(),
+        ]);
+
+        $this->assertNull(
+            $gamingOnly->segments,
+            'the fixture must be untagged for this test to mean anything'
+        );
+
+        $build = $this->quoteFor('gaming');
+
+        // This is the blast-radius boundary in the other direction: the gaming
+        // pools do not filter on segments at all, so no existing component can
+        // disappear from the gaming builder and the published band floors hold.
+        $this->assertArrayHasKey('psu', $build);
+    }
+
+    public function test_an_empty_business_category_never_silently_refills_from_the_gaming_catalogue(): void
+    {
+        /*
+         * The error path is where a filter like this usually leaks.
+         *
+         * buildPools() refills a category from scratch when a spec floor empties
+         * it. That refill used to rebuild the pool from the WHOLE catalogue, so
+         * on the business path a floor failure would have handed a workstation
+         * quote a pool of RGB gaming cases. The refill now goes through the same
+         * segment filter.
+         */
+        $this->seedCatalogue();
+
+        // Strip the business tag from every RAM kit, so the business RAM pool is
+        // empty and the floor-relaxation path is the only thing that can refill
+        // it.
+        \App\Models\Component::whereHas('category', fn ($q) => $q->where('slug', 'ram'))
+            ->update(['segments' => null]);
+
+        $build = $this->quoteFor('nas');
+
+        $this->assertArrayNotHasKey(
+            'ram',
+            $build,
+            'an empty business category was refilled from the gaming catalogue on the floor-relaxation path'
+        );
+    }
+
+    public function test_the_business_catalogue_is_a_configured_decision_not_a_missing_table(): void
+    {
+        /*
+         * NOT "the business catalogue is populated" - that is a statement about
+         * production data, and asserting it here would either pass trivially on
+         * an empty test database or fail for reasons that have nothing to do
+         * with the code. It belongs in scripts/genie-curate-business-catalogue.php,
+         * which reports the counts and prints the sample.
+         *
+         * What IS worth asserting is that an empty or unrecognised requirement
+         * never reads as satisfied. That is the fail-closed half, and it is
+         * pure logic, so it can be tested without a catalogue.
+         */
+        $gate = app(\App\Services\BusinessCapabilityGate::class);
+
+        // A capability key that does not exist in config counts as MISSING, so a
+        // typo in a workload's `requires` takes the build button away rather
+        // than silently leaving it on.
+        config([
+            'workloads.capabilities' => ['quiet_cooling' => ['label' => 'quiet air cooling']],
+            'workloads.workloads.fake-workload.requires' => ['quiet_cooling', 'not_a_real_capability'],
+        ]);
+
+        $verdict = $gate->verdict('fake-workload');
+
+        $this->assertFalse($verdict['buildable'], 'an unrecognised requirement must not read as satisfied');
+        $this->assertContains('not_a_real_capability', $verdict['unknown']);
+        $this->assertContains('not_a_real_capability', $verdict['missing']);
+        $this->assertContains('quiet_cooling', $verdict['required'], 'a declared requirement must not be dropped');
+
+        // A workload that declares nothing has nothing missing.
+        config(['workloads.workloads.fake-workload.requires' => []]);
+        $this->assertTrue($gate->verdict('fake-workload')['buildable']);
+    }
+
+    public function test_component_segment_helpers_treat_null_as_gaming_only(): void
+    {
+        $null = new \App\Models\Component(['segments' => null]);
+        $this->assertSame([], $null->productSegments());
+        $this->assertFalse($null->servesSegment('business'));
+        $this->assertFalse($null->servesSegment('gaming'));
+
+        $both = new \App\Models\Component(['segments' => ['gaming', 'business']]);
+        $this->assertTrue($both->servesSegment('business'));
+        $this->assertTrue($both->servesSegment('gaming'));
+
+        $empty = new \App\Models\Component(['segments' => []]);
+        $this->assertSame([], $empty->productSegments(), 'an empty array means nobody claimed it');
+        $this->assertFalse($empty->servesSegment('business'));
+
+        // Case and whitespace, because the tag is written by a curation script.
+        $messy = new \App\Models\Component(['segments' => ['  Business ', 'BUSINESS']]);
+        $this->assertSame(['business'], $messy->productSegments());
     }
 }

@@ -65,6 +65,14 @@ class BudgetBandsTest extends TestCase
                 'stock' => 25,
                 'active' => true,
                 'specs' => $specs,
+                // Tagged for BOTH product lines. `ai` is a business workload, so
+                // this test asks for it alongside gaming, streaming and
+                // creation - and since the business builder draws only from
+                // business-tagged components, an untagged fixture returns an
+                // empty selection for it. That is the fail-closed behaviour
+                // working, not a regression, and this fixture represents a
+                // stocked catalogue rather than a business-free one.
+                'segments' => ['gaming', 'business'],
                 // PriceIntegrityService::clean() drops any row with no
                 // source_url or a stale price_checked_at, because an
                 // unevidenced price costs us the whole order. Seeded parts must

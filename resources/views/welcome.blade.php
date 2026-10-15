@@ -359,10 +359,21 @@
                          and deliver at 1080p, not a round number we cannot
                          honour (boss directive 2026-09-28). pctg-landing-demos.js
                          overwrites these from /builder/bands so the slider can
-                         never drift from the real measured floor. --}}
+                         never drift from the real measured floor.
+
+                         GBP 1,040 -> 1,060. The old placeholder mirrored
+                         bandEntryPrice(), which is a hand-typed legacy figure.
+                         The number /builder/bands actually publishes for the
+                         1080p floor is workableBands()'s measured 1,060, and
+                         that is also what the builder itself enforces. Leaving
+                         1,040 here meant the landing page advertised an entry
+                         price GBP 20 below the one the builder would accept -
+                         and loadBands() then moved the number UP on arrival,
+                         which reads as the site correcting itself rather than
+                         as the true figure. Re-measured 2026-10-15. --}}
                     <input
                         type="range"
-                        min="1040"
+                        min="1060"
                         max="3500"
                         step="10"
                         value="1500"
@@ -372,14 +383,18 @@
                     >
 
                     <div class="mt-2 flex items-center justify-between text-sm">
-                        {{-- These are pre-fetch placeholders only; loadBands()
-                             overwrites all three from /builder/bands. The floor
-                             mirrors the measured 1080p entry price published by
-                             workableBands() under the current pricing model, so
-                             the number cannot visibly jump DOWN on load. If the
-                             catalogue moves, update this alongside the JS
-                             fallback in pctg-landing-demos.js. --}}
-                        <span class="text-slate-400" data-demo-budget-floor>&pound;1,040</span>
+                        {{-- Pre-fetch placeholders only; loadBands() overwrites
+                             all three from /builder/bands. The floor mirrors the
+                             MEASURED workableBands() 1080p floor, which is the
+                             same number the builder enforces, so it cannot jump
+                             on load in either direction.
+
+                             If the catalogue moves, update this in the same
+                             commit as the JS fallback in pctg-landing-demos.js
+                             and the fallback in builder.js. Three copies of the
+                             same number is too many, and the third one is the
+                             one nobody looks at. --}}
+                        <span class="text-slate-400" data-demo-budget-floor>&pound;1,060</span>
                         <span class="font-bold text-white" data-demo-budget-label>&pound;1,500</span>
                         <span class="text-slate-400" data-demo-budget-ceiling>&pound;3,500</span>
                     </div>

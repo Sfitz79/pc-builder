@@ -6,6 +6,7 @@ use App\Models\AiRecommendation;
 use App\Models\Category;
 use App\Models\Component;
 use App\Services\GeminiService;
+use Illuminate\Support\Collection;
 
 class AIRecommendationService
 {
@@ -1376,6 +1377,30 @@ class AIRecommendationService
      * an instant 5-star reputation failure â€” and so are rows that fail the PCTG
      * spec floor (sub-32GB memory, spinning drives).
      */
+    /**
+     * The pool for one category, honouring the product-line catalogue.
+     *
+     * `segment` of 'business' draws ONLY from components explicitly catalogued
+     * for the business line. Anything untagged is gaming-only and is invisible
+     * here - see Component::productSegments() for why null means "gaming only".
+     *
+     * NULL segment (the gaming path) does NOT filter at all, so no existing
+     * component can disappear from the gaming builder and the published band
+     * floors cannot move.
+     */
+    protected function poolFor(Category $category, ?string $segment): Collection
+    {
+        $query = Component::active()
+            ->where('category_id', $category->id)
+            ->where('stock', '>', 0);
+
+        if ($segment === 'business') {
+            $query->whereNotNull('segments')->where('segments', 'like', '%"business"%');
+        }
+
+        return $query->get();
+    }
+
     protected function buildPools($categories, ?string $purpose, ?string $resolution): array
     {
         // Per-run state: a relaxed floor must only ever be reported for the
@@ -1383,13 +1408,17 @@ class AIRecommendationService
         // service instance.
         $this->floorDegradations = [];
 
+        // Which catalogue this run may draw from. Driven by the workload's
+        // segment, never by the caller passing a flag, so there is no way to ask
+        // for a business quote over the gaming catalogue.
+        $segment = $purpose !== null && \App\Services\GeminiService::isBusinessMode($purpose)
+            ? 'business'
+            : null;
+
         $pools = [];
 
         foreach ($categories as $category) {
-            $pool = Component::active()
-                ->where('category_id', $category->id)
-                ->where('stock', '>', 0)
-                ->get();
+            $pool = $this->poolFor($category, $segment);
 
             $pool = $this->priceIntegrity->clean($pool);
 
@@ -1407,11 +1436,27 @@ class AIRecommendationService
                 // Now the quoting surface can refuse to publish this build.
                 $this->floorDegradations[$category->slug] = true;
 
-                $pool = Component::active()
-                    ->where('category_id', $category->id)
-                    ->where('stock', '>', 0)
-                    ->get();
+                // Refilled through poolFor(), NOT from a bare Component query.
+                //
+                // The refill used to rebuild the category from the whole
+                // catalogue. On the business path that would have handed a
+                // workstation quote a pool of RGB gaming cases and AIO coolers
+                // the moment a spec floor emptied it - the entire point of a
+                // separate business catalogue, undone by an error path. The
+                // segment filter has to apply to the recovery path too.
+                $pool = $this->poolFor($category, $segment);
                 $pool = $this->priceIntegrity->clean($pool);
+
+                if ($pool->isEmpty()) {
+                    // The business catalogue genuinely has nothing in this
+                    // category. Say so by name rather than quietly reaching
+                    // into the gaming one.
+                    \Log::warning('business catalogue has no usable rows for a category; the build will be incomplete', [
+                        'category' => $category->slug,
+                        'segment' => $segment,
+                        'purpose' => $purpose,
+                    ]);
+                }
             }
 
             // The quoting gate. A part we cannot positively identify must never

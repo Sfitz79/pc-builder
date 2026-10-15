@@ -65,11 +65,74 @@ return [
     'businessDefaultWorkload' => 'studio',
 
     /*
+     * What a business build fundamentally REQUIRES, as capability keys rather
+     * than part names, and what we actually stock against each one.
+     *
+     * WHY THIS EXISTS
+     * ---------------
+     * Measured 2026-10-15 against production (2,703 active components), read
+     * through the fields the picker and the consumer actually use - the product
+     * name AND the JSON spec keys, because a probe on the name alone has
+     * already been wrong once in this project:
+     *
+     *     server_cpu            Xeon / EPYC / Threadripper            0 rows
+     *     workstation_chipset   W680 / C266 / WRX90 / TRX50           0 rows
+     *     ecc_memory            ECC or RDIMM                         0 rows
+     *     enterprise_drive      IronWolf / WD Red / Exos / SAS       0 rows
+     *     pro_gpu               Radeon Pro / RTX A / Quadro           1 row
+     *     multi_drive_bay       a case with usable drive bays         see gate
+     *
+     * So PCTG Business cannot currently build a server, a NAS or a render node.
+     * Before this key existed it could still ASK for one, and answered with an
+     * RTX 5070 in an RGB NZXT case - the exact "gaming build with a business
+     * sticker" the copy on /business says we do not do.
+     *
+     * A workload whose requirements are unmet is not offered as a one-click
+     * build. It is offered as a spec conversation instead. That is Rule 6 in
+     * AGENTS.md - unknown must never equal permitted - applied to the
+     * configurator instead of to a performance tier.
+     *
+     * The picker itself is not the bottleneck and is not being blamed here: the
+     * shares work, and the workload weights genuinely move the budget. There
+     * is simply nothing in the catalogue for the money to move towards.
+     *
+     * @see \App\Services\BusinessCapabilityGate
+     */
+    'capabilities' => [
+        'server_cpu' => [
+            'label' => 'a server or workstation processor (Xeon, Threadripper or EPYC)',
+        ],
+        'workstation_chipset' => [
+            'label' => 'a workstation or server chipset (W680, C266, WRX90 or TRX50)',
+        ],
+        'ecc_memory' => [
+            'label' => 'ECC registered memory',
+        ],
+        'enterprise_drive' => [
+            'label' => 'enterprise or NAS-rated drives',
+        ],
+        'pro_gpu' => [
+            'label' => 'a professional graphics card',
+        ],
+        'quiet_cooling' => [
+            'label' => 'quiet air cooling',
+        ],
+        'multi_drive_bay' => [
+            'label' => 'a case with enough drive bays for the storage',
+        ],
+    ],
+
+    /*
      * Workloads.
      *
      * Keys are the canonical slug. Anything in `aliases` resolves to the key,
      * so 'home business', 'home-business', 'home_business' and 'small office'
      * all land on the same workload rather than being coerced to gaming.
+     *
+     * `requires` lists capability keys from the block above. An empty list
+     * means the catalogue can serve the workload today. A non-empty one is
+     * checked against the live catalogue on every page load (cached), and an
+     * unmet requirement moves the workload off the build button.
      *
      * weights are 0-100 and are applied to the scored pools by
      * AIRecommendationService. They are a floor, not a suggestion: a NAS build
@@ -83,8 +146,8 @@ return [
      *      by AIRecommendationService::applyWeights().
      *   2. WITHOUT Gemini - scoreWeights() returns null and nothing was applied
      *      at all, so a NAS build could still have been quoted a gaming GPU.
-     *      AIRecommendationService::workloadWeights() now normalises these into
-     *      the same multiplier range and applies them on that path too.
+     *      AIRecommendationService::workloadShares() now normalises these into
+     *      per-category budget shares and applies them on that path too.
      *
      * `minRamGb` needs no equivalent wiring: the deterministic pool filter
      * already refuses anything under AIRecommendationService::MIN_RAM_GB (32),
@@ -131,6 +194,7 @@ return [
                 . 'thermals over peak boost. Budget for memory first: 32GB is a floor, '
                 . 'not a target, and a colourist will need far more.',
             'weights' => ['gpu' => 88, 'cpu' => 85, 'ram' => 95, 'storage' => 70, 'psu' => 45],
+            'requires' => ['quiet_cooling'],
             'minRamGb' => 32,
         ],
         'rendering' => [
@@ -142,6 +206,7 @@ return [
                 . 'fast in games can be useless here. Prefer professional multi-GPU, '
                 . 'and never spec a single consumer card for a render node.',
             'weights' => ['gpu' => 97, 'cpu' => 85, 'ram' => 90, 'storage' => 65, 'psu' => 60],
+            'requires' => ['pro_gpu'],
             'minRamGb' => 32,
         ],
         'enterprise' => [
@@ -154,6 +219,7 @@ return [
                 . 'available, and be specified for RAM capacity and drive bays rather '
                 . 'than graphics. Do not put a gaming GPU in an enterprise build.',
             'weights' => ['gpu' => 20, 'cpu' => 92, 'ram' => 96, 'storage' => 92, 'psu' => 75],
+            'requires' => ['server_cpu', 'workstation_chipset', 'ecc_memory'],
             'minRamGb' => 32,
         ],
         'server' => [
@@ -165,6 +231,7 @@ return [
                 . 'acoustic design matter because these run for years, unattended. '
                 . 'ECC RAM is worth calling out where the platform supports it.',
             'weights' => ['gpu' => 18, 'cpu' => 95, 'ram' => 94, 'storage' => 88, 'psu' => 80],
+            'requires' => ['server_cpu', 'ecc_memory', 'quiet_cooling'],
             'minRamGb' => 32,
         ],
         'nas' => [
@@ -177,6 +244,7 @@ return [
                 . 'interface, RAID support and sustained write throughput. Do not let '
                 . 'the generic scoring spend the budget on a graphics card.',
             'weights' => ['gpu' => 5, 'cpu' => 70, 'ram' => 75, 'storage' => 99, 'psu' => 70],
+            'requires' => ['enterprise_drive', 'multi_drive_bay', 'ecc_memory'],
             'minRamGb' => 8,
         ],
         'home-business' => [
@@ -188,6 +256,7 @@ return [
                 . 'speed. A cooling solution that is audible in a living room disqualifies '
                 . 'the build. Favour a modest, efficient, serviceable box over a hot one.',
             'weights' => ['gpu' => 35, 'cpu' => 80, 'ram' => 72, 'storage' => 65, 'psu' => 45],
+            'requires' => ['quiet_cooling'],
             'minRamGb' => 16,
         ],
         'ai' => [
@@ -201,7 +270,51 @@ return [
             'weights' => ['gpu' => 93, 'cpu' => 80, 'ram' => 95, 'storage' => 80, 'psu' => 65],
             'minRamGb' => 32,
         ],
+
+        /*
+         * LIVE PRODUCTION - the business half of "streaming".
+         *
+         * WHY A SECOND STREAMING WORKLOAD RATHER THAN MOVING THE EXISTING ONE
+         * ------------------------------------------------------------------
+         * There were two different products sharing one key. `streaming` is a
+         * GAMING workload - "gameplay and a second encoded feed at once", it
+         * needs an NVENC-class card and it cares about frame rate, so it is
+         * correct where it is. /business sells the other one: sustained encode
+         * of a live production feed, where "clean output matters more than frame
+         * rate" and the constraint is encode headroom, not frames.
+         *
+         * They disagree on the hardware. Gaming streaming wants a fast consumer
+         * card and does not mind a 1440p display band; production encoding wants
+         * sustained throughput and has no relationship to a resolution band at
+         * all. Folding them together would have meant one of the two quietly
+         * got the wrong answer, which is the failure this whole config exists
+         * to prevent.
+         *
+         * The /business Streaming pillar previously deep-linked to NOTHING -
+         * `streaming` is a gaming slug, so the fail-closed resolver dropped it
+         * to the default workload. It now has a real key to point at.
+         */
+        'live-production' => [
+            'label' => 'Live Production',
+            'segment' => 'business',
+            'aliases' => [
+                'live production', 'live-production', 'livestream', 'live stream',
+                'broadcast', 'live broadcast', 'streaming production', 'encoder',
+                'encoder box', 'rtmp', 'srt', 'multicam', 'switcher', 'obs studio',
+                'production streaming',
+            ],
+            'blurb' => 'Multi-camera live output, running unattended for hours.',
+            'guidance' => 'SUSTAINED ENCODE, NOT FRAME RATE. The encoder runs for '
+                . 'hours without a frame drop, so favour a card with hardware '
+                . 'encoding headroom and a CPU that will not throttle, and prefer '
+                . 'quiet, reliable cooling over anything that sounds busy on air. '
+                . 'Never quote an encode-limited card.',
+            'weights' => ['gpu' => 88, 'cpu' => 88, 'ram' => 70, 'storage' => 60, 'psu' => 50],
+            'requires' => ['quiet_cooling'],
+            'minRamGb' => 32,
+        ],
     ],
+
 
     /*
      * What a builder must never do when the mode is business.

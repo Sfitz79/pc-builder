@@ -11,6 +11,11 @@
     $isBusiness = ($segment ?? 'gaming') === 'business';
     $purpose = $purpose ?? null;
     $workloads = $workloads ?? \App\Services\GeminiService::businessWorkloads();
+
+    // Business only. The workloads the catalogue cannot actually assemble, which
+    // are offered as a spec conversation instead of a build button. Empty on
+    // the gaming path.
+    $specOnlyWorkloads = $specOnlyWorkloads ?? [];
 @endphp
 
 <x-pctg.layouts.builder

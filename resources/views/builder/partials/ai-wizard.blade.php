@@ -48,13 +48,12 @@
              `purpose`, so a deep link such as /business/build?purpose=nas
              arrives with the right card already ringed in blue. --}}
         <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            @foreach ($workloads as $slug => $workload)
+            @forelse ($workloads as $slug => $workload)
                 <button
                     type="button"
                     class="pctg-scenario-card"
                     :class="purpose === @js($slug) ? 'pctg-scenario-card-active' : ''"
                     @click="purpose = @js($slug)"
-                    aria-pressed="false"
                     :aria-pressed="(purpose === @js($slug)).toString()"
                 >
                     <span class="flex items-center justify-between gap-2">
@@ -71,8 +70,64 @@
                         {{ $workload['blurb'] ?? '' }}
                     </span>
                 </button>
-            @endforeach
+            @empty
+                <p class="text-sm text-slate-400 sm:col-span-2 lg:col-span-3">
+                    None of our professional workloads are stocked for online
+                    configuration right now. Talk to us and we will spec one with
+                    you.
+                </p>
+            @endforelse
         </div>
+
+        {{-- WHAT WE CANNOT BUILD YET
+             Not hidden, and not quietly built anyway. These are real products
+             we want to sell, and the honest position is that the catalogue does
+             not hold the parts yet - so the button is a conversation instead of
+             a quote we cannot honour.
+
+             The alternative, which this replaced, was offering a build button
+             that produced an RTX 5070 in an RGB case for "NAS & Storage".
+             Naming the missing part is more useful to the customer than a
+             machine that cannot do the job. --}}
+        @if (count($specOnlyWorkloads))
+            <div class="mt-10 rounded-2xl border border-white/5 bg-biz-surface p-6">
+                <h2 class="text-lg font-bold">Not stocked for online build yet</h2>
+
+                <p class="mt-2 max-w-2xl text-sm text-biz-text-secondary">
+                    We build these, but we do not yet stock every part they need,
+                    so we will not quote you one online. Tell us the workload and
+                    we will spec and price it properly.
+                </p>
+
+                <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                    @foreach ($specOnlyWorkloads as $slug => $workload)
+                        @php
+                            $verdict = $workload['verdict'] ?? ['missing_labels' => []];
+                            $missing = $verdict['missing_labels'] ?? [];
+                        @endphp
+                        <div class="rounded-xl border border-white/5 bg-biz-background p-4">
+                            <p class="font-bold">{{ $workload['label'] ?? $slug }}</p>
+
+                            <p class="mt-2 text-xs leading-relaxed text-biz-text-secondary">
+                                @if ($missing)
+                                    Still needs: {{ implode(', ', $missing) }}.
+                                @else
+                                    Not available to configure online yet.
+                                @endif
+                            </p>
+
+                            <a
+                                href="{{ route('support') }}?workload={{ urlencode($slug) }}"
+                                class="mt-3 inline-flex items-center gap-1 text-sm font-bold text-biz-accent hover:underline"
+                            >
+                                Talk to us about {{ strtolower($workload['label'] ?? $slug) }}
+                                <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
 
         <div class="mt-8 grid gap-4 md:grid-cols-3">
 

@@ -55,6 +55,7 @@ class Component extends Model
         'wattage',
         'stock',
         'active',
+        'segments',
         'specs',
         'source_url',
         'image_url',
@@ -66,9 +67,42 @@ class Component extends Model
         'wattage' => 'integer',
         'stock' => 'integer',
         'active' => 'boolean',
+        'segments' => 'array',
         'specs' => 'array',
         'price_checked_at' => 'datetime',
     ];
+
+    /**
+     * Which product lines this part is catalogued for.
+     *
+     * NULL - the state of every row until it is deliberately tagged - means
+     * GAMING ONLY. That is the whole safety property: a part reaches a business
+     * quote only because someone put it there on purpose, never because an
+     * ingest created a new row and nobody said no.
+     *
+     * Read through the accessors below rather than touching `segments` directly
+     * so the "null means gaming" rule lives in one place. An empty array is
+     * treated as gaming-only too, because `[]` and NULL both say "nobody
+     * claimed this part for anything else".
+     *
+     * @return list<string>
+     */
+    public function productSegments(): array
+    {
+        $segments = is_array($this->segments) ? $this->segments : [];
+
+        return array_values(array_unique(array_filter(
+            array_map(fn ($s) => strtolower(trim((string) $s)), $segments),
+            fn ($s) => $s !== ''
+        )));
+    }
+
+    public function servesSegment(string $segment): bool
+    {
+        $segment = strtolower(trim($segment));
+
+        return $segment !== '' && in_array($segment, $this->productSegments(), true);
+    }
 
     public function category(): BelongsTo
     {
