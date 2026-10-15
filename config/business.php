@@ -190,6 +190,7 @@ return [
             'blurb' => 'Frames, simulations and batch output. Professional multi-GPU, never a single consumer card.',
             'workload' => 'rendering',
             'requires' => ['pro_gpu_high'],
+            'sourcing' => 'desktops',
             'band' => [3000, 8000],
             'minRamGb' => 64,
             'minStorageGb' => 2000,
@@ -212,6 +213,7 @@ return [
             'blurb' => 'PACS reading. DICOM volumes are memory-hungry and the read has to be instant.',
             'workload' => 'studio',
             'requires' => ['pro_gpu_high'],
+            'sourcing' => 'desktops',
             'band' => [2500, 6000],
             'minRamGb' => 64,
             'minStorageGb' => 2000,
@@ -236,6 +238,7 @@ return [
             'blurb' => 'Shared drives, shared printers, permissions. The heart of a small network.',
             'workload' => 'server',
             'requires' => ['server_cpu', 'ecc_memory', 'quiet_cooling'],
+            'sourcing' => 'servers',
             'band' => [1400, 3000],
             'minRamGb' => 32,
             'minStorageGb' => 1000,
@@ -247,6 +250,7 @@ return [
             'blurb' => 'Running the servers you would otherwise pay a hosting company for.',
             'workload' => 'enterprise',
             'requires' => ['server_cpu', 'workstation_chipset', 'ecc_memory'],
+            'sourcing' => 'servers',
             'band' => [2500, 8000],
             'minRamGb' => 64,
             'minStorageGb' => 2000,
@@ -260,6 +264,7 @@ return [
             'blurb' => 'The thing you find out you needed, on the day you find out you needed it.',
             'workload' => 'nas',
             'requires' => ['enterprise_drive', 'multi_drive_bay', 'ecc_memory'],
+            'sourcing' => 'servers',
             'band' => [800, 4000],
             'minRamGb' => 8,
             'minStorageGb' => 8000,
@@ -271,9 +276,71 @@ return [
             'blurb' => 'Media libraries and project files everyone needs to reach without emailing them.',
             'workload' => 'nas',
             'requires' => ['enterprise_drive', 'multi_drive_bay'],
+            'sourcing' => 'servers',
             'band' => [1200, 5000],
             'minRamGb' => 16,
             'minStorageGb' => 8000,
+        ],
+    ],
+
+    /*
+     * Where a system type we cannot build is actually sold.
+     *
+     * WHY THIS EXISTS
+     * ---------------
+     * Six of the fifteen system types cannot be assembled from our catalogue -
+     * no server processors, no ECC memory, no enterprise drives, no multi-bay
+     * cases, one entry-level professional GPU. BusinessCapabilityGate removes
+     * the build button and names the missing part, which is right. But it still
+     * leaves the buyer with nothing, and a customer who told us what they need
+     * and then hit a dead end is worse than one who never asked.
+     *
+     * So: signpost. Not a referral programme, not a shop, not a comparison we
+     * have measured. Plain links, no affiliate, no price quoted on their behalf.
+     *
+     * EVERY URL HERE WAS CHECKED RESOLVING before being written down, on
+     * 2026-10-15. Four candidates were rejected for exactly that reason: HP's
+     * root /gb-en/business closed the connection, ebuyer timed out, and Currys
+     * and Overclockers both returned 403 to an automated request - which proves
+     * the host serves bots differently but does NOT prove the specific path
+     * exists, and a broken signpost is worse than a missing one. Those are
+     * worth adding, but only once someone has opened them in a browser.
+     *
+     * No prices are shown. Quoting a figure off someone else's website is a
+     * claim about a product we neither stock nor have verified today, and the
+     * price would be wrong within a week. The buyer's own quote at checkout is
+     * the only number on this site we will stand behind.
+     */
+    'sourcing' => [
+        'desktops' => [
+            'blurb' => 'Business desktop lines, sold and warranted by the manufacturer.',
+            'links' => [
+                [
+                    'name' => 'Dell Pro desktops',
+                    'url' => 'https://www.dell.com/en-gb/shop/business/c/desktops',
+                ],
+                [
+                    'name' => 'HP Pro and Z workstations',
+                    'url' => 'https://www.hp.com/gb-en/shop/categories/small-business-pcs',
+                ],
+                [
+                    'name' => 'Scan Business',
+                    'url' => 'https://www.scan.co.uk/business',
+                ],
+            ],
+        ],
+        'servers' => [
+            'blurb' => 'Rack and tower servers, with the manufacturer warranty and support options attached.',
+            'links' => [
+                [
+                    'name' => 'Dell servers',
+                    'url' => 'https://www.dell.com/en-gb/shop/servers/c/servers',
+                ],
+                [
+                    'name' => 'Scan Business',
+                    'url' => 'https://www.scan.co.uk/business',
+                ],
+            ],
         ],
     ],
 

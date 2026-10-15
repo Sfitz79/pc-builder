@@ -68,6 +68,21 @@
                     a one-click build where we stock every part it needs.
                 </p>
 
+                {{-- THE DISCLOSURE, stated once, before any competitor link.
+
+                     Without it a panel of supplier links under our own branding
+                     reads as though we sell those machines, or that we have
+                     checked them and found them fine. Neither is true. We do not
+                     earn on these links and we have not priced them. --}}
+                <p class="mt-3 max-w-3xl rounded-xl border border-white/5 bg-white/[0.03] p-3 text-xs leading-relaxed text-slate-400">
+                    Where a system is marked <span class="text-amber-300/90">not stocked</span>,
+                    the links below point at the retailers who do sell it. Those
+                    are not our products, they are not on our price list, and we
+                    do not earn from the links. We have not checked their prices
+                    today &mdash; check them yourself, or ask us to spec a build
+                    from the parts we can actually supply.
+                </p>
+
                 @foreach ($systemTypeGroups as $sizeKey => $size)
                     <div class="mt-7">
                         <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
@@ -120,6 +135,35 @@
                                             Ask us to spec it
                                             <span aria-hidden="true">&rarr;</span>
                                         </a>
+
+                                        {{-- SIGNPOST, not a shop.
+                                             Shown only when we cannot build it, and
+                                             only alongside the reason why. Plain
+                                             links, no affiliate, and no price
+                                             quoted on someone else's behalf. --}}
+                                        @if (! empty($detail['sourcing']))
+                                            <div class="mt-4 border-t border-white/5 pt-3">
+                                                <p class="text-xs text-slate-500">
+                                                    {{ $detail['sourcing']['blurb'] ?? '' }}
+                                                </p>
+                                                <ul class="mt-2 space-y-1">
+                                                    @foreach ($detail['sourcing']['links'] as $link)
+                                                        <li>
+                                                            <a
+                                                                href="{{ $link['url'] }}"
+                                                                target="_blank"
+                                                                rel="noopener nofollow"
+                                                                class="text-xs font-semibold text-biz-accent hover:underline"
+                                                            >
+                                                                {{ $link['name'] }}
+                                                                <span class="text-slate-500" aria-hidden="true">&#8599;</span>
+                                                                <span class="sr-only">(opens in a new tab)</span>
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
                                     @endif
                                 </div>
                             @endforeach

@@ -195,6 +195,30 @@
                         <p class="mt-4 text-xs font-semibold text-amber-300/90">
                             Not stocked for online build yet &mdash; talk to us
                         </p>
+                        {{-- The same signpost the builder uses, so the two pages
+                             cannot disagree about what we can supply. Disclosure
+                             is on the builder; this is the short version. --}}
+                        @php $sourcing = app(\App\Services\BusinessSystemType::class)->find($slug)['sourcing'] ?? null; @endphp
+                        @if ($sourcing)
+                            <ul class="mt-3 space-y-1">
+                                @foreach ($sourcing['links'] as $link)
+                                    <li>
+                                        <a
+                                            href="{{ $link['url'] }}"
+                                            target="_blank"
+                                            rel="noopener nofollow"
+                                            class="text-xs text-biz-text-secondary underline decoration-white/20 hover:text-white"
+                                        >
+                                            {{ $link['name'] }} <span aria-hidden="true">&#8599;</span>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <p class="mt-2 text-[11px] leading-relaxed text-slate-500">
+                                Not our products and not on our price list. We do
+                                not earn from these links.
+                            </p>
+                        @endif
                     @endunless
                 </a>
             @endforeach

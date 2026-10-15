@@ -90,7 +90,19 @@ class BusinessSystemType
             return null;
         }
 
-        return ['slug' => $slug] + $system + $this->resolve($slug, $system);
+        /*
+         * array_merge, NOT the `+` union operator.
+         *
+         * `['slug' => $slug] + $system + $this->resolve(...)` was wrong, and
+         * quietly: `+` keeps the LEFT operand on a key collision, and 'sourcing'
+         * and 'band' are in BOTH $system and the resolved array. So the raw
+         * config string 'servers' beat the resolved array of links, and the
+         * business page died with "Cannot access offset of type string on
+         * string". array_merge gives the resolved values priority, which is what
+         * "resolved" means.
+         */
+        return array_merge(['slug' => $slug], $system, $this->resolve($slug, $system));
+
     }
 
     /**
@@ -160,9 +172,49 @@ class BusinessSystemType
             'band_floor' => $bandFloor,
             'builder_entry_price' => $builderFloor,
             'band_unreachable' => $bandUnreachable,
+            // Where this is actually sold, when we cannot build it. Plain links,
+            // no affiliate, no price claimed on their behalf - see the comment on
+            // config('business.sourcing') for why each URL is there.
+            'sourcing' => $this->sourcingFor($system),
             // What to tell the customer when we cannot serve it.
             'unavailable_reason' => $this->reason($unbuildable, $bandUnreachable, $verdict, $bandFloor, $builderFloor),
         ];
+    }
+
+    /**
+     * The verified signpost links for a system type, or null.
+     *
+     * Returned only for system types that declare a `sourcing` group AND cannot
+     * be built. A build button with a "buy it elsewhere" link under it would be
+     * incoherent, so the two are mutually exclusive by construction rather than
+     * by hoping the view remembers.
+     *
+     * @param  array<string, mixed>  $system
+     * @return array{blurb: string, links: array<int, array{name: string, url: string}>}|null
+     */
+    private function sourcingFor(array $system, bool $unbuildable = true): ?array
+    {
+        $group = $system['sourcing'] ?? null;
+
+        if ($group === null || ! $unbuildable) {
+            return null;
+        }
+
+        $config = config('business.sourcing.'.$group);
+
+        if (! is_array($config) || empty($config['links'])) {
+            // A system type pointing at a sourcing group that does not exist
+            // would otherwise render an empty panel - which looks like "we have
+            // nowhere to send you", the worst possible read.
+            \Log::warning('business system type points at an unknown sourcing group', [
+                'group' => $group,
+                'system' => $system['slug'] ?? null,
+            ]);
+
+            return null;
+        }
+
+        return $config;
     }
 
     /**

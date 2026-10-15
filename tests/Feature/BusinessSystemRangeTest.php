@@ -321,4 +321,152 @@ class BusinessSystemRangeTest extends TestCase
             );
         }
     }
+
+    /*
+     * THE SIGNPOST
+     *
+     * Six of fifteen system types cannot be built, and the answer to that is a
+     * link to somewhere they can be bought. These tests exist because that
+     * panel is the single easiest place on this site to quietly start making
+     * claims we cannot support: a price off someone's website, a partner link
+     * dressed as our own, or a Configure button appearing above a "buy it
+     * elsewhere" list.
+     */
+
+    public function test_resolved_values_win_over_the_raw_config(): void
+    {
+        $this->seedBusinessAirCooler();
+
+        // REGRESSION. find() was `['slug' => $slug] + $system + $resolve(...)`.
+        // The `+` union keeps the LEFT operand on a key collision, and 'sourcing'
+        // and 'band' exist in both halves - so the raw config string 'servers'
+        // overwrote the resolved array and the page 500'd with "Cannot access
+        // offset of type string on string". Nothing about the config was wrong;
+        // the merge order silently preferred the unresolved value.
+        $server = app(BusinessSystemType::class)->find('server-fileshare');
+
+        $this->assertIsArray($server['band'], 'the band must come back resolved, not as the raw config array');
+        $this->assertIsArray(
+            $server['sourcing'],
+            'the sourcing group must resolve to its link array, not to the raw group name'
+        );
+        $this->assertNotEmpty($server['sourcing']['links']);
+    }
+
+    public function test_an_unbuildable_system_offers_a_verified_signpost(): void
+    {
+        $this->seedBusinessAirCooler();
+
+        $server = app(BusinessSystemType::class)->find('server-fileshare');
+
+        $this->assertFalse($server['buildable']);
+        $this->assertNotNull($server['sourcing'], 'a system we cannot build should point somewhere it can be bought');
+
+        foreach ($server['sourcing']['links'] as $link) {
+            $this->assertArrayHasKey('name', $link);
+            $this->assertStringStartsWith('https://', $link['url'], 'a signpost link must not be relative or a dead scheme');
+            $this->assertMatchesRegularExpression('#^https://(www\.)?[a-z0-9.-]+\.[a-z]{2,}#i', $link['url']);
+        }
+    }
+
+    public function test_a_buildable_system_never_offers_a_signpost(): void
+    {
+        $this->seedBusinessAirCooler();
+
+        // A Configure button with a "buy it elsewhere" list underneath it is
+        // incoherent, and the two must be mutually exclusive by construction
+        // rather than by the view remembering.
+        foreach (app(BusinessSystemType::class)->all() as $system) {
+            $detail = app(BusinessSystemType::class)->find($system['slug']);
+
+            if ($detail['buildable']) {
+                $this->assertNull(
+                    $detail['sourcing'],
+                    "'{$system['slug']}' is buildable and must not also point customers elsewhere"
+                );
+            }
+        }
+    }
+
+    public function test_the_signpost_is_disclosed_as_not_ours(): void
+    {
+        $this->seedBusinessAirCooler();
+
+        $html = $this->get('/business/build')->assertOk()->getContent();
+
+        $this->assertStringContainsString(
+            'do not earn from the links',
+            $html,
+            'competitor links under our own brand must be disclosed as unmonetised'
+        );
+        $this->assertStringContainsString(
+            'have not checked their prices',
+            $html,
+            'we must say we have not priced what we are linking to'
+        );
+
+        // nofollow, because these are not ours and we do not want to be handing
+        // link equity to a competitor from a page that reads as our range.
+        $this->assertStringContainsString('rel="noopener nofollow"', $html);
+    }
+
+    public function test_the_signpost_shows_no_price(): void
+    {
+        $this->seedBusinessAirCooler();
+
+        // A figure here would be a claim about a product we neither stock nor
+        // verified today, and it would be wrong within a week.
+        $html = $this->get('/business/build')->assertOk()->getContent();
+
+        $this->assertStringNotContainsString(
+            'dell.com/en-gb/shop/business/c/desktops">GBP',
+            $html,
+            'a price was rendered against a supplier link'
+        );
+
+        foreach (app(BusinessSystemType::class)->all() as $system) {
+            $detail = app(BusinessSystemType::class)->find($system['slug']);
+
+            if (! empty($detail['sourcing'])) {
+                foreach ($detail['sourcing']['links'] as $link) {
+                    $this->assertArrayNotHasKey(
+                        'price',
+                        $link,
+                        "sourcing link '{$link['name']}' carries a price we have not verified"
+                    );
+                }
+            }
+        }
+    }
+
+    public function test_a_system_pointing_at_a_missing_sourcing_group_is_not_silent(): void
+    {
+        $this->seedBusinessAirCooler();
+
+        // An empty sourcing panel reads as "we have nowhere to send you", which
+        // is the worst possible answer, so a bad group must be visible.
+        config([
+            'business.systems.broken-shr' => [
+                'size' => 'server',
+                'job' => 'Broken',
+                'label' => 'Broken',
+                'blurb' => 'Broken',
+                'workload' => 'server',
+                'requires' => ['server_cpu'],
+                'sourcing' => 'no-such-group',
+            ],
+        ]);
+
+        $broken = app(BusinessSystemType::class)->find('broken-shr');
+
+        $this->assertNull(
+            $broken['sourcing'],
+            'an unknown sourcing group must resolve to nothing rather than to a half-built panel'
+        );
+        $this->assertNotSame(
+            '',
+            $broken['unavailable_reason'],
+            'even with no signpost, the customer must be told why it is unavailable'
+        );
+    }
 }
