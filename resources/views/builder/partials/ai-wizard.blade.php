@@ -1,3 +1,146 @@
+@php
+    /*
+     * The PCTG BUSINESS wizard.
+     *
+     * This block replaces the gaming scenario picker when the builder was
+     * entered from /business/build. It exists because the old single wizard
+     * offered four hardcoded gaming buttons, so a buyer who had just read
+     * "Enterprise Servers" and "NAS & Storage" on the Business page clicked
+     * through to a page asking them to choose 🎮 Gaming or 🎥 Streaming.
+     *
+     * THE SCENARIOS ARE NOT TYPED HERE. They are read from config/workloads.php
+     * (passed in as $workloads), which is the same list the recommendation
+     * engine, the alias resolver and /business all read. A scenario this page
+     * could offer but the engine could not honour would be a confident wrong
+     * answer, so the two cannot drift.
+     *
+     * COPY: no prices, no benchmark figures, no stock claims - the same
+     * restraint /business applies. Blurbs describe what constrains the build,
+     * which is the thing a business buyer is actually shopping for.
+     *
+     * NO RESOLUTION SELECTOR. config/workloads.php sets
+     * segments.business.resolutionRelevant = false, and businessGuardrails
+     * ignores the resolution band. A workstation, a rack server and a NAS have
+     * no relationship to "1080p / 1440p / 4K", and asking the question would
+     * imply the answer changes the machine.
+     */
+    $isBusiness = ($segment ?? 'gaming') === 'business';
+@endphp
+
+@if ($isBusiness)
+    <x-pctg.hero>
+
+        <x-pctg.badge variant="business">
+            🏢 PCTG Business — Technology That Means Business
+        </x-pctg.badge>
+
+        <h1 class="mt-6 text-4xl font-black md:text-6xl">
+            Spec Your Workstation
+            <span class="text-biz-primary">or Business System</span>
+        </h1>
+
+        <p class="mt-4 max-w-2xl text-slate-400">
+            Pick the work it has to do. We spec the parts around that workload and
+            your budget, and we will tell you if the answer is going to be wrong.
+        </p>
+
+        {{-- The scenario grid. Selected state is driven by the seeded Alpine
+             `purpose`, so a deep link such as /business/build?purpose=nas
+             arrives with the right card already ringed in blue. --}}
+        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            @foreach ($workloads as $slug => $workload)
+                <button
+                    type="button"
+                    class="pctg-scenario-card"
+                    :class="purpose === @js($slug) ? 'pctg-scenario-card-active' : ''"
+                    @click="purpose = @js($slug)"
+                    aria-pressed="false"
+                    :aria-pressed="(purpose === @js($slug)).toString()"
+                >
+                    <span class="flex items-center justify-between gap-2">
+                        <span class="font-bold">{{ $workload['label'] ?? $slug }}</span>
+                        <span
+                            x-show="purpose === @js($slug)"
+                            x-cloak
+                            class="text-biz-accent"
+                            aria-hidden="true"
+                        >✓</span>
+                    </span>
+
+                    <span class="mt-2 block text-sm font-normal leading-relaxed text-slate-400">
+                        {{ $workload['blurb'] ?? '' }}
+                    </span>
+                </button>
+            @endforeach
+        </div>
+
+        <div class="mt-8 grid gap-4 md:grid-cols-3">
+
+            <div>
+                <label
+                    for="pctg-budget"
+                    class="mb-1 block text-sm font-medium text-slate-300"
+                >
+                    Your budget
+                </label>
+
+                <input
+                    id="pctg-budget"
+                    type="number"
+                    placeholder="Budget £"
+                    class="pctg-input"
+                    :min="budgetFloor()"
+                    x-model.number="budget"
+                    @blur="applyBudgetFloor()"
+                    @keydown.enter="applyBudgetFloor()"
+                >
+
+                {{-- Same measured floor as the gaming builder, taken from the
+                     LOWEST band. It is the cheapest complete machine we can
+                     genuinely build, which is true regardless of workload, and
+                     it is deliberately NOT labelled with a resolution: we have
+                     not measured a business band, so quoting one would be a
+                     number we cannot defend. --}}
+                <input
+                    type="range"
+                    class="mt-3 w-full accent-blue-600"
+                    aria-label="Build budget slider"
+                    :min="budgetFloor()"
+                    :max="businessCeiling()"
+                    step="10"
+                    :value="budget < budgetFloor() ? budgetFloor() : budget"
+                    @input="budget = Number($event.target.value); applyBudgetFloor();"
+                >
+
+                <div class="mt-1 flex items-center justify-between text-xs text-slate-400">
+                    <span x-text="money(budgetFloor())"></span>
+                    <span x-text="money(businessCeiling())"></span>
+                </div>
+            </div>
+
+            <div class="flex items-end">
+                <x-pctg.button @click="generateBuild()" class="w-full">
+                    <span x-show="!loading">Generate Business Build</span>
+                    <span x-show="loading">Generating…</span>
+                </x-pctg.button>
+            </div>
+
+        </div>
+
+        {{-- A business build has no resolution, so the resolver must not be
+             sent one. Passing the stale '1440P' default would let the engine
+             apply a gaming tier ladder and a gaming band clamp to a server
+             quote. --}}
+        <p class="mt-4 text-xs text-slate-500">
+            No display resolution is asked for here on purpose — it changes a
+            gaming build and nothing about a workstation, a server or a NAS.
+        </p>
+
+        @include('builder.partials.budget-notice')
+
+    </x-pctg.hero>
+
+@else
 <x-pctg.hero>
 
     <x-pctg.badge>
@@ -121,81 +264,8 @@
 
     </div>
 
-    {{-- Below the honest minimum: say why, in plain English, and offer the
-         part-new/part-used route on WhatsApp rather than leaving the customer
-         at a dead end. --}}
-    <div
-        x-show="budgetNotice"
-        x-cloak
-        x-transition
-        class="mt-4 rounded-xl border border-amber-500/50 bg-amber-500/10 p-4"
-        role="status"
-        aria-live="polite"
-    >
-        <div class="flex items-start gap-3">
-            <span class="mt-0.5 text-lg" aria-hidden="true">⚠️</span>
-
-            <div class="flex-1">
-                <p
-                    class="font-semibold text-amber-200"
-                    x-text="budgetNotice
-                        ? 'We have moved your budget to ' + money(budgetNotice.min)
-                        : ''"
-                ></p>
-
-                <p
-                    class="mt-1 text-sm text-amber-100/90"
-                    x-text="budgetNotice ? budgetNotice.message : ''"
-                ></p>
-
-                <div
-                    x-show="budgetNotice && budgetNotice.hybrid"
-                    class="mt-3 rounded-lg border border-amber-500/30 bg-black/20 p-3"
-                >
-                    <p
-                        class="text-sm font-semibold text-white"
-                        x-text="budgetNotice && budgetNotice.hybrid
-                            ? budgetNotice.hybrid.headline
-                            : ''"
-                    ></p>
-
-                    <p
-                        class="mt-1 text-sm text-slate-300"
-                        x-text="budgetNotice && budgetNotice.hybrid
-                            ? budgetNotice.hybrid.message
-                            : ''"
-                    ></p>
-
-                    <a
-                        class="mt-3 inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-bold text-white hover:bg-emerald-400"
-                        :href="budgetNotice && budgetNotice.hybrid
-                            ? budgetNotice.hybrid.whatsapp_url
-                            : '#'"
-                        target="_blank"
-                        rel="noopener"
-                    >
-                        <span aria-hidden="true">💬</span>
-                        Message us on WhatsApp
-                    </a>
-                </div>
-
-                <button
-                    type="button"
-                    class="mt-3 text-sm text-slate-400 underline hover:text-slate-200"
-                    @click="dismissBudgetNotice()"
-                >
-                    Got it
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <p
-        class="mt-4 text-sm font-medium text-emerald-400"
-        x-show="aiRecommendation && aiRecommendation.total && !loading"
-        x-cloak
-    >
-        ✓ Build generated — £<span x-text="aiRecommendation ? aiRecommendation.total.toLocaleString() : ''"></span> total · review your parts below
-    </p>
+    @include('builder.partials.budget-notice')
 
 </x-pctg.hero>
+
+@endif

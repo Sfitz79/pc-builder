@@ -118,7 +118,7 @@ class SystemAssembler
             return $fail('supporting parts do not fit the budget');
         }
 
-        $cpus = $pool['CPU']->filter(function ($c) use ($platform, $isApu) {
+        $cpus = $pool['CPU']->filter(function ($c) use ($platform, $isApu, $socketOf) {
             if (! $this->policy->cpuAllowed($c)['ok']) {
                 return false;
             }

@@ -5,7 +5,25 @@
     'selectedCount' => null,
     'buildProgress' => null,
     'live' => false,
+
+    // Which product line this builder is serving: 'gaming' or 'business'.
+    //
+    // Drives three things: the palette (data-pctg-theme below), the scenario
+    // list the wizard offers, and whether a display resolution is asked for.
+    // It is a prop rather than a URL read, because the choice must survive the
+    // whole session - the customer picks a server scenario, swaps a part, and
+    // the page must not silently fall back to asking about 1440p.
+    'segment' => 'gaming',
+
+    // The workload this builder opens on, and the scenarios it may offer.
+    // Null for the gaming entry points, which use their own hardcoded list.
+    'initialPurpose' => null,
+    'initialWorkloads' => [],
 ])
+
+@php
+    $isBusiness = $segment === 'business';
+@endphp
 
 <!--
     chrome=false: this shell renders its own header and its own footer bar, and
@@ -45,21 +63,30 @@
 
      Verified in the browser afterwards: builderStateDataKeys goes 0 -> 83 and
      all four errors disappear. --}}
-<div class="min-h-screen bg-[#0b0d12] text-white" x-data="builderState()">
+<div
+    class="min-h-screen {{ $isBusiness ? 'bg-biz-background' : 'bg-[#0b0d12]' }} text-white"
+    data-pctg-theme="{{ $isBusiness ? 'biz' : 'gaming' }}"
+    data-segment="{{ $segment }}"
+    x-data="builderState(@js([
+        'segment' => $segment,
+        'purpose' => $initialPurpose,
+        'workloads' => $initialWorkloads,
+    ]))"
+>
 
         {{-- Ambient Background --}}
         <div class="fixed inset-0 overflow-hidden pointer-events-none">
             <div
-                class="absolute top-10 left-1/3 h-[500px] w-[500px] rounded-full bg-red-600/10 blur-[150px]"
+                class="absolute top-10 left-1/3 h-[500px] w-[500px] rounded-full blur-[150px] {{ $isBusiness ? 'bg-blue-700/10' : 'bg-red-600/10' }}"
             ></div>
 
             <div
-                class="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-red-500/10 blur-[150px]"
+                class="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full blur-[150px] {{ $isBusiness ? 'bg-blue-600/10' : 'bg-red-500/10' }}"
             ></div>
         </div>
 
         {{-- Header --}}
-        <x-pctg.header :active="$active" />
+        <x-pctg.header :active="$active" :segment="$segment" />
 
         {{-- Mobile Nav --}}
         <x-pctg.mobile-drawer />

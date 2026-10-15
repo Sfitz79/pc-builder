@@ -1,4 +1,34 @@
-﻿@props(['active' => 'builder'])
+﻿@props([
+    'active' => 'builder',
+
+    // Which product line this header belongs to. Business gets its own
+    // sub-brand lockup: "PCTG Builder / Get Your Gamers Edge™" on a
+    // workstation quote is the wrong brand, and the accent goes blue with it.
+    'segment' => 'gaming',
+])
+
+@php
+    $isBusiness = $segment === 'business';
+
+    // The business builder is a different product, so its nav points at
+    // business destinations. "AI Builder" and "Guides" are gaming-only pages
+    // and are dropped rather than relabelled.
+    $links = $isBusiness
+        ? [
+            'builder' => ['Business Builder', route('business.build')],
+            'business' => ['Business Range', route('business')],
+            'builds' => ['Saved Builds', route('builder.builds')],
+            'checkout' => ['Checkout', route('builder.checkout')],
+            'support' => ['Contact', route('support')],
+        ]
+        : [
+            'builder' => ['Builder', route('builder')],
+            'ai' => ['AI Builder', route('builder.generate')],
+            'builds' => ['Saved Builds', route('builder.builds')],
+            'checkout' => ['Checkout', route('builder.checkout')],
+            'guides' => ['Guides', url('/best-gaming-pc-under-1500')],
+        ];
+@endphp
 
 <header
     x-data="{ scrolled: false }"
@@ -37,28 +67,25 @@
                 </svg>
             </button>
 
-            <a href="{{ route('builder') }}" class="flex items-center gap-3">
-                <span class="power-pulse flex h-9 w-9 items-center justify-center rounded-xl bg-pctg-primary text-white">
-                    <x-pctg.icon name="zap" class="h-5 w-5" />
+            <a href="{{ $isBusiness ? route('business.build') : route('builder') }}" class="flex items-center gap-3">
+                <span class="power-pulse flex h-9 w-9 items-center justify-center rounded-xl text-white {{ $isBusiness ? 'bg-blue-600' : 'bg-pctg-primary' }}">
+                    {{-- Theme-neutral SVGs from the professional set, verified
+                         against components/pctg/icon.blade.php. An unknown icon
+                         key renders nothing at all, so these are not guessed. --}}
+                    <x-pctg.icon :name="$isBusiness ? 'building' : 'zap'" class="h-5 w-5" />
                 </span>
                 <span class="leading-tight">
-                    <span :class="scrolled ? 'text-base' : 'text-lg'" class="block font-bold transition-all duration-300">PCTG Builder</span>
-                    <span x-show="!scrolled" x-transition.opacity.duration.200ms class="block text-xs text-slate-500">Get Your Gamers Edge&trade;</span>
+                    <span :class="scrolled ? 'text-base' : 'text-lg'" class="block font-bold transition-all duration-300">
+                        {{ $isBusiness ? 'PCTG Business' : 'PCTG Builder' }}
+                    </span>
+                    <span x-show="!scrolled" x-transition.opacity.duration.200ms class="block text-xs text-slate-500">
+                        {{ $isBusiness ? 'Technology That Means Business' : 'Get Your Gamers Edge&trade;' }}
+                    </span>
                 </span>
             </a>
         </div>
 
         <nav class="hidden items-center gap-6 text-sm lg:flex">
-            @php
-                $links = [
-                    'builder' => ['Builder', route('builder')],
-                    'ai' => ['AI Builder', route('builder.generate')],
-                    'builds' => ['Saved Builds', route('builder.builds')],
-                    'checkout' => ['Checkout', route('builder.checkout')],
-                    'guides' => ['Guides', url('/best-gaming-pc-under-1500')],
-                ];
-            @endphp
-
             @foreach ($links as $key => $link)
                 <a
                     href="{{ $link[1] }}"
@@ -70,7 +97,7 @@
         </nav>
 
         <div class="flex items-center gap-4">
-            <div class="h-9 w-9 rounded-full bg-red-500"></div>
+            <div class="h-9 w-9 rounded-full {{ $isBusiness ? 'bg-blue-500' : 'bg-red-500' }}"></div>
         </div>
     </div>
 </header>

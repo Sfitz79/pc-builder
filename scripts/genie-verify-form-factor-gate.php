@@ -14,8 +14,21 @@ $app = require_once __DIR__ . '/../bootstrap/app.php';
 $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 require __DIR__ . '/genie-prod-guard.php';
 
+$connection = DB::connection();
+$databaseUrl = $connection->getConfig('url');
+$urlHost = is_string($databaseUrl) ? parse_url($databaseUrl, PHP_URL_HOST) : null;
+$databaseHost = is_string($urlHost) ? $urlHost : $connection->getConfig('host');
+if (! is_string($databaseHost) || ! preg_match('/(^|\.)neon\.tech$/i', $databaseHost)) {
+    fwrite(STDERR, "genie-verify-form-factor-gate: ABORTING; the active PostgreSQL endpoint is not verified as Neon.\n");
+    exit(4);
+}
+echo "[source] connected PostgreSQL endpoint verified as Neon\n";
+
 use App\Services\CompatibilityCheckerService;
 use App\Services\CompatibilityService;
+use App\Models\CompatibilityRule;
+use App\Models\Component;
+use App\Services\CatalogueGate;
 
 $fail = 0;
 $t = function (bool $ok, string $l) use (&$fail) {
@@ -60,6 +73,27 @@ echo "\n=== equivalent of test_form_factor_rule_row_is_active ===\n";
 $row = DB::table('compatibility_rules')->where('rule_type', 'form_factor_match')->where('active', true)->first();
 $t($row !== null, 'an ACTIVE form_factor_match rule exists');
 $t(($row->category ?? null) === 'form_factor', 'it uses the form_factor category summary() reads');
+$socketRule = DB::table('compatibility_rules')
+    ->where('category', 'cpu_motherboard')
+    ->where('rule_type', 'socket_match')
+    ->where('active', true)
+    ->first();
+$t($socketRule !== null, 'an ACTIVE socket_match rule exists for the builder summary');
+$summaryRules = [
+    'cpu_motherboard' => 'socket_match',
+    'memory' => 'memory_supported',
+    'power' => 'wattage_sufficient',
+    'clearance' => 'clearance_check',
+    'form_factor' => 'form_factor_match',
+];
+foreach ($summaryRules as $category => $type) {
+    $active = DB::table('compatibility_rules')
+        ->where('category', $category)
+        ->where('rule_type', $type)
+        ->where('active', true)
+        ->exists();
+    $t($active, "active {$type} rule exists for {$category} summary flag");
+}
 
 echo "\n=== board side ===\n";
 $boardId = DB::table('categories')->where('name', 'Motherboard')->value('id');
@@ -75,11 +109,106 @@ foreach ($boards as $r) {
 printf("  active boards: %d\n", $boards->count());
 $t($bMissing === [], 'every active board has specs.form_factor' . ($bMissing ? ': ' . implode(', ', array_slice($bMissing, 0, 5)) : ''));
 
+echo "\n=== normalized CPU / motherboard sockets ===\n";
+$cpus = Component::query()->with('category')->active()
+    ->whereHas('category', fn ($query) => $query->where('slug', 'cpu'))
+    ->get();
+$boardModels = Component::query()->with('category')->active()
+    ->whereHas('category', fn ($query) => $query->where('slug', 'motherboard'))
+    ->get();
+
+$cpuSocketMismatches = 0;
+foreach ($cpus as $cpu) {
+    $derived = CatalogueGate::cpuSocket((string) $cpu->name);
+    if ($derived !== CatalogueGate::UNKNOWN && $cpu->socket !== $derived) {
+        $cpuSocketMismatches++;
+    }
+}
+$boardSocketMismatches = 0;
+foreach ($boardModels as $board) {
+    $derived = CatalogueGate::boardSocket((string) $board->name);
+    if ($derived !== CatalogueGate::UNKNOWN && $board->socket !== $derived) {
+        $boardSocketMismatches++;
+    }
+}
+printf("  active CPUs: %d; stored sockets disagree with derivation: %d\n", $cpus->count(), $cpuSocketMismatches);
+printf("  active motherboards: %d; stored sockets disagree with derivation: %d\n", $boardModels->count(), $boardSocketMismatches);
+$t($cpus->isNotEmpty() && $boardModels->isNotEmpty(), 'active CPUs and motherboards are available for pairing checks');
+
+$mismatchPair = null;
+$matchingPair = null;
+$staleColumnPair = null;
+foreach ($cpus as $cpu) {
+    $cpuSocket = CatalogueGate::cpuSocket((string) $cpu->name);
+    if ($cpuSocket === CatalogueGate::UNKNOWN) {
+        continue;
+    }
+    foreach ($boardModels as $board) {
+        $boardSocket = CatalogueGate::boardSocket((string) $board->name);
+        if ($boardSocket === CatalogueGate::UNKNOWN) {
+            continue;
+        }
+        if ($cpuSocket === $boardSocket && $matchingPair === null) {
+            $matchingPair = [$cpu, $board];
+        }
+        if ($cpuSocket !== $boardSocket) {
+            $mismatchPair ??= [$cpu, $board];
+            if ($cpu->socket !== null && $cpu->socket === $board->socket) {
+                $staleColumnPair ??= [$cpu, $board];
+            }
+        }
+    }
+}
+
+$pair = $staleColumnPair ?? $mismatchPair;
+if ($pair !== null) {
+    [$cpu, $board] = $pair;
+    $normalized = [
+        'cpu' => app(CompatibilityService::class)->componentSelectionData($cpu),
+        'motherboard' => app(CompatibilityService::class)->componentSelectionData($board),
+    ];
+    $socketRuleModel = CompatibilityRule::query()
+        ->where('category', 'cpu_motherboard')
+        ->where('rule_type', 'socket_match')
+        ->where('active', true)
+        ->first();
+    if ($socketRuleModel !== null) {
+        $pairPass = $socketRuleModel->evaluate($normalized);
+        $t(! $pairPass, $staleColumnPair !== null
+            ? 'a production pair with matching stale stored sockets is rejected using name-derived sockets'
+            : 'a production pair with different derived sockets is rejected');
+        $summary = app(CompatibilityService::class)->summary($normalized);
+        $t($summary['cpuMotherboard'] === false, 'CompatibilityService summary reports the real mismatched pair as incompatible');
+    }
+} else {
+    $t(false, 'a production CPU / motherboard pair with different recognized sockets exists');
+}
+
+if ($matchingPair !== null) {
+    [$cpu, $board] = $matchingPair;
+    $normalized = [
+        'cpu' => app(CompatibilityService::class)->componentSelectionData($cpu),
+        'motherboard' => app(CompatibilityService::class)->componentSelectionData($board),
+    ];
+    $socketRuleModel = CompatibilityRule::query()
+        ->where('category', 'cpu_motherboard')
+        ->where('rule_type', 'socket_match')
+        ->where('active', true)
+        ->first();
+    if ($socketRuleModel !== null) {
+        $t($socketRuleModel->evaluate($normalized), 'a production CPU / motherboard pair with the same derived socket passes');
+        $t(app(CompatibilityService::class)->summary($normalized)['cpuMotherboard'] === true,
+            'CompatibilityService summary reports the real matching pair as compatible');
+    }
+} else {
+    $t(false, 'a production CPU / motherboard pair with the same recognized socket exists');
+}
+
 echo "\n=== live behaviour through CompatibilityService (read-only) ===\n";
 $pick = function (string $category, string $ff) {
     return DB::table('components')
         ->where('category_id', DB::table('categories')->where('name', $category)->value('id'))
-        ->where('active', 1)->where('price', '>', 0)->get(['id', 'name', 'specs'])
+        ->where('active', true)->where('price', '>', 0)->get(['id', 'name', 'specs'])
         ->first(function ($r) use ($ff) {
             $s = is_string($r->specs) ? json_decode($r->specs, true) : $r->specs;
             $s = is_array($s) ? $s : [];

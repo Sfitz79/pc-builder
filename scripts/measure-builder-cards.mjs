@@ -18,6 +18,8 @@
  */
 import { chromium } from 'playwright';
 
+const C = { red: '\x1b[31m', green: '\x1b[32m', bold: '\x1b[1m', reset: '\x1b[0m' };
+
 const URL = process.argv[2] || 'https://pctechguy.app/builder';
 
 // Mobile-first is the stated target, so the small viewports come first and are the
@@ -55,6 +57,7 @@ for (const vp of VIEWPORTS) {
           const heading = c.querySelector('h2, h3');
           return {
             title: (heading?.textContent || '(no heading)').trim().slice(0, 28),
+            parent: c.parentElement ? ((c.parentElement.className || c.parentElement.id || c.parentElement.tagName).toString().trim().split(/\s+/).slice(0,3).join(' ').slice(0,40)) : '(none)',
             left: Math.round(r.left),
             width: Math.round(r.width),
             height: Math.round(r.height),
@@ -74,20 +77,42 @@ for (const vp of VIEWPORTS) {
       problems += 1;
     }
 
-    const widths = new Set();
     for (const c of data.cards) {
-      widths.add(c.width);
       const flags = [];
       if (c.overflowing) flags.push(`OVERFLOWS (scrollW ${c.scrollW})`);
       console.log(
         `  ${String(c.width).padStart(5)}w  x=${String(c.left).padStart(5)}  h=${String(c.height).padStart(5)}  ${c.title.padEnd(30)} ${flags.join(' ')}`,
       );
     }
-    if (widths.size > 1) {
-      console.log(`  ${widths.size} DIFFERENT CARD WIDTHS on one screen: ${[...widths].sort((a, b) => a - b).join(', ')}`);
+    // Two DIFFERENT widths on one screen is correct: the results column is lg:col-span-8
+    // and the sidebar is lg:col-span-4, so they are meant to differ. The fault was
+    // cards inside ONE column disagreeing, and cards overflowing their own box.
+    //
+    // Asserted by parent column, not across the whole page. An earlier version compared
+    // every width on screen and reported the intended 8/4 split as a problem.
+    const byParent = new Map();
+    for (const c of data.cards) {
+      const key = c.parent;
+      if (!byParent.has(key)) byParent.set(key, []);
+      byParent.get(key).push(c);
+    }
+    for (const [parent, cards] of byParent) {
+      const widths = new Set(cards.map((c) => c.width));
+      if (widths.size > 1) {
+        console.log(`  ${C.red}${C.bold}SQUISHED${C.reset} ${cards.length} cards share one column (${parent}) at ${widths.size} different widths: ${[...widths].sort((a, b) => a - b).join(', ')}`);
+        problems += 1;
+      }
+    }
+
+    // A card whose content does not fit is the "squished" symptom that started this.
+    const overflowing = data.cards.filter((c) => c.overflowing);
+    if (overflowing.length) {
+      console.log(`  ${C.red}${C.bold}OVERFLOW${C.reset} ${overflowing.length} card(s) have content wider than their box: ${overflowing.map((c) => `${c.title}(${c.width}w/${c.scrollW}px)`).join(', ')}`);
       problems += 1;
     }
+
     if (data.cards.length === 0) console.log('  no .pctg-card found - page may still be behind the login');
+    if (!hOverflow && !overflowing.length) console.log(`  ${C.green}OK${C.reset} ${data.cards.length} cards, no overflow, columns internally consistent`);
   } catch (err) {
     console.log(`  ERROR ${String(err?.message || err).slice(0, 120)}`);
   }

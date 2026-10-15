@@ -56,16 +56,39 @@ return [
     ],
 
     /*
+     * The workload the PCTG Business builder opens on.
+     *
+     * Declared explicitly rather than taken as "the first business key in the
+     * array" so that reordering or inserting a workload cannot silently change
+     * what a business customer is quoted by default.
+     */
+    'businessDefaultWorkload' => 'studio',
+
+    /*
      * Workloads.
      *
      * Keys are the canonical slug. Anything in `aliases` resolves to the key,
      * so 'home business', 'home-business', 'home_business' and 'small office'
      * all land on the same workload rather than being coerced to gaming.
      *
-     * weights are 0-100 and feed the deterministic scoring in
-     * AIRecommendationService when Gemini is not configured. They are a floor,
-     * not a suggestion: a workload that says `minRamGb => 32` will not be
-     * quoted a 16GB kit however cheap it is.
+     * weights are 0-100 and are applied to the scored pools by
+     * AIRecommendationService. They are a floor, not a suggestion: a NAS build
+     * declares gpu => 5, so the budget cannot drift onto a graphics card.
+     *
+     * HOW THEY REACH THE PICKER, precisely, because this was previously a false
+     * claim in this docblock: they are applied in TWO ways, not one.
+     *
+     *   1. With Gemini configured, they are stated in the prompt (GeminiService)
+     *      and Gemini returns its own per-category multipliers, which are applied
+     *      by AIRecommendationService::applyWeights().
+     *   2. WITHOUT Gemini - scoreWeights() returns null and nothing was applied
+     *      at all, so a NAS build could still have been quoted a gaming GPU.
+     *      AIRecommendationService::workloadWeights() now normalises these into
+     *      the same multiplier range and applies them on that path too.
+     *
+     * `minRamGb` needs no equivalent wiring: the deterministic pool filter
+     * already refuses anything under AIRecommendationService::MIN_RAM_GB (32),
+     * which is at or above every floor declared here.
      */
     'workloads' => [
 

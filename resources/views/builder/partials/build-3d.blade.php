@@ -3,11 +3,12 @@
     <div class="flex items-center justify-between">
 
         <x-pctg.section-heading
-            title="3D Build View"
+            :title="config('builder.enable_3d_viewport') ? '3D Build View' : 'Build Preview'"
         />
 
         <div class="flex gap-2">
 
+            @if (config('builder.enable_3d_viewport'))
             {{-- Only offered when the server says the render studio can actually
                  be reached. Previously this button was always shown and could
                  only fail for a real customer, after a 150 second wait. --}}
@@ -21,6 +22,18 @@
             >
                 <span x-text="rendering3d ? 'Rendering…' : 'Storefront Render'"></span>
             </x-pctg.button>
+            @else
+            <x-pctg.button
+                variant="secondary"
+                size="sm"
+                @click.prevent="generateBuildPreview()"
+                x-show="hasSelectedParts()"
+                x-cloak
+                x-bind:disabled="generatingBuildPreview"
+            >
+                <span x-text="generatingBuildPreview ? 'Generating…' : 'Generate Preview'"></span>
+            </x-pctg.button>
+            @endif
 
             {{--
                 INTERACTIVE 3D VIEWPORT - WITHDRAWN FROM CUSTOMERS 2026-10-06.
@@ -79,10 +92,32 @@
             <span class="text-slate-400/60">(dimensions from the live catalogue)</span>.
             <span class="text-slate-400/60">Updates as you change parts.</span>
         @else
-            A photoreal render of your configured build, generated from the
-            exact parts listed below.
+            Generate a visual from the exact parts listed below. It is an
+            illustrative render, not a photograph of your finished machine.
         @endif
     </p>
+
+    @if (! config('builder.enable_3d_viewport'))
+        <div class="mt-4" x-show="buildPreviewUrl" x-cloak>
+            <img
+                :src="buildPreviewUrl"
+                alt="Generated visual of your selected PC build"
+                class="w-full rounded-xl border border-slate-800"
+            >
+            <p class="mt-2 text-xs text-slate-500">
+                Generated visual of your selected specification; not a photograph of your actual machine.
+            </p>
+        </div>
+
+        <div
+            class="mt-4 rounded-xl bg-amber-500/10 p-3 text-sm text-amber-300"
+            x-show="buildPreviewError"
+            x-cloak
+            role="status"
+        >
+            <p x-text="buildPreviewError"></p>
+        </div>
+    @endif
 
     @if (config('builder.enable_3d_viewport'))
     <div

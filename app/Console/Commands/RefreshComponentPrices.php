@@ -125,6 +125,46 @@ class RefreshComponentPrices extends Command
                 $offer = $verifyMerchant
                     ? $pcpp->cheapestConfirmedOfferFor($sourceUrl)
                     : $pcpp->cheapestOfferFor($sourceUrl);
+
+                /*
+                 * THE QUOTED PRICE IS AVERAGED, NOT THE CHEAPEST (Boss directive
+                 * 2026-10-13): average every trusted UK retailer's in-stock offer and
+                 * round up to the whole pound.
+                 *
+                 * Why this replaced "cheapest": on the observed i7-13700K the cheapest
+                 * offer was Amazon UK at GBP 485.00 while Overclockers UK had it at
+                 * GBP 349.99. Taking the cheapest meant importing the single most
+                 * expensive credible price in the feed, and with a GBP 1 tolerance it
+                 * would have written that to the catalogue.
+                 *
+                 * The stock confirmation above still matters: we only average offers we
+                 * can actually buy. If fewer than MIN_AVERAGE_SAMPLE trusted retailers
+                 * have it in stock, the price is NOT rewritten - quoting a single
+                 * seller's number and calling it a market average would be exactly the
+                 * kind of figure that gets challenged by a customer who checked.
+                 */
+                $rows = $pcpp->extractRows($pcpp->fetchHtml($sourceUrl));
+                $avg = $pcpp->averageTrustedPrice($rows);
+                if ($avg['price'] !== null && $avg['sample_size'] >= $pcpp::MIN_AVERAGE_SAMPLE) {
+                    $offer['price'] = $avg['price'];
+                    $offer['average_of'] = $avg['sample_size'];
+                    $offer['merchant'] = $avg['merchants'] ?? null;
+                    $offer['merchant_url'] = null;   // a market average has no single source page
+                    $offer['price_note'] = $avg['note'] . ' Median ' . $avg['median'] . ', range ' . $avg['min'] . '-' . $avg['max'] . '.';
+                } else {
+                    $stats['skipped_untrusted'] = ($stats['skipped_untrusted'] ?? 0) + 1;
+                    $stats['skipped_untrusted'] = $stats['skipped_untrusted'];
+                    $failures[] = [
+                        'id' => $component->id,
+                        'name' => (string) $component->name,
+                        'error' => $avg['note'] . ($avg['sample_size'] === 1
+                            ? ' Only ' . $avg['sample_size'] . ' trusted retailer had it in stock, which is a quote rather than an average.'
+                            : ''),
+                    ];
+                    $bar->advance();
+
+                    continue;
+                }
             } catch (\Throwable $e) {
                 $stats['failed']++;
                 $failures->push([

@@ -62,6 +62,69 @@ class GeminiService
     }
 
     /**
+     * The business workloads, keyed by slug.
+     *
+     * @return array<string, array<string, mixed>>
+     */
+    public static function businessWorkloads(): array
+    {
+        return array_filter(
+            config('workloads.workloads', []),
+            fn (array $spec) => ($spec['segment'] ?? 'gaming') === 'business'
+        );
+    }
+
+    /**
+     * The workload the PCTG Business builder opens on, declared in config.
+     *
+     * Falls back to the first declared business workload rather than to gaming,
+     * because "I could not decide, so here is a gaming machine" is the exact
+     * confident-wrong-answer failure this file exists to prevent.
+     */
+    public static function defaultBusinessWorkload(): string
+    {
+        $declared = (string) config('workloads.businessDefaultWorkload', '');
+
+        if ($declared !== '' && isset(self::businessWorkloads()[$declared])) {
+            return $declared;
+        }
+
+        return (string) (array_key_first(self::businessWorkloads()) ?? 'home-business');
+    }
+
+    /**
+     * Resolve a requested workload for the BUSINESS builder, fail-closed.
+     *
+     * A gaming workload deep-linked into the business builder is NOT honoured -
+     * it falls back to the business default. Accepting it would mean
+     * /business/build?purpose=gaming silently produces a gaming build inside the
+     * business product line, which is the bug this whole change exists to fix,
+     * and it would do it in response to a URL a customer or a crawler can edit.
+     *
+     * Unknown strings fall back the same way rather than reaching the prompt.
+     */
+    public static function resolveBusinessWorkload(?string $purpose): string
+    {
+        $candidate = strtolower(trim((string) $purpose));
+
+        if ($candidate === '') {
+            return self::defaultBusinessWorkload();
+        }
+
+        $business = self::businessWorkloads();
+
+        if (isset($business[$candidate])) {
+            return $candidate;
+        }
+
+        // Human forms ("Home Business", "pro rendering") resolve through the
+        // same alias table the prompt uses, then the segment check still runs.
+        $slug = self::sanitizePurpose($candidate);
+
+        return isset($business[$slug]) ? $slug : self::defaultBusinessWorkload();
+    }
+
+    /**
      * Resolve any user-supplied string - including the human forms like
      * "Home Business", "pro rendering" or "on prem" - to a canonical slug.
      *

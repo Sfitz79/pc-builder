@@ -195,7 +195,7 @@ class CatalogueGate
     {
         $n = strtoupper($name);
         if ($socket === 'AM5' || $socket === 'AM4') {
-            if (preg_match('/RYZEN\s*(?:[3579]\s*)?(\d{4})([A-Z]*)/', $n, $m)) {
+            if (preg_match('/RYZEN\s*(?:[3579]\s*)?(\d{4})([A-Z0-9]*)/', $n, $m)) {
                 $num = (int) $m[1];
                 $suffix = strtoupper((string) ($m[2] ?? ''));
                 $g = str_contains($suffix, 'G');
@@ -436,36 +436,107 @@ class CatalogueGate
     }
 
     /**
-     * Group key + label for the selection UI.
-     * CPU groups by platform then series, RAM by DDR generation, motherboard by
-     * chipset, storage by interface.
+     * Group key + label for the selection UI. Group labels are derived from
+     * catalogue specs so the selector does not need to guess from display text.
      */
     public static function groupFor(Component $c): array
     {
         $slug = $c->category?->slug ?? '';
         $name = (string) $c->name;
         $specs = is_array($c->specs) ? $c->specs : (json_decode((string) $c->specs, true) ?: []);
+        $specValue = static function (array $keys) use ($specs): string {
+            foreach ($keys as $key) {
+                $value = $specs[$key] ?? null;
+                if (is_scalar($value) && trim((string) $value) !== '') {
+                    return trim((string) $value);
+                }
+            }
+
+            return '';
+        };
 
         switch ($slug) {
             case 'cpu': {
                 $socket = self::cpuSocket($name);
                 $series = self::cpuSeries($name, $socket);
-                return ['key' => $socket . '|' . $series, 'platform' => $socket, 'series' => $series];
+                return [
+                    'key' => $socket . '|' . $series,
+                    'platform' => $socket,
+                    'series' => $series,
+                    'label' => trim($socket . ' · ' . $series, ' ·'),
+                ];
             }
             case 'motherboard': {
                 $cs = self::chipset($name);
-                return ['key' => $cs, 'platform' => self::boardSocket($name), 'series' => $cs];
+                $socket = self::boardSocket($name);
+                $size = $specValue(['form_factor', 'formFactor', 'board_size']);
+                if ($size === '' && preg_match('/\b(Micro-?ATX|Mini-?ITX|E-?ATX|mATX|ATX|ITX)\b/i', $name, $m)) {
+                    $size = strtoupper($m[1]);
+                }
+                $label = implode(' · ', array_filter([$cs, $socket, $size]));
+
+                return [
+                    'key' => implode('|', [$cs, $socket, $size]),
+                    'platform' => $socket,
+                    'series' => $cs,
+                    'label' => $label !== '' ? $label : 'Unknown chipset / size',
+                ];
             }
             case 'ram': {
                 $t = self::ramType($name, $specs);
-                return ['key' => $t, 'platform' => $t, 'series' => $t];
+                return ['key' => $t, 'platform' => $t, 'series' => $t, 'label' => $t];
             }
             case 'storage': {
                 $t = self::storageType($name, $specs);
-                return ['key' => $t, 'platform' => $t, 'series' => $t];
+                $size = $specValue(['capacity', 'storage_capacity', 'capacity_gb']);
+                if ($size === '' && preg_match('/\b(\d+(?:\.\d+)?)\s*(TB|GB)\b/i', $name, $m)) {
+                    $size = $m[1] . strtoupper($m[2]);
+                }
+                $label = implode(' · ', array_filter([$t, $size]));
+
+                return [
+                    'key' => $t . '|' . $size,
+                    'platform' => $t,
+                    'series' => $size,
+                    'label' => $label !== '' ? $label : 'Unknown type / size',
+                ];
+            }
+            case 'gpu': {
+                $model = trim((string) $c->chipset);
+                if ($model === '' || strcasecmp($model, self::UNKNOWN) === 0) {
+                    if (preg_match('/\b(RTX|GTX|RX|ARC)\s*-?\s*\d{3,4}(?:\s*(?:TI|SUPER|XTX|XT|GRE))?\b/i', $name, $m)) {
+                        $model = strtoupper(preg_replace('/\s+/', ' ', trim($m[0])));
+                    } else {
+                        $model = 'Other / unclassified';
+                    }
+                }
+
+                return ['key' => $model, 'platform' => null, 'series' => $model, 'label' => $model];
+            }
+            case 'psu': {
+                $wattage = (int) ($c->wattage ?: $specValue(['wattage', 'power']));
+                if ($wattage <= 0 && preg_match('/\b(\d{3,4})\s*W\b/i', $name, $m)) {
+                    $wattage = (int) $m[1];
+                }
+                $label = $wattage > 0 ? $wattage . ' W' : 'Unknown wattage';
+
+                return ['key' => $label, 'platform' => null, 'series' => $label, 'label' => $label];
+            }
+            case 'case': {
+                $type = $specValue(['case_type', 'form_factor', 'size', 'type']);
+                if ($type === '' && preg_match('/\b(Full Tower|Mid Tower|Mini Tower|Micro Tower|Small Form Factor|SFF)\b/i', $name, $m)) {
+                    $type = ucwords(strtolower($m[1]));
+                }
+                if ($type === '') {
+                    $type = 'Other / unclassified';
+                }
+
+                return ['key' => strtoupper($type), 'platform' => null, 'series' => $type, 'label' => $type];
             }
             default:
-                return ['key' => $slug, 'platform' => null, 'series' => null];
+                $manufacturer = trim((string) $c->manufacturer?->name) ?: 'Other / unclassified';
+
+                return ['key' => $manufacturer, 'platform' => null, 'series' => null, 'label' => $manufacturer];
         }
     }
 

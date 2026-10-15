@@ -6,6 +6,27 @@
 
     <div class="mt-6 space-y-4">
 
+        <p
+            class="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200"
+            x-show="compatibilityStatus === 'error'"
+        >
+            Server compatibility checks are unavailable. The displayed checks may be incomplete; retry or review the selected parts before continuing.
+        </p>
+
+        <p
+            class="text-xs text-slate-400"
+            x-show="compatibilityStatus === 'checking'"
+        >
+            Verifying selected parts against the catalogue…
+        </p>
+
+        <p
+            class="rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-200"
+            x-show="compatibility.selectionValid === false"
+        >
+            A selected part is no longer available for this category. Choose it again from the current catalogue.
+        </p>
+
         <div class="flex justify-between">
             <span>CPU + Motherboard</span>
             <span
@@ -13,6 +34,36 @@
                 :class="compatibility.cpuMotherboard ? 'text-green-400' : 'text-red-400'"
                 x-text="compatibility.cpuMotherboard ? '✓' : '✕'"
             ></span>
+        </div>
+
+                <div class="flex justify-between">
+            <span>Cooler Mount</span>
+            <span class="font-bold" :class="compatibility.coolerMount ? 'text-green-400' : 'text-red-400'"
+                  x-text="compatibility.coolerMount ? '✓' : '✕'"></span>
+        </div>
+
+        <div class="flex justify-between">
+            <span>Storage Interface</span>
+            <span class="font-bold" :class="compatibility.storageSupported ? 'text-green-400' : 'text-red-400'"
+                  x-text="compatibility.storageSupported ? '✓' : '✕'"></span>
+        </div>
+
+        <div class="flex justify-between">
+            <span>GPU PCIe Slot</span>
+            <span class="font-bold" :class="compatibility.pcieSlot ? 'text-green-400' : 'text-red-400'"
+                  x-text="compatibility.pcieSlot ? '✓' : '✕'"></span>
+        </div>
+
+        <div class="flex justify-between">
+            <span>Memory Speed</span>
+            <span class="font-bold" :class="compatibility.ramSpeedOptimal ? 'text-green-400' : 'text-red-400'"
+                  x-text="compatibility.ramSpeedOptimal ? '✓' : '✕'"></span>
+        </div>
+
+        <div class="flex justify-between">
+            <span>GPU Power Connector</span>
+            <span class="font-bold" :class="compatibility.gpuPowerConnector ? 'text-green-400' : 'text-red-400'"
+                  x-text="compatibility.gpuPowerConnector ? '✓' : '✕'"></span>
         </div>
 
         <div class="flex justify-between">
@@ -67,7 +118,11 @@
         class="mt-6 rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-300"
         x-show="(selected.motherboard && selected.case && !compatibility.formFactorFits)
             || !compatibility.cpuMotherboard || !compatibility.ramSupported
-            || !compatibility.powerEnough || !compatibility.gpuClearance"
+            || !compatibility.powerEnough || !compatibility.gpuClearance
+            || !compatibility.coolerMount || !compatibility.storageSupported
+            || !compatibility.pcieSlot || !compatibility.ramSpeedOptimal
+            || !compatibility.gpuPowerConnector
+            || compatibility.selectionValid === false"
     >
         <p class="font-semibold">Compatibility Warning</p>
         <p
@@ -84,7 +139,11 @@
             class="mt-1"
             x-show="!(selected.motherboard && selected.case && !compatibility.formFactorFits)
                 && (!compatibility.cpuMotherboard || !compatibility.ramSupported
-                    || !compatibility.powerEnough || !compatibility.gpuClearance)"
+                    || !compatibility.powerEnough || !compatibility.gpuClearance
+                    || !compatibility.coolerMount || !compatibility.storageSupported
+                    || !compatibility.pcieSlot || !compatibility.ramSpeedOptimal
+                    || !compatibility.gpuPowerConnector
+                    || compatibility.selectionValid === false)"
         >
             One or more selected components are incompatible. Review your choices.
         </p>

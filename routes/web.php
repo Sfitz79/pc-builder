@@ -65,12 +65,13 @@ Route::prefix('builder')->name('builder.')->group(function () {
 // not resurrect the 3D project.
 Route::post('/preview-image', [\App\Http\Controllers\BuildPreviewController::class, 'preview'])
     ->name('build.preview-image');
+Route::get('/preview-image/{promptId}/status', [\App\Http\Controllers\BuildPreviewController::class, 'status'])
+    ->where('promptId', '[A-Fa-f0-9-]{16,64}')
+    ->name('build.preview-image.status');
+Route::get('/preview-image/{promptId}', [\App\Http\Controllers\BuildPreviewController::class, 'image'])
+    ->where('promptId', '[A-Fa-f0-9-]{16,64}')
+    ->name('build.preview-image.image');
 
-// META / FACEBOOK PRODUCT FEED. Meta removed in-app checkout globally in Sept 2025, so this
-// is a discovery + advert surface with zero commission that sends traffic to our own site.
-// Fed by Commerce Manager from a URL we control - no Shopify and no plugin needed.
-Route::post('/preview-image', [\App\Http\Controllers\BuildPreviewController::class, 'preview'])
-    ->name('build.preview-image');
     // Whether the render bridge is usable, so the button is only shown when it
     // can actually work. See BuilderController::renderCapability().
     Route::get('/render-capability', [BuilderController::class, 'renderCapability'])
@@ -178,6 +179,18 @@ Route::get('/builder/preset/{slug}', [PrebuiltController::class, 'preset'])->nam
  */
 Route::view('/business', 'business.index')->name('business');
 Route::redirect('/pctg-business', '/business');
+
+/*
+ * The business configurator, reached from every "build" / "configure" link on
+ * /business.
+ *
+ * Declared here rather than inside the /builder prefix so the two product lines
+ * stay visibly distinct in the URL, and it renders the SAME builder.dashboard
+ * view - one configurator engine, two entry points. It carries no JSON
+ * endpoints of its own because the engine is identical; only the scenario list,
+ * the default workload and the palette differ. See BuilderController::businessBuild().
+ */
+Route::get('/business/build', [BuilderController::class, 'businessBuild'])->name('business.build');
 
 Route::view('/support', 'info-page', [
     'title' => 'Support',

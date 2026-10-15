@@ -4,6 +4,23 @@
 
 @section('description', 'Professional workstation PCs, studio editing and render systems, and enterprise servers built to order in the UK. PCTG Business — technology that means business.')
 
+@php
+    /*
+     * EVERY build link on this page goes to the BUSINESS builder.
+     *
+     * They used to point at route('builder'), which is the gaming configurator,
+     * so a buyer who had just read "Enterprise Servers" and "NAS & Storage"
+     * clicked through to a page asking them to pick between Gaming, Streaming,
+     * Content Creation and AI Development. Two product lines, one front door.
+     *
+     * The scenarios below are keyed to config/workloads.php, not invented here,
+     * so a link can only ever name a workload the recommendation engine actually
+     * understands. BuilderController::businessBuild() resolves them fail-closed:
+     * an unknown slug falls back to the business default rather than gaming.
+     */
+    $businessBuilder = fn (?string $purpose = null) => route('business.build', $purpose ? ['purpose' => $purpose] : []);
+@endphp
+
 @section('content')
 
 {{-- ===================================================================
@@ -61,7 +78,7 @@
                 </p>
 
                 <div class="mt-10 flex flex-wrap gap-4">
-                    <a href="{{ route('builder') }}"
+                    <a href="{{ $businessBuilder() }}"
                        class="inline-flex items-center gap-2 rounded-2xl bg-biz-primary px-6 py-3 font-bold text-white shadow-glow-biz transition hover:bg-biz-primary-hover">
                         Start a build
                     </a>
@@ -111,24 +128,51 @@
      hard-drive-nas, briefcase, building, palette, renders, stream) was ADDED
      for this sub-brand rather than approximated with a generic glyph,
      because the component renders NOTHING for an unknown key - a wrong name
-     is a silent hole, not an error. --}}
+     is a silent hole, not an error.
+
+     Each pillar carries the workload slug it maps to, so the card is a door
+     into that scenario rather than a description of it. The slug is CHECKED
+     against config/workloads.php before it is used.
+
+     The check is load-bearing, and it currently rejects one card: "Streaming".
+     config/workloads.php classifies `streaming` as a GAMING workload (a
+     gameplay feed plus a second encoded stream), which is not the production
+     encoding this page is describing. Rather than deep-link it to a business
+     workload it is not, that card falls back to the business builder with no
+     scenario pre-selected, so the customer still lands in the right product and
+     picks from the grid. Linking it to `studio` would have been a silent
+     mislabel on a quote.
+
+     Recorded as a taxonomy question, not fixed here: PCTG Business sells
+     production encoding and config/workloads.php has no workload for it. That
+     is a config decision, not a view change. --}}
             @foreach ([
-                ['icon' => 'film',         'title' => 'Creative & Studio',   'body' => 'Editing, colour, VFX and animation. Timeline playback and render times are the constraint, so the GPU and memory come first.'],
-                ['icon' => 'renders',      'title' => 'Pro Rendering',      'body' => 'Frames, simulations and final output. Sustained all-core load and cooling matter more than peak boost.'],
-                ['icon' => 'server',       'title' => 'Enterprise Servers', 'body' => 'On-site compute, virtualisation and shared storage. Built for serviceability and quiet operation in a room.'],
-                ['icon' => 'hard-drive-nas','title' => 'NAS & Storage',     'body' => 'Network-attached storage and backup for studios and small teams. Drive bays, throughput and RAID come first.'],
-                ['icon' => 'stream',       'title' => 'Streaming',          'body' => 'Multi-stream encoding and live production. Sustained encode load and clean output matter more than frame rate.'],
-                ['icon' => 'briefcase',    'title' => 'Home Business',      'body' => 'A quiet office machine that does real work quietly. Serviceable, upgradable, and not a gaming build with a business sticker.'],
-                ['icon' => 'database',     'title' => 'Data & AI',          'body' => 'Local models, inference and large datasets. Memory capacity and storage throughput set the ceiling.'],
-                ['icon' => 'building',     'title' => 'Starter Office',     'body' => 'A dependable first machine for a growing team: shared office workloads, comfortable thermals, straightforward support.'],
+                ['icon' => 'film',          'title' => 'Creative & Studio',   'slug' => 'studio',        'body' => 'Editing, colour, VFX and animation. Timeline playback and render times are the constraint, so the GPU and memory come first.'],
+                ['icon' => 'renders',       'title' => 'Pro Rendering',      'slug' => 'rendering',     'body' => 'Frames, simulations and final output. Sustained all-core load and cooling matter more than peak boost.'],
+                ['icon' => 'server',        'title' => 'Enterprise Servers', 'slug' => 'enterprise',    'body' => 'On-site compute, virtualisation and shared storage. Built for serviceability and quiet operation in a room.'],
+                ['icon' => 'hard-drive-nas','title' => 'NAS & Storage',      'slug' => 'nas',           'body' => 'Network-attached storage and backup for studios and small teams. Drive bays, throughput and RAID come first.'],
+                ['icon' => 'stream',        'title' => 'Streaming',          'slug' => 'streaming',     'body' => 'Multi-stream encoding and live production. Sustained encode load and clean output matter more than frame rate.'],
+                ['icon' => 'briefcase',     'title' => 'Home Business',      'slug' => 'home-business', 'body' => 'A quiet office machine that does real work quietly. Serviceable, upgradable, and not a gaming build with a business sticker.'],
+                ['icon' => 'database',      'title' => 'Data & AI',          'slug' => 'ai',            'body' => 'Local models, inference and large datasets. Memory capacity and storage throughput set the ceiling.'],
+                ['icon' => 'building',      'title' => 'Starter Office',     'slug' => 'home-business', 'body' => 'A dependable first machine for a growing team: shared office workloads, comfortable thermals, straightforward support.'],
             ] as $pillar)
-                <div class="rounded-2xl border border-white/5 bg-biz-surface p-6 transition hover:border-biz-primary/40">
+                @php
+                    $knownSlug = \App\Services\GeminiService::businessWorkloads();
+                    $slug = $knownSlug[$pillar['slug']] ?? null ? $pillar['slug'] : null;
+                @endphp
+                <a
+                    href="{{ $businessBuilder($slug) }}"
+                    class="group rounded-2xl border border-white/5 bg-biz-surface p-6 transition hover:border-biz-primary/40"
+                >
                     <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-biz-primary/10 text-biz-accent ring-1 ring-biz-primary/30">
                         <x-pctg.icon :name="$pillar['icon']" class="h-5 w-5" />
                     </div>
-                    <h3 class="text-lg font-bold">{{ $pillar['title'] }}</h3>
+                    <h3 class="flex items-center gap-2 text-lg font-bold">
+                        {{ $pillar['title'] }}
+                        <span class="text-biz-accent opacity-0 transition group-hover:opacity-100" aria-hidden="true">&rarr;</span>
+                    </h3>
                     <p class="mt-3 text-sm leading-relaxed text-biz-text-secondary">{{ $pillar['body'] }}</p>
-                </div>
+                </a>
             @endforeach
         </div>
     </section>
@@ -184,7 +228,11 @@
                         </p>
                         <p class="mt-4 text-xs text-biz-text-secondary">Illustrative image</p>
                         <div class="mt-6">
-                            <a href="{{ route('builder') }}"
+                            {{-- The dual professional-GPU compute node card. `rendering`
+                                 is the workload the copy above actually describes -
+                                 sustained all-core load and multi-GPU throughput - so
+                                 it pre-selects that rather than the generic default. --}}
+                            <a href="{{ $businessBuilder('rendering') }}"
                                class="inline-flex items-center gap-2 rounded-2xl bg-biz-primary px-5 py-2.5 font-bold text-white transition hover:bg-biz-primary-hover">
                                 Configure one
                             </a>
@@ -267,7 +315,7 @@
                 answer, we will say so before you spend anything.
             </p>
             <div class="mt-10 flex flex-wrap justify-center gap-4">
-                <a href="{{ route('builder') }}"
+                <a href="{{ $businessBuilder() }}"
                    class="inline-flex items-center gap-2 rounded-2xl bg-biz-primary px-7 py-3.5 font-bold text-white shadow-glow-biz transition hover:bg-biz-primary-hover">
                     Open the builder
                 </a>

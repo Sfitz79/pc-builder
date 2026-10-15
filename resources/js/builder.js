@@ -1,4 +1,51 @@
-window.builderState = () => ({
+window.builderState = (config = {}) => ({
+
+    // Which product line this builder is serving: 'gaming' or 'business'.
+    //
+    // Seeded by the server from the entry route (components/pctg/layouts/
+    // builder.blade.php passes it in), NOT read from the URL here. A customer
+    // who picked "Servers" from /business, then swapped a motherboard, must
+    // still be in business mode - otherwise the page would silently start
+    // asking them about a display resolution again.
+    segment: config.segment === 'business' ? 'business' : 'gaming',
+
+    // The business scenarios this builder may offer, from config/workloads.php.
+    workloads: config.workloads || {},
+
+    // True in business mode, which is what makes the request omit `resolution`.
+    //
+    // The reason is not cosmetic: AIRecommendationService applies a resolution-
+    // derived GPU tier ladder and a resolution-keyed band clamp. Sending the
+    // stale '1440P' default to a server or NAS request would put a gaming
+    // constraint on a build that has no relationship to one, which is how a
+    // "confidently wrong" quote happens.
+    //
+    // A METHOD, not a getter. Alpine reads x-data properties through its own
+    // evaluator, and a `get isBusiness()` in the literal is the kind of thing
+    // that behaves differently under that indirection than it does in plain JS
+    // - a failure here would be silent, and would look like a server quote that
+    // mysteriously still asks about 1440p. A method has no such ambiguity.
+    isBusiness() {
+        return this.segment === 'business';
+    },
+
+    /**
+     * The budget slider ceiling.
+     *
+     * In business mode this is the ceiling of the CHEAPEST band, not of the
+     * current one, because there is no resolution and therefore no band. It is
+     * the top of the range we have actually measured as buildable - no
+     * invented business ceiling.
+     */
+    businessCeiling() {
+        if (!this.isBusiness()) return this.currentBand().max;
+
+        const ceils = Object.values(this.bands || {})
+            .map((band) => Number(band?.max) || 0)
+            .filter((max) => max > 0);
+
+        return ceils.length ? Math.max(...ceils) : 3500;
+    },
 
     selected: {
         cpu: null,
@@ -17,7 +64,7 @@ window.builderState = () => ({
 
     search: '',
 
-    purpose: null,
+    purpose: config.purpose || null,
     budget: 1500,
     resolution: '1440P',
 
@@ -26,6 +73,12 @@ window.builderState = () => ({
         ramSupported: true,
         powerEnough: true,
         gpuClearance: true,
+        coolerMount: true,
+        storageSupported: true,
+        pcieSlot: true,
+        ramSpeedOptimal: true,
+        gpuPowerConnector: true,
+        selectionValid: true,
         // Whether the selected board physically fits the selected case.
         // Starts false, not true: every other flag defaults true because it is
         // vacuously satisfied while parts are missing, but an unverified case
@@ -51,7 +104,13 @@ window.builderState = () => ({
 
     loading: false,
 
+    generationError: null,
+
     saving: false,
+
+    compatibilityStatus: 'idle',
+
+    compatibilityRequestId: 0,
 
     missingWarning: null,
 
@@ -82,6 +141,14 @@ window.builderState = () => ({
     render3dUrl: null,
 
     render3dError: null,
+
+    generatingBuildPreview: false,
+
+    buildPreviewUrl: null,
+
+    buildPreviewError: null,
+
+    buildPreviewRequestId: 0,
 
     // Set when the 3D scene needs rebuilding. See init()'s watcher.
     viewportDirty: false,
@@ -115,6 +182,7 @@ window.builderState = () => ({
         price: '/builder/price',
         builds: '/builder/builds',
         renderCapability: '/builder/render-capability',
+        previewImage: '/builder/preview-image',
         preset: (slug) => `/builder/preset/${slug}`
     },
 
@@ -153,6 +221,10 @@ window.builderState = () => ({
         this.$watch(
             'selected',
             () => {
+                this.buildPreviewRequestId += 1;
+                this.generatingBuildPreview = false;
+                this.buildPreviewUrl = null;
+                this.buildPreviewError = null;
                 this.viewportDirty = true;
                 this.syncViewport();
             },
@@ -253,11 +325,36 @@ bandKey() {
         return this.bands[this.bandKey()] || this.bands['1080p'];
     },
 
+    /**
+     * The band the budget controls read in this segment.
+     *
+     * Gaming: the band for the chosen resolution, which is what the GPU tier
+     * ladder is keyed on.
+     *
+     * Business: the CHEAPEST band. There is no resolution, so there is no band
+     * to match - but the floor still has to be a number we have measured as
+     * buildable, and the lowest measured floor is the cheapest complete machine
+     * we can genuinely produce. It is deliberately not given a resolution
+     * label on screen: labelling a business floor "1080p" would attach a gaming
+     * constraint to a server quote.
+     */
+    floorBand() {
+        if (!this.isBusiness()) return this.currentBand();
+
+        const mins = Object.values(this.bands || {})
+            .map((band) => Number(band?.min) || 0)
+            .filter((min) => min > 0);
+
+        if (!mins.length) return this.bands['1080p'] || { min: 0, max: 0, label: '' };
+
+        return Object.values(this.bands).find((band) => Number(band?.min) === Math.min(...mins));
+    },
+
     // The smallest budget that will actually produce a build at this
     // resolution. The slider starts here, so every value it can show is a
     // value that gets a machine.
     budgetFloor() {
-        return Math.ceil((this.currentBand().min || 0) / 10) * 10;
+        return Math.ceil((this.floorBand()?.min || 0) / 10) * 10;
     },
 
     /**
@@ -333,12 +430,21 @@ bandKey() {
         this.budgetNotice = {
             raised: true,
             min: floor,
-            label: this.currentBand().label,
-            message: 'We have moved your budget to ' + this.money(floor) + ', which is the least a brand-new '
-                + this.currentBand().label + ' machine costs when it comes to us fully built, tested and covered '
-                + 'by our two-year warranty. Below that we would have to leave something out - the memory, the '
-                + 'proper cooling, or the graphics card - and we would rather be straight with you than hand you '
-                + 'a PC we would not put our name on.',
+            // Business mode has no resolution, so the notice cannot name one.
+            // "the least a brand-new 1440p machine costs" on a server quote is
+            // a category error the customer would have to work out for
+            // themselves, so the wording changes with the segment.
+            label: this.isBusiness() ? 'complete system' : this.currentBand().label,
+            message: this.isBusiness()
+                ? 'We have moved your budget to ' + this.money(floor) + ', which is the least a complete brand-new '
+                    + 'system costs us when it comes to us built, tested and covered by our two-year warranty. Below '
+                    + 'that we would have to leave something out - the memory, the proper cooling, or the storage - '
+                    + 'and we would rather be straight with you than hand you a machine we would not put our name on.'
+                : ('We have moved your budget to ' + this.money(floor) + ', which is the least a brand-new '
+                    + this.currentBand().label + ' machine costs when it comes to us fully built, tested and covered '
+                    + 'by our two-year warranty. Below that we would have to leave something out - the memory, the '
+                    + 'proper cooling, or the graphics card - and we would rather be straight with you than hand you '
+                    + 'a PC we would not put our name on.'),
             hybrid: {
                 available: true,
                 headline: 'Want to spend less?',
@@ -541,15 +647,30 @@ bandKey() {
         const psu = this.selected.psu;
         const ram = this.selected.ram;
 
-        this.compatibility.cpuMotherboard = !cpu || !board || cpu.socket === board.socket;
+        this.compatibility.selectionValid = null;
+        this.compatibility.cpuMotherboard = !cpu || !board
+            || Boolean(cpu.socket && board.socket
+                && String(cpu.socket).toLowerCase() !== 'unknown'
+                && String(board.socket).toLowerCase() !== 'unknown'
+                && String(cpu.socket).toLowerCase() === String(board.socket).toLowerCase());
 
-        this.compatibility.ramSupported = !ram || (board && ram.supported !== false);
+        const ramType = String(ram?.ram_type || ram?.specs?.type || ram?.specs?.speed || '').toUpperCase();
+        const boardSocket = String(board?.socket || '').toUpperCase();
+        const ramSpeed = Number.parseInt(ramType.match(/\d{4,5}/)?.[0] || '0', 10);
+        const ramIsDdr5 = ramType.includes('DDR5') || (!ramType.includes('DDR4') && ramSpeed >= 3600);
+        this.compatibility.ramSupported = !ram || !board || !ramType
+            || (['AM5', 'LGA1851'].includes(boardSocket) ? ramIsDdr5 : !ramIsDdr5);
 
-        const gpuWattage = gpu ? gpu.wattage : 0;
-        const psuWattage = psu ? psu.wattage : 0;
-        this.compatibility.powerEnough = !gpu || !psu || psuWattage >= gpuWattage + 200;
+        const gpuWattage = Number(gpu?.wattage || 0);
+        const cpuWattage = Number(cpu?.wattage || 0);
+        const psuWattage = Number(psu?.wattage || 0);
+        this.compatibility.powerEnough = !gpu || !psu || !gpuWattage || !psuWattage
+            || psuWattage >= gpuWattage + cpuWattage + 200;
 
-        this.compatibility.gpuClearance = !gpu;
+        const gpuLength = Number(gpu?.specs?.length || 0);
+        const caseMaxGpuLength = Number(this.selected.case?.specs?.max_gpu_length || 0);
+        this.compatibility.gpuClearance = !gpu || !this.selected.case || !gpuLength || !caseMaxGpuLength
+            || gpuLength <= caseMaxGpuLength;
 
         this.compatibility.formFactorFits = this.caseFitHolds();
 
@@ -588,6 +709,9 @@ bandKey() {
     },
 
     async validateServerSide() {
+        const requestId = ++this.compatibilityRequestId;
+        this.compatibilityStatus = 'checking';
+
         try {
             const response = await fetch(this.endpoints.validate, {
                 method: 'POST',
@@ -599,11 +723,17 @@ bandKey() {
                 body: JSON.stringify({ selection: this.selected })
             });
 
-            if (!response.ok) return;
+            if (requestId !== this.compatibilityRequestId) return;
+            if (!response.ok) {
+                throw new Error(`Compatibility validation failed with HTTP ${response.status}`);
+            }
 
             this.compatibility = await response.json();
+            this.compatibilityStatus = 'verified';
         } catch (e) {
-            // Keep the instant client-side checks.
+            if (requestId !== this.compatibilityRequestId) return;
+            this.compatibilityStatus = 'error';
+            console.error('[builder] Server compatibility validation failed', e);
         }
     },
 
@@ -747,6 +877,101 @@ bandKey() {
             .catch((e) => { this.render3dError = e.message || 'Render failed'; this.rendering3d = false; });
     },
 
+    hasSelectedParts() {
+        return Object.values(this.selected).some((item) => Number(item?.id) > 0);
+    },
+
+    async generateBuildPreview() {
+        const componentIds = Object.values(this.selected)
+            .map((item) => Number(item?.id))
+            .filter((id) => Number.isInteger(id) && id > 0);
+
+        if (!componentIds.length) {
+            this.buildPreviewError = 'Choose at least one component before generating a preview.';
+            return;
+        }
+
+        const requestId = ++this.buildPreviewRequestId;
+        this.generatingBuildPreview = true;
+        this.buildPreviewUrl = null;
+        this.buildPreviewError = null;
+
+        try {
+            const response = await fetch(this.endpoints.previewImage, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': this.csrfToken(),
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ component_ids: componentIds })
+            });
+
+            let data;
+            try {
+                data = await response.json();
+            } catch {
+                throw new Error(`Preview request returned an invalid response (HTTP ${response.status}).`);
+            }
+
+            if (!response.ok) {
+                throw new Error(data?.error || `Preview generation failed (HTTP ${response.status}).`);
+            }
+            if (typeof data?.preview === 'string' && /^data:image\/(?:jpeg|png|webp);base64,/.test(data.preview)) {
+                if (requestId === this.buildPreviewRequestId) {
+                    this.buildPreviewUrl = data.preview;
+                }
+                return;
+            }
+            if (typeof data?.status_url !== 'string' || typeof data?.job_id !== 'string') {
+                throw new Error('The render studio returned no usable preview job.');
+            }
+
+            const deadline = Date.now() + 150000;
+            while (requestId === this.buildPreviewRequestId && Date.now() < deadline) {
+                await new Promise((resolve) => setTimeout(resolve, 2500));
+                const statusResponse = await fetch(data.status_url, {
+                    headers: { 'Accept': 'application/json' }
+                });
+                let status;
+                try {
+                    status = await statusResponse.json();
+                } catch {
+                    throw new Error(`Preview status returned an invalid response (HTTP ${statusResponse.status}).`);
+                }
+                if (!statusResponse.ok) {
+                    throw new Error(status?.error || `Preview status failed (HTTP ${statusResponse.status}).`);
+                }
+                if (status.status === 'failed') {
+                    throw new Error(status.error || 'The render studio could not complete this preview.');
+                }
+                if (status.status === 'completed') {
+                    if (typeof status.image_url !== 'string' || !status.image_url.trim()) {
+                        throw new Error('The render studio completed without a usable image URL.');
+                    }
+                    if (requestId === this.buildPreviewRequestId) {
+                        this.buildPreviewUrl = status.image_url;
+                    }
+                    return;
+                }
+                if (status.status !== 'processing') {
+                    throw new Error('The render studio returned an unknown preview status.');
+                }
+            }
+            if (requestId === this.buildPreviewRequestId) {
+                throw new Error('Preview generation timed out after 150 seconds.');
+            }
+        } catch (error) {
+            if (requestId === this.buildPreviewRequestId) {
+                this.buildPreviewError = error?.message || 'Preview generation failed.';
+            }
+        } finally {
+            if (requestId === this.buildPreviewRequestId) {
+                this.generatingBuildPreview = false;
+            }
+        }
+    },
+
     downloadUrl(url) {
         const a = document.createElement('a');
         a.href = url;
@@ -768,7 +993,12 @@ bandKey() {
     async refreshFps() {
         const gpu = this.selected.gpu;
 
-        if (!gpu) {
+        // No FPS figures in business mode. The estimate is derived from a gaming
+        // GPU tier ladder and a display resolution, and neither exists for a
+        // workstation, a server or a NAS. Returning early means the request is
+        // never made as well as the panel never showing - there is no path that
+        // could put a frame rate on a business quote.
+        if (this.isBusiness() || !gpu) {
             this.fpsResults = [];
             return;
         }
@@ -791,6 +1021,7 @@ bandKey() {
 
     async generateBuild() {
         this.loading = true;
+        this.generationError = null;
 
         try {
             // Clamp before we spend a request on a budget we know cannot build.
@@ -806,15 +1037,33 @@ bandKey() {
                 body: JSON.stringify({
                     budget: this.budget,
                     purpose: this.purpose,
-                    resolution: this.resolution
+                    // Omitted entirely in business mode rather than sent as
+                    // null. `resolution` is nullable server-side, so null and
+                    // absent behave the same - but omitting it is what keeps the
+                    // gaming GPU tier ladder and the resolution-keyed band clamp
+                    // off a workstation, server or NAS quote.
+                    ...(this.isBusiness() ? {} : { resolution: this.resolution })
                 })
             });
 
-            if (!response.ok) return;
+            let data;
+            try {
+                data = await response.json();
+            } catch {
+                throw new Error(`Build generation returned an invalid response (HTTP ${response.status}).`);
+            }
 
-            const data = await response.json();
+            if (!response.ok) {
+                const validationErrors = Object.values(data?.errors || {}).flat().join(' ');
+                throw new Error(data?.message || validationErrors || `Build generation failed (HTTP ${response.status}).`);
+            }
 
-            this.aiRecommendation = data.budget || data;
+            const recommendation = data.budget || data;
+            if (!recommendation?.components || typeof recommendation.components !== 'object') {
+                throw new Error('Build generation returned no component selection. Please try again.');
+            }
+
+            this.aiRecommendation = recommendation;
             this.aiIdealBuild = data.ideal || null;
             // Three-option layer. Absent on older deployments, so guarded rather
             // than assumed - an empty object here would render an empty strip
@@ -855,7 +1104,8 @@ bandKey() {
                 document.getElementById('build-results')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 150);
         } catch (e) {
-            // Ignore; keep current selection.
+            this.generationError = e?.message || 'Build generation failed. Please try again.';
+            console.error('[builder] AI build generation failed', e);
         } finally {
             this.loading = false;
         }
@@ -959,13 +1209,187 @@ bandKey() {
         const q = (this.search || '').toLowerCase();
         const list = this.catalog[this.currentCategory] || [];
 
-        if (!q) {
-            return list;
+        return list.filter(item =>
+            this.matchesSelectedCompatibility(item) && (!q || [
+                item.name,
+                item.tags,
+                item.manufacturer,
+                item.platform,
+                item.series,
+                item.groupLabel,
+                item.ram_type,
+                item.storage_type
+            ].filter(Boolean).join(' ').toLowerCase().includes(q))
+        );
+    },
+
+    matchesSelectedCompatibility(item) {
+        const category = this.currentCategory;
+        const selected = this.selected;
+
+        if (category === 'cpu' && selected.motherboard) {
+            return this.sameKnownSocket(item.socket, selected.motherboard.socket);
         }
 
-        return list.filter(item =>
-            (item.name + ' ' + (item.tags || '')).toLowerCase().includes(q)
+        if (category === 'motherboard' && selected.cpu) {
+            return this.sameKnownSocket(item.socket, selected.cpu.socket)
+                && (!selected.case || this.caseFitsBoard(selected.case, item));
+        }
+
+        if (category === 'ram' && selected.motherboard) {
+            const requiredType = this.motherboardMemoryType(selected.motherboard);
+            return requiredType !== null && this.memoryType(item) === requiredType;
+        }
+
+        if (category === 'cooler' && selected.cpu) {
+            const supportedSockets = item.specs?.supported_sockets;
+            if (!Array.isArray(supportedSockets) || supportedSockets.length === 0) return true;
+            const cpuSocket = this.knownSocket(selected.cpu.socket);
+            return cpuSocket !== null
+                && supportedSockets.some(socket => this.knownSocket(socket) === cpuSocket);
+        }
+
+        if (category === 'storage' && selected.motherboard) {
+            return this.storageFitsBoard(item, selected.motherboard);
+        }
+
+        if (category === 'gpu' && selected.motherboard) {
+            return this.gpuFitsBoard(item, selected.motherboard);
+        }
+
+        if (category === 'psu') {
+            return this.powerSupplyFitsBuild(item);
+        }
+
+        if (category === 'case' && selected.motherboard) {
+            return this.caseFitsBoard(item, selected.motherboard);
+        }
+
+        return true;
+    },
+
+    knownSocket(socket) {
+        const value = String(socket || '').trim();
+        return value && value.toLowerCase() !== 'unknown' ? value.toUpperCase() : null;
+    },
+
+    sameKnownSocket(first, second) {
+        const firstSocket = this.knownSocket(first);
+        const secondSocket = this.knownSocket(second);
+        return firstSocket !== null && secondSocket !== null && firstSocket === secondSocket;
+    },
+
+    memoryType(item) {
+        const value = [
+            item.ram_type,
+            item.specs?.type,
+            item.specs?.memory_type,
+            item.specs?.speed,
+            item.name
+        ].filter(Boolean).join(' ').toUpperCase();
+        const generation = value.match(/DDR\s*([45])/);
+        if (generation) return 'DDR' + generation[1];
+
+        const speed = Number.parseInt(value.match(/\b\d{4,5}\b/)?.[0] || '0', 10);
+        return speed >= 3600 ? 'DDR5' : speed > 0 ? 'DDR4' : null;
+    },
+
+    motherboardMemoryType(board) {
+        const declaredType = [
+            board.specs?.memory_type,
+            board.specs?.ram_type,
+            board.specs?.memory_generation
+        ].filter(Boolean).join(' ').toUpperCase();
+        const generation = declaredType.match(/DDR\s*([45])/);
+        if (generation) return 'DDR' + generation[1];
+
+        // Keep this aligned with the builder's existing memory compatibility rule.
+        switch (this.knownSocket(board.socket)) {
+            case 'AM5':
+            case 'LGA1851':
+                return 'DDR5';
+            case 'AM4':
+            case 'LGA1200':
+            case 'LGA1700':
+                return 'DDR4';
+            default:
+                return null;
+        }
+    },
+
+    storageFitsBoard(storage, board) {
+        const type = String(storage.specs?.type || storage.storage_type || '').toUpperCase();
+        const slots = board.specs?.m2_slots;
+        if (!type || !Array.isArray(slots) || slots.length === 0) return true;
+
+        return slots.some(slot => {
+            const slotType = String(slot || '').toUpperCase();
+            return (type.includes('NVME') && slotType.includes('PCIE'))
+                || (type.includes('SATA') && slotType.includes('SATA'));
+        });
+    },
+
+    gpuFitsBoard(gpu, board) {
+        const gpuInterface = String(gpu.specs?.interface || '').trim();
+        const slots = board.specs?.pcie_slots;
+        if (!gpuInterface || !Array.isArray(slots) || slots.length === 0) return true;
+        return slots.some(slot => String(slot || '').toLowerCase().includes('x16'));
+    },
+
+    powerSupplyFitsBuild(psu) {
+        const gpu = this.selected.gpu;
+        const cpu = this.selected.cpu;
+        const psuWattage = Number(psu.wattage || 0);
+        const gpuWattage = Number(gpu?.wattage || 0);
+        const cpuWattage = Number(cpu?.wattage || 0);
+        if (!gpu || !psuWattage || !gpuWattage) return true;
+        return psuWattage >= gpuWattage + cpuWattage + 200;
+    },
+
+    caseFitsBoard(caseItem, board) {
+        const boardFormFactor = String(
+            board.specs?.form_factor || board.form_factor || ''
+        ).trim().toUpperCase();
+        const supportedFormFactors = caseItem.specs?.supported_form_factors;
+        return Boolean(
+            boardFormFactor
+            && Array.isArray(supportedFormFactors)
+            && supportedFormFactors.some(formFactor =>
+                String(formFactor || '').trim().toUpperCase() === boardFormFactor
+            )
         );
+    },
+
+    filteredComponentGroups() {
+        const groups = new Map();
+        const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
+
+        for (const item of this.filteredComponents()) {
+            let label = item.groupLabel;
+            switch (this.currentCategory) {
+                case 'cpu':
+                    label = label || [item.platform, item.series].filter(Boolean).join(' · ');
+                    break;
+                case 'motherboard':
+                    label = label || [item.series, item.platform].filter(Boolean).join(' · ');
+                    break;
+                default:
+                    label = label || item.manufacturer;
+            }
+
+            label = label || 'Other / Unclassified';
+            const key = item.group || label;
+            if (!groups.has(key)) groups.set(key, { label, items: [] });
+            groups.get(key).items.push(item);
+        }
+
+        return Array.from(groups, ([key, { label, items }]) => ({
+            key,
+            label,
+            items: items.sort((a, b) =>
+                Number(a.price || 0) - Number(b.price || 0) || collator.compare(a.name || '', b.name || '')
+            )
+        })).sort((a, b) => collator.compare(a.label, b.label));
     },
 
     categoryLabel(category) {

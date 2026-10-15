@@ -36,7 +36,7 @@ class OrderController extends Controller
     {
         $data = $request->validate([
             'name' => ['nullable', 'string', 'max:255'],
-            'purpose' => ['nullable', Rule::in('gaming', 'streaming', 'creation', 'ai')],
+            'purpose' => ['nullable', Rule::in(['gaming', 'streaming', 'creation', 'ai'])],
             'resolution' => ['nullable', Rule::in(['1080P', '1440P', '4K'])],
             'budget' => ['nullable', 'numeric', 'min:0'],
             'customer_name' => ['nullable', 'string', 'max:255'],
@@ -87,7 +87,9 @@ class OrderController extends Controller
 
         $selection = [];
         foreach ($this->validCategories as $category) {
-            $selection[$category] = $components[$selected[$category]['id']]->toArray();
+            $selection[$category] = $this->compatibility->componentSelectionData(
+                $components[$selected[$category]['id']]
+            );
         }
 
         $build = Build::create([

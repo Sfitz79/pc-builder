@@ -1220,6 +1220,16 @@ class AIRecommendationService
 
         if ($ai !== null) {
             $this->applyWeights($pools, $ai);
+        } else {
+            // Gemini is off or failed. The workload's own declared weights are
+            // still the customer's stated requirement, so apply them here rather
+            // than letting a provider outage quietly turn a NAS build into a
+            // gaming one. See workloadWeights() for why this is business-only.
+            $declared = $this->workloadWeights($purpose);
+
+            if ($declared !== null) {
+                $this->applyWeights($pools, ['weights' => $declared]);
+            }
         }
 
         $budgetBuild = $this->pickBudgetBuild($pools, $budget, $resolution);
@@ -1284,6 +1294,13 @@ class AIRecommendationService
 
         if ($ai !== null) {
             $this->applyWeights($pools, $ai);
+        } else {
+            // Same declared-workload fallback as recommendBoth(); see workloadWeights().
+            $declared = $this->workloadWeights($purpose);
+
+            if ($declared !== null) {
+                $this->applyWeights($pools, ['weights' => $declared]);
+            }
         }
 
         $result = $this->pickBudgetBuild($pools, $budget, $resolution);
@@ -1481,6 +1498,55 @@ class AIRecommendationService
         if (is_string($rationale) && $rationale !== '') {
             $build['ai']['rationale'] = $rationale;
         }
+    }
+
+    /**
+     * Normalise a workload's declared 0-100 category weights into the same
+     * multiplier range Gemini returns, so one applyWeights() path serves both.
+     *
+     * WHY THIS EXISTS
+     * ---------------
+     * config/workloads.php states that the declared weights "feed the
+     * deterministic scoring ... when Gemini is not configured". That was not
+     * true: with Gemini unavailable, scoreWeights() returns null, applyWeights()
+     * was never called, and the weights had no effect on the pick at all. The
+     * config therefore promised floors the engine did not enforce - a NAS build
+     * declaring gpu => 5 could still be quoted a gaming graphics card.
+     *
+     * SCOPED TO THE BUSINESS SEGMENT ON PURPOSE. Applying these weights on the
+     * gaming path would move the measured, published price-band floors
+     * (1080p / 1440p / 4K), which are verified against the live catalogue and
+     * published to customers. Gaming behaviour is left byte-identical; this only
+     * makes the business segment's declared floors real.
+     *
+     * Range: 0.5 (a declared 0) to 1.5 (a declared 100), matching the clamp
+     * scoreWeights() puts on Gemini's own output, so neither path can dominate
+     * the price/value curve.
+     */
+    protected function workloadWeights(?string $purpose): ?array
+    {
+        if ($purpose === null || ! \App\Services\GeminiService::isBusinessMode($purpose)) {
+            return null;
+        }
+
+        $declared = config('workloads.workloads.'.\App\Services\GeminiService::sanitizePurpose($purpose).'.weights', []);
+
+        if (! is_array($declared) || $declared === []) {
+            return null;
+        }
+
+        $weights = [];
+        foreach ($declared as $slug => $weight) {
+            if (! is_numeric($weight)) {
+                continue;
+            }
+
+            $normalised = max(0.0, min(100.0, (float) $weight)) / 100.0;
+
+            $weights[$slug] = round(0.5 + $normalised, 4);
+        }
+
+        return $weights === [] ? null : $weights;
     }
 
     /**

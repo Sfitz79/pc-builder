@@ -9,4 +9,6 @@
 return [
     'aigenUrl' => env('AIGEN_URL', 'http://127.0.0.1:3000'),
     'comfyUrl' => env('COMFYUI_URL', 'http://127.0.0.1:8188'),
+    'mediaToken' => env('AIGEN_MEDIA_SERVICE_TOKEN'),
+    'comfyToken' => env('COMFYUI_URL_USER'),
 ];

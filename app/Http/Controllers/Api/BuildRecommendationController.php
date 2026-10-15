@@ -50,7 +50,7 @@ class BuildRecommendationController extends Controller
 
         $data = $request->validate([
             'budget' => ['nullable', 'numeric', 'min:0', 'max:100000'],
-            'purpose' => ['nullable', Rule::in('gaming', 'streaming', 'creation', 'ai')],
+            'purpose' => ['nullable', Rule::in(['gaming', 'streaming', 'creation', 'ai'])],
             'resolution' => ['nullable', Rule::in(['1080P', '1440P', '4K'])],
             'pick' => ['nullable', Rule::in(['auto', 'budget', 'ideal'])],
         ]);

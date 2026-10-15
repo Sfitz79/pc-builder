@@ -1,4 +1,23 @@
-<x-pctg.layouts.builder>
+@php
+    /*
+     * Segment defaults, declared ONCE here so both product lines agree on where
+     * the boundary is.
+     *
+     * BuilderController::businessBuild() passes segment/purpose/workloads.
+     * The gaming entry points pass nothing at all, so these must be real
+     * defaults rather than an inference: reading `$segment === null` as
+     * "business" would put a gaming customer through the professional wizard.
+     */
+    $isBusiness = ($segment ?? 'gaming') === 'business';
+    $purpose = $purpose ?? null;
+    $workloads = $workloads ?? \App\Services\GeminiService::businessWorkloads();
+@endphp
+
+<x-pctg.layouts.builder
+    :segment="$isBusiness ? 'business' : 'gaming'"
+    :initial-purpose="$purpose"
+    :initial-workloads="$workloads"
+>
 
     {{-- x-data was REMOVED from this wrapper.
 
@@ -54,7 +73,20 @@
 
                 @include('builder.partials.build-health')
 
-                @include('builder.partials.fps-panel')
+                {{-- FPS ESTIMATES ARE A GAMING CLAIM AND ARE NOT SHOWN IN BUSINESS MODE.
+
+                     The panel is a frames-per-second estimate derived from a
+                     gaming GPU tier ladder and a display resolution. Neither
+                     exists for the workloads PCTG Business sells: a NAS is
+                     bounded by drive bays, a server by RAM channels, and a
+                     render node by VRAM. Printing "148 FPS" on any of them
+                     would be a fabricated performance figure attached to a
+                     quote, which is exactly the failure class this project
+                     exists to prevent - and the number would be read as a
+                     promise. It is omitted rather than relabelled. --}}
+                @unless ($isBusiness)
+                    @include('builder.partials.fps-panel')
+                @endunless
 
             </div>
 

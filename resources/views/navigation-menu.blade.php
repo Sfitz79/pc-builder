@@ -34,12 +34,32 @@
             </span>
         </a>
 
+{{-- The builder link follows the product line the visitor is standing in.
+
+     This nav is shared by every page, and both PCTG Business links on
+     /business point at the business configurator - but the "PC Builder" nav
+     item next to them still pointed at /builder, so the one thing a buyer
+     reaches for after reading "Start a build" dropped them straight back into
+     the gaming wizard. It was the last remaining route off the business tab.
+
+     Resolved from the CURRENT route rather than stored in a session, so a
+     shared link, a crawler and the back button all land where the rest of the
+     page points. Elsewhere on the site it is the gaming builder, unchanged. --}}
+@php
+    $onBusinessSegment = request()->routeIs('business')
+        || request()->routeIs('business.build');
+
+    $builderHref = $onBusinessSegment ? route('business.build') : route('builder');
+    $builderActive = $onBusinessSegment || request()->routeIs('builder');
+    $builderLabel = $onBusinessSegment ? 'Business Builder' : 'PC Builder';
+@endphp
+
         <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary">
             <x-nav-link
-                :href="route('builder')"
-                :active="request()->routeIs('builder')"
+                :href="$builderHref"
+                :active="$builderActive"
             >
-                PC Builder
+                {{ $builderLabel }}
             </x-nav-link>
 
             <x-nav-link
@@ -105,7 +125,7 @@
 
         <div class="ml-auto flex items-center gap-3">
             @auth
-                <a href="/builder" class="text-sm font-medium text-pctg-text-secondary transition hover:text-white">Dashboard</a>
+                <a href="{{ $builderHref }}" class="text-sm font-medium text-pctg-text-secondary transition hover:text-white">Dashboard</a>
                 <form method="POST" action="/logout">
                     @csrf
                     <button type="submit" class="text-sm font-medium text-pctg-text-secondary transition hover:text-white">Sign out</button>

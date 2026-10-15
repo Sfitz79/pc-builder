@@ -8,6 +8,7 @@ use App\Services\BuildPricingService;
 use App\Services\CatalogueGate;
 use App\Services\CompatibilityService;
 use App\Services\FPSCalculationService;
+use App\Services\GeminiService;
 use App\Services\PartDimensions;
 use App\Services\ThreeD\BuildSceneService;
 use Illuminate\Contracts\View\View;
@@ -32,6 +33,35 @@ class BuilderController extends Controller
     public function dashboard(): View
     {
         return $this->view->make('builder.dashboard');
+    }
+
+    /**
+     * The PCTG Business builder.
+     *
+     * Same configurator, different product line. It exists because the single
+     * /builder route opened on the gaming wizard, so every "Start a build" and
+     * "Configure one" link on the Business page dropped a workstation buyer into
+     * a four-button gaming scenario picker.
+     *
+     * THREE THINGS IT DOES DIFFERENTLY, all from config/workloads.php rather
+     * than hardcoded here:
+     *
+     *   - resolves the requested workload FAIL-CLOSED. A gaming workload, or any
+     *     unknown string, in ?purpose= falls back to the business default, so
+     *     this URL cannot be edited into producing a gaming machine inside the
+     *     business brand.
+     *   - hands the view the BUSINESS workload list, so the scenario picker is
+     *     built from the same source the recommendation engine reads.
+     *   - passes segment:'business', which switches the shell to the biz palette
+     *     and removes the two gaming-only controls (resolution band, FPS).
+     */
+    public function businessBuild(Request $request): View
+    {
+        return $this->view->make('builder.dashboard', [
+            'segment' => 'business',
+            'purpose' => GeminiService::resolveBusinessWorkload($request->get('purpose')),
+            'workloads' => GeminiService::businessWorkloads(),
+        ]);
     }
 
     public function generate(): View
@@ -205,7 +235,18 @@ class BuilderController extends Controller
     {
         $data = $request->validate([
             'budget' => ['required', 'numeric', 'min:0'],
-            'purpose' => ['nullable', Rule::in('gaming', 'streaming', 'creation', 'ai')],
+            // Validated against the CONFIGURED workload list, not a four-item
+            // literal. That literal only ever named the four gaming purposes the
+            // old wizard exposed, so every business scenario - studio,
+            // rendering, enterprise, server, nas, home-business - was rejected
+            // with a 422 before the recommendation engine ever saw it, even
+            // though config/workloads.php, GeminiService and
+            // AIRecommendationService all already understood those slugs.
+            //
+            // Widening the rule does not widen what the engine will accept:
+            // GeminiService::sanitizePurpose() is still fail-closed, and
+            // builder.businessBuild() refuses a gaming workload outright.
+            'purpose' => ['nullable', Rule::in(GeminiService::knownPurposes())],
             'resolution' => ['nullable', Rule::in(['1080P', '1440P', '4K'])],
         ]);
 
@@ -342,6 +383,7 @@ class BuilderController extends Controller
 
         $categories = ['cpu', 'motherboard', 'gpu', 'ram', 'storage', 'psu', 'case', 'cooler'];
         $selection = [];
+        $selectionValid = true;
 
         foreach ($categories as $category) {
             $item = $data['selection'][$category] ?? null;
@@ -354,16 +396,32 @@ class BuilderController extends Controller
                 $id = 0;
             }
 
-            $component = $id > 0 ? Component::find($id) : null;
+            if ($item !== null && $id <= 0) {
+                $selectionValid = false;
+            }
 
-            // Resolve from the database so every compatibility rule has access
-            // to the same full spec data it gets at save/order time (socket,
-            // wattage and specs). Passing raw catalog items through would drop
-            // `specs` and make memory/clearance checks pass vacuously.
-            $selection[$category] = $component?->toArray() ?? (is_numeric($item) ? null : $item);
+            $component = $id > 0
+                ? Component::query()->with(['category', 'manufacturer'])->active()->find($id)
+                : null;
+
+            if ($id > 0 && ($component === null || $component->category?->slug !== $category)) {
+                $selectionValid = false;
+                $selection[$category] = null;
+                continue;
+            }
+
+            // Use the same normalized catalogue payload the selector uses.
+            // Raw database socket values are incomplete and sometimes wrong;
+            // raw client objects are untrusted and can omit compatibility data.
+            $selection[$category] = $component
+                ? $this->compatibility->componentSelectionData($component)
+                : null;
         }
 
-        return response()->json($this->compatibility->summary($selection));
+        return response()->json([
+            ...$this->compatibility->summary($selection),
+            'selectionValid' => $selectionValid,
+        ]);
     }
 
     /**
@@ -475,6 +533,7 @@ class BuilderController extends Controller
             'id' => $component->id,
             'slug' => $component->slug,
             'name' => $component->name,
+            'manufacturer' => $component->manufacturer?->name,
             'price' => (float) $component->price,
             'socket' => $socket,
             'chipset' => $chipset,
@@ -484,12 +543,12 @@ class BuilderController extends Controller
             'image' => $this->imageFor($component),
             'specs' => $specsArray,
             'dims' => $this->dimensions->resolve($category, $component->name, $specsArray),
-            // Grouping metadata for the selection UI: CPUs by platform then
-            // series, RAM by DDR generation, boards by chipset, storage by
-            // interface. The UI reads these instead of re-deriving anything.
+            // Grouping metadata for the selection UI, derived from catalogue
+            // specs and the part model rather than guessed in the browser.
             'platform' => $group['platform'],
             'series' => $group['series'],
             'group' => $group['key'],
+            'groupLabel' => $group['label'],
             'ram_type' => $category === 'ram'
                 ? CatalogueGate::ramType((string) $component->name, $specsArray)
                 : null,
@@ -647,6 +706,8 @@ class BuilderController extends Controller
         if (! $configured['ok']) {
             $reason = $configured['reason'];
         } else {
+            $comfyToken = trim((string) config('aigenstudio.comfyToken'));
+
             // 2s is deliberate. A render takes minutes; this only proves
             // something answers. Long enough to survive a slow tunnel,
             // short enough that the builder never feels stuck.
@@ -659,18 +720,21 @@ class BuilderController extends Controller
             // the capability check and published the internal host to anyone who
             // looked. A capability probe must never throw.
             try {
-                $probe = \Illuminate\Support\Facades\Http::timeout(2)
+                $probe = \Illuminate\Support\Facades\Http::withToken($comfyToken)->timeout(2)
                     ->withOptions(['http_errors' => false])
                     ->get($configured['comfyUrl'].'/system_stats');
 
                 $available = $probe->successful();
+                if (in_array($probe->status(), [401, 403], true)) {
+                    $reason = 'Render studio authentication is not configured for this site. Your build is unaffected.';
+                }
             } catch (\Throwable $e) {
                 // Intentionally swallowed and never echoed: the exception text
                 // is exactly the host we must not disclose.
                 $available = false;
             }
 
-            if (! $available) {
+            if (! $available && $reason === null) {
                 $reason = 'The render studio is not reachable at the moment. Your 3D view and build are unaffected - try the render again later.';
             }
         }
@@ -698,6 +762,8 @@ class BuilderController extends Controller
     {
         $comfyUrl = rtrim((string) config('aigenstudio.comfyUrl'), '/');
         $aigenUrl = rtrim((string) config('aigenstudio.aigenUrl'), '/');
+        $mediaToken = trim((string) config('aigenstudio.mediaToken'));
+        $comfyToken = trim((string) config('aigenstudio.comfyToken'));
 
         $localhost = static fn (string $url): bool => (bool) preg_match(
             '#^https?://(127\.0\.0\.1|localhost|\[::1\]|0\.0\.0\.0)(:|/|$)#i',
@@ -710,6 +776,14 @@ class BuilderController extends Controller
                 'studio' => false,
                 'comfyUrl' => $comfyUrl,
                 'reason' => 'Photoreal renders need the PCTG render studio, which is not configured for this site. The 3D view and your build are unaffected.',
+            ];
+        }
+        if ($mediaToken === '' || $comfyToken === '') {
+            return [
+                'ok' => false,
+                'studio' => true,
+                'comfyUrl' => $comfyUrl,
+                'reason' => 'Render studio authentication is not configured for this site. Your build is unaffected.',
             ];
         }
 
@@ -742,7 +816,7 @@ class BuilderController extends Controller
         $ext = strtolower($m[1]) === 'png' ? 'png' : 'jpg';
         $filename = 'pctg-3d-ref-'.time().'.'.$ext;
 
-        $upload = \Illuminate\Support\Facades\Http::timeout(30)
+        $upload = \Illuminate\Support\Facades\Http::withToken((string) config('aigenstudio.comfyToken'))->timeout(30)
             ->attach('image', $bytes, $filename)
             ->post($comfyUrl.'/api/upload/image', ['overwrite' => 'true']);
 
@@ -776,7 +850,8 @@ class BuilderController extends Controller
         // 3) Call the aigen gateway. RealVisXL (SD) refine holds the 3D
         //    geometry's real layout instead of re-imagining it.
         try {
-            $gw = \Illuminate\Support\Facades\Http::timeout(15)->post($baseUrl.'/api/generate-media', [
+            $gw = \Illuminate\Support\Facades\Http::withToken((string) config('aigenstudio.mediaToken'))
+                ->timeout(15)->post($baseUrl.'/api/generate-media', [
                 'prompt' => $prompt,
                 'mode' => 'image',
                 'preset' => 'sd',

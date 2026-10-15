@@ -42,7 +42,24 @@ class CompatibilityRule extends Model
         $cpu = $selection['cpu'] ?? null;
         $board = $selection['motherboard'] ?? null;
 
-        return $cpu === null || $board === null || $cpu['socket'] === $board['socket'];
+        if ($cpu === null || $board === null) {
+            return true;
+        }
+
+        $cpuSocket = trim((string) ($cpu['socket'] ?? ''));
+        $boardSocket = trim((string) ($board['socket'] ?? ''));
+        if ($cpuSocket === '' || $boardSocket === '' || strcasecmp($cpuSocket, 'unknown') === 0 || strcasecmp($boardSocket, 'unknown') === 0) {
+            \Illuminate\Support\Facades\Log::warning('compatibility.socket_match.unknown', [
+                'cpu_id' => $cpu['id'] ?? null,
+                'cpu_name' => $cpu['name'] ?? null,
+                'motherboard_id' => $board['id'] ?? null,
+                'motherboard_name' => $board['name'] ?? null,
+            ]);
+
+            return false;
+        }
+
+        return strcasecmp($cpuSocket, $boardSocket) === 0;
     }
 
     protected function evaluateWattage(array $selection): bool

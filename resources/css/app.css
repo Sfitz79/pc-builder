@@ -500,12 +500,70 @@
             focus:outline-none;
     }
 
+    .pctg-selector-scroll {
+        overflow-y: scroll;
+        overscroll-behavior: contain;
+        scrollbar-gutter: stable;
+        scrollbar-width: auto;
+        scrollbar-color: #64748b #171a21;
+    }
+
+    .pctg-selector-scroll::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    .pctg-selector-scroll::-webkit-scrollbar-track {
+        background: #171a21;
+        border-radius: 999px;
+    }
+
+    .pctg-selector-scroll::-webkit-scrollbar-thumb {
+        background: #64748b;
+        border: 3px solid #171a21;
+        border-radius: 999px;
+    }
+
+    .pctg-selector-scroll::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+    }
+
     .pctg-intro {
         transition: opacity .6s ease, visibility .6s ease;
     }
 
     .pctg-intro-exit {
         animation: pctgIntroExit .7s ease forwards;
+    }
+
+    /*
+     * PCTG BUSINESS — the builder scenario cards.
+     *
+     * Written as explicit rules rather than @apply because the accent has to
+     * change per segment: the gaming card is red, the business card is the
+     * sub-brand royal blue. @apply would compile to one literal colour and
+     * could not be overridden afterwards.
+     */
+    .pctg-scenario-card {
+        display: block;
+        width: 100%;
+        text-align: left;
+        border-radius: 1.5rem;
+        border: 1px solid rgba(30, 41, 59, 1);
+        background-color: #171a21;
+        padding: 1.25rem;
+        transition: all .3s;
+    }
+
+    .pctg-scenario-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(37, 99, 235, .5);
+        box-shadow: 0 0 25px rgba(37, 99, 235, .2);
+    }
+
+    .pctg-scenario-card-active,
+    .pctg-scenario-card-active:hover {
+        border-color: rgba(37, 99, 235, .75);
+        box-shadow: 0 0 0 2px rgba(37, 99, 235, .55);
     }
 
     html.no-js .pctg-intro {
@@ -536,5 +594,145 @@
         .pctg-boot-bar {
             width: 100%;
         }
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+| PCTG BUSINESS THEME
+|--------------------------------------------------------------------------
+|
+| A scoped override layer for the builder's shared components.
+|
+| WHY AN OVERRIDE LAYER AND NOT A SECOND SET OF COMPONENT CLASSES
+| The `.pctg-*` classes above use @apply, which Tailwind expands into
+| literal colour values at build time. `bg-red-600` becomes #dc2626 in the
+| compiled stylesheet, so no amount of redefining a token on a wrapper will
+| repaint it - the same reason tailwind.config.js carries a separate `biz`
+| palette rather than overriding `pctg.primary`.
+|
+| Writing the selector as `[data-pctg-theme='biz'] .pctg-button` DOES work,
+| because it is an ordinary CSS rule emitted after the components layer with
+| higher specificity. That means the business builder gets the sub-brand
+| palette across the whole shared chrome - header, sidebar, hero, buttons,
+| cards, inputs, progress bars - without editing every component or
+| maintaining a parallel set of class names that could drift apart.
+|
+| SCOPE: BRAND SURFACES ONLY.
+| Nothing in this block touches an error, a warning, a compatibility failure
+| or a health score. Those stay red and amber in both segments, because red
+| there means "this is wrong" rather than "this is PCTG". Repainting a
+| compatibility failure blue would remove the signal the customer needs.
+|
+| GAMING IS UNTOUCHED: every selector is scoped to the attribute, and the
+| gaming builder root renders data-pctg-theme="gaming", so none of this
+| applies to it.
+|
+| The values are the `biz` block of tailwind.config.js:
+|   background #080c14 · surface #0f1622 · primary #2563eb · hover #3b82f6
+|   accent #60a5fa · muted #9fb0c8
+*/
+[data-pctg-theme='biz'] {
+    --pctg-primary: #2563eb;
+    --pctg-primary-hover: #3b82f6;
+}
+
+[data-pctg-theme='biz'] .pctg-button {
+    background-color: #2563eb;
+    box-shadow: 0 0 24px rgba(37, 99, 235, .35);
+}
+
+[data-pctg-theme='biz'] .pctg-button:hover {
+    background-color: #3b82f6;
+    box-shadow: 0 0 25px rgba(37, 99, 235, .5);
+}
+
+[data-pctg-theme='biz'] .pctg-button-secondary:hover {
+    border-color: #2563eb;
+    background-color: rgba(37, 99, 235, .1);
+}
+
+[data-pctg-theme='biz'] .pctg-hero {
+    border-color: rgba(37, 99, 235, .25);
+    background-image:
+        linear-gradient(to bottom right, rgba(37, 99, 235, .16), rgba(15, 22, 34, 0) 55%),
+        linear-gradient(to bottom right, #0f1622, #000);
+}
+
+[data-pctg-theme='biz'] .pctg-card-hover:hover {
+    border-color: rgba(37, 99, 235, .45);
+    box-shadow: 0 0 25px rgba(37, 99, 235, .2);
+}
+
+[data-pctg-theme='biz'] .pctg-card,
+[data-pctg-theme='biz'] .pctg-metric,
+[data-pctg-theme='biz'] .pctg-glass,
+[data-pctg-theme='biz'] .pctg-scenario-card,
+[data-pctg-theme='biz'] .pctg-input {
+    background-color: #0f1622;
+}
+
+[data-pctg-theme='biz'] .pctg-input:focus {
+    border-color: #2563eb;
+}
+
+[data-pctg-theme='biz'] .pctg-sidebar-item:hover {
+    border-color: #2563eb;
+    background-color: rgba(37, 99, 235, .05);
+}
+
+[data-pctg-theme='biz'] .pctg-sidebar-item-active {
+    border-color: #2563eb;
+    background-color: rgba(37, 99, 235, .1);
+    box-shadow: 0 0 20px rgba(37, 99, 235, .2);
+}
+
+[data-pctg-theme='biz'] .pctg-progress-bar {
+    background-image: linear-gradient(to right, #3b82f6, #2563eb, #1d4ed8);
+}
+
+[data-pctg-theme='biz'] .pctg-scan-line {
+    background: linear-gradient(transparent, rgba(37, 99, 235, .08), transparent);
+}
+
+[data-pctg-theme='biz'] .pctg-grid-bg {
+    background-image:
+        linear-gradient(rgba(37, 99, 235, .05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, .05) 1px, transparent 1px);
+}
+
+/*
+ * The header, hero and section-heading icons use the pctg-primary TOKENS
+ * directly (bg-pctg-primary, text-pctg-primary-hover), so they follow the
+ * variable overridden above rather than needing a rule of their own.
+ */
+
+/*
+ * The logo block, the progress pulse and the boot bar are animated, so a
+ * static colour swap would still leave a red glow pulsing behind a blue brand.
+ * These re-point the keyframes for the business shell only.
+ */
+[data-pctg-theme='biz'] .power-pulse {
+    animation-name: bizPowerPulse;
+}
+
+[data-pctg-theme='biz'] .pctg-boot-bar {
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+}
+
+@keyframes bizPowerPulse {
+    0% {
+        box-shadow: 0 0 0 rgba(37, 99, 235, 0);
+    }
+
+    50% {
+        box-shadow:
+            0 0 20px rgba(37, 99, 235, .5),
+            0 0 50px rgba(37, 99, 235, .3),
+            0 0 100px rgba(37, 99, 235, .15);
+    }
+
+    100% {
+        box-shadow: 0 0 0 rgba(37, 99, 235, 0);
     }
 }

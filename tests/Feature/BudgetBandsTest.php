@@ -404,6 +404,39 @@ class BudgetBandsTest extends TestCase
         $this->assertSame('', $response->json('notice.message'));
     }
 
+    public function test_ai_build_generation_accepts_every_supported_purpose(): void
+    {
+        foreach (['gaming', 'streaming', 'creation', 'ai'] as $purpose) {
+            $response = $this->postJson('/builder/ai', [
+                'budget' => 1500,
+                'purpose' => $purpose,
+                'resolution' => '1440P',
+            ]);
+
+            $response->assertOk();
+            $this->assertNotEmpty(
+                $response->json('budget.components'),
+                "The {$purpose} AI build should return a component selection."
+            );
+        }
+    }
+
+    public function test_server_recommendation_accepts_non_gaming_purposes(): void
+    {
+        $response = $this
+            ->withHeader('X-Genie-Token', (string) env('BUILDER_GENIE_TOKEN', ''))
+            ->postJson('/api/build/recommend', [
+                'budget' => 1500,
+                'purpose' => 'streaming',
+                'resolution' => '1440P',
+                'pick' => 'auto',
+            ]);
+
+        $response->assertOk()
+            ->assertJsonPath('purpose', 'streaming');
+        $this->assertNotEmpty($response->json('build.components'));
+    }
+
     /**
      * The clamp must not simply hand back a bigger machine: the machine it
      * returns still has to be a real, complete build that clears the band's own

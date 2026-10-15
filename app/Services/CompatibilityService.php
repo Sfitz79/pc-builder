@@ -2,11 +2,33 @@
 
 namespace App\Services;
 
+use App\Models\Component;
 use App\Models\CompatibilityRule;
 use Illuminate\Support\Collection;
 
 class CompatibilityService
 {
+    /**
+     * Normalize persisted component data for the compatibility evaluators.
+     * Catalogue socket derivation is authoritative because stored socket
+     * columns can be stale or incorrect.
+     */
+    public function componentSelectionData(Component $component): array
+    {
+        $component->loadMissing('category');
+        $data = $component->toArray();
+        $category = $component->category?->slug;
+
+        $data['specs'] = is_array($component->specs) ? $component->specs : [];
+        $data['socket'] = match ($category) {
+            'cpu' => CatalogueGate::cpuSocket((string) $component->name),
+            'motherboard' => CatalogueGate::boardSocket((string) $component->name),
+            default => $component->socket,
+        };
+
+        return $data;
+    }
+
     /**
      * Run every active compatibility rule against a selection.
      *
@@ -35,7 +57,7 @@ class CompatibilityService
 /**
      * Summarise into the same shape the Alpine builder state expects.
      *
-     * The four ORIGINAL flags are returned with their original defaults. Every
+     * The original customer-facing flags are returned with their original defaults. Every
      * one of them defaults to `true` when its category is absent from the
      * results, which is why a missing rule row silently reads as "compatible".
      * formFactorFits deliberately does NOT follow that pattern: an absent
@@ -45,7 +67,11 @@ class CompatibilityService
      * safe error is a visible warning the customer can clear by changing a part,
      * not a green tick on a check that never ran.
      *
-     * @return array{cpuMotherboard: bool, ramSupported: bool, powerEnough: bool, gpuClearance: bool, formFactorFits: bool}
+     * @return array{
+     *   cpuMotherboard: bool, ramSupported: bool, powerEnough: bool, gpuClearance: bool,
+     *   formFactorFits: bool, coolerMount: bool, storageSupported: bool, pcieSlot: bool,
+     *   ramSpeedOptimal: bool, gpuPowerConnector: bool
+     * }
      */
     public function summary(array $selection): array
     {
@@ -74,6 +100,11 @@ class CompatibilityService
             'ramSupported' => $results->get('memory', true),
             'powerEnough' => $results->get('power', true),
             'gpuClearance' => $results->get('clearance', true),
+            'coolerMount' => $results->get('cooler', true),
+            'storageSupported' => $results->get('storage', true),
+            'pcieSlot' => $results->get('pcie', true),
+            'ramSpeedOptimal' => $results->get('ram_speed', true),
+            'gpuPowerConnector' => $results->get('gpu_power', true),
             // Defaults FALSE on purpose - see the docblock. A case fit the
             // customer cannot see is worse than a warning they can act on.
             'formFactorFits' => $hasBoth && (bool) $results->get('form_factor', false),
