@@ -187,16 +187,47 @@ window.builderState = (config = {}) => ({
     },
 
     // --- Honest, measured price bands (boss directive 2026-09-28) ----------
-    // Every band floor is the price of a real, complete, AAA-at-high-settings
-    // machine measured from the live catalogue. Until the endpoint answers we
-    // use the published fallback so the slider is never briefly wrong.
+    // Every band floor is the price of a real, complete machine measured from
+    // the live catalogue by /builder/bands.
+    //
+    // THESE FALLBACK NUMBERS WERE WRONG. They read 1350 / 1530 / 1960 against
+    // a published 1060 / 1200 / 1630, and the comment above them claimed "the
+    // slider is never briefly wrong" - which is exactly what a stale fallback
+    // is. Measured against production 2026-10-15:
+    //
+    //     1080p  1060 - 1200      (was 1350 - 1500)
+    //     1440p  1200 - 1630      (was 1530 - 2500)
+    //     4K     1630 - 3500      (was 1960 - 3500)
+    //
+    // The consequence was not cosmetic. budgetFloor() reads `min`, so one failed
+    // /builder/bands call - a network blip, a 502, a cold container - raised the
+    // 1080p floor to GBP 1,350 and refused to let the customer enter the GBP
+    // 1,060 machine we can actually build. A fallback that blocks a sellable
+    // product is worse than no fallback.
+    //
+    // Re-measured values below, and bandsStale now says so on screen rather
+    // than failing quietly. If the catalogue moves again, these drift from
+    // /builder/bands and the warning is the thing that will tell you.
     bands: {
-        '1080p': { min: 1350, max: 1500, label: '1080p' },
-        '1440p': { min: 1530, max: 2500, label: '1440p' },
-        '4k': { min: 1960, max: 3500, label: '4K' }
+        '1080p': { min: 1060, max: 1200, label: '1080p' },
+        '1440p': { min: 1200, max: 1630, label: '1440p' },
+        '4k': { min: 1630, max: 3500, label: '4K' }
     },
 
+
     bandsLoaded: false,
+
+    // True when /builder/bands could not be reached and the compiled-in figures
+    // above are being used instead.
+    //
+    // Rule 5 in AGENTS.md: a fallback that changes what the customer sees must
+    // announce itself. A silent fallback here means the budget floor is a number
+    // we have not re-measured, and a customer could be shown one that is too
+    // high - which stops them buying a machine we can build. That is a green
+    // result quietly worse than intended, so it is surfaced in the wizard
+    // rather than swallowed by the catch block.
+    bandsStale: false,
+
 
     // Set when a typed budget is below the honest minimum. Drives the on-screen
     // explanation and the part-new/part-used suggestion.
@@ -386,19 +417,32 @@ bandKey() {
                 headers: { 'Accept': 'application/json' }
             });
 
-            if (!response.ok) return;
+            if (!response.ok) throw new Error('HTTP ' + response.status);
 
             const data = await response.json();
 
             if (data && data.bands) {
                 this.bands = data.bands;
                 this.bandsLoaded = true;
+                this.bandsStale = false;
+
+                return;
             }
+
+            throw new Error('no bands in payload');
         } catch (e) {
-            // Keep the published fallback bands. A failed fetch must never be
-            // the reason a customer is shown a slider that cannot build.
+            // Keep the compiled-in figures so the slider still renders, but say
+            // so. A customer must never be silently shown a budget floor we
+            // have not just measured against the live catalogue.
+            this.bandsStale = true;
+            console.warn(
+                '[pctg] /builder/bands unavailable (' + e.message + ') - using the built-in '
+                + 'price band figures, which were measured on 2026-10-15 and may be stale. '
+                + 'The budget floor shown is NOT a freshly measured value.'
+            );
         }
     },
+
 
     /**
      * Called whenever the budget changes. If the customer has typed less than

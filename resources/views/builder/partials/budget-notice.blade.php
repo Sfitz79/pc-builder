@@ -13,6 +13,32 @@
      an error red as blue would remove the one signal the customer needs.
 --}}
 
+{{--
+     THE PRICE BANDS ARE THE BUILT-IN FIGURES, NOT A FRESH MEASUREMENT.
+
+     /builder/bands could not be reached, so the slider is running on numbers
+     compiled into the bundle. Those were measured on a past date against the
+     live catalogue, and they can be wrong in the direction that costs us a
+     sale: too high a floor refuses a budget we can actually build.
+
+     Announced rather than swallowed (Rule 5 - a silent fallback that changes
+     what the customer sees is a failure, not a pass). Amber, not red, because
+     the build still works; this says the FLOOR is unverified, not that
+     anything is broken.
+--}}
+<div
+    x-show="bandsStale"
+    x-cloak
+    role="status"
+    aria-live="polite"
+    class="mt-4 rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 text-sm text-amber-100"
+>
+    We could not reach our live price checker just now, so the minimum budget
+    shown here is the last figure we measured rather than a fresh one. It may be
+    slightly too high. Your quote at checkout is always priced from the live
+    catalogue.
+</div>
+
 <p
     x-show="generationError"
     x-cloak
