@@ -114,6 +114,9 @@ return [
         'pro_gpu' => [
             'label' => 'a professional graphics card',
         ],
+        'pro_gpu_high' => [
+            'label' => 'a professional graphics card with real memory behind it (16GB+ VRAM)',
+        ],
         'quiet_cooling' => [
             'label' => 'quiet air cooling',
         ],

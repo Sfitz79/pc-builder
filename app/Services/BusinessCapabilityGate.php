@@ -67,9 +67,17 @@ class BusinessCapabilityGate
         ],
         'workstation_chipset' => [
             'category' => 'motherboard',
-            'name' => ['W680', 'C266', 'WRX90', 'TRX50', 'Pro WS', 'ProArt', 'X670E', 'X870E', 'X870 '],
+            // W680, C266, WRX90 and TRX50 ONLY.
+            //
+            // The first version of this check included X670E and X870E, and
+            // reported the capability as HELD. That was wrong: X870E is an
+            // enthusiast board for a gaming market, not a workstation chipset,
+            // and matching it made `server-virtualisation` look one part closer
+            // to servable than it is. The names that count are the ones paired
+            // with Xeon W, Threadripper Pro and EPYC.
+            'name' => ['W680', 'C266', 'WRX90', 'TRX50', 'Pro WS'],
             'specs' => ['chipset'],
-            'spec_values' => ['W680', 'C266', 'WRX90', 'TRX50', 'X670E', 'X870E'],
+            'spec_values' => ['W680', 'C266', 'WRX90', 'TRX50'],
         ],
         'ecc_memory' => [
             'category' => 'ram',
@@ -139,12 +147,61 @@ class BusinessCapabilityGate
     }
 
     /**
+     * A professional card with real memory behind it.
+     *
+     * Separate from `pro_gpu` because "we hold one professional card" is not the
+     * same claim as "we can build a render node". The catalogue holds exactly
+     * one pro card - a Radeon Pro WX 5100 at GBP 220.90 with 8GB - and letting
+     * that satisfy a Render Node system type would offer a GBP 3,000-8,000
+     * multi-GPU job as a one-click build off an entry-level card. That is the
+     * over-claim this whole capability gate exists to prevent, so the expensive
+     * jobs ask for this one instead.
+     */
+    private function highEndProGpu(): bool
+    {
+        $rows = Component::query()
+            ->active()
+            ->whereHas('category', fn ($q) => $q->where('slug', 'gpu'))
+            ->get(['name', 'specs']);
+
+        foreach ($rows as $row) {
+            $name = (string) $row->name;
+            $isPro = false;
+
+            foreach (['Radeon Pro', 'RTX A', 'Quadro', 'Arc Pro', 'WX ', 'W7900', 'W7800', 'W6800'] as $needle) {
+                if (stripos($name, $needle) !== false) {
+                    $isPro = true;
+                    break;
+                }
+            }
+
+            if (! $isPro) {
+                continue;
+            }
+
+            $specs = is_array($row->specs) ? $row->specs : [];
+
+            foreach (['memory', 'vram', 'memory_gb'] as $key) {
+                if (isset($specs[$key]) && (int) $specs[$key] >= 16) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Is one capability present in the catalogue?
      */
     public function has(string $capability): bool
     {
         if ($capability === 'multi_drive_bay') {
             return $this->multiDriveBay();
+        }
+
+        if ($capability === 'pro_gpu_high') {
+            return $this->highEndProGpu();
         }
 
         $check = self::CHECKS[$capability] ?? null;
@@ -251,6 +308,48 @@ class BusinessCapabilityGate
             'required' => $required,
             'missing' => $missing,
             'unknown' => $unknown,
+            'missing_labels' => array_map(
+                fn (string $key) => (string) ($capabilities[$key]['label'] ?? $key),
+                $missing
+            ),
+        ];
+    }
+
+    /**
+     * The verdict for a bare list of capability keys.
+     *
+     * Separate from verdict() because a SYSTEM TYPE (config/business.php) can
+     * declare its own requirements that differ from its workload's. Asking the
+     * gate about the raw list stops a system type quietly inheriting - or
+     * quietly dropping - a requirement the workload happens to carry.
+     *
+     * @param  array<int, string>  $keys
+     * @return array{buildable: bool, required: string[], missing: string[], unknown: string[], missing_labels: string[]}
+     */
+    public function verdictForCapabilities(array $keys): array
+    {
+        $capabilities = (array) config('workloads.capabilities', []);
+
+        $required = array_values(array_filter(
+            $keys,
+            fn ($key) => is_string($key) && $key !== ''
+        ));
+
+        $inventory = $this->inventory();
+
+        $missing = array_values(array_filter(
+            $required,
+            fn (string $key) => ! array_key_exists($key, $capabilities) || empty($inventory[$key])
+        ));
+
+        return [
+            'buildable' => $missing === [],
+            'required' => $required,
+            'missing' => $missing,
+            'unknown' => array_values(array_filter(
+                $required,
+                fn (string $key) => ! array_key_exists($key, $capabilities)
+            )),
             'missing_labels' => array_map(
                 fn (string $key) => (string) ($capabilities[$key]['label'] ?? $key),
                 $missing

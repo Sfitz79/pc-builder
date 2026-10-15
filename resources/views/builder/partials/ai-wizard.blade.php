@@ -44,10 +44,100 @@
             your budget, and we will tell you if the answer is going to be wrong.
         </p>
 
+        {{-- =================================================================
+             THE SME RANGE: business size -> job type -> system type.
+
+             This is the front door, above the workload grid. A sole trader and
+             a hospital imaging department were both previously offered
+             "Creative Studio" as though they wanted the same machine, at the
+             same money. Businesses do not buy by software workload; they buy by
+             what they do all day.
+
+             The hardware numbers behind each system type are in config/business.php
+             and are grounded in UK SME guidance, not invented here - the source
+             is documented in that file.
+
+             Every card states plainly whether we can build it from what we
+             stock. "Not stocked yet" is shown, not hidden, and names the part.
+             ================================================================= --}}
+        @if (! empty($systemTypeGroups))
+            <div class="mt-10">
+                <h2 class="text-2xl font-black">Start with the size of your business</h2>
+                <p class="mt-2 max-w-2xl text-sm text-slate-400">
+                    Then pick what the machine is actually for. We will only offer
+                    a one-click build where we stock every part it needs.
+                </p>
+
+                @foreach ($systemTypeGroups as $sizeKey => $size)
+                    <div class="mt-7">
+                        <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                            <h3 class="text-lg font-bold text-biz-primary">{{ $size['label'] }}</h3>
+                            <span class="text-xs uppercase tracking-widest text-slate-500">{{ $size['headcount'] ?? '' }}</span>
+                        </div>
+                        <p class="mt-1 text-sm text-slate-400">{{ $size['blurb'] ?? '' }}</p>
+
+                        <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                            @foreach ($size['systems'] as $system)
+                                @php
+                                    $resolved = \App\Services\BusinessSystemType::class;
+                                    $detail = app($resolved)->find($system['slug']);
+                                    $canBuild = $detail['buildable'] ?? false;
+                                    $band = $detail['band'] ?? [];
+                                @endphp
+                                <div class="rounded-2xl border border-white/5 bg-biz-surface p-5">
+                                    <p class="text-xs font-semibold uppercase tracking-widest text-slate-500">
+                                        {{ $system['job'] ?? '' }}
+                                    </p>
+                                    <p class="mt-1 font-bold">{{ $system['label'] ?? $system['slug'] }}</p>
+                                    <p class="mt-2 text-sm leading-relaxed text-slate-400">
+                                        {{ $system['blurb'] ?? '' }}
+                                    </p>
+
+                                    @if ($band)
+                                        <p class="mt-3 text-xs text-slate-500">
+                                            Typically &pound;{{ number_format($band[0]) }}&ndash;{{ number_format($band[1]) }}
+                                            fully built
+                                        </p>
+                                    @endif
+
+                                    @if ($canBuild)
+                                        <a
+                                            href="{{ route('business.build', ['purpose' => $system['workload'] ?? null, 'type' => $system['slug']]) }}"
+                                            class="mt-4 inline-flex items-center gap-1 text-sm font-bold text-biz-accent hover:underline"
+                                        >
+                                            Configure this
+                                            <span aria-hidden="true">&rarr;</span>
+                                        </a>
+                                    @else
+                                        {{-- Named, with the reason. Not hidden. --}}
+                                        <p class="mt-4 text-xs leading-relaxed text-amber-300/90">
+                                            {{ $detail['unavailable_reason'] ?? 'Not available to configure online yet.' }}
+                                        </p>
+                                        <a
+                                            href="{{ route('support') }}?workload={{ urlencode($system['slug']) }}"
+                                            class="mt-2 inline-flex items-center gap-1 text-sm font-bold text-biz-accent hover:underline"
+                                        >
+                                            Ask us to spec it
+                                            <span aria-hidden="true">&rarr;</span>
+                                        </a>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+
+        <h2 class="mt-12 text-2xl font-black">Or describe the job it has to do</h2>
+        <p class="mt-2 max-w-2xl text-sm text-slate-400">
+            If you already know what the machine is for, pick it here.
+        </p>
+
         {{-- The scenario grid. Selected state is driven by the seeded Alpine
              `purpose`, so a deep link such as /business/build?purpose=nas
              arrives with the right card already ringed in blue. --}}
-        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             @forelse ($workloads as $slug => $workload)
                 <button
                     type="button"

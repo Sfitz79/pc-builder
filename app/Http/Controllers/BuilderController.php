@@ -59,6 +59,7 @@ class BuilderController extends Controller
     {
         $gate = app(\App\Services\BusinessCapabilityGate::class);
         $partition = $gate->partition();
+        $systemTypes = app(\App\Services\BusinessSystemType::class);
 
         return $this->view->make('builder.dashboard', [
             'segment' => 'business',
@@ -69,6 +70,14 @@ class BuilderController extends Controller
             'workloads' => $partition['buildable'],
             'specOnlyWorkloads' => $partition['spec_only'],
             'buildableDefault' => array_key_first($partition['buildable']),
+
+            // The SME range: business size -> job type -> system type. This is
+            // the way a buyer actually recognises themselves; the workload grid
+            // below it is for people who already know what they want.
+            'systemTypeGroups' => $systemTypes->bySize(),
+            'systemType' => $request->get('type') !== null
+                ? $systemTypes->find((string) $request->get('type'))
+                : null,
         ]);
     }
 
